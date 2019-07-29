@@ -13,4 +13,8 @@ Impress me now is a tool for creators as well as us ordinary folks on social med
 #### Manual Installation
 1. `git clone https://github.com/nubo30/influenceMeNow.git`
 2. `cd clone-directory/`
+<<<<<<< HEAD
 3. `npm install ` or `yarn add`
+=======
+3. `npm install ` or `yarn add`
+>>>>>>> 410f139fc7f78185d2464fee733719a6caab02a3
