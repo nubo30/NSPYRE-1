@@ -1,0 +1,11 @@
+{
+	"api": {
+		"influenceMeNowAPI": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY"
+			}
+		}
+	}
+}

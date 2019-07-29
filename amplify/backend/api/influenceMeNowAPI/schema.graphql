@@ -1,0 +1,122 @@
+##################################################################### ESTRUCTURA DEL USUARIO #####################################################################
+type User @model{
+  id: ID!
+  userId: ID!
+  name: String!
+  username: String!
+  lastname: String
+  email: AWSEmail!
+  avatar: AWSURL
+  phone: AWSPhone!
+  datetime: AWSDateTime!
+  scope: Scope
+  createContest: [CreateContest] @connection(name: "UserCreateContest") 
+}
+
+##################################################################### SCOPE #####################################################################
+
+enum Scope {
+  ENGAGE
+  CREATECONTEST
+  SUBMITPRIZE
+}
+
+##################################################################### CREATECONTEST #####################################################################
+
+type CreateContest @model {
+  id: ID!
+  user: User @connection(name: "UserCreateContest")
+  aboutTheUser: AboutTheUser!
+  category: Category
+  general: General!
+  prizes: [Prizes]
+  createdAt: AWSDateTime!
+  timer: AWSDateTime
+}
+
+type AboutTheUser {
+    companyName: String
+    location: Location
+    titleInTheCompany: String
+}
+
+type Location {
+  city: String
+  country: String
+  state: String
+  street: String
+}
+
+type General {
+    description: String
+    instructions: String
+    nameOfContest: String
+    picture: Picture
+    video: Video
+}
+
+type Picture {
+    localUrl: AWSURL
+    url: AWSURL
+    name: String
+    type: String
+    blob: String    
+}
+
+type Video {
+    localUrl: AWSURL
+    url: AWSURL    
+    name: String
+    type: String
+    blob: String
+}
+
+type Prizes {
+    description: String
+    prizeId: String
+    name: String
+    picture: Picture
+    video: Video
+    price: String
+}
+
+##################################################################### LISTOFCONTEST #####################################################################
+type ContestCategory @model {
+  id: ID!
+  name: String!
+  picture: AWSURL
+  category: Category 
+}
+
+enum Category {
+  GAMER
+  SPIRITUAL_RELIGIOUS
+  BEVERAGE
+  MUSIC
+  SPORT
+  FOOD
+  AMAZON_SELLERS
+  MOVIES_TV_SHOWS_OTT
+  ELECTRONICS
+}
+
+##################################################################### LISTOFPRIZES #####################################################################
+type PrizesCategory @model {
+  id: ID!
+  name: String!
+  picture: AWSURL
+  category: PrizeCategory 
+}
+
+enum PrizeCategory {
+  GAMER
+  SPIRITUAL_RELIGIOUS
+  BEVERAGE
+  MUSIC
+  SPORT
+  FOOD
+  AMAZON_SELLERS
+  MOVIES_TV_SHOWS_OTT
+  ELECTRONICS
+  CRIPTOCURRENCY
+}

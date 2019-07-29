@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Influencemenow",
+    "slug": "influence-me-now",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.influenceMeNow.app"
+    },
+    "description": "2.0.0Alpha 13/05/2019\n\nWhat has been done in this version?\n- The registration system has been restructured.\n- The forms system has been restricted.\n- The appearance of some components have been changed.\n- The system of schemes in the backend has been restructured.\n\n2.1.1Alpha 14/05/2019\n\nWhat has been done in this version?\n- The login system has been included.\n- Performance improvement has been made.\n\n2.1.2Alpha 15/05/2019\n\nWhat has been done in this version?\n- Bugs fixed\n\n2.2.2Alpha 20/05/2019\n\nWhat has been done in this version?\n- The user can use avatars\n- Bugs fixed\n\n2.2.3Alpha 20/05/2019\n\nWhat has been done in this version?\n- Bugs fixed\n- Avatar with capital letters\n\n2.2.4Alpha 27/05/2019\n\nWhat has been done in this version?\n- Bugs fixed\n\n2.3.2Alpha 27/05/2019\n\nWhat has been done in this version?\n- Bugs fixed\n- Form of \"Submit a prize\" reformed.\n\n2.4.3Alpha 10/06/2019\n\nWhat has been done in this version?\n- Bugs fixed\n- The \"Prizes\" section has been created.\n- Imagen can be change 'Prizes'\n\n2.5.4Alpha 14/06/2019\n\nWhat has been done in this version?\n- Bugs fixed\n- The \"Create a contest\" remoformated.\n\n2.6.4Alpha 14/06/2019\n\nWhat has been done in this version?\n- Bugs fixed\n- The \"Create a contest/Submit a Prize\" remoformated.\n\n"
+  },
+  "hooks": {
+    "postPublish": [
+      {
+        "file": "sentry-expo/upload-sourcemaps",
+        "config": {
+          "organization": "influencemenow",
+          "project": "influencemenow",
+          "authToken": "846f49b1c44d43fca5e1c80b1b2bd30a567fdd39d6cc4b2495d861f46ab1ef31"
+        }
+      }
+    ]
+  }
+}

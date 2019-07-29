@@ -1,0 +1,14 @@
+{
+    "env": {
+        "awscloudformation": {
+            "AuthRoleName": "influencemenow-env-20190727215230-authRole",
+            "UnauthRoleArn": "arn:aws:iam::639685322953:role/influencemenow-env-20190727215230-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::639685322953:role/influencemenow-env-20190727215230-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "influencemenow-env-20190727215230-deployment",
+            "UnauthRoleName": "influencemenow-env-20190727215230-unauthRole",
+            "StackName": "influencemenow-env-20190727215230",
+            "StackId": "arn:aws:cloudformation:us-east-1:639685322953:stack/influencemenow-env-20190727215230/5cce8bf0-b0da-11e9-8775-1204ddd846a2"
+        }
+    }
+}
