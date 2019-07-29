@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import {
@@ -32,10 +32,11 @@ class ShowContest extends Component {
         statusBar: false,
         userData: null,
         input: "",
-        contests: null
+        contests: null,
+        refreshing: false
     }
 
-    async componentDidMount() {
+    getContest = async () => {
         const categoryContest = this.props.navigation.getParam('categoryContest');
         try {
             const contests = await API.graphql(graphqlOperation(queries.listCreateContests, { filter: { category: { eq: categoryContest.category } } }))
@@ -43,6 +44,17 @@ class ShowContest extends Component {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.getContest().then(() => {
+            this.setState({refreshing: false});
+        });
+    }
+
+    componentDidMount() {
+        this.getContest()
     }
 
     render() {
@@ -80,6 +92,9 @@ class ShowContest extends Component {
                 {contests !== null
                     ? filterContest.length ? <FlatList
                         data={filterContest}
+                        refreshControl={
+                            <RefreshControl  tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
+                        }
                         keyExtractor={item => item.id}
                         initialNumToRender={2}
                         renderItem={({ item, index }) =>
