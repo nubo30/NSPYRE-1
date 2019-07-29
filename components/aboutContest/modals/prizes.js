@@ -119,7 +119,7 @@ export default class Prizes extends Component {
                                                     flex: 1
                                                 }}>
                                                     <Video
-                                                        source={{ uri: item.video.localUrl }}
+                                                        source={{ uri: item.video.url }}
                                                         useNativeControls={true}
                                                         rate={1.0}
                                                         volume={1.0}
@@ -142,7 +142,7 @@ export default class Prizes extends Component {
                                                 <ImageBackground
                                                     onLoadStart={() => this.setState({ thumbnailLoading: true })}
                                                     onLoadEnd={() => this.setState({ thumbnailLoading: false })}
-                                                    source={{ uri: item.picture.localUrl }}
+                                                    source={{ uri: item.picture.url }}
                                                     style={{
                                                         borderTopLeftRadius: 10,
                                                         borderTopRightRadius: 10,

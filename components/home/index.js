@@ -44,16 +44,19 @@ class Home extends Component {
         this.getDataFromAWS()
         API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
             next: (getData) => {
-                const userData = getData.value.data.onUpdateUser
-                this.setState({ userData })
+                const { userData } = this.state
+                const userDataNew = getData.value.data.onUpdateUser
+                if (userDataNew.id === userData.id) {
+                    this.setState({ userData: userDataNew })
+                }
             }
         })
     }
 
     getDataFromAWS = async () => {
         try {
-            const { attributes } = await Auth.currentUserInfo()
-            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
+            const data = await Auth.currentSession()
+            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.idToken.payload.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
             this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items })
         } catch (error) {
@@ -94,6 +97,7 @@ class Home extends Component {
     render() {
         const { userData, openDrower, isReady, prizeCategory } = this.state
         const { navigation } = this.props
+
         return (
             <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                 {/* Header */}

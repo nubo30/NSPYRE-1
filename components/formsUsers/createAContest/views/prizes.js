@@ -118,12 +118,12 @@ export default class Prizes extends Component {
 
     // Send data to AWS
     _submit = async () => {
-        const { _indexChangeSwiper, _dataFromForms } = this.props
+        const { _indexChangeSwiper, _dataFromForms, userData } = this.props
         const { prizes, name, description, picture, video, price } = this.state
         prizes.push({ name, description, picture, video, price, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
         try {
             await Alert.alert(
-                'Hey Yank Carlos',
+                `Hey ${userData.name}`,
                 'Would you like to create another prize?',
                 [
                     {

@@ -21,6 +21,7 @@ import CPieChart from './charts/CPieChart'
 import UpdateContest from './updateContest/index'
 import Audience from './audience/index'
 import Participants from './participants/index'
+import SecondaryView from './secondaryView/index'
 
 // Gradients
 import { GadrientsAboutContest } from "../Global/gradients/index"
@@ -157,7 +158,7 @@ class ShowContest extends Component {
 
         return (
             <Swiper loop={false} showsPagination={false}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                     <GadrientsAboutContest />
 
@@ -236,7 +237,7 @@ class ShowContest extends Component {
 
                                 },
                             ]}
-                            source={{ uri: contest.general.picture.localUrl }}
+                            source={{ uri: contest.general.picture.url }}
                         />
                     </Animated.View>
 
@@ -299,7 +300,7 @@ class ShowContest extends Component {
                 <View style={{ flex: 1 }}>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                     <GadrientsAboutContest />
-                    <Text>Estadisticas van acá!</Text>
+                    <SecondaryView />
                 </View>
             </Swiper>
         );

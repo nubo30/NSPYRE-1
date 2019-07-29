@@ -60,7 +60,7 @@ export default class About extends Component {
                                         flex: 1
                                     }}>
                                         <Video
-                                            source={{ uri: contest.general.video.localUrl }}
+                                            source={{ uri: contest.general.video.url }}
                                             useNativeControls={true}
                                             rate={1.0}
                                             volume={1.0}
