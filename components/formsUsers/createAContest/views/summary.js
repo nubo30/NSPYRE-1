@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Image } from 'react-native'
-import { ImagePicker, Permissions, Video } from 'expo';
+import { Video } from 'expo';
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Separator, Spinner } from 'native-base';
@@ -28,11 +28,12 @@ import * as mutations from '../../../../src/graphql/mutations'
 class Summary extends Component {
     state = {
         isLoading: false,
-        errSubmitdata: false
+        errSubmitdata: false,
     }
 
     _submit = async () => {
         const { navigation, userData, contest } = this.props
+
         AWS.config.update({
             accessKeyId: "AKIAIQA34573X4TITQEQ",
             secretAccessKey: "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",
@@ -93,7 +94,11 @@ class Summary extends Component {
 
             await API.graphql(graphqlOperation(mutations.createCreateContest, { input: contest }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.sub } }))
-            navigation.navigate("AboutContest", { contest, fromWhere: 'createContest', userData })
+            navigation.navigate("AboutContest", {
+                contest: Object.assign(contest, { user: { name: userData.name, lastname: userData.middle_name } }),
+                fromWhere: 'createContest',
+                userData
+            })
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
             console.log(error)
