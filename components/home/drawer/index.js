@@ -78,6 +78,7 @@ class DrawerRight extends Component {
                     </ListItem>
                     <ListItem itemDivider style={{ height: 20, borderTopColor: "#CFD8DC", borderBottomColor: "#CFD8DC", borderBottomWidth: 0.5, borderTopWidth: 0.5 }} />
 
+                    {/* Salir de la aplicacion */}
                     <ListItem
                         onPress={() => this.handleSignOut()}
                         last style={{
