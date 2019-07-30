@@ -73,7 +73,8 @@ export default class Participants extends Component {
                         heading="YOURS">
                         <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: "#333", fontSize: wp(4.5) }}>You still have no participation!</Text>
-                            <Button style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
+                            <Button
+                             style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ letterSpacing: 2 }}>START NOW</Text>
                             </Button>
                         </View>

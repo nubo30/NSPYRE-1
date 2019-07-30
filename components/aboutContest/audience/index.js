@@ -52,12 +52,12 @@ export default class Audience extends Component {
             // Forms
             budget,
             amountPeople } = this.state
-        const { _setModalVisibleAudience, contest } = this.props
+        const { _setModalVisibleAudience, contest, hideCongrastSectionAudience } = this.props
         return (
             <Container style={{ backgroundColor: '#FFF', width: "85%", borderRadius: 20, maxHeight: "50%", padding: 2 }}>
                 <Header span style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)', flexDirection: 'column' }}>
-                    <Text style={{ fontSize: wp(15), letterSpacing: 3 }}>🎉</Text>
-                    <Text style={{ fontSize: wp(8), letterSpacing: 3 }}>Congrats!</Text>
+                    <Text style={{ fontSize: wp(15), letterSpacing: 3 }}>{hideCongrastSectionAudience ? '🎉' : '👍'}</Text>
+                    <Text style={{ fontSize: wp(8), letterSpacing: 3 }}>{hideCongrastSectionAudience ? 'Congrats!' : 'Very good!'}</Text>
                     <Text style={{ color: "#333", fontSize: wp(6), top: 10, letterSpacing: 2 }}>{contest.user.name}</Text>
                 </Header>
                 <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', padding: 15 }}>

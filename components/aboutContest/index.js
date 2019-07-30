@@ -49,7 +49,9 @@ class ShowContest extends Component {
             activeSections: [],
             userData: {},
             contest: this.props.navigation.getParam('contest'),
-            contestDetails: {},
+
+            swiperIndex: 0,
+            hideCongrastSectionAudience: false,
 
             // Modals
             modalVisibleAudience: false,
@@ -67,7 +69,7 @@ class ShowContest extends Component {
         const fromWhere = this.props.navigation.getParam('fromWhere');
         switch (fromWhere) {
             case 'createContest':
-                this.setState({ modalVisibleAudience: true })
+                this._setModalVisibleAudience(true, true)
                 break;
             default:
                 null
@@ -80,6 +82,7 @@ class ShowContest extends Component {
             }
         })
     }
+
     getContestFromAWS = async () => {
         const { navigation } = this.props
         const contest = navigation.getParam('contest');
@@ -106,13 +109,16 @@ class ShowContest extends Component {
         this.setState({ openModalUpdateContest: visible })
     }
 
-    _setModalVisibleAudience = (visible) => {
+    _setModalVisibleAudience = (visible, action) => {
         this.setState({
-            modalVisibleAudience: visible
+            modalVisibleAudience: visible,
+            hideCongrastSectionAudience: action
         })
     }
 
-
+    _changeSwiperRoot = (i) => {
+        this.swiperRoot.scrollBy(i)
+    }
 
     render() {
         const scrollY = Animated.add(
@@ -148,6 +154,10 @@ class ShowContest extends Component {
         const {
             contest,
             userData,
+            swiperIndex,
+
+            // Actions
+            hideCongrastSectionAudience,
 
             // Modal
             openModalUpdateContest,
@@ -157,7 +167,10 @@ class ShowContest extends Component {
         } = this.state
 
         return (
-            <Swiper loop={false} showsPagination={false}>
+            <Swiper
+                ref={(swiperRoot) => this.swiperRoot = swiperRoot}
+                onIndexChanged={(index) => this.setState({ swiperIndex: index })}
+                loop={false} showsPagination={false}>
                 <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                     <GadrientsAboutContest />
@@ -215,7 +228,7 @@ class ShowContest extends Component {
 
                             {/* Stats/Submit a video or a meme */}
                             <Row size={65}>
-                                <Participants />
+                                <Participants  />
                             </Row>
                         </Grid>
                     </Animated.ScrollView>
@@ -283,13 +296,16 @@ class ShowContest extends Component {
                         onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
                         onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
                         swipeDirection={modalVisibleAudience ? null : ['down']}
+                        animationInTiming={900}
                         animationIn="slideInUp"
-                        backdropOpacity={0.40}
-                        animationInTiming={1500}>
+                        backdropOpacity={0.40}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
                             <Audience
                                 // DATA
                                 contest={contest}
+
+                                // Actions
+                                hideCongrastSectionAudience={hideCongrastSectionAudience}
 
                                 // Functions
                                 _setModalVisibleAudience={this._setModalVisibleAudience} />
@@ -298,9 +314,14 @@ class ShowContest extends Component {
 
                 </View>
                 <View style={{ flex: 1 }}>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                    <GadrientsAboutContest />
-                    <SecondaryView />
+                    <SecondaryView
+                        // Actions
+                        swiperIndex={swiperIndex}
+
+                        // Function
+                        _setModalVisibleAudience={this._setModalVisibleAudience}
+                        _changeSwiperRoot={this._changeSwiperRoot}
+                    />
                 </View>
             </Swiper>
         );
