@@ -303,6 +303,7 @@ class ShowContest extends Component {
                             <Audience
                                 // DATA
                                 contest={contest}
+                                userData={userData}
 
                                 // Actions
                                 hideCongrastSectionAudience={hideCongrastSectionAudience}

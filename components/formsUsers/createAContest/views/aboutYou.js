@@ -310,8 +310,7 @@ class AboutYou extends Component {
                                 placeholder="Street"
                                 placeholderTextColor="#EEEE"
                                 autoFocus={true}
-                                // ref={(ref) => { name = ref }}
-                                maxLength={20}
+                                maxLength={512}
                                 value={location.street}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
@@ -328,7 +327,7 @@ class AboutYou extends Component {
                             <Input
                                 placeholder="City"
                                 placeholderTextColor="#EEEE"
-                                maxLength={20}
+                                maxLength={512}
                                 value={location.city}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
@@ -344,7 +343,7 @@ class AboutYou extends Component {
                             <Input
                                 placeholder="State"
                                 placeholderTextColor="#EEEE"
-                                maxLength={20}
+                                maxLength={512}
                                 value={location.state}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
@@ -360,7 +359,7 @@ class AboutYou extends Component {
                             <Input
                                 placeholder="Country"
                                 placeholderTextColor="#EEEE"
-                                maxLength={20}
+                                maxLength={512}
                                 value={location.country}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"

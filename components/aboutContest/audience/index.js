@@ -6,6 +6,9 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
+// Child component
+import FormAudience from './form/index'
+
 // Icons
 import { Ionicons, MaterialCommunityIcons, Entypo, MaterialIcons } from '@expo/vector-icons'
 
@@ -20,7 +23,10 @@ export default class Audience extends Component {
         // Picker
         budget: 'NO_SELECT',
         amountPeople: "NO_SELECT",
-        progress: 20
+        progress: 20,
+
+        // Actions
+        swiperChildAudience: 0
     }
 
     _changeSwiper = (i) => {
@@ -47,11 +53,7 @@ export default class Audience extends Component {
             modalVisibleAudienceSelect,
             swiperIndex,
             noThanksAudienceUser,
-            progress,
-
-            // Forms
-            budget,
-            amountPeople } = this.state
+        } = this.state
         const { _setModalVisibleAudience, contest, hideCongrastSectionAudience } = this.props
         return (
             <Container style={{ backgroundColor: '#FFF', width: "85%", borderRadius: 20, maxHeight: "50%", padding: 2 }}>
@@ -214,158 +216,22 @@ export default class Audience extends Component {
                                                         Create a campain with our community for your contest!
                                                     </Text>
                                                 </Row>
-                                                <Row size={60} style={{ justifyContent: 'space-evenly' }}>
-                                                    <Button transparent style={{ justifyContent: 'center', alignItems: 'center', top: 20 }} onPress={() => this._changeSwiperChild(1)}>
+                                                <Row size={60} style={{ flexDirection: 'column' }}>
+                                                    <Button transparent style={{ justifyContent: 'center', alignItems: 'center', top: 20, alignSelf: 'center' }} onPress={() => this._changeSwiperChild(1)}>
                                                         <Text style={{ color: "#D81B60" }}>START NOW</Text>
                                                     </Button>
+                                                    <Text style={{ alignSelf: 'center', textAlign: 'center', top: 30, fontSize: wp(3.5), color: "#3333" }}>You will be personalizing your audience, this guarantees you a better impact at the time of the public participating in your contest.</Text>
                                                 </Row>
                                             </Grid>
                                         </Content>
                                     </Container>
 
                                     {/* STEP 3 */}
-                                    <Container>
-                                        <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: '#FAFAFA', height: Platform.OS === 'ios' ? 70 : 50 }}>
-                                            <Left style={{ flexDirection: 'row' }}>
-                                                <Button transparent onPress={() => { this._changeSwiperChild(-1) }}>
-                                                    <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                                    <Text style={{ left: 5, color: "#D81B60" }}>Amount P...</Text>
-                                                </Button>
-                                                <Title style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
-                                                    Our Audience
-                                                </Title>
-                                            </Left>
-                                            <Right>
-                                                <Button transparent onPress={() => null}>
-                                                    <Text style={{ left: 5, color: "#D81B60" }}>Create</Text>
-                                                </Button>
-                                            </Right>
-                                        </Header>
-                                        <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
-                                            <Grid>
-                                                <Row size={20} style={{ alignItems: 'center', flexDirection: 'column', backgroundColor: '#FAFAFA' }}>
-                                                    <Text style={{ color: "#333", fontWeight: '100', fontSize: wp(5), textAlign: 'center', top: 43, paddingLeft: 40, paddingRight: 40 }}>
-                                                        Based on your buget the fields ... are available for you to select from
-                                                    </Text>
-                                                </Row>
-                                                <Row size={80}>
-                                                    <Content>
-                                                        <List style={{ width: "100%" }}>
-                                                            <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                                                <Text style={{ color: "#BDBDBD" }}>Total Budget</Text>
-                                                            </ListItem>
+                                    <FormAudience
+                                        // Data
+                                        contest={contest}
 
-                                                            {/* Budget Total */}
-                                                            <ListItem icon last style={{ maxHeight: 45 }}>
-                                                                <Left>
-                                                                    <Button style={{ backgroundColor: "#4caf50" }}>
-                                                                        <MaterialIcons active name="attach-money" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
-                                                                    </Button>
-                                                                </Left>
-                                                                <Body>
-                                                                    <Text>Budget</Text>
-                                                                </Body>
-                                                                <Right>
-                                                                    <Text>No select</Text>
-                                                                    <Icon active name="arrow-forward" />
-                                                                </Right>
-                                                                <ListItem style={{ maxHeight: 45 }}>
-                                                                    <Left style={{ justifyContent: "flex-start", alignItems: "center" }}>
-                                                                        <Picker
-                                                                            mode="dropdown"
-                                                                            iosHeader="SELECT ONE"
-                                                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                                            headerTitleStyle={{ color: "#D81B60" }}
-                                                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                                            selectedValue={budget}
-                                                                            onValueChange={this.onValueChangeBudget}>
-                                                                            <Picker.Item label="Music" value="MUSIC" />
-                                                                            <Picker.Item label="Sport" value="SPORT" />
-                                                                            <Picker.Item label="Food" value="FOOD" />
-                                                                            <Picker.Item label="Amazon Sellers" value="AMAZON_SELLERS" />
-                                                                            <Picker.Item label="Movies / TV Shows / OTT" value="MOVIES_TV_SHOWS_OTT" />
-                                                                            <Picker.Item label="Electronics" value="ELECTRONICS" />
-                                                                            <Picker.Item label="Spiritual Religious" value="SPIRITUAL_RELIGIOUS" />
-                                                                            <Picker.Item label="Beverage" value="BEVERAGE" />
-                                                                            <Picker.Item label="Gamer" value="GAMER" />
-                                                                            <Picker.Item label="Apparel" value="APPAREL" />
-                                                                            <Picker.Item label="No select" value="NO_SELECT" />
-                                                                        </Picker>
-                                                                    </Left>
-                                                                </ListItem>
-                                                            </ListItem>
-
-                                                            <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                                                <Text style={{ color: "#BDBDBD" }}>Edit Public</Text>
-                                                            </ListItem>
-                                                            {/* Gender */}
-                                                            <ListItem icon style={{ maxHeight: 45 }}>
-                                                                <Left>
-                                                                    <Button style={{ backgroundColor: "#F44336" }}>
-                                                                        <MaterialCommunityIcons active name="gender-male-female" style={{ fontSize: wp(6), color: "#FFF" }} />
-                                                                    </Button>
-                                                                </Left>
-                                                                <Body>
-                                                                    <Text>Gender</Text>
-                                                                </Body>
-                                                                <Right>
-                                                                    <Text>No select</Text>
-                                                                    <Icon active name="arrow-forward" />
-                                                                </Right>
-                                                            </ListItem>
-
-                                                            {/* Age */}
-                                                            <ListItem icon style={{ maxHeight: 45 }}>
-                                                                <Left>
-                                                                    <Button style={{ backgroundColor: "#FBC02D" }}>
-                                                                        <Ionicons active name="md-happy" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
-                                                                    </Button>
-                                                                </Left>
-                                                                <Body>
-                                                                    <Text>Age</Text>
-                                                                </Body>
-                                                                <Right>
-                                                                    <Text>No Select</Text>
-                                                                    <Icon active name="arrow-forward" />
-                                                                </Right>
-                                                            </ListItem>
-
-                                                            {/* Location */}
-                                                            <ListItem last icon style={{ maxHeight: 45 }}>
-                                                                <Left>
-                                                                    <Button style={{ backgroundColor: "#43A047" }}>
-                                                                        <Entypo active name="location-pin" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
-                                                                    </Button>
-                                                                </Left>
-                                                                <Body>
-                                                                    <Text>Location</Text>
-                                                                </Body>
-                                                                <Right>
-                                                                    <Text>Country, State, City</Text>
-                                                                    <Icon active name="arrow-forward" />
-                                                                </Right>
-                                                            </ListItem>
-
-                                                        </List>
-                                                    </Content>
-                                                </Row>
-                                            </Grid>
-                                        </Content>
-                                        <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>
-                                                <Text style={{ textAlign: 'center', color: "#333", fontSize: wp(3.5), fontWeight: 'bold' }}>90 - 260 people a day</Text>
-                                                <Text style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5) }}>de 130.000.000</Text>
-                                            </View>
-                                            <ProgressBarAnimated
-                                                {...progressCustomStyles}
-                                                width={barWidth}
-                                                value={progress}
-                                                maxValue={100}
-                                                barEasing="linear"
-                                                height={20}
-                                                backgroundColorOnComplete="#6CC644" />
-                                        </Footer>
-                                    </Container>
+                                        _changeSwiperChild={this._changeSwiperChild} />
                                 </Swiper>
                             </Content>
                         </Container>

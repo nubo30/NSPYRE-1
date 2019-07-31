@@ -30,10 +30,8 @@ class Home extends Component {
             isReady: false,
             animation: null,
             openDrower: false,
-            swipe: "",
             actionSheetButtonIndex: "Engage",
             heightHeader: 0,
-            image: null,
             prizeCategory: []
         }
         this.actionSheet = null;
@@ -44,8 +42,8 @@ class Home extends Component {
         this.getDataFromAWS()
         API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
             next: (getData) => {
-                const { userData } = this.state
                 const userDataNew = getData.value.data.onUpdateUser
+                const { userData } = this.state
                 if (userDataNew.id === userData.id) {
                     this.setState({ userData: userDataNew })
                 }
@@ -62,13 +60,6 @@ class Home extends Component {
         } catch (error) {
             console.log(error)
         }
-    }
-
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            image: nextProps.imageName
-        })
     }
 
     measureView(event) {
@@ -96,8 +87,6 @@ class Home extends Component {
 
     render() {
         const { userData, openDrower, isReady, prizeCategory } = this.state
-        const { navigation } = this.props
-
         return (
             <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                 {/* Header */}
