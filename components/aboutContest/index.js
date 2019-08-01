@@ -16,8 +16,6 @@ import SwiperAboutTheContest from "./swiper/about"
 import SwiperPrizes from "./swiper/prizes"
 import SubmitAvideo from "./cards/submitVideo"
 import SubmitAMeme from "./cards/submitAMeme"
-import CBarChart from './charts/CBarChart'
-import CPieChart from './charts/CPieChart'
 import UpdateContest from './updateContest/index'
 import Audience from './audience/index'
 import Participants from './participants/index'

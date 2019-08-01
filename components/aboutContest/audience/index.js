@@ -146,6 +146,7 @@ export default class Audience extends Component {
                         <Container>
                             <Content contentContainerStyle={{ flex: 1 }} scrollEnabled={false}>
                                 <Swiper
+                                    showsPagination={false}
                                     dotStyle={{ top: -40 }} activeDotStyle={{ top: -40 }}
                                     ref={(swiper) => this.swiperChild = swiper}
                                     loop={false} activeDotColor="#D81B60"
