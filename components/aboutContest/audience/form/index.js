@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
-import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, View, Picker, Body, ListItem, List } from 'native-base';
-import Swiper from 'react-native-swiper'
+import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row } from 'react-native-easy-grid'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import _ from 'lodash'
 
@@ -14,14 +12,11 @@ import FormAudience from './formAudience'
 
 export default class Audience extends Component {
     state = {
-        budget: 'NO_SELECT',
         progress: 0,
         valueSwiper: 0,
-        sendDataToAWSAction: false
+        sendDataToAWSAction: false,
+        isValidDataForAWS: false
     }
-
-    // Budget
-    onValueChangeBudget = (value: string) => { this.setState({ budget: value }) }
 
     // Incrementar la barra
     increase = (value) => {
@@ -34,12 +29,15 @@ export default class Audience extends Component {
         this.swiper.scrollBy(i)
     }
 
+    _isValidDataForAWS = (value) => { this.setState({ isValidDataForAWS: value }) }
+
     render() {
         const {
             // Actions
             sendDataToAWSAction,
             valueSwiper,
             progress,
+            isValidDataForAWS
         } = this.state
         const {
             // Data
@@ -61,14 +59,17 @@ export default class Audience extends Component {
                         </Title>
                     </Left>
                     <Right>
-                        <Button transparent onPress={() => this.setState({ sendDataToAWSAction: !sendDataToAWSAction })}>
-                            <Text style={{ left: 5, color: "#D81B60" }}>Create</Text>
+                        <Button
+                            disabled={!isValidDataForAWS}
+                            transparent
+                            onPress={() => this.setState({ sendDataToAWSAction: !sendDataToAWSAction })}>
+                            <Text style={{ left: 5, color: !isValidDataForAWS ? "#BDBDBD" : "#D81B60" }}>Create</Text>
                         </Button>
                     </Right>
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
                     {/* FORMULARIO AUDIENCE*/}
-                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} />
+                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} _isValidDataForAWS={this._isValidDataForAWS} />
                 </Content>
                 <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>

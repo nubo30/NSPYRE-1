@@ -122,6 +122,58 @@ export default class FormAudience extends Component {
         _.remove(cateogryList[0].children, { name: _.startCase(_.lowerCase(contest.category)) });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const { } = this.props
+        if (prevState.age.years !== this.state.age.years
+            || prevState.gender !== this.state.gender
+            || prevState.categoryChoose !== this.state.categoryChoose
+            || prevState.countriesChoose !== this.state.countriesChoose
+            || prevState.nacionalityChoose !== this.state.nacionalityChoose
+            || prevState.regionalIdentityChoose !== this.state.regionalIdentityChoose
+            || prevState.sexualityChoose !== this.state.sexualityChoose
+            || prevState.academicLevelAchievedChoose !== this.state.academicLevelAchievedChoose
+            || prevState.schoolsChoose !== this.state.schoolsChoose
+            || prevState.universityChoose !== this.state.universityChoose
+            || prevState.maritalStatusChoose !== this.state.maritalStatusChoose
+            || prevState.musicalGenreChoose !== this.state.musicalGenreChoose
+            || prevState.sportsChoose !== this.state.sportsChoose
+            || prevState.parentalConditionChoose !== this.state.parentalConditionChoose
+            || prevState.amountOfChildren !== this.state.amountOfChildren
+            || prevState.amountOfSimblings !== this.state.amountOfSimblings
+            || prevState.politicalPeople !== this.state.politicalPeople
+            || prevState.peopleWhoVote !== this.state.peopleWhoVote
+            || prevState.ocuppationChoose !== this.state.ocuppationChoose
+            || prevState.socioeconomicLevel !== this.state.socioeconomicLevel
+            || prevState.rentOrOwnHouseChoose !== this.state.rentOrOwnHouseChoose
+            || prevState.categoryPrizeChoose !== this.state.categoryPrizeChoose
+        ) {
+            this.state.age.years
+                || this.state.gender !== 'NO_SELECT'
+                || this.state.categoryChoose.length >= 2
+                || this.state.countriesChoose.length >= 2
+                || this.state.nacionalityChoose.length
+                || this.state.regionalIdentityChoose.length
+                || this.state.sexualityChoose.length
+                || this.state.academicLevelAchievedChoose.length
+                || this.state.schoolsChoose.length
+                || this.state.universityChoose.length
+                || this.state.maritalStatusChoose.length
+                || this.state.musicalGenreChoose.length
+                || this.state.sportsChoose.length
+                || this.state.parentalConditionChoose.length
+                || this.state.amountOfChildren !== 'NO_SELECT'
+                || this.state.amountOfSimblings !== 'NO_SELECT'
+                || this.state.politicalPeople !== 'NO_SELECT'
+                || this.state.peopleWhoVote !== 'NO_SELECT'
+                || this.state.ocuppationChoose.length
+                || this.state.socioeconomicLevel.length
+                || this.state.rentOrOwnHouseChoose.length
+                || this.state.categoryPrizeChoose.length
+                ? prevProps._isValidDataForAWS(true)
+                : prevProps._isValidDataForAWS(false)
+        }
+    }
+
     _getContry = async () => {
         const { contest } = this.props
         try {
@@ -300,7 +352,7 @@ export default class FormAudience extends Component {
     }
 
     _validateDataForAWS = async () => {
-        const { contest } = this.props
+        const { contest} = this.props
         const audience = {
             audienceCreateContestId: contest.id,
             genders: [this.state.gender],
@@ -329,8 +381,7 @@ export default class FormAudience extends Component {
             createdAt: moment().toISOString()
         }
         try {
-            const response = await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
-            console.log(response);
+            await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
         } catch (error) {
             console.log(error);
         }
@@ -400,7 +451,11 @@ export default class FormAudience extends Component {
         const {
             // Data
             contest,
+
+            // functions
+            _isValidDataForAWS
         } = this.props;
+
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
                 <Grid>
@@ -503,7 +558,7 @@ export default class FormAudience extends Component {
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem

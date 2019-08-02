@@ -16,9 +16,444 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            items {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            nextToken
+          }
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          price
+        }
         createdAt
         timer
+        audience {
+          items {
+            createContest {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -40,9 +475,444 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            items {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            nextToken
+          }
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          price
+        }
         createdAt
         timer
+        audience {
+          items {
+            createContest {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -64,9 +934,444 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            items {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            nextToken
+          }
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          price
+        }
         createdAt
         timer
+        audience {
+          items {
+            createContest {
+              id
+              user {
+                id
+                userId
+                name
+                username
+                lastname
+                email
+                avatar
+                phone
+                datetime
+                scope
+                createContest {
+                  items {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  nextToken
+                }
+              }
+              aboutTheUser {
+                companyName
+                location {
+                  city
+                  country
+                  state
+                  street
+                }
+                titleInTheCompany
+              }
+              category
+              general {
+                description
+                instructions
+                nameOfContest
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+              }
+              prizes {
+                description
+                prizeId
+                name
+                picture {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                video {
+                  localUrl
+                  url
+                  name
+                  type
+                  blob
+                }
+                price
+              }
+              createdAt
+              timer
+              audience {
+                items {
+                  createContest {
+                    id
+                    user {
+                      id
+                      userId
+                      name
+                      username
+                      lastname
+                      email
+                      avatar
+                      phone
+                      datetime
+                      scope
+                    }
+                    aboutTheUser {
+                      companyName
+                      titleInTheCompany
+                    }
+                    category
+                    general {
+                      description
+                      instructions
+                      nameOfContest
+                    }
+                    prizes {
+                      description
+                      prizeId
+                      name
+                      price
+                    }
+                    createdAt
+                    timer
+                    audience {
+                      nextToken
+                    }
+                  }
+                  genders
+                  ages
+                  categoryContest
+                  countries
+                  nacionalities
+                  regionalIdentity
+                  sexualities
+                  maritalStatus
+                  academicLevelAchieved
+                  schools
+                  universities
+                  musicalGenre
+                  sports
+                  parentalCondition
+                  amountOfChildren
+                  amountOfSimblings
+                  politicalPeople
+                  peopleWhoVote
+                  ocuppation
+                  socioeconomicLevel
+                  rentOrOwnHouse
+                  rentOrOwnCar
+                  categoryPrizes
+                  createdAt
+                }
+                nextToken
+              }
+            }
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -88,6 +1393,327 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         nextToken
       }
     }
@@ -145,6 +1771,327 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         genders
         ages
         categoryContest
@@ -190,6 +2137,327 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         nextToken
       }
     }
@@ -247,6 +2515,327 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         genders
         ages
         categoryContest
@@ -292,6 +2881,327 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         nextToken
       }
     }
@@ -349,6 +3259,327 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            createContest {
+              items {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          aboutTheUser {
+            companyName
+            location {
+              city
+              country
+              state
+              street
+            }
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+          }
+          prizes {
+            description
+            prizeId
+            name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            price
+          }
+          createdAt
+          timer
+          audience {
+            items {
+              createContest {
+                id
+                user {
+                  id
+                  userId
+                  name
+                  username
+                  lastname
+                  email
+                  avatar
+                  phone
+                  datetime
+                  scope
+                  createContest {
+                    items {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    nextToken
+                  }
+                }
+                aboutTheUser {
+                  companyName
+                  location {
+                    city
+                    country
+                    state
+                    street
+                  }
+                  titleInTheCompany
+                }
+                category
+                general {
+                  description
+                  instructions
+                  nameOfContest
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                }
+                prizes {
+                  description
+                  prizeId
+                  name
+                  picture {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  video {
+                    localUrl
+                    url
+                    name
+                    type
+                    blob
+                  }
+                  price
+                }
+                createdAt
+                timer
+                audience {
+                  items {
+                    createContest {
+                      id
+                      category
+                      createdAt
+                      timer
+                    }
+                    genders
+                    ages
+                    categoryContest
+                    countries
+                    nacionalities
+                    regionalIdentity
+                    sexualities
+                    maritalStatus
+                    academicLevelAchieved
+                    schools
+                    universities
+                    musicalGenre
+                    sports
+                    parentalCondition
+                    amountOfChildren
+                    amountOfSimblings
+                    politicalPeople
+                    peopleWhoVote
+                    ocuppation
+                    socioeconomicLevel
+                    rentOrOwnHouse
+                    rentOrOwnCar
+                    categoryPrizes
+                    createdAt
+                  }
+                  nextToken
+                }
+              }
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
+            nextToken
+          }
+        }
         genders
         ages
         categoryContest
@@ -394,9 +3625,315 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -404,16 +3941,367 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         price
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
     }
@@ -459,9 +4347,315 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -469,16 +4663,367 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         price
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
     }
@@ -524,9 +5069,315 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -534,16 +5385,367 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         price
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+              createContest {
+                items {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                nextToken
+              }
+            }
+            aboutTheUser {
+              companyName
+              location {
+                city
+                country
+                state
+                street
+              }
+              titleInTheCompany
+            }
+            category
+            general {
+              description
+              instructions
+              nameOfContest
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+            }
+            prizes {
+              description
+              prizeId
+              name
+              picture {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              video {
+                localUrl
+                url
+                name
+                type
+                blob
+              }
+              price
+            }
+            createdAt
+            timer
+            audience {
+              items {
+                createContest {
+                  id
+                  user {
+                    id
+                    userId
+                    name
+                    username
+                    lastname
+                    email
+                    avatar
+                    phone
+                    datetime
+                    scope
+                    createContest {
+                      nextToken
+                    }
+                  }
+                  aboutTheUser {
+                    companyName
+                    location {
+                      city
+                      country
+                      state
+                      street
+                    }
+                    titleInTheCompany
+                  }
+                  category
+                  general {
+                    description
+                    instructions
+                    nameOfContest
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                  }
+                  prizes {
+                    description
+                    prizeId
+                    name
+                    picture {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    video {
+                      localUrl
+                      url
+                      name
+                      type
+                      blob
+                    }
+                    price
+                  }
+                  createdAt
+                  timer
+                  audience {
+                    items {
+                      genders
+                      ages
+                      categoryContest
+                      countries
+                      nacionalities
+                      regionalIdentity
+                      sexualities
+                      maritalStatus
+                      academicLevelAchieved
+                      schools
+                      universities
+                      musicalGenre
+                      sports
+                      parentalCondition
+                      amountOfChildren
+                      amountOfSimblings
+                      politicalPeople
+                      peopleWhoVote
+                      ocuppation
+                      socioeconomicLevel
+                      rentOrOwnHouse
+                      rentOrOwnCar
+                      categoryPrizes
+                      createdAt
+                    }
+                    nextToken
+                  }
+                }
+                genders
+                ages
+                categoryContest
+                countries
+                nacionalities
+                regionalIdentity
+                sexualities
+                maritalStatus
+                academicLevelAchieved
+                schools
+                universities
+                musicalGenre
+                sports
+                parentalCondition
+                amountOfChildren
+                amountOfSimblings
+                politicalPeople
+                peopleWhoVote
+                ocuppation
+                socioeconomicLevel
+                rentOrOwnHouse
+                rentOrOwnCar
+                categoryPrizes
+                createdAt
+              }
+              nextToken
+            }
+          }
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
     }
