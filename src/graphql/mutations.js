@@ -16,174 +16,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     createContest {
       items {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            items {
-              id
-              user {
-                id
-                userId
-                name
-                username
-                lastname
-                email
-                avatar
-                phone
-                datetime
-                scope
-                createContest {
-                  items {
-                    id
-                    user {
-                      id
-                      userId
-                      name
-                      username
-                      lastname
-                      email
-                      avatar
-                      phone
-                      datetime
-                      scope
-                    }
-                    aboutTheUser {
-                      companyName
-                      titleInTheCompany
-                    }
-                    category
-                    general {
-                      description
-                      instructions
-                      nameOfContest
-                    }
-                    prizes {
-                      description
-                      prizeId
-                      name
-                      price
-                    }
-                    createdAt
-                    timer
-                  }
-                  nextToken
-                }
-              }
-              aboutTheUser {
-                companyName
-                location {
-                  city
-                  country
-                  state
-                  street
-                }
-                titleInTheCompany
-              }
-              category
-              general {
-                description
-                instructions
-                nameOfContest
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-              }
-              prizes {
-                description
-                prizeId
-                name
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                price
-              }
-              createdAt
-              timer
-            }
-            nextToken
-          }
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          price
-        }
         createdAt
         timer
       }
@@ -207,174 +40,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     createContest {
       items {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            items {
-              id
-              user {
-                id
-                userId
-                name
-                username
-                lastname
-                email
-                avatar
-                phone
-                datetime
-                scope
-                createContest {
-                  items {
-                    id
-                    user {
-                      id
-                      userId
-                      name
-                      username
-                      lastname
-                      email
-                      avatar
-                      phone
-                      datetime
-                      scope
-                    }
-                    aboutTheUser {
-                      companyName
-                      titleInTheCompany
-                    }
-                    category
-                    general {
-                      description
-                      instructions
-                      nameOfContest
-                    }
-                    prizes {
-                      description
-                      prizeId
-                      name
-                      price
-                    }
-                    createdAt
-                    timer
-                  }
-                  nextToken
-                }
-              }
-              aboutTheUser {
-                companyName
-                location {
-                  city
-                  country
-                  state
-                  street
-                }
-                titleInTheCompany
-              }
-              category
-              general {
-                description
-                instructions
-                nameOfContest
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-              }
-              prizes {
-                description
-                prizeId
-                name
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                price
-              }
-              createdAt
-              timer
-            }
-            nextToken
-          }
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          price
-        }
         createdAt
         timer
       }
@@ -398,174 +64,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     createContest {
       items {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            items {
-              id
-              user {
-                id
-                userId
-                name
-                username
-                lastname
-                email
-                avatar
-                phone
-                datetime
-                scope
-                createContest {
-                  items {
-                    id
-                    user {
-                      id
-                      userId
-                      name
-                      username
-                      lastname
-                      email
-                      avatar
-                      phone
-                      datetime
-                      scope
-                    }
-                    aboutTheUser {
-                      companyName
-                      titleInTheCompany
-                    }
-                    category
-                    general {
-                      description
-                      instructions
-                      nameOfContest
-                    }
-                    prizes {
-                      description
-                      prizeId
-                      name
-                      price
-                    }
-                    createdAt
-                    timer
-                  }
-                  nextToken
-                }
-              }
-              aboutTheUser {
-                companyName
-                location {
-                  city
-                  country
-                  state
-                  street
-                }
-                titleInTheCompany
-              }
-              category
-              general {
-                description
-                instructions
-                nameOfContest
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-              }
-              prizes {
-                description
-                prizeId
-                name
-                picture {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                video {
-                  localUrl
-                  url
-                  name
-                  type
-                  blob
-                }
-                price
-              }
-              createdAt
-              timer
-            }
-            nextToken
-          }
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          price
-        }
         createdAt
         timer
       }
@@ -589,152 +88,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            createContest {
-              items {
-                id
-                user {
-                  id
-                  userId
-                  name
-                  username
-                  lastname
-                  email
-                  avatar
-                  phone
-                  datetime
-                  scope
-                  createContest {
-                    items {
-                      id
-                      category
-                      createdAt
-                      timer
-                    }
-                    nextToken
-                  }
-                }
-                aboutTheUser {
-                  companyName
-                  location {
-                    city
-                    country
-                    state
-                    street
-                  }
-                  titleInTheCompany
-                }
-                category
-                general {
-                  description
-                  instructions
-                  nameOfContest
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                }
-                prizes {
-                  description
-                  prizeId
-                  name
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  price
-                }
-                createdAt
-                timer
-              }
-              nextToken
-            }
-          }
-          aboutTheUser {
-            companyName
-            location {
-              city
-              country
-              state
-              street
-            }
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-          }
-          prizes {
-            description
-            prizeId
-            name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            price
-          }
-          createdAt
-          timer
-        }
         nextToken
       }
     }
@@ -790,6 +143,35 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
     }
     createdAt
     timer
+    audience {
+      items {
+        genders
+        ages
+        categoryContest
+        countries
+        nacionalities
+        regionalIdentity
+        sexualities
+        maritalStatus
+        academicLevelAchieved
+        schools
+        universities
+        musicalGenre
+        sports
+        parentalCondition
+        amountOfChildren
+        amountOfSimblings
+        politicalPeople
+        peopleWhoVote
+        ocuppation
+        socioeconomicLevel
+        rentOrOwnHouse
+        rentOrOwnCar
+        categoryPrizes
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -808,152 +190,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            createContest {
-              items {
-                id
-                user {
-                  id
-                  userId
-                  name
-                  username
-                  lastname
-                  email
-                  avatar
-                  phone
-                  datetime
-                  scope
-                  createContest {
-                    items {
-                      id
-                      category
-                      createdAt
-                      timer
-                    }
-                    nextToken
-                  }
-                }
-                aboutTheUser {
-                  companyName
-                  location {
-                    city
-                    country
-                    state
-                    street
-                  }
-                  titleInTheCompany
-                }
-                category
-                general {
-                  description
-                  instructions
-                  nameOfContest
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                }
-                prizes {
-                  description
-                  prizeId
-                  name
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  price
-                }
-                createdAt
-                timer
-              }
-              nextToken
-            }
-          }
-          aboutTheUser {
-            companyName
-            location {
-              city
-              country
-              state
-              street
-            }
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-          }
-          prizes {
-            description
-            prizeId
-            name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            price
-          }
-          createdAt
-          timer
-        }
         nextToken
       }
     }
@@ -1009,6 +245,35 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
     }
     createdAt
     timer
+    audience {
+      items {
+        genders
+        ages
+        categoryContest
+        countries
+        nacionalities
+        regionalIdentity
+        sexualities
+        maritalStatus
+        academicLevelAchieved
+        schools
+        universities
+        musicalGenre
+        sports
+        parentalCondition
+        amountOfChildren
+        amountOfSimblings
+        politicalPeople
+        peopleWhoVote
+        ocuppation
+        socioeconomicLevel
+        rentOrOwnHouse
+        rentOrOwnCar
+        categoryPrizes
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -1027,152 +292,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            createContest {
-              items {
-                id
-                user {
-                  id
-                  userId
-                  name
-                  username
-                  lastname
-                  email
-                  avatar
-                  phone
-                  datetime
-                  scope
-                  createContest {
-                    items {
-                      id
-                      category
-                      createdAt
-                      timer
-                    }
-                    nextToken
-                  }
-                }
-                aboutTheUser {
-                  companyName
-                  location {
-                    city
-                    country
-                    state
-                    street
-                  }
-                  titleInTheCompany
-                }
-                category
-                general {
-                  description
-                  instructions
-                  nameOfContest
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                }
-                prizes {
-                  description
-                  prizeId
-                  name
-                  picture {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  video {
-                    localUrl
-                    url
-                    name
-                    type
-                    blob
-                  }
-                  price
-                }
-                createdAt
-                timer
-              }
-              nextToken
-            }
-          }
-          aboutTheUser {
-            companyName
-            location {
-              city
-              country
-              state
-              street
-            }
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-          }
-          prizes {
-            description
-            prizeId
-            name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            price
-          }
-          createdAt
-          timer
-        }
         nextToken
       }
     }
@@ -1228,6 +347,230 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
     }
     createdAt
     timer
+    audience {
+      items {
+        genders
+        ages
+        categoryContest
+        countries
+        nacionalities
+        regionalIdentity
+        sexualities
+        maritalStatus
+        academicLevelAchieved
+        schools
+        universities
+        musicalGenre
+        sports
+        parentalCondition
+        amountOfChildren
+        amountOfSimblings
+        politicalPeople
+        peopleWhoVote
+        ocuppation
+        socioeconomicLevel
+        rentOrOwnHouse
+        rentOrOwnCar
+        categoryPrizes
+        createdAt
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createAudience = `mutation CreateAudience($input: CreateAudienceInput!) {
+  createAudience(input: $input) {
+    createContest {
+      id
+      user {
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+      }
+      aboutTheUser {
+        companyName
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+      }
+      prizes {
+        description
+        prizeId
+        name
+        price
+      }
+      createdAt
+      timer
+      audience {
+        nextToken
+      }
+    }
+    genders
+    ages
+    categoryContest
+    countries
+    nacionalities
+    regionalIdentity
+    sexualities
+    maritalStatus
+    academicLevelAchieved
+    schools
+    universities
+    musicalGenre
+    sports
+    parentalCondition
+    amountOfChildren
+    amountOfSimblings
+    politicalPeople
+    peopleWhoVote
+    ocuppation
+    socioeconomicLevel
+    rentOrOwnHouse
+    rentOrOwnCar
+    categoryPrizes
+    createdAt
+  }
+}
+`;
+export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInput!) {
+  updateAudience(input: $input) {
+    createContest {
+      id
+      user {
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+      }
+      aboutTheUser {
+        companyName
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+      }
+      prizes {
+        description
+        prizeId
+        name
+        price
+      }
+      createdAt
+      timer
+      audience {
+        nextToken
+      }
+    }
+    genders
+    ages
+    categoryContest
+    countries
+    nacionalities
+    regionalIdentity
+    sexualities
+    maritalStatus
+    academicLevelAchieved
+    schools
+    universities
+    musicalGenre
+    sports
+    parentalCondition
+    amountOfChildren
+    amountOfSimblings
+    politicalPeople
+    peopleWhoVote
+    ocuppation
+    socioeconomicLevel
+    rentOrOwnHouse
+    rentOrOwnCar
+    categoryPrizes
+    createdAt
+  }
+}
+`;
+export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInput!) {
+  deleteAudience(input: $input) {
+    createContest {
+      id
+      user {
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+      }
+      aboutTheUser {
+        companyName
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+      }
+      prizes {
+        description
+        prizeId
+        name
+        price
+      }
+      createdAt
+      timer
+      audience {
+        nextToken
+      }
+    }
+    genders
+    ages
+    categoryContest
+    countries
+    nacionalities
+    regionalIdentity
+    sexualities
+    maritalStatus
+    academicLevelAchieved
+    schools
+    universities
+    musicalGenre
+    sports
+    parentalCondition
+    amountOfChildren
+    amountOfSimblings
+    politicalPeople
+    peopleWhoVote
+    ocuppation
+    socioeconomicLevel
+    rentOrOwnHouse
+    rentOrOwnCar
+    categoryPrizes
+    createdAt
   }
 }
 `;

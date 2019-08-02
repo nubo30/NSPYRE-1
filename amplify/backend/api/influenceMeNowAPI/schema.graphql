@@ -32,7 +32,36 @@ type CreateContest @model {
   prizes: [Prizes]
   createdAt: AWSDateTime!
   timer: AWSDateTime
+  audience: [Audience] @connection(name: "CreateContestAudience")
 }
+
+type Audience @model {
+  createContest: CreateContest @connection(name:"CreateContestAudience")
+  genders: [String]
+  ages: [String]
+  categoryContest: [String]
+  countries: [String]
+  nacionalities: [String]
+  regionalIdentity: [String]
+  sexualities: [String]
+  maritalStatus: [String]
+  academicLevelAchieved: [String]
+  schools: [String]
+  universities: [String]
+  musicalGenre: [String]
+  sports: [String]
+  parentalCondition: [String]
+  amountOfChildren: [String]
+  amountOfSimblings: [String]
+  politicalPeople: [String]
+  peopleWhoVote: [String]
+  ocuppation: [String]
+  socioeconomicLevel: [String]
+  rentOrOwnHouse: [String]
+  rentOrOwnCar: [String]
+  categoryPrizes: [String]
+  createdAt: AWSDateTime
+  }
 
 type AboutTheUser {
     companyName: String

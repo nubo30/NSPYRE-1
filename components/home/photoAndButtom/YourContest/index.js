@@ -31,7 +31,7 @@ class UserContest extends Component {
 
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
-
+        
         return (
             <Container>
                 <GadrientsListContenst />

@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
+import { API, graphqlOperation } from 'aws-amplify'
 import { Container, Content, Button, Text, Left, Icon, Right, View, Picker, Body, ListItem, List } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Axios from 'axios'
+import moment from 'moment'
 
 // Icons
 import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from '@expo/vector-icons'
 
 // Static Data
-import { randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList } from '../../../Global/data/index'
+import { randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, ocuppationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList } from '../../../Global/data/index'
 
-export default class FormTwo extends Component {
+// Graphql
+import * as mutations from '../../../../src/graphql/mutations'
+
+export default class FormAudience extends Component {
 
     state = {
         // Data
@@ -24,6 +29,7 @@ export default class FormTwo extends Component {
         gender: 'NO_SELECT',
         categoryChoose: [],
         countriesChoose: [],
+        nacionalityChoose: [],
         regionalIdentityChoose: [],
         sexualityChoose: [],
         academicLevelAchievedChoose: [],
@@ -32,6 +38,16 @@ export default class FormTwo extends Component {
         maritalStatusChoose: [],
         musicalGenreChoose: [],
         sportsChoose: [],
+        parentalConditionChoose: [],
+        amountOfChildren: 'NO_SELECT',
+        amountOfSimblings: 'NO_SELECT',
+        politicalPeople: 'NO_SELECT',
+        peopleWhoVote: 'NO_SELECT',
+        ocuppationChoose: [],
+        socioeconomicLevel: [],
+        rentOrOwnHouseChoose: [],
+        rentOrOwnCarChoose: [],
+        categoryPrizeChoose: [],
 
         // Pickers
         category: [],
@@ -58,6 +74,17 @@ export default class FormTwo extends Component {
         musicalGenreItems: [],
         sports: [],
         sportsItems: [],
+        parentalCondition: [],
+        parentalConditionItems: [],
+        ocuppation: [],
+        ocuppationItems: [],
+        rentOrOwnHouse: [],
+        rentOrOwnHouseItems: [],
+        rentOrOwnCar: [],
+        rentOrOwnCarItems: [],
+        categoryPrize: [],
+        categoryPrizeItems: [],
+        socioeconomicLevelItems: [],
 
         // Static data
         countryList: [{ name: 'List of countries', id: 10 * 100, children: [] }],
@@ -68,6 +95,12 @@ export default class FormTwo extends Component {
         universityList: [{ name: 'List of universities', id: 10 * 100, children: [] }],
         musicalGenreList: [{ name: 'List of musics genre', id: 10 * 100, children: [] }],
         sportsList: [{ name: 'List of sports', id: 10 * 100, children: [] }],
+        parentalConditionList: [{ name: 'List of sports', id: 10 * 100, children: [] }],
+        ocuppationList: [{ name: 'List of ocuppation', id: 10 * 100, children: [] }],
+        rentOrOwnHouseList: [{ name: 'Current state to select (House)', id: 10 * 100, children: [] }],
+        rentOrOwnCarList: [{ name: 'Current state to select (Car)', id: 10 * 100, children: [] }],
+        categoryPrizeList: [{ name: 'List of category', id: 10 * 100, children: [] }],
+        socioeconomicLevelList: [{ name: 'List socioeconomic level', id: 10 * 100, children: [] }]
     }
 
     componentDidMount() {
@@ -78,7 +111,13 @@ export default class FormTwo extends Component {
         this._getUniversity()
         this._getMusicGenre()
         this._getSports()
+        this._getParentalCondition()
         this._getRegionalIdentity()
+        this._getOcuppation()
+        this._getRentOrOwnHouse()
+        this._getRentOrOwnCar()
+        this._getCategoryPrize()
+        this._getSocioeconomicLevel()
         const { contest } = this.props
         _.remove(cateogryList[0].children, { name: _.startCase(_.lowerCase(contest.category)) });
     }
@@ -131,8 +170,33 @@ export default class FormTwo extends Component {
 
     _getSports = () => {
         this.setState({ sportsList: [{ name: 'List of sports', id: 10 * 100, children: sportsList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
-
     }
+
+    _getParentalCondition = () => {
+        this.setState({ parentalConditionList: [{ name: "List of parent's condition", id: 10 * 100, children: parentalConditionList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
+    _getOcuppation = () => {
+        this.setState({ ocuppationList: [{ name: "List of ocuppation", id: 10 * 100, children: ocuppationList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
+    _getRentOrOwnHouse = () => {
+        this.setState({ rentOrOwnHouseList: [{ name: "Current state to select (House)", id: 10 * 100, children: rentOrOwnHouseList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
+    _getRentOrOwnCar = () => {
+        this.setState({ rentOrOwnCarList: [{ name: "Current state to select (Car)", id: 10 * 100, children: rentOrOwnCarList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
+    _getCategoryPrize = () => {
+        this.setState({ categoryPrizeList: [{ name: "List of category", id: 10 * 100, children: categoryPrizeList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
+
+    _getSocioeconomicLevel = () => {
+        this.setState({ socioeconomicLevelList: [{ name: "List socioeconomic level", id: 10 * 100, children: socioeconomicLevelList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+    }
+
 
     // Pickers
     onValueChangeGender = (value) => { this.setState({ gender: value }) }
@@ -149,6 +213,18 @@ export default class FormTwo extends Component {
     onSelectedItemsChangeMaritalStatus = (value) => { this.setState({ maritalStatus: value }) }
     onSelectedItemsChangeMusicalGenre = (value) => { this.setState({ musicalGenre: value }) }
     onSelectedItemsChangeSports = (value) => { this.setState({ sports: value }) }
+    onValueChangeAmountOfChildren = (value) => { this.setState({ amountOfChildren: value }) }
+    onValueChangeAmountOfSimblings = (value) => { this.setState({ amountOfSimblings: value }) }
+    onSelectedItemsChangeParentalCondition = (value) => { this.setState({ parentalCondition: value }) }
+    onValueChangePoliticalPeople = (value) => this.setState({ politicalPeople: value })
+    onValueChangePeopleWhoVote = (value) => { this.setState({ peopleWhoVote: value }) }
+    onSelectedItemsChangeOcuppation = (value) => { this.setState({ ocuppation: value }) }
+    onValueChangeSocioeconomicLevel = (value) => { this.setState({ socioeconomicLevel: value }) }
+    onSelectedItemsChangeRentOrOwnHouse = (value) => { this.setState({ rentOrOwnHouse: value }) }
+    onSelectedItemsChangeRentOrOwnCar = (value) => { this.setState({ rentOrOwnCar: value }) }
+    onSelectedItemsChangeCategoryPrize = (value) => { this.setState({ categoryPrize: value }) }
+
+
 
     _updateCategoryItems = (value) => {
         const { contest } = this.props
@@ -160,15 +236,12 @@ export default class FormTwo extends Component {
     }
 
     _updateNacionalityItems = (value) => {
-        const { contest } = this.props
-        this.setState({ nacionalityItems: value, nacionalityChoose: [...value, { id: 0, name: _.lowerCase(contest.nacionality) }] })
+        this.setState({ nacionalityItems: value, nacionalityChoose: value })
     }
-
 
     _updateAcademicRegionalIdentity = (value) => {
         this.setState({ regionalIdentityItems: value, regionalIdentityChoose: value })
     }
-
 
     _updateSexualityItems = (value) => {
         this.setState({ sexualityItems: value, sexualityChoose: value })
@@ -198,18 +271,70 @@ export default class FormTwo extends Component {
         this.setState({ sportsItems: value, sportsChoose: value })
     }
 
-    // Esta es la información que irá a AWS en una array
-    // categoryChoose
-    // countriesChoose
-    // sexualityChoose
-    // academicLevelAchievedChoose
-    // schoolsChoose
-    // universityChoose
-    // maritalStatusItems
-    // musicalGenreChoose
-    // sportsChoose
-    // nacionalityItems
-    // regionalIdentityChoose
+    _updateParentalCondition = (value) => {
+        this.setState({ parentalConditionItems: value, parentalConditionChoose: value })
+    }
+
+    _updateOcuppation = (value) => {
+        this.setState({ ocuppationItems: value, ocuppationChoose: value })
+    }
+
+    _updateRentOrOwnHouse = (value) => {
+        this.setState({ rentOrOwnHouseItems: value, rentOrOwnHouseChoose: value })
+    }
+    _updateRentOrOwnCar = (value) => {
+        this.setState({ rentOrOwnCarItems: value, rentOrOwnCarChoose: value })
+    }
+
+    _updateCategoryPrize = (value) => {
+        this.setState({ categoryPrizeItems: value, categoryPrizeChoose: value })
+    }
+
+    _updateSocioeconomicLevel = (value) => {
+        this.setState({ socioeconomicLevelItems: value, socioeconomicLevelChoose: value })
+    }
+
+    // Send Data to AWS
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.sendDataToAWSAction !== this.props.sendDataToAWSAction) { this._validateDataForAWS() }
+    }
+
+    _validateDataForAWS = async () => {
+        const { contest } = this.props
+        const audience = {
+            audienceCreateContestId: contest.id,
+            genders: [this.state.gender],
+            ages: [this.state.age.years],
+            categoryContest: this.state.categoryChoose.map(item => item.name),
+            countries: this.state.countriesChoose.map(item => item.name),
+            nacionalities: this.state.nacionalityChoose.map(item => item.name),
+            regionalIdentity: this.state.regionalIdentityChoose.map(item => item.name),
+            sexualities: this.state.sexualityChoose.map(item => item.name),
+            maritalStatus: this.state.maritalStatusChoose.map(item => item.name),
+            academicLevelAchieved: this.state.academicLevelAchievedChoose.map(item => item.name),
+            schools: this.state.schoolsChoose.map(item => item.name),
+            universities: this.state.universityChoose.map(item => item.name),
+            musicalGenre: this.state.musicalGenreChoose.map(item => item.name),
+            sports: this.state.sportsChoose.map(item => item.name),
+            parentalCondition: this.state.parentalConditionChoose.map(item => item.name),
+            amountOfChildren: [this.state.amountOfChildren],
+            amountOfSimblings: [this.state.amountOfSimblings],
+            politicalPeople: [this.state.politicalPeople],
+            peopleWhoVote: [this.state.peopleWhoVote],
+            ocuppation: this.state.ocuppationChoose.map(item => item.name),
+            socioeconomicLevel: this.state.socioeconomicLevelItems.map(item => item.name),
+            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.map(item => item.name),
+            rentOrOwnCar: this.state.rentOrOwnCarChoose.map(item => item.name),
+            categoryPrizes: this.state.categoryPrizeChoose.map(item => item.name),
+            createdAt: moment().toISOString()
+        }
+        try {
+            const response = await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     render() {
         const {
@@ -239,6 +364,22 @@ export default class FormTwo extends Component {
             musicalGenreItems,
             sports,
             sportsItems,
+            amountOfChildren,
+            amountOfSimblings,
+            parentalCondition,
+            parentalConditionItems,
+            politicalPeople,
+            peopleWhoVote,
+            ocuppation,
+            ocuppationItems,
+            socioeconomicLevel,
+            socioeconomicLevelItems,
+            rentOrOwnHouse,
+            rentOrOwnHouseItems,
+            rentOrOwnCar,
+            rentOrOwnCarItems,
+            categoryPrize,
+            categoryPrizeItems,
 
             // Static Data
             countryList,
@@ -248,7 +389,13 @@ export default class FormTwo extends Component {
             musicalGenreList,
             sportsList,
             academicLevelAchievedList,
-            regionalIdentityList
+            regionalIdentityList,
+            parentalConditionList,
+            ocuppationList,
+            rentOrOwnHouseList,
+            rentOrOwnCarList,
+            categoryPrizeList,
+            socioeconomicLevelList
         } = this.state
         const {
             // Data
@@ -356,10 +503,11 @@ export default class FormTwo extends Component {
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            you can add more options to improve contest customization.
+                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectCategory._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -544,7 +692,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some nationalities</Text>
                                                     </View>}
                                                 {nacionalityItems && nacionalityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -609,7 +757,8 @@ export default class FormTwo extends Component {
                                 </ListItem>
 
                                 {/* REGIONAL INDENTITY */}
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectRegionalIdentity._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -628,7 +777,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Select a academic level achieved</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Identify the regional identity</Text>
                                                     </View>}
                                                 {regionalIdentityItems && regionalIdentityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -692,9 +841,9 @@ export default class FormTwo extends Component {
                                     </View>
                                 </ListItem>
 
-
                                 {/* SEXUAL ORIENTATION */}
-                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                <ListItem
+                                    itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>Customize the audience status.</Text>
                                 </ListItem>
                                 <ListItem
@@ -717,7 +866,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of sexualities options</Text>
                                                     </View>}
                                                 {sexualityItems && sexualityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -782,7 +931,8 @@ export default class FormTwo extends Component {
                                 </ListItem>
 
                                 {/* MARITAL STATUS */}
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectuMaritalStatus._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -801,7 +951,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose marital status</Text>
                                                     </View>}
                                                 {maritalStatusItems && maritalStatusItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -878,7 +1028,8 @@ export default class FormTwo extends Component {
                                 </ListItem>
 
                                 {/* ACADEMIC LEVEL ACHIVIED */}
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectAcademicLevelAchieved._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -897,7 +1048,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Select a academic level achieved</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose academic level achieved</Text>
                                                     </View>}
                                                 {academicLevelAchievedItems && academicLevelAchievedItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -962,7 +1113,8 @@ export default class FormTwo extends Component {
                                 </ListItem>
 
                                 {/* SCHOOOL NAME (HIGHT SCHOOL) */}
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectSchoolS._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -981,7 +1133,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some schools</Text>
                                                     </View>}
                                                 {schoolsItems && schoolsItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1054,7 +1206,8 @@ export default class FormTwo extends Component {
                                 </ListItem>
 
                                 {/* UNIVERSITY */}
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectuUniversity._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -1073,7 +1226,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some universities</Text>
                                                     </View>}
                                                 {universityItems && universityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1149,7 +1302,8 @@ export default class FormTwo extends Component {
                                     <Text style={{ color: "#BDBDBD" }}>Through what preferences, whether musical or sports, do you want to reach your audience?</Text>
                                 </ListItem>
 
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectMusicalGenre._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -1168,7 +1322,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some musical tastes</Text>
                                                     </View>}
                                                 {musicalGenreItems && musicalGenreItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1232,7 +1386,8 @@ export default class FormTwo extends Component {
                                     </View>
                                 </ListItem>
 
-                                <ListItem itemHeader
+                                <ListItem
+                                    itemHeader
                                     onPress={() => this.SectionedMultiSelectSports._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
@@ -1251,7 +1406,7 @@ export default class FormTwo extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of the options</Text>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some sports tastes</Text>
                                                     </View>}
                                                 {sportsItems && sportsItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1315,8 +1470,655 @@ export default class FormTwo extends Component {
                                     </View>
                                 </ListItem>
 
-                                <Entypo name="wallet" style={{ top: 25, color: '#BDBDBD', alignSelf: 'center', fontSize: wp(6) }} />
-                                <Text style={{ color: '#BDBDBD', fontWeight: '100', fontSize: wp(4), top: 30, alignSelf: 'center' }}>Increase your budget for further customization!</Text>
+                                {/* FAMILY */}
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                    <Text style={{ color: "#BDBDBD" }}>More specifications</Text>
+                                </ListItem>
+
+                                {/* PARENT'S CONDITION */}
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectParentalCondition._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#EF5350" }}>
+                                            <Feather active name="users" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {parentalConditionItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some parental condition</Text>
+                                                    </View>}
+                                                {parentalConditionItems && parentalConditionItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectParentalCondition => this.SectionedMultiSelectParentalCondition = SectionedMultiSelectParentalCondition}
+                                            items={parentalConditionList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onSelectedItemsChangeParentalCondition}
+                                            onSelectedItemObjectsChange={(items) => this._updateParentalCondition(items)}
+                                            primary="#D81B60"
+                                            selectedItems={parentalCondition}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
+                                {/* AMOUNT OF CHILDREN */}
+                                <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                    <Left>
+                                        <Button style={{ backgroundColor: "#1E88E5" }}>
+                                            <FontAwesome active name="child" style={{ fontSize: wp(6), color: "#FFF", left: 1, }} />
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Text>Amount of children of a couple or single person</Text>
+                                    </Body>
+                                    <Right>
+                                        <Text>{amountOfChildren === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(amountOfChildren))}</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosHeader="SELECT ONE"
+                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                        headerTitleStyle={{ color: "#D81B60" }}
+                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                        selectedValue={amountOfChildren}
+                                        onValueChange={this.onValueChangeAmountOfChildren}>
+                                        {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                    </Picker>
+                                </ListItem>
+
+                                {/* AMOUNT OF SIMBLINGS */}
+                                <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                    <Left>
+                                        <Button style={{ backgroundColor: "#AA00FF" }}>
+                                            <Entypo active name="users" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Text>Amount of simblings</Text>
+                                    </Body>
+                                    <Right>
+                                        <Text>{amountOfSimblings === 'NO_SELECT' ? 'Not specified' : amountOfSimblings}</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosHeader="SELECT ONE"
+                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                        headerTitleStyle={{ color: "#D81B60" }}
+                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                        selectedValue={amountOfSimblings}
+                                        onValueChange={this.onValueChangeAmountOfSimblings}>
+                                        {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                    </Picker>
+                                </ListItem>
+
+                                {/* POLITICAL  */}
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                    <Text style={{ color: "#BDBDBD" }}></Text>
+                                </ListItem>
+
+                                {/* POLITICAL PEOPLE */}
+                                <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                    <Left>
+                                        <Button style={{ backgroundColor: "#78909C" }}>
+                                            <Entypo active name="news" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Text>Political people?</Text>
+                                    </Body>
+                                    <Right>
+                                        <Text>{politicalPeople === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(politicalPeople))}</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosHeader="SELECT ONE"
+                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                        headerTitleStyle={{ color: "#D81B60" }}
+                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                        selectedValue={politicalPeople}
+                                        onValueChange={this.onValueChangePoliticalPeople}>
+                                        <Picker.Item label="Yes" value="YES" />
+                                        <Picker.Item label="No" value="NO" />
+                                        <Picker.Item label="Both" value="BOTH" />
+                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                    </Picker>
+                                </ListItem>
+
+                                {/* PLEOPLE WHO VOTE */}
+                                <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                    <Left>
+                                        <Button style={{ backgroundColor: "#424242" }}>
+                                            <MaterialCommunityIcons active name="vote" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Text>People who vote?</Text>
+                                    </Body>
+                                    <Right>
+                                        <Text>{peopleWhoVote === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(peopleWhoVote))}</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosHeader="SELECT ONE"
+                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                        headerTitleStyle={{ color: "#D81B60" }}
+                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                        selectedValue={peopleWhoVote}
+                                        onValueChange={this.onValueChangePeopleWhoVote}>
+                                        <Picker.Item label="Yes" value="YES" />
+                                        <Picker.Item label="No" value="NO" />
+                                        <Picker.Item label="Both" value="BOTH" />
+                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                    </Picker>
+                                </ListItem>
+
+                                {/* OCUPPATION OF THE AUDIENCE */}
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                    <Text style={{ color: "#BDBDBD" }}></Text>
+                                </ListItem>
+
+                                {/* OCUPPATION */}
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectoOcuppation._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#0097A7" }}>
+                                            <Entypo active name="briefcase" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {ocuppationItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Select some occupations</Text>
+                                                    </View>}
+                                                {ocuppationItems && ocuppationItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectoOcuppation => this.SectionedMultiSelectoOcuppation = SectionedMultiSelectoOcuppation}
+                                            items={ocuppationList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onSelectedItemsChangeOcuppation}
+                                            onSelectedItemObjectsChange={(items) => this._updateOcuppation(items)}
+                                            primary="#D81B60"
+                                            selectedItems={ocuppation}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
+                                {/* SOCIOECONOMIC LEVEL*/}
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectoSocioeconomicLevel._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#43A047" }}>
+                                            <FontAwesome active name="money" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {socioeconomicLevelItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Socioeconomic Level</Text>
+                                                    </View>}
+                                                {socioeconomicLevelItems && socioeconomicLevelItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectoSocioeconomicLevel => this.SectionedMultiSelectoSocioeconomicLevel = SectionedMultiSelectoSocioeconomicLevel}
+                                            items={socioeconomicLevelList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onValueChangeSocioeconomicLevel}
+                                            onSelectedItemObjectsChange={(items) => this._updateSocioeconomicLevel(items)}
+                                            primary="#D81B60"
+                                            selectedItems={socioeconomicLevel}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
+
+                                {/* RENT OR OWN HOUSE */}
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectoRentOrOwnHouse._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#FB8C00" }}>
+                                            <FontAwesome active name="home" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {rentOrOwnHouseItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Rent or own house</Text>
+                                                    </View>}
+                                                {rentOrOwnHouseItems && rentOrOwnHouseItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectoRentOrOwnHouse => this.SectionedMultiSelectoRentOrOwnHouse = SectionedMultiSelectoRentOrOwnHouse}
+                                            items={rentOrOwnHouseList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onSelectedItemsChangeRentOrOwnHouse}
+                                            onSelectedItemObjectsChange={(items) => this._updateRentOrOwnHouse(items)}
+                                            primary="#D81B60"
+                                            selectedItems={rentOrOwnHouse}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
+                                {/* RENT OR OWN CAR */}
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectoRentOrOwnCar._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#BF360C" }}>
+                                            <AntDesign active name="car" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {rentOrOwnCarItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Rent or own car</Text>
+                                                    </View>}
+                                                {rentOrOwnCarItems && rentOrOwnCarItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectoRentOrOwnCar => this.SectionedMultiSelectoRentOrOwnCar = SectionedMultiSelectoRentOrOwnCar}
+                                            items={rentOrOwnCarList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onSelectedItemsChangeRentOrOwnCar}
+                                            onSelectedItemObjectsChange={(items) => this._updateRentOrOwnCar(items)}
+                                            primary="#D81B60"
+                                            selectedItems={rentOrOwnCar}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
+                                {/* PRIZES */}
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                    <Text style={{ color: "#BDBDBD" }}>Specify the category of awards for the audience</Text>
+                                </ListItem>
+                                <ListItem
+                                    itemHeader
+                                    onPress={() => this.SectionedMultiSelectoPrizeCategory._toggleSelector()}
+                                    icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                    <Left style={{ right: 15 }}>
+                                        <Button style={{ backgroundColor: "#FFD600" }}>
+                                            <Feather active name="award" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
+                                        </Button>
+                                    </Left>
+                                    <Body style={{ right: 15 }}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
+                                            <Content showsHorizontalScrollIndicator={false} horizontal>
+                                                {categoryPrizeItems.length
+                                                    ? null
+                                                    : <View style={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose categories of your prize</Text>
+                                                    </View>}
+                                                {categoryPrizeItems && categoryPrizeItems.map((item, key) =>
+                                                    <View key={key} style={{
+                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        margin: 3, padding: 5, borderRadius: '50%', flex: 1,
+                                                        borderColor: '#3333',
+                                                        borderWidth: 0.5
+                                                    }}>
+                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                    </View>
+                                                )}
+                                            </Content>
+                                        </View>
+                                    </Body>
+                                    <Right>
+                                        <Text>Add more</Text>
+                                        <Icon active name="arrow-forward" />
+                                    </Right>
+                                    <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
+                                        <SectionedMultiSelect
+                                            parentChipsRemoveChildren={true}
+                                            ref={SectionedMultiSelectoPrizeCategory => this.SectionedMultiSelectoPrizeCategory = SectionedMultiSelectoPrizeCategory}
+                                            items={categoryPrizeList}
+                                            uniqueKey="id"
+                                            subKey="children"
+                                            selectText="Choose some things..."
+                                            showDropDowns={true}
+                                            readOnlyHeadings={true}
+                                            onSelectedItemsChange={this.onSelectedItemsChangeCategoryPrize}
+                                            onSelectedItemObjectsChange={(items) => this._updateCategoryPrize(items)}
+                                            primary="#D81B60"
+                                            selectedItems={categoryPrize}
+                                            showDropDowns={false}
+                                            dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                            styles={{
+                                                item: {
+                                                    paddingHorizontal: 10,
+                                                },
+                                                itemText: {
+                                                    fontSize: wp(10)
+                                                },
+                                                subItem: {
+                                                    paddingHorizontal: 10,
+                                                    height: 45,
+                                                },
+                                                subItemText: {
+                                                    fontSize: wp(5)
+                                                },
+                                                button: {
+                                                    backgroundColor: '#D81B60',
+                                                },
+                                                confirmText: {
+                                                    letterSpacing: 2
+                                                },
+                                                subSeparator: {
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                }
+                                            }}
+                                        />
+                                    </View>
+                                </ListItem>
+
                             </List>
                         </Content>
                     </Row>

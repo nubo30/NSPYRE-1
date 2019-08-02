@@ -786,7 +786,7 @@ class EngageForm extends Component {
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                             textStyle={{ right: 10, fontWeight: "100", fontSize: 17, color: this.state.howDoYouIdentify === 'NO_SELECT' ? colors.fontPlaceholder : colors.fontTitle }}
-                            selectedValue={this.state.parents}
+                            selectedValue={this.state.parentalCondition}
                             onValueChange={this.onValueChangeParent}>
                             <Picker.Item label="Divorced" value="DIVORCED" />
                             <Picker.Item label="Foster" value="FOSTER" />

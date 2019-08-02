@@ -11,13 +11,13 @@ const barWidth = Dimensions.get('screen').width - 30;
 
 // Child Components
 import FormAudience from './formAudience'
-import FormThree from './formThree'
 
 export default class Audience extends Component {
     state = {
         budget: 'NO_SELECT',
         progress: 0,
-        valueSwiper: 0
+        valueSwiper: 0,
+        sendDataToAWSAction: false
     }
 
     // Budget
@@ -36,10 +36,8 @@ export default class Audience extends Component {
 
     render() {
         const {
-            // Forms
-            budget,
-
             // Actions
+            sendDataToAWSAction,
             valueSwiper,
             progress,
         } = this.state
@@ -54,39 +52,27 @@ export default class Audience extends Component {
             <Container>
                 <Header style={{ width: "100%", height: 70, backgroundColor: '#FAFAFA', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                     <Left style={{ flexDirection: 'row' }}>
-                        <Button transparent onPress={() => valueSwiper ? this._changedSwiper(-1) : _changeSwiperChild(-1)}>
+                        <Button transparent onPress={() => _changeSwiperChild(-1)}>
                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                            <Text style={{ left: 5, color: "#D81B60" }}>{valueSwiper ? 'Budget' : 'Start'}</Text>
+                            <Text style={{ left: 5, color: "#D81B60" }}>{'Start'}</Text>
                         </Button>
                         <Title style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
                             Our Audience
                         </Title>
                     </Left>
                     <Right>
-                        <Button disabled={!valueSwiper ? true : false} transparent onPress={() => console.log('Creando!')}>
-                            <Text style={{ left: 5, color: "#D81B60" }}>{valueSwiper ? 'Create' : ''}</Text>
+                        <Button transparent onPress={() => this.setState({ sendDataToAWSAction: !sendDataToAWSAction })}>
+                            <Text style={{ left: 5, color: "#D81B60" }}>Create</Text>
                         </Button>
                     </Right>
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
-                    <Swiper
-                        scrollEnabled={true}
-                        onIndexChanged={(index) => this.setState({ valueSwiper: index })}
-                        ref={(swiper) => this.swiper = swiper}
-                        showsButtons={false}
-                        showsPagination={false}
-                        loop={false}>
-
-                        {/* FORMULARIO AUDIENCE*/}
-                        <FormAudience contest={contest} />
-
-                        {/* FORMULARIO TRES */}
-                        <FormThree contest={contest} />
-                    </Swiper>
+                    {/* FORMULARIO AUDIENCE*/}
+                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} />
                 </Content>
                 <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>
-                        <Text style={{ textAlign: 'center', color: "#333", fontSize: wp(3.5), fontWeight: 'bold' }}>{`${budget === "NO_SELECT" ? "" : _.replace(budget, "_", " - ") + ' selected'}`}</Text>
+                        <Text style={{ textAlign: 'center', color: "#333", fontSize: wp(3.5), fontWeight: 'bold' }}>5,000mil</Text>
                         <Text style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5) }}>de 130.000.000</Text>
                     </View>
                     <ProgressBarAnimated
