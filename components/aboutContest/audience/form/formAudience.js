@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Content, Button, Text, Left, Icon, Right, View, Picker, Body, ListItem, List } from 'native-base';
+import { Container, Content, Button, Text, Left, Icon, Right, View, Picker, Body, ListItem, List, Toast } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
@@ -18,7 +18,7 @@ import { randomColors, cateogryList, sexualityList, academicLevelAchievedList, m
 import * as mutations from '../../../../src/graphql/mutations'
 
 export default class FormAudience extends Component {
-
+    _isMounted = false;
     state = {
         // Data
         age: {
@@ -104,22 +104,25 @@ export default class FormAudience extends Component {
     }
 
     componentDidMount() {
-        this._getContry()
-        this._getAcademicLevelAchieved()
-        this._getNacionality()
-        this._getSchools()
-        this._getUniversity()
-        this._getMusicGenre()
-        this._getSports()
-        this._getParentalCondition()
-        this._getRegionalIdentity()
-        this._getOcuppation()
-        this._getRentOrOwnHouse()
-        this._getRentOrOwnCar()
-        this._getCategoryPrize()
-        this._getSocioeconomicLevel()
-        const { contest } = this.props
-        _.remove(cateogryList[0].children, { name: _.startCase(_.lowerCase(contest.category)) });
+        this._isMounted = true;
+        if (this._isMounted) {
+            this._getContry()
+            this._getAcademicLevelAchieved()
+            this._getNacionality()
+            this._getSchools()
+            this._getUniversity()
+            this._getMusicGenre()
+            this._getSports()
+            this._getParentalCondition()
+            this._getRegionalIdentity()
+            this._getOcuppation()
+            this._getRentOrOwnHouse()
+            this._getRentOrOwnCar()
+            this._getCategoryPrize()
+            this._getSocioeconomicLevel()
+            const { contest } = this.props
+            _.remove(cateogryList[0].children, { name: _.startCase(_.lowerCase(contest.category)) });
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -145,6 +148,7 @@ export default class FormAudience extends Component {
             || prevState.ocuppationChoose !== this.state.ocuppationChoose
             || prevState.socioeconomicLevel !== this.state.socioeconomicLevel
             || prevState.rentOrOwnHouseChoose !== this.state.rentOrOwnHouseChoose
+            || prevState.rentOrOwnCarChoose !== this.state.rentOrOwnCarChoose
             || prevState.categoryPrizeChoose !== this.state.categoryPrizeChoose
         ) {
             this.state.age.years
@@ -168,6 +172,7 @@ export default class FormAudience extends Component {
                 || this.state.ocuppationChoose.length
                 || this.state.socioeconomicLevel.length
                 || this.state.rentOrOwnHouseChoose.length
+                || this.state.rentOrOwnCarChoose.length
                 || this.state.categoryPrizeChoose.length
                 ? prevProps._isValidDataForAWS(true)
                 : prevProps._isValidDataForAWS(false)
@@ -352,39 +357,53 @@ export default class FormAudience extends Component {
     }
 
     _validateDataForAWS = async () => {
-        const { contest} = this.props
-        const audience = {
-            audienceCreateContestId: contest.id,
-            genders: [this.state.gender],
-            ages: [this.state.age.years],
-            categoryContest: this.state.categoryChoose.map(item => item.name),
-            countries: this.state.countriesChoose.map(item => item.name),
-            nacionalities: this.state.nacionalityChoose.map(item => item.name),
-            regionalIdentity: this.state.regionalIdentityChoose.map(item => item.name),
-            sexualities: this.state.sexualityChoose.map(item => item.name),
-            maritalStatus: this.state.maritalStatusChoose.map(item => item.name),
-            academicLevelAchieved: this.state.academicLevelAchievedChoose.map(item => item.name),
-            schools: this.state.schoolsChoose.map(item => item.name),
-            universities: this.state.universityChoose.map(item => item.name),
-            musicalGenre: this.state.musicalGenreChoose.map(item => item.name),
-            sports: this.state.sportsChoose.map(item => item.name),
-            parentalCondition: this.state.parentalConditionChoose.map(item => item.name),
-            amountOfChildren: [this.state.amountOfChildren],
-            amountOfSimblings: [this.state.amountOfSimblings],
-            politicalPeople: [this.state.politicalPeople],
-            peopleWhoVote: [this.state.peopleWhoVote],
-            ocuppation: this.state.ocuppationChoose.map(item => item.name),
-            socioeconomicLevel: this.state.socioeconomicLevelItems.map(item => item.name),
-            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.map(item => item.name),
-            rentOrOwnCar: this.state.rentOrOwnCarChoose.map(item => item.name),
-            categoryPrizes: this.state.categoryPrizeChoose.map(item => item.name),
-            createdAt: moment().toISOString()
+        if (this._isMounted) {
+            const { contest, _isLoading, _setModalVisibleAudience, _modalVisibleAudienceSelect } = this.props
+            const audience = {
+                audienceCreateContestId: contest.id,
+                genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
+                ages: this.state.age.years ? [this.state.age.years] : ['none'],
+                categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
+                countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
+                nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
+                regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
+                sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
+                maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
+                academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
+                schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
+                universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
+                musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
+                sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
+                parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
+                amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
+                amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
+                politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
+                peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
+                ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
+                socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
+                rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
+                rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
+                categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
+                createdAt: moment().toISOString()
+            }
+            try {
+                await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
+                Toast.show({ text: "Audience created!", buttonText: "Okay", duration: 2000, position: "top", type: "success" })
+                await setTimeout(() => {
+                    _modalVisibleAudienceSelect(false)
+                    _setModalVisibleAudience(false)
+
+                }, 2500);
+            } catch (error) {
+                console.log((error));
+                Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", duration: 3000, position: "top", type: "danger" })
+                _isLoading(false)
+            }
         }
-        try {
-            await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
-        } catch (error) {
-            console.log(error);
-        }
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
     render() {
@@ -452,9 +471,39 @@ export default class FormAudience extends Component {
             // Data
             contest,
 
-            // functions
-            _isValidDataForAWS
+            // Actions
+            isLoading
         } = this.props;
+
+        const audience = {
+            audienceCreateContestId: contest.id,
+            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
+            ages: this.state.age.years ? [this.state.age.years] : ['none'],
+            categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
+            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
+            nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
+            regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
+            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
+            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
+            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
+            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
+            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
+            musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
+            sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
+            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
+            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
+            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
+            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
+            peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
+            ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
+            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
+            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
+            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
+            categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
+            createdAt: moment().toISOString()
+        }
+        console.log(audience);
+
 
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
@@ -465,7 +514,7 @@ export default class FormAudience extends Component {
                			</Text>
                     </Row>
                     <Row size={80} style={{ backgroundColor: '#FAFAFA' }}>
-                        <Content contentContainerStyle={{ paddingBottom: 70 }}>
+                        <Content scrollEnabled={!isLoading} contentContainerStyle={{ paddingBottom: 70 }}>
                             <List style={{ width: "100%" }}>
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>Fill in the following fields</Text>
@@ -474,43 +523,44 @@ export default class FormAudience extends Component {
                                 {/* GENDER*/}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                     <Left>
-                                        <Button style={{ backgroundColor: "#90A4AE" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#90A4AE" }}>
                                             <MaterialCommunityIcons active name="gender-male-female" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text>Identify the gender of the audience</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify the gender of the audience</Text>
                                     </Body>
                                     <Right>
                                         <Text>{gender === 'NO_SELECT' ? 'Not specified' : gender}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={gender}
-                                        onValueChange={this.onValueChangeGender}>
-                                        <Picker.Item label="Male" value="Male" />
-                                        <Picker.Item label="Famale" value="Famale" />
-                                        <Picker.Item label="Both" value="Both" />
-                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={gender}
+                                            onValueChange={this.onValueChangeGender}>
+                                            <Picker.Item label="Male" value="Male" />
+                                            <Picker.Item label="Famale" value="Famale" />
+                                            <Picker.Item label="Both" value="Both" />
+                                            <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* AGE */}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#00C853" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00C853" }}>
                                             <AntDesign active name="team" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
                                     <Body style={{ right: 15 }}>
-                                        <Text>Identify the age of the audience</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify the age of the audience</Text>
                                     </Body>
                                     <Right>
                                         <Button small transparent bordered style={{ borderColor: '#9E9E9E' }}>
@@ -523,50 +573,51 @@ export default class FormAudience extends Component {
                                     </Right>
 
                                     {/* Numbers */}
-                                    <Picker
-                                        mode="dialog"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 70, top: -25, width: 57 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={age.yearOne}
-                                        onValueChange={this.onValueChangeYearOne}>
-                                        {_.range(59).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
-                                    </Picker>
-
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25, width: 57 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={age.yearTwo}
-                                        onValueChange={this.onValueChangeYearTwo}>
-                                        {_.range(age.yearOne, 60).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dialog"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 70, top: -25, width: 57 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={age.yearOne}
+                                            onValueChange={this.onValueChangeYearOne}>
+                                            {_.range(59).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                        </Picker>}
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25, width: 57 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={age.yearTwo}
+                                            onValueChange={this.onValueChangeYearTwo}>
+                                            {_.range(age.yearOne, 60).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* CATEGORY */}
-                                <ListItem
-                                    itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>
                                         <Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}>
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectCategory._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#FB8C00" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FB8C00" }}>
                                             <Entypo active name="documents" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
@@ -574,7 +625,7 @@ export default class FormAudience extends Component {
                                         <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
                                             <Content showsHorizontalScrollIndicator={false} horizontal>
                                                 <View style={{
-                                                    backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                    backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[5]}`,
                                                     margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                     borderColor: '#3333',
                                                     borderWidth: 0.5
@@ -583,7 +634,7 @@ export default class FormAudience extends Component {
                                                 </View>
                                                 {categoryItems && categoryItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -645,11 +696,12 @@ export default class FormAudience extends Component {
 
                                 {/* COUNTRY */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectCountry._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#0091EA" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#0091EA" }}>
                                             <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
@@ -657,7 +709,7 @@ export default class FormAudience extends Component {
                                         <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
                                             <Content showsHorizontalScrollIndicator={false} horizontal>
                                                 <View style={{
-                                                    backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                    backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[10]}`,
                                                     margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                     borderColor: '#3333',
                                                     borderWidth: 0.5
@@ -666,7 +718,7 @@ export default class FormAudience extends Component {
                                                 </View>
                                                 {countryItems && countryItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -728,11 +780,12 @@ export default class FormAudience extends Component {
 
                                 {/* NACIONALITY */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectNacionality._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#6200EA" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#6200EA" }}>
                                             <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
@@ -742,7 +795,7 @@ export default class FormAudience extends Component {
                                                 {nacionalityItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -751,7 +804,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {nacionalityItems && nacionalityItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -813,11 +866,12 @@ export default class FormAudience extends Component {
 
                                 {/* REGIONAL INDENTITY */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectRegionalIdentity._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#C62828" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#C62828" }}>
                                             <FontAwesome active name="globe" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: -1 }} />
                                         </Button>
                                     </Left>
@@ -827,7 +881,7 @@ export default class FormAudience extends Component {
                                                 {regionalIdentityItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -836,7 +890,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {regionalIdentityItems && regionalIdentityItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -897,16 +951,16 @@ export default class FormAudience extends Component {
                                 </ListItem>
 
                                 {/* SEXUAL ORIENTATION */}
-                                <ListItem
-                                    itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
+                                <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>Customize the audience status.</Text>
                                 </ListItem>
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectSexuality._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#E91E63" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#E91E63" }}>
                                             <FontAwesome active name="intersex" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
@@ -916,7 +970,7 @@ export default class FormAudience extends Component {
                                                 {sexualityItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -925,7 +979,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {sexualityItems && sexualityItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -987,11 +1041,12 @@ export default class FormAudience extends Component {
 
                                 {/* MARITAL STATUS */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectuMaritalStatus._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#00BCD4" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00BCD4" }}>
                                             <Entypo active name="slideshare" style={{ fontSize: wp(5), color: "#FFF", left: 1, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -1001,7 +1056,7 @@ export default class FormAudience extends Component {
                                                 {maritalStatusItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1010,7 +1065,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {maritalStatusItems && maritalStatusItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1042,13 +1097,6 @@ export default class FormAudience extends Component {
                                             showDropDowns={false}
                                             dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
                                             dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
-                                            headerComponent={
-                                                <View style={{ backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
-                                                    <Button small transparent iconRight>
-                                                        <Text style={{ color: '#E53935', fontWeight: 'normal', fontSize: wp(3.5) }}>If you can't find the university, please let us know.</Text>
-                                                        <Icon name="alert" style={{ color: '#E53935' }} />
-                                                    </Button>
-                                                </View>}
                                             styles={{
                                                 item: {
                                                     paddingHorizontal: 10,
@@ -1084,11 +1132,12 @@ export default class FormAudience extends Component {
 
                                 {/* ACADEMIC LEVEL ACHIVIED */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectAcademicLevelAchieved._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#80D8FF" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#80D8FF" }}>
                                             <Entypo active name="bookmark" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
                                         </Button>
                                     </Left>
@@ -1098,7 +1147,7 @@ export default class FormAudience extends Component {
                                                 {academicLevelAchievedItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1107,7 +1156,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {academicLevelAchievedItems && academicLevelAchievedItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1169,11 +1218,12 @@ export default class FormAudience extends Component {
 
                                 {/* SCHOOOL NAME (HIGHT SCHOOL) */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectSchoolS._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#757575" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#757575" }}>
                                             <FontAwesome active name="university" style={{ fontSize: wp(5), color: "#FFF", left: 2, top: -1 }} />
                                         </Button>
                                     </Left>
@@ -1183,7 +1233,7 @@ export default class FormAudience extends Component {
                                                 {schoolsItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1192,7 +1242,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {schoolsItems && schoolsItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1262,11 +1312,12 @@ export default class FormAudience extends Component {
 
                                 {/* UNIVERSITY */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectuUniversity._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#795548" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#795548" }}>
                                             <FontAwesome active name="university" style={{ fontSize: wp(5), color: "#FFF", left: 2, top: -1 }} />
                                         </Button>
                                     </Left>
@@ -1276,7 +1327,7 @@ export default class FormAudience extends Component {
                                                 {universityItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1285,7 +1336,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {universityItems && universityItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1358,11 +1409,12 @@ export default class FormAudience extends Component {
                                 </ListItem>
 
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectMusicalGenre._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#FFD600" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FFD600" }}>
                                             <Feather active name="music" style={{ fontSize: wp(5), color: "#FFF", left: 0, top: -1 }} />
                                         </Button>
                                     </Left>
@@ -1372,7 +1424,7 @@ export default class FormAudience extends Component {
                                                 {musicalGenreItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1381,7 +1433,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {musicalGenreItems && musicalGenreItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1442,11 +1494,12 @@ export default class FormAudience extends Component {
                                 </ListItem>
 
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectSports._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#00C853" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00C853" }}>
                                             <FontAwesome active name="soccer-ball-o" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -1456,7 +1509,7 @@ export default class FormAudience extends Component {
                                                 {sportsItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1465,7 +1518,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {sportsItems && sportsItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1532,11 +1585,12 @@ export default class FormAudience extends Component {
 
                                 {/* PARENT'S CONDITION */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectParentalCondition._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#EF5350" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#EF5350" }}>
                                             <Feather active name="users" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -1546,7 +1600,7 @@ export default class FormAudience extends Component {
                                                 {parentalConditionItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1555,7 +1609,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {parentalConditionItems && parentalConditionItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1618,59 +1672,61 @@ export default class FormAudience extends Component {
                                 {/* AMOUNT OF CHILDREN */}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                     <Left>
-                                        <Button style={{ backgroundColor: "#1E88E5" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#1E88E5" }}>
                                             <FontAwesome active name="child" style={{ fontSize: wp(6), color: "#FFF", left: 1, }} />
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text>Amount of children of a couple or single person</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Amount of children of a couple or single person</Text>
                                     </Body>
                                     <Right>
                                         <Text>{amountOfChildren === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(amountOfChildren))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={amountOfChildren}
-                                        onValueChange={this.onValueChangeAmountOfChildren}>
-                                        {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
-                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={amountOfChildren}
+                                            onValueChange={this.onValueChangeAmountOfChildren}>
+                                            {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                            <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* AMOUNT OF SIMBLINGS */}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                     <Left>
-                                        <Button style={{ backgroundColor: "#AA00FF" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#AA00FF" }}>
                                             <Entypo active name="users" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text>Amount of simblings</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Amount of simblings</Text>
                                     </Body>
                                     <Right>
                                         <Text>{amountOfSimblings === 'NO_SELECT' ? 'Not specified' : amountOfSimblings}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={amountOfSimblings}
-                                        onValueChange={this.onValueChangeAmountOfSimblings}>
-                                        {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
-                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={amountOfSimblings}
+                                            onValueChange={this.onValueChangeAmountOfSimblings}>
+                                            {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                            <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* POLITICAL  */}
@@ -1681,63 +1737,65 @@ export default class FormAudience extends Component {
                                 {/* POLITICAL PEOPLE */}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                     <Left>
-                                        <Button style={{ backgroundColor: "#78909C" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#78909C" }}>
                                             <Entypo active name="news" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text>Political people?</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Political people?</Text>
                                     </Body>
                                     <Right>
                                         <Text>{politicalPeople === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(politicalPeople))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={politicalPeople}
-                                        onValueChange={this.onValueChangePoliticalPeople}>
-                                        <Picker.Item label="Yes" value="YES" />
-                                        <Picker.Item label="No" value="NO" />
-                                        <Picker.Item label="Both" value="BOTH" />
-                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={politicalPeople}
+                                            onValueChange={this.onValueChangePoliticalPeople}>
+                                            <Picker.Item label="Yes" value="YES" />
+                                            <Picker.Item label="No" value="NO" />
+                                            <Picker.Item label="Both" value="BOTH" />
+                                            <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* PLEOPLE WHO VOTE */}
                                 <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                     <Left>
-                                        <Button style={{ backgroundColor: "#424242" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#424242" }}>
                                             <MaterialCommunityIcons active name="vote" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text>People who vote?</Text>
+                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>People who vote?</Text>
                                     </Body>
                                     <Right>
                                         <Text>{peopleWhoVote === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(peopleWhoVote))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
-                                    <Picker
-                                        mode="dropdown"
-                                        iosHeader="SELECT ONE"
-                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                        headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                        headerTitleStyle={{ color: "#D81B60" }}
-                                        headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                        textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                        selectedValue={peopleWhoVote}
-                                        onValueChange={this.onValueChangePeopleWhoVote}>
-                                        <Picker.Item label="Yes" value="YES" />
-                                        <Picker.Item label="No" value="NO" />
-                                        <Picker.Item label="Both" value="BOTH" />
-                                        <Picker.Item label="Do not specify" value="NO_SELECT" />
-                                    </Picker>
+                                    {isLoading ? null :
+                                        <Picker
+                                            mode="dropdown"
+                                            iosHeader="SELECT ONE"
+                                            style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                            headerTitleStyle={{ color: "#D81B60" }}
+                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                            selectedValue={peopleWhoVote}
+                                            onValueChange={this.onValueChangePeopleWhoVote}>
+                                            <Picker.Item label="Yes" value="YES" />
+                                            <Picker.Item label="No" value="NO" />
+                                            <Picker.Item label="Both" value="BOTH" />
+                                            <Picker.Item label="Do not specify" value="NO_SELECT" />
+                                        </Picker>}
                                 </ListItem>
 
                                 {/* OCUPPATION OF THE AUDIENCE */}
@@ -1747,11 +1805,12 @@ export default class FormAudience extends Component {
 
                                 {/* OCUPPATION */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectoOcuppation._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#0097A7" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#0097A7" }}>
                                             <Entypo active name="briefcase" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -1761,7 +1820,7 @@ export default class FormAudience extends Component {
                                                 {ocuppationItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1770,7 +1829,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {ocuppationItems && ocuppationItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1832,11 +1891,12 @@ export default class FormAudience extends Component {
 
                                 {/* SOCIOECONOMIC LEVEL*/}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectoSocioeconomicLevel._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#43A047" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#43A047" }}>
                                             <FontAwesome active name="money" style={{ fontSize: wp(5.5), color: "#FFF", left: 1 }} />
                                         </Button>
                                     </Left>
@@ -1846,7 +1906,7 @@ export default class FormAudience extends Component {
                                                 {socioeconomicLevelItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1855,7 +1915,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {socioeconomicLevelItems && socioeconomicLevelItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1918,11 +1978,12 @@ export default class FormAudience extends Component {
 
                                 {/* RENT OR OWN HOUSE */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectoRentOrOwnHouse._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#FB8C00" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FB8C00" }}>
                                             <FontAwesome active name="home" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -1932,7 +1993,7 @@ export default class FormAudience extends Component {
                                                 {rentOrOwnHouseItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -1941,7 +2002,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {rentOrOwnHouseItems && rentOrOwnHouseItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -2003,11 +2064,12 @@ export default class FormAudience extends Component {
 
                                 {/* RENT OR OWN CAR */}
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectoRentOrOwnCar._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#BF360C" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#BF360C" }}>
                                             <AntDesign active name="car" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -2017,7 +2079,7 @@ export default class FormAudience extends Component {
                                                 {rentOrOwnCarItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -2026,7 +2088,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {rentOrOwnCarItems && rentOrOwnCarItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -2091,11 +2153,12 @@ export default class FormAudience extends Component {
                                     <Text style={{ color: "#BDBDBD" }}>Specify the category of awards for the audience</Text>
                                 </ListItem>
                                 <ListItem
+                                    disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectoPrizeCategory._toggleSelector()}
                                     icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
                                     <Left style={{ right: 15 }}>
-                                        <Button style={{ backgroundColor: "#FFD600" }}>
+                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FFD600" }}>
                                             <Feather active name="award" style={{ fontSize: wp(5.5), color: "#FFF", left: 0, top: 0 }} />
                                         </Button>
                                     </Left>
@@ -2105,7 +2168,7 @@ export default class FormAudience extends Component {
                                                 {categoryPrizeItems.length
                                                     ? null
                                                     : <View style={{
-                                                        backgroundColor: '#E0E0E0',
+                                                        backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
@@ -2114,7 +2177,7 @@ export default class FormAudience extends Component {
                                                     </View>}
                                                 {categoryPrizeItems && categoryPrizeItems.map((item, key) =>
                                                     <View key={key} style={{
-                                                        backgroundColor: `${randomColors[Math.floor(Math.random() * randomColors.length)]}`,
+                                                        backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5

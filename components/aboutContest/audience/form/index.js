@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
-import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, View } from 'native-base';
+import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, View, Spinner } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import _ from 'lodash'
@@ -15,7 +15,8 @@ export default class Audience extends Component {
         progress: 0,
         valueSwiper: 0,
         sendDataToAWSAction: false,
-        isValidDataForAWS: false
+        isValidDataForAWS: false,
+        isLoading: false
     }
 
     // Incrementar la barra
@@ -31,13 +32,18 @@ export default class Audience extends Component {
 
     _isValidDataForAWS = (value) => { this.setState({ isValidDataForAWS: value }) }
 
+    _isLoading = (value) => {
+        this.setState({ isLoading: value })
+    }
+
     render() {
         const {
             // Actions
             sendDataToAWSAction,
             valueSwiper,
             progress,
-            isValidDataForAWS
+            isValidDataForAWS,
+            isLoading
         } = this.state
         const {
             // Data
@@ -45,31 +51,37 @@ export default class Audience extends Component {
 
             // Functions
             _changeSwiperChild,
+            _setModalVisibleAudience,
+            _modalVisibleAudienceSelect
         } = this.props
         return (
             <Container>
                 <Header style={{ width: "100%", height: 70, backgroundColor: '#FAFAFA', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                     <Left style={{ flexDirection: 'row' }}>
-                        <Button transparent onPress={() => _changeSwiperChild(-1)}>
-                            <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                            <Text style={{ left: 5, color: "#D81B60" }}>{'Start'}</Text>
+                        <Button disabled={isLoading} transparent onPress={() => _changeSwiperChild(-1)}>
+                            <Icon name='arrow-back' style={{ color: isLoading ? "#BDBDBD" : "#D81B60" }} />
+                            <Text style={{ left: 5, color: isLoading ? "#BDBDBD" : "#D81B60" }}>{'Start'}</Text>
                         </Button>
-                        <Title style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
+                        <Title style={{ alignSelf: "center", left: 15, color: isLoading ? "#BDBDBD" : "#D81B60", fontSize: wp(6) }}>
                             Our Audience
                         </Title>
                     </Left>
                     <Right>
                         <Button
-                            disabled={!isValidDataForAWS}
+                            disabled={!isValidDataForAWS || isLoading}
                             transparent
+                            onPressIn={() => this._isLoading(true)}
                             onPress={() => this.setState({ sendDataToAWSAction: !sendDataToAWSAction })}>
-                            <Text style={{ left: 5, color: !isValidDataForAWS ? "#BDBDBD" : "#D81B60" }}>Create</Text>
+                            {isLoading
+                                ? <Spinner size="small" color="#BDBDBD" />
+                                : <Text style={{ left: 5, color: !isValidDataForAWS ? "#BDBDBD" : "#D81B60" }}>Create</Text>
+                            }
                         </Button>
                     </Right>
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
                     {/* FORMULARIO AUDIENCE*/}
-                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} _isValidDataForAWS={this._isValidDataForAWS} />
+                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
                 </Content>
                 <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>
