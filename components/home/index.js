@@ -41,12 +41,11 @@ class Home extends Component {
     componentDidMount() {
         this.getDataFromAWS()
         API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
+            error: ({ errors }) => {
+                console.log(errors)
+            },
             next: (getData) => {
-                const userDataNew = getData.value.data.onUpdateUser
-                const { userData } = this.state
-                if (userDataNew.id === userData.id) {
-                    this.setState({ userData: userDataNew })
-                }
+                if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
             }
         })
     }

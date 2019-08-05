@@ -171,6 +171,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -399,6 +400,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -427,6 +429,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
                 nextToken
               }
             }
+            id
             genders
             ages
             categoryContest
@@ -630,6 +633,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -858,6 +862,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -886,6 +891,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
                 nextToken
               }
             }
+            id
             genders
             ages
             categoryContest
@@ -1089,6 +1095,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -1317,6 +1324,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -1345,6 +1353,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
                 nextToken
               }
             }
+            id
             genders
             ages
             categoryContest
@@ -1490,6 +1499,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1658,6 +1668,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1686,6 +1697,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -1868,6 +1880,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2036,6 +2049,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2064,6 +2078,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -2092,6 +2107,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             nextToken
           }
         }
+        id
         genders
         ages
         categoryContest
@@ -2234,6 +2250,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2402,6 +2419,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2430,6 +2448,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -2612,6 +2631,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2780,6 +2800,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -2808,6 +2829,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -2836,6 +2858,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             nextToken
           }
         }
+        id
         genders
         ages
         categoryContest
@@ -2978,6 +3001,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -3146,6 +3170,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -3174,6 +3199,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -3356,6 +3382,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -3524,6 +3551,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -3552,6 +3580,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -3580,6 +3609,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             nextToken
           }
         }
+        id
         genders
         ages
         categoryContest
@@ -3711,6 +3741,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -3867,6 +3898,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -3895,6 +3927,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -4065,6 +4098,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4221,6 +4255,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4249,6 +4284,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -4277,6 +4313,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
               nextToken
             }
           }
+          id
           genders
           ages
           categoryContest
@@ -4305,6 +4342,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         nextToken
       }
     }
+    id
     genders
     ages
     categoryContest
@@ -4433,6 +4471,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4589,6 +4628,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4617,6 +4657,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -4787,6 +4828,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4943,6 +4985,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -4971,6 +5014,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -4999,6 +5043,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
               nextToken
             }
           }
+          id
           genders
           ages
           categoryContest
@@ -5027,6 +5072,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         nextToken
       }
     }
+    id
     genders
     ages
     categoryContest
@@ -5155,6 +5201,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -5311,6 +5358,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -5339,6 +5387,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -5509,6 +5558,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -5665,6 +5715,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -5693,6 +5744,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -5721,6 +5773,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
               nextToken
             }
           }
+          id
           genders
           ages
           categoryContest
@@ -5749,6 +5802,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         nextToken
       }
     }
+    id
     genders
     ages
     categoryContest

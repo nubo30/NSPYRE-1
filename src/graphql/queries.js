@@ -171,6 +171,7 @@ export const getUser = `query GetUser($id: ID!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -399,6 +400,7 @@ export const getUser = `query GetUser($id: ID!) {
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -427,6 +429,7 @@ export const getUser = `query GetUser($id: ID!) {
                 nextToken
               }
             }
+            id
             genders
             ages
             categoryContest
@@ -575,6 +578,7 @@ export const listUsers = `query ListUsers(
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -743,6 +747,7 @@ export const listUsers = `query ListUsers(
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -771,6 +776,7 @@ export const listUsers = `query ListUsers(
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -918,6 +924,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1086,6 +1093,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1114,6 +1122,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -1296,6 +1305,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1464,6 +1474,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                       createdAt
                       timer
                     }
+                    id
                     genders
                     ages
                     categoryContest
@@ -1492,6 +1503,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
                   nextToken
                 }
               }
+              id
               genders
               ages
               categoryContest
@@ -1520,6 +1532,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             nextToken
           }
         }
+        id
         genders
         ages
         categoryContest
@@ -1655,6 +1668,7 @@ export const listCreateContests = `query ListCreateContests(
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -1811,6 +1825,7 @@ export const listCreateContests = `query ListCreateContests(
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -1839,6 +1854,7 @@ export const listCreateContests = `query ListCreateContests(
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -2009,6 +2025,7 @@ export const listCreateContests = `query ListCreateContests(
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2165,6 +2182,7 @@ export const listCreateContests = `query ListCreateContests(
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2193,6 +2211,7 @@ export const listCreateContests = `query ListCreateContests(
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -2221,6 +2240,7 @@ export const listCreateContests = `query ListCreateContests(
               nextToken
             }
           }
+          id
           genders
           ages
           categoryContest
@@ -2354,6 +2374,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2510,6 +2531,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2538,6 +2560,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -2708,6 +2731,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2864,6 +2888,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                   timer
                   audience {
                     items {
+                      id
                       genders
                       ages
                       categoryContest
@@ -2892,6 +2917,7 @@ export const getAudience = `query GetAudience($id: ID!) {
                     nextToken
                   }
                 }
+                id
                 genders
                 ages
                 categoryContest
@@ -2920,6 +2946,7 @@ export const getAudience = `query GetAudience($id: ID!) {
               nextToken
             }
           }
+          id
           genders
           ages
           categoryContest
@@ -2948,6 +2975,7 @@ export const getAudience = `query GetAudience($id: ID!) {
         nextToken
       }
     }
+    id
     genders
     ages
     categoryContest
@@ -3139,6 +3167,7 @@ export const listAudiences = `query ListAudiences(
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -3367,6 +3396,7 @@ export const listAudiences = `query ListAudiences(
                       nextToken
                     }
                   }
+                  id
                   genders
                   ages
                   categoryContest
@@ -3395,6 +3425,7 @@ export const listAudiences = `query ListAudiences(
                 nextToken
               }
             }
+            id
             genders
             ages
             categoryContest
@@ -3423,6 +3454,7 @@ export const listAudiences = `query ListAudiences(
           nextToken
         }
       }
+      id
       genders
       ages
       categoryContest

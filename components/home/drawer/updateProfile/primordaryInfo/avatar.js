@@ -53,7 +53,6 @@ class Avatar extends Component {
             "region": "sa-east-1"
         });
         try {
-            _isLoading(true)
             await Storage.put(`users/${userData.email}/avatar/${avatar.name}`, avatar.blob, {
                 progressCallback(progress) {
                     Toast.show({
@@ -70,13 +69,14 @@ class Avatar extends Component {
                 }
             }))
             await Toast.show({ text: 'Loaded successfully!', buttonText: 'Okay', type: 'success' })
+            _isLoading(false)
         } catch (error) {
             this.setState({ avatar: { name: "", type: "", localUrl: "", blob: {} } })
             Toast.show({ text: 'An error has occurred, try again.', buttonText: 'Okay', type: 'danger' })
-        } finally {
             _isLoading(false)
         }
     }
+
     componentWillUnmount() {
         Toast.toastInstance = null;
         ActionSheet.actionsheetInstance = null;
@@ -84,7 +84,7 @@ class Avatar extends Component {
 
     render() {
         const { avatar } = this.state
-        const { userData, isLoading } = this.props
+        const { userData, isLoading, _isLoading } = this.props
         return (
             <View style={{ flex: 1, minHeight: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 <View>
@@ -102,6 +102,7 @@ class Avatar extends Component {
                 <Button
                     disabled={isLoading}
                     small rounded bordered
+                    onPressIn={() => _isLoading(true)}
                     onPress={() => { this.useLibraryHandler() }}
                     style={{ borderColor: isLoading ? "#BDBDBD" : "#D81B60", alignSelf: "center", width: 110, justifyContent: 'center' }}>
                     {isLoading

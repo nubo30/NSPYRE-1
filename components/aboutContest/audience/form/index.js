@@ -13,7 +13,6 @@ import FormAudience from './formAudience'
 export default class Audience extends Component {
     state = {
         progress: 0,
-        valueSwiper: 0,
         sendDataToAWSAction: false,
         isValidDataForAWS: false,
         isLoading: false
@@ -36,11 +35,14 @@ export default class Audience extends Component {
         this.setState({ isLoading: value })
     }
 
+    componentWillUnmount() {
+        this.props._setModalVisibleAudience(false)
+    }
+
     render() {
         const {
             // Actions
             sendDataToAWSAction,
-            valueSwiper,
             progress,
             isValidDataForAWS,
             isLoading
@@ -48,7 +50,7 @@ export default class Audience extends Component {
         const {
             // Data
             contest,
-
+            audience,
             // Functions
             _changeSwiperChild,
             _setModalVisibleAudience,
@@ -58,9 +60,12 @@ export default class Audience extends Component {
             <Container>
                 <Header style={{ width: "100%", height: 70, backgroundColor: '#FAFAFA', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                     <Left style={{ flexDirection: 'row' }}>
-                        <Button disabled={isLoading} transparent onPress={() => _changeSwiperChild(-1)}>
+                        <Button
+                            disabled={isLoading}
+                            transparent
+                            onPress={() => _changeSwiperChild(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? "#BDBDBD" : "#D81B60" }} />
-                            <Text style={{ left: 5, color: isLoading ? "#BDBDBD" : "#D81B60" }}>{'Start'}</Text>
+                            <Text style={{ left: 5, color: isLoading ? "#BDBDBD" : "#D81B60" }}>{Object.keys(audience).length !== 0 ? 'Close' : 'Start'}</Text>
                         </Button>
                         <Title style={{ alignSelf: "center", left: 15, color: isLoading ? "#BDBDBD" : "#D81B60", fontSize: wp(6) }}>
                             Our Audience
@@ -74,14 +79,14 @@ export default class Audience extends Component {
                             onPress={() => this.setState({ sendDataToAWSAction: !sendDataToAWSAction })}>
                             {isLoading
                                 ? <Spinner size="small" color="#BDBDBD" />
-                                : <Text style={{ left: 5, color: !isValidDataForAWS ? "#BDBDBD" : "#D81B60" }}>Create</Text>
+                                : <Text style={{ left: 5, color: !isValidDataForAWS ? "#BDBDBD" : "#D81B60" }}>{Object.keys(audience).length ? 'Update' : 'Create'}</Text>
                             }
                         </Button>
                     </Right>
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
                     {/* FORMULARIO AUDIENCE*/}
-                    <FormAudience contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
+                    <FormAudience audience={audience} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
                 </Content>
                 <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>
@@ -97,7 +102,7 @@ export default class Audience extends Component {
                         height={20}
                         backgroundColorOnComplete={progress === 100 ? "#6CC644" : "#D81B60"} />
                 </Footer>
-            </Container>
+            </Container >
         );
     }
 }

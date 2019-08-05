@@ -9,6 +9,7 @@
   "dependencies": {
     "@aws-amplify/api": "^1.0.39",
     "@aws-amplify/pubsub": "^1.0.30",
+    "accordion-collapse-react-native": "^0.1.11",
     "add": "^2.0.6",
     "aws-amplify": "^1.1.26",
     "aws-amplify-react-native": "^2.1.10",

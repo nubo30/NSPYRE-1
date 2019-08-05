@@ -226,7 +226,7 @@ class ShowContest extends Component {
 
                             {/* Stats/Submit a video or a meme */}
                             <Row size={65}>
-                                <Participants  />
+                                <Participants />
                             </Row>
                         </Grid>
                     </Animated.ScrollView>
@@ -314,6 +314,9 @@ class ShowContest extends Component {
                 </View>
                 <View style={{ flex: 1 }}>
                     <SecondaryView
+                        // Data
+                        contest={contest}
+
                         // Actions
                         swiperIndex={swiperIndex}
 

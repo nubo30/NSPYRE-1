@@ -18,7 +18,6 @@ import { randomColors, cateogryList, sexualityList, academicLevelAchievedList, m
 import * as mutations from '../../../../src/graphql/mutations'
 
 export default class FormAudience extends Component {
-    _isMounted = false;
     state = {
         // Data
         age: {
@@ -357,54 +356,48 @@ export default class FormAudience extends Component {
     }
 
     _validateDataForAWS = async () => {
-        if (this._isMounted) {
-            const { contest, _isLoading, _setModalVisibleAudience, _modalVisibleAudienceSelect } = this.props
-            const audience = {
-                audienceCreateContestId: contest.id,
-                genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
-                ages: this.state.age.years ? [this.state.age.years] : ['none'],
-                categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
-                countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
-                nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
-                regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
-                sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
-                maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
-                academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
-                schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
-                universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
-                musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
-                sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
-                parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
-                amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
-                amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
-                politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
-                peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
-                ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
-                socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
-                rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
-                rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
-                categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
-                createdAt: moment().toISOString()
-            }
-            try {
-                await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
-                Toast.show({ text: "Audience created!", buttonText: "Okay", duration: 2000, position: "top", type: "success" })
-                await setTimeout(() => {
-                    _modalVisibleAudienceSelect(false)
-                    _setModalVisibleAudience(false)
-
-                }, 2500);
-            } catch (error) {
-                console.log((error));
-                Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", duration: 3000, position: "top", type: "danger" })
-                _isLoading(false)
-            }
+        const { contest, _isLoading, _modalVisibleAudienceSelect } = this.props
+        const audienceList = {
+            audienceCreateContestId: contest.id,
+            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
+            ages: this.state.age.years ? [this.state.age.years] : ['none'],
+            categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
+            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
+            nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
+            regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
+            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
+            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
+            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
+            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
+            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
+            musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
+            sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
+            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
+            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
+            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
+            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
+            peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
+            ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
+            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
+            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
+            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
+            categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
+            createdAt: moment().toISOString()
+        }
+        try {
+            await API.graphql(graphqlOperation(mutations.createAudience, { input: audienceList }))
+            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            await Toast.show({ text: "Audience created!", buttonText: "Okay", position: "top", type: "success", duration: 2000 })
+            setTimeout(() => {
+                _modalVisibleAudienceSelect(false)
+                this.props._setModalVisibleAudience(false)
+            }, 2000);
+        } catch (error) {
+            Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", position: "top", type: "danger", duration: 3000 })
+            _isLoading(false)
         }
     }
 
-    componentWillUnmount() {
-        this._isMounted = false
-    }
 
     render() {
         const {
@@ -474,37 +467,6 @@ export default class FormAudience extends Component {
             // Actions
             isLoading
         } = this.props;
-
-        const audience = {
-            audienceCreateContestId: contest.id,
-            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
-            ages: this.state.age.years ? [this.state.age.years] : ['none'],
-            categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
-            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
-            nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
-            regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
-            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
-            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
-            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
-            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
-            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
-            musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
-            sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
-            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
-            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
-            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
-            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
-            peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
-            ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
-            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
-            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
-            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
-            categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
-            createdAt: moment().toISOString()
-        }
-        console.log(audience);
-
-
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
                 <Grid>
@@ -608,7 +570,7 @@ export default class FormAudience extends Component {
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           you can add more options to improve audience customization.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem

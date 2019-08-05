@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Platform, Modal } from 'react-native';
-import { Text, List, ListItem, Left, Right, View, Content, Container } from 'native-base'
+import { Text, List, ListItem, Left, Right, View, Root } from 'native-base'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import Placeholder from "rn-placeholder"
 
 // Icons
 import { Feather } from '@expo/vector-icons'
@@ -70,12 +69,14 @@ export default class PrimordaryInfo extends Component {
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <ModalContentName
-                        userData={userData}
-                        isLoading={isLoading}
-                        _isLoading={_isLoading}
-                        modalVisibleName={this.state.modalVisibleName}
-                        setModalVisibleName={this.setModalVisibleName} />
+                    <Root>
+                        <ModalContentName
+                            userData={userData}
+                            isLoading={isLoading}
+                            _isLoading={_isLoading}
+                            modalVisibleName={this.state.modalVisibleName}
+                            setModalVisibleName={this.setModalVisibleName} />
+                    </Root>
                 </Modal>
                 <Modal
                     transparent={false}
@@ -85,12 +86,14 @@ export default class PrimordaryInfo extends Component {
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <ModalContentLastName
-                        userData={userData}
-                        isLoading={isLoading}
-                        _isLoading={_isLoading}
-                        modalVisibleLastName={this.state.modalVisibleLastName}
-                        setModalVisibleLastName={this.setModalVisibleLastName} />
+                    <Root>
+                        <ModalContentLastName
+                            userData={userData}
+                            isLoading={isLoading}
+                            _isLoading={_isLoading}
+                            modalVisibleLastName={this.state.modalVisibleLastName}
+                            setModalVisibleLastName={this.setModalVisibleLastName} />
+                    </Root>
                 </Modal>
             </View>
         )

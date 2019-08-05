@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Platform } from 'react-native'
+import { API, graphqlOperation } from 'aws-amplify'
 import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, Root } from 'native-base';
 import Swiper from 'react-native-swiper'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -11,7 +12,8 @@ import FormAudience from './form/index'
 // Icons
 import { Ionicons } from '@expo/vector-icons'
 
-
+// GraphQL
+import * as queries from '../../../src/graphql/queries'
 export default class Audience extends Component {
     state = {
         modalVisibleAudienceSelect: false,
@@ -19,12 +21,26 @@ export default class Audience extends Component {
         noThanksAudienceUser: false,
 
         // Picker
-        budget: 'NO_SELECT',
         amountPeople: "NO_SELECT",
         progress: 20,
 
         // Actions
-        swiperChildAudience: 0
+        swiperChildAudience: 0,
+        audience: {}
+    }
+
+    componentDidMount() {
+        this._getAudience()
+    }
+
+    _getAudience = async () => {
+        const { contest } = this.props
+        try {
+            const { data } = await API.graphql(graphqlOperation(queries.getAudience, { id: contest.id }))
+            this.setState({ audience: data.getAudience === null ? {} : data.getAudience })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     _changeSwiper = (i) => {
@@ -34,10 +50,6 @@ export default class Audience extends Component {
     _changeSwiperChild = (i) => {
         this.swiperChild.scrollBy(i)
     }
-
-    // Budget
-    onValueChangeBudget = (value: string) => { this.setState({ budget: value }) }
-
 
     // Incrementar la barra
     increase = (value) => {
@@ -55,8 +67,12 @@ export default class Audience extends Component {
             modalVisibleAudienceSelect,
             swiperIndex,
             noThanksAudienceUser,
+
+            // Data
+            audience
         } = this.state
         const { _setModalVisibleAudience, contest, hideCongrastSectionAudience } = this.props
+
         return (
             <Container style={{ backgroundColor: '#FFF', width: "85%", borderRadius: 20, maxHeight: "50%", padding: 2 }}>
                 <Header span style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)', flexDirection: 'column' }}>
@@ -195,7 +211,6 @@ export default class Audience extends Component {
                                                 </Grid>
                                             </Content>
                                         </Container>
-
                                         {/* STEP 2 */}
                                         <Container style={{ backgroundColor: '#FAFAFA' }}>
                                             <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: Platform.OS === 'ios' ? 70 : 50 }}>
@@ -229,11 +244,11 @@ export default class Audience extends Component {
                                                 </Grid>
                                             </Content>
                                         </Container>
-
                                         {/* STEP 3 */}
                                         <FormAudience
                                             // Data
                                             contest={contest}
+                                            audience={audience}
 
                                             // Function
                                             _setModalVisibleAudience={_setModalVisibleAudience}

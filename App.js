@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Amplify from 'aws-amplify'
+import { NetInfo } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { Root} from "native-base";
+import { Root, Toast } from "native-base";
 import thunk from "redux-thunk"
 import Sentry from 'sentry-expo';
 import { AppLoading } from "expo";
@@ -12,6 +13,7 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator } from 
 // Sentry config
 Sentry.enableInExpoDevelopment = false;
 Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
+
 
 // Amplify config
 Amplify.configure({
@@ -64,6 +66,7 @@ class InfluencemeNow extends Component {
     state = { isReady: false }
 
     async componentWillMount() {
+
         await Expo.Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
@@ -73,52 +76,6 @@ class InfluencemeNow extends Component {
 
     render() { return this.state.isReady ? <SignInOrSingUp /> : <AppLoading /> }
 }
-
-// Escenes animations
-// const handleCustomTransition = ({ scenes }) => {
-//     const prevScene = scenes[scenes.length - 2];
-//     const nextScene = scenes[scenes.length - 1];
-
-//     // Go Right scene
-//     if (prevScene
-//         && prevScene.route.routeName === 'Sliders'
-//         && nextScene.route.routeName === 'Auth') {
-//         return fromRight(500);
-//     } else if (prevScene
-//         && prevScene.route.routeName === 'Contests'
-//         && nextScene.route.routeName === 'AboutContest') {
-//         return fromRight(400)
-//     } else if (prevScene
-//         && prevScene.route.routeName === 'Home'
-//         && nextScene.route.routeName === 'Contests') {
-//         return Platform.OS === 'android' ? fromRight(400) : null
-//     }
-//     // Go Left Escene
-//     else if (prevScene
-//         && prevScene.route.routeName === 'MoreInfo'
-//         && nextScene.route.routeName === 'TypeUser') {
-//         return fromLeft(500)
-//     } else if (prevScene
-//         && prevScene.route.routeName === 'TypeUser'
-//         && nextScene.route.routeName === 'Auth') {
-//         return fromLeft(500)
-//     }
-//     // Fade scenes
-//     // else if (prevScene
-//     //     && prevScene.route.routeName === 'Congratulation'
-//     //     && nextScene.route.routeName === 'Home') {
-//     //     return fadeIn(50000)
-//     // }
-
-//     // Botton scenes
-//     else if (prevScene
-//         && prevScene.route.routeName === 'Home'
-//         && nextScene.route.routeName === 'ModifyProfile') {
-//         return fromBottom(650)
-//     }
-//     return null
-// }
-
 
 const navigationOptions = { header: null, gesturesEnabled: false }
 
@@ -157,6 +114,18 @@ const AppContainer = createAppContainer(createSwitchNavigator({
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
 
 export default class App extends Component {
+
+    componentDidMount() {
+        // Subscribe to the network
+        NetInfo.addEventListener('connectionChange', (connectionInfo) => {
+            if (connectionInfo.type === 'none') { Toast.show({ text: "The network connection has been lost.", type: "warning", duration: 5000 }) }
+        })
+    }
+
+    componentWillUnmount() {
+        NetInfo.removeEventListener('connectionChange', () => { });
+    }
+
     render() {
         return (
             <Provider store={store}>

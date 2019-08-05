@@ -1,5 +1,5 @@
 ##################################################################### ESTRUCTURA DEL USUARIO #####################################################################
-type User @model{
+type User @model @auth(rules: [{allow: owner}]){
   id: ID!
   userId: ID!
   name: String!
@@ -32,11 +32,12 @@ type CreateContest @model {
   prizes: [Prizes]
   createdAt: AWSDateTime!
   timer: AWSDateTime
-  audience: [Audience] @connection(name: "CreateContestAudience")
+  audience: [Audience] @connection(name:"CreateContestAudience")
 }
 
 type Audience @model {
-  createContest: CreateContest @connection(name:"CreateContestAudience")
+  createContest: CreateContest @connection(name: "CreateContestAudience") 
+  id: ID!
   genders: [String]
   ages: [String]
   categoryContest: [String]
@@ -60,7 +61,7 @@ type Audience @model {
   rentOrOwnHouse: [String]
   rentOrOwnCar: [String]
   categoryPrizes: [String]
-  createdAt: AWSDateTime
+  createdAt: AWSDateTime!
   }
 
 type AboutTheUser {

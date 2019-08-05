@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import { API, graphqlOperation } from "aws-amplify"
 import { isAscii } from 'validator';
 import { Grid, Col } from 'react-native-easy-grid'
-import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner } from 'native-base'
+import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Toast } from 'native-base'
 
 // Max lenght of the form
 const maxLength = 20
@@ -12,29 +12,27 @@ const maxLength = 20
 import * as mutations from '../../../../../src/graphql/mutations'
 
 // this function show the content of modals
-export default class ModalsContent extends Component {
+export default class UpdateName extends Component {
     state = { name: "" }
 
     _updateNameAWS = async () => {
-        const { userData, _isLoading,setModalVisibleName } = this.props
+        const { userData, _isLoading, setModalVisibleName } = this.props
         const input = {
             name: this.state.name,
             id: userData.id,
         }
         try {
-            _isLoading(true)
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
+            _isLoading(false)
             setModalVisibleName(false)
         } catch (error) {
-            console.log(error)
-        } finally {
-            this.setState({ name: '' })
             _isLoading(false)
+            Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
         }
     }
 
     render() {
-        const { userData, isLoading } = this.props
+        const { userData, isLoading, _isLoading } = this.props
         return (
             <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
@@ -74,6 +72,7 @@ export default class ModalsContent extends Component {
                         <Button
                             disabled={isLoading || this.state.name === "" ? true : false}
                             bordered
+                            onPressIn={() => _isLoading(true)}
                             onPress={this.state.name ? () => this._updateNameAWS() : null}
                             style={{
                                 borderRadius: 0, borderColor: "#E0E0E0", width: "100%",

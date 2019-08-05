@@ -12,7 +12,7 @@ const maxLength = 20
 import * as mutations from '../../../../../src/graphql/mutations'
 
 // this function show the content of modals
-export default class ModalsContent extends Component {
+export default class UpdateLastName extends Component {
     state = { lastName: "" }
 
     _updateLastNameAWS = async () => {
@@ -22,19 +22,17 @@ export default class ModalsContent extends Component {
             id: userData.id,
         }
         try {
-            _isLoading(true)
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
+            _isLoading(false)
             setModalVisibleLastName(false)
         } catch (error) {
-            console.log(error)
-        } finally {
-            this.setState({ lastName: '' })
             _isLoading(false)
+            Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
         }
     }
 
     render() {
-        const { userData, isLoading } = this.props
+        const { userData, isLoading, _isLoading } = this.props
         return (
             <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
@@ -74,6 +72,7 @@ export default class ModalsContent extends Component {
                         <Button
                             bordered
                             disabled={isLoading || this.state.lastName === "" ? true : false}
+                            onPressIn={() => _isLoading(true)}
                             onPress={this.state.lastName ? () => this._updateLastNameAWS() : null}
                             style={{
                                 borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
