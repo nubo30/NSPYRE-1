@@ -53,6 +53,7 @@ class Avatar extends Component {
             "region": "sa-east-1"
         });
         try {
+            _isLoading(true)
             await Storage.put(`users/${userData.email}/avatar/${avatar.name}`, avatar.blob, {
                 progressCallback(progress) {
                     Toast.show({
@@ -102,7 +103,6 @@ class Avatar extends Component {
                 <Button
                     disabled={isLoading}
                     small rounded bordered
-                    onPressIn={() => _isLoading(true)}
                     onPress={() => { this.useLibraryHandler() }}
                     style={{ borderColor: isLoading ? "#BDBDBD" : "#D81B60", alignSelf: "center", width: 110, justifyContent: 'center' }}>
                     {isLoading

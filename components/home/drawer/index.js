@@ -7,7 +7,6 @@ import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
 
 // child component
-import AssociatedContest from "./associatedContest/index"
 import ModifyProfile from './updateProfile/index';
 
 // Icons
@@ -17,13 +16,10 @@ import { Feather } from "@expo/vector-icons"
 class DrawerRight extends Component {
     state = {
         modalVisibleModidfyProfile: false,
-        modalVisibleAssociatedContestState: false,
     }
 
     // Open modals
     _setModalVisibleModidfyProfile = (visible) => this.setState({ modalVisibleModidfyProfile: visible })
-
-    setModalVisibleAssociatedContest = (visible) => this.setState({ modalVisibleAssociatedContestState: visible })
 
     // Sign Out
     handleSignOut = async () => { try { await Auth.signOut({ global: true }); this.props.navigation.navigate("Auth") } catch (error) { console.log(error) } }
@@ -64,18 +60,6 @@ class DrawerRight extends Component {
                         </Right>
                     </ListItem>
 
-                    {/* Associated contest */}
-                    <ListItem last icon onPress={() => this.setModalVisibleAssociatedContest(true)}>
-                        <Left>
-                            <Feather name="pocket" size={20} color="#333" />
-                        </Left>
-                        <Body>
-                            <Text style={{ color: "#333" }}>Associated Contest</Text>
-                        </Body>
-                        <Right>
-                            <Feather name="arrow-right" size={20} color="#E0E0E0" />
-                        </Right>
-                    </ListItem>
                     <ListItem itemDivider style={{ height: 20, borderTopColor: "#CFD8DC", borderBottomColor: "#CFD8DC", borderBottomWidth: 0.5, borderTopWidth: 0.5 }} />
 
                     {/* Salir de la aplicacion */}
@@ -98,10 +82,6 @@ class DrawerRight extends Component {
                         }} />
                 </List>
 
-                {/* Associated Contest */}
-                <AssociatedContest
-                    modalVisible={this.state.modalVisibleAssociatedContestState}
-                    setModalVisibleAssociatedContest={this.setModalVisibleAssociatedContest} />
 
                 {/* Modify Profile User */}
                 <ModifyProfile

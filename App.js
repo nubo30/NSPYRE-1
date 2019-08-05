@@ -14,7 +14,6 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator } from 
 Sentry.enableInExpoDevelopment = false;
 Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
 
-
 // Amplify config
 Amplify.configure({
     // API
@@ -22,7 +21,7 @@ Amplify.configure({
     "aws_appsync_graphqlEndpoint": "https://kznse54eyjh5hhzqgu5adedusy.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-vpsfqylkobeolodlg5qhbeto7q",
+    "aws_appsync_apiKey": "da2-ernsefrq5vglvhrcmjuht6abza",
     // AUTH
     Auth: {
         identityPoolId: 'us-east-1_J52Fp9oFz', //REQUIRED - Amazon Cognito Identity Pool ID

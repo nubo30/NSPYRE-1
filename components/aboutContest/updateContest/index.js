@@ -156,33 +156,38 @@ export default class UpdateContest extends Component {
         const { nameOfContest, description, instructions, picture, dateChoose, video } = this.state
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
-        omitDeep(contest, ['user', '__typename'])
+        omitDeep(contest, ['user', '__typename', 'audience'])
         AWS.config.update({
             accessKeyId: "AKIAIQA34573X4TITQEQ",
             secretAccessKey: "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",
             "region": "sa-east-1"
         })
+        let blobPicture; let blobVideo
 
         // PICTURE OF THE CONTEST
-        const blobPicture = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () { resolve(xhr.response) };
-            xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-            xhr.responseType = "blob";
-            xhr.open("GET", picture.localUrl ? picture.localUrl : contest.general.picture.localUrl, true);
-            xhr.send(null);
-        });
+        if (picture.localUrl) {
+            blobPicture = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () { resolve(xhr.response) };
+                xhr.onerror = function () { reject(new TypeError("Network request failed")) };
+                xhr.responseType = "blob";
+                xhr.open("GET", picture.localUrl ? picture.localUrl : contest.general.picture.localUrl, true);
+                xhr.send(null);
+            });
+        }
 
-        // VIDEO OF THE CONTEST
-        const blobVideo = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () { resolve(xhr.response) };
-            xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-            xhr.responseType = "blob";
-            xhr.open("GET", video.localUrl ? video.localUrl : contest.general.video.localUrl, true);
-            xhr.send(null);
-        });
+        if (video.localUrl) {
+            // VIDEO OF THE CONTEST
+            blobVideo = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () { resolve(xhr.response) };
+                xhr.onerror = function () { reject(new TypeError("Network request failed")) };
+                xhr.responseType = "blob";
+                xhr.open("GET", video.localUrl ? video.localUrl : contest.general.video.localUrl, true);
+                xhr.send(null);
+            });
 
+        }
         Object.assign(contest, {
             general: {
                 nameOfContest: nameOfContest ? nameOfContest : contest.general.nameOfContest,

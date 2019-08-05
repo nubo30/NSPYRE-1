@@ -1,5 +1,5 @@
 ##################################################################### ESTRUCTURA DEL USUARIO #####################################################################
-type User @model @auth(rules: [{allow: owner}]){
+type User @model{
   id: ID!
   userId: ID!
   name: String!

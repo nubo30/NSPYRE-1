@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { FlatList, Platform } from 'react-native';
-import { Container, View } from "native-base"
+import { Container, View, Tab, Tabs, Text } from "native-base"
 import SearchBar from 'react-native-searchbar';
 import _ from 'lodash'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // childComponents
 import HeaderContest from "./header"
@@ -26,12 +27,12 @@ class UserContest extends Component {
     }
 
     render() {
-        const { userData, _setModalVisibleYourContest } = this.props
+        const { userData, _setModalVisibleYourContest, } = this.props
         const { input } = this.state
 
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
-        
+
         return (
             <Container>
                 <GadrientsListContenst />
@@ -52,20 +53,38 @@ class UserContest extends Component {
 
                 {/* Header */}
                 <HeaderContest _openSearchBar={this._openSearchBar} _setModalVisibleYourContest={_setModalVisibleYourContest} />
-
-                {
-                    filterContest.length
-                        ? <FlatList
-                            data={filterContest}
-                            renderItem={({ item, index }) =>
-                                <View key={index}>
-                                    <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
-                                    <View style={{ borderBottomColor: '#BDBDBD', borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
-                                </View>
-                            }
-                            keyExtractor={(item, index) => index.toString()} />
-                        : <DataNotFound inputText={input} />
-                }
+                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
+                    <Tab
+                        heading="Yours"
+                        activeTextStyle={{ color: '#D81B60' }}
+                        textStyle={{ color: '#D81B60' }}
+                        tabStyle={{ backgroundColor: "#F5F5F5" }}
+                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        {
+                            filterContest.length
+                                ? <FlatList
+                                    data={filterContest}
+                                    renderItem={({ item, index }) =>
+                                        <View key={index}>
+                                            <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                                            <View style={{ borderBottomColor: '#BDBDBD', borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
+                                        </View>
+                                    }
+                                    keyExtractor={(item, index) => index.toString()} />
+                                : <DataNotFound inputText={input} />
+                        }
+                    </Tab>
+                    <Tab
+                        heading="Associated"
+                        activeTextStyle={{ color: '#D81B60' }}
+                        textStyle={{ color: '#D81B60' }}
+                        tabStyle={{ backgroundColor: "#F5F5F5" }}
+                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
+                            <Text style={{ color: '#BDBDBD', fontSize: wp(6.5), alignSelf: 'center', textAlign: 'center' }}>You have not joined any contest!</Text>
+                        </View>
+                    </Tab>
+                </Tabs>
             </Container>
 
         )

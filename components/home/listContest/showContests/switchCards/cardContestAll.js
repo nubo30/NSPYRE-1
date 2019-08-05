@@ -30,4 +30,4 @@ class cardContestAll extends Component {
     }
 }
 
-export default (withNavigation(cardContestAll))
+export default withNavigation(cardContestAll)
