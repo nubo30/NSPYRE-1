@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Platform, StyleSheet, View } from 'react-native';
-import { API, graphqlOperation } from 'aws-amplify'
+import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { Button, Text } from "native-base"
 import { Grid, Row } from "react-native-easy-grid"
@@ -56,7 +56,8 @@ class ShowContest extends Component {
             openModalUpdateContest: false,
             modalVisibleAboutTheContest: false,
             modalVisibleHowToParticipe: false,
-            modalVisiblePrizes: false
+            modalVisiblePrizes: false,
+            userLogin: false
         };
     }
 
@@ -85,8 +86,9 @@ class ShowContest extends Component {
         const { navigation } = this.props
         const contest = navigation.getParam('contest');
         try {
+            const { attributes } = await Auth.currentUserInfo()
             const { data } = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
-            this.setState({ contest: data.getCreateContest })
+            this.setState({ contest: data.getCreateContest, userLogin: attributes.sub === contest.user.id ? true : false })
         } catch (error) {
             console.log(error);
         }
@@ -153,6 +155,7 @@ class ShowContest extends Component {
             contest,
             userData,
             swiperIndex,
+            userLogin,
 
             // Actions
             hideCongrastSectionAudience,
@@ -166,9 +169,11 @@ class ShowContest extends Component {
 
         return (
             <Swiper
+                scrollEnabled={userLogin}
                 ref={(swiperRoot) => this.swiperRoot = swiperRoot}
                 onIndexChanged={(index) => this.setState({ swiperIndex: index })}
-                loop={false} showsPagination={false}>
+                loop={false}
+                showsPagination={false}>
                 <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                     <GadrientsAboutContest />
@@ -193,17 +198,19 @@ class ShowContest extends Component {
                             <Row size={15} style={{ justifyContent: 'space-between' }}>
                                 <SocialNetwork />
                                 <View style={{ justifyContent: 'center', left: 5, flexDirection: 'row' }}>
-                                    <Button
-                                        onPress={() => this._setModalVisibleUpdate(true)}
-                                        transparent color="#fff" style={{
-                                            borderRadius: 100,
-                                            width: 50,
-                                            height: 50,
-                                            justifyContent: 'center',
-                                            alignItems: 'center'
-                                        }}>
-                                        <Ionicons name="md-create" style={{ color: "#BDBDBD", fontSize: 30 }} />
-                                    </Button>
+                                    {userLogin
+                                        ? <Button
+                                            onPress={() => this._setModalVisibleUpdate(true)}
+                                            transparent color="#fff" style={{
+                                                borderRadius: 100,
+                                                width: 50,
+                                                height: 50,
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}>
+                                            <Ionicons name="md-create" style={{ color: "#BDBDBD", fontSize: 30 }} />
+                                        </Button>
+                                        : null}
                                 </View>
                             </Row>
 
@@ -312,19 +319,20 @@ class ShowContest extends Component {
                     </Modal>
 
                 </View>
-                <View style={{ flex: 1 }}>
-                    <SecondaryView
-                        // Data
-                        contest={contest}
+                {userLogin
+                    ? <View style={{ flex: 1 }}>
+                        <SecondaryView
+                            // Data
+                            contest={contest}
 
-                        // Actions
-                        swiperIndex={swiperIndex}
+                            // Actions
+                            swiperIndex={swiperIndex}
 
-                        // Function
-                        _setModalVisibleAudience={this._setModalVisibleAudience}
-                        _changeSwiperRoot={this._changeSwiperRoot}
-                    />
-                </View>
+                            // Function
+                            _setModalVisibleAudience={this._setModalVisibleAudience}
+                            _changeSwiperRoot={this._changeSwiperRoot}
+                        />
+                    </View> : null}
             </Swiper>
         );
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ImageBackground, KeyboardAvoidingView, Alert, Platform, Image } from 'react-native';
 import { ImagePicker, Permissions, Video } from 'expo';
+import { withNavigation } from 'react-navigation'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import { Header, Left, Button, Icon, Text, Title, Content, View, Right, ListItem, Body, Switch, Item, Input, Container, List, Picker, Spinner, Toast, Root } from 'native-base'
 import { Grid, Row, Col } from 'react-native-easy-grid'
@@ -22,7 +23,7 @@ import { MyStatusBar } from '../../Global/statusBar/index'
 // GRAPHQL
 import * as mutations from '../../../src/graphql/mutations'
 
-export default class UpdateContest extends Component {
+class UpdateContest extends Component {
 
     state = {
         dateChoose: "",
@@ -352,8 +353,21 @@ export default class UpdateContest extends Component {
             })
         }
     }
+
+    _deleteContest = async () => {
+        const { contest, navigation, _setModalVisibleUpdate, userData } = this.props
+        try {
+            await API.graphql(graphqlOperation(mutations.deleteCreateContest, { input: { id: contest.id } }))
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
+            await _setModalVisibleUpdate(false)
+            await navigation.navigate('Home')
+        } catch (error) {
+            alert(error)
+        }
+    }
+
     render() {
-        const { contest, openModalUpdateContest, _setModalVisibleUpdate } = this.props
+        const { contest, userData, openModalUpdateContest, _setModalVisibleUpdate } = this.props
         const {
             picture,
             video,
@@ -565,6 +579,26 @@ export default class UpdateContest extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
+
+                                    <Button
+                                        onPress={() => Alert.alert(
+                                            `${userData.name}`,
+                                            `Do you really want to delete the hello ${contest.general.nameOfContest}`,
+                                            [
+                                                {
+                                                    text: 'Cancel',
+                                                    onPress: () => { },
+                                                    style: 'cancel',
+                                                },
+                                                { text: 'OK', onPress: () => this._deleteContest() },
+                                            ],
+                                            { cancelable: false },
+                                        )}
+                                        transparent
+                                        style={{ position: 'absolute', bottom: 0, alignSelf: 'center' }}>
+                                        <Ionicons name="md-trash" style={{ color: '#F44336', fontSize: wp(7) }} />
+                                    </Button>
+
                                 </View>
 
                                 {/* ADD PRIZES */}
@@ -1060,3 +1094,5 @@ export default class UpdateContest extends Component {
         );
     }
 }
+
+export default withNavigation(UpdateContest)

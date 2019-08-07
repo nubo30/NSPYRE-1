@@ -31,7 +31,7 @@ class ListContest extends Component {
 
   render() {
     const { categories, isReady } = this.state
-    const { userData } = this.props
+    const { userData, offLine } = this.props
     return isReady ? (
       <FlatList
         style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4 }}
@@ -47,6 +47,7 @@ class ListContest extends Component {
               shadowOpacity: 1,
               shadowOffset: { width: 0 }
             }}
+            disabled={offLine}
             underlayColor="rgba(0,0,0,0.0)"
             onPress={() => { this.setState({ animationPulse: true, indexItem: item.id }) }}>
             <Animatable.View

@@ -26,13 +26,13 @@ class UserInfo extends Component {
             modalVisibleYourContests,
             modalVisibleRedeemPoints,
         } = this.state
-        const { userData, isReady, prizeCategory } = this.props
+        const { userData, isReady, prizeCategory, offLine } = this.props
         return (
             <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent: 'space-around', left: '1.5%' }}>
-                <Button bordered small rounded disabled={!isReady}
+                <Button bordered small rounded disabled={!isReady || offLine}
                     onPress={() => this._setModalVisibleYourContest(true)}
-                    style={{ borderColor: "#D81B60", alignSelf: 'center' }}>
-                    <Text style={{ color: "#D81B60", fontSize: wp(3) }}>Your Contests</Text>
+                    style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
+                    <Text style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Your Contests</Text>
                 </Button>
 
                 {/* AVATAR */}
@@ -46,9 +46,9 @@ class UserInfo extends Component {
                     }
                 </View>
 
-                <Button disabled={!isReady} onPress={() => { this._setModalVisibleRedeemPoints(true) }}
-                    bordered small rounded style={{ borderColor: "#D81B60", alignSelf: 'center' }}>
-                    <Text style={{ color: "#D81B60", fontSize: wp(3) }}>Redeem Points</Text>
+                <Button disabled={!isReady || offLine} onPress={() => { this._setModalVisibleRedeemPoints(true) }}
+                    bordered small rounded style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
+                    <Text style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Redeem Points</Text>
                 </Button>
                 <Modal
                     animationType="slide"

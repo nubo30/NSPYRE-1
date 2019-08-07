@@ -116,7 +116,7 @@ class ShowPrizes extends Component {
                                         onLoadEnd={() => { this.setState({ loadingImg: false }) }}
                                         animation={animationPulseId === item.id ? "pulse" : undefined}
                                         onAnimationEnd={() => { navigation.navigate('AboutThePrize', { prize: item, userData }) }}
-                                        duration={400}
+                                        duration={200}
                                         style={{
                                             height: 100,
                                             shadowColor: 'rgba(0,0,0,0.3)',

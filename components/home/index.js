@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from "react-native"
+import { StatusBar, NetInfo } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -32,20 +32,28 @@ class Home extends Component {
             openDrower: false,
             actionSheetButtonIndex: "Engage",
             heightHeader: 0,
-            prizeCategory: []
+            prizeCategory: [],
+            offLine: false,
         }
         this.actionSheet = null;
     }
 
 
     componentDidMount() {
-        this.getDataFromAWS()
-        API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
-            error: ({ errors }) => {
-                console.log(errors)
-            },
-            next: (getData) => {
-                if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
+        NetInfo.addEventListener('connectionChange', (connectionInfo) => {
+            if (connectionInfo.type === 'none') {
+                Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 })
+                this.setState({ offLine: true })
+            } else {
+                this.getDataFromAWS()
+                API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
+                    error: ({ errors }) => {
+                        console.log(errors)
+                    },
+                    next: (getData) => {
+                        if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
+                    }
+                })
             }
         })
     }
@@ -85,7 +93,7 @@ class Home extends Component {
     }
 
     render() {
-        const { userData, openDrower, isReady, prizeCategory } = this.state
+        const { userData, openDrower, isReady, prizeCategory, offLine } = this.state
         return (
             <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                 {/* Header */}
@@ -130,10 +138,12 @@ class Home extends Component {
                                 <StatusBar barStyle='light-content' />
 
                                 {/* Componentes como el avatar, your contest y redeem points */}
-                                <UserInfo prizeCategory={prizeCategory} userData={userData} isReady={isReady} />
-                                <Button rounded transparent style={{ alignSelf: "center", top: -10 }}
+                                <UserInfo prizeCategory={prizeCategory} userData={userData} isReady={isReady} offLine={offLine} />
+                                <Button
+                                    disabled={offLine}
+                                    rounded transparent style={{ alignSelf: "center", top: -10 }}
                                     onPress={() => this.showActionSheet()}>
-                                    <Text style={{ color: "#D82B60", textAlign: "center", fontSize: wp(4.4) }}>{`Create a contest or Submit a prize`}</Text>
+                                    <Text style={{ color: offLine ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4.4) }}>{`Create a contest or Submit a prize`}</Text>
                                 </Button>
                                 <ActionSheet ref={(c) => { this.actionSheet = c; }} />
                                 <Text style={{ fontSize: wp(8), fontWeight: "200", color: "#333", textAlign: "center", top: -5 }}>
@@ -141,7 +151,7 @@ class Home extends Component {
                                 </Text>
                             </Header>
                             <Content padder showsVerticalScrollIndicator={false} style={{ backgroundColor: 'rgba(0,0,0,0.0)' }}>
-                                <ListContest userData={userData} />
+                                <ListContest offLine={offLine} userData={userData} />
                             </Content>
                             <View style={{ height: this.state.heightHeader }} />
                         </Container>

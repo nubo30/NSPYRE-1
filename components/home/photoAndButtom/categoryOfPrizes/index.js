@@ -53,7 +53,7 @@ class ListGeneralPrizes extends Component {
                                         onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
                                         animation={animationPulseIdCategory === item.id ? "pulse" : undefined}
                                         onAnimationEnd={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('Prizes', { categoryPrizes: item, userData }) }}
-                                        duration={400}
+                                        duration={200}
                                         style={{
                                             height: 100,
                                             shadowColor: 'rgba(0,0,0,0.3)',
@@ -88,7 +88,7 @@ class ListGeneralPrizes extends Component {
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
-                        <Content>
+                        <Content contentContainerStyle={{ paddingBottom: 40 }}>
                             {
                                 userData.submitPrize.items.length
                                     ? userData.submitPrize.items.map((item, key) =>
@@ -99,7 +99,7 @@ class ListGeneralPrizes extends Component {
                                             <Animatable.View
                                                 animation={animationPulseId === item.id ? "pulse" : undefined}
                                                 onAnimationEnd={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('AboutThePrize', { prize: item, userData }) }}
-                                                duration={400}
+                                                duration={200}
                                                 style={{
                                                     height: 100,
                                                     shadowColor: 'rgba(0,0,0,0.3)',
@@ -143,7 +143,7 @@ class ListGeneralPrizes extends Component {
                             }
                             <Button
                                 onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                small style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 30 }}>
+                                small style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 20 }}>
                                 <Text>Create another!</Text>
                             </Button>
                         </Content>

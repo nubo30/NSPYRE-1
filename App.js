@@ -66,7 +66,6 @@ class InfluencemeNow extends Component {
     state = { isReady: false }
 
     async componentWillMount() {
-
         await Expo.Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
@@ -74,7 +73,9 @@ class InfluencemeNow extends Component {
         this.setState({ isReady: true })
     }
 
-    render() { return this.state.isReady ? <SignInOrSingUp /> : <AppLoading /> }
+    render() {
+        return this.state.isReady ? <SignInOrSingUp /> : <AppLoading />
+    }
 }
 
 const navigationOptions = { header: null, gesturesEnabled: false }
@@ -119,7 +120,7 @@ export default class App extends Component {
     componentDidMount() {
         // Subscribe to the network
         NetInfo.addEventListener('connectionChange', (connectionInfo) => {
-            if (connectionInfo.type === 'none') { Toast.show({ text: "The network connection has been lost.", type: "warning", duration: 5000 }) }
+            if (connectionInfo.type === 'none') { Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 }) }
         })
     }
 

@@ -85,7 +85,7 @@ class Avatar extends Component {
 
     render() {
         const { avatar } = this.state
-        const { userData, isLoading, _isLoading } = this.props
+        const { userData, isLoading } = this.props
         return (
             <View style={{ flex: 1, minHeight: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 <View>
