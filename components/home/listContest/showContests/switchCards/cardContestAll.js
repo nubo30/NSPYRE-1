@@ -25,7 +25,7 @@ class cardContestAll extends Component {
                     }}>
                     <CardContent item={item} />
                 </Animatable.View>
-            </TouchableHighlight >
+            </TouchableHighlight>
         )
     }
 }

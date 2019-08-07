@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Separator } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
@@ -14,7 +14,7 @@ import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
 
 // Icons
-import { Ionicons, Foundation, Entypo, FontAwesome } from '@expo/vector-icons'
+import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -22,54 +22,59 @@ const screenHeight = Dimensions.get('window').height
 class AboutYou extends Component {
     state = {
         // Inputs
-        location: {
+        businessLocation: {
             street: "",
             city: "",
             state: "",
             country: ""
         },
+        socialMediaHandle: {
+            facebook: "",
+            twitter: "",
+            instagram: "",
+            snapchat: ""
+        },
         companyName: "",
-        titleInTheCompany: "",
 
         isvalidFormAnimation: false,
         isLoading: false,
         messageFlash: { cognito: null },
 
         // Modal
-        visibleModalLocation: false,
+        visibleModalBusinessLocation: false,
         visibleModalCompanyname: false,
-        visibleModalTitleInTheCompany: false
+        visibleModalSocialMediaHandle: false
     }
 
     // Modal
-    _visibleModalLocation = (visible) => this.setState({ visibleModalLocation: visible })
+    _visibleModalBusinessLocation = (visible) => this.setState({ visibleModalBusinessLocation: visible })
     _visibleModalCompanyname = (visible) => this.setState({ visibleModalCompanyname: visible })
-    _visibleModalTitleInTheCompany = (visible) => this.setState({ visibleModalTitleInTheCompany: visible })
+    _visibleModalSocialMediaHandle = (visible) => this.setState({ visibleModalSocialMediaHandle: visible })
 
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { location, companyName, titleInTheCompany } = this.state
-        const data = { aboutTheUser: { location, companyName, titleInTheCompany }, createContestUserId: userData.sub, createdAt: moment().toISOString() }
+        const { businessLocation, companyName, socialMediaHandle } = this.state
+        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.sub, createdAt: moment().toISOString() }
         try {
             await _dataFromForms(data)
+            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
             await _indexChangeSwiper(1)
         } catch (error) {
             console.log(error)
-        } finally {
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
         }
     }
 
     _validateForm = () => {
-        const { location, companyName, titleInTheCompany } = this.state
-        location.street && location.city && location.state && location.country
+        const { businessLocation, companyName, socialMediaHandle } = this.state
+        businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country
             ? isAscii(companyName)
-                ? isAscii(titleInTheCompany)
+                ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
                     ? this._submit()
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name company" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid location" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid comapany social media handles" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
+            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid business location" } } })
     }
 
     render() {
@@ -79,14 +84,14 @@ class AboutYou extends Component {
             messageFlash,
 
             // Input
-            location,
+            businessLocation,
             companyName,
-            titleInTheCompany,
+            socialMediaHandle,
 
             // modal
-            visibleModalLocation,
+            visibleModalBusinessLocation,
             visibleModalCompanyname,
-            visibleModalTitleInTheCompany
+            visibleModalSocialMediaHandle
         } = this.state
         const { userData, navigation } = this.props
         return (
@@ -111,13 +116,16 @@ class AboutYou extends Component {
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
                         <Text style={{ fontSize: wp(4.5), color: isLoading ? '#BDBDBD' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#BDBDBD" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
+                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#BDBDBD" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little more!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
-                            <Content contentContainerStyle={{ paddingTop: 10 }} keyboardShouldPersistTaps={'always'}>
+                            <Content contentContainerStyle={{ paddingTop: 10 }}
+                                keyboardShouldPersistTaps={'always'}>
+
                                 <List>
+
                                     {/* NAME */}
                                     <ListItem icon>
                                         <Left>
@@ -182,18 +190,18 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* LOCATION */}
-                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalLocation(true)}>
+                                    {/* BUSINESS ADDRESS */}
+                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalBusinessLocation(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }} onPress={() => this._visibleModalLocation(true)}>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }} onPress={() => this._visibleModalBusinessLocation(true)}>
                                                 <Entypo style={{ fontSize: wp(6), color: '#FFF' }} active name="location-pin" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Location</Text>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Business location</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{location.street && location.city && location.state && location.country ? "Street, City, State, Cou..." : "Not specified"}</Text>
+                                            <Text>{businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country && businessLocation.city && businessLocation.state && businessLocation.country ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -209,23 +217,23 @@ class AboutYou extends Component {
                                             <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Company Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{companyName ? _.truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
+                                            <Text>{companyName ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
-                                    {/* TITTLE IN THE COMPANY */}
-                                    <ListItem icon disabled={isLoading} last onPress={() => this._visibleModalTitleInTheCompany(true)}>
+                                    {/* COMPANY SOCIAL MEDIA HANDLE */}
+                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalSocialMediaHandle(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#009688" }}>
-                                                <Entypo style={{ fontSize: wp(5.5), color: '#FFF', left: 1, top: 1 }} active name="creative-commons-attribution" />
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FF9800" }}>
+                                                <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Title in the company</Text>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Company social media handles</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{titleInTheCompany ? _.truncate(titleInTheCompany, { separator: '...', length: 20 }) : "Not specified"}</Text>
+                                            <Text>{socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -279,11 +287,11 @@ class AboutYou extends Component {
                     </Animatable.View>
                 </Footer>
 
-                {/* LOCATION MODAL */}
+                {/* BUSSINES LOCATION MODAL */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
-                    visible={visibleModalLocation}
+                    visible={visibleModalBusinessLocation}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
@@ -297,68 +305,68 @@ class AboutYou extends Component {
 
                         {/* LOCATION */}
                         <Item
-                            error={isAscii(location.street) ? false : true}
-                            success={isAscii(location.street) ? true : false}
+                            error={isAscii(businessLocation.street) ? false : true}
+                            success={isAscii(businessLocation.street) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Street"
                                 placeholderTextColor="#EEEE"
                                 autoFocus={true}
                                 maxLength={512}
-                                value={location.street}
+                                value={businessLocation.street}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
                                 style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, street: value } })}
+                                onChangeText={(value) => this.setState({ businessLocation: { ...businessLocation, street: value } })}
                             />
                         </Item>
 
                         {/* CITY */}
                         <Item
-                            error={isAscii(location.city) ? false : true}
-                            success={isAscii(location.city) ? true : false}
+                            error={isAscii(businessLocation.city) ? false : true}
+                            success={isAscii(businessLocation.city) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="City"
                                 placeholderTextColor="#EEEE"
                                 maxLength={512}
-                                value={location.city}
+                                value={businessLocation.city}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
                                 style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, city: value } })} />
+                                onChangeText={(value) => this.setState({ businessLocation: { ...businessLocation, city: value } })} />
                         </Item>
 
                         {/* STATE */}
                         <Item
-                            error={isAscii(location.state) ? false : true}
-                            success={isAscii(location.state) ? true : false}
+                            error={isAscii(businessLocation.state) ? false : true}
+                            success={isAscii(businessLocation.state) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="State"
                                 placeholderTextColor="#EEEE"
                                 maxLength={512}
-                                value={location.state}
+                                value={businessLocation.state}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
                                 style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, state: value } })} />
+                                onChangeText={(value) => this.setState({ businessLocation: { ...businessLocation, state: value } })} />
                         </Item>
 
                         {/* COUNTRY */}
                         <Item
-                            error={isAscii(location.country) ? false : true}
-                            success={isAscii(location.country) ? true : false}
+                            error={isAscii(businessLocation.country) ? false : true}
+                            success={isAscii(businessLocation.country) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Country"
                                 placeholderTextColor="#EEEE"
                                 maxLength={512}
-                                value={location.country}
+                                value={businessLocation.country}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
                                 style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, country: value } })} />
+                                onChangeText={(value) => this.setState({ businessLocation: { ...businessLocation, country: value } })} />
                         </Item>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -367,13 +375,13 @@ class AboutYou extends Component {
                                     bordered
                                     onPress={() => {
                                         this.setState({
-                                            location: {
+                                            businessLocation: {
                                                 street: "",
                                                 city: "",
                                                 state: "",
                                                 country: ""
                                             }
-                                        }); this._visibleModalLocation(false)
+                                        }); this._visibleModalBusinessLocation(false)
                                     }}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
@@ -385,12 +393,12 @@ class AboutYou extends Component {
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
                                 <Button
                                     bordered
-                                    onPress={location.street ? () => this._visibleModalLocation(false) : null}
+                                    onPress={businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country ? () => this._visibleModalBusinessLocation(false) : null}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(location.street && location.city && location.state && location.country) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: isAscii(businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -460,11 +468,11 @@ class AboutYou extends Component {
                     </KeyboardAvoidingView>
                 </Modal>
 
-                {/* TITLE IN THE COMPANY */}
+                {/* COMPANY SOCIAL MEDIA HANDLE */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
-                    visible={visibleModalTitleInTheCompany}
+                    visible={visibleModalSocialMediaHandle}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
@@ -473,33 +481,121 @@ class AboutYou extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Title In The Company</Title>
+                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Social Media Handle</Title>
                         </Header>
 
-                        {/* TITLE IN THE COMPANY */}
-                        <Item
-                            error={isAscii(titleInTheCompany) ? false : true}
-                            success={isAscii(titleInTheCompany) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Title In The Company"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={titleInTheCompany}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ titleInTheCompany: value })} />
-                        </Item>
+                        {/* FACEBOOK */}
+                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#3b5998" }}>
+                                    <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
+                                </Button>
+                            </Left>
+                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                <Item
+                                    error={isAscii(socialMediaHandle.facebook) ? false : true}
+                                    success={isAscii(socialMediaHandle.facebook) ? true : false}>
+                                    <Input
+                                        autoFocus={true}
+                                        placeholder="Facebook"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={512}
+                                        value={socialMediaHandle.facebook}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(7) }}
+                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
+                                    />
+                                </Item>
+                            </Body>
+                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                        </ListItem>
+
+                        {/* TWITTER */}
+                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#00acee" }}>
+                                    <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
+                                </Button>
+                            </Left>
+                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                <Item
+                                    error={isAscii(socialMediaHandle.twitter) ? false : true}
+                                    success={isAscii(socialMediaHandle.twitter) ? true : false}>
+                                    <Input
+                                        placeholder="Twitter"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={512}
+                                        value={socialMediaHandle.twitter}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(7) }}
+                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
+                                    />
+                                </Item>
+                            </Body>
+                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                        </ListItem>
+
+                        {/* INSTAGRAM */}
+                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#E1306C" }}>
+                                    <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                </Button>
+                            </Left>
+                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                <Item
+                                    error={isAscii(socialMediaHandle.instagram) ? false : true}
+                                    success={isAscii(socialMediaHandle.instagram) ? true : false}>
+                                    <Input
+                                        placeholder="Instagram"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={512}
+                                        value={socialMediaHandle.instagram}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(7) }}
+                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
+                                    />
+                                </Item>
+                            </Body>
+                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                        </ListItem>
+
+                        {/* SNACPCHAT */}
+                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#FFEA00" }}>
+                                    <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                </Button>
+                            </Left>
+                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                <Item
+                                    error={isAscii(socialMediaHandle.snapchat) ? false : true}
+                                    success={isAscii(socialMediaHandle.snapchat) ? true : false}>
+                                    <Input
+                                        placeholder="Snapchat"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={512}
+                                        value={socialMediaHandle.snapchat}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(7) }}
+                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
+                                    />
+                                </Item>
+                            </Body>
+                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
                                 <Button
                                     bordered
                                     onPress={() => {
-                                        this.setState({ titleInTheCompany: "" });
-                                        this._visibleModalTitleInTheCompany(false)
+                                        this.setState({ socialMediaHandle: { facebook: "", twitter: "", instagram: "", snapchat: "" } });
+                                        this._visibleModalSocialMediaHandle(false)
                                     }}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
@@ -511,12 +607,12 @@ class AboutYou extends Component {
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
                                 <Button
                                     bordered
-                                    onPress={titleInTheCompany ? () => this._visibleModalTitleInTheCompany(false) : null}
+                                    onPress={socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? () => this._visibleModalSocialMediaHandle(false) : null}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(titleInTheCompany) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: isAscii(socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

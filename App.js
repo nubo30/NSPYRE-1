@@ -55,11 +55,12 @@ import CreateContest from "./components/formsUsers/createAContest/index"
 import SubmitPrize from "./components/formsUsers/submitAPrize/index"
 import Congratulation from "./components/congratulations/index"
 import PromoteMyContest from "./components/promoteMyContest/index"
-import RedeemThePrizes from "./components/redeemThePrizes/index"
 import Home from "./components/home/index"
 import Contests from "./components/home/listContest/showContests/index"
 import AboutContest from "./components/aboutContest/index"
 import CreateAContest from "./components/home/drawer/createAContest/index"
+import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/index"
+import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize/index"
 
 class InfluencemeNow extends Component {
     state = { isReady: false }
@@ -89,10 +90,11 @@ const RootStack = createStackNavigator(
         'SubmitPrize': { screen: SubmitPrize, navigationOptions },
         'Congratulation': { screen: Congratulation, navigationOptions },
         'PromoteMyContest': { screen: PromoteMyContest, navigationOptions },
-        'RedeemThePrizes': { screen: RedeemThePrizes, navigationOptions },
         'Contests': { screen: Contests, navigationOptions },
         'AboutContest': { screen: AboutContest, navigationOptions },
-        'CreateAContest': { screen: CreateAContest },
+        'CreateAContest': { screen: CreateAContest, navigationOptions },
+        'Prizes': { screen: Prizes, navigationOptions },
+        'AboutThePrize': { screen: AboutThePrize, navigationOptions },
     }
 )
 

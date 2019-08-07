@@ -10,7 +10,8 @@ type User @model{
   phone: AWSPhone!
   datetime: AWSDateTime!
   scope: Scope
-  createContest: [CreateContest] @connection(name: "UserCreateContest") 
+  createContest: [CreateContest] @connection(name: "UserCreateContest")
+  submitPrize: [SubmitPrize] @connection(name: "UserSubmitPrize")
 }
 
 ##################################################################### SCOPE #####################################################################
@@ -139,14 +140,50 @@ type PrizesCategory @model {
 }
 
 enum PrizeCategory {
-  GAMER
-  SPIRITUAL_RELIGIOUS
-  BEVERAGE
-  MUSIC
-  SPORT
-  FOOD
-  AMAZON_SELLERS
-  MOVIES_TV_SHOWS_OTT
+  APPAREL CLOTHING
+  TRIPS
+  CRYPTOCURRENCY
+  SHOES
   ELECTRONICS
-  CRIPTOCURRENCY
+  GAMING
+  TICKETS
+  AMAZON
+  CARS
+  MILES
+  COUPON CODES
+  HATS
+  OTHERS
+}
+
+##################################################################### SUBMITAPRIZE #####################################################################
+type SubmitPrize @model {
+  id: ID!
+  user: User @connection(name: "UserSubmitPrize")
+  aboutTheCompany: AboutTheCompany!
+  category: PrizeCategory!
+  general: GeneralPrize!
+  createdAt: AWSDateTime!
+}
+
+type AboutTheCompany {
+  businessLocation: Location
+  companyName: String
+  socialMediaHandle: SocialMediaHandle  
+}
+
+type SocialMediaHandle {
+  facebook: String
+  twitter: String
+  instagram: String
+  snapchat: String
+}
+
+type GeneralPrize {
+  price: String
+  nameOfPrize: String
+  description: String
+  instructions: String
+  socialMediaHandle: SocialMediaHandle
+  picture: Picture
+  video: Video
 }

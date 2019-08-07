@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
@@ -8,9 +8,6 @@ import AboutYou from './views/aboutYou'
 import AboutTheContest from './views/aboutTheContest'
 import Prizes from './views/prizes'
 import Summary from './views/summary'
-
-// GraphQL
-import * as queries from '../../../src/graphql/queries'
 
 export default class CreateContest extends Component {
     state = {

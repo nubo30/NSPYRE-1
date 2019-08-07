@@ -30,6 +30,9 @@ export const onCreateUser = `subscription OnCreateUser {
           createContest {
             nextToken
           }
+          submitPrize {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -113,6 +116,73 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           nextToken
         }
+      }
+      nextToken
+    }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
       }
       nextToken
     }
@@ -148,6 +218,9 @@ export const onUpdateUser = `subscription OnUpdateUser {
           createContest {
             nextToken
           }
+          submitPrize {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -234,6 +307,73 @@ export const onUpdateUser = `subscription OnUpdateUser {
       }
       nextToken
     }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -264,6 +404,9 @@ export const onDeleteUser = `subscription OnDeleteUser {
           datetime
           scope
           createContest {
+            nextToken
+          }
+          submitPrize {
             nextToken
           }
         }
@@ -349,6 +492,73 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           nextToken
         }
+      }
+      nextToken
+    }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
       }
       nextToken
     }
@@ -405,6 +615,35 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           audience {
             nextToken
           }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
         }
         nextToken
       }
@@ -583,6 +822,35 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         }
         nextToken
       }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -758,6 +1026,35 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         }
         nextToken
       }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -904,6 +1201,14 @@ export const onCreateAudience = `subscription OnCreateAudience {
           }
           nextToken
         }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1046,6 +1351,14 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           }
           nextToken
         }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1185,6 +1498,14 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             category
             createdAt
             timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
           }
           nextToken
         }
@@ -1357,6 +1678,393 @@ export const onDeletePrizesCategory = `subscription OnDeletePrizesCategory {
     name
     picture
     category
+  }
+}
+`;
+export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
+  onCreateSubmitPrize {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
+  }
+}
+`;
+export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
+  onUpdateSubmitPrize {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
+  }
+}
+`;
+export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
+  onDeleteSubmitPrize {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
   }
 }
 `;

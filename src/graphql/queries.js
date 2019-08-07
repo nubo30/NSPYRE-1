@@ -30,6 +30,9 @@ export const getUser = `query GetUser($id: ID!) {
           createContest {
             nextToken
           }
+          submitPrize {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -116,6 +119,73 @@ export const getUser = `query GetUser($id: ID!) {
       }
       nextToken
     }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -175,6 +245,35 @@ export const listUsers = `query ListUsers(
         }
         nextToken
       }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     nextToken
   }
@@ -230,6 +329,35 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           audience {
             nextToken
           }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
         }
         nextToken
       }
@@ -383,6 +511,14 @@ export const listCreateContests = `query ListCreateContests(
           }
           nextToken
         }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -498,6 +634,14 @@ export const getAudience = `query GetAudience($id: ID!) {
             category
             createdAt
             timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
           }
           nextToken
         }
@@ -640,6 +784,9 @@ export const listAudiences = `query ListAudiences(
           datetime
           scope
           createContest {
+            nextToken
+          }
+          submitPrize {
             nextToken
           }
         }
@@ -801,6 +948,220 @@ export const listPrizesCategorys = `query ListPrizesCategorys(
       name
       picture
       category
+    }
+    nextToken
+  }
+}
+`;
+export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
+  getSubmitPrize(id: $id) {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
+  }
+}
+`;
+export const listSubmitPrizes = `query ListSubmitPrizes(
+  $filter: ModelSubmitPrizeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSubmitPrizes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user {
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+      }
+      aboutTheCompany {
+        businessLocation {
+          city
+          country
+          state
+          street
+        }
+        companyName
+        socialMediaHandle {
+          facebook
+          twitter
+          instagram
+          snapchat
+        }
+      }
+      category
+      general {
+        price
+        nameOfPrize
+        description
+        instructions
+        socialMediaHandle {
+          facebook
+          twitter
+          instagram
+          snapchat
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
     }
     nextToken
   }

@@ -16,25 +16,25 @@ function HeaderCategoryOfPrizes(props) {
     const { _setModalVisibleRedeemPoints } = props
     return Platform.OS === 'ios'
         ? (
-            <Header style={{ height: 70, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
+            <Header hasTabs style={{ height: 70, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
                 <Left style={{ flexDirection: 'row' }}>
                     <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false) }}>
                         <Icon name='arrow-back' style={{ color: "#D81B60" }} />
                         <Text style={{ left: 5, color: "#D81B60" }}>Back</Text>
                     </Button>
-                    <Title style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp('7%') }}>Category Of Prizes</Title>
+                    <Title style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp('7%') }}>Prizes</Title>
                 </Left>
             </Header>
         )
         : (
-            <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
+            <Header hasTabs style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
                 <Left>
                     <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false) }}>
                         <Icon name='arrow-back' style={{ color: "#D81B60" }} />
                     </Button>
                 </Left>
                 <Body>
-                    <Title style={{ color: "#D81B60", fontSize: wp('7%') }}>Category Of Prizes</Title>
+                    <Title style={{ color: "#D81B60", fontSize: wp('7%') }}>Prizes</Title>
                 </Body>
             </Header>
         )

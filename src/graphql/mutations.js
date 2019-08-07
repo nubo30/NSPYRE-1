@@ -30,6 +30,9 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           createContest {
             nextToken
           }
+          submitPrize {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -113,6 +116,73 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           }
           nextToken
         }
+      }
+      nextToken
+    }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
       }
       nextToken
     }
@@ -148,6 +218,9 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           createContest {
             nextToken
           }
+          submitPrize {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -234,6 +307,73 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
       }
       nextToken
     }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -264,6 +404,9 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           datetime
           scope
           createContest {
+            nextToken
+          }
+          submitPrize {
             nextToken
           }
         }
@@ -349,6 +492,73 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           }
           nextToken
         }
+      }
+      nextToken
+    }
+    submitPrize {
+      items {
+        id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
+        category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
       }
       nextToken
     }
@@ -405,6 +615,35 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           audience {
             nextToken
           }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
         }
         nextToken
       }
@@ -583,6 +822,35 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         }
         nextToken
       }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -758,6 +1026,35 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         }
         nextToken
       }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -904,6 +1201,14 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           }
           nextToken
         }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1046,6 +1351,14 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           }
           nextToken
         }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1185,6 +1498,14 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             category
             createdAt
             timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
           }
           nextToken
         }
@@ -1357,6 +1678,393 @@ export const deletePrizesCategory = `mutation DeletePrizesCategory($input: Delet
     name
     picture
     category
+  }
+}
+`;
+export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmitPrizeInput!) {
+  createSubmitPrize(input: $input) {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
+  }
+}
+`;
+export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmitPrizeInput!) {
+  updateSubmitPrize(input: $input) {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
+  }
+}
+`;
+export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmitPrizeInput!) {
+  deleteSubmitPrize(input: $input) {
+    id
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+            instructions
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutTheCompany {
+      businessLocation {
+        city
+        country
+        state
+        street
+      }
+      companyName
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+    }
+    category
+    general {
+      price
+      nameOfPrize
+      description
+      instructions
+      socialMediaHandle {
+        facebook
+        twitter
+        instagram
+        snapchat
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+    }
+    createdAt
   }
 }
 `;
