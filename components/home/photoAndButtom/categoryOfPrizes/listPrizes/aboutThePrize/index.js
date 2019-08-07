@@ -79,7 +79,7 @@ export default class AboutPrize extends Component {
                         </View>
                     </Swiper>
 
-                    <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: -5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5', top: 10 }}>
+                    <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: -5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5', }}>
                         <Text style={{ fontSize: wp(10), color: '#D81B60', fontWeight: '400' }}>Instructions</Text>
                         <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: '100' }}>
                             {prize.general.instructions}
