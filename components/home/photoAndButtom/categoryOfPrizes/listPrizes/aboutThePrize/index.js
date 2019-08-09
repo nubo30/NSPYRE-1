@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Dimensions } from 'react-native'
 import { Video } from 'expo';
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, FooterTab, Footer } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import _ from 'lodash'
 import Swiper from 'react-native-swiper'
@@ -10,13 +10,21 @@ import moment from 'moment'
 // Icons
 import { Entypo } from '@expo/vector-icons'
 
+// Child Components
+import ModalRedeemPrize from './redeemPrize'
+
 const screenHeight = Dimensions.get('window').height
 
 export default class AboutPrize extends Component {
-    state = { pictureLoading: false }
+    state = { pictureLoading: false, modalRedeemPrizeAction: false }
+
+    // Modal redeem prizes
+    _modalRedeemPrizeAction = () => {
+        this.setState({ modalRedeemPrizeAction: !this.state.modalRedeemPrizeAction })
+    }
 
     render() {
-        const { pictureLoading } = this.state
+        const { pictureLoading, modalRedeemPrizeAction } = this.state
         const { navigation } = this.props
         const prize = navigation.getParam('prize')
         const userData = navigation.getParam('userData')
@@ -42,7 +50,7 @@ export default class AboutPrize extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: wp(10), color: '#D81B60', fontWeight: '400' }}>About the prize</Text>
                         <Text style={{ fontSize: wp(4), color: '#F44336', top: 15 }}>
-                            {_.replace(_.replace(_.startCase(_.lowerCase(_.replace(prize.general.price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}$
+                            {prize.general.price} Points
                     </Text>
                     </View>
                     <Text style={{ color: '#3333', fontSize: wp(4.5), fontWeight: '100' }}>
@@ -81,12 +89,34 @@ export default class AboutPrize extends Component {
 
                     <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: -5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5', }}>
                         <Text style={{ fontSize: wp(10), color: '#D81B60', fontWeight: '400' }}>Instructions</Text>
+                        <View style={{ padding: 15, justifyContent: 'center' }}>
+                            <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
+                                <Text style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>{_.startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
+                            </View>
+                        </View>
                         <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: '100' }}>
-                            {prize.general.instructions}
+                            {prize.general.instructions.msg}
                         </Text>
                     </View>
                     <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', width: '100%', bottom: -screenHeight }} />
                 </Content>
+                <Footer style={{ backgroundColor: '#F5F5F5', borderTopColor: 'rgba(0,0,0,0.0)', justifyContent: 'center', alignItems: 'center' }}>
+                    <Button
+                        onPress={() => this._modalRedeemPrizeAction()}
+                        style={{ backgroundColor: '#D81B60', width: '60%', alignSelf: 'center', height: '70%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>Redeem Prize</Text>
+                    </Button>
+                </Footer>
+                <ModalRedeemPrize
+                    // Data
+                    userData={userData}
+                    prize={prize}
+
+                    // Actions
+                    modalRedeemPrizeAction={modalRedeemPrizeAction}
+
+                    // Functions
+                    _modalRedeemPrizeAction={this._modalRedeemPrizeAction} />
             </Container>
         );
     }

@@ -114,8 +114,8 @@ class ListGeneralPrizes extends Component {
                                                     onLoadEnd={() => { this.setState({ loadingImgYours: false }) }}
                                                     source={{ uri: item.general.picture.url }}
                                                     borderRadius={15}
-                                                    style={{ height: "100%", width: "100%", flex: 1 }}>
-                                                    <Spinner color="red" animating={loadingImgYours} style={{ position: 'absolute', zIndex: 1 }} />
+                                                    style={{ height: "100%", width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
+                                                    <Spinner color="#FFF" animating={loadingImgYours} style={{ position: 'absolute', alignSelf: 'center' }} />
                                                     <View style={{
                                                         backgroundColor: 'rgba(0,0,0,0.2)',
                                                         width: "100%", height: "100%",

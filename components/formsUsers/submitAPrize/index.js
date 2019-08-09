@@ -6,6 +6,7 @@ import _ from 'lodash'
 // Child Component
 import AboutYou from './views/aboutYou'
 import AboutThePrize from './views/aboutThePrize'
+import Mentions from './views/mentions'
 import Summary from './views/summary'
 
 import * as queries from '../../../src/graphql/queries'
@@ -40,7 +41,7 @@ export default class SubmitPrize extends Component {
         const { prize, userData, userDataAPI } = this.state
         return (
             <Swiper
-                scrollEnabled={false}
+                scrollEnabled={true}
                 ref={(swiper) => this.swiper = swiper}
                 loop={false} showsButtons={false} showsPagination={false}>
 
@@ -54,6 +55,14 @@ export default class SubmitPrize extends Component {
                 {/* ABOUT YOU */}
                 <AboutThePrize
                     userData={userData}
+
+                    _dataFromForms={this._dataFromForms}
+                    _indexChangeSwiper={this._indexChangeSwiper} />
+
+                {/* MENTIONS */}
+                <Mentions
+                    userData={userData}
+                    prize={prize}
 
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />

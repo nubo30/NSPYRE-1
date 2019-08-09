@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, Image } from 'react-native'
+import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, Image, Keyboard } from 'react-native'
 import { ImagePicker, Permissions, Video } from 'expo';
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner, CheckBox } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { isAscii } from 'validator'
+import Swiper from 'react-native-swiper'
+import numeraljs from 'numeraljs';
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
@@ -23,10 +25,16 @@ export default class AboutTheContest extends Component {
         isvalidFormAnimation: false,
         isLoading: false,
         messageFlash: { cognito: null },
+        typeContentInstructionsActionVideos: false,
+        typeContentInstructionsActionMemes: false,
+        typeContentInstructionsValue: '',
+        indexSwiperInstructions: 0,
+        keyboardDidShowAction: false,
+
 
         // Data
         category: 'NO_SELECT',
-        price: 'NO_SELECT',
+        price: 0,
         nameOfPrize: "",
         description: "",
         instructions: "",
@@ -40,6 +48,7 @@ export default class AboutTheContest extends Component {
         video: { name: "", type: "", localUrl: "" },
 
         // Modal
+        visibleModalPrice: false,
         visibleModalNameOfPrize: false,
         visibleModalDescription: false,
         visibleModalInstructions: false,
@@ -135,17 +144,39 @@ export default class AboutTheContest extends Component {
 
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { category, nameOfPrize, price, description, instructions, socialMediaHandle, picture, video } = this.state
-        const data = { category, general: { nameOfPrize, price, description, instructions, socialMediaHandle, picture, video } }
+        const { category, nameOfPrize, price, description, instructions, socialMediaHandle, picture, video, typeContentInstructionsValue } = this.state
+        const data = { category, general: { nameOfPrize, price, description, instructions: { typeContentInstructionsValue, msg: instructions }, socialMediaHandle, picture, video } }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
             await _indexChangeSwiper(1)
         } catch (error) {
+            alert(error)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
-            console.log(error)
         }
     }
+
+    _swiperInstructions = (value) => {
+        if (value === 'memes' || value === 'videos') {
+            this.swiperInstructions.scrollBy(1)
+        } else {
+            this.swiperInstructions.scrollBy(-1);
+        }
+    }
+
+    componentWillMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidShow = () => { this.setState({ keyboardDidShowAction: true }) }
+
+    _keyboardDidHide = () => { this.setState({ keyboardDidShowAction: false }) }
 
     render() {
         const {
@@ -159,11 +190,18 @@ export default class AboutTheContest extends Component {
             socialMediaHandle,
             price,
 
+            // Actions
+            typeContentInstructionsActionVideos,
+            typeContentInstructionsActionMemes,
+            indexSwiperInstructions,
+            keyboardDidShowAction,
+
             isvalidFormAnimation,
             isLoading,
             messageFlash,
 
             // Modal
+            visibleModalPrice,
             visibleModalNameOfPrize,
             visibleModalDescription,
             visibleModalInstructions,
@@ -172,28 +210,27 @@ export default class AboutTheContest extends Component {
             visibleModalVideo
         } = this.state
         const { _indexChangeSwiper } = this.props
-
         return (
-            <Container>
+            <Container style={{ top: -7 }}>
                 <GadrientsAuth />
                 <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                <Header style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                <Header transparent>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button
                             disabled={isLoading}
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
-                            <Icon name='arrow-back' style={{ color: isLoading ? "#BDBDBD" : "#FFF" }} />
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#FFF" }}>About You</Text>
+                            <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
+                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>About You</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? "#BDBDBD" : "#FFF", fontSize: wp(7) }}>About The Prize</Title>
+                        <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>About The Prize</Title>
                     </Left>
                 </Header>
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? "#BDBDBD" : "#FFF", fontWeight: '100' }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#BDBDBD" : "#FFF" }}>Great! {'\n'}</Text> Now tell us about the prize you want to build!
+                        <Text style={{ fontSize: wp(4.5), color: isLoading ? "#EEEEEE" : "#FFF", fontWeight: '100' }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#EEEEEE" : "#FFF" }}>Great! {'\n'}</Text> Now tell us about the prize you want to build!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center' }}>
@@ -204,12 +241,12 @@ export default class AboutTheContest extends Component {
                                     {/* CATEGORY */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#007AFF" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
                                                 <AntDesign style={{ fontSize: wp(5), color: '#FFF' }} active name="select1" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Category</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Category</Text>
                                             {isLoading ? null :
                                                 <Picker
                                                     style={{ position: 'absolute', top: -30 }}
@@ -243,37 +280,17 @@ export default class AboutTheContest extends Component {
                                     </ListItem>
 
                                     {/* PRICE */}
-                                    <ListItem disabled={isLoading} icon>
+                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalPrice: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
-                                                <Ionicons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="ios-pricetag" />
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#43A047" }}>
+                                                <MaterialIcons style={{ fontSize: wp(6), color: '#FFF', left: 1 }} active name="attach-money" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? '#BDBDBD' : null }}>Price</Text>
-                                            {!isLoading ? <Picker
-                                                style={{ position: 'absolute', top: -30 }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE PRICE"
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                selectedValue={price}
-                                                onValueChange={(value) => this._onValueChangePrice(value)}>
-                                                <Picker.Item label="0$ - 25$" value="P0_25" />
-                                                <Picker.Item label="50$ - 100$" value="P50_100" />
-                                                <Picker.Item label="100$ - 200$" value="P100_200" />
-                                                <Picker.Item label="200$ - 350$" value="P200_250" />
-                                                <Picker.Item label="350$ - 400$" value="P350_400" />
-                                                <Picker.Item label="400$ - 750$" value="P400_750" />
-                                                <Picker.Item label="750$ - 1250$" value="P750_1250" />
-                                                <Picker.Item label="Others" value="OTHERS" />
-                                                <Picker.Item label="No select" value="NO_SELECT" />
-                                            </Picker> : null}
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Price</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{_.replace(_.replace(_.upperFirst(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
+                                            <Text>{price !== 0 ? numeraljs(price).format('0,0') : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -281,12 +298,12 @@ export default class AboutTheContest extends Component {
                                     {/* NAME OF PRIZE */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalNameOfPrize: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#009688" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
                                                 <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Name of prize</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name of prize</Text>
                                         </Body>
                                         <Right>
                                             <Text>{nameOfPrize ? nameOfPrize : "Not specified"}</Text>
@@ -297,12 +314,12 @@ export default class AboutTheContest extends Component {
                                     {/* DESCRIPTION */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalDescription: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
                                                 <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Description</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Description</Text>
                                         </Body>
                                         <Right>
                                             <Text>{_.truncate(description ? description : "Not specified", { separator: '...', length: 20 })}</Text>
@@ -313,12 +330,12 @@ export default class AboutTheContest extends Component {
                                     {/* INSTRUCTION */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalInstructions: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#EC407A" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="warning" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Instructions</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Instructions</Text>
                                         </Body>
                                         <Right>
                                             <Text>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
@@ -329,12 +346,12 @@ export default class AboutTheContest extends Component {
                                     {/* USER SOCIAL MEDIA HANDLE */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalSocialMediaHandle(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FF9800" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
                                                 <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Socials medias</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Socials medias</Text>
                                         </Body>
                                         <Right>
                                             <Text>{socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? "Specified" : "Not specified"}</Text>
@@ -345,12 +362,12 @@ export default class AboutTheContest extends Component {
                                     {/* PICTURE */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicture: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#4DB6AC" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF' }} active name="picture-o" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Picture</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Picture</Text>
                                         </Body>
                                         <Right>
                                             <Text>{picture.name ? "Already selected" : "No select"}</Text>
@@ -361,12 +378,12 @@ export default class AboutTheContest extends Component {
                                     {/* VIDEO */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }}>
                                                 <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Video</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Video</Text>
                                         </Body>
                                         <Right>
                                             <Text>{video.name ? "Already selected" : "No select"}</Text>
@@ -416,11 +433,70 @@ export default class AboutTheContest extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Continue</Text>
-                            {isLoading ? <Spinner color={isLoading ? "#BDBDBD" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
                 </Footer>
+
+                {/* PRICE */}
+                <Modal
+                    transparent={false}
+                    hardwareAccelerated={true}
+                    visible={visibleModalPrice}
+                    animationType="fade"
+                    presentationStyle="fullScreen"
+                    onRequestClose={() => null}>
+                    <KeyboardAvoidingView
+                        enabled
+                        behavior="padding"
+                        style={{ flex: 1 }}>
+                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
+                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Price</Title>
+                        </Header>
+                        {/* NAME OF CONTEST */}
+                        <Item
+                            error={price !== 0 ? false : true}
+                            success={price !== 0 ? true : false}
+                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                            <Input
+                                placeholder="0,000.00"
+                                placeholderTextColor="#EEEE"
+                                autoFocus={true}
+                                value={numeraljs(price).format('0,0')}
+                                keyboardType="numeric"
+                                selectionColor="#E91E63"
+                                style={{ fontSize: wp(7) }}
+                                onChangeText={(value) => this.setState({ price: value })} />
+                            <Text style={{ fontSize: wp(7), color: price !== 0 ? '#388E3C' : '#3333' }}>$</Text>
+                        </Item>
+
+                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    onPress={() => { this.setState({ visibleModalPrice: false, price: 0 }) }}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                </Button>
+                            </Col>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    onPress={price !== 0 ? () => this.setState({ visibleModalPrice: false }) : null}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{ color: price !== 0 ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                </Button>
+                            </Col>
+                        </Grid>
+                    </KeyboardAvoidingView>
+                </Modal>
 
                 {/* NAME OF PRIZE */}
                 <Modal
@@ -431,9 +507,9 @@ export default class AboutTheContest extends Component {
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
                     <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
+
                         enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
+                        behavior="padding"
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
@@ -492,14 +568,13 @@ export default class AboutTheContest extends Component {
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
                     <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'} enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
+                        enabled
+                        behavior="padding"
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
                         </Header>
 
-                        {/* NAME OF CONTEST */}
                         <Item
                             error={isAscii(description) ? false : true}
                             success={isAscii(description) ? true : false}
@@ -544,7 +619,7 @@ export default class AboutTheContest extends Component {
                     </KeyboardAvoidingView>
                 </Modal>
 
-                {/* DESCRIPTION */}
+                {/* INSTRUCTIONS */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
@@ -552,57 +627,143 @@ export default class AboutTheContest extends Component {
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'} enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Instructions</Title>
-                        </Header>
+                    <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
+                        <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Button
+                                transparent
+                                onPress={() => indexSwiperInstructions ? this._swiperInstructions(null) : this.setState({
+                                    visibleModalInstructions: false,
+                                    typeContentInstructionsActionVideos: false,
+                                    typeContentInstructionsActionMemes: false,
+                                    typeContentInstructionsValue: ''
+                                })}>
+                                <Icon name='arrow-back' style={{ color: "#E91E63" }} />
+                                <Text style={{ color: "#E91E63" }}>Back</Text>
+                            </Button>
+                            <Title style={{ color: "#E91E63", fontSize: wp(7) }}>Instructions</Title>
+                        </Left>
+                    </Header>
+                    <Swiper
+                        scrollEnabled={false}
+                        onIndexChanged={(index) => this.setState({ indexSwiperInstructions: index })}
+                        ref={(swiperInstructions) => this.swiperInstructions = swiperInstructions}
+                        loop={false} showsButtons={false} showsPagination={false}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={{ padding: 10, fontSize: wp(6), color: '#333', fontWeight: '100' }}>
+                                To continue you must choose between these two options, what do you want your participants to do?
+                                </Text>
+                            <ListItem style={{ height: 70 }}
+                                onPress={() => {
+                                    this._swiperInstructions('videos');
+                                    this.setState({
+                                        typeContentInstructionsActionVideos: !typeContentInstructionsActionVideos,
+                                        typeContentInstructionsActionMemes: false,
+                                        typeContentInstructionsValue: 'videos'
+                                    })
+                                }}>
+                                <CheckBox
+                                    checked={typeContentInstructionsActionVideos}
+                                    onPress={() => {
+                                        this._swiperInstructions('videos')
+                                        this.setState({
+                                            typeContentInstructionsActionVideos: !typeContentInstructionsActionVideos,
+                                            typeContentInstructionsActionMemes: false,
+                                            typeContentInstructionsValue: 'videos'
+                                        })
+                                    }}
+                                    color="#E91E63" />
+                                <Body>
+                                    <Text style={{ fontSize: wp(7), color: '#3333' }}>Upload videos</Text>
+                                </Body>
+                            </ListItem>
+                            <ListItem style={{ height: 70 }} onPress={() => {
+                                this._swiperInstructions('memes');
+                                this.setState({
+                                    typeContentInstructionsActionVideos: false,
+                                    typeContentInstructionsActionMemes: !typeContentInstructionsActionMemes,
+                                    typeContentInstructionsValue: 'memes'
+                                })
+                            }}>
+                                <CheckBox
+                                    checked={typeContentInstructionsActionMemes}
+                                    onPress={() => {
+                                        this._swiperInstructions('memes');
+                                        this.setState({
+                                            typeContentInstructionsActionVideos: false,
+                                            typeContentInstructionsActionMemes: !typeContentInstructionsActionMemes,
+                                            typeContentInstructionsValue: 'memes'
+                                        })
+                                    }}
+                                    color="#E91E63" />
+                                <Body>
+                                    <Text style={{ fontSize: wp(7), color: '#3333' }}>Upload memes</Text>
+                                </Body>
+                            </ListItem>
+                        </View>
 
-                        {/* NAME OF CONTEST */}
-                        <Item
-                            error={isAscii(instructions) ? false : true}
-                            success={isAscii(instructions) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                multiline
-                                numberOfLines={3}
-                                placeholder="Instructions"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={instructions}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(6), padding: 5, maxHeight: 170 }}
-                                onChangeText={(value) => this.setState({ instructions: value })} />
-                        </Item>
+                        <View style={{ flex: 1 }}>
+                            <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
+                                <Text style={{ padding: 10, fontSize: wp(6), color: '#333', fontWeight: '100' }}>
+                                    Target the content you want your participants to share, for example: "Share a video, the best video will be the winner of the prize!"
+                               </Text>
+                                <Item
+                                    error={instructions ? false : true}
+                                    success={instructions ? true : false}
+                                    style={{ width: "90%", alignSelf: "center" }}>
+                                    <Input
+                                        onSubmitEditing={Keyboard.dismiss}
+                                        multiline
+                                        autoCorrect={false}
+                                        numberOfLines={3}
+                                        placeholder="Instructions"
+                                        placeholderTextColor="#EEEE"
+                                        value={instructions}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(5), padding: 5, maxHeight: 200 }}
+                                        onChangeText={(value) => this.setState({ instructions: value })} />
+                                </Item>
+                                <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                        <Button
+                                            bordered
+                                            onPress={() => {
+                                                this.setState({
+                                                    visibleModalInstructions: false,
+                                                    instructions: '',
+                                                    indexSwiperInstructions: 0,
+                                                    typeContentInstructionsActionVideos: false,
+                                                    typeContentInstructionsActionMemes: false,
+                                                    typeContentInstructionsValue: ''
+                                                })
+                                            }}
+                                            style={{
+                                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                                justifyContent: 'center', alignItems: 'center',
+                                                top: keyboardDidShowAction ? -62 : 0
+                                            }}>
+                                            <Text style={{ color: "#333" }}>CANCEL</Text>
+                                        </Button>
+                                    </Col>
+                                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                        <Button
+                                            bordered
+                                            onPress={instructions ? () => this.setState({
+                                                visibleModalInstructions: false
+                                            }) : null}
+                                            style={{
+                                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                                justifyContent: 'center', alignItems: 'center',
+                                                top: keyboardDidShowAction ? -62 : 0
+                                            }}>
+                                            <Text style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                        </Button>
+                                    </Col>
+                                </Grid>
+                            </KeyboardAvoidingView>
+                        </View>
+                    </Swiper>
 
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalInstructions: false, instructions: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={instructions ? () => this.setState({ visibleModalInstructions: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{ color: isAscii(instructions) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
                 </Modal>
 
                 {/* USER SOCIAL MEDIA HANDLE */}
@@ -614,9 +775,9 @@ export default class AboutTheContest extends Component {
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
                     <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
+
                         enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
+                        behavior="padding" style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Socials Medias</Title>
                         </Header>
@@ -774,7 +935,7 @@ export default class AboutTheContest extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text style={{ color: picture.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -782,7 +943,7 @@ export default class AboutTheContest extends Component {
                         <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
                             {picture.name
                                 ? <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
-                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
+                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button
@@ -817,7 +978,7 @@ export default class AboutTheContest extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text style={{ color: video.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -834,7 +995,7 @@ export default class AboutTheContest extends Component {
                                     shouldPlay
                                     isLooping={false}
                                     style={{ width: "100%", height: "100%" }} />
-                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
+                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button

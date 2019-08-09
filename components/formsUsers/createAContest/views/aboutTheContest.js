@@ -168,16 +168,16 @@ export default class AboutTheContest extends Component {
                             disabled={isLoading}
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
-                            <Icon name='arrow-back' style={{ color: isLoading ? "#BDBDBD" : "#FFF" }} />
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#FFF" }}>About You</Text>
+                            <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
+                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>About You</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? "#BDBDBD" : "#FFF", fontSize: wp(7) }}>About The Contest</Title>
+                        <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>About The Contest</Title>
                     </Left>
                 </Header>
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? "#BDBDBD" : "#FFF", fontWeight: '100' }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#BDBDBD" : "#FFF" }}>Great! {'\n'}</Text> Now tell us about the contest you want to build!
+                        <Text style={{ fontSize: wp(4.5), color: isLoading ? "#EEEEEE" : "#FFF", fontWeight: '100' }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#EEEEEE" : "#FFF" }}>Great! {'\n'}</Text> Now tell us about the contest you want to build!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center' }}>
@@ -188,12 +188,12 @@ export default class AboutTheContest extends Component {
                                     {/* CATEGORY */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#007AFF" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
                                                 <AntDesign style={{ fontSize: wp(5), color: '#FFF' }} active name="select1" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Category</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Category</Text>
                                             {isLoading ? null :
                                                 <Picker
                                                     style={{ position: 'absolute', top: -30 }}
@@ -227,12 +227,12 @@ export default class AboutTheContest extends Component {
                                     {/* NAME CONTEST */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalNameOfContest: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#009688" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
                                                 <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Name Of Contest</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name Of Contest</Text>
                                         </Body>
                                         <Right>
                                             <Text>{nameOfContest ? nameOfContest : "Not specified"}</Text>
@@ -243,12 +243,12 @@ export default class AboutTheContest extends Component {
                                     {/* DESCRIPTION */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalDescription: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
                                                 <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Description</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Description</Text>
                                         </Body>
                                         <Right>
                                             <Text>{_.truncate(description ? description : "Not specified", { separator: '...', length: 20 })}</Text>
@@ -259,12 +259,12 @@ export default class AboutTheContest extends Component {
                                     {/* INSTRUCTION */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalInstructions: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#EC407A" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="warning" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Instructions</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Instructions</Text>
                                         </Body>
                                         <Right>
                                             <Text>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
@@ -275,12 +275,12 @@ export default class AboutTheContest extends Component {
                                     {/* PICTURE */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicture: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#4DB6AC" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF' }} active name="picture-o" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Picture</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Picture</Text>
                                         </Body>
                                         <Right>
                                             <Text>{picture.name ? "Already selected" : "No select"}</Text>
@@ -291,12 +291,12 @@ export default class AboutTheContest extends Component {
                                     {/* VIDEO */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }}>
                                                 <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Video</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Video</Text>
                                         </Body>
                                         <Right>
                                             <Text>{video.name ? "Already selected" : "No select"}</Text>
@@ -346,8 +346,8 @@ export default class AboutTheContest extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Continue</Text>
-                            {isLoading ? <Spinner color={isLoading ? "#BDBDBD" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
                 </Footer>
@@ -553,7 +553,7 @@ export default class AboutTheContest extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text style={{ color: picture.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -561,7 +561,7 @@ export default class AboutTheContest extends Component {
                         <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
                             {picture.name
                                 ? <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
-                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
+                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button
@@ -596,7 +596,7 @@ export default class AboutTheContest extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text style={{ color: video.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -613,7 +613,7 @@ export default class AboutTheContest extends Component {
                                     shouldPlay
                                     isLooping={false}
                                     style={{ width: "100%", height: "100%" }} />
-                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
+                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button

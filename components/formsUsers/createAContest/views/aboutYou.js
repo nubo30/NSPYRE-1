@@ -101,17 +101,17 @@ class AboutYou extends Component {
                             disabled={isLoading}
                             transparent
                             onPress={() => navigation.goBack()}>
-                            <Icon name='arrow-back' style={{ color: isLoading ? '#BDBDBD' : '#FFF', }} />
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#FFF" }}>Back</Text>
+                            <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
+                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>Back</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? '#BDBDBD' : '#FFF', fontSize: wp(7) }}>About You</Title>
+                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>About You</Title>
                     </Left>
                 </Header>
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#BDBDBD' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#BDBDBD" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
+                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -121,12 +121,12 @@ class AboutYou extends Component {
                                     {/* NAME */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#007AFF" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
                                                 <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Name</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name</Text>
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
@@ -137,12 +137,12 @@ class AboutYou extends Component {
                                     {/* LASTNAME */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#009688" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
                                                 <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Lastname</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
@@ -153,12 +153,12 @@ class AboutYou extends Component {
                                     {/* PHONE */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
                                                 <Foundation style={{ fontSize: wp(5.6), color: '#FFF' }} active name="telephone" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Number Phone</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
                                         </Body>
                                         <Right>
                                             <Text>{userData && userData.phone_number}</Text>
@@ -169,12 +169,12 @@ class AboutYou extends Component {
                                     {/* EMAIL */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#4DB6AC" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
                                                 <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-mail" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Email</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Email</Text>
                                         </Body>
                                         <Right>
                                             <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
@@ -185,12 +185,12 @@ class AboutYou extends Component {
                                     {/* LOCATION */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalLocation(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }} onPress={() => this._visibleModalLocation(true)}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }} onPress={() => this._visibleModalLocation(true)}>
                                                 <Entypo style={{ fontSize: wp(6), color: '#FFF' }} active name="location-pin" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Location</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Location</Text>
                                         </Body>
                                         <Right>
                                             <Text>{location.street && location.city && location.state && location.country ? "Street, City, State, Cou..." : "Not specified"}</Text>
@@ -201,12 +201,12 @@ class AboutYou extends Component {
                                     {/* COMPANY NAME */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalCompanyname(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#EC407A" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 2 }} active name="building" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Company Name</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Company Name</Text>
                                         </Body>
                                         <Right>
                                             <Text>{companyName ? _.truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
@@ -217,12 +217,12 @@ class AboutYou extends Component {
                                     {/* TITTLE IN THE COMPANY */}
                                     <ListItem icon disabled={isLoading} last onPress={() => this._visibleModalTitleInTheCompany(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#009688" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
                                                 <Entypo style={{ fontSize: wp(5.5), color: '#FFF', left: 1, top: 1 }} active name="creative-commons-attribution" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Title in the company</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Title in the company</Text>
                                         </Body>
                                         <Right>
                                             <Text>{titleInTheCompany ? _.truncate(titleInTheCompany, { separator: '...', length: 20 }) : "Not specified"}</Text>
@@ -273,8 +273,8 @@ class AboutYou extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Continue</Text>
-                            {isLoading ? <Spinner color={isLoading ? "#BDBDBD" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
                 </Footer>

@@ -160,7 +160,10 @@ export const getUser = `query GetUser($id: ID!) {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -183,6 +186,11 @@ export const getUser = `query GetUser($id: ID!) {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -268,9 +276,13 @@ export const listUsers = `query ListUsers(
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -355,9 +367,13 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1029,9 +1045,13 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1056,7 +1076,10 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -1079,6 +1102,11 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;
@@ -1139,7 +1167,10 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         price
         nameOfPrize
         description
-        instructions
+        instructions {
+          msg
+          typeContentInstructionsValue
+        }
         socialMediaHandle {
           facebook
           twitter
@@ -1162,6 +1193,11 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         }
       }
       createdAt
+      delivery {
+        description
+        socialMediaSelected
+        typeOfSocialNetwork
+      }
     }
     nextToken
   }

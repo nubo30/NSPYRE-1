@@ -160,7 +160,10 @@ export const onCreateUser = `subscription OnCreateUser {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -183,6 +186,11 @@ export const onCreateUser = `subscription OnCreateUser {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -348,7 +356,10 @@ export const onUpdateUser = `subscription OnUpdateUser {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -371,6 +382,11 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -536,7 +552,10 @@ export const onDeleteUser = `subscription OnDeleteUser {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -559,6 +578,11 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -641,9 +665,13 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -845,9 +873,13 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1049,9 +1081,13 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1757,9 +1793,13 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1784,7 +1824,10 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -1807,6 +1850,11 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;
@@ -1886,9 +1934,13 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1913,7 +1965,10 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -1936,6 +1991,11 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;
@@ -2015,9 +2075,13 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -2042,7 +2106,10 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -2065,6 +2132,11 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;

@@ -160,7 +160,10 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -183,6 +186,11 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -348,7 +356,10 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -371,6 +382,11 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -536,7 +552,10 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           price
           nameOfPrize
           description
-          instructions
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
           socialMediaHandle {
             facebook
             twitter
@@ -559,6 +578,11 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           }
         }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
@@ -641,9 +665,13 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -845,9 +873,13 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1049,9 +1081,13 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1757,9 +1793,13 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1784,7 +1824,10 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -1807,6 +1850,11 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;
@@ -1886,9 +1934,13 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -1913,7 +1965,10 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -1936,6 +1991,11 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;
@@ -2015,9 +2075,13 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             price
             nameOfPrize
             description
-            instructions
           }
           createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
         }
         nextToken
       }
@@ -2042,7 +2106,10 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
       price
       nameOfPrize
       description
-      instructions
+      instructions {
+        msg
+        typeContentInstructionsValue
+      }
       socialMediaHandle {
         facebook
         twitter
@@ -2065,6 +2132,11 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
       }
     }
     createdAt
+    delivery {
+      description
+      socialMediaSelected
+      typeOfSocialNetwork
+    }
   }
 }
 `;

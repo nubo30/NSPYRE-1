@@ -163,6 +163,7 @@ type SubmitPrize @model {
   category: PrizeCategory!
   general: GeneralPrize!
   createdAt: AWSDateTime!
+  delivery: Delivery
 }
 
 type AboutTheCompany {
@@ -182,8 +183,26 @@ type GeneralPrize {
   price: String
   nameOfPrize: String
   description: String
-  instructions: String
+  instructions: Instructions
   socialMediaHandle: SocialMediaHandle
   picture: Picture
   video: Video
+}
+
+type Instructions {
+  msg: String
+  typeContentInstructionsValue: String
+}
+
+type Delivery {
+  description: String
+  socialMediaSelected: String
+  typeOfSocialNetwork: TypeOfSocialNetwork 
+}
+
+enum TypeOfSocialNetwork {
+  fb
+  tt
+  ig
+  sc
 }

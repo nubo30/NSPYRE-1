@@ -18,7 +18,7 @@ function HeaderCategoryOfPrizes(props) {
         ? (
             <Header hasTabs style={{ height: 70, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
                 <Left style={{ flexDirection: 'row' }}>
-                    <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false) }}>
+                    <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false, false) }}>
                         <Icon name='arrow-back' style={{ color: "#D81B60" }} />
                         <Text style={{ left: 5, color: "#D81B60" }}>Back</Text>
                     </Button>
@@ -29,7 +29,7 @@ function HeaderCategoryOfPrizes(props) {
         : (
             <Header hasTabs style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
                 <Left>
-                    <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false) }}>
+                    <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false, false) }}>
                         <Icon name='arrow-back' style={{ color: "#D81B60" }} />
                     </Button>
                 </Left>
