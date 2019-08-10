@@ -41,7 +41,7 @@ export default class SubmitPrize extends Component {
         const { prize, userData, userDataAPI } = this.state
         return (
             <Swiper
-                scrollEnabled={true}
+                scrollEnabled={false}
                 ref={(swiper) => this.swiper = swiper}
                 loop={false} showsButtons={false} showsPagination={false}>
 

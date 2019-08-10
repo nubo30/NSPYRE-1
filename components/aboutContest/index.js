@@ -166,7 +166,6 @@ class ShowContest extends Component {
             modalVisibleAboutTheContest,
             modalVisibleAudience
         } = this.state
-
         return (
             <Swiper
                 scrollEnabled={userLogin}

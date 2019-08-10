@@ -92,10 +92,10 @@ class Summary extends Component {
                 }
             })
 
-            await API.graphql(graphqlOperation(mutations.createCreateContest, { input: contest }))
+            const newContest = await API.graphql(graphqlOperation(mutations.createCreateContest, { input: contest }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.sub } }))
             navigation.navigate("AboutContest", {
-                contest: Object.assign(contest, { user: { name: userData.name, lastname: userData.middle_name } }),
+                contest: newContest.data.createCreateContest,
                 fromWhere: 'createContest',
                 userData
             })

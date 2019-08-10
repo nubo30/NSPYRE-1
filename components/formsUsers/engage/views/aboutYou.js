@@ -1,0 +1,615 @@
+import React, { Component } from 'react';
+import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { withNavigation } from 'react-navigation'
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Picker } from 'native-base';
+import * as Animatable from 'react-native-animatable'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { Grid, Row, Col } from 'react-native-easy-grid'
+import _ from 'lodash'
+import { isAscii, normalizeEmail } from 'validator'
+import moment from 'moment'
+import axios from 'axios'
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
+// Data
+import { sexualityList, maritalStatusList, regionalIdentityList } from '../../../Global/data/index'
+
+// Gradients
+import { GadrientsAuth } from '../../../Global/gradients/index'
+import { MyStatusBar } from '../../../Global/statusBar/index'
+
+// Icons
+import { Ionicons, Foundation, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
+
+const screenWidth = Dimensions.get('window').width
+const screenHeight = Dimensions.get('window').height
+
+class AboutYou extends Component {
+    state = {
+        // Data
+        location: {
+            born: {
+                country: 'Not specified',
+                city: 'Not specified'
+            },
+            currentPlace: {
+                country: 'Not specified',
+                city: 'Not specified'
+            }
+        },
+        gender: 'Not specified',
+        birthDate: 'Not specified',
+        sexuality: 'Not specified',
+        maritalStatus: 'Not specified',
+        regionalIdentity: 'No specified',
+
+        // Inputs
+        isvalidFormAnimation: false,
+        isLoading: false,
+        messageFlash: { cognito: null },
+
+        // Modal
+        visibleModalLocation: false,
+        datePickerAction: false,
+
+        // Data API
+        listCountries: [],
+        listCities: []
+    }
+
+    componentDidMount() {
+        this._getCountry()
+    }
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.location.born.country !== this.state.location.born.country) {
+            this._getCity(nextState.location.born.country)
+        }
+        if (nextState.location.currentPlace.country !== this.state.location.currentPlace.country) {
+            this._getCity(nextState.location.currentPlace.country)
+        }
+    }
+
+    _getCountry = async () => {
+        const { data } = await axios.get('http://battuta.medunes.net/api/country/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8')
+        this.setState({ listCountries: data })
+    }
+
+    _getCity = async (country) => {
+        const { listCountries } = this.state
+        let filterCountries = []; filterCountries = listCountries.filter((item) => { return item.name.indexOf(country) !== -1 })
+        if (filterCountries.length !== 0) {
+            const { data } = await axios.get(`http://battuta.medunes.net/api/region/${filterCountries[0].code}/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8`)
+            this.setState({ listCities: data })
+        }
+    }
+
+    // Modals
+    _visibleModalLocation = (visible) => { this.setState({ visibleModalLocation: visible }) }
+
+
+    // Send Data to AWS
+    _submit = async () => {
+        const { _indexChangeSwiper, _dataFromForms, userData } = this.props
+        const { businessLocation, companyName, socialMediaHandle } = this.state
+        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.sub, createdAt: moment().toISOString() }
+        try {
+            await _dataFromForms(data)
+            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
+            await _indexChangeSwiper(1)
+        } catch (error) {
+            alert(error)
+            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
+        }
+    }
+
+    render() {
+        const {
+            // Data
+            location,
+            gender,
+            birthDate,
+            sexuality,
+            maritalStatus,
+            regionalIdentity,
+
+            isvalidFormAnimation,
+            isLoading,
+            messageFlash,
+
+            // modal
+            visibleModalLocation,
+            datePickerAction,
+
+            // Data API
+            listCountries,
+            listCities
+        } = this.state
+        const { userData, navigation } = this.props
+        return (
+            <Container>
+                <GadrientsAuth />
+                <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+
+                <Header style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                    <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Button
+                            disabled={isLoading}
+                            transparent
+                            onPress={() => navigation.goBack()}>
+                            <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
+                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>Back</Text>
+                        </Button>
+                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>About You</Title>
+                    </Left>
+                </Header>
+
+                <Grid>
+                    <Row size={20} style={{ padding: 20 }}>
+                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about you!
+                        </Text>
+                    </Row>
+                    <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
+                        <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
+                            <Content
+                                scrollEnabled={!isLoading}
+                                contentContainerStyle={{ paddingTop: 10 }}
+                                keyboardShouldPersistTaps={'always'}>
+                                <List>
+
+                                    {/* NAME */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
+                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* LASTNAME */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
+                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* PHONE */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
+                                                <Foundation style={{ fontSize: wp(5.6), color: '#FFF' }} active name="telephone" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{userData && userData.phone_number}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* EMAIL */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
+                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-mail" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Email</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* BIRHTDAY */}
+                                    <ListItem icon onPress={() => this.setState({ datePickerAction: true })} style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FFD600" }}>
+                                                <Icon type="MaterialIcons" name="child-care" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Birthdate</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{birthDate !== 'Not specified' ? moment(new Date(birthDate)).calendar() : "Not specified"}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        <DateTimePicker
+                                            locale={"en"}
+                                            timeZoneOffsetInMinutes={undefined}
+                                            modalTransparent={false}
+                                            animationType="fade"
+                                            androidMode={"spinner"}
+                                            titleIOS=""
+                                            textStyle={{ color: "#333", fontWeight: '100' }}
+                                            placeHolderTextStyle={{ color: '#333' }}
+                                            minimumDate={new Date(1970, 1, 1)}
+                                            maximumDate={new Date()}
+                                            isVisible={datePickerAction}
+                                            onConfirm={(value) => this.setState({ birthDate: value, datePickerAction: false })}
+                                            onCancel={() => this.setState({ datePickerAction: false })}
+                                        />
+                                    </ListItem>
+
+                                    {/* LOCALIDAD */}
+                                    <ListItem icon onPress={() => this._visibleModalLocation(true)}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#D500F9" }}>
+                                                <Entypo style={{ fontSize: wp(6.5), color: '#FFF', left: 0.5, top: 1 }} active name="location-pin" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Location</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{location.born.country === 'No specified' ? 'Specified' : 'Not specified'}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* REGION*/}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00897B" }}>
+                                                <Icon type="FontAwesome" name="globe" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What region do you identify with?</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{regionalIdentity === 'Not specified' ? 'Not specified' : _.truncate(regionalIdentity, { length: 20, separate: '...' })}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={regionalIdentity}
+                                                onValueChange={(value) => this.setState({ regionalIdentity: value })}>
+                                                {regionalIdentityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    {/* GENDER */}
+                                    <ListItem icon style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#90A4AE" }}>
+                                                <Icon type="MaterialCommunityIcons" name="gender-male-female" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What gender do you identify with?</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{gender === 'Not specified' ? 'Not specified' : gender}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={gender}
+                                                onValueChange={(value) => this.setState({ gender: value })}>
+                                                <Picker.Item label="Male" value="Male" />
+                                                <Picker.Item label="Famale" value="Famale" />
+                                                <Picker.Item label="Other" value="Other" />
+                                                <Picker.Item label="Do not specify" value="Not specified" />
+                                            </Picker>}
+                                    </ListItem>
+
+                                    {/* SEXUALITY */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#D81B60" }}>
+                                                <Icon type="FontAwesome" name="genderless" style={{ fontSize: wp(8), top: -4, left: 1.5 }} />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify according to your sexual preference</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{sexuality === 'Not specified' ? 'Not specified' : sexuality}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={gender}
+                                                onValueChange={(value) => this.setState({ sexuality: value })}>
+                                                {sexualityList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    {/* MARITAL STATUS */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00BCD4" }}>
+                                                <Icon type="Entypo" name="slideshare" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What is your marital status?</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{maritalStatus === 'Not specified' ? 'Not specified' : maritalStatus}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={maritalStatus}
+                                                onValueChange={(value) => this.setState({ maritalStatus: value })}>
+                                                {maritalStatusList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                </List>
+                            </Content>
+                        </View>
+                        <Text style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                            {messageFlash.cognito && messageFlash.cognito.message}
+                        </Text>
+                    </Row>
+                </Grid>
+
+                {/* SUBMIT DATA TO AWS */}
+                <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }}>
+                    <Animatable.View
+                        animation={isvalidFormAnimation ? "shake" : undefined}
+                        onAnimationEnd={() => this.setState({ isvalidFormAnimation: false })}
+                        duration={1000}
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: "80%",
+                            shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                        }}>
+                        <Button
+                            onLongPress={() => { this.setState({ isLoading: false }) }}
+                            onPressIn={() => { this.setState({ isLoading: true }) }}
+                            disabled={isLoading || Object.keys(userData).length === 0}
+                            onPress={() => { this._validateForm() }}
+                            iconRight style={{
+                                width: "100%",
+                                alignSelf: 'center',
+                                backgroundColor: '#E91E63'
+                            }}>
+                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                        </Button>
+                    </Animatable.View>
+                </Footer>
+
+                {/* LOCATION */}
+                <Modal
+                    transparent={false}
+                    hardwareAccelerated={true}
+                    visible={visibleModalLocation}
+                    animationType="slide"
+                    presentationStyle="fullScreen"
+                    onRequestClose={() => null}>
+                    <KeyboardAvoidingView
+                        keyboardShouldPersistTaps={'always'}
+                        enabled
+                        behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
+                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
+                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
+                        </Header>
+                        <ListItem itemDivider style={{ maxHeight: 45 }}>
+                            <Icon type="MaterialCommunityIcons" name="baby" style={{ color: "#3333" }} />
+                        </ListItem>
+
+                        {/* COUNTRY */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#E65100" }}>
+                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: '#fff', left: 0.5, top: 1 }} />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>Country of birth?</Text>
+                            </Body>
+                            <Right>
+                                <Text>{listCountries.length ? location.born.country : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT COUNTRY"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.born.country}
+                            onValueChange={(value) => this.setState({ location: { ...location, born: { ...location.born, country: value } } })}>
+                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                        </Picker>
+
+                        {/* CITIES */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: listCities.length ? "#0277BD" : '#81D4FA' }}>
+                                    <Icon type="MaterialIcons" name="location-city" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>City of birth?</Text>
+                            </Body>
+                            <Right>
+                                <Text>{listCities.length ? location.born.city : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        {location.born.country === 'Not specified' ? null : <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT CITY"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.born.city}
+                            onValueChange={(value) => this.setState({ location: { ...location, born: { ...location.born, city: value } } })}>
+                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
+                        </Picker>}
+
+
+                        <ListItem itemDivider style={{ maxHeight: 45 }}>
+                            <Icon type="Entypo" name="location" style={{ color: "#3333", fontSize: wp(6) }} />
+                        </ListItem>
+
+                        {/* COUNTRY */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#00B8D4" }}>
+                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: '#fff', left: 0.5, top: 1 }} />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>Current country?</Text>
+                            </Body>
+                            <Right>
+                                <Text>{listCountries.length ? location.currentPlace.country : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT COUNTRY"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.currentPlace.country}
+                            onValueChange={(value) => this.setState({ location: { ...location, currentPlace: { ...location.currentPlace, country: value } } })}>
+                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                        </Picker>
+
+                        {/* CITIES */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: location.currentPlace.country !== 'Not specified' ? "#00BFA5" : "#A7FFEB" }}>
+                                    <Icon type="MaterialIcons" name="location-city" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>Current city?</Text>
+                            </Body>
+                            <Right>
+                                <Text>{listCities.length ? location.currentPlace.city : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        {location.currentPlace.country === 'Not specified' ? null : <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader='SELECT CITY'
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.currentPlace.city}
+                            onValueChange={(value) => this.setState({ location: { ...location, currentPlace: { ...location.currentPlace, city: value } } })}>
+                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
+                        </Picker>}
+
+                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    onPress={() => {
+                                        this.setState({
+                                            location: {
+                                                born: {
+                                                    country: 'Not specified',
+                                                    city: 'Not specified'
+                                                },
+                                                currentPlace: {
+                                                    country: 'Not specified',
+                                                    city: 'Not specified'
+                                                }
+                                            }
+                                        });
+                                        this._visibleModalLocation(false)
+                                    }}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                </Button>
+                            </Col>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    onPress={
+                                        location.born.country !== 'Not specified' &&
+                                            location.born.city !== 'Not specified' &&
+                                            location.currentPlace.country !== 'Not specified' &&
+                                            location.currentPlace.city !== 'Not specified'
+                                            ? () => this._visibleModalLocation(false) : null}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{
+                                        color: location.born.country !== 'Not specified' &&
+                                            location.born.city !== 'Not specified' &&
+                                            location.currentPlace.country !== 'Not specified' &&
+                                            location.currentPlace.city !== 'Not specified' ? "#333" : '#E0E0E0'
+                                    }}>ACCEPT</Text>
+                                </Button>
+                            </Col>
+                        </Grid>
+                    </KeyboardAvoidingView>
+                </Modal>
+            </Container>
+        );
+    }
+}
+
+export default withNavigation(AboutYou)
