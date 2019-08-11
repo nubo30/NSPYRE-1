@@ -2,28 +2,30 @@ import React, { Component } from 'react';
 import { Animated, Platform, StyleSheet, View } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
-import { Button, Text } from "native-base"
+import { Button, Text, Icon } from "native-base"
 import { Grid, Row } from "react-native-easy-grid"
 import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
+import * as Animatable from 'react-native-animatable'
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 // Child Components
-import SocialNetwork from "./shareSocialNetwork/index"
-import HeaderContest from "./header/index"
+import SocialNetwork from "./shareSocialNetwork"
+import HeaderContest from "./header"
 import PrizeModal from "./modals/prizes"
 import AboutModal from "./modals/about"
 import SwiperAboutTheContest from "./swiper/about"
 import SwiperPrizes from "./swiper/prizes"
 import SubmitAvideo from "./cards/submitVideo"
 import SubmitAMeme from "./cards/submitAMeme"
-import UpdateContest from './updateContest/index'
-import Audience from './audience/index'
-import Participants from './participants/index'
-import SecondaryView from './secondaryView/index'
+import UpdateContest from './updateContest'
+import Audience from './audience'
+import Participants from './participants'
+import SecondaryView from './secondaryView'
 
 // Gradients
-import { GadrientsAboutContest } from "../Global/gradients/index"
-import { MyStatusBar } from '../Global/statusBar/index'
+import { GadrientsAboutContest } from "../Global/gradients"
+import { MyStatusBar } from '../Global/statusBar'
 
 // Icons
 import { Ionicons } from '@expo/vector-icons'
@@ -47,6 +49,7 @@ class ShowContest extends Component {
             activeSections: [],
             userData: {},
             contest: this.props.navigation.getParam('contest'),
+            fromWhere: '',
 
             swiperIndex: 0,
             hideCongrastSectionAudience: false,
@@ -63,9 +66,9 @@ class ShowContest extends Component {
 
     componentDidMount() {
         const userData = this.props.navigation.getParam('userData');
-        this.setState({ userData })
-        this.getContestFromAWS()
         const fromWhere = this.props.navigation.getParam('fromWhere');
+        this.setState({ userData, fromWhere })
+        this.getContestFromAWS()
         switch (fromWhere) {
             case 'createContest':
                 this._setModalVisibleAudience(true, true)
@@ -156,6 +159,7 @@ class ShowContest extends Component {
             userData,
             swiperIndex,
             userLogin,
+            fromWhere,
 
             // Actions
             hideCongrastSectionAudience,
@@ -166,6 +170,8 @@ class ShowContest extends Component {
             modalVisibleAboutTheContest,
             modalVisibleAudience
         } = this.state
+
+
         return (
             <Swiper
                 scrollEnabled={userLogin}
@@ -256,6 +262,24 @@ class ShowContest extends Component {
                             ]}
                             source={{ uri: contest.general.picture.url }}
                         />
+                        {
+                            userLogin && fromWhere === 'createContest' &&
+                            <View style={styles.swiperIndicator}>
+                                <Animatable.View 
+                                    animation="pulse" 
+                                    easing="ease-in-out" 
+                                    iterationCount="infinite" 
+                                    style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
+                                >
+                                    <Text style={{ textAlign: 'center', color: 'white', fontSize: hp('3.5'), opacity: 0.6 }}>Swipe</Text>
+                                    <Icon 
+                                        name='arrow-long-right' 
+                                        type='Entypo' 
+                                        style={{color: 'white', marginTop: '2%', marginLeft: '4%',fontSize: hp('3.5'), opacity: 0.6}}
+                                    />
+                                </Animatable.View>
+                            </View>
+                        }
                     </Animated.View>
 
                     {/* Header Contests */}
@@ -371,6 +395,13 @@ const styles = StyleSheet.create({
         // iOS uses content inset, which acts like padding.
         paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
     },
+    swiperIndicator: {
+        width: '30%',
+        color: 'white',
+        position: 'absolute',
+        top: 160,
+        right: 10
+    }
 });
 
 
