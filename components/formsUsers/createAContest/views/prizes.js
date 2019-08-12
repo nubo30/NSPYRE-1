@@ -6,7 +6,6 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
-import { isAscii } from 'validator'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
@@ -47,15 +46,18 @@ export default class Prizes extends Component {
     // Validar formulario
     _validateForm = () => {
         const { name, description, picture, video } = this.state
-        isAscii(name)
-            ? description
-                ? picture.name
-                    ? video.name
-                        ? this._submit()
-                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            name
+                ? description
+                    ? picture.name
+                        ? video.name
+                            ? this._submit()
+                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
+        }, 500);
     }
 
     // Abrir la libreria de imagenes
@@ -344,8 +346,6 @@ export default class Prizes extends Component {
                         }}>
                         <Button
                             disabled={isLoading}
-                            onPressIn={() => this.setState({ isLoading: true })}
-                            onLongPress={() => this.setState({ isLoading: false })}
                             onPress={() => this._validateForm()}
                             iconRight style={{
                                 width: "100%",
@@ -377,8 +377,8 @@ export default class Prizes extends Component {
 
                         {/* NAME OF CONTEST */}
                         <Item
-                            error={isAscii(name) ? false : true}
-                            success={isAscii(name) ? true : false}
+                            error={name ? false : true}
+                            success={name ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Name of prize"
@@ -412,7 +412,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(name) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: name ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -438,8 +438,8 @@ export default class Prizes extends Component {
 
                         {/* NAME OF PRIZE */}
                         <Item
-                            error={isAscii(description) ? false : true}
-                            success={isAscii(description) ? true : false}
+                            error={description ? false : true}
+                            success={description ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 multiline
@@ -474,7 +474,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(description) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

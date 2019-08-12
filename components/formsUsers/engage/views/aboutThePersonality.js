@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Dimensions, Modal, KeyboardAvoidingView, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Picker } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
-import { isAscii, normalizeEmail } from 'validator'
+import { normalizeEmail } from 'validator'
 import moment from 'moment'
 import axios from 'axios'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Data
-import { sexualityList, maritalStatusList, regionalIdentityList } from '../../../Global/data/index'
+import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../Global/data/index'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
 
-// Icons
-import { Ionicons, Foundation, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
-
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
-class AboutYou extends Component {
+class AboutThePersonality extends Component {
     state = {
         // Data
         location: {
@@ -41,7 +38,11 @@ class AboutYou extends Component {
         birthDate: 'Not specified',
         sexuality: 'Not specified',
         maritalStatus: 'Not specified',
-        regionalIdentity: 'No specified',
+        regionalIdentity: 'Not specified',
+        nacionality: 'Not specified',
+        parentalCondition: 'Not specified',
+        amountOfSimblings: "Not specified",
+        amountOfChildren: 'Not specified',
 
         // Inputs
         isvalidFormAnimation: false,
@@ -90,8 +91,8 @@ class AboutYou extends Component {
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { businessLocation, companyName, socialMediaHandle } = this.state
-        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.sub, createdAt: moment().toISOString() }
+        const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren } = this.state
+        const data = { aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren }, engageUserId: userData.sub, createdAt: moment().toISOString() }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
@@ -100,6 +101,34 @@ class AboutYou extends Component {
             alert(error)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
         }
+    }
+
+    _validateForm = () => {
+        const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, amountOfSimblings, parentalCondition, amountOfChildren } = this.state
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            location.born.city !== 'Not specified' && location.born.city !== 'Not specified' && location.currentPlace.city !== 'Not specified' && location.currentPlace.city !== 'Not specified'
+                ? gender !== 'Not specified'
+                    ? birthDate !== 'Not specified'
+                        ? sexuality !== 'Not specified'
+                            ? maritalStatus !== 'Not specified'
+                                ? regionalIdentity !== 'Not specified'
+                                    ? nacionality !== 'Not specified'
+                                        ? parentalCondition !== 'Not specified'
+                                            ? amountOfSimblings !== 'Not specified'
+                                                ? amountOfChildren !== 'Not specified'
+                                                    ? this._submit()
+                                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid amount of childrens" } } })
+                                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid amount of simblings" } } })
+                                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid parent's conditional" } } })
+                                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid nacionality" } } })
+                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid regional indentify" } } })
+                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid marital status" } } })
+                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid sexuality" } } })
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid birthdate" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid gender" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid location" } } })
+        }, 500);
     }
 
     render() {
@@ -111,6 +140,10 @@ class AboutYou extends Component {
             sexuality,
             maritalStatus,
             regionalIdentity,
+            nacionality,
+            parentalCondition,
+            amountOfSimblings,
+            amountOfChildren,
 
             isvalidFormAnimation,
             isLoading,
@@ -147,7 +180,7 @@ class AboutYou extends Component {
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
                         <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about you!
+                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about yourself and a little more! 🤗
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -162,7 +195,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Icon type="Ionicons" name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -178,7 +211,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Icon type="Ionicons" name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -194,7 +227,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                <Foundation style={{ fontSize: wp(5.6), color: '#FFF' }} active name="telephone" />
+                                                <Icon type="Foundation" name="telephone" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -210,7 +243,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-mail" />
+                                                <Icon type="Ionicons" name="md-mail" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -223,14 +256,14 @@ class AboutYou extends Component {
                                     </ListItem>
 
                                     {/* BIRHTDAY */}
-                                    <ListItem icon onPress={() => this.setState({ datePickerAction: true })} style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                    <ListItem last disabled={isLoading} icon onPress={() => this.setState({ datePickerAction: true })} style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FFD600" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FFD600" }}>
                                                 <Icon type="MaterialIcons" name="child-care" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Birthdate</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Birthdate</Text>
                                         </Body>
                                         <Right>
                                             <Text>{birthDate !== 'Not specified' ? moment(new Date(birthDate)).calendar() : "Not specified"}</Text>
@@ -253,31 +286,33 @@ class AboutYou extends Component {
                                         />
                                     </ListItem>
 
+                                    <Separator bordered />
+
                                     {/* LOCALIDAD */}
-                                    <ListItem icon onPress={() => this._visibleModalLocation(true)}>
+                                    <ListItem disabled={isLoading} icon onPress={() => this._visibleModalLocation(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#D500F9" }}>
-                                                <Entypo style={{ fontSize: wp(6.5), color: '#FFF', left: 0.5, top: 1 }} active name="location-pin" />
+                                                <Icon type="Entypo" name="location-pin" />
                                             </Button>
                                         </Left>
                                         <Body>
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{location.born.country === 'No specified' ? 'Specified' : 'Not specified'}</Text>
-                                            <Icon active name="arrow-forward" />
+                                            <Text>{location.born.country !== 'Not specified' ? 'Specified' : 'Not specified'}</Text>
+                                            <Icon name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
                                     {/* REGION*/}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00897B" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#00897B" }}>
                                                 <Icon type="FontAwesome" name="globe" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What region do you identify with?</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What region do you identify with?</Text>
                                         </Body>
                                         <Right>
                                             <Text>{regionalIdentity === 'Not specified' ? 'Not specified' : _.truncate(regionalIdentity, { length: 20, separate: '...' })}</Text>
@@ -298,15 +333,46 @@ class AboutYou extends Component {
                                             </Picker>}
                                     </ListItem>
 
+                                    {/* NACIONALITY */}
+                                    <ListItem last icon style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#6200EA" }}>
+                                                <Icon type="MaterialCommunityIcons" name="earth" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What nacionality do you identify with?</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{nacionality === 'Not specified' ? 'Not specified' : nacionality}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={nacionality}
+                                                onValueChange={(value) => this.setState({ nacionality: value })}>
+                                                {nacionalityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    <Separator bordered />
+
                                     {/* GENDER */}
                                     <ListItem icon style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#90A4AE" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#90A4AE" }}>
                                                 <Icon type="MaterialCommunityIcons" name="gender-male-female" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What gender do you identify with?</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What gender do you identify with?</Text>
                                         </Body>
                                         <Right>
                                             <Text>{gender === 'Not specified' ? 'Not specified' : gender}</Text>
@@ -333,12 +399,12 @@ class AboutYou extends Component {
                                     {/* SEXUALITY */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#D81B60" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#D81B60" }}>
                                                 <Icon type="FontAwesome" name="genderless" style={{ fontSize: wp(8), top: -4, left: 1.5 }} />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify according to your sexual preference</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Identify according to your sexual preference</Text>
                                         </Body>
                                         <Right>
                                             <Text>{sexuality === 'Not specified' ? 'Not specified' : sexuality}</Text>
@@ -360,14 +426,14 @@ class AboutYou extends Component {
                                     </ListItem>
 
                                     {/* MARITAL STATUS */}
-                                    <ListItem icon>
+                                    <ListItem last icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00BCD4" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#00BCD4" }}>
                                                 <Icon type="Entypo" name="slideshare" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>What is your marital status?</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What is your marital status?</Text>
                                         </Body>
                                         <Right>
                                             <Text>{maritalStatus === 'Not specified' ? 'Not specified' : maritalStatus}</Text>
@@ -385,6 +451,95 @@ class AboutYou extends Component {
                                                 selectedValue={maritalStatus}
                                                 onValueChange={(value) => this.setState({ maritalStatus: value })}>
                                                 {maritalStatusList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    <Separator bordered />
+
+                                    {/* PARENT'S CONDITION */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EF5350" }}>
+                                                <Icon type="Feather" name="users" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Parent's conditional</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{parentalCondition === 'Not specified' ? 'Not specified' : _.truncate(parentalCondition, { length: 15, separate: '...' })}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={parentalCondition}
+                                                onValueChange={(value) => this.setState({ parentalCondition: value })}>
+                                                {parentalConditionList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    {/* AMOUNT OF SIMBLINGS */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#AA00FF" }}>
+                                                <Icon type="Entypo" name="users" style={{ fontSize: wp(5) }} />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Amount of simblings</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{amountOfSimblings === 'Not specified' ? 'Not specified' : _.truncate(amountOfSimblings, { length: 15, separate: '...' })}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={parentalCondition}
+                                                onValueChange={(value) => this.setState({ amountOfSimblings: value })}>
+                                                {_.range(6).map(item => <Picker.Item key={item} label={`${item}`} value={item} />)}
+                                            </Picker>}
+                                    </ListItem>
+
+                                    {/* AMOUNT OF CHILDREN */}
+                                    <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#1E88E5" }}>
+                                                <Icon type="FontAwesome" name="child" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Amount of childrens</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text>{amountOfChildren === 'Not specified' ? 'Not specified' : _.startCase(_.lowerCase(amountOfChildren))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <Picker
+                                                mode="dropdown"
+                                                iosHeader="SELECT ONE"
+                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
+                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                headerTitleStyle={{ color: "#D81B60" }}
+                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                selectedValue={amountOfChildren}
+                                                onValueChange={(value) => this.setState({ amountOfChildren: value })}>
+                                                {_.range(6).map(item => <Picker.Item key={item} label={`${item}`} value={item} />)}
                                             </Picker>}
                                     </ListItem>
 
@@ -410,8 +565,6 @@ class AboutYou extends Component {
                             shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
-                            onLongPress={() => { this.setState({ isLoading: false }) }}
-                            onPressIn={() => { this.setState({ isLoading: true }) }}
                             disabled={isLoading || Object.keys(userData).length === 0}
                             onPress={() => { this._validateForm() }}
                             iconRight style={{
@@ -448,7 +601,7 @@ class AboutYou extends Component {
                         <ListItem icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
-                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: '#fff', left: 0.5, top: 1 }} />
+                                    <Icon type="MaterialCommunityIcons" name="earth" />
                                 </Button>
                             </Left>
                             <Body>
@@ -507,7 +660,7 @@ class AboutYou extends Component {
                         <ListItem icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#00B8D4" }}>
-                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: '#fff', left: 0.5, top: 1 }} />
+                                    <Icon type="MaterialCommunityIcons" name="earth" />
                                 </Button>
                             </Left>
                             <Body>
@@ -612,4 +765,4 @@ class AboutYou extends Component {
     }
 }
 
-export default withNavigation(AboutYou)
+export default withNavigation(AboutThePersonality)

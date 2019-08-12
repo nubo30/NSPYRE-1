@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
-import { isAscii, normalizeEmail } from 'validator'
+import { normalizeEmail } from 'validator'
 import moment from 'moment'
 
 // Gradients
@@ -63,13 +63,16 @@ class AboutYou extends Component {
 
     _validateForm = () => {
         const { location, companyName, titleInTheCompany } = this.state
-        location.street && location.city && location.state && location.country
-            ? isAscii(companyName)
-                ? isAscii(titleInTheCompany)
-                    ? this._submit()
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name company" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid location" } } })
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            location.street && location.city && location.state && location.country
+                ? companyName
+                    ? titleInTheCompany
+                        ? this._submit()
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name company" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid location" } } })
+        }, 500);
     }
 
     render() {
@@ -264,8 +267,6 @@ class AboutYou extends Component {
                             shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
-                            onLongPress={() => { this.setState({ isLoading: false }) }}
-                            onPressIn={() => { this.setState({ isLoading: true }) }}
                             disabled={isLoading || Object.keys(userData).length === 0}
                             onPress={() => { this._validateForm() }}
                             iconRight style={{
@@ -297,8 +298,8 @@ class AboutYou extends Component {
 
                         {/* LOCATION */}
                         <Item
-                            error={isAscii(location.street) ? false : true}
-                            success={isAscii(location.street) ? true : false}
+                            error={location.street ? false : true}
+                            success={location.street ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Street"
@@ -315,8 +316,8 @@ class AboutYou extends Component {
 
                         {/* CITY */}
                         <Item
-                            error={isAscii(location.city) ? false : true}
-                            success={isAscii(location.city) ? true : false}
+                            error={location.city ? false : true}
+                            success={location.city ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="City"
@@ -331,8 +332,8 @@ class AboutYou extends Component {
 
                         {/* STATE */}
                         <Item
-                            error={isAscii(location.state) ? false : true}
-                            success={isAscii(location.state) ? true : false}
+                            error={location.state ? false : true}
+                            success={location.state ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="State"
@@ -347,8 +348,8 @@ class AboutYou extends Component {
 
                         {/* COUNTRY */}
                         <Item
-                            error={isAscii(location.country) ? false : true}
-                            success={isAscii(location.country) ? true : false}
+                            error={location.country ? false : true}
+                            success={location.country ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Country"
@@ -390,7 +391,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(location.street && location.city && location.state && location.country) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: location.street && location.city && location.state && location.country ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -415,8 +416,8 @@ class AboutYou extends Component {
 
                         {/* COUNTRY */}
                         <Item
-                            error={isAscii(companyName) ? false : true}
-                            success={isAscii(companyName) ? true : false}
+                            error={companyName ? false : true}
+                            success={companyName ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Company Name"
@@ -453,7 +454,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(companyName) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: companyName ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -478,8 +479,8 @@ class AboutYou extends Component {
 
                         {/* TITLE IN THE COMPANY */}
                         <Item
-                            error={isAscii(titleInTheCompany) ? false : true}
-                            success={isAscii(titleInTheCompany) ? true : false}
+                            error={titleInTheCompany ? false : true}
+                            success={titleInTheCompany ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Title In The Company"
@@ -516,7 +517,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(titleInTheCompany) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: titleInTheCompany ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

@@ -68,13 +68,16 @@ class AboutYou extends Component {
 
     _validateForm = () => {
         const { businessLocation, companyName, socialMediaHandle } = this.state
-        businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country
-            ? isAscii(companyName)
-                ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                    ? this._submit()
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid comapany social media handles" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid business location" } } })
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country
+                ? isAscii(companyName)
+                    ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
+                        ? this._submit()
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid comapany social media handles" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid business location" } } })
+        }, 500);
     }
 
     render() {
@@ -121,9 +124,9 @@ class AboutYou extends Component {
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
-                            <Content 
-                            scrollEnabled={!isLoading}
-                            contentContainerStyle={{ paddingTop: 10 }}
+                            <Content
+                                scrollEnabled={!isLoading}
+                                contentContainerStyle={{ paddingTop: 10 }}
                                 keyboardShouldPersistTaps={'always'}>
 
                                 <List>
@@ -274,8 +277,6 @@ class AboutYou extends Component {
                             shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
-                            onLongPress={() => { this.setState({ isLoading: false }) }}
-                            onPressIn={() => { this.setState({ isLoading: true }) }}
                             disabled={isLoading || Object.keys(userData).length === 0}
                             onPress={() => { this._validateForm() }}
                             iconRight style={{

@@ -6,7 +6,6 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
-import { isAscii } from 'validator'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
@@ -46,19 +45,22 @@ export default class AboutTheContest extends Component {
     // Validar formulario
     _validateForm = () => {
         const { category, nameOfContest, description, instructions, picture, video } = this.state
-        category !== 'NO_SELECT'
-            ? isAscii(nameOfContest)
-                ? description
-                    ? instructions
-                        ? picture.name
-                            ? video.name
-                                ? this._submit()
-                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
-                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Choose a category" } } })
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            category !== 'NO_SELECT'
+                ? nameOfContest
+                    ? description
+                        ? instructions
+                            ? picture.name
+                                ? video.name
+                                    ? this._submit()
+                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
+                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Choose a category" } } })
+        }, 500);
     }
 
     // Abrir la libreria de imagenes
@@ -338,8 +340,6 @@ export default class AboutTheContest extends Component {
                         }}>
                         <Button
                             disabled={isLoading}
-                            onLongPress={() => this.setState({ isLoading: false })}
-                            onPressIn={() => this.setState({ isLoading: true })}
                             onPress={() => this._validateForm()}
                             iconRight style={{
                                 width: "100%",
@@ -371,8 +371,8 @@ export default class AboutTheContest extends Component {
 
                         {/* NAME OF CONTEST */}
                         <Item
-                            error={isAscii(nameOfContest) ? false : true}
-                            success={isAscii(nameOfContest) ? true : false}
+                            error={nameOfContest ? false : true}
+                            success={nameOfContest ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 placeholder="Name Of Contest"
@@ -406,7 +406,7 @@ export default class AboutTheContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(nameOfContest) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: nameOfContest ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -431,8 +431,8 @@ export default class AboutTheContest extends Component {
 
                         {/* NAME OF CONTEST */}
                         <Item
-                            error={isAscii(description) ? false : true}
-                            success={isAscii(description) ? true : false}
+                            error={description ? false : true}
+                            success={description ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 multiline
@@ -467,7 +467,7 @@ export default class AboutTheContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(description) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -492,8 +492,8 @@ export default class AboutTheContest extends Component {
 
                         {/* NAME OF CONTEST */}
                         <Item
-                            error={isAscii(instructions) ? false : true}
-                            success={isAscii(instructions) ? true : false}
+                            error={instructions ? false : true}
+                            success={instructions ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 multiline
@@ -528,7 +528,7 @@ export default class AboutTheContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(instructions) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

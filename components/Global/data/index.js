@@ -2170,11 +2170,25 @@ export const rentOrOwnHouseList = [
 export const rentOrOwnCarList = [
     'Rent',
     'Own',
-    'Live with parents',
-    'Dorn room'
 ]
 
 export const categoryPrizeList = [
+    "Amazon products",
+    "Apparel(clothing)",
+    "Bags",
+    "Cars",
+    "Coupon codes",
+    "Cryptocurrency",
+    "Electronics",
+    "Gaming",
+    "Hats",
+    "Miles",
+    "Shoes",
+    "Tickets(sports - music - film - etc)",
+    "Trips",
+]
+
+export const categoryContestList = [
     "Amazon products",
     "Apparel(clothing)",
     "Bags",

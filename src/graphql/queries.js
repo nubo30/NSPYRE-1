@@ -33,6 +33,9 @@ export const getUser = `query GetUser($id: ID!) {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -139,6 +142,9 @@ export const getUser = `query GetUser($id: ID!) {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheCompany {
           businessLocation {
@@ -191,6 +197,61 @@ export const getUser = `query GetUser($id: ID!) {
           socialMediaSelected
           typeOfSocialNetwork
         }
+      }
+      nextToken
+    }
+    engage {
+      items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
+        createdAt
       }
       nextToken
     }
@@ -286,6 +347,52 @@ export const listUsers = `query ListUsers(
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     nextToken
   }
@@ -374,6 +481,52 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             socialMediaSelected
             typeOfSocialNetwork
           }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
         }
         nextToken
       }
@@ -535,6 +688,12 @@ export const listCreateContests = `query ListCreateContests(
           }
           nextToken
         }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -657,6 +816,12 @@ export const getAudience = `query GetAudience($id: ID!) {
           items {
             id
             category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
             createdAt
           }
           nextToken
@@ -803,6 +968,9 @@ export const listAudiences = `query ListAudiences(
             nextToken
           }
           submitPrize {
+            nextToken
+          }
+          engage {
             nextToken
           }
         }
@@ -1055,6 +1223,52 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheCompany {
       businessLocation {
@@ -1146,6 +1360,12 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
           }
           nextToken
         }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheCompany {
         businessLocation {
@@ -1198,6 +1418,266 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         socialMediaSelected
         typeOfSocialNetwork
       }
+    }
+    nextToken
+  }
+}
+`;
+export const getEngage = `query GetEngage($id: ID!) {
+  getEngage(id: $id) {
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutThePersonality {
+      amountOfChildren
+      amountOfSimblings
+      birthDate
+      gender
+      location {
+        born {
+          city
+          country
+        }
+        currentPlace {
+          city
+          country
+        }
+      }
+      maritalStatus
+      nacionality
+      parentalCondition
+      regionalIdentity
+      sexuality
+    }
+    aboutTheOccupations {
+      levelAchivied
+      occupation
+      rentOrOwnCar
+      rentOrOwnHouse
+      schools
+      university
+      socioeconomicLevel
+    }
+    interests {
+      categoryContest
+      categoryPrize
+      musicalGenre
+      sports
+      political
+      vote
+    }
+    createdAt
+  }
+}
+`;
+export const listEngages = `query ListEngages(
+  $filter: ModelEngageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEngages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      user {
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
+      }
+      aboutThePersonality {
+        amountOfChildren
+        amountOfSimblings
+        birthDate
+        gender
+        location {
+          born {
+            city
+            country
+          }
+          currentPlace {
+            city
+            country
+          }
+        }
+        maritalStatus
+        nacionality
+        parentalCondition
+        regionalIdentity
+        sexuality
+      }
+      aboutTheOccupations {
+        levelAchivied
+        occupation
+        rentOrOwnCar
+        rentOrOwnHouse
+        schools
+        university
+        socioeconomicLevel
+      }
+      interests {
+        categoryContest
+        categoryPrize
+        musicalGenre
+        sports
+        political
+        vote
+      }
+      createdAt
     }
     nextToken
   }

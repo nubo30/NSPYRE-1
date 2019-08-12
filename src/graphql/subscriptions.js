@@ -33,6 +33,9 @@ export const onCreateUser = `subscription OnCreateUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -139,6 +142,9 @@ export const onCreateUser = `subscription OnCreateUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheCompany {
           businessLocation {
@@ -191,6 +197,61 @@ export const onCreateUser = `subscription OnCreateUser {
           socialMediaSelected
           typeOfSocialNetwork
         }
+      }
+      nextToken
+    }
+    engage {
+      items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
+        createdAt
       }
       nextToken
     }
@@ -229,6 +290,9 @@ export const onUpdateUser = `subscription OnUpdateUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -335,6 +399,9 @@ export const onUpdateUser = `subscription OnUpdateUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheCompany {
           businessLocation {
@@ -387,6 +454,61 @@ export const onUpdateUser = `subscription OnUpdateUser {
           socialMediaSelected
           typeOfSocialNetwork
         }
+      }
+      nextToken
+    }
+    engage {
+      items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
+        createdAt
       }
       nextToken
     }
@@ -425,6 +547,9 @@ export const onDeleteUser = `subscription OnDeleteUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheUser {
           companyName
@@ -531,6 +656,9 @@ export const onDeleteUser = `subscription OnDeleteUser {
           submitPrize {
             nextToken
           }
+          engage {
+            nextToken
+          }
         }
         aboutTheCompany {
           businessLocation {
@@ -583,6 +711,61 @@ export const onDeleteUser = `subscription OnDeleteUser {
           socialMediaSelected
           typeOfSocialNetwork
         }
+      }
+      nextToken
+    }
+    engage {
+      items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
+        createdAt
       }
       nextToken
     }
@@ -672,6 +855,52 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             socialMediaSelected
             typeOfSocialNetwork
           }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
         }
         nextToken
       }
@@ -883,6 +1112,52 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -1091,6 +1366,52 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheUser {
       companyName
@@ -1245,6 +1566,12 @@ export const onCreateAudience = `subscription OnCreateAudience {
           }
           nextToken
         }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1395,6 +1722,12 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           }
           nextToken
         }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
       }
       aboutTheUser {
         companyName
@@ -1541,6 +1874,12 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           items {
             id
             category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
             createdAt
           }
           nextToken
@@ -1803,6 +2142,52 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheCompany {
       businessLocation {
@@ -1941,6 +2326,52 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             socialMediaSelected
             typeOfSocialNetwork
           }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
         }
         nextToken
       }
@@ -2085,6 +2516,52 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
         }
         nextToken
       }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
     }
     aboutTheCompany {
       businessLocation {
@@ -2137,6 +2614,528 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       socialMediaSelected
       typeOfSocialNetwork
     }
+  }
+}
+`;
+export const onCreateEngage = `subscription OnCreateEngage {
+  onCreateEngage {
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutThePersonality {
+      amountOfChildren
+      amountOfSimblings
+      birthDate
+      gender
+      location {
+        born {
+          city
+          country
+        }
+        currentPlace {
+          city
+          country
+        }
+      }
+      maritalStatus
+      nacionality
+      parentalCondition
+      regionalIdentity
+      sexuality
+    }
+    aboutTheOccupations {
+      levelAchivied
+      occupation
+      rentOrOwnCar
+      rentOrOwnHouse
+      schools
+      university
+      socioeconomicLevel
+    }
+    interests {
+      categoryContest
+      categoryPrize
+      musicalGenre
+      sports
+      political
+      vote
+    }
+    createdAt
+  }
+}
+`;
+export const onUpdateEngage = `subscription OnUpdateEngage {
+  onUpdateEngage {
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutThePersonality {
+      amountOfChildren
+      amountOfSimblings
+      birthDate
+      gender
+      location {
+        born {
+          city
+          country
+        }
+        currentPlace {
+          city
+          country
+        }
+      }
+      maritalStatus
+      nacionality
+      parentalCondition
+      regionalIdentity
+      sexuality
+    }
+    aboutTheOccupations {
+      levelAchivied
+      occupation
+      rentOrOwnCar
+      rentOrOwnHouse
+      schools
+      university
+      socioeconomicLevel
+    }
+    interests {
+      categoryContest
+      categoryPrize
+      musicalGenre
+      sports
+      political
+      vote
+    }
+    createdAt
+  }
+}
+`;
+export const onDeleteEngage = `subscription OnDeleteEngage {
+  onDeleteEngage {
+    user {
+      id
+      userId
+      name
+      username
+      lastname
+      email
+      avatar
+      phone
+      datetime
+      scope
+      createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+            price
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
+        nextToken
+      }
+      engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
+        nextToken
+      }
+    }
+    aboutThePersonality {
+      amountOfChildren
+      amountOfSimblings
+      birthDate
+      gender
+      location {
+        born {
+          city
+          country
+        }
+        currentPlace {
+          city
+          country
+        }
+      }
+      maritalStatus
+      nacionality
+      parentalCondition
+      regionalIdentity
+      sexuality
+    }
+    aboutTheOccupations {
+      levelAchivied
+      occupation
+      rentOrOwnCar
+      rentOrOwnHouse
+      schools
+      university
+      socioeconomicLevel
+    }
+    interests {
+      categoryContest
+      categoryPrize
+      musicalGenre
+      sports
+      political
+      vote
+    }
+    createdAt
   }
 }
 `;

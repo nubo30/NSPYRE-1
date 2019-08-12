@@ -48,6 +48,7 @@ class SomethingMore extends Component {
 
     // Unir datos al objeto global
     _submit = async () => {
+        this.setState({ isLoading: true })
         const { _indexChangeSwiper, _dataFromForms } = this.props
         const { description, socialMediaHandleSeleted, typeOfSocialNetwork } = this.state
         const data = { delivery: { description, socialMediaSelected: socialMediaHandleSeleted, typeOfSocialNetwork } }
@@ -189,8 +190,6 @@ class SomethingMore extends Component {
                             shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
-                            onLongPress={() => { this.setState({ isLoading: false }) }}
-                            onPressIn={() => { this.setState({ isLoading: true }) }}
                             disabled={isLoading || Object.keys(userData).length === 0}
                             onPress={() => { this._submit() }}
                             iconRight style={{

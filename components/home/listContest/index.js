@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify'
-import { View, FlatList, TouchableHighlight, ImageBackground, Text } from 'react-native';
-import { withNavigation } from "react-navigation"
+import { View, FlatList, TouchableHighlight, ImageBackground, Text, Alert } from 'react-native';
+import { withNavigation, withNavigationFocus } from "react-navigation"
 import * as Animatable from 'react-native-animatable';
 import Placeholder from 'rn-placeholder'
 import _ from 'lodash'
@@ -17,7 +17,8 @@ class ListContest extends Component {
     isReady: false,
     loadingImg: false,
     indexItem: null,
-    categories: null
+    categories: null,
+    isScreenChange: false
   }
 
   async componentDidMount() {
@@ -29,9 +30,37 @@ class ListContest extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      setTimeout(() => {
+        this.setState({ isScreenChange: false })
+      }, 1000);
+    }
+  }
+
+  _redirect = (item) => {
+    const { userData, navigation } = this.props
+    userData.engage.items.length
+      ? navigation.navigate('Contests', { categoryContest: item, userData })
+      : Alert.alert(
+        `${userData.name}`,
+        'To see the available contests, please create a engage profile',
+        [
+          {
+            text: 'Ok',
+            onPress: () => { navigation.navigate('Engage'); this.setState({ isScreenChange: false }) },
+            style: 'cancel',
+          },
+          { text: 'Cancel', onPress: () => { } },
+        ],
+        { cancelable: false },
+      )
+  }
+
   render() {
-    const { categories, isReady } = this.state
-    const { userData, offLine } = this.props
+    const { categories, isReady, isScreenChange } = this.state
+    const { offLine } = this.props
+
     return isReady ? (
       <FlatList
         style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4 }}
@@ -47,7 +76,7 @@ class ListContest extends Component {
               shadowOpacity: 1,
               shadowOffset: { width: 0 }
             }}
-            disabled={offLine}
+            disabled={offLine || isScreenChange}
             underlayColor="rgba(0,0,0,0.0)"
             onPress={() => { this.setState({ animationPulse: true, indexItem: item.id }) }}>
             <Animatable.View
@@ -62,7 +91,7 @@ class ListContest extends Component {
               duration={200}
               onAnimationEnd={() => {
                 this.setState({ animationPulse: false });
-                this.props.navigation.navigate('Contests', { categoryContest: item, userData });
+                this._redirect(item)
               }}
               animation={this.state.animationPulse ? (item.id === this.state.indexItem ? 'pulse' : undefined) : undefined}>
               <ImageBackground
@@ -99,4 +128,4 @@ class ListContest extends Component {
   }
 }
 
-export default withNavigation(ListContest)
+export default withNavigationFocus(withNavigation(ListContest))

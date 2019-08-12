@@ -19,8 +19,8 @@ import { GadrientsHome } from "../Global/gradients/index"
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
 
-const BUTTONS = ["Engage", "Create a contest", "Submit a prize", "Cancel"];
-const CANCEL_INDEX = 3;
+const BUTTONS = ["Submit a prize", "Create a contest", "Cancel"];
+const CANCEL_INDEX = 2;
 
 class Home extends Component {
     constructor() {
@@ -30,7 +30,7 @@ class Home extends Component {
             isReady: false,
             animation: null,
             openDrower: false,
-            actionSheetButtonIndex: "Engage",
+            actionSheetButtonIndex: "Create a contest",
             heightHeader: 0,
             prizeCategory: [],
             offLine: false,
@@ -86,8 +86,8 @@ class Home extends Component {
                     title: "Create a contest or Submit a prize"
                 },
                 buttonIndex => {
-                    BUTTONS[buttonIndex] === 'Create a contest' ? navigation.navigate("CreateContest", { fromWhere: "fromHome" }) : null
                     BUTTONS[buttonIndex] === 'Submit a prize' ? navigation.navigate("SubmitPrize", { fromWhere: "fromHome" }) : null
+                    BUTTONS[buttonIndex] === 'Create a contest' ? navigation.navigate("CreateContest", { fromWhere: "fromHome" }) : null
                 })
         }
     }

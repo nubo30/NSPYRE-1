@@ -32,6 +32,7 @@ class Summary extends Component {
     }
 
     _submit = async () => {
+        this.setState({ isLoading: true})
         const { navigation, userData, contest } = this.props
 
         AWS.config.update({
@@ -458,7 +459,6 @@ class Summary extends Component {
                         }}>
                         <Button
                             disabled={isLoading}
-                            onPressIn={() => this.setState({ isLoading: true })}
                             onPress={() => this._submit()}
                             iconRight style={{
                                 width: "80%",

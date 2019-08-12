@@ -12,6 +12,7 @@ type User @model{
   scope: Scope
   createContest: [CreateContest] @connection(name: "UserCreateContest")
   submitPrize: [SubmitPrize] @connection(name: "UserSubmitPrize")
+  engage: [Engage] @connection(name: "UserEngage")
 }
 
 ##################################################################### SCOPE #####################################################################
@@ -205,4 +206,60 @@ enum TypeOfSocialNetwork {
   tt
   ig
   sc
+}
+
+##################################################################### ENGAGE #####################################################################
+type Engage @model{
+  user: User @connection(name: "UserEngage")
+  aboutThePersonality: AboutThePersonality!
+  aboutTheOccupations: AboutTheOccupations! 
+  interests: Interests!
+  createdAt: AWSDateTime!
+}
+
+type AboutTheOccupations {
+  levelAchivied: String
+  occupation: String
+  rentOrOwnCar: String
+  rentOrOwnHouse: String
+  schools: String
+  university: String
+  socioeconomicLevel: String
+}
+
+type AboutThePersonality {
+  amountOfChildren: String
+  amountOfSimblings: String
+  birthDate: AWSDateTime
+  gender: String
+  location: LocationEngage
+  maritalStatus: String
+  nacionality: String
+  parentalCondition: String
+  regionalIdentity: String
+  sexuality: String
+}
+
+type LocationEngage{
+  born: Born
+  currentPlace: CurrentPlace
+}
+
+type Born {
+  city: String
+  country: String
+}
+
+type CurrentPlace {
+  city: String
+  country: String
+}
+
+type Interests {
+  categoryContest: [String]
+  categoryPrize: [String]
+  musicalGenre: [String]
+  sports: [String]
+  political: String
+  vote: String
 }

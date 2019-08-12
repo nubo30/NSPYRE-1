@@ -66,21 +66,24 @@ export default class AboutTheContest extends Component {
     // Validar formulario
     _validateForm = () => {
         const { category, nameOfPrize, description, instructions, socialMediaHandle, picture, video } = this.state
-        category !== 'NO_SELECT'
-            ? isAscii(nameOfPrize)
-                ? description
-                    ? instructions
-                        ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.twitter || socialMediaHandle.snapchat
-                            ? picture.name
-                                ? video.name
-                                    ? this._submit()
-                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
-                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid socials medias" } } })
-                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
-            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Choose a category" } } })
+        this.setState({ isLoading: true })
+        setTimeout(() => {
+            category !== 'NO_SELECT'
+                ? isAscii(nameOfPrize)
+                    ? description
+                        ? instructions
+                            ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.twitter || socialMediaHandle.snapchat
+                                ? picture.name
+                                    ? video.name
+                                        ? this._submit()
+                                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
+                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid socials medias" } } })
+                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Choose a category" } } })
+        }, 500);
     }
 
     // Abrir la libreria de imagenes
@@ -425,8 +428,6 @@ export default class AboutTheContest extends Component {
                         }}>
                         <Button
                             disabled={isLoading}
-                            onLongPress={() => this.setState({ isLoading: false })}
-                            onPressIn={() => this.setState({ isLoading: true })}
                             onPress={() => this._validateForm()}
                             iconRight style={{
                                 width: "100%",

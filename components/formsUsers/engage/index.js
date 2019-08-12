@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
 // Child Component
-import AboutYou from './views/aboutYou'
-
-import * as queries from '../../../src/graphql/queries'
+import AboutThePersonality from './views/aboutThePersonality'
+import AbouttheirOccupations from './views/aboutTheirOccupations'
+import Interests from './views/interests'
+import Summary from './views/summary'
 
 export default class SubmitPrize extends Component {
     state = {
         userData: {},
-        userDataAPI: {},
         engage: {},
     }
 
     async componentDidMount() {
         try {
             const { attributes } = await Auth.currentUserInfo()
-            const userDataAPI = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
-            this.setState({ userData: attributes, userDataAPI: userDataAPI.data.getUser })
+            this.setState({ userData: attributes })
         } catch (error) {
             alert(error)
         }
@@ -31,22 +30,43 @@ export default class SubmitPrize extends Component {
 
     _dataFromForms = (data) => {
         const { engage } = this.state
-        this.setState({ engage: Object.assign(prize, data) })
+        this.setState({ engage: Object.assign(engage, data) })
     }
 
     render() {
-        const { engage, userData, userDataAPI } = this.state
+        const { engage, userData } = this.state
         return (
             <Swiper
-                scrollEnabled={false}
+                scrollEnabled={true}
                 ref={(swiper) => this.swiper = swiper}
                 loop={false} showsButtons={false} showsPagination={false}>
 
-                {/* ABOUT YOU */}
-                <AboutYou
+                {/* ABOUT THE PERSONALITY*/}
+                <AboutThePersonality
                     userData={userData}
 
                     _dataFromForms={this._dataFromForms}
+                    _indexChangeSwiper={this._indexChangeSwiper} />
+
+                {/* ABOUT THEIR OCCUPATIONS */}
+                <AbouttheirOccupations
+                    userData={userData}
+
+                    _dataFromForms={this._dataFromForms}
+                    _indexChangeSwiper={this._indexChangeSwiper} />
+
+                {/* INTEREST */}
+                <Interests
+                    userData={userData}
+
+                    _dataFromForms={this._dataFromForms}
+                    _indexChangeSwiper={this._indexChangeSwiper} />
+
+                {/* INTEREST */}
+                <Summary
+                    userData={userData}
+                    engage={engage}
+
                     _indexChangeSwiper={this._indexChangeSwiper} />
             </Swiper>
         );

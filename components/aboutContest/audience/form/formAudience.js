@@ -1093,7 +1093,7 @@ export default class FormAudience extends Component {
                                 </ListItem>
 
                                 {/* ACADEMIC LEVEL ACHIVIED */}
-                                <ListItem
+                                <ListItem   
                                     disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectAcademicLevelAchieved._toggleSelector()}
@@ -1686,7 +1686,7 @@ export default class FormAudience extends Component {
                                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                             selectedValue={amountOfSimblings}
                                             onValueChange={this.onValueChangeAmountOfSimblings}>
-                                            {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1} year`} value={item + 1} />)}
+                                            {_.range(5).map(item => <Picker.Item key={item} label={`${item + 1}`} value={item + 1} />)}
                                             <Picker.Item label="Do not specify" value="NO_SELECT" />
                                         </Picker>}
                                 </ListItem>
@@ -1937,7 +1937,6 @@ export default class FormAudience extends Component {
                                     </View>
                                 </ListItem>
 
-
                                 {/* RENT OR OWN HOUSE */}
                                 <ListItem
                                     disabled={isLoading}
@@ -2114,6 +2113,7 @@ export default class FormAudience extends Component {
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>Specify the category of awards for the audience</Text>
                                 </ListItem>
+                               
                                 <ListItem
                                     disabled={isLoading}
                                     itemHeader
