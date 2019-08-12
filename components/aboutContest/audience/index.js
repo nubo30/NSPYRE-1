@@ -264,7 +264,3 @@ export default class Audience extends Component {
         );
     }
 }
-
-const progressCustomStyles = {
-    backgroundColor: '#D81B60'
-};

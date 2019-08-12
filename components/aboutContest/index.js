@@ -7,7 +7,7 @@ import { Grid, Row } from "react-native-easy-grid"
 import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
 import * as Animatable from 'react-native-animatable'
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // Child Components
 import SocialNetwork from "./shareSocialNetwork"
@@ -16,12 +16,11 @@ import PrizeModal from "./modals/prizes"
 import AboutModal from "./modals/about"
 import SwiperAboutTheContest from "./swiper/about"
 import SwiperPrizes from "./swiper/prizes"
-import SubmitAvideo from "./cards/submitVideo"
-import SubmitAMeme from "./cards/submitAMeme"
 import UpdateContest from './updateContest'
 import Audience from './audience'
 import Participants from './participants'
 import SecondaryView from './secondaryView'
+import JoinToTheContest from './participants/joinToTheContest'
 
 // Gradients
 import { GadrientsAboutContest } from "../Global/gradients"
@@ -60,6 +59,8 @@ class ShowContest extends Component {
             modalVisibleAboutTheContest: false,
             modalVisibleHowToParticipe: false,
             modalVisiblePrizes: false,
+            modalVisibleJoinToTheContest: false,
+
             userLogin: false
         };
     }
@@ -119,6 +120,12 @@ class ShowContest extends Component {
         })
     }
 
+    _setModalVisibleJoinToTheContest = (visible) => {
+        this.setState({
+            modalVisibleJoinToTheContest: visible
+        })
+    }
+
     _changeSwiperRoot = (i) => {
         this.swiperRoot.scrollBy(i)
     }
@@ -168,7 +175,8 @@ class ShowContest extends Component {
             openModalUpdateContest,
             modalVisiblePrizes,
             modalVisibleAboutTheContest,
-            modalVisibleAudience
+            modalVisibleAudience,
+            modalVisibleJoinToTheContest
         } = this.state
 
 
@@ -176,7 +184,7 @@ class ShowContest extends Component {
             <Swiper
                 scrollEnabled={userLogin}
                 ref={(swiperRoot) => this.swiperRoot = swiperRoot}
-                onIndexChanged={(index) => this.setState({ swiperIndex: index })}
+                onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
                 loop={false}
                 showsPagination={false}>
                 <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
@@ -238,7 +246,10 @@ class ShowContest extends Component {
 
                             {/* Stats/Submit a video or a meme */}
                             <Row size={65}>
-                                <Participants />
+                                <Participants
+
+                                    // Functions
+                                    _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
                             </Row>
                         </Grid>
                     </Animated.ScrollView>
@@ -265,17 +276,17 @@ class ShowContest extends Component {
                         {
                             userLogin && fromWhere === 'createContest' &&
                             <View style={styles.swiperIndicator}>
-                                <Animatable.View 
-                                    animation="pulse" 
-                                    easing="ease-in-out" 
-                                    iterationCount="infinite" 
+                                <Animatable.View
+                                    animation="pulse"
+                                    easing="ease-in-out"
+                                    iterationCount="infinite"
                                     style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
                                 >
-                                    <Text style={{ textAlign: 'center', color: 'white', fontSize: hp('3.5'), opacity: 0.6 }}>Swipe</Text>
-                                    <Icon 
-                                        name='arrow-long-right' 
-                                        type='Entypo' 
-                                        style={{color: 'white', marginTop: '2%', marginLeft: '4%',fontSize: hp('3.5'), opacity: 0.6}}
+                                    <Text style={{ textAlign: 'center', color: 'white', fontSize: wp(8), opacity: 0.8 }}>Swipe</Text>
+                                    <Icon
+                                        name='arrow-long-right'
+                                        type='Entypo'
+                                        style={{ color: 'white', marginTop: '2%', marginLeft: '4%', fontSize: wp(8), opacity: 0.8 }}
                                     />
                                 </Animatable.View>
                             </View>
@@ -306,6 +317,7 @@ class ShowContest extends Component {
                         // Action
                         modalVisibleAboutTheContest={modalVisibleAboutTheContest}
                         // Function
+                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest}
                         _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest} />
 
                     <UpdateContest
@@ -340,6 +352,14 @@ class ShowContest extends Component {
                                 _setModalVisibleAudience={this._setModalVisibleAudience} />
                         </View>
                     </Modal>
+
+                    {/* Join to the contest */}
+                    <JoinToTheContest
+                        // Actions
+                        modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
+
+                        // Function
+                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
 
                 </View>
                 {userLogin

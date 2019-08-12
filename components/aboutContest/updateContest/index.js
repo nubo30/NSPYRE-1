@@ -583,7 +583,7 @@ class UpdateContest extends Component {
                                     <Button
                                         onPress={() => Alert.alert(
                                             `${userData.name}`,
-                                            `Do you really want to delete the hello ${contest.general.nameOfContest}`,
+                                            `Do you really want to delete the contest ${contest.general.nameOfContest}`,
                                             [
                                                 {
                                                     text: 'Cancel',

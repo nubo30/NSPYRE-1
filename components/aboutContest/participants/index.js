@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Video } from "expo"
-import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, Right, View, Icon, Button, List, ListItem, Thumbnail } from 'native-base';
+import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Icon, Button, List, ListItem, Thumbnail } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Col } from 'react-native-easy-grid'
 
 export default class Participants extends Component {
     render() {
+        const { _setModalVisibleJoinToTheContest } = this.props
         return (
             <Container>
                 <Header hasTabs style={{ backgroundColor: '#F5F5F5' }}>
@@ -74,8 +75,9 @@ export default class Participants extends Component {
                         <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: "#333", fontSize: wp(4.5) }}>You still have no participation!</Text>
                             <Button
-                             style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ letterSpacing: 2 }}>START NOW</Text>
+                                onPress={() => _setModalVisibleJoinToTheContest(true)}
+                                style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ letterSpacing: 2 }}>PARTICIPATE NOW</Text>
                             </Button>
                         </View>
                     </Tab>

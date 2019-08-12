@@ -13,15 +13,17 @@ export default class About extends Component {
     constructor() {
         super();
         this.state = {
-            thumbnailLoading: false
+            thumbnailLoading: false,
+            closeModalFromParticipate: false
         }
     }
 
     render() {
-        const { thumbnailLoading } = this.state
-        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest } = this.props
+        const { thumbnailLoading, closeModalFromParticipate } = this.state
+        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest } = this.props
         return (
             <Modal
+                onModalHide={closeModalFromParticipate ? () => { this.setState({ closeModalFromParticipate: false }); _setModalVisibleJoinToTheContest(true) } : () => { }}
                 isVisible={modalVisibleAboutTheContest}
                 onSwipeComplete={() => _setModalVisibleAboutTheContest(false)}
                 swipeDirection={['down']}>
@@ -87,8 +89,10 @@ export default class About extends Component {
                                     <Text style={{ top: 15, fontSize: wp(7), color: "#D82B60" }}>Instructions</Text>
                                     <Text style={{ fontSize: wp(5), fontWeight: '100', top: 20, color: "#3333" }}>{_.truncate(contest.general.instructions, { length: 100, separator: '...' })}</Text>
                                 </View>
-                                <Button style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ letterSpacing: 2, color: '#FFF' }}>START NOW</Text>
+                                <Button
+                                    onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}
+                                    style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ letterSpacing: 2, color: '#FFF' }}>PARTICIPATE NOW</Text>
                                 </Button>
                             </Row>
                         </Grid>

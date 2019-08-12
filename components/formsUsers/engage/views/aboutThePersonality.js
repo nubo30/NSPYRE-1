@@ -591,7 +591,42 @@ class AboutThePersonality extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
+                            <Left style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', left: 10 }}>
+                                <Button transparent
+                                    onPress={() => {
+                                        this.setState({
+                                            location: {
+                                                born: {
+                                                    country: 'Not specified',
+                                                    city: 'Not specified'
+                                                },
+                                                currentPlace: {
+                                                    country: 'Not specified',
+                                                    city: 'Not specified'
+                                                }
+                                            }
+                                        });
+                                        this._visibleModalLocation(false)
+                                    }}>
+                                    <Text style={{ color: '#E91E63' }}>Back</Text>
+                                </Button>
+                                <Title style={{ color: "#E91E63", fontSize: wp(7), left: 10 }}>Location</Title>
+                            </Left>
+                            <Right>
+                                <Button transparent
+                                    disabled={location.born.country !== 'Not specified' &&
+                                        location.born.city !== 'Not specified' &&
+                                        location.currentPlace.country !== 'Not specified' &&
+                                        location.currentPlace.city !== 'Not specified' ? false : true}
+                                    onPress={() => { this._visibleModalLocation(false) }}>
+                                    <Text style={{
+                                        color: location.born.country !== 'Not specified' &&
+                                            location.born.city !== 'Not specified' &&
+                                            location.currentPlace.country !== 'Not specified' &&
+                                            location.currentPlace.city !== 'Not specified' ? "#D81B60" : '#E0E0E0'
+                                    }}>ACCEPT</Text>
+                                </Button>
+                            </Right>
                         </Header>
                         <ListItem itemDivider style={{ maxHeight: 45 }}>
                             <Icon type="MaterialCommunityIcons" name="baby" style={{ color: "#3333" }} />
@@ -627,7 +662,7 @@ class AboutThePersonality extends Component {
                         {/* CITIES */}
                         <ListItem icon>
                             <Left>
-                                <Button style={{ backgroundColor: listCities.length ? "#0277BD" : '#81D4FA' }}>
+                                <Button style={{ backgroundColor: "#0277BD" }}>
                                     <Icon type="MaterialIcons" name="location-city" />
                                 </Button>
                             </Left>
@@ -686,7 +721,7 @@ class AboutThePersonality extends Component {
                         {/* CITIES */}
                         <ListItem icon>
                             <Left>
-                                <Button style={{ backgroundColor: location.currentPlace.country !== 'Not specified' ? "#00BFA5" : "#A7FFEB" }}>
+                                <Button style={{ backgroundColor: "#00BFA5" }}>
                                     <Icon type="MaterialIcons" name="location-city" />
                                 </Button>
                             </Left>
@@ -709,55 +744,6 @@ class AboutThePersonality extends Component {
                             onValueChange={(value) => this.setState({ location: { ...location, currentPlace: { ...location.currentPlace, city: value } } })}>
                             {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
                         </Picker>}
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => {
-                                        this.setState({
-                                            location: {
-                                                born: {
-                                                    country: 'Not specified',
-                                                    city: 'Not specified'
-                                                },
-                                                currentPlace: {
-                                                    country: 'Not specified',
-                                                    city: 'Not specified'
-                                                }
-                                            }
-                                        });
-                                        this._visibleModalLocation(false)
-                                    }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={
-                                        location.born.country !== 'Not specified' &&
-                                            location.born.city !== 'Not specified' &&
-                                            location.currentPlace.country !== 'Not specified' &&
-                                            location.currentPlace.city !== 'Not specified'
-                                            ? () => this._visibleModalLocation(false) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{
-                                        color: location.born.country !== 'Not specified' &&
-                                            location.born.city !== 'Not specified' &&
-                                            location.currentPlace.country !== 'Not specified' &&
-                                            location.currentPlace.city !== 'Not specified' ? "#333" : '#E0E0E0'
-                                    }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
                     </KeyboardAvoidingView>
                 </Modal>
             </Container>
