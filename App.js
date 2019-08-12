@@ -44,23 +44,24 @@ console.disableYellowBox = true;
 
 // Redux
 import rootReducer from "./store/reducers/rootReducer"
+import { networkStatusOnline, networkStatusOffline } from './store/network/actions'
 
 // Child Components
-import AuthLoadingScreen from "./components/authLoadingScreen/index"
-import IntroToApp from "./components/introToApp/index"
+import AuthLoadingScreen from "./components/authLoadingScreen"
+import IntroToApp from "./components/introToApp"
 import SignInOrSingUp from "./components/auth"
-import Welcome from "./components/welcome/index"
-import Engage from "./components/formsUsers/engage/index"
-import CreateContest from "./components/formsUsers/createAContest/index"
-import SubmitPrize from "./components/formsUsers/submitAPrize/index"
-import Congratulation from "./components/congratulations/index"
-import PromoteMyContest from "./components/promoteMyContest/index"
-import Home from "./components/home/index"
-import Contests from "./components/home/listContest/showContests/index"
-import AboutContest from "./components/aboutContest/index"
-import CreateAContest from "./components/home/drawer/createAContest/index"
-import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/index"
-import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize/index"
+import Welcome from "./components/welcome"
+import Engage from "./components/formsUsers/engage"
+import CreateContest from "./components/formsUsers/createAContest"
+import SubmitPrize from "./components/formsUsers/submitAPrize"
+import Congratulation from "./components/congratulations"
+import PromoteMyContest from "./components/promoteMyContest"
+import Home from "./components/home"
+import Contests from "./components/home/listContest/showContests"
+import AboutContest from "./components/aboutContest"
+import CreateAContest from "./components/home/drawer/createAContest"
+import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
+import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize"
 
 class InfluencemeNow extends Component {
     state = { isReady: false }
@@ -120,12 +121,17 @@ export default class App extends Component {
     componentDidMount() {
         // Subscribe to the network
         NetInfo.addEventListener('connectionChange', (connectionInfo) => {
-            if (connectionInfo.type === 'none') { Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 }) }
+            if (connectionInfo.type === 'none') { 
+                store.dispatch(networkStatusOffline())
+                Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 })
+            } else {
+                store.dispatch(networkStatusOnline())
+            }
         })
     }
 
     componentWillUnmount() {
-        NetInfo.removeEventListener('connectionChange', () => { });
+        NetInfo.removeEventListener('connectionChange', () => {});
     }
 
     render() {
