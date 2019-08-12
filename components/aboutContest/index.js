@@ -355,6 +355,10 @@ class ShowContest extends Component {
 
                     {/* Join to the contest */}
                     <JoinToTheContest
+                        // Data
+                        contest={contest}
+                        userData={userData}
+
                         // Actions
                         modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
 
