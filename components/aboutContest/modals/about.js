@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions } from 'react-native'
 import { Video } from "expo"
-import { Button, Spinner } from 'native-base'
+import { Button, Spinner, Content } from 'native-base'
 import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
@@ -23,7 +23,10 @@ export default class About extends Component {
         const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest } = this.props
         return (
             <Modal
-                onModalHide={closeModalFromParticipate ? () => { this.setState({ closeModalFromParticipate: false }); _setModalVisibleJoinToTheContest(true) } : () => { }}
+                onModalHide={closeModalFromParticipate ? () => {
+                    this.setState({ closeModalFromParticipate: false });
+                    _setModalVisibleJoinToTheContest(true)
+                } : () => { }}
                 isVisible={modalVisibleAboutTheContest}
                 onSwipeComplete={() => _setModalVisibleAboutTheContest(false)}
                 swipeDirection={['down']}>
@@ -82,13 +85,15 @@ export default class About extends Component {
                                     </View>
                                 </View>
                             </Row>
-                            <Row size={60} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
-                                <View style={{ flex: 0.8, }}>
+                            <Row size={40} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
+                                <Content>
                                     <Text style={{ top: 5, fontSize: wp(7), color: "#D82B60" }}>Description</Text>
-                                    <Text style={{ fontSize: wp(5), fontWeight: '100', top: 10, color: "#3333" }}>{_.truncate(contest.general.description, { length: 100, separator: '...' })}</Text>
+                                    <Text style={{ fontSize: wp(4.5), fontWeight: '100', top: 10, color: "#3333" }}>{contest.general.description}</Text>
                                     <Text style={{ top: 15, fontSize: wp(7), color: "#D82B60" }}>Instructions</Text>
-                                    <Text style={{ fontSize: wp(5), fontWeight: '100', top: 20, color: "#3333" }}>{_.truncate(contest.general.instructions, { length: 100, separator: '...' })}</Text>
-                                </View>
+                                    <Text style={{ fontSize: wp(4.5), fontWeight: '100', top: 20, color: "#3333" }}>{contest.general.instructions}</Text>
+                                </Content>
+                            </Row>
+                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button
                                     onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}
                                     style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>

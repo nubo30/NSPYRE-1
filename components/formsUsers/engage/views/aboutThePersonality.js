@@ -570,7 +570,8 @@ class AboutThePersonality extends Component {
                             iconRight style={{
                                 width: "100%",
                                 alignSelf: 'center',
-                                backgroundColor: '#E91E63'
+                                backgroundColor: '#E91E63',
+                                shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1
                             }}>
                             <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}

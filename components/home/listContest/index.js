@@ -40,7 +40,7 @@ class ListContest extends Component {
 
   _redirect = (item) => {
     const { userData, navigation } = this.props
-    userData.engage.items.length
+    userData.engage && userData.engage.items.length
       ? navigation.navigate('Contests', { categoryContest: item, userData })
       : Alert.alert(
         `${userData.name}`,
@@ -59,9 +59,9 @@ class ListContest extends Component {
 
   render() {
     const { categories, isReady, isScreenChange } = this.state
-    const { offLine } = this.props
+    const { offLine, userData } = this.props
 
-    return isReady ? (
+    return isReady && Object.keys(userData).length !== 0 ? (
       <FlatList
         style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4 }}
         showsVerticalScrollIndicator={false}

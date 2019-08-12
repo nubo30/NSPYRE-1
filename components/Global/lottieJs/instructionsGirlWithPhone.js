@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
-export default class Logo extends Component {
+export default class Instructions extends Component {
     componentDidMount() {
         this.animation.play();
     }
@@ -11,11 +11,10 @@ export default class Logo extends Component {
         return (
             <Lottie
                 ref={animation => this.animation = animation}
-                style={{ width: "100%", height: 200, top: "3%" }}
-                source={require('./animations/dev.json')}
+                style={{ width: "100%", height: 190, top: -20 }}
+                source={require('./animations/instructions.json')}
                 autoPlay
-                loop={true}
-            />
+                loop={true} />
         )
     }
 }
