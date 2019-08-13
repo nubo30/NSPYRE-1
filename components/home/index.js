@@ -142,7 +142,7 @@ class Home extends Component {
                                     prizeCategory={prizeCategory}
                                     userData={userData}
                                     isReady={isReady}
-                                    offLine={offLine} />
+                                    offLine={!online} />
 
                                 <Button
                                     disabled={!online}
