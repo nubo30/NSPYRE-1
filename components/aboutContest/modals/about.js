@@ -20,8 +20,9 @@ export default class About extends Component {
 
     render() {
         const { thumbnailLoading, closeModalFromParticipate } = this.state
-        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest, userData } = this.props
+        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest, userData, disableParticipants } = this.props
         const filterParticipantsList = contest.participants.items.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
+        console.log(disableParticipants, "<----")
         return (
             <Modal
                 onModalHide={closeModalFromParticipate ? () => {
@@ -95,15 +96,16 @@ export default class About extends Component {
                                 </Content>
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                {userData.id === contest.user.id ? null : filterParticipantsList.length
-                                    ? <Button disabled style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ letterSpacing: 2, color: '#FFF' }}>YOU'RE IN 🎉</Text>
-                                    </Button>
-                                    : <Button
-                                        onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}
-                                        style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ letterSpacing: 2, color: '#FFF' }}>PARTICIPATE NOW</Text>
-                                    </Button>}
+                                {userData.id === contest.user.id || disableParticipants === true
+                                    ? null : filterParticipantsList.length
+                                        ? <Button disabled style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ letterSpacing: 2, color: '#FFF' }}>YOU'RE IN 🎉</Text>
+                                        </Button>
+                                        : <Button
+                                            onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}
+                                            style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ letterSpacing: 2, color: '#FFF' }}>PARTICIPATE NOW</Text>
+                                        </Button>}
                             </Row>
                         </Grid>
                     </View>

@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, Dimensions, ScrollView, Alert, KeyboardAvoidingView } from 'react-native'
+import { Text, View, ImageBackground, Dimensions } from 'react-native'
 import { Video } from "expo"
-import { Storage, API, graphqlOperation } from 'aws-amplify'
-import { Button, Icon, Spinner, Input, Header, Left, Title, Right, Item, Picker, Content } from 'native-base'
+import { Button, Spinner } from 'native-base'
 import Swiper from 'react-native-swiper';
-import { Grid, Row, Col } from "react-native-easy-grid"
+import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import moment from 'moment'
 import _ from 'lodash'
 import Modal from "react-native-modal";
 
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 // Icons
-import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-
-// GRAPHQL
-import * as mutations from '../../../src/graphql/mutations'
+import { Ionicons } from '@expo/vector-icons'
 
 // This function show the Awards of content
 export default class Prizes extends Component {
@@ -158,9 +153,8 @@ export default class Prizes extends Component {
                                             <Text style={{ fontSize: wp(10), color: "#D82B60" }}>{_.truncate(_.startCase(item.name), { separator: '...', length: 15 })}</Text>
                                         </View>
                                         <View style={{ flex: 0.8, top: -10, }}>
-                                            <Text style={{ fontSize: wp(5), color: "#F44336" }}>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(item.price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}$</Text>
                                             <Text style={{ top: 5, fontSize: wp(7), color: "#D82B60" }}>Description</Text>
-                                            <Text style={{ fontSize: wp(5), fontWeight: '100', top: 10, color:"#3333" }}>{_.truncate(item.description, { length: 200, separator: '...' })}</Text>
+                                            <Text style={{ fontSize: wp(5), fontWeight: '100', top: 10, color: "#3333" }}>{_.truncate(item.description, { length: 200, separator: '...' })}</Text>
                                         </View>
                                     </Row>
                                 </Grid>

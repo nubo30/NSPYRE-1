@@ -149,6 +149,7 @@ export default class JoinToTheContest extends Component {
             if (video.localUrl !== null) { await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, { contentType: video.type }) }
             await API.graphql(graphqlOperation(mutations.createParticipants, { input: participants }))
             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             this.setState({ isLoading: false })
             await this._changeSwiper(1)
         } catch (error) {
@@ -180,8 +181,10 @@ export default class JoinToTheContest extends Component {
 
                         {/* INTRO */}
                         <Grid>
-                            <Row size={80} style={{ flexDirection: 'column' }}>
-                                <Text style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
+                            <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ flex: 1}}>
+                                    <Text style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
+                                </View>
                                 <AnimationManWihtHearts />
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -213,11 +216,13 @@ export default class JoinToTheContest extends Component {
 
                         {/* INSTRUCTIONS */}
                         <Grid>
-                            <Row size={80} style={{ flexDirection: 'column' }}>
-                                <Text style={{ fontSize: wp(7), color: '#D82B60', top: 20, alignSelf: 'center' }}>Instructions</Text>
-                                <Text style={{ fontSize: wp(4), color: '#3333', top: 20, alignSelf: 'center', textAlign: 'center' }}>
-                                    {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
-                                </Text>
+                            <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ flex: 1, alignItems: 'center', padding: 5 }}>
+                                    <Text style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
+                                    <Text style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
+                                        {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
+                                    </Text>
+                                </View>
                                 <InstructionsGirlWithPhone />
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>

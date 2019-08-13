@@ -98,7 +98,8 @@ class Summary extends Component {
             navigation.navigate("AboutContest", {
                 contest: newContest.data.createCreateContest,
                 fromWhere: 'createContest',
-                userData
+                userData,
+                disableParticipants: true
             })
             this.setState({ isLoading: false })
         } catch (error) {
@@ -266,7 +267,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Category</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.startCase(_.lowerCase(contest && contest.general && contest.general.category))}</Text>
+                                                <Text>{_.startCase(_.lowerCase(contest && contest.category))}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -387,21 +388,6 @@ class Summary extends Component {
                                                         </Body>
                                                         <Right>
                                                             <Text>{_.truncate(item.description, { separator: "...", length: 20 })}</Text>
-                                                        </Right>
-                                                    </ListItem>
-
-                                                    {/* PRICE */}
-                                                    <ListItem icon>
-                                                        <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                                <Ionicons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="ios-pricetag" />
-                                                            </Button>
-                                                        </Left>
-                                                        <Body>
-                                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Price</Text>
-                                                        </Body>
-                                                        <Right>
-                                                            <Text>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(item.price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{item.price === 'OTHERS' || item.price === 'NO_SELECT' ? '' : '$'}</Text>
                                                         </Right>
                                                     </ListItem>
 

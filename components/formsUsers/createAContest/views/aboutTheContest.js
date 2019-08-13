@@ -234,7 +234,7 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name Of Contest</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name of contest</Text>
                                         </Body>
                                         <Right>
                                             <Text>{nameOfContest ? nameOfContest : "Not specified"}</Text>
@@ -352,7 +352,7 @@ export default class AboutTheContest extends Component {
                     </Animatable.View>
                 </Footer>
 
-                {/* LOCATION MODAL */}
+                {/* NAME OF CONTEST */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
@@ -370,21 +370,25 @@ export default class AboutTheContest extends Component {
                         </Header>
 
                         {/* NAME OF CONTEST */}
-                        <Item
-                            error={nameOfContest ? false : true}
-                            success={nameOfContest ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Name Of Contest"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={nameOfContest}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ nameOfContest: value })} />
-                        </Item>
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#009688" }}>
+                                    <Icon type="Entypo" name="star" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Name of oontest"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={20}
+                                    autoFocus={true}
+                                    value={nameOfContest}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ nameOfContest: value })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -429,10 +433,8 @@ export default class AboutTheContest extends Component {
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
                         </Header>
 
-                        {/* NAME OF CONTEST */}
+                        {/* DESCRIPTION */}
                         <Item
-                            error={description ? false : true}
-                            success={description ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
                                 multiline
@@ -443,7 +445,7 @@ export default class AboutTheContest extends Component {
                                 value={description}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
-                                style={{ fontSize: wp(6), padding: 5, maxHeight: 170 }}
+                                style={{ padding: 5, maxHeight: 170 }}
                                 onChangeText={(value) => this.setState({ description: value })} />
                         </Item>
 
@@ -504,7 +506,7 @@ export default class AboutTheContest extends Component {
                                 value={instructions}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
-                                style={{ fontSize: wp(6), padding: 5, maxHeight: 170 }}
+                                style={{  padding: 5, maxHeight: 170 }}
                                 onChangeText={(value) => this.setState({ instructions: value })} />
                         </Item>
 

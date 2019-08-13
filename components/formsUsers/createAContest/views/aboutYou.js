@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
+import axios from 'axios'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
@@ -24,9 +25,9 @@ class AboutYou extends Component {
         // Inputs
         location: {
             street: "",
-            city: "",
             state: "",
-            country: ""
+            city: "Not specified",
+            country: "Not specified"
         },
         companyName: "",
         titleInTheCompany: "",
@@ -38,7 +39,35 @@ class AboutYou extends Component {
         // Modal
         visibleModalLocation: false,
         visibleModalCompanyname: false,
-        visibleModalTitleInTheCompany: false
+        visibleModalTitleInTheCompany: false,
+
+        // Data API
+        listCountries: [],
+        listCities: []
+    }
+
+    componentDidMount() {
+        this._getCountry()
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.location.country !== this.state.location.country) {
+            this._getCity(nextState.location.country)
+        }
+    }
+
+    _getCountry = async () => {
+        const { data } = await axios.get('http://battuta.medunes.net/api/country/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8')
+        this.setState({ listCountries: data })
+    }
+
+    _getCity = async (country) => {
+        const { listCountries } = this.state
+        let filterCountries = []; filterCountries = listCountries.filter((item) => { return item.name.indexOf(country) !== -1 })
+        if (filterCountries.length !== 0) {
+            const { data } = await axios.get(`http://battuta.medunes.net/api/region/${filterCountries[0].code}/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8`)
+            this.setState({ listCities: data })
+        }
     }
 
     // Modal
@@ -89,9 +118,14 @@ class AboutYou extends Component {
             // modal
             visibleModalLocation,
             visibleModalCompanyname,
-            visibleModalTitleInTheCompany
+            visibleModalTitleInTheCompany,
+
+            // Data API
+            listCountries,
+            listCities
         } = this.state
         const { userData, navigation } = this.props
+        console.log(location)
         return (
             <Container>
                 <GadrientsAuth />
@@ -205,7 +239,7 @@ class AboutYou extends Component {
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalCompanyname(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 2 }} active name="building" />
+                                                <Icon type="FontAwesome" name="building-o" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -221,7 +255,7 @@ class AboutYou extends Component {
                                     <ListItem icon disabled={isLoading} last onPress={() => this._visibleModalTitleInTheCompany(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                <Entypo style={{ fontSize: wp(5.5), color: '#FFF', left: 1, top: 1 }} active name="creative-commons-attribution" />
+                                                <Icon type="Entypo" name="creative-commons-attribution" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -296,71 +330,102 @@ class AboutYou extends Component {
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
                         </Header>
 
-                        {/* LOCATION */}
-                        <Item
-                            error={location.street ? false : true}
-                            success={location.street ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Street"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                maxLength={512}
-                                value={location.street}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, street: value } })}
-                            />
-                        </Item>
-
-                        {/* CITY */}
-                        <Item
-                            error={location.city ? false : true}
-                            success={location.city ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="City"
-                                placeholderTextColor="#EEEE"
-                                maxLength={512}
-                                value={location.city}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, city: value } })} />
-                        </Item>
+                        {/* STREET */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#90A4AE" }}>
+                                    <Icon type="FontAwesome" name="road" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Your street"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    maxLength={512}
+                                    value={location.street}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ location: { ...location, street: value } })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         {/* STATE */}
-                        <Item
-                            error={location.state ? false : true}
-                            success={location.state ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="State"
-                                placeholderTextColor="#EEEE"
-                                maxLength={512}
-                                value={location.state}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, state: value } })} />
-                        </Item>
+                        <ListItem last icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#616161" }}>
+                                    <Icon type="Foundation" name="map" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Your state"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={512}
+                                    value={location.state}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ location: { ...location, state: value } })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
+
+                        <Separator bordered style={{ maxHeight: 40 }} />
 
                         {/* COUNTRY */}
-                        <Item
-                            error={location.country ? false : true}
-                            success={location.country ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Country"
-                                placeholderTextColor="#EEEE"
-                                maxLength={512}
-                                value={location.country}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ location: { ...location, country: value } })} />
-                        </Item>
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#E65100" }}>
+                                    <Icon type="MaterialCommunityIcons" name="earth" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>Country</Text>
+                            </Body>
+                            <Right>
+                                <Text>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT COUNTRY"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.country}
+                            onValueChange={(value) => this.setState({ location: { ...location, country: value } })}>
+                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                        </Picker>
+
+                        {/* CITIES */}
+                        <ListItem last icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#0277BD" }}>
+                                    <Icon type="MaterialIcons" name="location-city" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>City</Text>
+                            </Body>
+                            <Right>
+                                <Text>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT CITY"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.city}
+                            onValueChange={(value) => this.setState({ location: { ...location, city: value } })}>
+                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
+                        </Picker>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -370,9 +435,9 @@ class AboutYou extends Component {
                                         this.setState({
                                             location: {
                                                 street: "",
-                                                city: "",
                                                 state: "",
-                                                country: ""
+                                                city: "Not specified",
+                                                country: "Not specified"
                                             }
                                         }); this._visibleModalLocation(false)
                                     }}
@@ -386,15 +451,17 @@ class AboutYou extends Component {
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
                                 <Button
                                     bordered
-                                    onPress={location.street ? () => this._visibleModalLocation(false) : null}
+                                    disabled={location.street !== "" && location.city !== "" && location.state !== "Not specified" && location.country !== "Not specified" ? false : true}
+                                    onPress={() => this._visibleModalLocation(false)}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: location.street && location.city && location.state && location.country ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: location.street && location.city && location.state !== "Not specified" && location.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
+                    
                     </KeyboardAvoidingView>
                 </Modal>
 
@@ -414,22 +481,26 @@ class AboutYou extends Component {
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Company Name</Title>
                         </Header>
 
-                        {/* COUNTRY */}
-                        <Item
-                            error={companyName ? false : true}
-                            success={companyName ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Company Name"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={companyName}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ companyName: value })} />
-                        </Item>
+                        {/* COMPANY NAMEY */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#EC407A" }}>
+                                    <Icon type="FontAwesome" name="building-o" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Company Name"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={20}
+                                    autoFocus={true}
+                                    value={companyName}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ companyName: value })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -478,21 +549,25 @@ class AboutYou extends Component {
                         </Header>
 
                         {/* TITLE IN THE COMPANY */}
-                        <Item
-                            error={titleInTheCompany ? false : true}
-                            success={titleInTheCompany ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Title In The Company"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={titleInTheCompany}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ titleInTheCompany: value })} />
-                        </Item>
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#009688" }}>
+                                    <Icon type="Entypo" name="creative-commons-attribution" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Title In The Company"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={40}
+                                    autoFocus={true}
+                                    value={titleInTheCompany}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ titleInTheCompany: value })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>

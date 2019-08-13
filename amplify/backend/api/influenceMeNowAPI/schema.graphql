@@ -110,7 +110,6 @@ type Prizes {
     name: String
     picture: Picture
     video: Video
-    price: String
 }
 
 type Participants @model {

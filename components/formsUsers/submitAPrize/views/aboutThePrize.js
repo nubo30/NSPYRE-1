@@ -455,7 +455,8 @@ export default class AboutTheContest extends Component {
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Price</Title>
                         </Header>
-                        {/* NAME OF CONTEST */}
+
+                        {/* PRICE */}
                         <Item
                             error={price !== 0 ? false : true}
                             success={price !== 0 ? true : false}
@@ -467,10 +468,10 @@ export default class AboutTheContest extends Component {
                                 value={numeraljs(price).format('0,0')}
                                 keyboardType="numeric"
                                 selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
                                 onChangeText={(value) => this.setState({ price: value })} />
                             <Text style={{ fontSize: wp(7), color: price !== 0 ? '#388E3C' : '#3333' }}>$</Text>
                         </Item>
+
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -515,23 +516,26 @@ export default class AboutTheContest extends Component {
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
                         </Header>
-
-                        {/* NAME OF CONTEST */}
-                        <Item
-                            error={isAscii(nameOfPrize) ? false : true}
-                            success={isAscii(nameOfPrize) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Name of prize"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={nameOfPrize}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ nameOfPrize: value })} />
-                        </Item>
+                        {/* NAME OF PRIZE */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#009688" }}>
+                                    <Icon type="Entypo" name="star" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Name of prize"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={20}
+                                    autoFocus={true}
+                                    value={nameOfPrize}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ nameOfPrize: value })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -589,7 +593,7 @@ export default class AboutTheContest extends Component {
                                 value={description}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
-                                style={{ fontSize: wp(6), padding: 5, maxHeight: 170 }}
+                                style={{ padding: 5, maxHeight: 170 }}
                                 onChangeText={(value) => this.setState({ description: value })} />
                         </Item>
 
@@ -721,7 +725,7 @@ export default class AboutTheContest extends Component {
                                         value={instructions}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{ fontSize: wp(5), padding: 5, maxHeight: 200 }}
+                                        style={{  padding: 5, maxHeight: 200 }}
                                         onChangeText={(value) => this.setState({ instructions: value })} />
                                 </Item>
                                 <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -791,9 +795,7 @@ export default class AboutTheContest extends Component {
                                 </Button>
                             </Left>
                             <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item
-                                    error={isAscii(socialMediaHandle.facebook) ? false : true}
-                                    success={isAscii(socialMediaHandle.facebook) ? true : false}>
+                                <Item>
                                     <Input
                                         autoFocus={true}
                                         placeholder="Facebook"
@@ -802,7 +804,6 @@ export default class AboutTheContest extends Component {
                                         value={socialMediaHandle.facebook}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{ fontSize: wp(7) }}
                                         onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
                                     />
                                 </Item>
@@ -818,9 +819,7 @@ export default class AboutTheContest extends Component {
                                 </Button>
                             </Left>
                             <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item
-                                    error={isAscii(socialMediaHandle.twitter) ? false : true}
-                                    success={isAscii(socialMediaHandle.twitter) ? true : false}>
+                                <Item>
                                     <Input
                                         placeholder="Twitter"
                                         placeholderTextColor="#EEEE"
@@ -828,7 +827,6 @@ export default class AboutTheContest extends Component {
                                         value={socialMediaHandle.twitter}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{ fontSize: wp(7) }}
                                         onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
                                     />
                                 </Item>
@@ -844,9 +842,7 @@ export default class AboutTheContest extends Component {
                                 </Button>
                             </Left>
                             <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item
-                                    error={isAscii(socialMediaHandle.instagram) ? false : true}
-                                    success={isAscii(socialMediaHandle.instagram) ? true : false}>
+                                <Item>
                                     <Input
                                         placeholder="Instagram"
                                         placeholderTextColor="#EEEE"
@@ -854,7 +850,6 @@ export default class AboutTheContest extends Component {
                                         value={socialMediaHandle.instagram}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{ fontSize: wp(7) }}
                                         onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
                                     />
                                 </Item>
@@ -870,9 +865,7 @@ export default class AboutTheContest extends Component {
                                 </Button>
                             </Left>
                             <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item
-                                    error={isAscii(socialMediaHandle.snapchat) ? false : true}
-                                    success={isAscii(socialMediaHandle.snapchat) ? true : false}>
+                                <Item>
                                     <Input
                                         placeholder="Snapchat"
                                         placeholderTextColor="#EEEE"
@@ -880,7 +873,6 @@ export default class AboutTheContest extends Component {
                                         value={socialMediaHandle.snapchat}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{ fontSize: wp(7) }}
                                         onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
                                     />
                                 </Item>

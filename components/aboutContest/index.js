@@ -250,6 +250,7 @@ class ShowContest extends Component {
                                     // Data
                                     userData={userData}
                                     contest={contest}
+                                    disableParticipants={this.props.navigation.getParam('disableParticipants')}
 
                                     // Functions
                                     _setModalVisibleAudience={this._setModalVisibleAudience}
@@ -320,6 +321,8 @@ class ShowContest extends Component {
                         // Data
                         contest={contest}
                         userData={userData}
+                        disableParticipants={this.props.navigation.getParam('disableParticipants')}
+
                         // Action
                         modalVisibleAboutTheContest={modalVisibleAboutTheContest}
                         // Function

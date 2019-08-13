@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, Image } from 'react-native'
 import { ImagePicker, Permissions, Video } from 'expo';
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Item, Input, Picker, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Item, Input, Spinner } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
@@ -30,18 +30,12 @@ export default class Prizes extends Component {
         picture: { name: "", type: "", localUrl: "" },
         video: { name: "", type: "", localUrl: "" },
 
-        // Picker
-        price: "NO_SELECT",
-
         // Modal
         visibleModalName: false,
         visibleModalDescription: false,
         VisibleModalPicture: false,
         visibleModalVideo: false
     }
-
-    // PRICE
-    onValueChangePrice = (value) => { this.setState({ price: value }) }
 
     // Validar formulario
     _validateForm = () => {
@@ -121,8 +115,8 @@ export default class Prizes extends Component {
     // Send data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { prizes, name, description, picture, video, price } = this.state
-        prizes.push({ name, description, picture, video, price, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
+        const { prizes, name, description, picture, video } = this.state
+        prizes.push({ name, description, picture, video, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
         try {
             await Alert.alert(
                 `Hey ${userData.name}`,
@@ -137,7 +131,6 @@ export default class Prizes extends Component {
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
                                 video: { name: "", type: "", localUrl: "" },
-                                price: "NO_SELECT"
                             })
                         }
                     },
@@ -148,7 +141,6 @@ export default class Prizes extends Component {
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
                                 video: { name: "", type: "", localUrl: "" },
-                                price: "NO_SELECT"
                             })
                         }
                     },
@@ -173,9 +165,6 @@ export default class Prizes extends Component {
             description,
             picture,
             video,
-
-            // Picker
-            price,
 
             // Modal
             visibleModalName,
@@ -240,42 +229,6 @@ export default class Prizes extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
-                                    </ListItem>
-
-                                    {/* PRICE */}
-                                    <ListItem disabled={isLoading} icon>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                <Ionicons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="ios-pricetag" />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Text style={{ color: isLoading ? '#EEEEEE' : null }}>Price</Text>
-                                            {!isLoading ? <Picker
-                                                style={{ position: 'absolute', top: -30 }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE PRICE"
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                selectedValue={price}
-                                                onValueChange={(value) => this.onValueChangePrice(value)}>
-                                                <Picker.Item label="0$ - 25$" value="P0_25" />
-                                                <Picker.Item label="50$ - 100$" value="P50_100" />
-                                                <Picker.Item label="100$ - 200$" value="P100_200" />
-                                                <Picker.Item label="200$ - 350$" value="P200_250" />
-                                                <Picker.Item label="350$ - 400$" value="P350_400" />
-                                                <Picker.Item label="400$ - 750$" value="P400_750" />
-                                                <Picker.Item label="750$ - 1250$" value="P750_1250" />
-                                                <Picker.Item label="Others" value="OTHERS" />
-                                                <Picker.Item label="No select" value="NO_SELECT" />
-                                            </Picker> : null}
-                                        </Body>
-                                        <Right>
-                                            <Text>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -375,22 +328,26 @@ export default class Prizes extends Component {
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
                         </Header>
 
-                        {/* NAME OF CONTEST */}
-                        <Item
-                            error={name ? false : true}
-                            success={name ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                placeholder="Name of prize"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={name}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ name: value })} />
-                        </Item>
+                        {/* NAME OF PRIZE */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#009688" }}>
+                                    <Icon type="Entypo" name="star" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Input
+                                    placeholder="Name of prize"
+                                    placeholderTextColor="#EEEE"
+                                    maxLength={20}
+                                    autoFocus={true}
+                                    value={name}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ name: value })} />
+                            </Body>
+                            <Right />
+                        </ListItem>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -450,7 +407,7 @@ export default class Prizes extends Component {
                                 value={description}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
-                                style={{ fontSize: wp(7), padding: 10, maxHeight: 200 }}
+                                style={{ padding: 10, maxHeight: 200 }}
                                 onChangeText={(value) => this.setState({ description: value })} />
                         </Item>
 

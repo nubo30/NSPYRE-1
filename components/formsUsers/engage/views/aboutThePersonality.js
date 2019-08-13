@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row} from 'react-native-easy-grid'
 import _ from 'lodash'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'

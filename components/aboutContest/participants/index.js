@@ -15,7 +15,7 @@ export default class Participants extends Component {
 
     render() {
         const { isImgLoading } = this.state
-        const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest } = this.props
+        const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants } = this.props
         const filterParticipantsList = contest.participants.items.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
         return (
             <Container>
@@ -87,7 +87,7 @@ export default class Participants extends Component {
                                         </View>
                                     )}
                                     keyExtractor={item => item.createdAt} />
-                                : userData.id === contest.user.id
+                                : userData.id === contest.user.id || disableParticipants === true
                                     ? <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text style={{ color: "#333", fontSize: wp(4.5) }}>You don't have any participants yet 😕</Text>
                                         <Button
@@ -106,7 +106,7 @@ export default class Participants extends Component {
                                     </View>
                         }
                     </Tab>
-                    {userData.id === contest.user.id
+                    {userData.id === contest.user.id || disableParticipants == true
                         ? null
                         : <Tab
                             activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
