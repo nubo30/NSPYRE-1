@@ -7,6 +7,9 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 
+// Static Data
+import { categoryContestList } from '../../../Global/data/index'
+
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
@@ -24,7 +27,7 @@ export default class AboutTheContest extends Component {
         messageFlash: { cognito: null },
 
         // Data
-        category: 'NO_SELECT',
+        category: 'Not specified',
         nameOfContest: "",
         description: "",
         instructions: "",
@@ -47,7 +50,7 @@ export default class AboutTheContest extends Component {
         const { category, nameOfContest, description, instructions, picture, video } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            category !== 'NO_SELECT'
+            category !== 'Not specified'
                 ? nameOfContest
                     ? description
                         ? instructions
@@ -136,6 +139,17 @@ export default class AboutTheContest extends Component {
         }
     }
 
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousContest } = nextProps
+            this.setState({
+                description: dataFromThePreviousContest.general.description,
+                instructions: dataFromThePreviousContest.general.instructions,
+            })
+        }
+    }
+
     render() {
         const {
             // DATA
@@ -217,11 +231,11 @@ export default class AboutTheContest extends Component {
                                                     <Picker.Item label="Beverage" value="BEVERAGE" />
                                                     <Picker.Item label="Gamer" value="GAMER" />
                                                     <Picker.Item label="Apparel" value="APPAREL" />
-                                                    <Picker.Item label="No select" value="NO_SELECT" />
+                                                    <Picker.Item label="Not specified" value="Not specified" />
                                                 </Picker>}
                                         </Body>
                                         <Right>
-                                            <Text>{_.upperFirst(_.lowerCase(_.replace(category, new RegExp("_", "g"), " ")))}</Text>
+                                            <Text>{_.upperFirst(_.lowerCase(category))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -506,7 +520,7 @@ export default class AboutTheContest extends Component {
                                 value={instructions}
                                 keyboardType="ascii-capable"
                                 selectionColor="#E91E63"
-                                style={{  padding: 5, maxHeight: 170 }}
+                                style={{ padding: 5, maxHeight: 170 }}
                                 onChangeText={(value) => this.setState({ instructions: value })} />
                         </Item>
 

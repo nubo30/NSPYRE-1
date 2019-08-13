@@ -104,6 +104,22 @@ class AboutYou extends Component {
         }, 500);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousContest } = nextProps
+            this.setState({
+                location: {
+                    street: dataFromThePreviousContest.aboutTheUser.location.street,
+                    state: dataFromThePreviousContest.aboutTheUser.location.state,
+                    city: dataFromThePreviousContest.aboutTheUser.location.city,
+                    country: dataFromThePreviousContest.aboutTheUser.location.country
+                },
+                companyName: dataFromThePreviousContest.aboutTheUser.companyName,
+                titleInTheCompany: dataFromThePreviousContest.aboutTheUser.titleInTheCompany,
+            })
+        }
+    }
+
     render() {
         const {
             isvalidFormAnimation,
@@ -125,7 +141,6 @@ class AboutYou extends Component {
             listCities
         } = this.state
         const { userData, navigation } = this.props
-        console.log(location)
         return (
             <Container>
                 <GadrientsAuth />
@@ -167,7 +182,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -183,7 +197,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -199,7 +212,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && userData.phone_number}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -215,7 +227,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -461,7 +472,7 @@ class AboutYou extends Component {
                                 </Button>
                             </Col>
                         </Grid>
-                    
+
                     </KeyboardAvoidingView>
                 </Modal>
 

@@ -62,6 +62,16 @@ class SomethingMore extends Component {
         }
     }
 
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousSubmitPrize } = nextProps
+            this.setState({
+                description: dataFromThePreviousSubmitPrize.delivery.description
+            })
+        }
+    }
+
     render() {
         const {
             description,

@@ -28,12 +28,26 @@ export const getUser = `query GetUser($id: ID!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -90,6 +104,12 @@ export const getUser = `query GetUser($id: ID!) {
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -124,7 +144,27 @@ export const getUser = `query GetUser($id: ID!) {
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -147,12 +187,26 @@ export const getUser = `query GetUser($id: ID!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -224,12 +278,26 @@ export const getUser = `query GetUser($id: ID!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -238,6 +306,16 @@ export const getUser = `query GetUser($id: ID!) {
           amountOfSimblings
           birthDate
           gender
+          location {
+            born {
+              city
+              country
+            }
+            currentPlace {
+              city
+              country
+            }
+          }
           maritalStatus
           nacionality
           parentalCondition
@@ -299,9 +377,24 @@ export const listUsers = `query ListUsers(
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -309,18 +402,81 @@ export const listUsers = `query ListUsers(
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -340,15 +496,60 @@ export const listUsers = `query ListUsers(
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -372,6 +573,15 @@ export const listUsers = `query ListUsers(
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -438,9 +648,24 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -448,18 +673,81 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -479,15 +767,60 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -511,6 +844,15 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -611,9 +953,24 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -621,18 +978,81 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -698,9 +1118,24 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -708,18 +1143,81 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -752,22 +1250,119 @@ export const listCreateContests = `query ListCreateContests(
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -828,9 +1423,41 @@ export const listCreateContests = `query ListCreateContests(
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -883,9 +1510,41 @@ export const listCreateContests = `query ListCreateContests(
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -914,22 +1573,119 @@ export const getAudience = `query GetAudience($id: ID!) {
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -990,9 +1746,41 @@ export const getAudience = `query GetAudience($id: ID!) {
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -1045,9 +1833,41 @@ export const getAudience = `query GetAudience($id: ID!) {
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -1103,12 +1923,26 @@ export const listAudiences = `query ListAudiences(
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -1165,6 +1999,12 @@ export const listAudiences = `query ListAudiences(
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -1199,7 +2039,27 @@ export const listAudiences = `query ListAudiences(
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -1272,22 +2132,119 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -1348,9 +2305,41 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -1403,9 +2392,41 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -1456,12 +2477,26 @@ export const listParticipantss = `query ListParticipantss(
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -1518,6 +2553,12 @@ export const listParticipantss = `query ListParticipantss(
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -1552,7 +2593,27 @@ export const listParticipantss = `query ListParticipantss(
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -1642,9 +2703,24 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1652,18 +2728,81 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1683,15 +2822,60 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -1715,6 +2899,15 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1825,22 +3018,119 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -1929,9 +3219,24 @@ export const getEngage = `query GetEngage($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1939,18 +3244,81 @@ export const getEngage = `query GetEngage($id: ID!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1970,15 +3338,60 @@ export const getEngage = `query GetEngage($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -2002,6 +3415,15 @@ export const getEngage = `query GetEngage($id: ID!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -2099,22 +3521,119 @@ export const listEngages = `query ListEngages(
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken

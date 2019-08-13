@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Auth } from 'aws-amplify'
+import { Alert } from 'react-native'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
@@ -9,16 +10,27 @@ import AboutTheContest from './views/aboutTheContest'
 import Prizes from './views/prizes'
 import Summary from './views/summary'
 
+// GraphQL
+import * as queries from "../../../src/graphql/queries"
+
 export default class CreateContest extends Component {
     state = {
         userData: {},
+        dataFromThePreviousContest: {},
+        wantSuggestedFields: false,
         contest: {}
     }
 
     async componentDidMount() {
         try {
             const { attributes } = await Auth.currentUserInfo()
-            this.setState({ userData: attributes })
+            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
+            await this.setState({ userData: attributes, dataFromThePreviousContest: _.last(data.getUser.createContest.items) })
+            await data.getUser.createContest.items.length ? Alert.alert(
+                `${attributes.name}`,
+                'We have seen that this is not your first contest, do you want to fill in the suggested fields?',
+                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
+            ) : null
         } catch (error) {
             console.log(error)
         }
@@ -34,7 +46,7 @@ export default class CreateContest extends Component {
     }
 
     render() {
-        const { contest, userData } = this.state
+        const { contest, userData, dataFromThePreviousContest, wantSuggestedFields } = this.state
         return (
             <Swiper
                 scrollEnabled={false}
@@ -44,6 +56,10 @@ export default class CreateContest extends Component {
                 {/* ABOUT YOU */}
                 <AboutYou
                     userData={userData}
+                    dataFromThePreviousContest={dataFromThePreviousContest}
+
+                    // Actions
+                    wantSuggestedFields={wantSuggestedFields}
 
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />
@@ -51,6 +67,10 @@ export default class CreateContest extends Component {
                 {/* ABOUT THE CONTEST */}
                 <AboutTheContest
                     userData={userData}
+                    dataFromThePreviousContest={dataFromThePreviousContest}
+
+                    // Actions
+                    wantSuggestedFields={wantSuggestedFields}
 
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />

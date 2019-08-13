@@ -28,12 +28,26 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -90,6 +104,12 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -124,7 +144,27 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -147,12 +187,26 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -224,12 +278,26 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -238,6 +306,16 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           amountOfSimblings
           birthDate
           gender
+          location {
+            born {
+              city
+              country
+            }
+            currentPlace {
+              city
+              country
+            }
+          }
           maritalStatus
           nacionality
           parentalCondition
@@ -295,12 +373,26 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -357,6 +449,12 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -391,7 +489,27 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -414,12 +532,26 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -491,12 +623,26 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -505,6 +651,16 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           amountOfSimblings
           birthDate
           gender
+          location {
+            born {
+              city
+              country
+            }
+            currentPlace {
+              city
+              country
+            }
+          }
           maritalStatus
           nacionality
           parentalCondition
@@ -562,12 +718,26 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -624,6 +794,12 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         timer
         audience {
           items {
+            createContest {
+              id
+              category
+              createdAt
+              timer
+            }
             id
             genders
             ages
@@ -658,7 +834,27 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             participantId
             nameUser
             comment
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
             avatar
+            contest {
+              id
+              category
+              createdAt
+              timer
+            }
             createdAt
           }
           nextToken
@@ -681,12 +877,26 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -758,12 +968,26 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           datetime
           scope
           createContest {
+            items {
+              id
+              category
+              createdAt
+              timer
+            }
             nextToken
           }
           submitPrize {
+            items {
+              id
+              category
+              createdAt
+            }
             nextToken
           }
           engage {
+            items {
+              createdAt
+            }
             nextToken
           }
         }
@@ -772,6 +996,16 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           amountOfSimblings
           birthDate
           gender
+          location {
+            born {
+              city
+              country
+            }
+            currentPlace {
+              city
+              country
+            }
+          }
           maritalStatus
           nacionality
           parentalCondition
@@ -830,9 +1064,24 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -840,18 +1089,81 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -871,15 +1183,60 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -903,6 +1260,15 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1003,9 +1369,24 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1013,18 +1394,81 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1090,9 +1534,24 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1100,18 +1559,81 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1150,9 +1672,24 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1160,18 +1697,81 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1191,15 +1791,60 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -1223,6 +1868,15 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1323,9 +1977,24 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1333,18 +2002,81 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1410,9 +2142,24 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1420,18 +2167,81 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1470,9 +2280,24 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1480,18 +2305,81 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1511,15 +2399,60 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -1543,6 +2476,15 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1643,9 +2585,24 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1653,18 +2610,81 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1730,9 +2750,24 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -1740,18 +2775,81 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -1780,22 +2878,119 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -1856,9 +3051,41 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -1911,9 +3138,41 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -1966,22 +3225,119 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -2042,9 +3398,41 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -2097,9 +3485,41 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -2152,22 +3572,119 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -2228,9 +3745,41 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -2283,9 +3832,41 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -2357,22 +3938,119 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -2433,9 +4111,41 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -2488,9 +4198,41 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -2538,22 +4280,119 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -2614,9 +4453,41 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -2669,9 +4540,41 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -2719,22 +4622,119 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         createContest {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheCompany {
+              companyName
+            }
             category
+            general {
+              price
+              nameOfPrize
+              description
+            }
             createdAt
+            delivery {
+              description
+              socialMediaSelected
+              typeOfSocialNetwork
+            }
           }
           nextToken
         }
         engage {
           items {
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutThePersonality {
+              amountOfChildren
+              amountOfSimblings
+              birthDate
+              gender
+              maritalStatus
+              nacionality
+              parentalCondition
+              regionalIdentity
+              sexuality
+            }
+            aboutTheOccupations {
+              levelAchivied
+              occupation
+              rentOrOwnCar
+              rentOrOwnHouse
+              schools
+              university
+              socioeconomicLevel
+            }
+            interests {
+              categoryContest
+              categoryPrize
+              musicalGenre
+              sports
+              political
+              vote
+            }
             createdAt
           }
           nextToken
@@ -2795,9 +4795,41 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         items {
           createContest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           id
           genders
@@ -2850,9 +4882,41 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           avatar
           contest {
             id
+            user {
+              id
+              userId
+              name
+              username
+              lastname
+              email
+              avatar
+              phone
+              datetime
+              scope
+            }
+            aboutTheUser {
+              companyName
+              titleInTheCompany
+            }
             category
+            general {
+              description
+              instructions
+              nameOfContest
+            }
+            prizes {
+              description
+              prizeId
+              name
+            }
             createdAt
             timer
+            audience {
+              nextToken
+            }
+            participants {
+              nextToken
+            }
           }
           createdAt
         }
@@ -2945,9 +5009,24 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -2955,18 +5034,81 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -2986,15 +5128,60 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3018,6 +5205,15 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -3134,9 +5330,24 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -3144,18 +5355,81 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -3175,15 +5449,60 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3207,6 +5526,15 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -3323,9 +5651,24 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -3333,18 +5676,81 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -3364,15 +5770,60 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3396,6 +5847,15 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -3511,9 +5971,24 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -3521,18 +5996,81 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -3552,15 +6090,60 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3584,6 +6167,15 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -3687,9 +6279,24 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -3697,18 +6304,81 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -3728,15 +6398,60 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3760,6 +6475,15 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -3863,9 +6587,24 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheUser {
             companyName
+            location {
+              city
+              country
+              state
+              street
+            }
             titleInTheCompany
           }
           category
@@ -3873,18 +6612,81 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             description
             instructions
             nameOfContest
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           prizes {
             description
             prizeId
             name
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           timer
           audience {
+            items {
+              id
+              genders
+              ages
+              categoryContest
+              countries
+              nacionalities
+              regionalIdentity
+              sexualities
+              maritalStatus
+              academicLevelAchieved
+              schools
+              universities
+              musicalGenre
+              sports
+              parentalCondition
+              amountOfChildren
+              amountOfSimblings
+              politicalPeople
+              peopleWhoVote
+              ocuppation
+              socioeconomicLevel
+              rentOrOwnHouse
+              rentOrOwnCar
+              categoryPrizes
+              createdAt
+            }
             nextToken
           }
           participants {
+            items {
+              id
+              participantId
+              nameUser
+              comment
+              avatar
+              createdAt
+            }
             nextToken
           }
         }
@@ -3904,15 +6706,60 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutTheCompany {
+            businessLocation {
+              city
+              country
+              state
+              street
+            }
             companyName
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
           }
           category
           general {
             price
             nameOfPrize
             description
+            instructions {
+              msg
+              typeContentInstructionsValue
+            }
+            socialMediaHandle {
+              facebook
+              twitter
+              instagram
+              snapchat
+            }
+            picture {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
+            video {
+              localUrl
+              url
+              name
+              type
+              blob
+            }
           }
           createdAt
           delivery {
@@ -3936,6 +6783,15 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             phone
             datetime
             scope
+            createContest {
+              nextToken
+            }
+            submitPrize {
+              nextToken
+            }
+            engage {
+              nextToken
+            }
           }
           aboutThePersonality {
             amountOfChildren

@@ -203,7 +203,6 @@ class AboutThePersonality extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -219,7 +218,6 @@ class AboutThePersonality extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -235,7 +233,6 @@ class AboutThePersonality extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && userData.phone_number}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -251,7 +248,6 @@ class AboutThePersonality extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 

@@ -73,7 +73,7 @@ class Summary extends Component {
             this.setState({ isLoading: false })
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
-            alert(error)
+            console.log(error)
         }
     }
 

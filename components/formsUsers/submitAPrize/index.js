@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { Alert } from 'react-native'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
@@ -16,13 +17,20 @@ export default class SubmitPrize extends Component {
         userData: {},
         userDataAPI: {},
         prize: {},
+        dataFromThePreviousSubmitPrize: {},
+        wantSuggestedFields: false,
     }
 
     async componentDidMount() {
         try {
             const { attributes } = await Auth.currentUserInfo()
             const userDataAPI = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
-            this.setState({ userData: attributes, userDataAPI: userDataAPI.data.getUser })
+            this.setState({ userData: attributes, userDataAPI: userDataAPI.data.getUser, dataFromThePreviousSubmitPrize: _.last(userDataAPI.data.getUser.submitPrize.items) })
+            await userDataAPI.data.getUser.submitPrize.items.length ? Alert.alert(
+                `${attributes.name}`,
+                'We have seen that this is not your first prize, do you want to fill in the suggested fields?',
+                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
+            ) : null
         } catch (error) {
             alert(error)
         }
@@ -38,7 +46,7 @@ export default class SubmitPrize extends Component {
     }
 
     render() {
-        const { prize, userData, userDataAPI } = this.state
+        const { prize, userData, userDataAPI, dataFromThePreviousSubmitPrize, wantSuggestedFields } = this.state
         return (
             <Swiper
                 scrollEnabled={false}
@@ -48,6 +56,10 @@ export default class SubmitPrize extends Component {
                 {/* ABOUT YOU */}
                 <AboutYou
                     userData={userData}
+                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
+
+                    // Actions
+                    wantSuggestedFields={wantSuggestedFields}
 
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />
@@ -55,6 +67,10 @@ export default class SubmitPrize extends Component {
                 {/* ABOUT YOU */}
                 <AboutThePrize
                     userData={userData}
+                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
+
+                    // Actions
+                    wantSuggestedFields={wantSuggestedFields}
 
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />
@@ -63,7 +79,11 @@ export default class SubmitPrize extends Component {
                 <Mentions
                     userData={userData}
                     prize={prize}
+                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
 
+                    // Actions
+                    wantSuggestedFields={wantSuggestedFields}
+                    
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />
 

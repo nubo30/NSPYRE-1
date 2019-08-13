@@ -33,7 +33,7 @@ export default class AboutTheContest extends Component {
 
 
         // Data
-        category: 'NO_SELECT',
+        category: 'Not specified',
         price: 0,
         nameOfPrize: "",
         description: "",
@@ -68,7 +68,7 @@ export default class AboutTheContest extends Component {
         const { category, nameOfPrize, description, instructions, socialMediaHandle, picture, video } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            category !== 'NO_SELECT'
+            category !== 'Not specified'
                 ? isAscii(nameOfPrize)
                     ? description
                         ? instructions
@@ -181,6 +181,24 @@ export default class AboutTheContest extends Component {
 
     _keyboardDidHide = () => { this.setState({ keyboardDidShowAction: false }) }
 
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousSubmitPrize } = nextProps
+            this.setState({
+                description: dataFromThePreviousSubmitPrize.general.description,
+                typeContentInstructionsValue: dataFromThePreviousSubmitPrize.general.instructions.typeContentInstructionsValue,
+                instructions: dataFromThePreviousSubmitPrize.general.instructions.msg,
+                socialMediaHandle: {
+                    facebook: dataFromThePreviousSubmitPrize.general.socialMediaHandle.facebook,
+                    twitter: dataFromThePreviousSubmitPrize.general.socialMediaHandle.twitter,
+                    instagram: dataFromThePreviousSubmitPrize.general.socialMediaHandle.instagram,
+                    snapchat: dataFromThePreviousSubmitPrize.general.socialMediaHandle.snapchat
+                },
+            })
+        }
+    }
+
     render() {
         const {
             // DATA
@@ -273,11 +291,10 @@ export default class AboutTheContest extends Component {
                                                     <Picker.Item label="Miles" value="MILES" />
                                                     <Picker.Item label="Coupon Codes" value="COUPON_CODES" />
                                                     <Picker.Item label="Hats" value="HATS" />
-                                                    <Picker.Item label="No select" value="NO_SELECT" />
                                                 </Picker>}
                                         </Body>
                                         <Right>
-                                            <Text>{_.upperFirst(_.lowerCase(_.replace(category, new RegExp("_", "g"), " ")))}</Text>
+                                            <Text>{_.upperFirst(_.lowerCase(category))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -725,7 +742,7 @@ export default class AboutTheContest extends Component {
                                         value={instructions}
                                         keyboardType="ascii-capable"
                                         selectionColor="#E91E63"
-                                        style={{  padding: 5, maxHeight: 200 }}
+                                        style={{ padding: 5, maxHeight: 200 }}
                                         onChangeText={(value) => this.setState({ instructions: value })} />
                                 </Item>
                                 <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>

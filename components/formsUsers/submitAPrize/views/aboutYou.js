@@ -111,6 +111,28 @@ class AboutYou extends Component {
         }, 500);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousSubmitPrize } = nextProps
+            this.setState({
+                businessLocation: {
+                    street: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.street,
+                    state: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.state,
+                    city: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.city,
+                    country: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.country
+                },
+                socialMediaHandle: {
+                    facebook: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.facebook,
+                    twitter: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.twitter,
+                    instagram: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.instagram,
+                    snapchat: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.snapchat
+                },
+                companyName: dataFromThePreviousSubmitPrize.aboutTheCompany.companyName,
+            })
+        }
+    }
+
+
     render() {
         const {
             isvalidFormAnimation,
@@ -178,7 +200,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -194,7 +215,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -210,7 +230,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData && userData.phone_number}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
@@ -226,7 +245,6 @@ class AboutYou extends Component {
                                         </Body>
                                         <Right>
                                             <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
-                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
