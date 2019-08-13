@@ -1,23 +1,26 @@
 import React, { Component } from "react";
-import { StatusBar, NetInfo } from "react-native"
+import { StatusBar } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Toast } from 'native-base';
+import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View } from 'native-base';
 import _ from 'lodash'
 import { Platform } from "expo-core";
 
 // Child Components
-import UserInfo from "./photoAndButtom/index"
-import DrawerRight from "./drawer/index"
-import ListContest from "./listContest/index"
+import UserInfo from "./photoAndButtom"
+import DrawerRight from "./drawer"
+import ListContest from "./listContest"
 
 // gadrient
-import { GadrientsHome } from "../Global/gradients/index"
+import { GadrientsHome } from "../Global/gradients"
 
 // Graphql
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
+
+// Redux
+import { connect } from 'react-redux'
 
 const BUTTONS = ["Submit a prize", "Create a contest", "Cancel"];
 const CANCEL_INDEX = 2;
@@ -33,29 +36,24 @@ class Home extends Component {
             actionSheetButtonIndex: "Create a contest",
             heightHeader: 0,
             prizeCategory: [],
-            offLine: false,
         }
         this.actionSheet = null;
     }
 
 
     componentDidMount() {
-        NetInfo.addEventListener('connectionChange', (connectionInfo) => {
-            if (connectionInfo.type === 'none') {
-                Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 })
-                this.setState({ offLine: true })
-            } else {
-                this.getDataFromAWS()
-                API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
-                    error: ({ errors }) => {
-                        console.log(errors)
-                    },
-                    next: (getData) => {
-                        if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
-                    }
-                })
-            }
-        })
+        const { online } = this.props.networkStatus
+        if (online) {
+            this.getDataFromAWS()
+            API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
+                error: ({ errors }) => {
+                    console.log(errors)
+                },
+                next: (getData) => {
+                    if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
+                }
+            })
+        }
     }
 
     getDataFromAWS = async () => {
@@ -93,7 +91,9 @@ class Home extends Component {
     }
 
     render() {
-        const { userData, openDrower, isReady, prizeCategory, offLine } = this.state
+        const { userData, openDrower, isReady, prizeCategory } = this.state
+        const { online } = this.props.networkStatus
+
         return (
             <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                 {/* Header */}
@@ -145,10 +145,10 @@ class Home extends Component {
                                     offLine={offLine} />
 
                                 <Button
-                                    disabled={offLine}
+                                    disabled={!online}
                                     rounded transparent style={{ alignSelf: "center", top: -10 }}
                                     onPress={() => this.showActionSheet()}>
-                                    <Text style={{ color: offLine ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4.4) }}>{`Create a contest or Submit a prize`}</Text>
+                                    <Text style={{ color: !online ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4.4) }}>{`Create a contest or Submit a prize`}</Text>
                                 </Button>
                                 <ActionSheet ref={(c) => { this.actionSheet = c; }} />
                                 <Text style={{ fontSize: wp(8), fontWeight: "200", color: "#333", textAlign: "center", top: -5 }}>
@@ -156,7 +156,7 @@ class Home extends Component {
                                 </Text>
                             </Header>
                             <Content padder showsVerticalScrollIndicator={false} style={{ backgroundColor: 'rgba(0,0,0,0.0)' }}>
-                                <ListContest offLine={offLine} userData={userData} />
+                                <ListContest offLine={!online} userData={userData} />
                             </Content>
                             <View style={{ height: this.state.heightHeader }} />
                         </Container>
@@ -167,4 +167,10 @@ class Home extends Component {
     }
 }
 
-export default withNavigation(Home)
+
+// Store connection
+const mapStateToProps = ({ networkStatus }) => {
+    return { networkStatus }
+}
+
+export default connect(mapStateToProps, null)(withNavigation(Home))
