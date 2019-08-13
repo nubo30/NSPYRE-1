@@ -22,7 +22,6 @@ export default class About extends Component {
         const { thumbnailLoading, closeModalFromParticipate } = this.state
         const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest, userData, disableParticipants } = this.props
         const filterParticipantsList = contest.participants.items.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
-        console.log(disableParticipants, "<----")
         return (
             <Modal
                 onModalHide={closeModalFromParticipate ? () => {

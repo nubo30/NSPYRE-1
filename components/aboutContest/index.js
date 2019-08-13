@@ -10,7 +10,6 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // Child Components
-import SocialNetwork from "./shareSocialNetwork"
 import HeaderContest from "./header"
 import PrizeModal from "./modals/prizes"
 import AboutModal from "./modals/about"
@@ -208,8 +207,7 @@ class ShowContest extends Component {
                         <Grid style={styles.scrollViewContent}>
 
                             {/* Botton social network */}
-                            <Row size={15} style={{ justifyContent: 'space-between' }}>
-                                <SocialNetwork />
+                            <Row size={15} style={{ justifyContent: 'flex-end' }}>
                                 <View style={{ justifyContent: 'center', left: 5, flexDirection: 'row' }}>
                                     {userLogin
                                         ? <Button
