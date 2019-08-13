@@ -88,12 +88,12 @@ export default class Audience extends Component {
                 <Footer style={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)', height: 85 }}>
                     <Grid>
                         <Row size={70} style={{ justifyContent: 'space-evenly' }}>
-                            <Button style={{ backgroundColor: '#D81B60', borderRadius: "50%", width: "45%", height: "80%", justifyContent: 'center' }} onPress={() => {
+                            <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(0);
                             }}>
                                 <Text style={{ letterSpacing: 2 }}>Your only</Text>
                             </Button>
-                            <Button style={{ backgroundColor: '#D81B60', borderRadius: "50%", width: "45%", height: "80%", justifyContent: 'center' }} onPress={() => {
+                            <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(1);
                             }}>
                                 <Text style={{ letterSpacing: 2 }}>Ours also</Text>

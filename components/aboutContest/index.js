@@ -247,8 +247,12 @@ class ShowContest extends Component {
                             {/* Stats/Submit a video or a meme */}
                             <Row size={65}>
                                 <Participants
+                                    // Data
+                                    userData={userData}
+                                    contest={contest}
 
                                     // Functions
+                                    _setModalVisibleAudience={this._setModalVisibleAudience}
                                     _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
                             </Row>
                         </Grid>
@@ -306,6 +310,7 @@ class ShowContest extends Component {
                     <PrizeModal
                         // Data
                         contest={contest}
+
                         // Action
                         modalVisiblePrizes={modalVisiblePrizes}
                         // Function
@@ -314,6 +319,7 @@ class ShowContest extends Component {
                     <AboutModal
                         // Data
                         contest={contest}
+                        userData={userData}
                         // Action
                         modalVisibleAboutTheContest={modalVisibleAboutTheContest}
                         // Function

@@ -41,7 +41,7 @@ class UserInfo extends Component {
             modalVisibleYourContests,
             modalVisibleRedeemPoints,
         } = this.state
-        const { userData, isReady, prizeCategory, offLine } = this.props
+        const { userData, isReady, prizeCategory, offLine, contestList } = this.props
         return (
             <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent: 'space-around', left: '1.5%' }}>
                 <Button bordered small rounded disabled={!isReady || offLine}
@@ -75,11 +75,12 @@ class UserInfo extends Component {
                         prizeCategory={prizeCategory}
                         userData={userData} />
                 </Modal>
+         
                 <Modal
                     animationType="slide"
                     transparent={false}
                     visible={modalVisibleYourContests}>
-                    <YourContest userData={userData} _setModalVisibleYourContest={this._setModalVisibleYourContest} />
+                    <YourContest contestList={contestList} userData={userData} _setModalVisibleYourContest={this._setModalVisibleYourContest} />
                 </Modal>
 
                 <ModalAnimation

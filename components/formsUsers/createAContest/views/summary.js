@@ -32,7 +32,7 @@ class Summary extends Component {
     }
 
     _submit = async () => {
-        this.setState({ isLoading: true})
+        this.setState({ isLoading: true })
         const { navigation, userData, contest } = this.props
 
         AWS.config.update({
@@ -100,11 +100,10 @@ class Summary extends Component {
                 fromWhere: 'createContest',
                 userData
             })
+            this.setState({ isLoading: false })
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
             console.log(error)
-        } finally {
-            this.setState({ isLoading: false })
         }
     }
 

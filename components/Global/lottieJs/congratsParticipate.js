@@ -13,13 +13,12 @@ export default class CongratsParticipate extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.swiperIndex === 2) {
+        if (nextProps.swiperIndex === 4) {
             this.resetAnimation()
         }
     }
 
     render() {
-        const { swiperIndex } = this.props
         return (
             <Lottie
                 loop={false}

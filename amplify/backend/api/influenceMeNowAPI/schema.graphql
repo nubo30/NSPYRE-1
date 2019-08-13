@@ -35,6 +35,7 @@ type CreateContest @model {
   createdAt: AWSDateTime!
   timer: AWSDateTime
   audience: [Audience] @connection(name:"CreateContestAudience")
+  participants: [Participants] @connection(name:"CreateContestParticipants")
 }
 
 type Audience @model {
@@ -110,6 +111,18 @@ type Prizes {
     picture: Picture
     video: Video
     price: String
+}
+
+type Participants @model {
+  id: ID!
+  participantId: ID!
+  nameUser: String
+  comment: String
+  video: Video
+  picture: Picture
+  avatar: AWSURL
+  contest: CreateContest @connection(name: "CreateContestParticipants")
+  createdAt: AWSDateTime!
 }
 
 ##################################################################### LISTOFCONTEST #####################################################################

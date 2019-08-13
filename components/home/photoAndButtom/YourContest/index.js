@@ -27,12 +27,11 @@ class UserContest extends Component {
     }
 
     render() {
-        const { userData, _setModalVisibleYourContest, } = this.props
+        const { userData, _setModalVisibleYourContest } = this.props
         const { input } = this.state
 
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
-
         return (
             <Container>
                 <GadrientsListContenst />

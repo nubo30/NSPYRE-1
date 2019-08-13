@@ -70,7 +70,7 @@ export default class CardContent extends Component {
                                     </Text>
                                     <View style={{ flexDirection: 'row', bottom: 0, right: 0, position: 'absolute', padding: 15 }}>
                                         <Text style={{ color: "#FFF", left: -15 }}>🏆 {item.prizes.length}</Text>
-                                        <Text style={{ color: "#FFF", left: -5 }}>👥 50</Text>
+                                        <Text style={{ color: "#FFF", left: -5 }}>👥 {item.participants.items.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>

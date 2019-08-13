@@ -63,7 +63,7 @@ class Home extends Component {
             const data = await Auth.currentSession()
             const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.idToken.payload.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
-            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items })
+            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items})
         } catch (error) {
             console.log(error)
         }
@@ -138,7 +138,12 @@ class Home extends Component {
                                 <StatusBar barStyle='light-content' />
 
                                 {/* Componentes como el avatar, your contest y redeem points */}
-                                <UserInfo prizeCategory={prizeCategory} userData={userData} isReady={isReady} offLine={offLine} />
+                                <UserInfo
+                                    prizeCategory={prizeCategory}
+                                    userData={userData}
+                                    isReady={isReady}
+                                    offLine={offLine} />
+
                                 <Button
                                     disabled={offLine}
                                     rounded transparent style={{ alignSelf: "center", top: -10 }}

@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import { View, Dimensions, Image } from "react-native";
+import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { ImagePicker, Permissions, Video } from 'expo';
-import { Button, Text, Icon } from 'native-base'
+import { Button, Text, Icon, Form, Textarea, Spinner } from 'native-base'
 import Modal from "react-native-modal";
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Swiper from 'react-native-swiper';
 import _ from 'lodash'
+import moment from 'moment'
+import AWS from 'aws-sdk'
+
 
 // Animations
 import AnimationManWihtHearts from '../../../Global/lottieJs/manWithHearts'
@@ -16,11 +20,16 @@ import CongratsParticipate from '../../../Global/lottieJs/congratsParticipate'
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
 
+// Graphql
+import * as mutations from '../../../../src/graphql/mutations'
+
 export default class JoinToTheContest extends Component {
     state = {
         swiperIndex: 0,
-        picture: { name: "", type: "", localUrl: "" },
-        video: { name: "", type: "", localUrl: "" },
+        picture: { name: null, type: null, localUrl: null, url: null, blob: {} },
+        video: { name: null, type: null, localUrl: null, url: null, blob: {} },
+        commentText: '',
+        isLoading: false
     }
 
     _changeSwiper = (i) => {
@@ -86,9 +95,71 @@ export default class JoinToTheContest extends Component {
         })
     }
 
+    _submit = async () => {
+        this.setState({ isLoading: true })
+        const { video, picture, commentText } = this.state
+        const { userData, contest } = this.props
+
+        AWS.config.update({
+            accessKeyId: "AKIAIQA34573X4TITQEQ",
+            secretAccessKey: "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",
+            "region": "sa-east-1"
+        })
+
+        // PICTURE OF THE CONTEST
+        let blobPicture
+        if (picture.localUrl !== null) {
+            blobPicture = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () { resolve(xhr.response) };
+                xhr.onerror = function () { reject(new TypeError("Network request failed")) };
+                xhr.responseType = "blob";
+                xhr.open("GET", picture.localUrl, true);
+                xhr.send(null);
+            });
+        }
+
+        // VIDEO OF THE CONTEST
+        let blobVideo
+        if (video.localUrl !== null) {
+            blobVideo = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () { resolve(xhr.response) };
+                xhr.onerror = function () { reject(new TypeError("Network request failed")) };
+                xhr.responseType = "blob";
+                xhr.open("GET", video.localUrl, true);
+                xhr.send(null);
+            });
+        }
+
+        // DATA TO AWS
+        const participants = {
+            participantId: userData.id,
+            nameUser: userData.name,
+            comment: commentText,
+            video,
+            picture,
+            avatar: userData.avatar,
+            createdAt: moment().toISOString(),
+            participantsContestId: contest.id,
+        }
+
+        try {
+            if (picture.localUrl !== null) { await Storage.put(`users/${userData.email}/contest/participants/pictures/${picture.name}`, blobPicture, { contentType: picture.type }) }
+            if (video.localUrl !== null) { await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, { contentType: video.type }) }
+            await API.graphql(graphqlOperation(mutations.createParticipants, { input: participants }))
+            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            this.setState({ isLoading: false })
+            await this._changeSwiper(1)
+        } catch (error) {
+            this.setState({ isLoading: false, errSubmitdata: true })
+            console.log(error)
+        }
+    }
+
 
     render() {
-        const { swiperIndex, picture, video } = this.state
+        const { commentText, swiperIndex, picture, video, isLoading } = this.state
         const {
             contest,
 
@@ -101,10 +172,12 @@ export default class JoinToTheContest extends Component {
             <Modal isVisible={modalVisibleJoinToTheContest}>
                 <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100, padding: 15 }}>
                     <Swiper
+                        scrollEnabled={false}
                         onIndexChanged={(index) => this.setState({ swiperIndex: index })}
                         ref={(swiper) => this.swiper = swiper}
                         showsPagination={false}
                         loop={false}>
+
                         {/* INTRO */}
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column' }}>
@@ -128,8 +201,8 @@ export default class JoinToTheContest extends Component {
                                     transparent
                                     onPress={() => {
                                         this.setState({
-                                            video: { ...video, localUrl: '', name: '', url: '', type: '', blob: {} },
-                                            picture: { ...picture, localUrl: '', name: '', url: '', type: '', blob: {} }
+                                            video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                            picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
                                         });
                                         _setModalVisibleJoinToTheContest(false)
                                     }}>
@@ -159,14 +232,23 @@ export default class JoinToTheContest extends Component {
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Row>
-                            <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button transparent onPress={() => {
-                                    this.setState({
-                                        video: { ...video, localUrl: '', name: '', url: '', type: '', blob: {} },
-                                        picture: { ...picture, localUrl: '', name: '', url: '', type: '', blob: {} }
-                                    });
-                                    _setModalVisibleJoinToTheContest(false)
-                                }}>
+                            <Row size={10} style={{ justifyContent: 'space-between' }}>
+                                <Button
+                                    transparent
+                                    onPress={() => this._changeSwiper(-1)}>
+                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                </Button>
+                                <Button
+                                    transparent
+                                    onPress={
+                                        () => {
+                                            _setModalVisibleJoinToTheContest(false);
+                                            this.setState({
+                                                commentText: '',
+                                                video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                            })
+                                        }}>
                                     <Text style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
@@ -177,7 +259,7 @@ export default class JoinToTheContest extends Component {
                             <Row size={20} style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
                             </Row>
-                            {video.localUrl
+                            {video.localUrl !== null
                                 ? <Row size={60} style={{ flexDirection: 'column' }}>
                                     <View style={{ flex: 1, padding: 15, justifyContent: 'center', alignItems: 'center' }}>
                                         <Video
@@ -203,7 +285,7 @@ export default class JoinToTheContest extends Component {
                                 </Row>
                                 : null}
 
-                            {picture.localUrl
+                            {picture.localUrl !== null
                                 ? <Row size={60} style={{ flexDirection: 'column' }}>
                                     <View style={{
                                         shadowColor: "rgba(0,0,0,0.5)", shadowOffset: { width: 1 }, shadowOpacity: 1,
@@ -222,7 +304,7 @@ export default class JoinToTheContest extends Component {
                                 </Row>
                                 : null}
 
-                            {video.localUrl === '' && picture.localUrl === '' ? <Row size={60} style={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
+                            {video.localUrl === null && picture.localUrl === null ? <Row size={60} style={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
                                 <Button
                                     onPress={() => this._useLibraryHandler('Videos')}
                                     transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
@@ -238,7 +320,6 @@ export default class JoinToTheContest extends Component {
                                 </Button>
                             </Row> : null}
 
-
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button
                                     disabled={video.localUrl || picture.localUrl ? false : true}
@@ -252,16 +333,82 @@ export default class JoinToTheContest extends Component {
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Row>
-                            <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Row size={10} style={{ justifyContent: 'space-between' }}>
                                 <Button
                                     transparent
-                                    onPress={() => {
-                                        this.setState({
-                                            video: { ...video, localUrl: '', name: '', url: '', type: '', blob: {} },
-                                            picture: { ...picture, localUrl: '', name: '', url: '', type: '', blob: {} }
-                                        });
-                                        _setModalVisibleJoinToTheContest(false)
+                                    onPress={() => this._changeSwiper(-1)}>
+                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                </Button>
+                                <Button
+                                    transparent
+                                    onPress={
+                                        () => {
+                                            _setModalVisibleJoinToTheContest(false);
+                                            this.setState({
+                                                commentText: '',
+                                                video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                            })
+                                        }}>
+                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                </Button>
+                            </Row>
+                        </Grid>
+
+                        {/* COMMENTS */}
+                        <Grid>
+                            <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
+                                <Form style={{ padding: 10 }}>
+                                    <Textarea
+                                        editable={isLoading}
+                                        bordered
+                                        onChangeText={(value) => this.setState({ commentText: value })}
+                                        value={commentText}
+                                        maxLength={512}
+                                        selectionColor="#D82B60"
+                                        style={{ borderColor: '#D82B60', borderRadius: 5, padding: 10, fontSize: wp(4.3), minWidth: '95%' }}
+                                        rowSpan={8}
+                                        placeholder="Briefly describe any thoughts you want to illustrate in your participation!" />
+                                </Form>
+                            </Row>
+                            <Row size={15} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Button
+                                    disabled={commentText ? false : true || isLoading}
+                                    onPress={() => this._submit()}
+                                    iconRight style={{
+                                        backgroundColor: '#D82B60',
+                                        width: '70%',
+                                        shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                        alignSelf: 'center',
+                                        alignItems: 'center', justifyContent: 'center'
                                     }}>
+                                    {isLoading
+                                        ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ color: "#EEEEEE" }}>Please wait...  </Text>
+                                            <Spinner size="small" color="#EEEEEE" />
+                                        </View>
+                                        : <Text style={{ color: '#FFF', letterSpacing: 2 }}>SUBMIT</Text>}
+
+                                </Button>
+                            </Row>
+                            <Row size={10} style={{ justifyContent: 'space-between' }}>
+                                <Button
+                                    transparent
+                                    onPress={() => this._changeSwiper(-1)}>
+                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                </Button>
+                                <Button
+                                    transparent
+                                    onPress={
+                                        () => {
+                                            _setModalVisibleJoinToTheContest(false);
+                                            this.setState({
+                                                commentText: '',
+                                                video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                            })
+                                        }}>
                                     <Text style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
@@ -279,7 +426,6 @@ export default class JoinToTheContest extends Component {
                                 </Button>
                             </Row>
                         </Grid>
-
                     </Swiper>
                 </View>
             </Modal>

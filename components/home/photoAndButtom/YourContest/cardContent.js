@@ -87,7 +87,7 @@ class CardContent extends Component {
                                     />}
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
                                         <Text style={{ color: "#FFF", left: -10 }}>🏆 {item.prizes.length}</Text>
-                                        <Text style={{ color: "#FFF", left: 10 }}>👥 50</Text>
+                                        <Text style={{ color: "#FFF", left: 10 }}>👥 {item.participants.items.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>
