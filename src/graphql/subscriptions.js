@@ -28,26 +28,12 @@ export const onCreateUser = `subscription OnCreateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -104,12 +90,6 @@ export const onCreateUser = `subscription OnCreateUser {
         timer
         audience {
           items {
-            createContest {
-              id
-              category
-              createdAt
-              timer
-            }
             id
             genders
             ages
@@ -144,27 +124,7 @@ export const onCreateUser = `subscription OnCreateUser {
             participantId
             nameUser
             comment
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
             avatar
-            contest {
-              id
-              category
-              createdAt
-              timer
-            }
             createdAt
           }
           nextToken
@@ -187,26 +147,12 @@ export const onCreateUser = `subscription OnCreateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -278,26 +224,12 @@ export const onCreateUser = `subscription OnCreateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -306,16 +238,6 @@ export const onCreateUser = `subscription OnCreateUser {
           amountOfSimblings
           birthDate
           gender
-          location {
-            born {
-              city
-              country
-            }
-            currentPlace {
-              city
-              country
-            }
-          }
           maritalStatus
           nacionality
           parentalCondition
@@ -373,26 +295,12 @@ export const onUpdateUser = `subscription OnUpdateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -449,12 +357,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
         timer
         audience {
           items {
-            createContest {
-              id
-              category
-              createdAt
-              timer
-            }
             id
             genders
             ages
@@ -489,27 +391,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
             participantId
             nameUser
             comment
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
             avatar
-            contest {
-              id
-              category
-              createdAt
-              timer
-            }
             createdAt
           }
           nextToken
@@ -532,26 +414,12 @@ export const onUpdateUser = `subscription OnUpdateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -623,26 +491,12 @@ export const onUpdateUser = `subscription OnUpdateUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -651,16 +505,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
           amountOfSimblings
           birthDate
           gender
-          location {
-            born {
-              city
-              country
-            }
-            currentPlace {
-              city
-              country
-            }
-          }
           maritalStatus
           nacionality
           parentalCondition
@@ -718,26 +562,12 @@ export const onDeleteUser = `subscription OnDeleteUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -794,12 +624,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
         timer
         audience {
           items {
-            createContest {
-              id
-              category
-              createdAt
-              timer
-            }
             id
             genders
             ages
@@ -834,27 +658,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
             participantId
             nameUser
             comment
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
             avatar
-            contest {
-              id
-              category
-              createdAt
-              timer
-            }
             createdAt
           }
           nextToken
@@ -877,26 +681,12 @@ export const onDeleteUser = `subscription OnDeleteUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -968,26 +758,12 @@ export const onDeleteUser = `subscription OnDeleteUser {
           datetime
           scope
           createContest {
-            items {
-              id
-              category
-              createdAt
-              timer
-            }
             nextToken
           }
           submitPrize {
-            items {
-              id
-              category
-              createdAt
-            }
             nextToken
           }
           engage {
-            items {
-              createdAt
-            }
             nextToken
           }
         }
@@ -996,16 +772,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
           amountOfSimblings
           birthDate
           gender
-          location {
-            born {
-              city
-              country
-            }
-            currentPlace {
-              city
-              country
-            }
-          }
           maritalStatus
           nacionality
           parentalCondition
@@ -1064,24 +830,9 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -1089,81 +840,18 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -1183,60 +871,15 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -1260,15 +903,6 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1369,24 +1003,9 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -1394,81 +1013,18 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -1534,24 +1090,9 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -1559,81 +1100,18 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -1672,24 +1150,9 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -1697,81 +1160,18 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -1791,60 +1191,15 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -1868,15 +1223,6 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -1977,24 +1323,9 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -2002,81 +1333,18 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -2142,24 +1410,9 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -2167,81 +1420,18 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -2280,24 +1470,9 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -2305,81 +1480,18 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -2399,60 +1511,15 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -2476,15 +1543,6 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -2585,24 +1643,9 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -2610,81 +1653,18 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -2750,24 +1730,9 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -2775,81 +1740,18 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -2878,119 +1780,22 @@ export const onCreateAudience = `subscription OnCreateAudience {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -3051,41 +1856,9 @@ export const onCreateAudience = `subscription OnCreateAudience {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -3138,41 +1911,9 @@ export const onCreateAudience = `subscription OnCreateAudience {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -3225,119 +1966,22 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -3398,41 +2042,9 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -3485,41 +2097,9 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -3572,119 +2152,22 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -3745,41 +2228,9 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -3832,41 +2283,9 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -3938,119 +2357,22 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -4111,41 +2433,9 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -4198,41 +2488,9 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -4280,119 +2538,22 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -4453,41 +2614,9 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -4540,41 +2669,9 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -4622,119 +2719,22 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         createContest {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           nextToken
         }
         submitPrize {
           items {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheCompany {
-              companyName
-            }
             category
-            general {
-              price
-              nameOfPrize
-              description
-            }
             createdAt
-            delivery {
-              description
-              socialMediaSelected
-              typeOfSocialNetwork
-            }
           }
           nextToken
         }
         engage {
           items {
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutThePersonality {
-              amountOfChildren
-              amountOfSimblings
-              birthDate
-              gender
-              maritalStatus
-              nacionality
-              parentalCondition
-              regionalIdentity
-              sexuality
-            }
-            aboutTheOccupations {
-              levelAchivied
-              occupation
-              rentOrOwnCar
-              rentOrOwnHouse
-              schools
-              university
-              socioeconomicLevel
-            }
-            interests {
-              categoryContest
-              categoryPrize
-              musicalGenre
-              sports
-              political
-              vote
-            }
             createdAt
           }
           nextToken
@@ -4795,41 +2795,9 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         items {
           createContest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           id
           genders
@@ -4882,41 +2850,9 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           avatar
           contest {
             id
-            user {
-              id
-              userId
-              name
-              username
-              lastname
-              email
-              avatar
-              phone
-              datetime
-              scope
-            }
-            aboutTheUser {
-              companyName
-              titleInTheCompany
-            }
             category
-            general {
-              description
-              instructions
-              nameOfContest
-            }
-            prizes {
-              description
-              prizeId
-              name
-            }
             createdAt
             timer
-            audience {
-              nextToken
-            }
-            participants {
-              nextToken
-            }
           }
           createdAt
         }
@@ -5009,24 +2945,9 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -5034,81 +2955,18 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -5128,60 +2986,15 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -5205,15 +3018,6 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -5330,24 +3134,9 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -5355,81 +3144,18 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -5449,60 +3175,15 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -5526,15 +3207,6 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -5651,24 +3323,9 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -5676,81 +3333,18 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -5770,60 +3364,15 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -5847,15 +3396,6 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -5971,24 +3511,9 @@ export const onCreateEngage = `subscription OnCreateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -5996,81 +3521,18 @@ export const onCreateEngage = `subscription OnCreateEngage {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -6090,60 +3552,15 @@ export const onCreateEngage = `subscription OnCreateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -6167,15 +3584,6 @@ export const onCreateEngage = `subscription OnCreateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -6279,24 +3687,9 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -6304,81 +3697,18 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -6398,60 +3728,15 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -6475,15 +3760,6 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren
@@ -6587,24 +3863,9 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheUser {
             companyName
-            location {
-              city
-              country
-              state
-              street
-            }
             titleInTheCompany
           }
           category
@@ -6612,81 +3873,18 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             description
             instructions
             nameOfContest
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           prizes {
             description
             prizeId
             name
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           timer
           audience {
-            items {
-              id
-              genders
-              ages
-              categoryContest
-              countries
-              nacionalities
-              regionalIdentity
-              sexualities
-              maritalStatus
-              academicLevelAchieved
-              schools
-              universities
-              musicalGenre
-              sports
-              parentalCondition
-              amountOfChildren
-              amountOfSimblings
-              politicalPeople
-              peopleWhoVote
-              ocuppation
-              socioeconomicLevel
-              rentOrOwnHouse
-              rentOrOwnCar
-              categoryPrizes
-              createdAt
-            }
             nextToken
           }
           participants {
-            items {
-              id
-              participantId
-              nameUser
-              comment
-              avatar
-              createdAt
-            }
             nextToken
           }
         }
@@ -6706,60 +3904,15 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutTheCompany {
-            businessLocation {
-              city
-              country
-              state
-              street
-            }
             companyName
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
           }
           category
           general {
             price
             nameOfPrize
             description
-            instructions {
-              msg
-              typeContentInstructionsValue
-            }
-            socialMediaHandle {
-              facebook
-              twitter
-              instagram
-              snapchat
-            }
-            picture {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
-            video {
-              localUrl
-              url
-              name
-              type
-              blob
-            }
           }
           createdAt
           delivery {
@@ -6783,15 +3936,6 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             phone
             datetime
             scope
-            createContest {
-              nextToken
-            }
-            submitPrize {
-              nextToken
-            }
-            engage {
-              nextToken
-            }
           }
           aboutThePersonality {
             amountOfChildren

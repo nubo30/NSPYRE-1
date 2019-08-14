@@ -153,7 +153,7 @@ type PrizesCategory @model {
 }
 
 enum PrizeCategory {
-  APPAREL CLOTHING
+  APPAREL_CLOTHING
   TRIPS
   CRYPTOCURRENCY
   SHOES
@@ -163,7 +163,7 @@ enum PrizeCategory {
   AMAZON
   CARS
   MILES
-  COUPON CODES
+  COUPON_CODES
   HATS
   OTHERS
 }

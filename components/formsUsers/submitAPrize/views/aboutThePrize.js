@@ -286,11 +286,12 @@ export default class AboutTheContest extends Component {
                                                     <Picker.Item label="Electronics" value="ELECTRONICS" />
                                                     <Picker.Item label="Gaming" value="GAMING" />
                                                     <Picker.Item label="Tickets" value="TICKETS" />
-                                                    <Picker.Item label="Amazon Products" value="AMAZON_PRODUCTS" />
+                                                    <Picker.Item label="Amazon Products" value="AMAZON" />
                                                     <Picker.Item label="Cars" value="CARS" />
                                                     <Picker.Item label="Miles" value="MILES" />
                                                     <Picker.Item label="Coupon Codes" value="COUPON_CODES" />
                                                     <Picker.Item label="Hats" value="HATS" />
+                                                    <Picker.Item label="Others" value="OTHERS" />                                                    
                                                 </Picker>}
                                         </Body>
                                         <Right>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, ImageBackground } from 'react-native';
+import { TouchableHighlight, ImageBackground, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation'
-import { Container, View, Text, Spinner, Tab, Tabs, Button, Content } from "native-base"
+import { Container, View, Text, Spinner, Tab, Tabs, Button } from "native-base"
 import _ from "lodash"
 import * as Animatable from 'react-native-animatable';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -42,10 +42,11 @@ class ListGeneralPrizes extends Component {
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
-                        <Content>
-                            {prizeCategory.map((item, key) =>
+                        <FlatList
+                            data={prizeCategory}
+                            renderItem={({ item }) => (
                                 <TouchableHighlight
-                                    key={key}
+                                    style={{ paddingBottom: 10 }}
                                     onPress={() => { this._animationPulseCategory(item) }}
                                     underlayColor="rgba(0,0,0,0.0)">
                                     <Animatable.View
@@ -79,8 +80,9 @@ class ListGeneralPrizes extends Component {
                                             </View>
                                         </ImageBackground>
                                     </Animatable.View>
-                                </TouchableHighlight>)}
-                        </Content>
+                                </TouchableHighlight>
+                            )}
+                            keyExtractor={item => item.picture} />
                     </Tab>
                     <Tab
                         heading="Yours"
@@ -88,12 +90,13 @@ class ListGeneralPrizes extends Component {
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
-                        <Content contentContainerStyle={{ paddingBottom: 40 }}>
-                            {
-                                userData.submitPrize.items.length
-                                    ? userData.submitPrize.items.map((item, key) =>
+                        {
+                            userData.submitPrize.items.length
+                                ? <FlatList
+                                    data={userData.submitPrize.items}
+                                    renderItem={({ item }) => (
                                         <TouchableHighlight
-                                            key={key}
+                                            style={{ paddingBottom: 10 }}
                                             onPress={() => { this._animationPulse(item) }}
                                             underlayColor="rgba(0,0,0,0.0)">
                                             <Animatable.View
@@ -131,22 +134,27 @@ class ListGeneralPrizes extends Component {
                                                 </ImageBackground>
                                             </Animatable.View>
                                         </TouchableHighlight>
-                                    )
-                                    : <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
-                                        <Text style={{ color: '#BDBDBD', fontSize: wp(6.5), alignSelf: 'center', textAlign: 'center' }}>You don't have prizes created yet</Text>
-                                        <Button
-                                            onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                            small style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 10 }}>
-                                            <Text>Create one!</Text>
-                                        </Button>
-                                    </View>
-                            }
-                            <Button
-                                onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                small style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 20 }}>
-                                <Text>Create another!</Text>
-                            </Button>
-                        </Content>
+                                    )}
+                                    keyExtractor={item => item.createdAt} />
+                                : <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
+                                    <Text style={{ color: '#BDBDBD', fontSize: wp(6.5), alignSelf: 'center', textAlign: 'center' }}>You don't have prizes created yet</Text>
+                                    <Button
+                                        onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
+                                        style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 10 }}>
+                                        <Text>Create one!</Text>
+                                    </Button>
+                                </View>
+                        }
+                        {
+                            userData.submitPrize.items.length
+                                ? <View style={{ minHeight: 50, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button
+                                        onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
+                                        style={{ alignSelf: 'center', backgroundColor: '#D81B60' }}>
+                                        <Text>Create another!</Text>
+                                    </Button>
+                                </View> : null
+                        }
                     </Tab>
                 </Tabs>
             </Container>
