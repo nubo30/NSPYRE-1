@@ -41,9 +41,8 @@ class UserContest extends Component {
     getContestAsociated = async () => {
         const { userData } = this.props
         const { data } = await API.graphql(graphqlOperation(showParticipationByUser, { userId: userData.id }));
-        const contestList = await API.graphql(graphqlOperation(listCreateContests));
         let contestAsociated = JSON.parse(data.showParticipationByUser)
-        this.setState({ contestAsociated, contestList: contestList.data.listCreateContests.items })
+        this.setState({ contestAsociated })
     }
 
     _onRefresh = () => {
@@ -56,7 +55,7 @@ class UserContest extends Component {
 
     render() {
         const { userData, _setModalVisibleYourContest } = this.props
-        const { input, contestAsociated, contestList, refreshing } = this.state
+        const { input, contestAsociated, refreshing } = this.state
 
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
@@ -118,7 +117,9 @@ class UserContest extends Component {
                                     }
                                     renderItem={({ item, index }) =>
                                         <View key={index}>
-                                            <AssociatedContest contestList={contestList} userData={userData} item={item}
+                                            <AssociatedContest
+                                                item={item}
+                                                userData={userData}
                                                 _setModalVisibleYourContest={_setModalVisibleYourContest} />
                                             <View style={{ borderBottomColor: '#BDBDBD', borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
                                         </View>

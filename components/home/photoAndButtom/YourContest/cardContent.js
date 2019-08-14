@@ -50,7 +50,7 @@ class CardContent extends Component {
                         duration={200}
                         style={{
                             flex: 0,
-                            borderRadius: 13,
+                            borderRadius: 15,
                             elevation: Platform.OS === 'ios' ? 10 : 5,
                             marginBottom: 70,
                             width: "90%", height: 200,
