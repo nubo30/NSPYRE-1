@@ -14,8 +14,8 @@ import axios from 'axios'
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
 
-// Icons
-import { Ionicons, Foundation, Entypo, FontAwesome } from '@expo/vector-icons'
+// Static data
+import { ocuppationList } from '../../../Global/data/index'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -30,7 +30,9 @@ class AboutYou extends Component {
             country: "Not specified"
         },
         companyName: "",
-        titleInTheCompany: "",
+        titleInTheCompany: 'Not specified',
+
+        inputTextTitleIntheCompany: "",
 
         isvalidFormAnimation: false,
         isLoading: false,
@@ -131,16 +133,21 @@ class AboutYou extends Component {
             companyName,
             titleInTheCompany,
 
+            inputTextTitleIntheCompany,
+
             // modal
             visibleModalLocation,
             visibleModalCompanyname,
-            visibleModalTitleInTheCompany,
 
             // Data API
             listCountries,
             listCities
         } = this.state
         const { userData, navigation } = this.props
+
+        let filterOcuppationList = ocuppationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextTitleIntheCompany)) !== -1 })
+
+
         return (
             <Container>
                 <GadrientsAuth />
@@ -174,7 +181,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Icon type="Ionicons" name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -189,7 +196,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Icon type="Ionicons" name="md-person" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -204,7 +211,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                <Foundation style={{ fontSize: wp(5.6), color: '#FFF' }} active name="telephone" />
+                                                <Icon type="Foundation" name="telephone" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -219,7 +226,7 @@ class AboutYou extends Component {
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
-                                                <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-mail" />
+                                                <Icon type="Ionicons" name="md-mail" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -234,7 +241,7 @@ class AboutYou extends Component {
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalLocation(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }} onPress={() => this._visibleModalLocation(true)}>
-                                                <Entypo style={{ fontSize: wp(6), color: '#FFF' }} active name="location-pin" />
+                                                <Icon type="Entypo" name="location-pin" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -262,8 +269,8 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* TITTLE IN THE COMPANY */}
-                                    <ListItem icon disabled={isLoading} last onPress={() => this._visibleModalTitleInTheCompany(true)}>
+                                    {/* CATEGORY */}
+                                    <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
                                                 <Icon type="Entypo" name="creative-commons-attribution" />
@@ -271,12 +278,40 @@ class AboutYou extends Component {
                                         </Left>
                                         <Body>
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Title in the company</Text>
+                                            {isLoading ? null :
+                                                <Picker
+                                                    renderHeader={backAction =>
+                                                        <Header searchBar transparent rounded style={{ left: -20 }}>
+                                                            <Button transparent small onPress={backAction}>
+                                                                <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            </Button>
+                                                            <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                                                <Icon name="ios-search" />
+                                                                <Input
+                                                                    placeholder="Filter"
+                                                                    value={inputTextTitleIntheCompany}
+                                                                    onChangeText={(value) => this.setState({ inputTextTitleIntheCompany: value })} />
+                                                                <Icon type="Entypo" name="creative-commons-attribution" />
+                                                            </Item>
+                                                        </Header>}
+                                                    style={{ position: 'absolute', top: -30 }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    selectedValue={titleInTheCompany}
+                                                    onValueChange={(value) => this.setState({ titleInTheCompany: value })}>
+                                                    {filterOcuppationList.map(item => <Picker.Item label={item} value={item} />)}
+                                                </Picker>}
                                         </Body>
                                         <Right>
-                                            <Text>{titleInTheCompany ? _.truncate(titleInTheCompany, { separator: '...', length: 20 }) : "Not specified"}</Text>
+                                            <Text>{_.upperFirst(_.lowerCase(titleInTheCompany))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
+
 
                                     <Button iconRight small transparent style={{ alignSelf: 'center', top: 10 }}
                                         onPress={() => Alert.alert(
@@ -537,73 +572,6 @@ class AboutYou extends Component {
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
                                     <Text style={{ color: companyName ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
-                </Modal>
-
-                {/* TITLE IN THE COMPANY */}
-                <Modal
-                    transparent={false}
-                    hardwareAccelerated={true}
-                    visible={visibleModalTitleInTheCompany}
-                    animationType="fade"
-                    presentationStyle="fullScreen"
-                    onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Title In The Company</Title>
-                        </Header>
-
-                        {/* TITLE IN THE COMPANY */}
-                        <ListItem icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#009688" }}>
-                                    <Icon type="Entypo" name="creative-commons-attribution" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Input
-                                    placeholder="Title In The Company"
-                                    placeholderTextColor="#EEEE"
-                                    maxLength={40}
-                                    autoFocus={true}
-                                    value={titleInTheCompany}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    onChangeText={(value) => this.setState({ titleInTheCompany: value })} />
-                            </Body>
-                            <Right />
-                        </ListItem>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => {
-                                        this.setState({ titleInTheCompany: "" });
-                                        this._visibleModalTitleInTheCompany(false)
-                                    }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={titleInTheCompany ? () => this._visibleModalTitleInTheCompany(false) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text style={{ color: titleInTheCompany ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
