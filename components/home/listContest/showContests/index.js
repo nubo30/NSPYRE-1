@@ -93,7 +93,7 @@ class ShowContest extends Component {
                     ? filterContest.length ? <FlatList
                         data={filterContest}
                         refreshControl={
-                            <RefreshControl  tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
+                            <RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
                         }
                         keyExtractor={item => item.id}
                         initialNumToRender={2}
