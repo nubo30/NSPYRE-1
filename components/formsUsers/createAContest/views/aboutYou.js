@@ -269,7 +269,7 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* CATEGORY */}
+                                    {/* TITLE IN THE OCMPANY */}
                                     <ListItem icon>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
@@ -303,11 +303,11 @@ class AboutYou extends Component {
                                                     headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                     selectedValue={titleInTheCompany}
                                                     onValueChange={(value) => this.setState({ titleInTheCompany: value })}>
-                                                    {filterOcuppationList.map(item => <Picker.Item label={item} value={item} />)}
+                                                    {filterOcuppationList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                                 </Picker>}
                                         </Body>
                                         <Right>
-                                            <Text>{_.upperFirst(_.lowerCase(titleInTheCompany))}</Text>
+                                            <Text>{titleInTheCompany}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>

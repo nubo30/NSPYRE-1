@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, ImageBackground, FlatList } from 'react-native';
+import { TouchableHighlight, ImageBackground } from 'react-native';
 import { withNavigation } from 'react-navigation'
-import { Container, View, Text, Spinner, Tab, Tabs, Button } from "native-base"
+import { Container, View, Text, Spinner, Tab, Tabs, Button, Content } from "native-base"
 import _ from "lodash"
 import * as Animatable from 'react-native-animatable';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -16,21 +16,17 @@ class ListGeneralPrizes extends Component {
         loadingImgYours: false,
         loadingImgCategory: false,
         openModalMyPrizes: false,
-        animationPulseId: "",
-        animationPulseIdCategory: ""
+        valueKey: null
     }
 
     setModalVisible = (action) => { this.setState({ openModalMyPrizes: action }) }
 
-    _animationPulse = (item) => {
-        this.setState({ animationPulseId: item.id })
-    }
-    _animationPulseCategory = (item) => {
-        this.setState({ animationPulseIdCategory: item.id })
+    _animation = (value) => {
+        this.setState({ valueKey: value })
     }
 
     render() {
-        const { loadingImgYours, loadingImgCategory, animationPulseId, animationPulseIdCategory } = this.state
+        const { valueKey, loadingImgYours, loadingImgCategory } = this.state
         const { userData, _setModalVisibleRedeemPoints, prizeCategory, navigation } = this.props
         return (
             <Container style={{ backgroundColor: '#F5F5F5' }}>
@@ -42,37 +38,39 @@ class ListGeneralPrizes extends Component {
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
-                        <FlatList
-                            data={prizeCategory}
-                            renderItem={({ item }) => (
+                        <Content>
+                            {prizeCategory.map((item, key) => (
                                 <TouchableHighlight
-                                    style={{ paddingBottom: 10 }}
-                                    onPress={() => { this._animationPulseCategory(item) }}
-                                    underlayColor="rgba(0,0,0,0.0)">
+                                    key={key}
+                                    underlayColor="rgba(0,0,0,0.0)"
+                                    style={{
+                                        padding: 10, shadowColor: 'rgba(0,0,0,0.3)',
+                                        shadowOffset: { width: 0 },
+                                        shadowOpacity: 1,
+                                        width: "95%",
+                                        alignSelf: 'center'
+                                    }}
+                                    onPress={() => this._animation(key)}>
                                     <Animatable.View
-                                        onLoadStart={() => this.setState({ loadingImgCategory: true })}
-                                        onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
-                                        animation={animationPulseIdCategory === item.id ? "pulse" : undefined}
-                                        onAnimationEnd={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('Prizes', { categoryPrizes: item, userData }) }}
+                                        onAnimationEnd={() => {
+                                            this.setState({ valueKey: null });
+                                            _setModalVisibleRedeemPoints(false);
+                                            navigation.navigate('AboutThePrize', { prize: item, userData })
+                                        }}
                                         duration={200}
-                                        style={{
-                                            height: 100,
-                                            shadowColor: 'rgba(0,0,0,0.3)',
-                                            shadowOffset: { width: 0 }, shadowOpacity: 1,
-                                            width: '90%',
-                                            alignSelf: 'center',
-                                            marginTop: 15,
-                                            borderRadius: 15,
-                                        }}>
+                                        animation={valueKey === key ? "pulse" : undefined}>
                                         <ImageBackground
+                                            onLoadStart={() => this.setState({ loadingImgCategory: true })}
+                                            onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
+                                            borderRadius={20}
                                             source={{ uri: item.picture }}
-                                            borderRadius={15}
-                                            style={{ height: "100%", width: "100%", flex: 1 }}>
-                                            <Spinner color="#FFF" animating={loadingImgCategory} style={{ position: 'absolute', zIndex: 1 }} />
+                                            style={{ height: 125, width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
+                                            <Spinner color="#D81B60" animating={loadingImgCategory} style={{ position: 'absolute', alignSelf: 'center' }} />
                                             <View style={{
                                                 backgroundColor: 'rgba(0,0,0,0.2)',
-                                                width: "100%", height: "100%",
-                                                borderRadius: 15
+                                                width: "100%",
+                                                height: "100%",
+                                                borderRadius: 20
                                             }}>
                                                 <Text style={{ color: "#FFF", fontSize: 28, position: "absolute", bottom: 0, padding: 10 }}>
                                                     {item.name}
@@ -81,8 +79,8 @@ class ListGeneralPrizes extends Component {
                                         </ImageBackground>
                                     </Animatable.View>
                                 </TouchableHighlight>
-                            )}
-                            keyExtractor={item => item.picture} />
+                            ))}
+                        </Content>
                     </Tab>
                     <Tab
                         heading="Yours"
@@ -92,16 +90,20 @@ class ListGeneralPrizes extends Component {
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
                             userData.submitPrize.items.length
-                                ? <FlatList
-                                    data={userData.submitPrize.items}
-                                    renderItem={({ item }) => (
+                                ? <Content>
+                                    {userData.submitPrize.items.map((item, key) =>
                                         <TouchableHighlight
+                                            key={key}
                                             style={{ paddingBottom: 10 }}
-                                            onPress={() => { this._animationPulse(item) }}
+                                            onPress={() => { this._animation(key) }}
                                             underlayColor="rgba(0,0,0,0.0)">
                                             <Animatable.View
-                                                animation={animationPulseId === item.id ? "pulse" : undefined}
-                                                onAnimationEnd={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('AboutThePrize', { prize: item, userData }) }}
+                                                animation={valueKey === key ? "pulse" : undefined}
+                                                onAnimationEnd={() => {
+                                                    this.setState({ valueKey: null });
+                                                    _setModalVisibleRedeemPoints(false);
+                                                    navigation.navigate('AboutThePrize', { prize: item, userData })
+                                                }}
                                                 duration={200}
                                                 style={{
                                                     height: 100,
@@ -135,7 +137,7 @@ class ListGeneralPrizes extends Component {
                                             </Animatable.View>
                                         </TouchableHighlight>
                                     )}
-                                    keyExtractor={item => item.createdAt} />
+                                </Content>
                                 : <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
                                     <Text style={{ color: '#BDBDBD', fontSize: wp(6.5), alignSelf: 'center', textAlign: 'center' }}>You don't have prizes created yet</Text>
                                     <Button
