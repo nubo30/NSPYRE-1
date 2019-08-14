@@ -44,7 +44,7 @@ export default class Participants extends Component {
                                                         overflow: 'hidden',
                                                         flex: 1,
                                                     }}>
-                                                        {item.video.url === null
+                                                        {item.video && item.video.url === null
                                                             ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                                                 <Spinner size="large" color="#D82B60" animating={isImgLoading} style={{ position: 'absolute' }} />
                                                                 <Image
@@ -53,7 +53,7 @@ export default class Participants extends Component {
                                                                     style={{ height: "100%", width: "100%" }} source={{ uri: item.picture.url }} />
                                                             </View>
                                                             : <Video
-                                                                source={{ uri: item.video.url }}
+                                                                source={{ uri: item.video && item.video.url }}
                                                                 useNativeControls={true}
                                                                 rate={1.0}
                                                                 volume={1.0}
@@ -125,7 +125,7 @@ export default class Participants extends Component {
                                                         overflow: 'hidden',
                                                         flex: 1,
                                                     }}>
-                                                        {item.video.url === null
+                                                        {item.video && item.video.url === null
                                                             ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                                                 <Spinner size="large" color="#D82B60" animating={isImgLoading} style={{ position: 'absolute' }} />
                                                                 <Image
@@ -134,7 +134,7 @@ export default class Participants extends Component {
                                                                     style={{ height: "100%", width: "100%" }} source={{ uri: item.picture.url }} />
                                                             </View>
                                                             : <Video
-                                                                source={{ uri: item.video.url }}
+                                                                source={{ uri: item.video && item.video.url }}
                                                                 useNativeControls={true}
                                                                 rate={1.0}
                                                                 volume={1.0}
@@ -179,6 +179,7 @@ export default class Participants extends Component {
                         </Tab>
                     }
                 </Tabs>
+
             </Container>
         );
     }
