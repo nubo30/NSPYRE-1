@@ -73,6 +73,7 @@ class AssociatedContest extends Component {
                                         />}
                                     </Right>
                                 </CardItem>
+                           
                                 <CardItem cardBody style={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}>
                                     <View style={{
                                         borderBottomLeftRadius: 15,

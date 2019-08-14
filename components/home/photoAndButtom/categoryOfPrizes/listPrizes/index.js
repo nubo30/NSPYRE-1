@@ -107,15 +107,13 @@ class ShowPrizes extends Component {
                             refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
-                            renderItem={({ item, index }) =>
+                            renderItem={({ item }) =>
                                 <TouchableHighlight
                                     onPress={() => { this._animationPulse(item) }}
                                     underlayColor="rgba(0,0,0,0.0)">
                                     <Animatable.View
-                                        onLoadStart={() => this.setState({ loadingImg: true })}
-                                        onLoadEnd={() => { this.setState({ loadingImg: false }) }}
                                         animation={animationPulseId === item.id ? "pulse" : undefined}
-                                        onAnimationEnd={() => { navigation.navigate('AboutThePrize', { prize: item, userData }) }}
+                                        onAnimationEnd={() => { navigation.navigate('AboutThePrize', { prize: item, userData }); this.setState({ animationPulseId: "" }) }}
                                         duration={200}
                                         style={{
                                             height: 100,
