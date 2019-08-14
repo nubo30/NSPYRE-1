@@ -275,3 +275,9 @@ type Interests {
   political: String
   vote: String
 }
+
+####################################### [QUERYS] ##########################################
+
+type Query {
+  showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser-${env}")
+}

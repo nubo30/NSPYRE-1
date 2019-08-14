@@ -13,9 +13,12 @@ import { DataNotFound } from "../../../Global/emojis/index"
 // Gradients
 import { GadrientsListContenst } from "../../../Global/gradients/index"
 
+// Graphql
+import { API, graphqlOperation } from 'aws-amplify'
+import { showParticipationByUser } from '../../../../src/graphql/queries'
+
 class UserContest extends Component {
-    static navigationOptions = { header: null }
-    state = { input: "" }
+    state = { input: "",  contestAsociated: []}
 
     _emptySearchInput = () => {
         this.setState({ input: "" })
@@ -24,6 +27,17 @@ class UserContest extends Component {
 
     _openSearchBar = () => {
         this.searchBar.show()
+    }
+
+    componentDidMount() {
+        this.getContestAsociated()
+    }
+
+    getContestAsociated = async () => {
+        const { userData } = this.props
+        const { data } = await API.graphql(graphqlOperation(showParticipationByUser, {userId: userData.id}));
+        let contestAsociated = JSON.parse(data.showParticipationByUser)
+        this.setState({contestAsociated})
     }
 
     render() {

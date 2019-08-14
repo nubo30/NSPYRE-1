@@ -7,5 +7,12 @@
 				"securityType": "API_KEY"
 			}
 		}
+	},
+	"function": {
+		"showParticipationByUser": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
 	}
 }
