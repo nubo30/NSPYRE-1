@@ -7,24 +7,36 @@ const documentClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 
 exports.handler = async (event, context, callback) => {
 
-  const params = {
+  const paramsParticipation = {
     TableName: 'Participants-rycbb6ujlbbvxmz3dkkhtipw2e-env',
-    // Key: {
-    //   id: event.arguments.userId
-    // }
-  }
+  };
   
   const userId = event.arguments.userId;
 
   try {
-    const data = await documentClient.scan(params).promise();
-    let filteredParticipant = data.Items.filter(item => {
+    const data = await documentClient.scan(paramsParticipation).promise();
+    var filteredParticipant = data.Items.filter(item => {
       return item.participantId === userId;
     })
+
+    const participations = [];
     
-    callback(null, JSON.stringify(filteredParticipant));
+    for(var i = 0; i < filteredParticipant.length; i++) {
+      const paramsContest = {
+        TableName: 'CreateContest-rycbb6ujlbbvxmz3dkkhtipw2e-env',
+        Key: {
+          id: filteredParticipant[i].participantsContestId
+        }
+      };
+      const participationContest = await documentClient.get(paramsContest).promise();
+      participations.push({participation: filteredParticipant[i], contestData: participationContest});
+    }
+    
+    console.log(participations);
+    
+    callback(null, JSON.stringify(participations));
   } catch (error) {
     console.log(error);
-    callback(error);
+    callback(JSON.stringify(error));
   }
 };
