@@ -55,7 +55,7 @@ class ListGeneralPrizes extends Component {
                                         onAnimationEnd={() => {
                                             this.setState({ valueKey: null });
                                             _setModalVisibleRedeemPoints(false);
-                                            navigation.navigate('AboutThePrize', { prize: item, userData })
+                                            navigation.navigate('Prizes', { categoryPrizes: item, userData })
                                         }}
                                         duration={200}
                                         animation={valueKey === key ? "pulse" : undefined}>
