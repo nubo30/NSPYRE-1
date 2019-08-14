@@ -157,7 +157,7 @@ class UpdateContest extends Component {
         const { nameOfContest, description, instructions, picture, dateChoose, video } = this.state
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
-        omitDeep(contest, ['user', '__typename', 'audience'])
+        omitDeep(contest, ['user', '__typename', 'audience', 'participants'])
         AWS.config.update({
             accessKeyId: "AKIAIQA34573X4TITQEQ",
             secretAccessKey: "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",
