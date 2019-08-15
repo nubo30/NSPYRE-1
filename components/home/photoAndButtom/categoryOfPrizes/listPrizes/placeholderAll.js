@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Card, CardItem, Left, Body } from 'native-base';
+import { View } from 'native-base';
 import Placeholder from 'rn-placeholder'
 
 const timesRepeat = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
-export default class PlaceholderAll extends Component {
+export default class PlaceholderAllPrizes extends Component {
     render() {
         return (
             timesRepeat.map((item) => (

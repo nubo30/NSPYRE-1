@@ -3,9 +3,10 @@ import { StatusBar } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View } from 'native-base';
+import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge, Footer } from 'native-base';
 import _ from 'lodash'
 import { Platform } from "expo-core";
+import Swiper from 'react-native-swiper'
 
 // Child Components
 import UserInfo from "./photoAndButtom"
@@ -14,6 +15,7 @@ import ListContest from "./listContest"
 
 // gadrient
 import { GadrientsHome } from "../Global/gradients"
+import { MyStatusBar } from '../Global/statusBar'
 
 // Graphql
 import * as queries from '../../src/graphql/queries'
@@ -61,7 +63,7 @@ class Home extends Component {
             const data = await Auth.currentSession()
             const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.idToken.payload.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
-            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items})
+            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items })
         } catch (error) {
             console.log(error)
         }
@@ -90,44 +92,70 @@ class Home extends Component {
         }
     }
 
+    _changeSwiper = (i) => {
+        this.swiper.scrollBy(i)
+    }
+
     render() {
         const { userData, openDrower, isReady, prizeCategory } = this.state
         const { online } = this.props.networkStatus
 
         return (
-            <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
-                {/* Header */}
-                <Header style={{ backgroundColor: "#D81B60", borderBottomColor: "rgba(0,0,0,0.0)" }} onLayout={(event) => this.measureView(event)}>
-                    <Left style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Button style={{ minWidth: wp(11) }} transparent
-                            onPress={() => { this.setState({ openDrower: !openDrower }); }}>
-                            {!openDrower
-                                ? <Icon name='menu' style={{ color: "#fff", fontSize: wp(9.5), top: -2 }} />
-                                : <Icon name='close' style={{ color: "#fff", fontSize: wp(11), top: -5, left: 5 }} />}
-                        </Button>
-                        <Title style={{ color: "#fff", fontSize: wp('7%') }}>INFLUENCE ME NOW</Title>
-                    </Left>
-                </Header>
-                {/* Drower left */}
-                <Drawer
-                    openDrawerOffset={50}
-                    type={Platform.OS === 'ios' ? "displace" : "static"}
-                    panCloseMask={1}
-                    closedDrawerOffset={Platform.OS === 'ios' ? -3 : 0}
-                    styles={{
-                        main: {
-                            shadowColor: 'rgba(0,0,0,0.2)', shadowOpacity: 10,
-                            shadowOffset: { width: -5, height: 1 }, zIndex: 1000
-                        }
-                    }}
-                    content={<DrawerRight userData={userData} />}
-                    open={openDrower}>
+            <Swiper
+                ref={(swiper) => this.swiper = swiper}
+                scrollEnabled={!openDrower}
+                showsPagination={false}
+                showsButtons={false}
+                index={0}
+                loop={false}>
+                <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                    {/* Header */}
+                    <Header style={{ backgroundColor: "#D81B60" }} onLayout={(event) => this.measureView(event)}>
+                        <Left style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Button style={{ minWidth: wp(11) }} transparent
+                                onPress={() => { this.setState({ openDrower: !openDrower }); }}>
+                                {!openDrower
+                                    ? <Icon name='menu' style={{ color: "#fff", fontSize: wp(9.5), top: -2 }} />
+                                    : <Icon name='close' style={{ color: "#fff", fontSize: wp(11), top: -5, left: 5 }} />}
+                            </Button>
+                            <Title style={{ color: "#fff", fontSize: wp('7%') }}>INFLUENCE ME NOW</Title>
+                        </Left>
+                        <Right style={{ position: 'absolute', right: 0, top: 23, right: 5 }}>
+                            <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex: 1, height: '100%' }}>
+                                <Button
+                                    onPress={() => {
+                                        this._changeSwiper(1)
+                                        this.setState({ openDrower: false });
+                                    }}
+                                    transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000 }}>
+                                    <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2, left: -2 }} />
+                                </Button>
+                                <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 30, minWidth: 30, backgroundColor: '#FFF', zIndex: 0 }}>
+                                    <Text style={{ color: "#D81B60", }}>+9</Text>
+                                </Badge>
+                            </View>
+                        </Right>
+                    </Header>
+                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
 
-                    {/* Home Content */}
-                    <Content scrollEnabled={false}>
-                        <Container>
-                            <GadrientsHome />
+                    {/* Drower left */}
+                    <Drawer
+                        openDrawerOffset={50}
+                        type={Platform.OS === 'ios' ? "displace" : "static"}
+                        panCloseMask={1}
+                        closedDrawerOffset={Platform.OS === 'ios' ? -3 : 0}
+                        styles={{
+                            main: {
+                                shadowColor: 'rgba(0,0,0,0.2)', shadowOpacity: 10,
+                                shadowOffset: { width: -5, height: 1 }, zIndex: 1000
+                            }
+                        }}
+                        content={<DrawerRight userData={userData} />}
+                        open={openDrower}>
+                        {/* Home Content */}
+                        <Container style={{ backgroundColor: '#FAFAFA' }}>
                             <Header span style={{
+                                backgroundColor: '#FAFAFA',
                                 height: hp(35),
                                 flexDirection: "column",
                                 shadowColor: 'rgba(0,0,0,0.2)',
@@ -135,15 +163,12 @@ class Home extends Component {
                                 shadowOffset: { width: 0 },
                                 borderBottomColor: 'rgba(0,0,0,0.0)',
                             }}>
-                                <StatusBar barStyle='light-content' />
-
                                 {/* Componentes como el avatar, your contest y redeem points */}
                                 <UserInfo
                                     prizeCategory={prizeCategory}
                                     userData={userData}
                                     isReady={isReady}
                                     offLine={!online} />
-
                                 <Button
                                     disabled={!online}
                                     rounded transparent style={{ alignSelf: "center", top: -10 }}
@@ -155,14 +180,25 @@ class Home extends Component {
                                     LIST OF CONTESTS
                                 </Text>
                             </Header>
-                            <Content padder showsVerticalScrollIndicator={false} style={{ backgroundColor: 'rgba(0,0,0,0.0)' }}>
+                            <Content padder showsVerticalScrollIndicator={false}>
                                 <ListContest offLine={!online} userData={userData} />
                             </Content>
-                            <View style={{ height: this.state.heightHeader }} />
                         </Container>
+                    </Drawer>
+                </Container>
+                <Container style={{ backgroundColor: "#FAFAFA" }}>
+                    <Header noLeft style={{ backgroundColor: "#D81B60", justifyContent: 'center', alignItems: 'center' }}>
+                        <Title style={{ fontSize: wp(7), color: "#FFF" }}>Notification Center</Title>
+                    </Header>
+                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                    <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                        <Text style={{ fontSize: wp(8), color: '#333' }}>
+                            Nothing over here...
+                        </Text>
                     </Content>
-                </Drawer>
-            </Container>
+                    <Footer />
+                </Container>
+            </Swiper>
         )
     }
 }
