@@ -16,9 +16,6 @@ import CategoryOfPrizes from "./categoryOfPrizes";
 const widthScreen = Dimensions.get('screen').width
 const heightScreen = Dimensions.get('screen').height
 
-// Icons
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-
 // This function show the avatar/your content/render point
 class UserInfo extends Component {
     state = {
@@ -75,7 +72,7 @@ class UserInfo extends Component {
                         prizeCategory={prizeCategory}
                         userData={userData} />
                 </Modal>
-         
+
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -88,29 +85,26 @@ class UserInfo extends Component {
                     animationOut="zoomOutUp"
                     onModalHide={() => fromWhere === 'prize' ? this._setModalVisibleRedeemPoints(true) : null}
                     isVisible={redeemPointsDecision}>
-                    <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: '#FFF', borderRadius: 15, flex: 1, padding: 20 }}>
-                        <Grid style={{ flex: 1 }}>
-                            <Row size={40} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <MaterialCommunityIcons name="coins" style={{ fontSize: wp(20), color: '#D81B60' }} />
+                    <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: '#FFF', borderRadius: 15, flex: 1, padding: 10 }}>
+                        <Grid>
+                            <Row size={40} style={{ flexDirection: 'column', padding: 10 }}>
+                                <Text style={{ color: '#3333', fontSize: wp(10), flex: 1, flexWrap: 'wrap' }}>Choose one of the two options to continue!</Text>
                             </Row>
-                            <Row size={40} style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: wp(7), color: '#3333' }}>Redeem yours points with</Text>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Button transparent>
-                                        <Text style={{ fontSize: wp(7), right: 15, bottom: 10, color: '#D81B60' }}>Glyff</Text>
-                                    </Button>
-                                    <Text style={{ fontSize: wp(7), color: '#3333', right: 25 }}>or you can choose a </Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', bottom: 15 }}>
-                                    <Button transparent onPress={() => { this._redeemPointsDecision(false, 'prize') }}>
-                                        <Text style={{ fontSize: wp(7), right: 15, bottom: 10, color: '#D81B60' }}>Prize</Text>
-                                    </Button>
-                                    <Text style={{ fontSize: wp(7), color: '#3333', right: 25 }}>from our center.</Text>
-                                </View>
+                            <Row size={30} style={{ alignItems: 'center', justifyContent: 'center', top: -10 }}>
+                                <Button transparent style={{ width: 120, height: 120, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                                    <Text style={{ fontWeight: 'bold', fontSize: wp(12), color: '#D81B60' }}>Glyff</Text>
+                                </Button>
+                                <Text style={{ fontWeight: 'bold', color: '#333' }}>OR</Text>
+                                <Button onPress={() => { this._redeemPointsDecision(false, 'prize') }} transparent style={{ width: 120, height: 120, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                                    <Text style={{ fontWeight: 'bold', fontSize: wp(12), color: '#D81B60' }}>Prize</Text>
+                                </Button>
                             </Row>
-                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Row size={20}>
+                                <Text style={{ color: '#3333', fontSize: wp(4), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: '#3333' }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: '#3333' }}>Prize</Text> you will be going to the list of prizes we have!</Text>
+                            </Row>
+                            <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button transparent small onPress={() => this._redeemPointsDecision(false)} style={{ alignSelf: 'flex-end' }}>
-                                    <Text style={{ color: '#3333', fontWeight: '100' }}>No, thnaks</Text>
+                                    <Text style={{ color: '#3333', fontWeight: '100' }}>No, thanks</Text>
                                 </Button>
                             </Row>
                         </Grid>
