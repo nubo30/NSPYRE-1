@@ -6,6 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
+import _ from 'lodash'
 
 // Child Component
 import { MyStatusBar } from '../../Global/statusBar/index'
@@ -174,7 +175,7 @@ export default class ContestDataStatistics extends Component {
                                             {/* AGE */}
                                             {item.ages[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.ages.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -182,14 +183,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Ages selected</Text>
-                                                </ListItem>}
-
+                                                    <Text style={{ color: '#BDBDBD' }}>Ages selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* GENDER */}
                                             {item.genders[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.genders.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -197,13 +198,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Genders selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Genders selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* CATEOGRY CONTEST */}
                                             {item.categoryContest[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.categoryContest.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -211,14 +213,15 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Categories selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Categories selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
 
                                             {/* NACIONALITIES */}
                                             {item.nacionalities[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.nacionalities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -226,14 +229,15 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Nacionalities selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Nacionalities selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
 
                                             {/* REGIONAL IDENTIFY*/}
                                             {item.regionalIdentity[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.regionalIdentity.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -241,14 +245,16 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Regional identity selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Regional identity selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
+
 
 
                                             {/* COUNTRIES */}
                                             {item.countries[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.countries.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -256,8 +262,8 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Countries selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Countries selected</Text>
+                                                </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
                                                 <Text style={{ fontSize: wp(4.5), color: "#333" }}>Education</Text>
@@ -266,7 +272,7 @@ export default class ContestDataStatistics extends Component {
                                             {/* ACADEMIC LEVEL ACHIEVED */}
                                             {item.academicLevelAchieved[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.academicLevelAchieved.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -274,13 +280,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Academic level achieved selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Academic level achieved selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* UNIVERSITIES */}
                                             {item.universities[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.universities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -288,13 +295,15 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Universities selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Universities selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
+
 
                                             {/* SCHOOLS */}
                                             {item.schools[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.schools.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -302,8 +311,8 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Schools selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Schools selected</Text>
+                                                </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
                                                 <Text style={{ fontSize: wp(4.5), color: "#333" }}>Persons</Text>
@@ -312,7 +321,7 @@ export default class ContestDataStatistics extends Component {
                                             {/* SEXUALITIES */}
                                             {item.sexualities[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.sexualities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -320,13 +329,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Regional identity selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Sexualitites selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* MARITAL STATUS */}
                                             {item.maritalStatus[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.maritalStatus.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -334,13 +344,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Marital status selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Marital status selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* PARENTS CONDITIONS */}
                                             {item.parentalCondition[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.parentalCondition.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -348,42 +359,45 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Parents conditions selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Parents conditions selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
 
                                             {/* AMOUNT OF CHILDREN */}
                                             {item.amountOfChildren[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.amountOfChildren.map((elements, key) =>
-                                                            <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
+                                                            <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5, width: 30, justifyContent: 'center', alignItems: 'center' }}>
                                                                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Amount of children selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Amount of children selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* AMOUNT OF SIMBLINGS */}
                                             {item.amountOfSimblings[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5, }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.amountOfSimblings.map((elements, key) =>
-                                                            <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
+                                                            <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5, width: 30, justifyContent: 'center', alignItems: 'center' }}>
                                                                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Amount of simblings selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Amount of simblings selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* OCCUPATIONS */}
                                             {item.ocuppation[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.ocuppation.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -391,15 +405,15 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Ocupations selected</Text>
-                                                </ListItem>}
-
+                                                    <Text style={{ color: '#BDBDBD' }}>Ocupations selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
 
                                             {/* SOCIO ECONOMIC LEVEL */}
                                             {item.socioeconomicLevel[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.socioeconomicLevel.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -407,8 +421,8 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Socioeconomic level selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Socioeconomic level selected</Text>
+                                                </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
                                                 <Text style={{ fontSize: wp(4.5), color: "#333" }}>Preferences</Text>
@@ -417,7 +431,7 @@ export default class ContestDataStatistics extends Component {
                                             {/* GENRE MUSICAL */}
                                             {item.musicalGenre[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.musicalGenre.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -425,13 +439,14 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Genre musicals selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Genre musicals selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* SPORTS */}
                                             {item.sports[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.sports.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
@@ -439,37 +454,38 @@ export default class ContestDataStatistics extends Component {
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Sports selected</Text>
-                                                </ListItem>}
-
+                                                    <Text style={{ color: '#BDBDBD' }}>Sports selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* POLITICAL */}
                                             {item.politicalPeople[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.politicalPeople.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Political selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Political selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* VOTES */}
                                             {item.peopleWhoVote[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.peopleWhoVote.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Peoplee vote selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Peoplee vote selected</Text>
+                                                </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
                                                 <Text style={{ fontSize: wp(4.5), color: "#333" }}>Others</Text>
@@ -478,51 +494,51 @@ export default class ContestDataStatistics extends Component {
                                             {/* RENT HOUSE */}
                                             {item.rentOrOwnHouse[0] === 'none'
                                                 ? null
-                                                : <ListItem style={{ justifyContent: 'space-between', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.rentOrOwnHouse.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Rent or own house selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Rent or own house selected</Text>
+                                                </View>}
+                                            <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
                                             {/* RENT CAR */}
                                             {item.rentOrOwnCar[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.rentOrOwnCar.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Rent or own car selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Rent or own car selected</Text>
+                                                </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
                                                 <Text style={{ fontSize: wp(4.5), color: "#333" }}>Prizes</Text>
                                             </ListItem>
 
-
                                             {/* PRIZES CATEGORY */}
                                             {item.categoryPrizes[0] === 'none'
                                                 ? null
-                                                : <ListItem last style={{ justifyContent: 'space-between' }}>
+                                                : <View style={{ justifyContent: 'space-between', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.categoryPrizes.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD', left: 7 }}>Cateogry prizes selected</Text>
-                                                </ListItem>}
+                                                    <Text style={{ color: '#BDBDBD' }}>Cateogry prizes selected</Text>
+                                                </View>}
 
-                                            <ListItem style={{ justifyContent: 'space-between', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                            <ListItem last style={{ justifyContent: 'space-between', borderBottomColor: 'rgba(0,0,0,0.0)', backgroundColor: '#EEEEEE' }}>
                                                 <Left>
                                                     <Text style={{ alignSelf: 'flex-end', fontSize: wp(3), color: "#3333" }}>Your contest has searched 1,400 users with these tags.</Text>
                                                 </Left>
