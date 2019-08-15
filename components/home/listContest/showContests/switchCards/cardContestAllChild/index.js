@@ -6,10 +6,13 @@ import { Text, Left, Body, Card, CardItem, Thumbnail, Right } from "native-base"
 import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
 import _ from 'lodash'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // This function show the content of all card section
 export default class CardContent extends Component {
+    state = { isFinishedContest: false }
     render() {
+        const { isFinishedContest } = this.state
         const { item } = this.props
         return (
             <Card style={{
@@ -38,16 +41,44 @@ export default class CardContent extends Component {
                         </Body>
                     </Left>
                     <Right>
-                        {item.timer === null ? null : <CountDown
-                            style={{ alignSelf: 'flex-end', top: -4 }}
-                            digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
-                            digitTxtStyle={{ color: '#000' }}
-                            timeLabelStyle={{ color: '#333' }}
-                            until={moment(item.timer).diff(moment(new Date()), 'seconds')}
-                            onFinish={() => null}
-                            onPress={() => null}
-                            size={10}
-                        />}
+                        {isFinishedContest ? <View style={{
+                            borderRadius: "50%",
+                            backgroundColor: '#E53935',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            shadowColor: 'rgba(0,0,0,0.3)',
+                            shadowOffset: { width: 0 },
+                            shadowOpacity: 1,
+                        }}>
+                            <View style={{ padding: 10 }}>
+                                <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                            </View>
+                        </View> :
+                            item.timer === null
+                                ? null
+                                : new Date(item.timer) < new Date()
+                                    ? <View style={{
+                                        borderRadius: "50%",
+                                        backgroundColor: '#E53935',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        shadowColor: 'rgba(0,0,0,0.3)',
+                                        shadowOffset: { width: 0 },
+                                        shadowOpacity: 1,
+                                    }}>
+                                        <View style={{ padding: 10 }}>
+                                            <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                        </View>
+                                    </View> : <CountDown
+                                        style={{ alignSelf: 'flex-end', top: -4 }}
+                                        digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
+                                        digitTxtStyle={{ color: '#000' }}
+                                        timeLabelStyle={{ color: '#333' }}
+                                        until={moment(item.timer).diff(moment(new Date()), 'seconds')}
+                                        onFinish={() => this.setState({ isFinishedContest: true })}
+                                        onPress={() => { }}
+                                        size={10}
+                                    />}
                     </Right>
                 </CardItem>
                 <CardItem cardBody style={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}>

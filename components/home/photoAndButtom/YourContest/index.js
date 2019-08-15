@@ -16,7 +16,7 @@ import { GadrientsListContenst } from "../../../Global/gradients/index"
 
 // Graphql
 import { API, graphqlOperation } from 'aws-amplify'
-import { showParticipationByUser, listCreateContests } from '../../../../src/graphql/queries'
+import { showParticipationByUser } from '../../../../src/graphql/queries'
 
 class UserContest extends Component {
     state = { input: "", contestAsociated: [], contestList: [], refreshing: false }

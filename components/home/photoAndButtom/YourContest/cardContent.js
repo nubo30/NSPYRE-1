@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons'
 import * as mutations from '../../../../src/graphql/mutations'
 
 class CardContent extends Component {
-    state = { animation: false, deleteContest: false, loadingDel: false }
+    state = { animation: false, deleteContest: false, loadingDel: false, isFinishedContest: false }
 
     // Esta funcion elimina el concurso seleccionado
     _deleteContest = async (item) => {
@@ -32,8 +32,12 @@ class CardContent extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.setState({ isFinishedContest: false })
+    }
+
     render() {
-        const { animation, loadingDel } = this.state
+        const { animation, loadingDel, isFinishedContest } = this.state
         const { item, _setModalVisibleYourContest, userData } = this.props
         return (
             <View>
@@ -76,15 +80,50 @@ class CardContent extends Component {
                                 source={{ uri: item.general.picture.url }}
                                 style={{ height: 200, width: "100%" }}>
                                 <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 15, alignItems: 'center', justifyContent: 'space-evenly' }}>
-                                    {item.timer === null ? null : <CountDown
-                                        digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
-                                        digitTxtStyle={{ color: '#FFF' }}
-                                        timeLabelStyle={{ color: '#FFF' }}
-                                        until={moment(item.timer).diff(moment(new Date()), 'seconds')}
-                                        onFinish={() => null}
-                                        onPress={() => null}
-                                        size={20}
-                                    />}
+                                    {isFinishedContest
+                                        ? <View style={{
+                                            position: 'absolute',
+                                            right: 0,
+                                            top: 0,
+                                            padding: 5
+                                        }}>
+                                            <View style={{
+                                                borderRadius: 15,
+                                                padding: 10, backgroundColor: '#E53935',
+                                                shadowColor: 'rgba(0,0,0,0.3)',
+                                                shadowOffset: { width: 0 },
+                                                shadowOpacity: 1,
+                                            }}>
+                                                <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                            </View>
+                                        </View> :
+                                        item.timer === null
+                                            ? null
+                                            : new Date(item.timer) < new Date()
+                                                ? <View style={{
+                                                    position: 'absolute',
+                                                    right: 0,
+                                                    top: 0,
+                                                    padding: 5
+                                                }}>
+                                                    <View style={{
+                                                        borderRadius: 15,
+                                                        padding: 10, backgroundColor: '#E53935',
+                                                        shadowColor: 'rgba(0,0,0,0.3)',
+                                                        shadowOffset: { width: 0 },
+                                                        shadowOpacity: 1,
+                                                    }}>
+                                                        <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                                    </View>
+                                                </View> : <CountDown
+                                                    digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
+                                                    digitTxtStyle={{ color: '#FFF' }}
+                                                    timeLabelStyle={{ color: '#FFF' }}
+                                                    until={moment(item.timer).diff(moment(new Date()), 'seconds')}
+                                                    onFinish={() => this.setState({ isFinishedContest: true })}
+                                                    onPress={() => { }}
+                                                    size={20}
+                                                />}
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
                                         <Text style={{ color: "#FFF", left: -10 }}>🏆 {item.prizes.length}</Text>
                                         <Text style={{ color: "#FFF", left: 10 }}>👥 {item.participants.items.length}</Text>

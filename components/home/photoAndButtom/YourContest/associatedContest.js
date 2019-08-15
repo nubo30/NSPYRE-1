@@ -26,7 +26,14 @@ class AssociatedContest extends Component {
                             _setModalVisibleYourContest(false)
                             navigation.navigate("AboutContest", {
                                 contest: Object.assign(item.contestData.Item,
-                                    { user: { id: item.contestData.Item.createContestUserId }, participants: { items: [] } }),
+                                    {
+                                        timer: null,
+                                        user: {
+                                            id: item.contestData.Item.createContestUserId
+                                        }, participants: {
+                                            items: []
+                                        }
+                                    }),
                                 fromWhere: 'yoursContest', userData
                             })
                         }}
