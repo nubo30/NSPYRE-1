@@ -177,11 +177,9 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
-
-
         return (
             <Swiper
-                scrollEnabled={userLogin}
+                scrollEnabled={userLogin ? swiperIndex === 1 ? false : true : false}
                 ref={(swiperRoot) => this.swiperRoot = swiperRoot}
                 onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
                 loop={false}
