@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "influencemenow-env-20190727215230-deployment",
-					"S3Key": "amplify-builds/showParticipationByUser-34314f363962414c792b-build.zip"
+					"S3Key": "amplify-builds/showParticipationByUser-55533241724178637148-build.zip"
 				}
 			}
 		},
