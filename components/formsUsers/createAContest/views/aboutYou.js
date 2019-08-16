@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
@@ -11,11 +11,15 @@ import moment from 'moment'
 import axios from 'axios'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../Global/gradients'
+import { MyStatusBar } from '../../../Global/statusBar'
 
 // Static data
-import { ocuppationList } from '../../../Global/data/index'
+import { ocuppationList } from '../../../Global/data'
+
+// Countries data
+import countries from '../../../../assets/data/countries.json'
+
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -25,9 +29,11 @@ class AboutYou extends Component {
         // Inputs
         location: {
             street: "",
-            state: "",
+            countryIndex: 0,
+            regionIndex: 0,
             city: "Not specified",
-            country: "Not specified"
+            state: "Not specified",
+            country: "Not specified",
         },
         companyName: "",
         titleInTheCompany: 'Not specified',
@@ -49,13 +55,13 @@ class AboutYou extends Component {
     }
 
     componentDidMount() {
-        this._getCountry()
+        // this._getCountry()
     }
 
     componentWillUpdate(nextProps, nextState) {
-        if (nextState.location.country !== this.state.location.country) {
-            this._getCity(nextState.location.country)
-        }
+        // if (nextState.location.country !== this.state.location.country) {
+        //     this._getCity(nextState.location.country)
+        // }
     }
 
     _getCountry = async () => {
@@ -397,29 +403,9 @@ class AboutYou extends Component {
                             <Right />
                         </ListItem>
 
-                        {/* STATE */}
-                        <ListItem last icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#616161" }}>
-                                    <Icon type="Foundation" name="map" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Input
-                                    placeholder="Your state"
-                                    placeholderTextColor="#EEEE"
-                                    maxLength={512}
-                                    value={location.state}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    onChangeText={(value) => this.setState({ location: { ...location, state: value } })} />
-                            </Body>
-                            <Right />
-                        </ListItem>
-
                         <Separator bordered style={{ maxHeight: 40 }} />
 
-                        {/* COUNTRY */}
+                        {/* COUNTRIES */}
                         <ListItem icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
@@ -442,9 +428,39 @@ class AboutYou extends Component {
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                             selectedValue={location.country}
-                            onValueChange={(value) => this.setState({ location: { ...location, country: value } })}>
-                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                            onValueChange={(value) => this.setState({ location: { ...location, country: value.name, countryIndex: value.index }})}>
+                            {countries.map((item, key) => <Picker.Item key={key} label={item.name} value={{name: item.name, index: key}} />)}
                         </Picker>
+
+                        {/* STATES */}
+                        <ListItem last icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#27ae60" }}>
+                                    <Icon type="Foundation" name="map" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>State</Text>
+                            </Body>
+                            <Right>
+                                <Text>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            iosHeader="SELECT REGION"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.state}
+                            onValueChange={(value) => this.setState({ location: { ...location, state: value.name, regionIndex: value.index } })}>
+                            {countries[location.countryIndex].states.map((item, key) => 
+                                <Picker.Item key={key} label={item.region} value={{name: item.region, index: key}} />
+                            )}
+                        </Picker>
+
 
                         {/* CITIES */}
                         <ListItem last icon>
@@ -470,7 +486,9 @@ class AboutYou extends Component {
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                             selectedValue={location.city}
                             onValueChange={(value) => this.setState({ location: { ...location, city: value } })}>
-                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
+                            {countries[location.countryIndex].states[location.regionIndex].cities.map((item, key) => 
+                                <Picker.Item key={key} label={item.city} value={item.city} />
+                            )}
                         </Picker>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
