@@ -4,11 +4,12 @@ import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row} from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
 import axios from 'axios'
+import AnimateNumber from 'react-native-animate-number'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Data
@@ -43,6 +44,18 @@ class AboutThePersonality extends Component {
         parentalCondition: 'Not specified',
         amountOfSimblings: "Not specified",
         amountOfChildren: 'Not specified',
+
+        // Poins
+        coinGender: 0,
+        coinBirthDate: 0,
+        coinSexuality: 0,
+        coinMaritalStatus: 0,
+        coinRegionalIdentity: 0,
+        coinNacionality: 0,
+        coinParentalCondition: 0,
+        coinAmountOfSimblings: 0,
+        coinAmountOfChildren: 0,
+
 
         // Inputs
         isvalidFormAnimation: false,
@@ -92,9 +105,24 @@ class AboutThePersonality extends Component {
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
         const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren } = this.state
-        const data = { aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren }, engageUserId: userData.sub, createdAt: moment().toISOString() }
+        const dataCoins = {
+            coinsPersonality: _.sum([coinLocation,
+                coinGender,
+                coinBirthDate,
+                coinSexuality,
+                coinMaritalStatus,
+                coinRegionalIdentity,
+                coinNacionality,
+                coinParentalCondition,
+                coinAmountOfSimblings,
+                coinAmountOfChildren])
+        }
+        const data = {
+            aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren },
+            engageUserId: userData.sub, createdAt: moment().toISOString()
+        }
         try {
-            await _dataFromForms(data)
+            await _dataFromForms(data, dataCoins)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
             await _indexChangeSwiper(1)
         } catch (error) {
@@ -149,6 +177,18 @@ class AboutThePersonality extends Component {
             isLoading,
             messageFlash,
 
+            // Coins
+            coinLocation,
+            coinGender,
+            coinBirthDate,
+            coinSexuality,
+            coinMaritalStatus,
+            coinRegionalIdentity,
+            coinNacionality,
+            coinParentalCondition,
+            coinAmountOfSimblings,
+            coinAmountOfChildren,
+
             // modal
             visibleModalLocation,
             datePickerAction,
@@ -175,6 +215,25 @@ class AboutThePersonality extends Component {
                         </Button>
                         <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>About You</Title>
                     </Left>
+                    <Right>
+                        <AnimateNumber
+                            style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            value={_.sum([coinLocation,
+                                coinGender,
+                                coinBirthDate,
+                                coinSexuality,
+                                coinMaritalStatus,
+                                coinRegionalIdentity,
+                                coinNacionality,
+                                coinParentalCondition,
+                                coinAmountOfSimblings,
+                                coinAmountOfChildren])}
+                            interval={10}
+                            countBy={5}
+                            formatter={(val) => {
+                                return 'Coins earned ' + parseFloat(val).toFixed(0)
+                            }} />
+                    </Right>
                 </Header>
 
                 <Grid>
@@ -277,8 +336,8 @@ class AboutThePersonality extends Component {
                                             minimumDate={new Date(1970, 1, 1)}
                                             maximumDate={new Date()}
                                             isVisible={datePickerAction}
-                                            onConfirm={(value) => this.setState({ birthDate: value, datePickerAction: false })}
-                                            onCancel={() => this.setState({ datePickerAction: false })}
+                                            onConfirm={(value) => this.setState({ birthDate: value, datePickerAction: false, coinBirthDate: 100 })}
+                                            onCancel={() => this.setState({ datePickerAction: false, coinBirthDate: 0, birthDate: "Not specified" })}
                                         />
                                     </ListItem>
 
@@ -324,7 +383,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={regionalIdentity}
-                                                onValueChange={(value) => this.setState({ regionalIdentity: value })}>
+                                                onValueChange={(value) => this.setState({ regionalIdentity: value, coinRegionalIdentity: 100 })}>
                                                 {regionalIdentityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -353,7 +412,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={nacionality}
-                                                onValueChange={(value) => this.setState({ nacionality: value })}>
+                                                onValueChange={(value) => this.setState({ nacionality: value, coinNacionality: 50 })}>
                                                 {nacionalityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -384,7 +443,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={gender}
-                                                onValueChange={(value) => this.setState({ gender: value })}>
+                                                onValueChange={(value) => this.setState({ gender: value, coinGender: 50 })}>
                                                 <Picker.Item label="Male" value="Male" />
                                                 <Picker.Item label="Famale" value="Famale" />
                                                 <Picker.Item label="Other" value="Other" />
@@ -416,7 +475,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={gender}
-                                                onValueChange={(value) => this.setState({ sexuality: value })}>
+                                                onValueChange={(value) => this.setState({ sexuality: value, coinSexuality: 50 })}>
                                                 {sexualityList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
                                             </Picker>}
                                     </ListItem>
@@ -445,7 +504,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={maritalStatus}
-                                                onValueChange={(value) => this.setState({ maritalStatus: value })}>
+                                                onValueChange={(value) => this.setState({ maritalStatus: value, coinMaritalStatus: 50 })}>
                                                 {maritalStatusList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
                                             </Picker>}
                                     </ListItem>
@@ -476,7 +535,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={parentalCondition}
-                                                onValueChange={(value) => this.setState({ parentalCondition: value })}>
+                                                onValueChange={(value) => this.setState({ parentalCondition: value, coinParentalCondition: 50 })}>
                                                 {parentalConditionList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -505,7 +564,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={parentalCondition}
-                                                onValueChange={(value) => this.setState({ amountOfSimblings: value })}>
+                                                onValueChange={(value) => this.setState({ amountOfSimblings: value, coinAmountOfSimblings: 25 })}>
                                                 {_.range(6).map(item => <Picker.Item key={item} label={`${item}`} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -534,7 +593,7 @@ class AboutThePersonality extends Component {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={amountOfChildren}
-                                                onValueChange={(value) => this.setState({ amountOfChildren: value })}>
+                                                onValueChange={(value) => this.setState({ amountOfChildren: value, coinAmountOfChildren: 25 })}>
                                                 {_.range(6).map(item => <Picker.Item key={item} label={`${item}`} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -592,6 +651,7 @@ class AboutThePersonality extends Component {
                                 <Button transparent
                                     onPress={() => {
                                         this.setState({
+                                            coinLocation: 0,
                                             location: {
                                                 born: {
                                                     country: 'Not specified',
@@ -607,15 +667,20 @@ class AboutThePersonality extends Component {
                                     }}>
                                     <Text style={{ color: '#E91E63' }}>Back</Text>
                                 </Button>
-                                <Title style={{ color: "#E91E63", fontSize: wp(7), left: 10 }}>Location</Title>
                             </Left>
+                            <Body>
+                                <Title style={{ color: "#E91E63", fontSize: wp(7) }}>Location</Title>
+                            </Body>
                             <Right>
                                 <Button transparent
                                     disabled={location.born.country !== 'Not specified' &&
                                         location.born.city !== 'Not specified' &&
                                         location.currentPlace.country !== 'Not specified' &&
                                         location.currentPlace.city !== 'Not specified' ? false : true}
-                                    onPress={() => { this._visibleModalLocation(false) }}>
+                                    onPress={() => {
+                                        this._visibleModalLocation(false);
+                                        this.setState({ coinLocation: 150 })
+                                    }}>
                                     <Text style={{
                                         color: location.born.country !== 'Not specified' &&
                                             location.born.city !== 'Not specified' &&
@@ -625,9 +690,6 @@ class AboutThePersonality extends Component {
                                 </Button>
                             </Right>
                         </Header>
-                        <ListItem itemDivider style={{ maxHeight: 45 }}>
-                            <Icon type="MaterialCommunityIcons" name="baby" style={{ color: "#3333" }} />
-                        </ListItem>
 
                         {/* COUNTRY */}
                         <ListItem icon>
@@ -657,7 +719,7 @@ class AboutThePersonality extends Component {
                         </Picker>
 
                         {/* CITIES */}
-                        <ListItem icon>
+                        <ListItem last icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#0277BD" }}>
                                     <Icon type="MaterialIcons" name="location-city" />
@@ -684,9 +746,8 @@ class AboutThePersonality extends Component {
                         </Picker>}
 
 
-                        <ListItem itemDivider style={{ maxHeight: 45 }}>
-                            <Icon type="Entypo" name="location" style={{ color: "#3333", fontSize: wp(6) }} />
-                        </ListItem>
+                        <Separator bordered style={{ maxHeight: 40 }} />
+
 
                         {/* COUNTRY */}
                         <ListItem icon>
@@ -716,7 +777,7 @@ class AboutThePersonality extends Component {
                         </Picker>
 
                         {/* CITIES */}
-                        <ListItem icon>
+                        <ListItem last icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#00BFA5" }}>
                                     <Icon type="MaterialIcons" name="location-city" />

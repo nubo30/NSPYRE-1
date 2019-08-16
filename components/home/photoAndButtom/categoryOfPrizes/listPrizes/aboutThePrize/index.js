@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Dimensions } from 'react-native'
 import { Video } from 'expo';
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, FooterTab, Footer } from 'native-base';
+import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, Footer } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import _ from 'lodash'
 import Swiper from 'react-native-swiper'

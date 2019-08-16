@@ -48,7 +48,7 @@ class ListContest extends Component {
         [
           {
             text: 'Ok',
-            onPress: () => { navigation.navigate('Engage'); this.setState({ isScreenChange: false }) },
+            onPress: () => { navigation.navigate('Engage', { userData }); this.setState({ isScreenChange: false }) },
             style: 'cancel',
           },
           { text: 'Cancel', onPress: () => { } },

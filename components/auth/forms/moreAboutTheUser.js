@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
-import { withNavigation } from 'react-navigation'
-import { Text, List, ListItem, Button, Input, Content, View, Icon, Spinner, Toast } from 'native-base';
+import { Text, List, ListItem, Button, Input, Content, View, Icon, Spinner } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import _ from 'lodash'
-import { isAscii, isEmail, isAlphanumeric } from 'validator'
+import { isEmail, isAlphanumeric, isAlpha } from 'validator'
 import * as Animatable from 'react-native-animatable';
 import moment from 'moment'
+import AnimateNumber from 'react-native-animate-number'
 
 
 const screenWidth = Dimensions.get('screen').width
@@ -25,32 +25,44 @@ export default class MoreAboutTheUser extends Component {
         email: "",
         messageFlash: { cognito: null },
         isLoading: false,
-        invalidFormAnimation: false
+        invalidFormAnimation: false,
+
+        // Coins
+        pointsForTheName: 0,
+        pointsForTheLastName: 0,
+        pointsForTheUsername: 0,
+        pointsForTheEmail: 0,
+
     }
 
 
     _submitInformationAboutTheUser = async () => {
-        const { name, lastname, username, email } = this.state
+        const { name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
         const { _changeSwiperRoot, _moreUserData } = this.props
         const input = { name, lastname, email, username: username, datetime: moment().toISOString() }
         try {
             let user = await Auth.currentAuthenticatedUser();
             await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
-            await Object.assign(input, { id: user.attributes.sub, userId: user.attributes.sub, phone: user.attributes.phone_number })
+            await Object.assign(input, {
+                id: user.attributes.sub,
+                userId: user.attributes.sub,
+                phone: user.attributes.phone_number,
+                coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
+            })
             await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
             _moreUserData(input)
             _changeSwiperRoot(1)
         } catch (e) {
             console.log(e)
-        } finally {
             this.setState({ isLoading: false })
         }
     }
 
     _validateForm = () => {
+        this.setState({ isLoading: true })
         const { name, lastname, username, email } = this.state
-        isAscii(name)
-            ? isAscii(lastname)
+        isAlpha(name)
+            ? isAlpha(lastname)
                 ? isAlphanumeric(username)
                     ? isEmail(email)
                         ? this._submitInformationAboutTheUser()
@@ -77,13 +89,30 @@ export default class MoreAboutTheUser extends Component {
     }
 
     render() {
-        const { name, lastname, username, email, messageFlash, isLoading, invalidFormAnimation } = this.state
+        const { name, lastname, username, email, messageFlash, isLoading, invalidFormAnimation,
+            //Poinst
+            pointsForTheName,
+            pointsForTheLastName,
+            pointsForTheUsername,
+            pointsForTheEmail
+        } = this.state
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                     <Text style={{ color: "#FFF", fontSize: wp(8), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
-                        Give us more information so that other users can find you!
+                        Let's get you registered!
                     </Text>
+                    <AnimateNumber
+                        style={{ color: "#FFF", fontSize: wp(6), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                        value={_.sum([pointsForTheName,
+                            pointsForTheLastName,
+                            pointsForTheUsername,
+                            pointsForTheEmail])}
+                        interval={10}
+                        countBy={5}
+                        formatter={(val) => {
+                            return 'Coins earned ' + parseFloat(val).toFixed(0)
+                        }} />
                 </Row>
                 <Row size={80} style={{ alignSelf: 'center' }}>
                     <Grid style={{
@@ -103,8 +132,9 @@ export default class MoreAboutTheUser extends Component {
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
                                             value={name}
+                                            onEndEditing={() => isAlpha(name) ? this.setState({ pointsForTheName: 50 }) : this.setState({ pointsForTheName: 0 })}
                                             onChangeText={(value) => {
-                                                isAscii(value)
+                                                isAlpha(value)
                                                     ? this.setState({ name: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ name: value, messageFlash: { cognito: { message: value + " invalid name" } } })
                                             }}
@@ -120,8 +150,9 @@ export default class MoreAboutTheUser extends Component {
                                         <Text style={{ fontSize: wp(7), color: '#E0E0E0' }}></Text>
                                         <Input
                                             value={lastname}
+                                            onEndEditing={() => isAlpha(lastname) ? this.setState({ pointsForTheLastName: 50 }) : this.setState({ pointsForTheLastName: 0 })}
                                             onChangeText={(value) => {
-                                                isAscii(value)
+                                                isAlpha(value)
                                                     ? this.setState({ lastname: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ lastname: value, messageFlash: { cognito: { message: value + " invalid lastname" } } })
                                             }}
@@ -136,6 +167,7 @@ export default class MoreAboutTheUser extends Component {
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
                                             value={username}
+                                            onEndEditing={() => isAlphanumeric(username) ? this.setState({ pointsForTheUsername: 75 }) : this.setState({ pointsForTheUsername: 0 })}
                                             onChangeText={(value) => {
                                                 isAlphanumeric(value)
                                                     ? this.setState({ username: value, messageFlash: { cognito: { message: "" } } })
@@ -151,7 +183,7 @@ export default class MoreAboutTheUser extends Component {
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
                                             value={email}
-                                            onChangeText={(value) => this.setState({ email: value })}
+                                            onEndEditing={() => isEmail(email) ? this.setState({ pointsForTheEmail: 60 }) : this.setState({ pointsForTheEmail: 0 })}
                                             onChangeText={(value) => {
                                                 isEmail(value)
                                                     ? this.setState({ email: value, messageFlash: { cognito: { message: "" } } })
@@ -178,7 +210,6 @@ export default class MoreAboutTheUser extends Component {
                                     shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button iconLeft icon disabled={isLoading}
-                                    onPressIn={() => this.setState({ isLoading: true })}
                                     onPress={() => this._validateForm()}
                                     style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
                                     <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>

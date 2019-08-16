@@ -83,7 +83,7 @@ class UserContest extends Component {
                     onChangeTab={() => { this._closeSearchBar(); this._emptySearchInput() }}
                     tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
                     <Tab
-                        heading="Yours"
+                        heading="Created"
                         activeTextStyle={{ color: '#D81B60' }}
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
@@ -103,7 +103,7 @@ class UserContest extends Component {
                         }
                     </Tab>
                     <Tab
-                        heading="Associated"
+                        heading="Participated"
                         activeTextStyle={{ color: '#D81B60' }}
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}

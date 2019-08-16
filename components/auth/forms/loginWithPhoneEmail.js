@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Keyboard } from 'react-native'
+import { Facebook } from 'expo';
 import { Auth } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Button, Icon, Text, List, ListItem, View, Spinner, Input } from 'native-base';
@@ -13,6 +14,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
+
 
 class Login extends Component {
     state = {
@@ -60,9 +62,29 @@ class Login extends Component {
         }
     }
 
+    _openBroweserForLoginWithSocialNetworks = () => {
+        // WebBrowser.openBrowserAsync('https://expo.io');
+        this.signIn()
+    }
+
+    async signIn() {
+        const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync('884636148579880', {
+            permissions: ['public_profile'],
+        });
+        if (type === 'success') {
+            // sign in with federated identity
+            Auth.federatedSignIn('facebook', { token, expires_at: expires }, { name: '+18293598098' })
+                .then(credentials => {
+                    console.log('get aws credentials', credentials);
+                }).catch(e => {
+                    console.log(e);
+                });
+        }
+    }
+
     render() {
         const { numberPhoneState, password, eyeAction, messageFlash, isLoading, wrongLoginAnimation } = this.state
-        const { numberPhone, hasTheRegistrationBeenSuccessful } = this.props
+        const { numberPhone } = this.props
 
         return (
             <View style={{
@@ -127,7 +149,9 @@ class Login extends Component {
                             </View>
                         </Row>
                         <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
-                            <Button style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#FFF', top: -10, shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1 }}>
+                            <Button
+                                onPress={() => this._openBroweserForLoginWithSocialNetworks()}
+                                style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#FFF', top: -10, shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1 }}>
                                 <Icon name='logo-facebook' style={{ color: "#3b5998" }} />
                                 <Icon name='logo-twitter' style={{ color: "#38A1F3" }} />
                                 <Icon name='logo-instagram' style={{ color: "#cd486b" }} />
@@ -145,7 +169,7 @@ class Login extends Component {
                                     onPressIn={() => this.setState({ isLoading: true })}
                                     onPress={() => this._submit()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
-                                    <Text style={{ fontWeight: 'bold' }}>Login</Text>
+                                    <Text style={{ fontWeight: 'bold' }}>Submit</Text>
                                     {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                 </Button>
                             </Animatable.View>

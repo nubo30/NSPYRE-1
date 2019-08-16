@@ -13,6 +13,7 @@ type User @model{
   createContest: [CreateContest] @connection(name: "UserCreateContest")
   submitPrize: [SubmitPrize] @connection(name: "UserSubmitPrize")
   engage: [Engage] @connection(name: "UserEngage")
+  coins: Int
 }
 
 ##################################################################### SCOPE #####################################################################

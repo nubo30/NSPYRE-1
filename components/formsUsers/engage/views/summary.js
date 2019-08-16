@@ -44,7 +44,9 @@ class Summary extends Component {
 
     render() {
         const { isLoading, errSubmitdata } = this.state
-        const { _indexChangeSwiper, userData, engage } = this.props
+        const { _indexChangeSwiper, userData, engage, coins, navigation } = this.props
+        const coinsUser = navigation.getParam('userData')
+        console.log(coinsUser.coins, "<------------------- Puntos del usuario actual")
         return (
             <Container>
                 <GadrientsAuth />
@@ -61,6 +63,9 @@ class Summary extends Component {
                         </Button>
                         <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>Summary</Title>
                     </Left>
+                    <Right>
+                        <Text style={{ fontSize: wp(5), color: '#FFF' }}>Coins 200</Text>
+                    </Right>
                 </Header>
 
                 {/* Forms */}

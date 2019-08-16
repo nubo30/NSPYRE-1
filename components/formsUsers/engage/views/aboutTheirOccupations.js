@@ -6,6 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import axios from 'axios'
+import AnimateNumber from 'react-native-animate-number'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients'
@@ -27,6 +28,15 @@ class AbouttheirOccupations extends PureComponent {
         socioeconomicLevel: 'Not specified',
         rentOrOwnCar: 'Not specified',
         rentOrOwnHouse: 'Not specified',
+
+        // Coins
+        coinSchools: 0,
+        coinUniversity: 0,
+        coinLevelAchivied: 0,
+        coinOccupation: 0,
+        coinSocioeconomicLevel: 0,
+        coinRentOrOwnCar: 0,
+        coinRentOrOwnHouse: 0,
 
         // Inputs
         inputTextUniversity: "",
@@ -77,9 +87,18 @@ class AbouttheirOccupations extends PureComponent {
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
         const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } = this.state
+        const dataCoins = {
+            coinsOccupations: _.sum([coinSchools,
+                coinUniversity,
+                coinLevelAchivied,
+                coinOccupation,
+                coinSocioeconomicLevel,
+                coinRentOrOwnCar,
+                coinRentOrOwnHouse])
+        }
         const data = { aboutTheOccupations: { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } }
         try {
-            await _dataFromForms(data)
+            await _dataFromForms(data, dataCoins)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
             await _indexChangeSwiper(1)
         } catch (error) {
@@ -121,6 +140,15 @@ class AbouttheirOccupations extends PureComponent {
             rentOrOwnCar,
             rentOrOwnHouse,
 
+            // Coins
+            coinSchools,
+            coinUniversity,
+            coinLevelAchivied,
+            coinOccupation,
+            coinSocioeconomicLevel,
+            coinRentOrOwnCar,
+            coinRentOrOwnHouse,
+
             // Input
             inputTextUniversity,
             inputTextSchools,
@@ -136,12 +164,13 @@ class AbouttheirOccupations extends PureComponent {
             schoolsList,
             universityList
         } = this.state
-        const { userData, _indexChangeSwiper } = this.props
+        const { userData, _indexChangeSwiper, engage } = this.props
 
         // Filter universities
         let filterSchoolsList = schoolsList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextSchools)) !== -1 })
         let filterUniversityList = universityList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextUniversity)) !== -1 })
         let filterOcuppationList = ocuppationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextOcuppation)) !== -1 })
+
         return (
             <Container>
                 <GadrientsAuth />
@@ -159,6 +188,22 @@ class AbouttheirOccupations extends PureComponent {
                         </Button>
                         <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>Formation</Title>
                     </Left>
+                    <Right>
+                        <AnimateNumber
+                            style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            value={_.sum([coinSchools,
+                                coinUniversity,
+                                coinLevelAchivied,
+                                coinOccupation,
+                                coinSocioeconomicLevel,
+                                coinRentOrOwnCar,
+                                coinRentOrOwnHouse])}
+                            interval={10}
+                            countBy={5}
+                            formatter={(val) => {
+                                return 'Coins earned ' + parseFloat(val).toFixed(0)
+                            }} />
+                    </Right>
                 </Header>
 
                 <Grid>
@@ -227,7 +272,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={schools}
-                                                onValueChange={(value) => this.setState({ schools: value })}>
+                                                onValueChange={(value) => this.setState({ schools: value, coinSchools: 50 })}>
                                                 {filterSchoolsList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -285,7 +330,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={university}
-                                                onValueChange={(value) => this.setState({ university: value })}>
+                                                onValueChange={(value) => this.setState({ university: value, coinUniversity: 50 })}>
                                                 {filterUniversityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -314,7 +359,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={levelAchivied}
-                                                onValueChange={(value) => this.setState({ levelAchivied: value })}>
+                                                onValueChange={(value) => this.setState({ levelAchivied: value, coinLevelAchivied: 50 })}>
                                                 {levelachievedList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
                                             </Picker>}
                                     </ListItem>
@@ -358,7 +403,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={occupation}
-                                                onValueChange={(value) => this.setState({ occupation: value })}>
+                                                onValueChange={(value) => this.setState({ occupation: value, coinOccupation: 50 })}>
                                                 {filterOcuppationList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -387,7 +432,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={socioeconomicLevel}
-                                                onValueChange={(value) => this.setState({ socioeconomicLevel: value })}>
+                                                onValueChange={(value) => this.setState({ socioeconomicLevel: value, coinSocioeconomicLevel: 50 })}>
                                                 {socioeconomicLevelList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -416,7 +461,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={rentOrOwnCar}
-                                                onValueChange={(value) => this.setState({ rentOrOwnCar: value })}>
+                                                onValueChange={(value) => this.setState({ rentOrOwnCar: value, coinRentOrOwnCar: 25 })}>
                                                 {rentOrOwnCarList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>
@@ -445,7 +490,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={rentOrOwnHouse}
-                                                onValueChange={(value) => this.setState({ rentOrOwnHouse: value })}>
+                                                onValueChange={(value) => this.setState({ rentOrOwnHouse: value, coinRentOrOwnHouse: 25 })}>
                                                 {rentOrOwnHouseList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                                             </Picker>}
                                     </ListItem>

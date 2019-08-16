@@ -43,7 +43,7 @@ class DrawerRight extends Component {
                         }
                         <Body style={{ borderBottomColor: "rgba(0,0,0,0.0)" }}>
                             <Text>{userData.name}</Text>
-                            <Text note numberOfLines={1}>Points 888</Text>
+                            <Text note numberOfLines={1}>Coins {userData.coins}</Text>
                         </Body>
                     </ListItem>
 

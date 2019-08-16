@@ -24,7 +24,7 @@ Amplify.configure({
     "aws_appsync_apiKey": "da2-ernsefrq5vglvhrcmjuht6abza",
     // AUTH
     Auth: {
-        identityPoolId: 'us-east-1_J52Fp9oFz', //REQUIRED - Amazon Cognito Identity Pool ID
+        identityPoolId: 'us-east-1:69f86b8c-2d0e-4ad9-b69d-e74c70c777d2', //REQUIRED - Amazon Cognito Identity Pool ID
         region: 'us-east-1',
         identityPoolRegion: 'us-east-1',
         userPoolId: 'us-east-1_J52Fp9oFz',

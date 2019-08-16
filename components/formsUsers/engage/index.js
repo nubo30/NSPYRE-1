@@ -13,6 +13,7 @@ export default class SubmitPrize extends Component {
     state = {
         userData: {},
         engage: {},
+        coins: {}
     }
 
     async componentDidMount() {
@@ -28,16 +29,17 @@ export default class SubmitPrize extends Component {
         this.swiper.scrollBy(i)
     }
 
-    _dataFromForms = (data) => {
-        const { engage } = this.state
+    _dataFromForms = (data, coinsFromParams) => {
+        const { engage, coins } = this.state
         this.setState({ engage: Object.assign(engage, data) })
+        this.setState({ coins: Object.assign(coins, coinsFromParams) })
     }
 
     render() {
-        const { engage, userData } = this.state
+        const { engage, coins, userData } = this.state
         return (
             <Swiper
-                scrollEnabled={false}
+                scrollEnabled={true}
                 ref={(swiper) => this.swiper = swiper}
                 loop={false} showsButtons={false} showsPagination={false}>
 
@@ -66,6 +68,7 @@ export default class SubmitPrize extends Component {
                 <Summary
                     userData={userData}
                     engage={engage}
+                    coins={coins}
 
                     _indexChangeSwiper={this._indexChangeSwiper} />
             </Swiper>

@@ -6,6 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import AnimateNumber from 'react-native-animate-number'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients'
@@ -26,7 +27,14 @@ class Interests extends PureComponent {
         categoryContestChoose: [],
         political: 'Not specified',
         vote: 'Not specified',
-        // Inputs
+
+        // Coins
+        coinMusicalGenreChoose: 0,
+        coinSportsChoose: 0,
+        coinCategoryPrizeChoose: 0,
+        coinCategoryContestChoose: 0,
+        coinPolitical: 0,
+        coinVote: 0,
 
         // Pickers
         musicalGenre: [],
@@ -83,24 +91,32 @@ class Interests extends PureComponent {
     onSelectedItemsChangeCategoryContest = (value) => { this.setState({ categoryContest: value }) }
 
     _updateMusicalGenre = (value) => {
-        this.setState({ musicalGenreItems: value, musicalGenreChoose: value })
+        this.setState({ musicalGenreItems: value, musicalGenreChoose: value, coinMusicalGenreChoose: value.length <= 5 ? 3 : value.length / 2 + 5 })
     }
     _updateSports = (value) => {
-        this.setState({ sportsItems: value, sportsChoose: value })
+        this.setState({ sportsItems: value, sportsChoose: value, coinSportsChoose: value.length <= 5 ? 3 : value.length / 2 + 5 })
     }
 
     _updateCategoryPrize = (value) => {
-        this.setState({ categoryPrizeItems: value, categoryPrizeChoose: value })
+        this.setState({ categoryPrizeItems: value, categoryPrizeChoose: value, coinCategoryContestChoose: value.length <= 5 ? 3 : value.length / 2 + 5 })
     }
 
     _updateCategoryContest = (value) => {
-        this.setState({ categoryContestItems: value, categoryContestChoose: value })
+        this.setState({ categoryContestItems: value, categoryContestChoose: value, coinCategoryContestChoose: value.length <= 5 ? 3 : value.length / 2 + 5 })
     }
 
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
         const { musicalGenreChoose, sportsChoose, categoryPrizeChoose, categoryContestChoose, political, vote } = this.state
+        const dataCoins = {
+            interestsCoins: _.sum([coinMusicalGenreChoose,
+                coinSportsChoose,
+                coinCategoryPrizeChoose,
+                coinCategoryContestChoose,
+                coinPolitical,
+                coinVote])
+        }
         const data = {
             interests: {
                 musicalGenre: musicalGenreChoose.map(item => item.name),
@@ -111,7 +127,7 @@ class Interests extends PureComponent {
             }
         }
         try {
-            await _dataFromForms(data)
+            await _dataFromForms(data, dataCoins)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
             await _indexChangeSwiper(1)
         } catch (error) {
@@ -142,6 +158,14 @@ class Interests extends PureComponent {
 
     render() {
         const {
+            // Coins
+            coinMusicalGenreChoose,
+            coinSportsChoose,
+            coinCategoryPrizeChoose,
+            coinCategoryContestChoose,
+            coinPolitical,
+            coinVote,
+
             // Pickers
             musicalGenre,
             musicalGenreItems,
@@ -186,6 +210,21 @@ class Interests extends PureComponent {
                         </Button>
                         <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>Interests</Title>
                     </Left>
+                    <Right>
+                        <AnimateNumber
+                            style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            value={_.sum([coinMusicalGenreChoose,
+                                coinSportsChoose,
+                                coinCategoryPrizeChoose,
+                                coinCategoryContestChoose,
+                                coinPolitical,
+                                coinVote])}
+                            interval={10}
+                            countBy={5}
+                            formatter={(val) => {
+                                return 'Coins earned ' + parseFloat(val).toFixed(0)
+                            }} />
+                    </Right>
                 </Header>
 
                 <Grid>
@@ -572,7 +611,7 @@ class Interests extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={political}
-                                                onValueChange={(value) => this.setState({ political: value })}>
+                                                onValueChange={(value) => this.setState({ political: value, coinPolitical: 25 })}>
                                                 <Picker.Item label="Yes" value="YES" />
                                                 <Picker.Item label="No" value="NO" />
                                             </Picker>}
@@ -602,7 +641,7 @@ class Interests extends PureComponent {
                                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                 selectedValue={vote}
-                                                onValueChange={(value) => this.setState({ vote: value })}>
+                                                onValueChange={(value) => this.setState({ vote: value, coinVote: 25 })}>
                                                 <Picker.Item label="Yes" value="YES" />
                                                 <Picker.Item label="No" value="NO" />
                                             </Picker>}

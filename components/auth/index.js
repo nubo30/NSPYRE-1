@@ -66,7 +66,6 @@ export default class Auth extends Component {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, indexSwiper, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         return (
             <Swiper
-                // index={2}
                 scrollEnabled={false}
                 ref={(swiper) => this.swiperRoot = swiper}
                 onIndexChanged={(index) => { this.setState({ indexSwiperRoot: index, validateNumberButtom: true }); Keyboard.dismiss() }}
