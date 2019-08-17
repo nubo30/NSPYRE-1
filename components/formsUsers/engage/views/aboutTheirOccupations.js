@@ -5,7 +5,6 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
-import axios from 'axios'
 import AnimateNumber from 'react-native-animate-number'
 
 // Gradients
@@ -13,7 +12,9 @@ import { GadrientsAuth } from '../../../Global/gradients'
 import { MyStatusBar } from '../../../Global/statusBar'
 
 // Data
-import { levelachievedList, ocuppationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../Global/data/index'
+import { levelachievedList, ocuppationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../../assets/data/global'
+import universities from "../../../../assets/data/universities.json"
+import schoolsJson from "../../../../assets/data/schools.json"
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -62,21 +63,11 @@ class AbouttheirOccupations extends PureComponent {
     }
 
     _getSchools = async () => {
-        try {
-            const { data } = await axios.get('https://code.org/schools.json?results=1')
-            this.setState({ schoolsList: data.schools.map(item => item.name).sort() })
-        } catch (error) {
-            console.log(error);
-        }
+        this.setState({ schoolsList: schoolsJson.schools.map(item => item.name).sort() })
     }
 
     _getUniversity = async () => {
-        try {
-            const { data } = await axios.get('https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json')
-            this.setState({ universityList: data.map(item => item.name).sort() })
-        } catch (error) {
-            console.log(error);
-        }
+        this.setState({ universityList: universities.map(item => item.name).sort() })
     }
 
     // Modals
@@ -86,9 +77,19 @@ class AbouttheirOccupations extends PureComponent {
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } = this.state
+        const {
+            // Coins
+            coinSchools,
+            coinUniversity,
+            coinLevelAchivied,
+            coinOccupation,
+            coinSocioeconomicLevel,
+            coinRentOrOwnCar,
+            coinRentOrOwnHouse,
+            schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } = this.state
         const dataCoins = {
-            coinsOccupations: _.sum([coinSchools,
+            coinsOccupations: _.sum([
+                coinSchools,
                 coinUniversity,
                 coinLevelAchivied,
                 coinOccupation,
@@ -164,7 +165,7 @@ class AbouttheirOccupations extends PureComponent {
             schoolsList,
             universityList
         } = this.state
-        const { userData, _indexChangeSwiper, engage } = this.props
+        const { userData, _indexChangeSwiper } = this.props
 
         // Filter universities
         let filterSchoolsList = schoolsList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextSchools)) !== -1 })

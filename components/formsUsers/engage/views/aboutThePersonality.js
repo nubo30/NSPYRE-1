@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Dimensions, Modal, KeyboardAvoidingView, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
+import { Container, Input, Header, Item, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row } from 'react-native-easy-grid'
+import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
-import axios from 'axios'
 import AnimateNumber from 'react-native-animate-number'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Data
 import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../Global/data/index'
-
+import countries from '../../../../assets/data/countries.json'
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
@@ -26,14 +25,10 @@ class AboutThePersonality extends Component {
     state = {
         // Data
         location: {
-            born: {
-                country: 'Not specified',
-                city: 'Not specified'
-            },
-            currentPlace: {
-                country: 'Not specified',
-                city: 'Not specified'
-            }
+            street: "",
+            country: "Not specified",
+            state: "Not specified",
+            city: "Not specified",
         },
         gender: 'Not specified',
         birthDate: 'Not specified',
@@ -58,6 +53,10 @@ class AboutThePersonality extends Component {
 
 
         // Inputs
+        inputTextTitleIntheCompany: "",
+        inputTextCountry: "",
+        inputTextCities: "",
+
         isvalidFormAnimation: false,
         isLoading: false,
         messageFlash: { cognito: null },
@@ -68,32 +67,42 @@ class AboutThePersonality extends Component {
 
         // Data API
         listCountries: [],
+        listRegions: [],
         listCities: []
     }
 
     componentDidMount() {
         this._getCountry()
     }
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.location.born.country !== this.state.location.born.country) {
-            this._getCity(nextState.location.born.country)
-        }
-        if (nextState.location.currentPlace.country !== this.state.location.currentPlace.country) {
-            this._getCity(nextState.location.currentPlace.country)
-        }
-    }
 
     _getCountry = async () => {
-        const { data } = await axios.get('http://battuta.medunes.net/api/country/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8')
-        this.setState({ listCountries: data })
+        this.setState({ listCountries: countries.map(item => item.name) })
     }
 
-    _getCity = async (country) => {
-        const { listCountries } = this.state
-        let filterCountries = []; filterCountries = listCountries.filter((item) => { return item.name.indexOf(country) !== -1 })
-        if (filterCountries.length !== 0) {
-            const { data } = await axios.get(`http://battuta.medunes.net/api/region/${filterCountries[0].code}/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8`)
-            this.setState({ listCities: data })
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.location.country !== this.state.location.country) { this._getRegions(nextState.location.country) }
+        if (nextState.location.state !== this.state.location.state) { this._getCities(nextState.location.state) }
+    }
+
+    _getRegions = async (country) => {
+        let regions = []; regions = countries.filter(item => item.name.indexOf(country) !== -1)
+        if (regions.length !== 0) {
+            this.setState({
+                listRegions: regions[0].states.map(items => items),
+            })
+        }
+    }
+
+    _getCities = async (region) => {
+        if (this.state.listRegions.length !== 0) {
+            const cities = this.state.listRegions.map(items => items.cities)
+            const getcities = cities.map(item => item.map(items => items))
+            const filterCities = getcities.map(item => item.filter(items => items.region.indexOf(region) !== -1))
+            const citiesConvert = filterCities.map(item => item.length ? item : "")
+            const citiesChoose = citiesConvert.filter(items => items !== "")
+            this.setState({
+                listCities: citiesChoose[0]
+            })
         }
     }
 
@@ -104,9 +113,22 @@ class AboutThePersonality extends Component {
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren } = this.state
+        const {
+            /// Coins
+            coinLocation,
+            coinGender,
+            coinBirthDate,
+            coinSexuality,
+            coinMaritalStatus,
+            coinRegionalIdentity,
+            coinNacionality,
+            coinParentalCondition,
+            coinAmountOfSimblings,
+            coinAmountOfChildren,
+            location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren } = this.state
         const dataCoins = {
-            coinsPersonality: _.sum([coinLocation,
+            coinsPersonality: _.sum([
+                coinLocation,
                 coinGender,
                 coinBirthDate,
                 coinSexuality,
@@ -135,7 +157,7 @@ class AboutThePersonality extends Component {
         const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, amountOfSimblings, parentalCondition, amountOfChildren } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            location.born.city !== 'Not specified' && location.born.city !== 'Not specified' && location.currentPlace.city !== 'Not specified' && location.currentPlace.city !== 'Not specified'
+            location.city !== 'Not specified'
                 ? gender !== 'Not specified'
                     ? birthDate !== 'Not specified'
                         ? sexuality !== 'Not specified'
@@ -173,6 +195,11 @@ class AboutThePersonality extends Component {
             amountOfSimblings,
             amountOfChildren,
 
+            // Inputs
+            inputTextRegions,
+            inputTextCountry,
+            inputTextCities,
+
             isvalidFormAnimation,
             isLoading,
             messageFlash,
@@ -195,9 +222,13 @@ class AboutThePersonality extends Component {
 
             // Data API
             listCountries,
+            listRegions,
             listCities
         } = this.state
         const { userData, navigation } = this.props
+        let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(_.lowerCase(inputTextRegions)) !== -1 })
+        let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextCountry)) !== -1 })
+        let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(_.lowerCase(inputTextCities)) !== -1 })
         return (
             <Container>
                 <GadrientsAuth />
@@ -343,10 +374,11 @@ class AboutThePersonality extends Component {
 
                                     <Separator bordered />
 
-                                    {/* LOCALIDAD */}
-                                    <ListItem disabled={isLoading} icon onPress={() => this._visibleModalLocation(true)}>
+
+                                    {/* LOCATION */}
+                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalLocation(true)}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#D500F9" }}>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }} onPress={() => this._visibleModalLocation(true)}>
                                                 <Icon type="Entypo" name="location-pin" />
                                             </Button>
                                         </Left>
@@ -354,10 +386,11 @@ class AboutThePersonality extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{location.born.country !== 'Not specified' ? 'Specified' : 'Not specified'}</Text>
-                                            <Icon name="arrow-forward" />
+                                            <Text>{location.street && location.city && location.state && location.country ? "Specified" : "Not specified"}</Text>
+                                            <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
+
 
                                     {/* REGION*/}
                                     <ListItem icon>
@@ -639,7 +672,7 @@ class AboutThePersonality extends Component {
                     transparent={false}
                     hardwareAccelerated={true}
                     visible={visibleModalLocation}
-                    animationType="slide"
+                    animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
                     <KeyboardAvoidingView
@@ -647,51 +680,33 @@ class AboutThePersonality extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Left style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', left: 10 }}>
-                                <Button transparent
-                                    onPress={() => {
-                                        this.setState({
-                                            coinLocation: 0,
-                                            location: {
-                                                born: {
-                                                    country: 'Not specified',
-                                                    city: 'Not specified'
-                                                },
-                                                currentPlace: {
-                                                    country: 'Not specified',
-                                                    city: 'Not specified'
-                                                }
-                                            }
-                                        });
-                                        this._visibleModalLocation(false)
-                                    }}>
-                                    <Text style={{ color: '#E91E63' }}>Back</Text>
+                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
+                        </Header>
+
+                        {/* STREET */}
+                        <ListItem icon last>
+                            <Left>
+                                <Button style={{ backgroundColor: "#90A4AE" }}>
+                                    <Icon type="FontAwesome" name="road" />
                                 </Button>
                             </Left>
                             <Body>
-                                <Title style={{ color: "#E91E63", fontSize: wp(7) }}>Location</Title>
+                                <Input
+                                    placeholder="Your street"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    maxLength={512}
+                                    value={location.street}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ location: { ...location, street: value } })} />
                             </Body>
-                            <Right>
-                                <Button transparent
-                                    disabled={location.born.country !== 'Not specified' &&
-                                        location.born.city !== 'Not specified' &&
-                                        location.currentPlace.country !== 'Not specified' &&
-                                        location.currentPlace.city !== 'Not specified' ? false : true}
-                                    onPress={() => {
-                                        this._visibleModalLocation(false);
-                                        this.setState({ coinLocation: 150 })
-                                    }}>
-                                    <Text style={{
-                                        color: location.born.country !== 'Not specified' &&
-                                            location.born.city !== 'Not specified' &&
-                                            location.currentPlace.country !== 'Not specified' &&
-                                            location.currentPlace.city !== 'Not specified' ? "#D81B60" : '#E0E0E0'
-                                    }}>ACCEPT</Text>
-                                </Button>
-                            </Right>
-                        </Header>
+                            <Right />
+                        </ListItem>
 
-                        {/* COUNTRY */}
+                        <Separator bordered style={{ maxHeight: 40 }} />
+
+                        {/* COUNTRIES */}
                         <ListItem icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
@@ -699,23 +714,88 @@ class AboutThePersonality extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: '#333' }}>Country of birth?</Text>
+                                <Text style={{ color: '#333' }}>Country</Text>
                             </Body>
                             <Right>
-                                <Text>{listCountries.length ? location.born.country : 'Not specified'}</Text>
+                                <Text>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
                             </Right>
                         </ListItem>
                         <Picker
                             style={{ position: 'absolute', bottom: 0, width: '100%' }}
                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                             mode="dropdown"
-                            iosHeader="SELECT COUNTRY"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listCountries.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextCountry}
+                                                onChangeText={(value) => this.setState({ inputTextCountry: value })} />
+                                            <Icon type="MaterialCommunityIcons" name="earth" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
+                                        </Item>}
+                                </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                            selectedValue={location.born.country}
-                            onValueChange={(value) => this.setState({ location: { ...location, born: { ...location.born, country: value } } })}>
-                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                            selectedValue={location.country}
+                            onValueChange={(value) => this.setState({ location: { ...location, country: value } })}>
+                            {filterCounttriesList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                        </Picker>
+
+
+                        {/* STATES */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#27ae60" }}>
+                                    <Icon type="Foundation" name="map" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>State</Text>
+                            </Body>
+                            <Right>
+                                <Text>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listRegions.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextRegions}
+                                                onChangeText={(value) => this.setState({ inputTextRegions: value })} />
+                                            <Icon type="Foundation" name="map" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                        </Item>}
+                                </Header>}
+                            iosHeader="SELECT REGION"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={location.state}
+                            onValueChange={(value) => this.setState({ location: { ...location, state: value } })}>
+                            {filterRegionList.length
+                                ? filterRegionList.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)
+                                : null}
                         </Picker>
 
                         {/* CITIES */}
@@ -726,84 +806,86 @@ class AboutThePersonality extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: '#333' }}>City of birth?</Text>
+                                <Text style={{ color: '#333' }}>City</Text>
                             </Body>
                             <Right>
-                                <Text>{listCities.length ? location.born.city : 'Not specified'}</Text>
-                            </Right>
-                        </ListItem>
-                        {location.born.country === 'Not specified' ? null : <Picker
-                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
-                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                            mode="dropdown"
-                            iosHeader="SELECT CITY"
-                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                            headerTitleStyle={{ color: "#D81B60" }}
-                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                            selectedValue={location.born.city}
-                            onValueChange={(value) => this.setState({ location: { ...location, born: { ...location.born, city: value } } })}>
-                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
-                        </Picker>}
-
-
-                        <Separator bordered style={{ maxHeight: 40 }} />
-
-
-                        {/* COUNTRY */}
-                        <ListItem icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#00B8D4" }}>
-                                    <Icon type="MaterialCommunityIcons" name="earth" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text style={{ color: '#333' }}>Current country?</Text>
-                            </Body>
-                            <Right>
-                                <Text>{listCountries.length ? location.currentPlace.country : 'Not specified'}</Text>
+                                <Text>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
                             </Right>
                         </ListItem>
                         <Picker
                             style={{ position: 'absolute', bottom: 0, width: '100%' }}
                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                             mode="dropdown"
-                            iosHeader="SELECT COUNTRY"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listCities && listCities.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextCities}
+                                                onChangeText={(value) => this.setState({ inputTextCities: value })} />
+                                            <Icon type="MaterialIcons" name="location-city" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
+                                        </Item>}
+                                </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                            selectedValue={location.currentPlace.country}
-                            onValueChange={(value) => this.setState({ location: { ...location, currentPlace: { ...location.currentPlace, country: value } } })}>
-                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                            selectedValue={location.city}
+                            onValueChange={(value) => this.setState({ location: { ...location, city: value } })}>
+                            {filterCitiesList && filterCitiesList.length
+                                ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
+                                : null}
                         </Picker>
 
-                        {/* CITIES */}
-                        <ListItem last icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#00BFA5" }}>
-                                    <Icon type="MaterialIcons" name="location-city" />
+                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    onPress={() => {
+                                        this.setState({
+                                            coinLocation: 0,
+                                            location: {
+                                                street: "",
+                                                state: "Not specified",
+                                                city: "Not specified",
+                                                country: "Not specified"
+                                            }
+                                        }); this._visibleModalLocation(false)
+                                    }}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
-                            </Left>
-                            <Body>
-                                <Text style={{ color: '#333' }}>Current city?</Text>
-                            </Body>
-                            <Right>
-                                <Text>{listCities.length ? location.currentPlace.city : 'Not specified'}</Text>
-                            </Right>
-                        </ListItem>
-                        {location.currentPlace.country === 'Not specified' ? null : <Picker
-                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
-                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                            mode="dropdown"
-                            iosHeader='SELECT CITY'
-                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                            headerTitleStyle={{ color: "#D81B60" }}
-                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                            selectedValue={location.currentPlace.city}
-                            onValueChange={(value) => this.setState({ location: { ...location, currentPlace: { ...location.currentPlace, city: value } } })}>
-                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
-                        </Picker>}
+                            </Col>
+                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
+                                <Button
+                                    bordered
+                                    disabled={location.street !== "" && location.city !== "Not specified" && location.state !== "Not specified" && location.country !== "Not specified" ? false : true}
+                                    onPress={() => {
+                                        this.setState({ coinLocation: 50 })
+                                        this._visibleModalLocation(false);
+                                    }}
+                                    style={{
+                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                    <Text style={{ color: location.street && location.city !== "Not specified" && location.state !== "Not specified" && location.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                </Button>
+                            </Col>
+                        </Grid>
+
                     </KeyboardAvoidingView>
                 </Modal>
+
             </Container>
         );
     }

@@ -16,22 +16,260 @@ export const onCreateUser = `subscription OnCreateUser {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
         timer
+        audience {
+          items {
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
     submitPrize {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
         category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
     engage {
       items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          location {
+            city
+            country
+            state
+            street
+          }
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
         createdAt
       }
       nextToken
@@ -55,22 +293,260 @@ export const onUpdateUser = `subscription OnUpdateUser {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
         timer
+        audience {
+          items {
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
     submitPrize {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
         category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
     engage {
       items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          location {
+            city
+            country
+            state
+            street
+          }
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
         createdAt
       }
       nextToken
@@ -94,22 +570,260 @@ export const onDeleteUser = `subscription OnDeleteUser {
     createContest {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
         category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
         timer
+        audience {
+          items {
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            ocuppation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
     submitPrize {
       items {
         id
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutTheCompany {
+          businessLocation {
+            city
+            country
+            state
+            street
+          }
+          companyName
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+        }
         category
+        general {
+          price
+          nameOfPrize
+          description
+          instructions {
+            msg
+            typeContentInstructionsValue
+          }
+          socialMediaHandle {
+            facebook
+            twitter
+            instagram
+            snapchat
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
         createdAt
+        delivery {
+          description
+          socialMediaSelected
+          typeOfSocialNetwork
+        }
       }
       nextToken
     }
     engage {
       items {
+        user {
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+        }
+        aboutThePersonality {
+          amountOfChildren
+          amountOfSimblings
+          birthDate
+          gender
+          location {
+            city
+            country
+            state
+            street
+          }
+          maritalStatus
+          nacionality
+          parentalCondition
+          regionalIdentity
+          sexuality
+        }
+        aboutTheOccupations {
+          levelAchivied
+          occupation
+          rentOrOwnCar
+          rentOrOwnHouse
+          schools
+          university
+          socioeconomicLevel
+        }
+        interests {
+          categoryContest
+          categoryPrize
+          musicalGenre
+          sports
+          political
+          vote
+        }
         createdAt
       }
       nextToken
@@ -133,12 +847,126 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -196,6 +1024,45 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         id
         genders
         ages
@@ -230,7 +1097,60 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         participantId
         nameUser
         comment
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         avatar
+        contest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         createdAt
       }
       nextToken
@@ -253,12 +1173,126 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -316,6 +1350,45 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         id
         genders
         ages
@@ -350,7 +1423,60 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         participantId
         nameUser
         comment
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         avatar
+        contest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         createdAt
       }
       nextToken
@@ -373,12 +1499,126 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -436,6 +1676,45 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
     timer
     audience {
       items {
+        createContest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         id
         genders
         ages
@@ -470,7 +1749,60 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         participantId
         nameUser
         comment
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
         avatar
+        contest {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         createdAt
       }
       nextToken
@@ -493,10 +1825,39 @@ export const onCreateAudience = `subscription OnCreateAudience {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -504,18 +1865,107 @@ export const onCreateAudience = `subscription OnCreateAudience {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -562,10 +2012,39 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -573,18 +2052,107 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -631,10 +2199,39 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -642,18 +2239,107 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -719,10 +2405,39 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -730,18 +2445,107 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -783,10 +2587,39 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -794,18 +2627,107 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -847,10 +2769,39 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         phone
         datetime
         scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+            timer
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            createdAt
+          }
+          nextToken
+        }
         coins
       }
       aboutTheUser {
         companyName
+        location {
+          city
+          country
+          state
+          street
+        }
         titleInTheCompany
       }
       category
@@ -858,18 +2809,107 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         description
         instructions
         nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       prizes {
         description
         prizeId
         name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
       }
       createdAt
       timer
       audience {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+            timer
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          ocuppation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
         nextToken
       }
       participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+            timer
+          }
+          createdAt
+        }
         nextToken
       }
     }
@@ -946,12 +2986,126 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1025,12 +3179,126 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1104,12 +3372,126 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1182,12 +3564,126 @@ export const onCreateEngage = `subscription OnCreateEngage {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1197,6 +3693,12 @@ export const onCreateEngage = `subscription OnCreateEngage {
       amountOfSimblings
       birthDate
       gender
+      location {
+        city
+        country
+        state
+        street
+      }
       maritalStatus
       nacionality
       parentalCondition
@@ -1238,12 +3740,126 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1253,6 +3869,12 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       amountOfSimblings
       birthDate
       gender
+      location {
+        city
+        country
+        state
+        street
+      }
       maritalStatus
       nacionality
       parentalCondition
@@ -1294,12 +3916,126 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       datetime
       scope
       createContest {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+        }
         nextToken
       }
       submitPrize {
+        items {
+          id
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutTheCompany {
+            companyName
+          }
+          category
+          general {
+            price
+            nameOfPrize
+            description
+          }
+          createdAt
+          delivery {
+            description
+            socialMediaSelected
+            typeOfSocialNetwork
+          }
+        }
         nextToken
       }
       engage {
+        items {
+          user {
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+          }
+          aboutThePersonality {
+            amountOfChildren
+            amountOfSimblings
+            birthDate
+            gender
+            maritalStatus
+            nacionality
+            parentalCondition
+            regionalIdentity
+            sexuality
+          }
+          aboutTheOccupations {
+            levelAchivied
+            occupation
+            rentOrOwnCar
+            rentOrOwnHouse
+            schools
+            university
+            socioeconomicLevel
+          }
+          interests {
+            categoryContest
+            categoryPrize
+            musicalGenre
+            sports
+            political
+            vote
+          }
+          createdAt
+        }
         nextToken
       }
       coins
@@ -1309,6 +4045,12 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       amountOfSimblings
       birthDate
       gender
+      location {
+        city
+        country
+        state
+        street
+      }
       maritalStatus
       nacionality
       parentalCondition

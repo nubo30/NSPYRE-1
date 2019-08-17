@@ -30,10 +30,17 @@ class Summary extends Component {
 
     _submit = async () => {
         this.setState({ isLoading: true })
-        const { navigation, userData, engage } = this.props
+        const { navigation, userData, engage, coins } = this.props
+        const coinsUser = navigation.getParam('userData')
         try {
             await API.graphql(graphqlOperation(mutations.createEngage, { input: engage }))
-            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.sub } }))
+            await API.graphql(graphqlOperation(mutations.updateUser, {
+                input:
+                {
+                    id: userData.sub,
+                    coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, coinsUser.coins])
+                }
+            }))
             this.setState({ isLoading: false })
             navigation.navigate("Home")
         } catch (error) {
@@ -44,9 +51,7 @@ class Summary extends Component {
 
     render() {
         const { isLoading, errSubmitdata } = this.state
-        const { _indexChangeSwiper, userData, engage, coins, navigation } = this.props
-        const coinsUser = navigation.getParam('userData')
-        console.log(coinsUser.coins, "<------------------- Puntos del usuario actual")
+        const { _indexChangeSwiper, userData, engage, coins } = this.props
         return (
             <Container>
                 <GadrientsAuth />
@@ -64,7 +69,7 @@ class Summary extends Component {
                         <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>Summary</Title>
                     </Left>
                     <Right>
-                        <Text style={{ fontSize: wp(5), color: '#FFF' }}>Coins 200</Text>
+                        <Text style={{ fontSize: wp(5), color: '#FFF' }}>Total coins earned {_.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins])}</Text>
                     </Right>
                 </Header>
 
@@ -163,33 +168,18 @@ class Summary extends Component {
                                             <Text>LOCATION</Text>
                                         </Separator>
 
-                                        {/* PLACES YOU BORN */}
+                                        {/* Location*/}
                                         <ListItem icon>
                                             <Left>
                                                 <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#D500F9" }}>
-                                                    <Icon type="MaterialCommunityIcons" name="baby" />
+                                                    <Icon type="Entypo" name="location-pin" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Places you born</Text>
+                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Your location</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(`${engage.aboutThePersonality.location.born.country}, ${engage.aboutThePersonality.location.born.city}`, { length: 30, separator: '...' })}</Text>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* CURRENT PLACE */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4527A0" }}>
-                                                    <Icon type="Entypo" name="location" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Current place</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text>{_.truncate(`${engage.aboutThePersonality.location.currentPlace.country}, ${engage.aboutThePersonality.location.currentPlace.city}`, { length: 30, separator: '...' })}</Text>
+                                                <Text>{_.truncate(`${engage.aboutThePersonality.location.country}, ${engage.aboutThePersonality.location.state}`, { length: 30, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -197,11 +187,11 @@ class Summary extends Component {
                                         <ListItem icon>
                                             <Left>
                                                 <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#00897B" }}>
-                                                    <Icon type="FontAwesome" name="globe" />
+                                                    <Icon type="Entypo" name="location-pin" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Region</Text>
+                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Region identity</Text>
                                             </Body>
                                             <Right>
                                                 <Text>{_.truncate(engage.aboutThePersonality.regionalIdentity, { length: 30, separate: '...' })}</Text>

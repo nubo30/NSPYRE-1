@@ -5,14 +5,18 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import Axios from 'axios'
 import moment from 'moment'
 
 // Icons
 import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from '@expo/vector-icons'
 
 // Static Data
-import { randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, ocuppationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList } from '../../../Global/data/index'
+import {
+    randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, ocuppationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
+} from '../../../../assets/data/global'
+import countries from '../../../../assets/data/countries.json'
+import universities from '../../../../assets/data/universities.json'
+import schoolJSON from '../../../../assets/data/schools.json'
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
@@ -178,15 +182,10 @@ export default class FormAudience extends Component {
         }
     }
 
-    _getContry = async () => {
+    _getContry = () => {
         const { contest } = this.props
-        try {
-            const { data } = await Axios.get('https://restcountries.eu/rest/v2/all')
-            _.remove(data, { name: contest.aboutTheUser.location.country })
-            this.setState({ countryList: [{ name: 'List of countries', id: 10 * 100, children: data.map((item, key) => { return { name: item.name, id: key } }) }] })
-        } catch (error) {
-            console.log(error);
-        }
+        _.remove(countries, { name: contest.aboutTheUser.location.country })
+        this.setState({ countryList: [{ name: 'List of countries', id: 10 * 100, children: countries.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
     _getNacionality = () => {
@@ -202,22 +201,12 @@ export default class FormAudience extends Component {
         this.setState({ academicLevelAchievedList: [{ name: 'List of academic level achieved', id: 10 * 100, children: academicLevelAchievedList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
     }
 
-    _getSchools = async () => {
-        try {
-            const { data } = await Axios.get('https://code.org/schools.json?results=1')
-            this.setState({ schoolsList: [{ name: 'List of schools', id: 10 * 100, children: data.schools.map((item, key) => { return { name: item.name, id: key } }) }] })
-        } catch (error) {
-            console.log(error);
-        }
+    _getSchools = () => {
+        this.setState({ schoolsList: [{ name: 'List of schools', id: 10 * 100, children: schoolJSON.schools.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
-    _getUniversity = async () => {
-        try {
-            const { data } = await Axios.get('https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json')
-            this.setState({ universityList: [{ name: 'List of universities', id: 10 * 100, children: data.map((item, key) => { return { name: item.name, id: key } }) }] })
-        } catch (error) {
-            console.log(error);
-        }
+    _getUniversity =  () => {
+        this.setState({ universityList: [{ name: 'List of universities', id: 10 * 100, children: universities.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
     _getMusicGenre = () => {
@@ -570,7 +559,7 @@ export default class FormAudience extends Component {
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem
@@ -1093,7 +1082,7 @@ export default class FormAudience extends Component {
                                 </ListItem>
 
                                 {/* ACADEMIC LEVEL ACHIVIED */}
-                                <ListItem   
+                                <ListItem
                                     disabled={isLoading}
                                     itemHeader
                                     onPress={() => this.SectionedMultiSelectAcademicLevelAchieved._toggleSelector()}
@@ -2113,7 +2102,7 @@ export default class FormAudience extends Component {
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
                                     <Text style={{ color: "#BDBDBD" }}>Specify the category of awards for the audience</Text>
                                 </ListItem>
-                               
+
                                 <ListItem
                                     disabled={isLoading}
                                     itemHeader

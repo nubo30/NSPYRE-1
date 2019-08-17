@@ -18,7 +18,7 @@ export default class CreateContest extends Component {
         userData: {},
         dataFromThePreviousContest: {},
         wantSuggestedFields: false,
-        contest: {}
+        contest: {},
     }
 
     async componentDidMount() {
@@ -40,13 +40,15 @@ export default class CreateContest extends Component {
         this.swiper.scrollBy(i)
     }
 
-    _dataFromForms = (data) => {
+    _dataFromForms = (data, coinsParams) => {
         const { contest } = this.state
-        this.setState({ contest: Object.assign(contest, data) })
+        this.setState({
+            contest: Object.assign(contest, data),
+        })
     }
 
     render() {
-        const { contest, userData, dataFromThePreviousContest, wantSuggestedFields } = this.state
+        const { contest,  userData, dataFromThePreviousContest, wantSuggestedFields } = this.state
         return (
             <Swiper
                 scrollEnabled={false}

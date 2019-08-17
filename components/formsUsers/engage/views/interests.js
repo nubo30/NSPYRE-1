@@ -108,9 +108,19 @@ class Interests extends PureComponent {
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { musicalGenreChoose, sportsChoose, categoryPrizeChoose, categoryContestChoose, political, vote } = this.state
+        const {
+            // Coins
+            coinMusicalGenreChoose,
+            coinSportsChoose,
+            coinCategoryPrizeChoose,
+            coinCategoryContestChoose,
+            coinPolitical,
+            coinVote,
+
+            musicalGenreChoose, sportsChoose, categoryPrizeChoose, categoryContestChoose, political, vote } = this.state
         const dataCoins = {
-            interestsCoins: _.sum([coinMusicalGenreChoose,
+            coinsInterests: _.sum([
+                coinMusicalGenreChoose,
                 coinSportsChoose,
                 coinCategoryPrizeChoose,
                 coinCategoryContestChoose,

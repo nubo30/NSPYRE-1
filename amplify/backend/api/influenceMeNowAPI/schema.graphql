@@ -245,7 +245,7 @@ type AboutThePersonality {
   amountOfSimblings: String
   birthDate: AWSDateTime
   gender: String
-  location: LocationEngage
+  location: Location
   maritalStatus: String
   nacionality: String
   parentalCondition: String
@@ -253,20 +253,6 @@ type AboutThePersonality {
   sexuality: String
 }
 
-type LocationEngage{
-  born: Born
-  currentPlace: CurrentPlace
-}
-
-type Born {
-  city: String
-  country: String
-}
-
-type CurrentPlace {
-  city: String
-  country: String
-}
 
 type Interests {
   categoryContest: [String]
