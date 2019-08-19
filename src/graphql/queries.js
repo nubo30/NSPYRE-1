@@ -5,6 +5,10 @@ export const showParticipationByUser = `query ShowParticipationByUser($userId: S
   showParticipationByUser(userId: $userId)
 }
 `;
+export const filterAudienceForContest = `query FilterAudienceForContest($preferences: String!) {
+  filterAudienceForContest(preferences: $preferences)
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
