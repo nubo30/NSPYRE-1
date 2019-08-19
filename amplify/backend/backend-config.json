@@ -8,11 +8,5 @@
 			}
 		}
 	},
-	"function": {
-		"showParticipationByUser": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		}
-	}
+	"function": {}
 }

@@ -266,5 +266,5 @@ type Interests {
 ####################################### [QUERYS] ##########################################
 
 type Query {
-  showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser-${env}")
+  showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser")
 }
