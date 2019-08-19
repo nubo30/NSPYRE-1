@@ -99,7 +99,7 @@ class AboutYou extends Component {
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
         const { location, companyName, titleInTheCompany } = this.state
-        const data = { aboutTheUser: { location, companyName, titleInTheCompany }, createContestUserId: userData.sub, createdAt: moment().toISOString() }
+        const data = { aboutTheUser: { location, companyName, titleInTheCompany }, createContestUserId: userData.id, createdAt: moment().toISOString() }
         try {
             await _dataFromForms(data)
             await _indexChangeSwiper(1)
@@ -230,7 +230,7 @@ class AboutYou extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
+                                            <Text>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -245,7 +245,7 @@ class AboutYou extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && userData.phone_number}</Text>
+                                            <Text>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -602,6 +602,7 @@ class AboutYou extends Component {
                         </Grid>
 
                     </KeyboardAvoidingView>
+         
                 </Modal>
 
                 {/* COMPANY NAME */}

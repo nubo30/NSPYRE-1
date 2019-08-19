@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, Keyboard } from 'react-native'
 import { Facebook } from 'expo';
-import { Auth } from 'aws-amplify'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Button, Icon, Text, List, ListItem, View, Spinner, Input } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
@@ -15,6 +15,10 @@ import CodeInput from 'react-native-confirmation-code-input';
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
 
+const facebookAppid = "884636148579880"
+
+// GRPAHQL
+import * as queries from '../../../src/graphql/queries'
 
 class Login extends Component {
     state = {
@@ -23,6 +27,7 @@ class Login extends Component {
         eyeAction: false,
         messageFlash: { cognito: null },
         isLoading: false,
+        isLoadingFb: false,
         wrongLoginAnimation: false,
         user: {}
     }
@@ -33,16 +38,16 @@ class Login extends Component {
     }
 
     _submit = async () => {
+        this.setState({ isLoading: true })
         const { numberPhoneState, password } = this.state
         const { numberPhone } = this.props
         try {
             const user = await Auth.signIn({ username: numberPhoneState ? numberPhoneState : numberPhone, password })
             if (user.challengeName === 'SMS_MFA') { this.setState({ user }) }
             this._changeSwiper(1)
+            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error }, isLoading: false })
         } catch (error) {
-            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error } })
-        } finally {
-            this.setState({ isLoading: false })
+            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error }, isLoading: false })
         }
     }
 
@@ -62,28 +67,38 @@ class Login extends Component {
         }
     }
 
-    _openBroweserForLoginWithSocialNetworks = () => {
-        // WebBrowser.openBrowserAsync('https://expo.io');
-        this.signIn()
-    }
-
-    async signIn() {
-        const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync('884636148579880', {
-            permissions: ['public_profile'],
-        });
-        if (type === 'success') {
-            // sign in with federated identity
-            Auth.federatedSignIn('facebook', { token, expires_at: expires }, { name: '+18293598098' })
-                .then(credentials => {
-                    console.log('get aws credentials', credentials);
-                }).catch(e => {
-                    console.log(e);
-                });
+    async _openBroweserForLoginWithFacebook() {
+        const { _changeSwiperRoot, _activateNumberPhone, navigation, _moreUserData } = this.props
+        try {
+            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(facebookAppid, { permissions: ['public_profile'] });
+            if (type === 'success') {
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name`);
+                const { email, name, picture, id, last_name } = await response.json()
+                this.setState({ isLoadingFb: true })
+                await Auth.federatedSignIn('facebook', { token, expires_at: expires })
+                    .then(credentials => {
+                        const input = { email, name, avatar: picture.data.url, id: credentials._identityId, last_name }
+                        API.graphql(graphqlOperation(queries.getUser, { id: credentials._identityId })).then(({ data }) => {
+                            if (data.getUser === null) {
+                                _moreUserData(input)
+                                _activateNumberPhone(true)
+                                _changeSwiperRoot(1)
+                                this.setState({ isLoadingFb: false })
+                            } else {
+                                navigation.navigate('Home')
+                            }
+                        }).catch((e) => console.log('Error', e))
+                    }).catch(e => {
+                        console.log(e);
+                    });
+            }
+        } catch ({ message }) {
+            alert(`Facebook Login Error: ${message}`);
         }
     }
 
     render() {
-        const { numberPhoneState, password, eyeAction, messageFlash, isLoading, wrongLoginAnimation } = this.state
+        const { numberPhoneState, password, eyeAction, messageFlash, isLoading, isLoadingFb, wrongLoginAnimation } = this.state
         const { numberPhone } = this.props
 
         return (
@@ -150,13 +165,21 @@ class Login extends Component {
                         </Row>
                         <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
                             <Button
-                                onPress={() => this._openBroweserForLoginWithSocialNetworks()}
-                                style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#FFF', top: -10, shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1 }}>
-                                <Icon name='logo-facebook' style={{ color: "#3b5998" }} />
-                                <Icon name='logo-twitter' style={{ color: "#38A1F3" }} />
-                                <Icon name='logo-instagram' style={{ color: "#cd486b" }} />
-                                <Icon name='logo-snapchat' style={{ color: "#FFEA00" }} />
+                                onPress={() => this._openBroweserForLoginWithFacebook()}
+                                iconRight style={{
+                                    top: -10,
+                                    width: "100%",
+                                    alignSelf: 'flex-end',
+                                    backgroundColor: '#3b5998',
+                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', flex: 1, paddingLeft: 15 }}>
+                                    <Icon name='logo-facebook' style={{ color: "#FFF", fontSize: wp(8) }} />
+                                    <Text style={{ left: 10, color: '#FFF' }}>Continue with facebook</Text>
+                                </View>
+                                {isLoadingFb ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                             </Button>
+
                             <Animatable.View
                                 animation={wrongLoginAnimation ? "shake" : undefined}
                                 onAnimationEnd={() => this.setState({ wrongLoginAnimation: false })}
@@ -166,7 +189,7 @@ class Login extends Component {
                                     shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button
-                                    onPressIn={() => this.setState({ isLoading: true })}
+                                    disable={isLoadingFb || isLoading}
                                     onPress={() => this._submit()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
                                     <Text style={{ fontWeight: 'bold' }}>Submit</Text>
@@ -175,6 +198,7 @@ class Login extends Component {
                             </Animatable.View>
                         </Row>
                     </Grid>
+
                     <Grid>
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                             <Text style={{ color: "#333", fontSize: wp(8), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>

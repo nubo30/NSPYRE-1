@@ -560,11 +560,11 @@ export default class ContestDataStatistics extends Component {
 
                                     </Collapse>
                                 )}
-                                keyExtractor={item => item} />
-                            : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, height: 200 }}>
+                                keyExtractor={item => item.toString()} />
+                            : <View style={{ alignItems: 'center', flex: 1, height: 200, top: 50 }}>
                                 <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: 'bold' }}>You don't have a selected audience yet</Text>
                                 <Button
-                                    onPress={() => _setModalVisibleAudience(true, false)}
+                                    onPress={() => { this.setState({ modalVisibleShowTags: false }); _setModalVisibleAudience(true, false) }}
                                     small style={{ alignSelf: 'center', backgroundColor: '#E91E63', top: 10 }}>
                                     <Text>Create one now!</Text>
                                 </Button>

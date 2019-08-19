@@ -32,7 +32,7 @@ class Summary extends Component {
 
     _submit = async () => {
         this.setState({ isLoading: true })
-        const { navigation, userData, userDataAPI, prize } = this.props
+        const { navigation, userData, prize } = this.props
 
         AWS.config.update({
             accessKeyId: "AKIAIQA34573X4TITQEQ",
@@ -63,9 +63,9 @@ class Summary extends Component {
             await Storage.put(`users/${userData.email}/prize/pictures/owner/${prize.general.picture.name}`, blobPicture, { contentType: prize.general.picture.type })
             await Storage.put(`users/${userData.email}/prize/videos/owner/${prize.general.video.name}`, blobVideo, { contentType: prize.general.video.type })
             await API.graphql(graphqlOperation(mutations.createSubmitPrize, { input: prize }))
-            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.sub } }))
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             navigation.navigate("AboutThePrize", {
-                prize: Object.assign(prize, { user: { name: userData.name, avatar: userDataAPI.avatar } }),
+                prize: Object.assign(prize, { user: { name: userData.name, avatar: userData.avatar } }),
                 fromWhere: 'fromSubmitPrize',
                 userData
             })
@@ -140,7 +140,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.middle_name}</Text>
+                                                <Text>{userData.lastname}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -155,7 +155,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.phone_number}</Text>
+                                                <Text>{userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 

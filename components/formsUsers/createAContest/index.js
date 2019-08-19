@@ -20,14 +20,13 @@ export default class CreateContest extends Component {
         wantSuggestedFields: false,
         contest: {},
     }
-
     async componentDidMount() {
         try {
-            const { attributes } = await Auth.currentUserInfo()
-            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
-            await this.setState({ userData: attributes, dataFromThePreviousContest: _.last(data.getUser.createContest.items) })
-            await data.getUser.createContest.items.length ? Alert.alert(
-                `${attributes.name}`,
+            const data = await Auth.currentAuthenticatedUser()
+            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
+            await this.setState({ userData: userData.data.getUser, dataFromThePreviousContest: _.last(userData.data.getUser.createContest.items) })
+            await userData.data.getUser.createContest.items.length ? Alert.alert(
+                `${userData.data.getUser.name}`,
                 'We have seen that this is not your first contest, do you want to fill in the suggested fields?',
                 [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
             ) : null
@@ -48,7 +47,7 @@ export default class CreateContest extends Component {
     }
 
     render() {
-        const { contest,  userData, dataFromThePreviousContest, wantSuggestedFields } = this.state
+        const { contest, userData, dataFromThePreviousContest, wantSuggestedFields } = this.state
         return (
             <Swiper
                 scrollEnabled={false}

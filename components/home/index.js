@@ -60,8 +60,8 @@ class Home extends Component {
 
     getDataFromAWS = async () => {
         try {
-            const data = await Auth.currentSession()
-            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.idToken.payload.sub }))
+            const data = await Auth.currentAuthenticatedUser()
+            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
             this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items })
         } catch (error) {

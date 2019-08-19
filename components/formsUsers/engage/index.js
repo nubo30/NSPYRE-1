@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Auth } from 'aws-amplify'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
@@ -8,6 +8,9 @@ import AboutThePersonality from './views/aboutThePersonality'
 import AbouttheirOccupations from './views/aboutTheirOccupations'
 import Interests from './views/interests'
 import Summary from './views/summary'
+
+// Grapql
+import * as queries from '../../../src/graphql/queries'
 
 export default class SubmitPrize extends Component {
     state = {
@@ -18,8 +21,9 @@ export default class SubmitPrize extends Component {
 
     async componentDidMount() {
         try {
-            const { attributes } = await Auth.currentUserInfo()
-            this.setState({ userData: attributes })
+            const data = await Auth.currentAuthenticatedUser()
+            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
+            this.setState({ userData: userData.data.getUser })
         } catch (error) {
             alert(error)
         }
@@ -42,7 +46,6 @@ export default class SubmitPrize extends Component {
                 scrollEnabled={false}
                 ref={(swiper) => this.swiper = swiper}
                 loop={false} showsButtons={false} showsPagination={false}>
-
                 {/* ABOUT THE PERSONALITY*/}
                 <AboutThePersonality
                     userData={userData}

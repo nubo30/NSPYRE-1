@@ -36,8 +36,9 @@ const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 75 : 73;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
+let subscription
+
 class ShowContest extends Component {
-    static navigationOptions = { header: null }
     constructor(props) {
         super(props);
         this.state = {
@@ -77,7 +78,7 @@ class ShowContest extends Component {
                 null
         }
 
-        API.graphql(graphqlOperation(subscriptions.onUpdateCreateContest)).subscribe({
+        subscription = API.graphql(graphqlOperation(subscriptions.onUpdateCreateContest)).subscribe({
             next: (getData) => {
                 const contest = getData.value.data.onUpdateCreateContest
                 this.setState({ contest })
@@ -85,13 +86,17 @@ class ShowContest extends Component {
         })
     }
 
+    componentWillUnmount() {
+        subscription.unsubscribe();
+    }
+
     getContestFromAWS = async () => {
         const { navigation } = this.props
         const contest = navigation.getParam('contest');
         try {
-            const { attributes } = await Auth.currentUserInfo()
-            const { data } = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
-            this.setState({ contest: data.getCreateContest, userLogin: attributes.sub === contest.user.id ? true : false })
+            const data = await Auth.currentAuthenticatedUser()
+            const dataContest = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
+            this.setState({ contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id ? true : false })
         } catch (error) {
             console.log(error);
         }
@@ -386,7 +391,7 @@ class ShowContest extends Component {
                         />
                     </View> : null}
             </Swiper>
-        );
+        )
     }
 }
 

@@ -94,7 +94,7 @@ class Summary extends Component {
             })
 
             const newContest = await API.graphql(graphqlOperation(mutations.createCreateContest, { input: contest }))
-            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.sub } }))
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             navigation.navigate("AboutContest", {
                 contest: newContest.data.createCreateContest,
                 fromWhere: 'createContest',
@@ -172,7 +172,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.middle_name}</Text>
+                                                <Text>{userData.lastname}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -187,7 +187,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.phone_number}</Text>
+                                                <Text>{userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 

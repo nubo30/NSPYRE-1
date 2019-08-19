@@ -149,7 +149,6 @@ export default class Prizes extends Component {
             )
         } catch (error) {
             console.log(error)
-        } finally {
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
         }
     }

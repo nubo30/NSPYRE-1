@@ -31,14 +31,13 @@ class Summary extends Component {
     _submit = async () => {
         this.setState({ isLoading: true })
         const { navigation, userData, engage, coins } = this.props
-        const coinsUser = navigation.getParam('userData')
         try {
             await API.graphql(graphqlOperation(mutations.createEngage, { input: engage }))
             await API.graphql(graphqlOperation(mutations.updateUser, {
                 input:
                 {
-                    id: userData.sub,
-                    coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, coinsUser.coins])
+                    id: userData.id,
+                    coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, userData.coins])
                 }
             }))
             this.setState({ isLoading: false })
@@ -115,7 +114,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.middle_name}</Text>
+                                                <Text>{userData.lastname}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -130,7 +129,7 @@ class Summary extends Component {
                                                 <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.phone_number}</Text>
+                                                <Text>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 

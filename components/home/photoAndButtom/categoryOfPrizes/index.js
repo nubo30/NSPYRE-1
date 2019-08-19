@@ -83,7 +83,7 @@ class ListGeneralPrizes extends Component {
                         </Content>
                     </Tab>
                     <Tab
-                        heading="Yours"
+                        heading="Created"
                         activeTextStyle={{ color: '#D81B60' }}
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}

@@ -141,7 +141,7 @@ class AboutThePersonality extends Component {
         }
         const data = {
             aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren },
-            engageUserId: userData.sub, createdAt: moment().toISOString()
+            engageUserId: userData.id, createdAt: moment().toISOString()
         }
         try {
             await _dataFromForms(data, dataCoins)
@@ -307,7 +307,7 @@ class AboutThePersonality extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
+                                            <Text>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -322,7 +322,7 @@ class AboutThePersonality extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && userData.phone_number}</Text>
+                                            <Text>{userData && userData.phone === null ? 'Not Specified' :userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 

@@ -23,6 +23,7 @@ export default class MoreAboutTheUser extends Component {
         lastname: "",
         username: "",
         email: "",
+        avatar: null,
         messageFlash: { cognito: null },
         isLoading: false,
         invalidFormAnimation: false,
@@ -37,21 +38,33 @@ export default class MoreAboutTheUser extends Component {
 
 
     _submitInformationAboutTheUser = async () => {
-        const { name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
-        const { _changeSwiperRoot, _moreUserData } = this.props
-        const input = { name, lastname, email, username: username, datetime: moment().toISOString() }
+        const { avatar, name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
+        const { _changeSwiperRoot, _moreUserData, moreUserData } = this.props
+        const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
         try {
-            let user = await Auth.currentAuthenticatedUser();
-            await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
-            await Object.assign(input, {
-                id: user.attributes.sub,
-                userId: user.attributes.sub,
-                phone: user.attributes.phone_number,
-                coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
-            })
-            await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
-            _moreUserData(input)
-            _changeSwiperRoot(1)
+            const user = await Auth.currentAuthenticatedUser();
+            if (avatar === null) {
+                await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
+                await Object.assign(input, {
+                    id: user.attributes.sub,
+                    userId: user.attributes.sub,
+                    phone: user.attributes.phone_number,
+                    coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
+                })
+                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
+                _moreUserData(input)
+                _changeSwiperRoot(1)
+            } else {
+                await Object.assign(input, {
+                    id: user.id,
+                    userId: user.id,
+                    phone: null,
+                    coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
+                })
+                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
+                _moreUserData(input)
+                _changeSwiperRoot(1)
+            }
         } catch (e) {
             console.log(e)
             this.setState({ isLoading: false })
@@ -61,8 +74,10 @@ export default class MoreAboutTheUser extends Component {
     _validateForm = () => {
         this.setState({ isLoading: true })
         const { name, lastname, username, email } = this.state
-        isAlpha(name)
-            ? isAlpha(lastname)
+        const regName = /^[a-zA-Z0 ]*$/gm
+        const regLast_Name = /^[a-zA-Z0 ]*$/gm
+        regName.test(name)
+            ? regLast_Name.test(lastname)
                 ? isAlphanumeric(username)
                     ? isEmail(email)
                         ? this._submitInformationAboutTheUser()
@@ -86,6 +101,19 @@ export default class MoreAboutTheUser extends Component {
                 isLoading: false,
                 messageFlash: { cognito: { message: "Invalid name" } }
             })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { moreUserData } = nextProps
+        this.setState({
+            name: moreUserData.name,
+            lastname: moreUserData.last_name,
+            email: moreUserData.email,
+            avatar: moreUserData.avatar,
+            pointsForTheName: 50,
+            pointsForTheLastName: 50,
+            pointsForTheEmail: 60,
+        })
     }
 
     render() {
@@ -132,9 +160,9 @@ export default class MoreAboutTheUser extends Component {
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
                                             value={name}
-                                            onEndEditing={() => isAlpha(name) ? this.setState({ pointsForTheName: 50 }) : this.setState({ pointsForTheName: 0 })}
+                                            onEndEditing={() => name ? this.setState({ pointsForTheName: 50 }) : this.setState({ pointsForTheName: 0 })}
                                             onChangeText={(value) => {
-                                                isAlpha(value)
+                                                value
                                                     ? this.setState({ name: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ name: value, messageFlash: { cognito: { message: value + " invalid name" } } })
                                             }}
@@ -150,9 +178,9 @@ export default class MoreAboutTheUser extends Component {
                                         <Text style={{ fontSize: wp(7), color: '#E0E0E0' }}></Text>
                                         <Input
                                             value={lastname}
-                                            onEndEditing={() => isAlpha(lastname) ? this.setState({ pointsForTheLastName: 50 }) : this.setState({ pointsForTheLastName: 0 })}
+                                            onEndEditing={() => lastname ? this.setState({ pointsForTheLastName: 50 }) : this.setState({ pointsForTheLastName: 0 })}
                                             onChangeText={(value) => {
-                                                isAlpha(value)
+                                                value
                                                     ? this.setState({ lastname: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ lastname: value, messageFlash: { cognito: { message: value + " invalid lastname" } } })
                                             }}

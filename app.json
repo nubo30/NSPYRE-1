@@ -4,7 +4,6 @@
     "slug": "influence-me-now",
     "privacy": "public",
     "sdkVersion": "32.0.0",
-    "scheme": "myapp",
     "platforms": [
       "ios",
       "android"

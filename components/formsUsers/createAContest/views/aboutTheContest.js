@@ -7,10 +7,6 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 
-// Static Data
-import { categoryContestList } from '../../../Global/data/index'
-
-// Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
 

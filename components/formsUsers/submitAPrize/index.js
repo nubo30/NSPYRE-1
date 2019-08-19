@@ -15,7 +15,6 @@ import * as queries from '../../../src/graphql/queries'
 export default class SubmitPrize extends Component {
     state = {
         userData: {},
-        userDataAPI: {},
         prize: {},
         dataFromThePreviousSubmitPrize: {},
         wantSuggestedFields: false,
@@ -23,13 +22,13 @@ export default class SubmitPrize extends Component {
 
     async componentDidMount() {
         try {
-            const { attributes } = await Auth.currentUserInfo()
-            const userDataAPI = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
-            this.setState({ userData: attributes, userDataAPI: userDataAPI.data.getUser, dataFromThePreviousSubmitPrize: _.last(userDataAPI.data.getUser.submitPrize.items) })
-            await userDataAPI.data.getUser.submitPrize.items.length ? Alert.alert(
-                `${attributes.name}`,
+            const data = await Auth.currentAuthenticatedUser()
+            const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
+            this.setState({ userData: userData.data.getUser, dataFromThePreviousSubmitPrize: _.last(userData.data.getUser.submitPrize.items) })
+            await userData.data.getUser.submitPrize.items.length ? Alert.alert(
+                `${userData.data.getUser.name}`,
                 'We have seen that this is not your first prize, do you want to fill in the suggested fields?',
-                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
+                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } }], { cancelable: false },
             ) : null
         } catch (error) {
             alert(error)
@@ -46,7 +45,7 @@ export default class SubmitPrize extends Component {
     }
 
     render() {
-        const { prize, userData, userDataAPI, dataFromThePreviousSubmitPrize, wantSuggestedFields } = this.state
+        const { prize, userData, dataFromThePreviousSubmitPrize, wantSuggestedFields } = this.state
         return (
             <Swiper
                 scrollEnabled={false}
@@ -83,13 +82,12 @@ export default class SubmitPrize extends Component {
 
                     // Actions
                     wantSuggestedFields={wantSuggestedFields}
-                    
+
                     _dataFromForms={this._dataFromForms}
                     _indexChangeSwiper={this._indexChangeSwiper} />
 
                 {/* Summary */}
                 <Summary
-                    userDataAPI={userDataAPI}
                     userData={userData}
                     prize={prize}
                     _indexChangeSwiper={this._indexChangeSwiper} />

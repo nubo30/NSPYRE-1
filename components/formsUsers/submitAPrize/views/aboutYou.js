@@ -17,6 +17,9 @@ import { MyStatusBar } from '../../../Global/statusBar/index'
 // Icons
 import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'
 
+// Countries data
+import countries from '../../../../assets/data/countries.json'
+
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
@@ -25,7 +28,7 @@ class AboutYou extends Component {
         // Inputs
         businessLocation: {
             street: "",
-            state: "",
+            state: "Not specified",
             city: "Not specified",
             country: "Not specified"
         },
@@ -41,6 +44,10 @@ class AboutYou extends Component {
         isLoading: false,
         messageFlash: { cognito: null },
 
+        inputTextTitleIntheCompany: "",
+        inputTextCountry: "",
+        inputTextCities: "",
+
         // Modal
         visibleModalBusinessLocation: false,
         visibleModalCompanyname: false,
@@ -48,6 +55,7 @@ class AboutYou extends Component {
 
         // Data API
         listCountries: [],
+        listRegions: [],
         listCities: []
     }
 
@@ -56,23 +64,34 @@ class AboutYou extends Component {
         this._getCountry()
     }
 
+    _getCountry = async () => {
+        this.setState({ listCountries: countries.map(item => item.name) })
+    }
+
+
     componentWillUpdate(nextProps, nextState) {
-        if (nextState.businessLocation.country !== this.state.businessLocation.country) {
-            this._getCity(nextState.businessLocation.country)
+        if (nextState.businessLocation.country !== this.state.businessLocation.country) { this._getRegions(nextState.businessLocation.country) }
+        if (nextState.businessLocation.state !== this.state.businessLocation.state) { this._getCities(nextState.businessLocation.state) }
+    }
+    _getRegions = async (country) => {
+        let regions = []; regions = countries.filter(item => item.name.indexOf(country) !== -1)
+        if (regions.length !== 0) {
+            this.setState({
+                listRegions: regions[0].states.map(items => items),
+            })
         }
     }
 
-    _getCountry = async () => {
-        const { data } = await axios.get('http://battuta.medunes.net/api/country/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8')
-        this.setState({ listCountries: data })
-    }
-
-    _getCity = async (country) => {
-        const { listCountries } = this.state
-        let filterCountries = []; filterCountries = listCountries.filter((item) => { return item.name.indexOf(country) !== -1 })
-        if (filterCountries.length !== 0) {
-            const { data } = await axios.get(`http://battuta.medunes.net/api/region/${filterCountries[0].code}/all/?key=f011d84c6f4d9ff4ead6bf9d380ecef8`)
-            this.setState({ listCities: data })
+    _getCities = async (region) => {
+        if (this.state.listRegions.length !== 0) {
+            const cities = this.state.listRegions.map(items => items.cities)
+            const getcities = cities.map(item => item.map(items => items))
+            const filterCities = getcities.map(item => item.filter(items => items.region.indexOf(region) !== -1))
+            const citiesConvert = filterCities.map(item => item.length ? item : "")
+            const citiesChoose = citiesConvert.filter(items => items !== "")
+            this.setState({
+                listCities: citiesChoose[0]
+            })
         }
     }
 
@@ -86,7 +105,7 @@ class AboutYou extends Component {
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
         const { businessLocation, companyName, socialMediaHandle } = this.state
-        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.sub, createdAt: moment().toISOString() }
+        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.id, createdAt: moment().toISOString() }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
@@ -144,6 +163,10 @@ class AboutYou extends Component {
             companyName,
             socialMediaHandle,
 
+            inputTextRegions,
+            inputTextCountry,
+            inputTextCities,
+
             // modal
             visibleModalBusinessLocation,
             visibleModalCompanyname,
@@ -151,9 +174,13 @@ class AboutYou extends Component {
 
             // Data API
             listCountries,
+            listRegions,
             listCities
         } = this.state
         const { userData, navigation } = this.props
+        let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(_.lowerCase(inputTextRegions)) !== -1 })
+        let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextCountry)) !== -1 })
+        let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(_.lowerCase(inputTextCities)) !== -1 })
         return (
             <Container>
                 <GadrientsAuth />
@@ -214,7 +241,7 @@ class AboutYou extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && _.startCase(_.lowerCase(userData.middle_name))}</Text>
+                                            <Text>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -229,7 +256,7 @@ class AboutYou extends Component {
                                             <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && userData.phone_number}</Text>
+                                            <Text>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -252,14 +279,14 @@ class AboutYou extends Component {
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalBusinessLocation(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }} onPress={() => this._visibleModalBusinessLocation(true)}>
-                                                <Entypo style={{ fontSize: wp(6), color: '#FFF' }} active name="location-pin" />
+                                                <Icon type="Entypo" name="location-pin" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Business location</Text>
+                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Business businessLocation</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country && businessLocation.city && businessLocation.state && businessLocation.country ? "Specified" : "Not specified"}</Text>
+                                            <Text>{businessLocation.street && businessLocation.city && businessLocation.country && businessLocation.state ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -359,10 +386,8 @@ class AboutYou extends Component {
                             <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
                         </Header>
 
-                        {/* LOCATION */}
-
                         {/* STREET */}
-                        <ListItem icon>
+                        <ListItem icon last>
                             <Left>
                                 <Button style={{ backgroundColor: "#90A4AE" }}>
                                     <Icon type="FontAwesome" name="road" />
@@ -382,30 +407,9 @@ class AboutYou extends Component {
                             <Right />
                         </ListItem>
 
-                        {/* STATE */}
-                        <ListItem last icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#616161" }}>
-                                    <Icon type="Foundation" name="map" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Input
-                                    placeholder="Your state"
-                                    placeholderTextColor="#EEEE"
-                                    maxLength={512}
-                                    value={businessLocation.state}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    onChangeText={(value) => this.setState({ businessLocation: { ...businessLocation, state: value } })} />
-                            </Body>
-                            <Right />
-                        </ListItem>
-
                         <Separator bordered style={{ maxHeight: 40 }} />
 
-
-                        {/* COUNTRY */}
+                        {/* COUNTRIES */}
                         <ListItem icon>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
@@ -423,13 +427,78 @@ class AboutYou extends Component {
                             style={{ position: 'absolute', bottom: 0, width: '100%' }}
                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                             mode="dropdown"
-                            iosHeader="SELECT COUNTRY"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listCountries.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextCountry}
+                                                onChangeText={(value) => this.setState({ inputTextCountry: value })} />
+                                            <Icon type="MaterialCommunityIcons" name="earth" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
+                                        </Item>}
+                                </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                             selectedValue={businessLocation.country}
                             onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, country: value } })}>
-                            {listCountries.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                            {filterCounttriesList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                        </Picker>
+
+
+                        {/* STATES */}
+                        <ListItem icon>
+                            <Left>
+                                <Button style={{ backgroundColor: "#27ae60" }}>
+                                    <Icon type="Foundation" name="map" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={{ color: '#333' }}>State</Text>
+                            </Body>
+                            <Right>
+                                <Text>{businessLocation.state !== "Not specified" ? businessLocation.state : 'Not specified'}</Text>
+                            </Right>
+                        </ListItem>
+                        <Picker
+                            style={{ position: 'absolute', bottom: 0, width: '100%' }}
+                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                            mode="dropdown"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listRegions.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextRegions}
+                                                onChangeText={(value) => this.setState({ inputTextRegions: value })} />
+                                            <Icon type="Foundation" name="map" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                        </Item>}
+                                </Header>}
+                            iosHeader="SELECT REGION"
+                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                            headerTitleStyle={{ color: "#D81B60" }}
+                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                            selectedValue={businessLocation.state}
+                            onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, state: value } })}>
+                            {filterRegionList.length
+                                ? filterRegionList.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)
+                                : null}
                         </Picker>
 
                         {/* CITIES */}
@@ -450,13 +519,32 @@ class AboutYou extends Component {
                             style={{ position: 'absolute', bottom: 0, width: '100%' }}
                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                             mode="dropdown"
-                            iosHeader="SELECT CITY"
+                            renderHeader={backAction =>
+                                <Header searchBar transparent rounded style={{ left: -20 }}>
+                                    <Button transparent small onPress={backAction}>
+                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                    </Button>
+                                    {listCities && listCities.length
+                                        ? <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                            <Icon name="ios-search" />
+                                            <Input
+                                                placeholder="Filter"
+                                                value={inputTextCities}
+                                                onChangeText={(value) => this.setState({ inputTextCities: value })} />
+                                            <Icon type="MaterialIcons" name="location-city" style={{ fontSize: wp(4) }} />
+                                        </Item>
+                                        : <Item style={{ backgroundColor: '#FFF' }}>
+                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
+                                        </Item>}
+                                </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
                             headerTitleStyle={{ color: "#D81B60" }}
                             headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                             selectedValue={businessLocation.city}
                             onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, city: value } })}>
-                            {listCities.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)}
+                            {filterCitiesList && filterCitiesList.length
+                                ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
+                                : null}
                         </Picker>
 
                         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -467,7 +555,7 @@ class AboutYou extends Component {
                                         this.setState({
                                             businessLocation: {
                                                 street: "",
-                                                state: "",
+                                                state: "Not specified",
                                                 city: "Not specified",
                                                 country: "Not specified"
                                             }
@@ -483,17 +571,21 @@ class AboutYou extends Component {
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
                                 <Button
                                     bordered
-                                    disabled={businessLocation.street && businessLocation.city !== "Not specified" && businessLocation.state !== "" && businessLocation.country !== "Not specified" ? false : true}
-                                    onPress={() => this._visibleModalBusinessLocation(false)}
+                                    disabled={businessLocation.street !== "" && businessLocation.city !== "Not specified" && businessLocation.state !== "Not specified" && businessLocation.country !== "Not specified" ? false : true}
+                                    onPress={() => {
+                                        this._visibleModalBusinessLocation(false);
+                                    }}
                                     style={{
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: businessLocation.street && businessLocation.city !== "Not specified" && businessLocation.state !== "" && businessLocation.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text style={{ color: businessLocation.street && businessLocation.city !== "Not specified" && businessLocation.state !== "Not specified" && businessLocation.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
+
                     </KeyboardAvoidingView>
+
                 </Modal>
 
                 {/* COMPANY NAME */}

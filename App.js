@@ -6,13 +6,26 @@ import { Provider } from 'react-redux'
 import { Root, Toast } from "native-base";
 import thunk from "redux-thunk"
 import Sentry from 'sentry-expo';
-import { AppLoading } from "expo";
+import { AppLoading, WebBrowser } from "expo";
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 // import awsconfig from './aws-exports'
 
 // Sentry config
 Sentry.enableInExpoDevelopment = false;
 Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
+
+const urlOpener = async (url, redirectUrl) => {
+    // On Expo, use WebBrowser.openAuthSessionAsync to open the Hosted UI pages.
+    const { type, url: newUrl } = await WebBrowser.openAuthSessionAsync(url, redirectUrl);
+
+    if (type === 'success') {
+        await WebBrowser.dismissBrowser();
+
+        if (Platform.OS === 'ios') {
+            return Linking.openURL(newUrl);
+        }
+    }
+};
 
 // Amplify config
 Amplify.configure({
@@ -116,12 +129,11 @@ const AppContainer = createAppContainer(createSwitchNavigator({
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
 
-export default class App extends Component {
-
+class App extends Component {
     componentDidMount() {
         // Subscribe to the network
         NetInfo.addEventListener('connectionChange', (connectionInfo) => {
-            if (connectionInfo.type === 'none') { 
+            if (connectionInfo.type === 'none') {
                 store.dispatch(networkStatusOffline())
                 Toast.show({ text: "There is no network connection.", type: "warning", duration: 5000 })
             } else {
@@ -131,7 +143,7 @@ export default class App extends Component {
     }
 
     componentWillUnmount() {
-        NetInfo.removeEventListener('connectionChange', () => {});
+        NetInfo.removeEventListener('connectionChange', () => { });
     }
 
     render() {
@@ -144,3 +156,5 @@ export default class App extends Component {
         )
     }
 }
+
+export default App

@@ -53,7 +53,9 @@ export default class Auth extends Component {
     }
 
     // Datos como el nombre, apellido, usuario y email
-    _moreUserData = (moreUserData) => { this.setState({ moreUserData }) }
+    _moreUserData = (moreUserData) => {
+        this.setState({ moreUserData })
+    }
 
     // ID para API
     _userData = (userData) => { this.setState({ userData }) }
@@ -66,7 +68,7 @@ export default class Auth extends Component {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, indexSwiper, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         return (
             <Swiper
-                scrollEnabled={false}
+                scrollEnabled={true}
                 ref={(swiper) => this.swiperRoot = swiper}
                 onIndexChanged={(index) => { this.setState({ indexSwiperRoot: index, validateNumberButtom: true }); Keyboard.dismiss() }}
                 showsPagination={false}
@@ -96,7 +98,7 @@ export default class Auth extends Component {
                         dotColor="#EEEEEE"
                         showsButtons={false}>
                         <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
-                        <LoginWithPhoneEmail hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                        <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
                     </Swiper>
                     <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <Button iconLeft disabled={indexSwiper === 0 ? true : false} transparent onPressIn={() => this._changeSwiper(-1)} style={{ left: -10 }}>
@@ -116,7 +118,7 @@ export default class Auth extends Component {
                         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                         <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                         <GadrientsAuth />
-                        <MoreAboutTheUser userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
+                        <MoreAboutTheUser moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
                     </Container>
                     : <Container>
                         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
@@ -142,7 +144,7 @@ export default class Auth extends Component {
                         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                         <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                         <GadrientsAuth />
-                        <MoreAboutTheUser userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
+                        <MoreAboutTheUser moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
                     </Container>}
 
                 {/* Action of user */}

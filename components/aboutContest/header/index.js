@@ -8,9 +8,12 @@ import moment from 'moment'
 
 // This is a header of Scene 'About the contestes'
 class HeaderContest extends Component {
-    state = { isFinishedContest: false }
+    state = { isFinishedContest: false, isCounterPause: true }
+
+    componentWillUnmount() { this.setState({ isCounterPause: false }) }
+
     render() {
-        const { isFinishedContest } = this.state
+        const { isFinishedContest, isCounterPause } = this.state
         const { contest, navigation } = this.props
         return (
             <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: 70 }}>
@@ -41,9 +44,7 @@ class HeaderContest extends Component {
                         contest.timer === null
                             ? null
                             : new Date(contest.timer) < new Date()
-                                ? <View style={{
-                                    left: 15
-                                }}>
+                                ? <View style={{ left: 15 }}>
                                     <View style={{
                                         borderRadius: 10,
                                         padding: 10,
@@ -55,6 +56,7 @@ class HeaderContest extends Component {
                                         <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
                                     </View>
                                 </View> : <CountDown
+                                    running={isCounterPause}
                                     style={{ left: 15 }}
                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
                                     digitTxtStyle={{ color: '#FFF' }}

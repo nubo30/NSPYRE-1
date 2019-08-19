@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { API, graphqlOperation } from 'aws-amplify'
-import { Text, List, ListItem, Button, Icon, Spinner, CheckBox, Body} from 'native-base';
+import { Text, List, ListItem, Button, Icon, Spinner, CheckBox, Body } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import * as Animatable from 'react-native-animatable';
@@ -43,22 +43,22 @@ class Scope extends Component {
     }
 
     _submit = async () => {
+        this.setState({ isLoading: true })
         const { scope } = this.state
         const { moreUserData, navigation } = this.props
-        try {
-            await API.graphql(graphqlOperation(mutations.updateUser, {
-                input: {
-                    id: moreUserData.userId,
-                    scope: _.replace(_.upperCase(scope), " ", "")
-                }
-            }))
-            await navigation.navigate(_.replace(_.startCase(scope), " ", ""))
-        } catch (error) {
-            console.log(error)
-            this.setState({ scopeAnimation: true })
-        } finally {
-            this.setState({ isLoading: false })
-        }
+        navigation.navigate("Home")
+        // try {
+        //     await API.graphql(graphqlOperation(mutations.updateUser, {
+        //         input: {
+        //             id: moreUserData.userId,
+        //             scope: _.replace(_.upperCase(scope), " ", "")
+        //         }
+        //     }))
+        //     await navigation.navigate(_.replace(_.startCase(scope), " ", ""))
+        // } catch (error) {
+        //     console.log(error)
+        //     this.setState({ scopeAnimation: true, isLoading: false })
+        // }
     }
 
     render() {
@@ -118,7 +118,6 @@ class Scope extends Component {
                                 }}>
                                 <Button
                                     iconLeft
-                                    onPressIn={() => this.setState({ isLoading: true })}
                                     onPress={scope ? () => this._submit() : () => this._scopeSelect()}
                                     style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
                                     <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>

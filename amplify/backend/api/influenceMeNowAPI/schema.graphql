@@ -7,7 +7,7 @@ type User @model{
   lastname: String
   email: AWSEmail!
   avatar: AWSURL
-  phone: AWSPhone!
+  phone: AWSPhone
   datetime: AWSDateTime!
   scope: Scope
   createContest: [CreateContest] @connection(name: "UserCreateContest")
