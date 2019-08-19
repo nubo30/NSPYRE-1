@@ -31,6 +31,14 @@ export default class UpdateName extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { userData } = nextProps
+        this.setState({
+            name: userData && userData.name
+        })
+    }
+
+
     render() {
         const { userData, isLoading, _isLoading } = this.props
         return (

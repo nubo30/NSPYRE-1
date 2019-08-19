@@ -77,6 +77,7 @@ export default class PrimordaryInfo extends Component {
                             setModalVisibleName={this.setModalVisibleName} />
                     </Root>
                 </Modal>
+      
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}

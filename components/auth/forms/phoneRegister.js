@@ -37,7 +37,6 @@ export default class PhoneRegister extends Component {
         const numberPhoneClear = _.replace(_.replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
         this.setState({ numberPhone: numberPhoneClear })
         _numberPhone(numberPhoneClear, this.state.newPassword)
-
     }
 
     _verifyNumberPhone = () => {

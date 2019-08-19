@@ -17,10 +17,7 @@ export default class UpdateLastName extends Component {
 
     _updateLastNameAWS = async () => {
         const { userData, _isLoading, setModalVisibleLastName } = this.props
-        const input = {
-            lastname: this.state.lastName,
-            id: userData.id,
-        }
+        const input = { lastname: this.state.lastName, id: userData.id }
         try {
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
             _isLoading(false)
@@ -29,6 +26,13 @@ export default class UpdateLastName extends Component {
             _isLoading(false)
             Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { userData } = nextProps
+        this.setState({
+            lastName: userData && userData.lastname
+        })
     }
 
     render() {
@@ -83,6 +87,7 @@ export default class UpdateLastName extends Component {
                     </Col>
                 </Grid>
             </KeyboardAvoidingView>
+
         )
     }
 }

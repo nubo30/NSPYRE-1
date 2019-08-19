@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import { Modal, View, Dimensions } from 'react-native'
-import { Container, Content, Root } from 'native-base'
+import { Modal } from 'react-native'
+import { Container, Root } from 'native-base'
 import _ from 'lodash'
 
 // Child Component
 import HeaderModifyProfile from './header'
 import BasicInfo from './basicInfo/index'
-
-const fullHeight = Dimensions.get('window').height;
 
 // This component show the information user login
 export default class ModifyProfile extends Component {
@@ -34,7 +32,7 @@ export default class ModifyProfile extends Component {
                         <HeaderModifyProfile isLoading={isLoading} userData={userData} _isLoading={this._isLoading} _setModalVisibleModidfyProfile={_setModalVisibleModidfyProfile} />
 
                         {/* Basic Info of User */}
-                        <BasicInfo userData={userData} />
+                        <BasicInfo isLoading={isLoading} userData={userData} _isLoading={this._isLoading}/>
                     </Container>
                 </Root>
             </Modal>

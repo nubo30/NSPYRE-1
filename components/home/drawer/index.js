@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withNavigation } from "react-navigation"
 import { Auth } from 'aws-amplify';
-import { Text, List, ListItem, Left, Body, Right, Container, Thumbnail, Content, Button } from 'native-base';
+import { Text, List, ListItem, Left, Body, Right, Container, Thumbnail, Content, Button, Icon } from 'native-base';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
@@ -9,10 +9,6 @@ import * as WebBrowser from 'expo-web-browser';
 
 // child component
 import ModifyProfile from './updateProfile/index';
-
-// Icons
-import { Feather } from "@expo/vector-icons"
-
 
 class DrawerRight extends Component {
     state = {
@@ -58,13 +54,13 @@ class DrawerRight extends Component {
                         {/* Modify Profile */}
                         <ListItem icon last onPress={() => this._setModalVisibleModidfyProfile(true)} style={{ backgroundColor: '#FFF' }}>
                             <Left>
-                                <Feather name="user" size={20} color="#333" />
+                                <Icon type="Feather" name="user" style={{ color: "#333", fontSize: 25 }} />
                             </Left>
                             <Body>
                                 <Text style={{ color: "#333" }}>Update profile</Text>
                             </Body>
                             <Right>
-                                <Feather name="arrow-right" size={20} color="#E0E0E0" />
+                                <Icon type="Feather" name="arrow-right" size={20} color="#E0E0E0" />
                             </Right>
                         </ListItem>
 
