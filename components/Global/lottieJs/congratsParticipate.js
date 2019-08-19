@@ -22,7 +22,7 @@ export default class CongratsParticipate extends Component {
             <LottieView
                 loop={false}
                 ref={animation => this.animation = animation}
-                style={{ width: "100%", height: 220, top: -40 }}
+                style={{ width: "100%", height: 220 }}
                 source={require('./animations/congrats.json')} />
         )
     }

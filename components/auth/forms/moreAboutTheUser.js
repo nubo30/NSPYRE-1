@@ -39,11 +39,11 @@ export default class MoreAboutTheUser extends Component {
 
     _submitInformationAboutTheUser = async () => {
         const { avatar, name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
-        const { _changeSwiperRoot, _moreUserData, moreUserData } = this.props
+        const { _changeSwiperRoot, _moreUserData } = this.props
         const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
         try {
             const user = await Auth.currentAuthenticatedUser();
-            if (avatar === null) {
+            if (avatar === undefined) {
                 await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
                 await Object.assign(input, {
                     id: user.attributes.sub,

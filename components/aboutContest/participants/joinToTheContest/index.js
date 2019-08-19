@@ -175,7 +175,7 @@ export default class JoinToTheContest extends Component {
             <Modal isVisible={modalVisibleJoinToTheContest}>
                 <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100, padding: 15 }}>
                     <Swiper
-                        scrollEnabled={false}
+                        scrollEnabled={true}
                         onIndexChanged={(index) => this.setState({ swiperIndex: index })}
                         ref={(swiper) => this.swiper = swiper}
                         showsPagination={false}
@@ -184,10 +184,12 @@ export default class JoinToTheContest extends Component {
                         {/* INTRO */}
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 1}}>
+                                <View style={{ flex: 0.3 }}>
                                     <Text style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
                                 </View>
-                                <AnimationManWihtHearts />
+                                <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
+                                    <AnimationManWihtHearts />
+                                </View>
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button
@@ -219,13 +221,15 @@ export default class JoinToTheContest extends Component {
                         {/* INSTRUCTIONS */}
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 1, alignItems: 'center', padding: 5 }}>
+                                <View style={{ flex: 0.4, alignItems: 'center', padding: 5 }}>
                                     <Text style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
                                     <Text style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
                                         {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
                                     </Text>
                                 </View>
-                                <InstructionsGirlWithPhone />
+                                <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
+                                    <InstructionsGirlWithPhone />
+                                </View>
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button
@@ -424,7 +428,9 @@ export default class JoinToTheContest extends Component {
                         {/* CONGRATS */}
                         <Grid>
                             <Row size={90} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <CongratsParticipate swiperIndex={swiperIndex} />
+                                <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
+                                    <CongratsParticipate swiperIndex={swiperIndex} />
+                                </View>
                                 <Text style={{ fontSize: wp(7), color: '#D82B60', alignSelf: 'center' }}>You are inside!</Text>
                             </Row>
                             <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>

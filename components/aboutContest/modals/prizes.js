@@ -127,8 +127,8 @@ export default class Prizes extends Component {
                                                             height: "100%",
                                                             justifyContent: 'center',
                                                             alignItems: 'center',
-                                                            borderTopEndRadius: 20,
-                                                            borderTopStartRadius: 20,
+                                                            borderTopEndRadius: 10,
+                                                            borderTopStartRadius: 10,
                                                         }}
                                                     />
                                                 </View>
