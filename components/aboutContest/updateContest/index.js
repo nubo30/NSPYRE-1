@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, ImageBackground, KeyboardAvoidingView, Alert, Platform, Image } from 'react-native';
-import { ImagePicker, Permissions, Video } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
-import { Header, Left, Button, Icon, Text, Title, Content, View, Right, ListItem, Body, Switch, Item, Input, Container, List, Picker, Spinner, Toast, Root } from 'native-base'
+import { Header, Left, Button, Icon, Text, Title, View, Right, ListItem, Body, Switch, Item, Input, List, Picker, Spinner, Toast, Root } from 'native-base'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DateTimePicker from "react-native-modal-datetime-picker";

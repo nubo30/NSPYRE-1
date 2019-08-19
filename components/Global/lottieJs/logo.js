@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { DangerZone } from 'expo';
-const { Lottie } = DangerZone;
+import { View } from 'react-native'
+import LottieView from "lottie-react-native";
 
 export default class Logo extends Component {
     componentDidMount() {
@@ -9,13 +9,12 @@ export default class Logo extends Component {
 
     render() {
         return (
-            <Lottie
-                ref={animation => this.animation = animation}
-                style={{ width: "100%", height: 200, top: "3%" }}
-                source={require('./animations/dev.json')}
-                autoPlay
-                loop={true}
-            />
+            <View style={{ width: '100%' }}>
+                <LottieView
+                    ref={animation => this.animation = animation}
+                    style={{ width: "100%", alignSelf: 'center', position: 'absolute', height: 200, top: 10 }}
+                    source={require('./animations/dev.json')} />
+            </View>
         )
     }
 }

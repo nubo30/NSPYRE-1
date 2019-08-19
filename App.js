@@ -1,31 +1,20 @@
 import React, { Component } from 'react';
 import Amplify from 'aws-amplify'
-import { NetInfo } from 'react-native'
+import { NetInfo, YellowBox } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Root, Toast } from "native-base";
 import thunk from "redux-thunk"
 import Sentry from 'sentry-expo';
-import { AppLoading, WebBrowser } from "expo";
+import { AppLoading } from "expo";
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+import { Transition } from 'react-native-reanimated';
 // import awsconfig from './aws-exports'
 
 // Sentry config
-Sentry.enableInExpoDevelopment = false;
-Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
-
-const urlOpener = async (url, redirectUrl) => {
-    // On Expo, use WebBrowser.openAuthSessionAsync to open the Hosted UI pages.
-    const { type, url: newUrl } = await WebBrowser.openAuthSessionAsync(url, redirectUrl);
-
-    if (type === 'success') {
-        await WebBrowser.dismissBrowser();
-
-        if (Platform.OS === 'ios') {
-            return Linking.openURL(newUrl);
-        }
-    }
-};
+// Sentry.enableInExpoDevelopment = false;
+// Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
 
 // Amplify config
 Amplify.configure({
@@ -54,6 +43,7 @@ Amplify.configure({
 
 // Disabled warnigns
 console.disableYellowBox = true;
+YellowBox.ignoreWarnings(["ReactNative.NativeModules.LottieAnimationView.getConstants"]);
 
 // Redux
 import rootReducer from "./store/reducers/rootReducer"
@@ -117,13 +107,19 @@ const AuthStack = createStackNavigator({
     Auth: { screen: InfluencemeNow, navigationOptions }
 })
 
-const AppContainer = createAppContainer(createSwitchNavigator({
+const AppContainer = createAppContainer(createAnimatedSwitchNavigator({
     AuthLoading: AuthLoadingScreen,
     App: RootStack,
     Auth: AuthStack
 }, {
         initialRouteName: "AuthLoading",
         // transitionConfig: (nav) => handleCustomTransition(nav)
+        transition: (
+            <Transition.Together>
+                <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeIn" />
+                <Transition.In type="fade" durationMs={100} />
+            </Transition.Together>
+        ),
     }
 ));
 

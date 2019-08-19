@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { StatusBar } from "react-native"
+import { Platform } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge, Footer } from 'native-base';
 import _ from 'lodash'
-import { Platform } from "expo-core";
 import Swiper from 'react-native-swiper'
 
 // Child Components
@@ -14,7 +13,6 @@ import DrawerRight from "./drawer"
 import ListContest from "./listContest"
 
 // gadrient
-import { GadrientsHome } from "../Global/gradients"
 import { MyStatusBar } from '../Global/statusBar'
 
 // Graphql

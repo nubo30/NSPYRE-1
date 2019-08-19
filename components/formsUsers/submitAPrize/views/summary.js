@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Image } from 'react-native'
-import { Video } from 'expo';
+import { Video } from 'expo-av';
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import AWS from 'aws-sdk'
 import { withNavigation } from 'react-navigation'

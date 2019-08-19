@@ -11,7 +11,7 @@ export default class AuthLoadingScreen extends Component {
     _bootstrapAsync = async () => {
         try {
             await Auth.currentAuthenticatedUser({ bypassCache: false })
-            this.props.navigation.navigate('Auth');
+            this.props.navigation.navigate('Home');
         } catch (error) {
             this.props.navigation.navigate('Auth');
         }

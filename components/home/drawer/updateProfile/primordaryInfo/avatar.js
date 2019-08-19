@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import { Text, Button, Thumbnail, View, Spinner, Toast, ActionSheet } from 'native-base'
-import { ImagePicker, Permissions } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'

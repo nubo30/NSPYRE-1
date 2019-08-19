@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Video } from "expo"
+import { Video } from 'expo-av';
 import { FlatList, Image } from 'react-native'
 import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Button, List, ListItem, Thumbnail, Spinner } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'

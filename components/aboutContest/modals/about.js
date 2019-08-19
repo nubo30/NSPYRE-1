@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions } from 'react-native'
-import { Video } from "expo"
+import { Video } from 'expo-av';
 import { Button, Spinner, Content } from 'native-base'
 import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';

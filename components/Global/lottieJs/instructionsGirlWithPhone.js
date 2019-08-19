@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { DangerZone } from 'expo';
-const { Lottie } = DangerZone;
+import LottieView from "lottie-react-native";
+
 
 export default class Instructions extends Component {
     componentDidMount() {
@@ -9,7 +9,7 @@ export default class Instructions extends Component {
 
     render() {
         return (
-            <Lottie
+            <LottieView
                 ref={animation => this.animation = animation}
                 style={{ width: "100%", height: 190, position: "absolute" }}
                 source={require('./animations/instructions.json')}

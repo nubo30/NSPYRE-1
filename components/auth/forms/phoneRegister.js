@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, Keyboard } from 'react-native'
 import { Auth } from 'aws-amplify'
-import { Button, Icon, Text, List, ListItem, Input, Content, Spinner } from 'native-base';
+import { Button, Icon, Text, List, ListItem, Input, Content, Spinner, View } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import PhoneInput from 'react-native-phone-input'
@@ -127,16 +127,15 @@ export default class PhoneRegister extends Component {
             newPassword,
             numberPhone } = this.state
         return (
-            <Grid style={{
+            <View style={{
+                flex:1,
                 backgroundColor: '#FFF',
                 width: screenWidth - 60,
                 borderRadius: 5,
-                alignSelf: 'center',
                 shadowColor: "rgba(0,0,0,0.3)",
                 shadowOpacity: 1,
                 shadowOffset: { width: 1 },
                 maxHeight: screenHeight / 2 + 40,
-                top: 35
             }}>
                 <Swiper
                     scrollEnabled={false}
@@ -265,7 +264,7 @@ export default class PhoneRegister extends Component {
                         </Content>
                     </Grid>
                 </Swiper>
-            </Grid>
+            </View>
         );
     }
 }

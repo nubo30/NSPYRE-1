@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Keyboard } from 'react-native'
-import { Facebook } from 'expo';
+import * as Facebook from 'expo-facebook';
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Button, Icon, Text, List, ListItem, View, Spinner, Input } from 'native-base';
@@ -103,16 +103,14 @@ class Login extends Component {
 
         return (
             <View style={{
+                flex: 1,
                 backgroundColor: '#FFF',
                 width: screenWidth - 60,
                 borderRadius: 5,
-                alignSelf: 'center',
                 shadowColor: "rgba(0,0,0,0.3)",
                 shadowOpacity: 1,
                 shadowOffset: { width: 1 },
-                maxHeight: screenHeight / 2 + 40,
-                top: 35,
-                flex: 1
+                maxHeight: screenHeight / 2 + 40
             }}>
                 <Swiper
                     ref={(swiper) => this.swiper = swiper}

@@ -46,19 +46,18 @@ class Scope extends Component {
         this.setState({ isLoading: true })
         const { scope } = this.state
         const { moreUserData, navigation } = this.props
-        navigation.navigate("Home")
-        // try {
-        //     await API.graphql(graphqlOperation(mutations.updateUser, {
-        //         input: {
-        //             id: moreUserData.userId,
-        //             scope: _.replace(_.upperCase(scope), " ", "")
-        //         }
-        //     }))
-        //     await navigation.navigate(_.replace(_.startCase(scope), " ", ""))
-        // } catch (error) {
-        //     console.log(error)
-        //     this.setState({ scopeAnimation: true, isLoading: false })
-        // }
+        try {
+            await API.graphql(graphqlOperation(mutations.updateUser, {
+                input: {
+                    id: moreUserData.userId,
+                    scope: _.replace(_.upperCase(scope), " ", "")
+                }
+            }))
+            await navigation.navigate(_.replace(_.startCase(scope), " ", ""))
+        } catch (error) {
+            console.log(error)
+            this.setState({ scopeAnimation: true, isLoading: false })
+        }
     }
 
     render() {

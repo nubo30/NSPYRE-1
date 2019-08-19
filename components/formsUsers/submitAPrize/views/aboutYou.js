@@ -8,7 +8,6 @@ import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { isAscii, normalizeEmail } from 'validator'
 import moment from 'moment'
-import axios from 'axios'
 
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'

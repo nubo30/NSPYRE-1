@@ -68,7 +68,7 @@ export default class Auth extends Component {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, indexSwiper, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         return (
             <Swiper
-                scrollEnabled={true}
+                scrollEnabled={false}
                 ref={(swiper) => this.swiperRoot = swiper}
                 onIndexChanged={(index) => { this.setState({ indexSwiperRoot: index, validateNumberButtom: true }); Keyboard.dismiss() }}
                 showsPagination={false}
@@ -78,7 +78,15 @@ export default class Auth extends Component {
                 {/* MAIN */}
                 <Container>
                     <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                    <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
+                    <View style={{
+                        bottom: "50%",
+                        backgroundColor: 'rgba(0,0,0,0.6)',
+                        position: 'absolute',
+                        height: "0.5%", width: "100%",
+                        shadowColor: "rgba(0,0,0,0.9)",
+                        shadowOffset: { width: 0 },
+                        shadowOpacity: 1
+                    }} />
                     <GadrientsAuth />
                     <Logo />
                     {hasTheRegistrationBeenSuccessful.status === 'SUCCESS' ? null :
@@ -97,8 +105,12 @@ export default class Auth extends Component {
                         activeDotColor="#E91E63"
                         dotColor="#EEEEEE"
                         showsButtons={false}>
-                        <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
-                        <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
+                            <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
+                            <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                        </View>
                     </Swiper>
                     <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <Button iconLeft disabled={indexSwiper === 0 ? true : false} transparent onPressIn={() => this._changeSwiper(-1)} style={{ left: -10 }}>
@@ -124,12 +136,14 @@ export default class Auth extends Component {
                         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                         <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                         <GadrientsAuth />
-                        <ActivateNumberPhone
-                            _changeSwiperRoot={this._changeSwiperRoot}
-                            _hasTheRegistrationBeenSuccessful={this._hasTheRegistrationBeenSuccessful}
-                            _changeSwiper={this._changeSwiper}
-                            indexSwiperRoot={indexSwiperRoot}
-                            numberPhone={numberPhone} />
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -55 }}>
+                            <ActivateNumberPhone
+                                _changeSwiperRoot={this._changeSwiperRoot}
+                                _hasTheRegistrationBeenSuccessful={this._hasTheRegistrationBeenSuccessful}
+                                _changeSwiper={this._changeSwiper}
+                                indexSwiperRoot={indexSwiperRoot}
+                                numberPhone={numberPhone} />
+                        </View>
                     </Container>}
 
                 {/* More about the user */}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { View, Dimensions, Image } from "react-native";
 import { API, graphqlOperation, Storage } from 'aws-amplify'
-import { ImagePicker, Permissions, Video } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import { Video } from 'expo-av';
 import { Button, Text, Icon, Form, Textarea, Spinner } from 'native-base'
 import Modal from "react-native-modal";
 import { Grid, Row } from 'react-native-easy-grid'

@@ -1,9 +1,7 @@
 import React from "react"
-import { LinearGradient } from 'expo';
-import { Dimensions } from "react-native"
-import { Platform } from "expo-core";
+import { LinearGradient } from 'expo-linear-gradient';
+import { Dimensions, Platform } from "react-native"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
 const { height } = Dimensions.get("window")
 
 export const GadrientsAuth = (indexSwiperRoot) => (
