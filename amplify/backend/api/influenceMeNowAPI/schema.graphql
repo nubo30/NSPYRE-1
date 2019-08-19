@@ -66,7 +66,7 @@ type Audience @model {
   rentOrOwnCar: [String]
   categoryPrizes: [String]
   createdAt: AWSDateTime!
-  }
+}
 
 type AboutTheUser {
     companyName: String
@@ -267,4 +267,5 @@ type Interests {
 
 type Query {
   showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser")
+  filterAudienceForContest(preferences: String!): Int @function(name: "filterAudienceForContest")
 }
