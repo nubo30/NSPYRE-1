@@ -32,12 +32,9 @@ export default class ModifyProfile extends Component {
                 <Root>
                     <Container>
                         <HeaderModifyProfile isLoading={isLoading} userData={userData} _isLoading={this._isLoading} _setModalVisibleModidfyProfile={_setModalVisibleModidfyProfile} />
-                        <Content showsVerticalScrollIndicator={false} scrollEnabled={false}>
-                            <View style={{ backgroundColor: "#FFF", height: fullHeight, position: 'absolute', top: -fullHeight, left: 0, right: 0 }} />
 
-                            {/* Basic Info of User */}
-                            {/* <BasicInfo userData={userData} /> */}
-                        </Content>
+                        {/* Basic Info of User */}
+                        <BasicInfo userData={userData} />
                     </Container>
                 </Root>
             </Modal>

@@ -1,50 +1,54 @@
-import React, { Component } from 'react'
-import { Text, List, ListItem, Left, Right } from 'native-base'
-import _ from 'lodash'
+import React, { Component } from 'react';
+import { Container, Content, Button, ListItem, Text, Icon, Left, Body, Right, List } from 'native-base';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import moment from 'moment'
 
-
-// Child Component
-import ModalBasicInfo from './modal'
-
-// This function show the basic info of user
 export default class BasicInfo extends Component {
-    state = {
-        isDateTimePickerVisible: false,
-        years: 0
-    }
+
+
     render() {
         const { userData } = this.props
+
         return (
-            <List style={{ width: "100%" }}>
-                <ListItem style={{ alignItems: 'flex-end', justifyContent: 'flex-end', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                    <Text style={{ color: "#E0E0E0", fontWeight: "100" }}>Prizes {userData.formSubmitAPrizes.items.length}, Contest {userData.formCreateAContest.items.length}.</Text>
-                </ListItem>
+            <Container>
+                <Content scrollEnabled={false} contentContainerStyle={{ backgroundColor: '#F5F5F5', flex: 1 }}>
+                    <List style={{ width: '100%', backgroundColor: '#FFF' }}>
+                        {/* EMAIL */}
+                        <ListItem icon style={{ backgroundColor: '#FFF' }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#FF9501" }}>
+                                    <Icon active name="mail" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text>Email</Text>
+                            </Body>
+                            <Right>
+                                <Text>{userData.email}</Text>
+                                <Icon active name="arrow-forward" />
+                            </Right>
+                        </ListItem>
 
-                {/* Email Address */}
-                <ListItem>
-                    <Left>
-                        <Text style={{ color: "#333", fontWeight: "700" }}>Email Address: </Text>
-                        <Text style={{ color: "#333", fontWeight: "100" }}>  {_.upperFirst(userData.email)}</Text>
-                    </Left>
-                    <Right />
-                </ListItem>
+                        {/* PHONE */}
+                        <ListItem icon last style={{ backgroundColor: '#FFF' }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#007AFF" }}>
+                                    <Icon active type="Entypo" name="phone" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text>Phone</Text>
+                            </Body>
+                            <Right>
+                                <Text>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
+                                <Icon active name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                    </List>
+                    <Text style={{ color: "#333", alignSelf: 'center', top: 10, fontSize: wp(3) }}>Account created {moment(userData.datetime).calendar()}</Text>
+                </Content>
 
-                {/* Email Address */}
-                <ListItem style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                    <Left>
-                        <Text style={{ color: "#333", fontWeight: "700" }}>Username: </Text>
-                        <Text style={{ color: "#333", fontWeight: "100" }}>  {_.upperFirst(userData.username)}</Text>
-                    </Left>
-                    <Right />
-                </ListItem>
-
-
-                <ModalBasicInfo
-                    dataToChange={this.state.dataToChange} typeModal={this.state.typeModal}
-                    headerTitle={this.state.headerTitle} dataWillChange={this.dataWillChange}
-                    modalVisibleName={this.state.modalVisible}
-                    setModalVisibleName={this.setModalVisible} />
-            </List>
-        )
+            </Container>
+        );
     }
 }

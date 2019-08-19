@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Platform, Modal } from 'react-native';
-import { Text, List, ListItem, Left, Right, View, Root } from 'native-base'
+import { Modal } from 'react-native';
+import { Text, List, ListItem, Left, Right, View, Root, Icon } from 'native-base'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // Icons
@@ -25,7 +25,6 @@ export default class PrimordaryInfo extends Component {
     setModalVisibleLastName = (visible) => this.setState({ modalVisibleLastName: visible })
 
     render() {
-        const isIOS = Platform.OS === "ios"
         const { userData, _isLoading, isLoading } = this.props
         return (
             <View style={{ flexDirection: 'row', flex: 0.8, justifyContent: "center", alignItems: 'center' }}>
@@ -42,7 +41,7 @@ export default class PrimordaryInfo extends Component {
                             <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.name}</Text>
                         </Left>
                         <Right>
-                            <Feather name="edit-2" style={{ fontSize: 20, color: isLoading ? "#BDBDBD" : "#F48FB1" }} />
+                            <Icon active name="arrow-forward" />
                         </Right>
                     </ListItem>
 
@@ -56,7 +55,7 @@ export default class PrimordaryInfo extends Component {
                             <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.lastname}</Text>
                         </Left>
                         <Right>
-                            <Feather name="edit-2" style={{ fontSize: 20, color: isLoading ? "#BDBDBD" : "#F48FB1" }} />
+                            <Icon active name="arrow-forward" />
                         </Right>
                     </ListItem>
                 </List>
