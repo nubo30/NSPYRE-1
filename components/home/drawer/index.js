@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppState } from 'react-native'
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
@@ -21,7 +22,7 @@ class DrawerRight extends Component {
     state = {
         // Actions
         notificationsActions: false,
-
+        appState: AppState.currentState,
         modalVisibleModidfyProfile: false,
     }
 
@@ -37,7 +38,33 @@ class DrawerRight extends Component {
         this.setState({ result });
     };
 
-    componentDidMount() { this._getTokenNotification() }
+    componentDidMount() {
+        AppState.addEventListener('change', this._handleAppStateChange);
+        this._getTokenNotification()
+        this.listener = Notifications.addListener(this.handleNotification);
+
+    }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+        this.listener && this.listener.remove();
+    }
+
+    _handleAppStateChange = nextAppState => {
+        // Condificon que determina cuando el usaurio ha vuelto a abrir la app
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') { }
+        this.setState({ appState: nextAppState });
+    };
+
+    handleNotification = ({ origin, data }) => {
+        const { navigation } = this.props
+        if (this.state.appState !== 'active') {
+            navigation.navigate('Engage')
+        }
+        console.log(
+            `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+        );
+    };
 
     // Notifications
     _getTokenNotification = async () => {
