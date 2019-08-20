@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
 import { withNavigation } from "react-navigation"
-import { Auth } from 'aws-amplify';
-import { Text, List, ListItem, Left, Body, Right, Container, Thumbnail, Content, Button, Icon } from 'native-base';
+import { Auth, API, graphqlOperation } from 'aws-amplify';
+import { Text, List, ListItem, Left, Body, Right, Container, Thumbnail, Content, Button, Icon, Switch } from 'native-base';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
@@ -10,8 +13,15 @@ import * as WebBrowser from 'expo-web-browser';
 // child component
 import ModifyProfile from './updateProfile/index';
 
+// GRAPHQL
+import * as mutations from '../../../src/graphql/mutations'
+
+
 class DrawerRight extends Component {
     state = {
+        // Actions
+        notificationsActions: false,
+
         modalVisibleModidfyProfile: false,
     }
 
@@ -27,8 +37,41 @@ class DrawerRight extends Component {
         this.setState({ result });
     };
 
+    componentDidMount() { this._getTokenNotification() }
+
+    // Notifications
+    _getTokenNotification = async () => {
+        const { userData } = this.props
+        this.setState({ notificationsActions: true })
+        if (!Constants.isDevice) { return }
+        let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        if (status !== 'granted') {
+            try {
+                this.setState({ notificationsActions: false })
+                await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: null } }))
+            } catch (error) { this.setState({ notificationsActions: false }) }
+        } else {
+            if (userData.notificationToken === null) {
+                let token = await Notifications.getExpoPushTokenAsync();
+                try {
+                    await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: token } }))
+                } catch (error) { this.setState({ notificationsActions: false }) }
+            } else {
+                try {
+                    this.setState({ notificationsActions: false })
+                    await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: null } }))
+                } catch (error) { this.setState({ notificationsActions: true }) }
+            }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) { this.setState({ notificationsActions: nextProps.userData.notificationToken === null ? false : true }) }
+
     render() {
         const {
+            // Actions
+            notificationsActions,
+
             // Modals
             modalVisibleModidfyProfile
         } = this.state
@@ -36,7 +79,7 @@ class DrawerRight extends Component {
         return (
             <Container>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'space-between' }}>
-                    <List>
+                    <List style={{ backgroundColor: '#FFF' }}>
                         <ListItem style={{ borderBottomColor: "#CFD8DC", borderBottomWidth: 0.5 }} thumbnail itemDivider>
                             {
                                 Object.keys(userData).length !== 0
@@ -51,10 +94,27 @@ class DrawerRight extends Component {
                             </Body>
                         </ListItem>
 
+                        {/* NOTIFICATIONS */}
+                        <ListItem icon style={{ backgroundColor: '#FFF' }}>
+                            <Left>
+                                <Button style={{ backgroundColor: "#F44336" }}>
+                                    <Icon type="MaterialIcons" active name="photo-filter" />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text>Notifications</Text>
+                            </Body>
+                            <Right>
+                                <Switch value={notificationsActions} onValueChange={() => this._getTokenNotification()} />
+                            </Right>
+                        </ListItem>
+
                         {/* Modify Profile */}
                         <ListItem icon last onPress={() => this._setModalVisibleModidfyProfile(true)} style={{ backgroundColor: '#FFF' }}>
                             <Left>
-                                <Icon type="Feather" name="user" style={{ color: "#333", fontSize: 25 }} />
+                                <Button style={{ backgroundColor: "#2979FF" }}>
+                                    <Icon type="MaterialCommunityIcons" name="account-edit" />
+                                </Button>
                             </Left>
                             <Body>
                                 <Text style={{ color: "#333" }}>Update profile</Text>

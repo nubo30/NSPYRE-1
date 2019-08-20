@@ -14,6 +14,7 @@ type User @model{
   submitPrize: [SubmitPrize] @connection(name: "UserSubmitPrize")
   engage: [Engage] @connection(name: "UserEngage")
   coins: Int
+  notificationToken: String
 }
 
 ##################################################################### SCOPE #####################################################################

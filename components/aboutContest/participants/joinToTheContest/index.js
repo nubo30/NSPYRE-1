@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Dimensions, Image } from "react-native";
 import { API, graphqlOperation, Storage } from 'aws-amplify'
+import { Notifications } from 'expo';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
@@ -12,7 +13,6 @@ import Swiper from 'react-native-swiper';
 import _ from 'lodash'
 import moment from 'moment'
 import AWS from 'aws-sdk'
-
 
 // Animations
 import AnimationManWihtHearts from '../../../Global/lottieJs/manWithHearts'
@@ -33,6 +33,23 @@ export default class JoinToTheContest extends Component {
         commentText: '',
         isLoading: false
     }
+
+    componentDidMount() {
+        getToken();
+
+        this.listener = Notifications.addListener(this.handleNotification);
+    }
+
+    componentWillUnmount() {
+        this.listener && this.listener.remove();
+    }
+
+    handleNotification = ({ origin, data }) => {
+        console.log(
+            `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+        );
+    };
+
 
     _changeSwiper = (i) => {
         this.swiper.scrollBy(i)
