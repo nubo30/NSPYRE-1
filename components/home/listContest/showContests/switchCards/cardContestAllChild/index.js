@@ -14,7 +14,7 @@ export default class CardContent extends Component {
     render() {
         const { isFinishedContest } = this.state
         const { item } = this.props
-        return item && (
+        return item.user && (
             <Card style={{
                 flex: 0,
                 borderRadius: 15,
@@ -29,7 +29,7 @@ export default class CardContent extends Component {
                 <CardItem style={{ borderTopEndRadius: 15, borderTopStartRadius: 15 }}>
                     <Left>
                         <Animatable.View animation="fadeIn">
-                            {item.user.avatar === null
+                            {item && item.user.avatar === null
                                 ? <UserAvatar size="40" name={item.user.name} />
                                 : <Thumbnail source={{ uri: item.user.avatar }} style={{ width: 40, height: 40, borderRadius: 20 }} />}
                         </Animatable.View>

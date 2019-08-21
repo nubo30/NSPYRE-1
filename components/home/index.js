@@ -55,10 +55,24 @@ class Home extends Component {
                     if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
                 }
             })
+
+            // Agregar notifications
             API.graphql(graphqlOperation(subscriptions.onCreateNotifications)).subscribe({
                 error: ({ errors }) => { console.log(errors) },
                 next: (getData) => {
                     this.setState({ notifications: [...this.state.notifications, getData.value.data.onCreateNotifications] })
+                }
+            })
+
+            // Delete notifications
+            API.graphql(graphqlOperation(subscriptions.onDeleteNotifications)).subscribe({
+                error: ({ errors }) => { console.log(errors) },
+                next: (getData) => {
+                    console.log(getData.value.data.onDeleteNotifications, "=====================")
+                    console.log(getData.value.data.onDeleteNotifications.id, "<------------------")
+                    this.setState({
+                        notifications: _.remove(this.state.notifications, { id: getData.value.data.onDeleteNotifications.id })
+                    })
                 }
             })
         }

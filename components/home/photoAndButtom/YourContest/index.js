@@ -56,6 +56,7 @@ class UserContest extends Component {
     render() {
         const { userData, _setModalVisibleYourContest } = this.props
         const { input, contestAsociated, refreshing } = this.state
+        console.log(contestAsociated, "<-********************")
 
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
@@ -89,7 +90,7 @@ class UserContest extends Component {
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
-                            filterContest.length
+                            filterContest && filterContest.length
                                 ? <FlatList
                                     data={filterContest}
                                     renderItem={({ item, index }) =>
@@ -109,7 +110,7 @@ class UserContest extends Component {
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
-                            contestAsociated.length
+                            contestAsociated && contestAsociated.length
                                 ? <FlatList
                                     data={contestAsociated}
                                     refreshControl={

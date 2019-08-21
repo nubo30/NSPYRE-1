@@ -25,6 +25,7 @@ class CardContent extends Component {
         try {
             await API.graphql(graphqlOperation(mutations.deleteCreateContest, { input: { id: item.id } }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
+            this.setState({ loadingDel: false })        
         } catch (error) {
             alert(error)
             this.setState({ loadingDel: false })
