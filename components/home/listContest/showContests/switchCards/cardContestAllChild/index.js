@@ -14,7 +14,7 @@ export default class CardContent extends Component {
     render() {
         const { isFinishedContest } = this.state
         const { item } = this.props
-        return (
+        return item && (
             <Card style={{
                 flex: 0,
                 borderRadius: 15,
