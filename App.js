@@ -62,7 +62,6 @@ import PromoteMyContest from "./components/promoteMyContest"
 import Home from "./components/home"
 import Contests from "./components/home/listContest/showContests"
 import AboutContest from "./components/aboutContest"
-import CreateAContest from "./components/home/drawer/createAContest"
 import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
 import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize"
 
@@ -97,7 +96,6 @@ const RootStack = createStackNavigator(
         'PromoteMyContest': { screen: PromoteMyContest, navigationOptions },
         'Contests': { screen: Contests, navigationOptions },
         'AboutContest': { screen: AboutContest, navigationOptions },
-        'CreateAContest': { screen: CreateAContest, navigationOptions },
         'Prizes': { screen: Prizes, navigationOptions },
         'AboutThePrize': { screen: AboutThePrize, navigationOptions },
     }
