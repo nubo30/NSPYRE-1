@@ -9,6 +9,10 @@ export const filterAudienceForContest = `query FilterAudienceForContest($prefere
   filterAudienceForContest(preferences: $preferences)
 }
 `;
+export const sendNotification = `query SendNotification($notificationId: String!) {
+  sendNotification(notificationId: $notificationId)
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -2223,6 +2227,41 @@ export const listEngages = `query ListEngages(
         vote
       }
       createdAt
+    }
+    nextToken
+  }
+}
+`;
+export const getNotifications = `query GetNotifications($id: ID!) {
+  getNotifications(id: $id) {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
+export const listNotificationss = `query ListNotificationss(
+  $filter: ModelNotificationsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listNotificationss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      idUSerFrom
+      idUserTo
+      userFrom
+      userTo
+      expoPushToken
+      messageTitle
+      messageBody
+      JSONdata
     }
     nextToken
   }

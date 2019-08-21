@@ -4138,3 +4138,45 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
   }
 }
 `;
+export const createNotifications = `mutation CreateNotifications($input: CreateNotificationsInput!) {
+  createNotifications(input: $input) {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
+export const updateNotifications = `mutation UpdateNotifications($input: UpdateNotificationsInput!) {
+  updateNotifications(input: $input) {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
+export const deleteNotifications = `mutation DeleteNotifications($input: DeleteNotificationsInput!) {
+  deleteNotifications(input: $input) {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;

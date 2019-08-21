@@ -264,9 +264,23 @@ type Interests {
   vote: String
 }
 
+##################################################################### NOTIFICACTIONS #####################################################################
+type Notifications @model{
+  id: ID!
+  idUSerFrom: String!
+  idUserTo: String!
+  userFrom: String!
+  userTo: String!
+  expoPushToken: String!
+  messageTitle: String!
+  messageBody: String!
+  JSONdata: String!
+}
+
 ####################################### [QUERYS] ##########################################
 
 type Query {
   showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser")
   filterAudienceForContest(preferences: String!): Int @function(name: "filterAudienceForContest")
+  sendNotification(notificationId: String!): String @function(name: "notifications")
 }

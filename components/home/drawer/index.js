@@ -42,7 +42,6 @@ class DrawerRight extends Component {
         AppState.addEventListener('change', this._handleAppStateChange);
         this._getTokenNotification()
         this.listener = Notifications.addListener(this.handleNotification);
-
     }
 
     componentWillUnmount() {
@@ -54,16 +53,16 @@ class DrawerRight extends Component {
         // Condificon que determina cuando el usaurio ha vuelto a abrir la app
         if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') { }
         this.setState({ appState: nextAppState });
+
     };
 
     handleNotification = ({ origin, data }) => {
         const { navigation } = this.props
         if (this.state.appState !== 'active') {
-            navigation.navigate('Engage')
+            const parseData = JSON.parse(data.JSONdata)
+            navigation.navigate('AboutContest', { userData: parseData.userData, contest: parseData.contest })
         }
-        console.log(
-            `Push notification ${origin} with data: ${JSON.stringify(data)}`,
-        );
+
     };
 
     // Notifications

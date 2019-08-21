@@ -23,6 +23,7 @@ const screenHeight = Dimensions.get('screen').height
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
+import * as queries from '../../../../src/graphql/queries'
 
 export default class JoinToTheContest extends Component {
     state = {
@@ -153,12 +154,46 @@ export default class JoinToTheContest extends Component {
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             this.setState({ isLoading: false })
             await this._changeSwiper(1)
+            this._createNotification()
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
             console.log(error)
         }
     }
 
+    _createNotification = async () => {
+        const { userData, contest } = this.props
+        const input = {
+            idUSerFrom: userData.id,
+            idUserTo: contest.id,
+            userFrom: userData.name,
+            userTo: contest.user.name,
+            expoPushToken: contest.user.notificationToken === null ? 'none' : contest.user.notificationToken,
+            messageTitle: "New participant",
+            messageBody: `Hey, ${_.startCase(contest.user.name)}! ${_.startCase(userData.name)} has joined your ${contest.general.nameOfContest} contest, take a look!`,
+            JSONdata: JSON.stringify({
+                "type": 'participantsInTheContest',
+                "rute": "AboutContest",
+                "userData": { id: userData.id },
+                "contest": {
+                    "user": { id: contest.user.id },
+                    "prizes": [],
+                    "participants": { items: [] },
+                    "general": {
+                        "nameOfContest": contest.general.nameOfContest,
+                        "picture": { url: contest.general.picture.url },
+                        "video": { url: contest.general.video.url }
+                    }
+                }
+            }),
+        }
+        try {
+            const { data } = await API.graphql(graphqlOperation(mutations.createNotifications, { input }))
+            await API.graphql(graphqlOperation(queries.sendNotification, { notificationId: data.createNotifications.id }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     render() {
         const { commentText, swiperIndex, picture, video, isLoading } = this.state
@@ -206,6 +241,13 @@ export default class JoinToTheContest extends Component {
                                 <Button
                                     transparent
                                     onPress={() => {
+                                        this._createNotification()
+                                    }}>
+                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                </Button>
+                                {/* <Button
+                                    transparent
+                                    onPress={() => {
                                         this.setState({
                                             video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
                                             picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
@@ -213,7 +255,7 @@ export default class JoinToTheContest extends Component {
                                         _setModalVisibleJoinToTheContest(false)
                                     }}>
                                     <Text style={{ color: '#3333' }}>Close</Text>
-                                </Button>
+                                </Button> */}
                             </Row>
                         </Grid>
 

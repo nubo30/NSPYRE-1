@@ -4138,3 +4138,45 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
   }
 }
 `;
+export const onCreateNotifications = `subscription OnCreateNotifications {
+  onCreateNotifications {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
+export const onUpdateNotifications = `subscription OnUpdateNotifications {
+  onUpdateNotifications {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
+export const onDeleteNotifications = `subscription OnDeleteNotifications {
+  onDeleteNotifications {
+    id
+    idUSerFrom
+    idUserTo
+    userFrom
+    userTo
+    expoPushToken
+    messageTitle
+    messageBody
+    JSONdata
+  }
+}
+`;
