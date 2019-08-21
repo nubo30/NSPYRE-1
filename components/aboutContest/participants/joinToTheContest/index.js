@@ -176,6 +176,7 @@ export default class JoinToTheContest extends Component {
                 "rute": "AboutContest",
                 "userData": { id: userData.id },
                 "contest": {
+                    "id": contest.id,
                     "user": { id: contest.user.id },
                     "prizes": [],
                     "participants": { items: [] },

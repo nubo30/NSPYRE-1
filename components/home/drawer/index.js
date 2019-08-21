@@ -57,10 +57,15 @@ class DrawerRight extends Component {
     };
 
     handleNotification = ({ origin, data }) => {
-        const { navigation } = this.props
+        const { navigation, userData } = this.props
         if (this.state.appState !== 'active') {
-            const parseData = JSON.parse(data.JSONdata)
-            navigation.navigate('AboutContest', { userData: parseData.userData, contest: parseData.contest })
+            switch (data.type) {
+                case 'participantsInTheContest':
+                    navigation.navigate('AboutContest', { userData, contest: data.contest })
+                    break;
+                default:
+                    break;
+            }
         }
 
     };
