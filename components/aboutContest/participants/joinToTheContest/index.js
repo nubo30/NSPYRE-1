@@ -165,7 +165,7 @@ export default class JoinToTheContest extends Component {
         const { userData, contest } = this.props
         const input = {
             idUSerFrom: userData.id,
-            idUserTo: contest.id,
+            idUserTo: contest.user.id,
             userFrom: userData.name,
             userTo: contest.user.name,
             expoPushToken: contest.user.notificationToken === null ? 'none' : contest.user.notificationToken,

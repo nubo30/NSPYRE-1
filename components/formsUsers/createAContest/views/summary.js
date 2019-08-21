@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Image } from 'react-native'
-import { Video } from 'expo';
+import { Video } from 'expo-av';
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Separator, Spinner } from 'native-base';

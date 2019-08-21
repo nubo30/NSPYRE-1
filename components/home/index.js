@@ -22,6 +22,9 @@ import * as subscriptions from '../../src/graphql/subscriptions'
 // Redux
 import { connect } from 'react-redux'
 
+// Child component
+import NotificationCenter from './notificationCenter'
+
 const BUTTONS = ["Submit a prize", "Create a contest", "Cancel"];
 const CANCEL_INDEX = 2;
 
@@ -36,6 +39,7 @@ class Home extends Component {
             actionSheetButtonIndex: "Create a contest",
             heightHeader: 0,
             prizeCategory: [],
+            notifications: []
         }
         this.actionSheet = null;
     }
@@ -46,11 +50,15 @@ class Home extends Component {
         if (online) {
             this.getDataFromAWS()
             API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
-                error: ({ errors }) => {
-                    console.log(errors)
-                },
+                error: ({ errors }) => { console.log(errors) },
                 next: (getData) => {
                     if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
+                }
+            })
+            API.graphql(graphqlOperation(subscriptions.onCreateNotifications)).subscribe({
+                error: ({ errors }) => { console.log(errors) },
+                next: (getData) => {
+                    this.setState({ notifications: [...this.state.notifications, getData.value.data.onCreateNotifications] })
                 }
             })
         }
@@ -61,7 +69,8 @@ class Home extends Component {
             const data = await Auth.currentAuthenticatedUser()
             const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
-            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items })
+            const notifications = await API.graphql(graphqlOperation(queries.listNotificationss, { filter: { idUserTo: { eq: userData.data.getUser.id } } }))
+            this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
         } catch (error) {
             console.log(error)
         }
@@ -95,9 +104,9 @@ class Home extends Component {
     }
 
     render() {
-        const { userData, openDrower, isReady, prizeCategory } = this.state
+        const { userData, openDrower, isReady, prizeCategory, notifications } = this.state
         const { online } = this.props.networkStatus
-
+        console.log(notifications)
         return (
             <Swiper
                 ref={(swiper) => this.swiper = swiper}
@@ -128,9 +137,9 @@ class Home extends Component {
                                     transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000 }}>
                                     <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2, left: -2 }} />
                                 </Button>
-                                <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 30, minWidth: 30, backgroundColor: '#FFF', zIndex: 0 }}>
-                                    <Text style={{ color: "#D81B60", }}>+9</Text>
-                                </Badge>
+                                {notifications.length === 0 ? null : <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 30, minWidth: 30, backgroundColor: '#FFF', zIndex: 0 }}>
+                                    <Text style={{ color: "#D81B60", }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
+                                </Badge>}
                             </View>
                         </Right>
                     </Header>
@@ -184,18 +193,7 @@ class Home extends Component {
                         </Container>
                     </Drawer>
                 </Container>
-                <Container style={{ backgroundColor: "#FAFAFA" }}>
-                    <Header noLeft style={{ backgroundColor: "#D81B60", justifyContent: 'center', alignItems: 'center' }}>
-                        <Title style={{ fontSize: wp(7), color: "#FFF" }}>Notification Center</Title>
-                    </Header>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                    <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                        <Text style={{ fontSize: wp(8), color: '#333' }}>
-                            Nothing over here...
-                        </Text>
-                    </Content>
-                    <Footer />
-                </Container>
+                <NotificationCenter notifications={notifications} _changeSwiper={this._changeSwiper} />
             </Swiper>
         )
     }
