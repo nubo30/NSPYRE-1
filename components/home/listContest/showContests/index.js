@@ -36,6 +36,11 @@ class ShowContest extends Component {
         refreshing: false
     }
 
+    componentDidMount() {
+        this.getContest()
+    }
+
+
     getContest = async () => {
         const categoryContest = this.props.navigation.getParam('categoryContest');
         try {
@@ -47,14 +52,10 @@ class ShowContest extends Component {
     }
 
     _onRefresh = () => {
-        this.setState({refreshing: true});
+        this.setState({ refreshing: true });
         this.getContest().then(() => {
-            this.setState({refreshing: false});
+            this.setState({ refreshing: false });
         });
-    }
-
-    componentDidMount() {
-        this.getContest()
     }
 
     render() {

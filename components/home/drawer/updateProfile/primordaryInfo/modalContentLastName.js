@@ -28,13 +28,6 @@ export default class UpdateLastName extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { userData } = nextProps
-        this.setState({
-            lastName: userData && userData.lastname
-        })
-    }
-
     render() {
         const { userData, isLoading, _isLoading } = this.props
         return (
@@ -87,7 +80,6 @@ export default class UpdateLastName extends Component {
                     </Col>
                 </Grid>
             </KeyboardAvoidingView>
-
         )
     }
 }

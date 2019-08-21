@@ -87,7 +87,7 @@ class ShowContest extends Component {
     }
 
     componentWillUnmount() {
-        subscription.unsubscribe();
+        subscription && subscription.unsubscribe();
     }
 
     getContestFromAWS = async () => {

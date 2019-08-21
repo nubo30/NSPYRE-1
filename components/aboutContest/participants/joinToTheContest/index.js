@@ -423,7 +423,7 @@ export default class JoinToTheContest extends Component {
                             </Row>
                             <Row size={15} style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Button
-                                    disabled={commentText ? false : true || isLoading}
+                                    disabled={isLoading}
                                     onPress={() => this._submit()}
                                     iconRight style={{
                                         backgroundColor: '#D82B60',

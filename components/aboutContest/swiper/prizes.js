@@ -40,7 +40,7 @@ export default function Prizes(props) {
                             <Body style={{ borderBottomColor: "#fff" }}>
                                 <Text onLongPress={() => { _setModalVisiblePrizes(true) }}
                                     style={{ color: "#BDBDBD" }}>{`This contest has ${contest.prizes.length} prize, touch to see!`}</Text>
-                                <Text onLongPress={() => { _setModalVisiblePrizes(true) }}
+                                <Text onPress={() => { _setModalVisiblePrizes(true) }}
                                     style={{ color: "#D82B60", textDecorationLine: "underline", top: 3 }}>See the prizes</Text>
                             </Body>
                         </ListItem>

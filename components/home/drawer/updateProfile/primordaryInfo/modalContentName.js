@@ -30,15 +30,7 @@ export default class UpdateName extends Component {
             Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
         }
     }
-
-    componentWillReceiveProps(nextProps) {
-        const { userData } = nextProps
-        this.setState({
-            name: userData && userData.name
-        })
-    }
-
-
+    
     render() {
         const { userData, isLoading, _isLoading } = this.props
         return (

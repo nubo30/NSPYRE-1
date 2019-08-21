@@ -3,7 +3,7 @@ import { Platform } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge, Footer } from 'native-base';
+import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge } from 'native-base';
 import _ from 'lodash'
 import Swiper from 'react-native-swiper'
 
@@ -39,11 +39,16 @@ class Home extends Component {
             actionSheetButtonIndex: "Create a contest",
             heightHeader: 0,
             prizeCategory: [],
-            notifications: []
+            notifications: [],
+            isLoading: false,
+            refreshing: false
         }
         this.actionSheet = null;
     }
 
+    _deleteNotificationLoading = (value) => {
+        this.setState({ isLoading: value })
+    }
 
     componentDidMount() {
         const { online } = this.props.networkStatus
@@ -60,20 +65,16 @@ class Home extends Component {
             API.graphql(graphqlOperation(subscriptions.onCreateNotifications)).subscribe({
                 error: ({ errors }) => { console.log(errors) },
                 next: (getData) => {
-                    this.setState({ notifications: [...this.state.notifications, getData.value.data.onCreateNotifications] })
+                    if (getData.value.data.onCreateNotifications.idUserTo === this.state.userData.id) {
+                        this.setState({ notifications: [...this.state.notifications, getData.value.data.onCreateNotifications] })
+                    }
                 }
             })
 
             // Delete notifications
             API.graphql(graphqlOperation(subscriptions.onDeleteNotifications)).subscribe({
                 error: ({ errors }) => { console.log(errors) },
-                next: (getData) => {
-                    console.log(getData.value.data.onDeleteNotifications, "=====================")
-                    console.log(getData.value.data.onDeleteNotifications.id, "<------------------")
-                    this.setState({
-                        notifications: _.remove(this.state.notifications, { id: getData.value.data.onDeleteNotifications.id })
-                    })
-                }
+                next: (getData) => { this.getDataFromAWS() }
             })
         }
     }
@@ -84,10 +85,20 @@ class Home extends Component {
             const userData = await API.graphql(graphqlOperation(queries.getUser, { id: data.id || data.attributes.sub }))
             const prizeCategory = await API.graphql(graphqlOperation(queries.listPrizesCategorys))
             const notifications = await API.graphql(graphqlOperation(queries.listNotificationss, { filter: { idUserTo: { eq: userData.data.getUser.id } } }))
+            this._deleteNotificationLoading(false)
+            this._refreshing(false)
             this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
         } catch (error) {
             console.log(error)
         }
+    }
+
+    _refreshing = (value) => {
+        this.setState({ refreshing: value })
+    }
+
+    _refreshData = () => {
+        this.getDataFromAWS()
     }
 
     measureView(event) {
@@ -117,7 +128,7 @@ class Home extends Component {
     }
 
     render() {
-        const { userData, openDrower, isReady, prizeCategory, notifications } = this.state
+        const { userData, openDrower, isReady, prizeCategory, notifications, isLoading, refreshing } = this.state
         const { online } = this.props.networkStatus
         return (
             <Swiper
@@ -205,7 +216,7 @@ class Home extends Component {
                         </Container>
                     </Drawer>
                 </Container>
-                <NotificationCenter notifications={notifications} _changeSwiper={this._changeSwiper} />
+                <NotificationCenter _refreshing={this._refreshing} refreshing={refreshing} _refreshData={this._refreshData} _deleteNotificationLoading={this._deleteNotificationLoading} isLoading={isLoading} notifications={notifications} _changeSwiper={this._changeSwiper} />
             </Swiper>
         )
     }
