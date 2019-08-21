@@ -4149,6 +4149,8 @@ export const createNotifications = `mutation CreateNotifications($input: CreateN
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;
@@ -4163,6 +4165,8 @@ export const updateNotifications = `mutation UpdateNotifications($input: UpdateN
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;
@@ -4177,6 +4181,8 @@ export const deleteNotifications = `mutation DeleteNotifications($input: DeleteN
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;

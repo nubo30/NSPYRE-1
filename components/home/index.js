@@ -87,7 +87,6 @@ class Home extends Component {
         if (this.actionSheet !== null) {
             this.actionSheet._root.showActionSheet(
                 {
-
                     options: BUTTONS,
                     cancelButtonIndex: CANCEL_INDEX,
                     title: "Create a contest or Submit a prize"
@@ -106,7 +105,6 @@ class Home extends Component {
     render() {
         const { userData, openDrower, isReady, prizeCategory, notifications } = this.state
         const { online } = this.props.networkStatus
-        console.log(notifications)
         return (
             <Swiper
                 ref={(swiper) => this.swiper = swiper}

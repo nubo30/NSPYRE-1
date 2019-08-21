@@ -164,6 +164,8 @@ export default class JoinToTheContest extends Component {
     _createNotification = async () => {
         const { userData, contest } = this.props
         const input = {
+            createdAt: moment().toISOString(),
+            avatar: userData.avatar === null ? null : userData.avatar,
             idUSerFrom: userData.id,
             idUserTo: contest.user.id,
             userFrom: userData.name,

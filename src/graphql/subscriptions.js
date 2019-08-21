@@ -4149,6 +4149,8 @@ export const onCreateNotifications = `subscription OnCreateNotifications {
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;
@@ -4163,6 +4165,8 @@ export const onUpdateNotifications = `subscription OnUpdateNotifications {
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;
@@ -4177,6 +4181,8 @@ export const onDeleteNotifications = `subscription OnDeleteNotifications {
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;

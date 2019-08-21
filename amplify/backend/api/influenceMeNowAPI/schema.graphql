@@ -275,6 +275,8 @@ type Notifications @model{
   messageTitle: String!
   messageBody: String!
   JSONdata: String!
+  createdAt: AWSDateTime!
+  avatar: AWSURL
 }
 
 ####################################### [QUERYS] ##########################################

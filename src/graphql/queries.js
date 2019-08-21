@@ -2243,6 +2243,8 @@ export const getNotifications = `query GetNotifications($id: ID!) {
     messageTitle
     messageBody
     JSONdata
+    createdAt
+    avatar
   }
 }
 `;
@@ -2262,6 +2264,8 @@ export const listNotificationss = `query ListNotificationss(
       messageTitle
       messageBody
       JSONdata
+      createdAt
+      avatar
     }
     nextToken
   }
