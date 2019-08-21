@@ -276,6 +276,7 @@ type Notifications @model{
   messageBody: String!
   JSONdata: String!
   createdAt: AWSDateTime!
+  expirationDateWeek: AWSDateTime!
   avatar: AWSURL
 }
 

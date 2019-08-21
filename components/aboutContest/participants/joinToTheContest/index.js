@@ -165,6 +165,7 @@ export default class JoinToTheContest extends Component {
         const { userData, contest } = this.props
         const input = {
             createdAt: moment().toISOString(),
+            expirationDateWeek: new Date(new Date().setDate(new Date().getDate() + 7)),
             avatar: userData.avatar === null ? null : userData.avatar,
             idUSerFrom: userData.id,
             idUserTo: contest.user.id,
