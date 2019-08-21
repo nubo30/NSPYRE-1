@@ -98,7 +98,7 @@ class ShowContest extends Component {
             const dataContest = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
             this.setState({ contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id ? true : false })
         } catch (error) {
-            console.log(error, "<-----------------------|||||||||||||||||||||||||");
+            console.log(error);
         }
     }
 

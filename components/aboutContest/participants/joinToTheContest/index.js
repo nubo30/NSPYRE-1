@@ -210,7 +210,7 @@ export default class JoinToTheContest extends Component {
             <Modal isVisible={modalVisibleJoinToTheContest}>
                 <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100, padding: 15 }}>
                     <Swiper
-                        scrollEnabled={true}
+                        scrollEnabled={false}
                         onIndexChanged={(index) => this.setState({ swiperIndex: index })}
                         ref={(swiper) => this.swiper = swiper}
                         showsPagination={false}
@@ -242,13 +242,6 @@ export default class JoinToTheContest extends Component {
                                 <Button
                                     transparent
                                     onPress={() => {
-                                        this._createNotification()
-                                    }}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                                {/* <Button
-                                    transparent
-                                    onPress={() => {
                                         this.setState({
                                             video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
                                             picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
@@ -256,7 +249,7 @@ export default class JoinToTheContest extends Component {
                                         _setModalVisibleJoinToTheContest(false)
                                     }}>
                                     <Text style={{ color: '#3333' }}>Close</Text>
-                                </Button> */}
+                                </Button>
                             </Row>
                         </Grid>
 
