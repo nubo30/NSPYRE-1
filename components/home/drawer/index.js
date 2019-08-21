@@ -59,6 +59,7 @@ class DrawerRight extends Component {
     handleNotification = ({ origin, data }) => {
         const { navigation, userData } = this.props
         if (this.state.appState !== 'active') {
+            console.log(data)
             switch (data.type) {
                 case 'participantsInTheContest':
                     navigation.navigate('AboutContest', { userData, contest: data.contest })
@@ -81,7 +82,7 @@ class DrawerRight extends Component {
                 this.setState({ notificationsActions: false })
                 await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: null } }))
             } catch (error) { this.setState({ notificationsActions: false }) }
-        } else {
+        } else if (status === 'granted') {
             if (userData.notificationToken === null) {
                 let token = await Notifications.getExpoPushTokenAsync();
                 try {
