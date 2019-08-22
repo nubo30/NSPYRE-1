@@ -20,6 +20,7 @@ import Audience from './audience'
 import Participants from './participants'
 import SecondaryView from './secondaryView'
 import JoinToTheContest from './participants/joinToTheContest'
+import VideoPageOne from './video'
 
 // Gradients
 import { GadrientsAboutContest } from "../Global/gradients"
@@ -61,7 +62,8 @@ class ShowContest extends Component {
             modalVisiblePrizes: false,
             modalVisibleJoinToTheContest: false,
 
-            userLogin: false
+            userLogin: false,
+            isReady: null
         };
     }
 
@@ -96,7 +98,7 @@ class ShowContest extends Component {
         try {
             const data = await Auth.currentAuthenticatedUser()
             const dataContest = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
-            this.setState({ contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id ? true : false })
+            this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id ? true : false })
         } catch (error) {
             console.log(error);
         }
@@ -174,6 +176,7 @@ class ShowContest extends Component {
 
             // Actions
             hideCongrastSectionAudience,
+            isReady,
 
             // Modal
             openModalUpdateContest,
@@ -184,7 +187,7 @@ class ShowContest extends Component {
         } = this.state
         return (
             <Swiper
-                scrollEnabled={userLogin ? swiperIndex === 1 ? false : true : false}
+                scrollEnabled={isReady === null ? false : true}
                 ref={(swiperRoot) => this.swiperRoot = swiperRoot}
                 onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
                 loop={false}
@@ -389,7 +392,7 @@ class ShowContest extends Component {
                             _setModalVisibleAudience={this._setModalVisibleAudience}
                             _changeSwiperRoot={this._changeSwiperRoot}
                         />
-                    </View> : null}
+                    </View> : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
             </Swiper>
         )
     }

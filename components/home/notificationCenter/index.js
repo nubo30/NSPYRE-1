@@ -90,9 +90,9 @@ class NotificationCenter extends Component {
                                                         </Button>
                                                     </Right>
                                                 </ListItem>
-                                                <View style={{ borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.1)' }} />
                                             </View>
                                         } keyExtractor={item => item && item.id} />
+                                    <View style={{ borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.1)', top: 5 }} />
                                 </View> : null}
                             {filterDateNotificationsx2.length
                                 ? <View style={{ paddingTop: 30 }}>
@@ -116,7 +116,6 @@ class NotificationCenter extends Component {
                                                         </Button>
                                                     </Right>
                                                 </ListItem>
-                                                <View style={{ borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.1)' }} />
                                             </View>
                                         } keyExtractor={item => item && item.id} />
                                     <View style={{ borderWidth: 0.4, borderColor: 'rgba(0,0,0,0.1)' }} />
