@@ -267,6 +267,7 @@ type Interests {
 ##################################################################### NOTIFICACTIONS #####################################################################
 type Notifications @model{
   id: ID!
+  nameOfcontest: String
   idUSerFrom: String!
   idUserTo: String!
   userFrom: String!

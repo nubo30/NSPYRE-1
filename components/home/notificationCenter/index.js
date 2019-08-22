@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation'
 import { FlatList, RefreshControl } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify'
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, List, ListItem, Thumbnail, View, Spinner } from 'native-base';
@@ -13,7 +14,7 @@ import { MyStatusBar } from '../../Global/statusBar/index'
 import * as mutations from '../../../src/graphql/mutations'
 
 
-export default class NotificationCenter extends Component {
+class NotificationCenter extends Component {
 
     state = { itemState: "", refreshing: false }
 
@@ -34,13 +35,24 @@ export default class NotificationCenter extends Component {
         _refreshData()
     }
 
+    _navigateToScreen = (item) => {
+        const { navigation } = this.props
+        const parseData = JSON.parse(item.JSONdata)
+        switch (parseData.type) {
+            case 'participantsInTheContest':
+                navigation.navigate(parseData.rute, { userData: parseData.userData, contest: parseData.contest })
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         const { itemState } = this.state
         const { _changeSwiper, notifications, isLoading, refreshing } = this.props
-        let filterDateNotifications = notifications.filter(item => new Date(item.expirationDateWeek) < new Date() ? null : item)
-        let filterDateNotificationsx2 = notifications.filter(item => new Date(item.expirationDateWeek) > new Date() ? null : item)
+        let filterDateNotifications = notifications.filter(item => new Date(item.expirationDateWeek) < new Date() ? null : Object.assign(item, JSON.parse(item.JSONdata)))
+        let filterDateNotificationsx2 = notifications.filter(item => new Date(item.expirationDateWeek) > new Date() ? null : Object.assign(item, JSON.parse(item.JSONdata)))
         let areThereNotifications = filterDateNotifications.length + filterDateNotificationsx2.length
-
         return (
             <Container style={{ backgroundColor: "#FAFAFA" }}>
                 <Header noLeft style={{ backgroundColor: "#D81B60", justifyContent: 'center', alignItems: 'center' }}>
@@ -63,14 +75,14 @@ export default class NotificationCenter extends Component {
                                         data={filterDateNotifications}
                                         renderItem={({ item }) =>
                                             item && <View>
-                                                <ListItem disabled={isLoading} avatar onPress={() => console.log('Presionado!')}>
+                                                <ListItem disabled={isLoading} avatar onPress={() => this._navigateToScreen(item)}>
                                                     <Left style={{ top: -5 }}>
                                                         {item.avatar !== null
                                                             ? <Thumbnail source={{ uri: item.avatar }} />
                                                             : <UserAvatar size="55" name={item.userFrom} />}
                                                     </Left>
                                                     <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                        <Text>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100' }}>, has joined your contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                        <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100' }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
                                                     <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
@@ -117,7 +129,8 @@ export default class NotificationCenter extends Component {
                         </View>}
                 </Content>
             </Container>
-
         );
     }
 }
+
+export default withNavigation(NotificationCenter)

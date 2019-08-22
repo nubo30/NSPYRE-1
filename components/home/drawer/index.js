@@ -59,7 +59,6 @@ class DrawerRight extends Component {
     handleNotification = ({ origin, data }) => {
         const { navigation, userData } = this.props
         if (this.state.appState !== 'active') {
-            console.log(data)
             switch (data.type) {
                 case 'participantsInTheContest':
                     navigation.navigate('AboutContest', { userData, contest: data.contest })
