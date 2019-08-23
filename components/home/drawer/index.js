@@ -10,6 +10,7 @@ import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
 import * as WebBrowser from 'expo-web-browser';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // child component
 import ModifyProfile from './updateProfile/index';
@@ -120,8 +121,16 @@ class DrawerRight extends Component {
                                     : <Placeholder.Media animate="fade" style={{ width: 45, height: 45, borderRadius: 22.5 }} />
                             }
                             <Body style={{ borderBottomColor: "rgba(0,0,0,0.0)" }}>
-                                <Text>{userData.name}</Text>
-                                <Text note numberOfLines={1}>Coins {userData.coins}</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                >{userData.name}</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(3)}
+                                    style={{ fontSize: wp(3) }}
+                                    note numberOfLines={1}>Coins {userData.coins}</Text>
                             </Body>
                         </ListItem>
 
@@ -133,7 +142,11 @@ class DrawerRight extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text>Notifications</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                >Notifications</Text>
                             </Body>
                             <Right>
                                 <Switch value={notificationsActions} onValueChange={() => this._getTokenNotification()} />
@@ -148,7 +161,10 @@ class DrawerRight extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: "#333" }}>Update profile</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ color: "#333", fontSize: wp(4) }}>Update profile</Text>
                             </Body>
                             <Right>
                                 <Icon type="Feather" name="arrow-right" size={20} color="#E0E0E0" />
@@ -165,13 +181,19 @@ class DrawerRight extends Component {
                                 alignItems: 'center',
                                 backgroundColor: '#FFF'
                             }}>
-                            <Text style={{ color: "#F44336", fontSize: 22 }}>Sign Out</Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: "#F44336" }}>Sign Out</Text>
                         </ListItem>
                     </List>
                     <Button
                         onPress={() => this._politicis()}
                         style={{ alignSelf: 'center' }} transparent>
-                        <Text style={{ color: '#333', fontWeight: 'bold', fontSize: 12, textDecorationLine: 'underline' }}>Security politics</Text>
+                        <Text
+                            allowFontScaling={false}
+                            minimumFontScale={wp(2)}
+                            style={{ color: '#333', fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Security politics</Text>
                     </Button>
                 </Content>
                 {/* Modify Profile User */}

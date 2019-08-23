@@ -8,6 +8,7 @@ import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
 import AWS from 'aws-sdk'
 import bytes from 'bytes'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 import * as mutations from '../../../../../src/graphql/mutations'
 
@@ -108,7 +109,10 @@ class Avatar extends Component {
                     style={{ borderColor: isLoading ? "#BDBDBD" : "#D81B60", alignSelf: "center", width: 110, justifyContent: 'center' }}>
                     {isLoading
                         ? <Spinner color='#BDBDBD' size="small" hidesWhenStopped={true} />
-                        : <Text style={{ color: "#D81B60" }}>Update avatar</Text>}
+                        : <Text
+                            allowFontScaling={false}
+                            minimumFontScale={wp(3)}
+                            style={{ color: "#D81B60", fontSize: wp(3) }}>Update avatar</Text>}
                 </Button>
             </View>
         )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, Platform, RefreshControl } from 'react-native';
-import { Container, View, Tab, Tabs, Text } from "native-base"
+import { Container, View, Tab, Tabs, Text, TabHeading } from "native-base"
 import SearchBar from 'react-native-searchbar';
 import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -18,8 +18,14 @@ import { GadrientsListContenst } from "../../../Global/gradients/index"
 import { API, graphqlOperation } from 'aws-amplify'
 import { showParticipationByUser } from '../../../../src/graphql/queries'
 
+
 class UserContest extends Component {
-    state = { input: "", contestAsociated: [], contestList: [], refreshing: false }
+    constructor() {
+        super()
+        this.state = { input: "", contestAsociated: [], contestList: [], refreshing: false }
+        this._isMounted = true
+    }
+
 
     _emptySearchInput = () => {
         this.setState({ input: "" })
@@ -39,10 +45,12 @@ class UserContest extends Component {
     }
 
     getContestAsociated = async () => {
-        const { userData } = this.props
-        const { data } = await API.graphql(graphqlOperation(showParticipationByUser, { userId: userData.id }));
-        let contestAsociated = JSON.parse(data.showParticipationByUser)
-        this.setState({ contestAsociated })
+        if (this._isMounted) {
+            const { userData } = this.props
+            const { data } = await API.graphql(graphqlOperation(showParticipationByUser, { userId: userData.id }));
+            let contestAsociated = JSON.parse(data.showParticipationByUser)
+            this.setState({ contestAsociated })
+        }
     }
 
     _onRefresh = () => {
@@ -50,6 +58,10 @@ class UserContest extends Component {
         this.getContestAsociated().then(() => {
             this.setState({ refreshing: false });
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
 
@@ -68,12 +80,15 @@ class UserContest extends Component {
                     <SearchBar
                         ref={(ref) => this.searchBar = ref}
                         handleChangeText={(input) => this.setState({ input })}
+                        allowFontScaling={false}
+                        minimumFontScale={wp(6)}
+                        fontSize={15}
                         placeholder={`Filter by name...`}
                         animate={false}
                         iconColor="#D81B60"
                         backgroundColor="#F5F5F5"
                         heightAdjust={-5}
-                        autoCorrect={true}
+                        autoCorrect={false}
                     />
                 </View>
 
@@ -83,8 +98,15 @@ class UserContest extends Component {
                     onChangeTab={() => { this._closeSearchBar(); this._emptySearchInput() }}
                     tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
                     <Tab
-                        heading="Created"
-                        activeTextStyle={{ color: '#D81B60' }}
+                        heading={
+                            <TabHeading>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Created</Text>
+                            </TabHeading>
+                        }
+                        activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
@@ -103,7 +125,14 @@ class UserContest extends Component {
                         }
                     </Tab>
                     <Tab
-                        heading="Participated"
+                        heading={
+                            <TabHeading>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Participated</Text>
+                            </TabHeading>
+                        }
                         activeTextStyle={{ color: '#D81B60' }}
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
@@ -126,13 +155,15 @@ class UserContest extends Component {
                                     }
                                     keyExtractor={(item, index) => index.toString()} />
                                 : <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
-                                    <Text style={{ color: '#BDBDBD', fontSize: wp(6.5), alignSelf: 'center', textAlign: 'center' }}>You have not joined any contest!</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        minimumFontScale={wp(5)}
+                                        style={{ color: '#BDBDBD', fontSize: wp(5), alignSelf: 'center', textAlign: 'center' }}>You have not joined any contest!</Text>
                                 </View>
                         }
                     </Tab>
                 </Tabs>
             </Container>
-
         )
     }
 }

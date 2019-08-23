@@ -4,6 +4,7 @@ import { API, graphqlOperation } from "aws-amplify"
 import { isAscii } from 'validator';
 import { Grid, Col } from 'react-native-easy-grid'
 import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner } from 'native-base'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // Max lenght of the form
 const maxLength = 20
@@ -34,7 +35,10 @@ export default class UpdateLastName extends Component {
             <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
                     <Left>
-                        <Title style={{ color: "#333", fontSize: 22 }}>Edit your last name</Title>
+                        <Title
+                            allowFontScaling={false}
+                            minimumFontScale={wp(6)}
+                            style={{ color: "#333", fontSize: wp(6) }}>Edit your last name</Title>
                     </Left>
                 </Header>
                 <Item
@@ -42,11 +46,16 @@ export default class UpdateLastName extends Component {
                     success={isAscii(this.state.lastName) ? true : false}
                     style={{ width: "90%", top: 15, alignSelf: "center" }}>
                     <Input
+                        allowFontScaling={false}
+                        minimumFontScale={wp(4)}
                         placeholder={userData && userData.lastname}
                         autoCapitalize="words" autoFocus={true} ref={(ref) => { lastName = ref }}
                         maxLength={20} value={this.state.lastName} keyboardType="ascii-capable" selectionColor="#333"
                         onChangeText={(lastName) => this.setState({ lastName })} />
-                    <Text style={{ right: 15, color: "#E0E0E0" }}>
+                    <Text
+                        allowFontScaling={false}
+                        minimumFontScale={wp(4)}
+                        style={{ right: 15, color: "#E0E0E0", fontSize: wp(4) }}>
                         {maxLength - this.state.lastName.length}
                     </Text>
                     <Icon
@@ -62,7 +71,10 @@ export default class UpdateLastName extends Component {
                                 borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                 justifyContent: 'center', alignItems: 'center'
                             }}>
-                            <Text style={{ color: "#333" }}>CANCEL</Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ color: "#333", fontSize: wp(4) }}>CANCEL</Text>
                         </Button>
                     </Col>
                     <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -75,7 +87,10 @@ export default class UpdateLastName extends Component {
                                 borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                 justifyContent: 'center', alignItems: 'center'
                             }}>
-                            {isLoading ? <Spinner size="small" color="#BDBDBD" /> : <Text style={{ color: isAscii(this.state.lastName) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>}
+                            {isLoading ? <Spinner size="small" color="#BDBDBD" /> : <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: isAscii(this.state.lastName) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>}
                         </Button>
                     </Col>
                 </Grid>

@@ -10,13 +10,13 @@ export default class PlaceholderAll extends Component {
             timesRepeat.map((item) => (
                 <Card key={item.id} style={{
                     flex: 0,
-                    borderRadius: 15,
+                    borderRadius: 5,
                     marginBottom: 10,
-                    width: "90%",
+                    width: "95%",
                     alignSelf: "center",
                     marginTop: 20
                 }}>
-                    <CardItem style={{ borderTopEndRadius: 15, borderTopStartRadius: 15 }}>
+                    <CardItem style={{ borderTopEndRadius: 5, borderTopStartRadius: 5 }}>
                         <Left>
                             <Placeholder.Media animate="fade" size={40} hasRadius />
                             <Body>
@@ -25,10 +25,10 @@ export default class PlaceholderAll extends Component {
                             </Body>
                         </Left>
                     </CardItem>
-                    <CardItem cardBody style={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}>
+                    <CardItem cardBody style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                         <View style={{
-                            borderBottomLeftRadius: 15,
-                            borderBottomRightRadius: 15,
+                            borderBottomLeftRadius: 5,
+                            borderBottomRightRadius: 5,
                             overflow: 'hidden', flex: 1
                         }}>
                             <Placeholder.Media animate="fade" size={120} style={{ width: "100%" }} />

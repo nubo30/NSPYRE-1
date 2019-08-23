@@ -291,7 +291,10 @@ class ShowContest extends Component {
                                     iterationCount="infinite"
                                     style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
                                 >
-                                    <Text style={{ textAlign: 'center', color: 'white', fontSize: wp(8), opacity: 0.8 }}>Swipe</Text>
+                                    <Text
+                                        minimumFontScale={wp(7)}
+                                        allowFontScaling={false}
+                                        style={{ textAlign: 'center', color: 'white', fontSize: wp(7), opacity: 0.8 }}>Swipe</Text>
                                     <Icon
                                         name='arrow-long-right'
                                         type='Entypo'

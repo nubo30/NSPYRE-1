@@ -66,8 +66,8 @@ class Scope extends Component {
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text style={{ color: "#FFF", fontSize: wp(8), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
-                        Hey <Text style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(8) }}>{moreUserData && moreUserData.name}</Text>, how do you want to continue?
+                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(7), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
+                        Hey <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(7) }}>{moreUserData && moreUserData.name}</Text>, how do you want to continue?
                     </Text>
                 </Row>
                 <Row size={80} style={{ alignSelf: 'center' }}>
@@ -82,31 +82,31 @@ class Scope extends Component {
                         top: -13
                     }}>
                         <Row size={80} style={{ backgroundColor: '#FFF', justifyContent: 'center', borderRadius: 5, alignItems: 'center', flexDirection: 'column' }}>
-                            <Text style={{ fontSize: wp(7), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
-                            <Text style={{ fontSize: wp(4.5), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>What do you want to do now?</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>What do you want to do now?</Text>
                             <List style={{ width: "100%", padding: 10 }}>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "engage" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("engage")} />
                                     <Body>
-                                        <Text onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: "#E0E0E0", }}>Engage</Text>
+                                        <Text allowFontScaling={false} onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: "#E0E0E0", }}>Engage</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "createContest" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("createContest")} />
                                     <Body>
-                                        <Text style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("createContest")}>Create Contest</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("createContest")}>Create Contest</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "submitPrize" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("submitPrize")} />
                                     <Body>
-                                        <Text style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("submitPrize")}>Submit Prize</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("submitPrize")}>Submit Prize</Text>
                                     </Body>
                                 </ListItem>
                             </List>
                         </Row>
                         <Row size={20} style={{ backgroundColor: '#FFF', borderBottomLeftRadius: 5, borderBottomRightRadius: 5, flexDirection: "column" }}>
-                            <Text style={{ top: -20, alignSelf: 'center', fontSize: wp(5), color: '#F44336' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ top: -20, alignSelf: 'center', fontSize: wp(4), color: '#F44336' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             <Animatable.View
                                 animation={scopeAnimation ? "shake" : undefined}
                                 onAnimationEnd={() => this.setState({ scopeAnimation: false })}
@@ -119,7 +119,7 @@ class Scope extends Component {
                                     iconLeft
                                     onPress={scope ? () => this._submit() : () => this._scopeSelect()}
                                     style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
-                                    <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>
+                                    <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>
                                     {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' style={{ left: -10 }} />}
                                 </Button>
                             </Animatable.View>

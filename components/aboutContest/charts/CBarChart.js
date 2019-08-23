@@ -10,7 +10,10 @@ export default class Charts extends Component {
     render() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column', flex: 1 }}>
-                <Text style={{ alignSelf: 'center', padding: 10, fontWeight: 'bold', top: -20 }}>Monthly Money</Text>
+                <Text
+                    minimumFontScale={wp(4)}
+                    allowFontScaling={false}
+                    style={{ alignSelf: 'center', padding: 10, fontWeight: 'bold', top: -20 }}>Monthly Money</Text>
                 <BarChart
                     data={{
                         labels: ['Jan', 'Feb', 'Mar', 'Apr'],

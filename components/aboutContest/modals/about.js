@@ -88,17 +88,32 @@ export default class About extends Component {
                             </Row>
                             <Row size={40} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
                                 <Content>
-                                    <Text style={{ top: 5, fontSize: wp(7), color: "#D82B60" }}>Description</Text>
-                                    <Text style={{ fontSize: wp(4.5), fontWeight: '100', top: 10, color: "#3333" }}>{contest.general.description}</Text>
-                                    <Text style={{ top: 15, fontSize: wp(7), color: "#D82B60" }}>Instructions</Text>
-                                    <Text style={{ fontSize: wp(4.5), fontWeight: '100', top: 20, color: "#3333" }}>{contest.general.instructions}</Text>
+                                    <Text
+                                        minimumFontScale={wp(6)}
+                                        allowFontScaling={false}
+                                        style={{ top: 5, fontSize: wp(6), color: "#D82B60" }}>Description</Text>
+                                    <Text
+                                        minimumFontScale={wp(3.5)}
+                                        allowFontScaling={false}
+                                        style={{ fontSize: wp(3.5), fontWeight: '100', top: 10, color: "#3333" }}>{contest.general.description}</Text>
+                                    <Text
+                                        minimumFontScale={wp(6)}
+                                        allowFontScaling={false}
+                                        style={{ top: 15, fontSize: wp(6), color: "#D82B60" }}>Instructions</Text>
+                                    <Text
+                                        minimumFontScale={wp(3.5)}
+                                        allowFontScaling={false}
+                                        style={{ fontSize: wp(3.5), fontWeight: '100', top: 20, color: "#3333" }}>{contest.general.instructions}</Text>
                                 </Content>
                             </Row>
                             <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {userData.id === contest.user.id || disableParticipants === true
                                     ? null : filterParticipantsList.length
                                         ? <Button disabled style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ letterSpacing: 2, color: '#FFF' }}>YOU'RE IN 🎉</Text>
+                                            <Text
+                                                minimumFontScale={wp(4)}
+                                                allowFontScaling={false}
+                                                style={{ letterSpacing: 2, color: '#FFF', fontSize: wp(4) }}>YOU'RE IN 🎉</Text>
                                         </Button>
                                         : <Button
                                             onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}

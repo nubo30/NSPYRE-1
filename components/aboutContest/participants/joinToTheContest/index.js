@@ -223,7 +223,7 @@ export default class JoinToTheContest extends Component {
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 <View style={{ flex: 0.3 }}>
-                                    <Text style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
                                 </View>
                                 <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
                                     <AnimationManWihtHearts />
@@ -237,7 +237,9 @@ export default class JoinToTheContest extends Component {
                                         width: '70%',
                                         shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
                                     }}>
-                                    <Text style={{ color: '#FFF' }}>Next</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        style={{ color: '#FFF' }}>Next</Text>
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Row>
@@ -251,7 +253,9 @@ export default class JoinToTheContest extends Component {
                                         });
                                         _setModalVisibleJoinToTheContest(false)
                                     }}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
                         </Grid>
@@ -260,8 +264,8 @@ export default class JoinToTheContest extends Component {
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 <View style={{ flex: 0.4, alignItems: 'center', padding: 5 }}>
-                                    <Text style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
-                                    <Text style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
                                         {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
                                     </Text>
                                 </View>
@@ -277,7 +281,7 @@ export default class JoinToTheContest extends Component {
                                         width: '70%',
                                         shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
                                     }}>
-                                    <Text style={{ color: '#FFF' }}>Next</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Row>
@@ -285,7 +289,7 @@ export default class JoinToTheContest extends Component {
                                 <Button
                                     transparent
                                     onPress={() => this._changeSwiper(-1)}>
-                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
                                 </Button>
                                 <Button
                                     transparent
@@ -298,7 +302,7 @@ export default class JoinToTheContest extends Component {
                                                 picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
                                             })
                                         }}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
                         </Grid>
@@ -306,7 +310,7 @@ export default class JoinToTheContest extends Component {
                         {/* UPLOAD VIDEO OR MEME */}
                         <Grid>
                             <Row size={20} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
                             </Row>
                             {video.localUrl !== null
                                 ? <Row size={60} style={{ flexDirection: 'column' }}>
@@ -358,14 +362,14 @@ export default class JoinToTheContest extends Component {
                                     onPress={() => this._useLibraryHandler('Videos')}
                                     transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
                                     <Icon type="Ionicons" name="ios-videocam" style={{ fontSize: wp(20), color: "#3333" }} />
-                                    <Text style={{ fontSize: wp(4.5), color: '#3333' }}>Videos</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Videos</Text>
                                 </Button>
-                                <Text style={{ fontSize: wp(5), fontWeight: 'bold', color: '#333' }}>OR</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', color: '#333' }}>OR</Text>
                                 <Button
                                     onPress={() => this._useLibraryHandler('Images')}
                                     transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
                                     <Icon type="Entypo" name="images" style={{ fontSize: wp(20), color: "#3333" }} />
-                                    <Text style={{ fontSize: wp(4.5), color: '#3333' }}>Imagen/Meme</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Imagen/Meme</Text>
                                 </Button>
                             </Row> : null}
 
@@ -378,7 +382,7 @@ export default class JoinToTheContest extends Component {
                                         width: '70%',
                                         shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
                                     }}>
-                                    <Text style={{ color: '#FFF' }}>Next</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Row>
@@ -386,7 +390,7 @@ export default class JoinToTheContest extends Component {
                                 <Button
                                     transparent
                                     onPress={() => this._changeSwiper(-1)}>
-                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
                                 </Button>
                                 <Button
                                     transparent
@@ -399,7 +403,7 @@ export default class JoinToTheContest extends Component {
                                                 picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
                                             })
                                         }}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
                         </Grid>
@@ -407,11 +411,12 @@ export default class JoinToTheContest extends Component {
                         {/* COMMENTS */}
                         <Grid>
                             <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
                                 <Form style={{ padding: 10 }}>
                                     <Textarea
                                         editable={isLoading}
                                         bordered
+                                        allowFontScaling={false}
                                         onChangeText={(value) => this.setState({ commentText: value })}
                                         value={commentText}
                                         maxLength={512}
@@ -434,10 +439,10 @@ export default class JoinToTheContest extends Component {
                                     }}>
                                     {isLoading
                                         ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ color: "#EEEEEE" }}>Please wait...  </Text>
+                                            <Text allowFontScaling={false} style={{ color: "#EEEEEE" }}>Please wait...  </Text>
                                             <Spinner size="small" color="#EEEEEE" />
                                         </View>
-                                        : <Text style={{ color: '#FFF', letterSpacing: 2 }}>SUBMIT</Text>}
+                                        : <Text allowFontScaling={false} style={{ color: '#FFF', letterSpacing: 2 }}>SUBMIT</Text>}
 
                                 </Button>
                             </Row>
@@ -445,7 +450,7 @@ export default class JoinToTheContest extends Component {
                                 <Button
                                     transparent
                                     onPress={() => this._changeSwiper(-1)}>
-                                    <Text style={{ color: '#3333' }}>Back</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
                                 </Button>
                                 <Button
                                     transparent
@@ -458,7 +463,7 @@ export default class JoinToTheContest extends Component {
                                                 picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
                                             })
                                         }}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
                         </Grid>
@@ -469,11 +474,11 @@ export default class JoinToTheContest extends Component {
                                 <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
                                     <CongratsParticipate swiperIndex={swiperIndex} />
                                 </View>
-                                <Text style={{ fontSize: wp(7), color: '#D82B60', alignSelf: 'center' }}>You are inside!</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60', alignSelf: 'center' }}>You are inside!</Text>
                             </Row>
                             <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button transparent onPress={() => _setModalVisibleJoinToTheContest(false)}>
-                                    <Text style={{ color: '#3333' }}>Close</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
                                 </Button>
                             </Row>
                         </Grid>

@@ -153,7 +153,7 @@ class AboutYou extends Component {
             location,
             companyName,
             titleInTheCompany,
-            
+
             inputTextRegions,
             inputTextCountry,
             inputTextCities,
@@ -187,17 +187,17 @@ class AboutYou extends Component {
                             transparent
                             onPress={() => navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>Back</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>About You</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>About You</Title>
                     </Left>
                     <Right />
                 </Header>
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -212,10 +212,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -227,10 +227,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -242,10 +242,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number Phone</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number Phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -257,10 +257,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Email</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -272,10 +272,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Location</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{location.street && location.city && location.state && location.country ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{location.street && location.city && location.state && location.country ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -288,10 +288,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Company Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{companyName ? _.truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? _.truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -304,17 +304,18 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Title in the company</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Title in the company</Text>
                                             {isLoading ? null :
                                                 <Picker
                                                     renderHeader={backAction =>
                                                         <Header searchBar transparent rounded style={{ left: -20 }}>
                                                             <Button transparent small onPress={backAction}>
-                                                                <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                                             </Button>
                                                             <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                                 <Icon name="ios-search" />
                                                                 <Input
+                                                                    allowFontScaling={false}
                                                                     placeholder="Filter"
                                                                     value={inputTextTitleIntheCompany}
                                                                     onChangeText={(value) => this.setState({ inputTextTitleIntheCompany: value })} />
@@ -334,7 +335,7 @@ class AboutYou extends Component {
                                                 </Picker>}
                                         </Body>
                                         <Right>
-                                            <Text>{titleInTheCompany}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{titleInTheCompany}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -348,14 +349,14 @@ class AboutYou extends Component {
                                                 { text: 'OK', onPress: () => null },
                                             ],
                                         )}>
-                                        <Text style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
+                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
                                         <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
                                     </Button>
                                 </List>
 
                             </Content>
                         </View>
-                        <Text style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
                             {messageFlash.cognito && messageFlash.cognito.message}
                         </Text>
                     </Row>
@@ -381,7 +382,7 @@ class AboutYou extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
@@ -400,7 +401,7 @@ class AboutYou extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Location</Title>
                         </Header>
 
                         {/* STREET */}
@@ -412,6 +413,7 @@ class AboutYou extends Component {
                             </Left>
                             <Body>
                                 <Input
+                                    allowFontScaling={false}
                                     placeholder="Your street"
                                     placeholderTextColor="#EEEE"
                                     autoFocus={true}
@@ -434,10 +436,10 @@ class AboutYou extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: '#333' }}>Country</Text>
+                                <Text allowFontScaling={false} style={{ color: '#333' }}>Country</Text>
                             </Body>
                             <Right>
-                                <Text>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
+                                <Text allowFontScaling={false}>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
                             </Right>
                         </ListItem>
                         <Picker
@@ -447,19 +449,20 @@ class AboutYou extends Component {
                             renderHeader={backAction =>
                                 <Header searchBar transparent rounded style={{ left: -20 }}>
                                     <Button transparent small onPress={backAction}>
-                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                        <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                     </Button>
                                     {listCountries.length
                                         ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                             <Icon name="ios-search" />
                                             <Input
+                                                allowFontScaling={false}
                                                 placeholder="Filter"
                                                 value={inputTextCountry}
                                                 onChangeText={(value) => this.setState({ inputTextCountry: value })} />
                                             <Icon type="MaterialCommunityIcons" name="earth" style={{ fontSize: wp(4) }} />
                                         </Item>
                                         : <Item style={{ backgroundColor: '#FFF' }}>
-                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
+                                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
                                         </Item>}
                                 </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
@@ -479,10 +482,10 @@ class AboutYou extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: '#333' }}>State</Text>
+                                <Text allowFontScaling={false} style={{ color: '#333' }}>State</Text>
                             </Body>
                             <Right>
-                                <Text>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                                <Text allowFontScaling={false}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
                             </Right>
                         </ListItem>
                         <Picker
@@ -492,19 +495,20 @@ class AboutYou extends Component {
                             renderHeader={backAction =>
                                 <Header searchBar transparent rounded style={{ left: -20 }}>
                                     <Button transparent small onPress={backAction}>
-                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                        <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                     </Button>
                                     {listRegions.length
                                         ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                             <Icon name="ios-search" />
                                             <Input
+                                                allowFontScaling={false}
                                                 placeholder="Filter"
                                                 value={inputTextRegions}
                                                 onChangeText={(value) => this.setState({ inputTextRegions: value })} />
                                             <Icon type="Foundation" name="map" style={{ fontSize: wp(4) }} />
                                         </Item>
                                         : <Item style={{ backgroundColor: '#FFF' }}>
-                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
                                         </Item>}
                                 </Header>}
                             iosHeader="SELECT REGION"
@@ -526,10 +530,10 @@ class AboutYou extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ color: '#333' }}>City</Text>
+                                <Text allowFontScaling={false} style={{ color: '#333' }}>City</Text>
                             </Body>
                             <Right>
-                                <Text>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
+                                <Text allowFontScaling={false}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
                             </Right>
                         </ListItem>
                         <Picker
@@ -539,19 +543,20 @@ class AboutYou extends Component {
                             renderHeader={backAction =>
                                 <Header searchBar transparent rounded style={{ left: -20 }}>
                                     <Button transparent small onPress={backAction}>
-                                        <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                        <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                     </Button>
                                     {listCities && listCities.length
                                         ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                             <Icon name="ios-search" />
                                             <Input
+                                                allowFontScaling={false}
                                                 placeholder="Filter"
                                                 value={inputTextCities}
                                                 onChangeText={(value) => this.setState({ inputTextCities: value })} />
                                             <Icon type="MaterialIcons" name="location-city" style={{ fontSize: wp(4) }} />
                                         </Item>
                                         : <Item style={{ backgroundColor: '#FFF' }}>
-                                            <Text style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
+                                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
                                         </Item>}
                                 </Header>}
                             headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
@@ -582,7 +587,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -596,13 +601,13 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: location.street && location.city !== "Not specified" && location.state !== "Not specified" && location.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: location.street && location.city !== "Not specified" && location.state !== "Not specified" && location.country !== "Not specified" ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
 
                     </KeyboardAvoidingView>
-         
+
                 </Modal>
 
                 {/* COMPANY NAME */}
@@ -618,7 +623,7 @@ class AboutYou extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Company Name</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Company Name</Title>
                         </Header>
 
                         {/* COMPANY NAMEY */}
@@ -630,6 +635,7 @@ class AboutYou extends Component {
                             </Left>
                             <Body>
                                 <Input
+                                    allowFontScaling={false}
                                     placeholder="Company Name"
                                     placeholderTextColor="#EEEE"
                                     maxLength={20}
@@ -656,7 +662,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -669,7 +675,7 @@ class AboutYou extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: companyName ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: companyName ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

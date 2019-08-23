@@ -36,11 +36,17 @@ export default class AboutPrize extends Component {
                     <Left>
                         <Button transparent onPress={() => { fromWhere === 'fromSubmitPrize' ? navigation.navigate('Home') : navigation.goBack() }}>
                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                            <Text style={{ left: 5, color: "#D81B60" }}>{_.upperFirst(_.lowerCase(prize.category))}</Text>
+                            <Text
+                                minimumFontScale={wp(4)}
+                                allowFontScaling={false}
+                                style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(prize.category))}</Text>
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ fontSize: wp(8), color: '#D81B60' }}>{_.startCase(prize.general.nameOfPrize)}</Title>
+                        <Title
+                            minimumFontScale={wp(7)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(7), color: '#D81B60' }}>{_.startCase(prize.general.nameOfPrize)}</Title>
                     </Body>
                     <Right>
                         <Thumbnail small source={{ uri: prize.user.avatar }} />
@@ -48,19 +54,31 @@ export default class AboutPrize extends Component {
                 </Header>
                 <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: 5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: wp(10), color: '#D81B60', fontWeight: '400' }}>About the prize</Text>
-                        <Text style={{ fontSize: wp(4), color: '#F44336', top: 15 }}>
+                        <Text
+                            minimumFontScale={wp(9)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(9), color: '#D81B60', fontWeight: '400' }}>About the prize</Text>
+                        <Text
+                            minimumFontScale={wp(3)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(3), color: '#F44336', top: 15 }}>
                             {prize.general.price} Points
                     </Text>
                     </View>
-                    <Text style={{ color: '#3333', fontSize: wp(4.5), fontWeight: '100' }}>
+                    <Text
+                        minimumFontScale={wp(3.5)}
+                        allowFontScaling={false}
+                        style={{ color: '#3333', fontSize: wp(3.5), fontWeight: '100' }}>
                         This prize was published at <Text style={{ color: '#3333', fontWeight: 'bold' }}>{moment(prize.createdAt).fromNow()}</Text>, by user <Text style={{ color: '#3333', fontWeight: 'bold' }}>{prize.user.name}</Text>.
                     </Text>
                 </View>
                 <Content contentContainerStyle={{ backgroundColor: '#FFF', top: 10 }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', padding: 30 }}>
                         <Entypo name="bookmark" style={{ fontSize: wp(10), color: '#D81B60' }} />
-                        <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: '100', textAlign: 'center' }}>
+                        <Text
+                            minimumFontScale={wp(3.5)}
+                            allowFontScaling={false}
+                            style={{ color: '#333', fontSize: wp(3.5), fontWeight: '100', textAlign: 'center' }}>
                             {prize.general.description}
                         </Text>
                     </View>
@@ -88,13 +106,22 @@ export default class AboutPrize extends Component {
                     </Swiper>
 
                     <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: -5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5', }}>
-                        <Text style={{ fontSize: wp(10), color: '#D81B60', fontWeight: '400' }}>Instructions</Text>
+                        <Text
+                            minimumFontScale={wp(9)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(9), color: '#D81B60', fontWeight: '400' }}>Instructions</Text>
                         <View style={{ padding: 15, justifyContent: 'center' }}>
                             <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
-                                <Text style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>{_.startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
+                                <Text
+                                    minimumFontScale={wp(2.5)}
+                                    allowFontScaling={false}
+                                    style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{_.startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
                             </View>
                         </View>
-                        <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: '100' }}>
+                        <Text
+                            minimumFontScale={wp(3.5)}
+                            allowFontScaling={false}
+                            style={{ color: '#333', fontSize: wp(3.5), fontWeight: '100' }}>
                             {prize.general.instructions.msg}
                         </Text>
                     </View>
@@ -104,7 +131,10 @@ export default class AboutPrize extends Component {
                     <Button
                         onPress={() => this._modalRedeemPrizeAction()}
                         style={{ backgroundColor: '#D81B60', width: '60%', alignSelf: 'center', height: '70%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>Redeem Prize</Text>
+                        <Text
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>Redeem Prize</Text>
                     </Button>
                 </Footer>
                 <ModalRedeemPrize

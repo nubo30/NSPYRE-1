@@ -85,8 +85,7 @@ class ListContest extends Component {
                 alignSelf: "center",
                 marginBottom: 10,
                 height: 100,
-                borderRadius: 10,
-                elevation: 5
+                borderRadius: 5,
               }}
               duration={200}
               onAnimationEnd={() => {
@@ -95,13 +94,15 @@ class ListContest extends Component {
               }}
               animation={this.state.animationPulse ? (item.id === this.state.indexItem ? 'pulse' : undefined) : undefined}>
               <ImageBackground
-                borderRadius={10}
+                borderRadius={5}
                 onLoadStart={() => this.setState({ loadingImg: true })}
                 onLoadEnd={() => { this.setState({ loadingImg: false }) }}
                 style={{ width: "100%", height: 100 }}
                 source={{ uri: item.picture }}>
-                <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 10 }}>
-                  <Text style={{ color: "#fff", fontSize: wp(8), bottom: 0, position: "absolute", padding: 10 }}>
+                <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 5 }}>
+                  <Text
+                    allowFontScaling={false}
+                    style={{ color: "#fff", fontSize: wp(7), bottom: 0, position: "absolute", padding: 10 }}>
                     {_.startCase(item.name)}
                   </Text>
                 </View>
@@ -118,7 +119,7 @@ class ListContest extends Component {
         renderItem={() =>
           <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'rgba(0,0,0,0.0)' }}>
             <Placeholder.Media
-              style={{ width: "95%", alignSelf: "center", marginBottom: 10, height: 100, borderRadius: 10 }}
+              style={{ width: "95%", alignSelf: "center", marginBottom: 10, height: 100, borderRadius: 5 }}
               hasRadius={false} animate="fade" />
           </View>
         }

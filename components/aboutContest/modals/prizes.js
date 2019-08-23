@@ -50,8 +50,11 @@ export default class Prizes extends Component {
                                 transparent
                                 style={{ right: "15%", top: -10 }}
                                 onPress={() => this._changeSwiper(-1)}>
-                                <Ionicons name='ios-arrow-back' style={{ fontSize: wp(7), color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60", right: 10 }} />
-                                <Text style={{ fontSize: wp(4.5), top: -1, color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60" }}>Back</Text>
+                                <Icon type="Ionicons" name='ios-arrow-back' style={{ fontSize: wp(7), color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60", right: 10 }} />
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ fontSize: wp(4), top: -1, color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60" }}>Back</Text>
                             </Button>
                             <Button
                                 disabled={contest.prizes.length === indexSwiper + 1}
@@ -59,8 +62,11 @@ export default class Prizes extends Component {
                                 transparent
                                 style={{ left: "15%", top: -10 }}
                                 onPress={() => this._changeSwiper(1)}>
-                                <Text style={{ fontSize: wp(4.5), top: -1, color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60" }}>Next</Text>
-                                <Ionicons name='ios-arrow-forward' style={{ fontSize: wp(7), color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60", left: 10 }} />
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ fontSize: wp(4), top: -1, color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60" }}>Next</Text>
+                                <Icon type="Ionicons" name='ios-arrow-forward' style={{ fontSize: wp(7), color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60", left: 10 }} />
                             </Button>
                         </View>
                     }
@@ -99,8 +105,14 @@ export default class Prizes extends Component {
                                             flex: 1
                                         }}>
                                             <Swiper
-                                                nextButton={<Text style={{ color: '#FFF', fontSize: wp(13) }}>›</Text>}
-                                                prevButton={<Text style={{ color: '#FFF', fontSize: wp(13) }}>‹</Text>}
+                                                nextButton={<Text
+                                                    minimumFontScale={wp(12)}
+                                                    allowFontScaling={false}
+                                                    style={{ color: '#FFF', fontSize: wp(12) }}>›</Text>}
+                                                prevButton={<Text
+                                                    minimumFontScale={wp(12)}
+                                                    allowFontScaling={false}
+                                                    style={{ color: '#FFF', fontSize: wp(12) }}>‹</Text>}
                                                 showsButtons={true}
                                                 scrollEnabled={false}
                                                 loop={false}
@@ -150,11 +162,20 @@ export default class Prizes extends Component {
                                     </Row>
                                     <Row size={60} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 0.2, alignItems: 'center' }}>
-                                            <Text style={{ fontSize: wp(10), color: "#D82B60" }}>{_.truncate(_.startCase(item.name), { separator: '...', length: 15 })}</Text>
+                                            <Text
+                                                minimumFontScale={wp(9)}
+                                                allowFontScaling={false}
+                                                style={{ fontSize: wp(9), color: "#D82B60" }}>{_.truncate(_.startCase(item.name), { separator: '...', length: 15 })}</Text>
                                         </View>
                                         <View style={{ flex: 0.8, top: -10, }}>
-                                            <Text style={{ top: 5, fontSize: wp(7), color: "#D82B60" }}>Description</Text>
-                                            <Text style={{ fontSize: wp(5), fontWeight: '100', top: 10, color: "#3333" }}>{_.truncate(item.description, { length: 200, separator: '...' })}</Text>
+                                            <Text
+                                                minimumFontScale={wp(6)}
+                                                allowFontScaling={false}
+                                                style={{ top: 5, fontSize: wp(6), color: "#D82B60" }}>Description</Text>
+                                            <Text
+                                                minimumFontScale={wp(4)}
+                                                allowFontScaling={false}
+                                                style={{ fontSize: wp(4), top: 10, color: "#3333" }}>{_.truncate(item.description, { length: 200, separator: '...' })}</Text>
                                         </View>
                                     </Row>
                                 </Grid>

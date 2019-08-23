@@ -63,20 +63,20 @@ class Summary extends Component {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>Interest</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Interest</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>Summary</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Summary</Title>
                     </Left>
                     <Right>
-                        <Text style={{ fontSize: wp(5), color: '#FFF' }}>Total coins earned {_.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins])}</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Total coins earned {_.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins])}</Text>
                     </Right>
                 </Header>
 
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please verify all your information and confirm that everything is fine!</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please verify all your information and confirm that everything is fine!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -85,7 +85,7 @@ class Summary extends Component {
                                     <List>
                                         <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: 'rgba(0,0,0,0.0)' }}>
-                                            <Text>ABOUT YOU</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>ABOUT YOU</Text>
                                         </Separator>
 
                                         {/* NAME */}
@@ -96,10 +96,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.name}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.name}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -111,10 +111,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Lastname</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.lastname}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.lastname}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -126,10 +126,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Number phone</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -141,10 +141,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Email</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -156,15 +156,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Birthdate</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Birthdate</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{moment(new Date(engage.aboutThePersonality.birthDate)).calendar()}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{moment(new Date(engage.aboutThePersonality.birthDate)).calendar()}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>LOCATION</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>LOCATION</Text>
                                         </Separator>
 
                                         {/* Location*/}
@@ -175,10 +175,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Your location</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your location</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(`${engage.aboutThePersonality.location.country}, ${engage.aboutThePersonality.location.state}`, { length: 30, separator: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${engage.aboutThePersonality.location.country}, ${engage.aboutThePersonality.location.state}`, { length: 30, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -190,10 +190,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Region identity</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Region identity</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.regionalIdentity, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.regionalIdentity, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -205,15 +205,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Cacionality</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Cacionality</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.nacionality, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.nacionality, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>PREFERENCES</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>PREFERENCES</Text>
                                         </Separator>
 
                                         {/* GENDER */}
@@ -224,10 +224,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>gender</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>gender</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.gender, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.gender, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -239,10 +239,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Sexual preference</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Sexual preference</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.sexuality, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.sexuality, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -254,15 +254,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Marital status</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Marital status</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.maritalStatus, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.maritalStatus, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>FAMILY</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>FAMILY</Text>
                                         </Separator>
 
                                         {/* PARENT'S CONDITION */}
@@ -273,10 +273,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Parent's conditional</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Parent's conditional</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.parentalCondition, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.parentalCondition, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -288,10 +288,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Amount of simblings</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Amount of simblings</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.amountOfSimblings, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.amountOfSimblings, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -303,15 +303,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Amount of childrens</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Amount of childrens</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutThePersonality.amountOfChildren, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.amountOfChildren, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>FORMATION</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>FORMATION</Text>
                                         </Separator>
 
                                         {/* SCHOOLS */}
@@ -322,10 +322,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>school name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>school name</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.schools, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.schools, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -337,10 +337,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>university name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>university name</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.university, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.university, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -352,15 +352,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Level achivied reached</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Level achivied reached</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.levelAchivied, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.levelAchivied, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>STATUS</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>STATUS</Text>
                                         </Separator>
 
                                         {/* OCUPPATION */}
@@ -371,10 +371,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Your occupation</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your occupation</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.occupation, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.occupation, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -386,10 +386,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Your socialeconomic level</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your socialeconomic level</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.socioeconomicLevel, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.socioeconomicLevel, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -401,10 +401,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Car</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Car</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnCar, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnCar, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -416,15 +416,15 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>House</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>House</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnHouse, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnHouse, { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text>INTERESTS</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>INTERESTS</Text>
                                         </Separator>
 
                                         {/* GENRE MUSICALS */}
@@ -435,7 +435,7 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Musical genre</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Musical genre</Text>
                                             </Body>
                                             <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
                                                 <Content showsHorizontalScrollIndicator={false} horizontal>
@@ -446,7 +446,7 @@ class Summary extends Component {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item}</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
@@ -461,7 +461,7 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Sports you like</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Sports you like</Text>
                                             </Body>
                                             <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
                                                 <Content showsHorizontalScrollIndicator={false} horizontal>
@@ -472,7 +472,7 @@ class Summary extends Component {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item}</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
@@ -487,7 +487,7 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Categories of your prize</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Categories of your prize</Text>
                                             </Body>
                                             <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
                                                 <Content showsHorizontalScrollIndicator={false} horizontal>
@@ -498,7 +498,7 @@ class Summary extends Component {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item}</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
@@ -513,7 +513,7 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Categories of your contest</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Categories of your contest</Text>
                                             </Body>
                                             <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
                                                 <Content showsHorizontalScrollIndicator={false} horizontal>
@@ -524,7 +524,7 @@ class Summary extends Component {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item}</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
@@ -539,10 +539,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Political</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Political</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.political)), { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.political)), { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -554,10 +554,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Vote</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Vote</Text>
                                             </Body>
                                             <Right>
-                                                <Text>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.vote)), { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.vote)), { length: 30, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -589,10 +589,10 @@ class Summary extends Component {
                             }}>
                             {isLoading
                                 ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: "#EEEEEE" }}>Creating engage, please wait...  </Text>
+                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(4) }}>Creating engage, please wait...  </Text>
                                     <Spinner size="small" color="#EEEEEE" />
                                 </View>
-                                : <Text style={{ fontWeight: 'bold', letterSpacing: 2 }}>Create</Text>}
+                                : <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, fontSize: wp(4) }}>Create</Text>}
                         </Button>
                     </Animatable.View>
                 </Footer>

@@ -49,10 +49,17 @@ export default class BasicInfo extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text>Email</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                >Email</Text>
                             </Body>
                             <Right>
-                                <Text>{userData.email}</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}>{userData.email}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
@@ -67,15 +74,26 @@ export default class BasicInfo extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text>Phone</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                >Phone</Text>
                             </Body>
                             <Right>
-                                <Text>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
+                                <Text
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                >{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
                     </List>
-                    <Text style={{ color: "#333", alignSelf: 'center', top: 10, fontSize: wp(3) }}>Account created {moment(userData.datetime).calendar()}</Text>
+                    <Text
+                        allowFontScaling={false}
+                        minimumFontScale={wp(3)}
+                        style={{ color: "#333", alignSelf: 'center', top: 10, fontSize: wp(3) }}>Account created {moment(userData.datetime).calendar()}</Text>
                 </Content>
                 <Modal
                     transparent={false}

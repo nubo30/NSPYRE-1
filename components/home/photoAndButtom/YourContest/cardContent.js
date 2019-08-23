@@ -25,7 +25,7 @@ class CardContent extends Component {
         try {
             await API.graphql(graphqlOperation(mutations.deleteCreateContest, { input: { id: item.id } }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
-            this.setState({ loadingDel: false })        
+            this.setState({ loadingDel: false })
         } catch (error) {
             alert(error)
             this.setState({ loadingDel: false })
@@ -54,32 +54,41 @@ class CardContent extends Component {
                         duration={200}
                         style={{
                             flex: 0,
-                            borderRadius: 15,
+                            borderRadius: 5,
                             elevation: Platform.OS === 'ios' ? 10 : 5,
                             marginBottom: 70,
                             width: "90%", height: 200,
                             alignSelf: "center",
                             marginTop: 30,
                         }}>
-                        <Text style={{ color: "#333", fontSize: wp(7), top: -10 }}>
+                        <Text
+                            minimumFontScale={wp(6)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(6), top: -10 }}>
                             {_.startCase(item.general.nameOfContest)}
                         </Text>
-                        <Text style={{ color: "#333", fontSize: wp(5), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
+                        <Text
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
                             {`The category is ${_.lowerCase(item.category)}`}
                         </Text>
-                        <Text style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100', fontStyle: 'italic' }}>
+                        <Text
+                            minimumFontScale={wp(3)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(3), top: -10, color: "#BDBDBD", fontWeight: '100', fontStyle: 'italic' }}>
                             {`Published ${moment(item.createdAt).fromNow()}`}
                         </Text>
                         <View style={{
-                            borderRadius: 15,
+                            borderRadius: 5,
                             shadowColor: 'rgba(0,0,0,0.3)',
                             shadowOffset: { width: 0 }, shadowOpacity: 1
                         }}>
                             <ImageBackground
-                                borderRadius={15}
+                                borderRadius={5}
                                 source={{ uri: item.general.picture.url }}
                                 style={{ height: 200, width: "100%" }}>
-                                <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 15, alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
                                     {isFinishedContest
                                         ? <View style={{
                                             position: 'absolute',
@@ -88,13 +97,16 @@ class CardContent extends Component {
                                             padding: 5
                                         }}>
                                             <View style={{
-                                                borderRadius: 15,
+                                                borderRadius: 5,
                                                 padding: 10, backgroundColor: '#E53935',
                                                 shadowColor: 'rgba(0,0,0,0.3)',
                                                 shadowOffset: { width: 0 },
                                                 shadowOpacity: 1,
                                             }}>
-                                                <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                                <Text
+                                                    minimumFontScale={wp(3)}
+                                                    allowFontScaling={false}
+                                                    style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
                                             </View>
                                         </View> :
                                         item.timer === null
@@ -107,13 +119,16 @@ class CardContent extends Component {
                                                     padding: 5
                                                 }}>
                                                     <View style={{
-                                                        borderRadius: 15,
+                                                        borderRadius: 5,
                                                         padding: 10, backgroundColor: '#E53935',
                                                         shadowColor: 'rgba(0,0,0,0.3)',
                                                         shadowOffset: { width: 0 },
                                                         shadowOpacity: 1,
                                                     }}>
-                                                        <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                                        <Text
+                                                            minimumFontScale={wp(3)}
+                                                            allowFontScaling={false}
+                                                            style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
                                                     </View>
                                                 </View> : <CountDown
                                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
@@ -125,8 +140,14 @@ class CardContent extends Component {
                                                     size={20}
                                                 />}
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-                                        <Text style={{ color: "#FFF", left: -10 }}>🏆 {item.prizes.length}</Text>
-                                        <Text style={{ color: "#FFF", left: 10 }}>👥 {item.participants.items.length}</Text>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ color: "#FFF", left: -10, fontSize: wp(4) }}>🏆 {item.prizes.length}</Text>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ color: "#FFF", left: 10, fontSize: wp(4) }}>👥 {item.participants.items.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>
@@ -136,19 +157,19 @@ class CardContent extends Component {
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', width: "90%", alignSelf: 'center' }}>
 
                     <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row' }}>
-                        <Button transparent style={{ alignSelf: 'flex-start', left: 15, paddingRight: 30 }}>
+                        <Button transparent style={{ alignSelf: 'flex-start', left: 5, paddingRight: 30 }}>
                             <Ionicons name='logo-facebook' style={{ fontSize: 30, color: "#0D47A1" }} />
                         </Button>
-                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 15 }}>
+                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 5 }}>
                             <Ionicons name='logo-twitter' style={{ fontSize: 30, color: "#1E88E5" }} />
                         </Button>
-                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 15 }}>
+                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 5 }}>
                             <Ionicons name='logo-instagram' style={{ fontSize: 30, color: "#E91E63" }} />
                         </Button>
                     </View>
 
                     <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <Button transparent style={{ alignSelf: 'flex-end', paddingRight: 15 }} onPress={() => Alert.alert(
+                        <Button transparent style={{ alignSelf: 'flex-end', paddingRight: 5 }} onPress={() => Alert.alert(
                             `${item.general.nameOfContest}`,
                             'Do you really want to delete this contest?',
                             [

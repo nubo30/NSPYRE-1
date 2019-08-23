@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Keyboard } from 'react-native'
 import { Container, View, Text, Button, Icon, Toast } from 'native-base';
 import Swiper from 'react-native-swiper'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // Child Components
 import PhoneRegister from './forms/phoneRegister'
@@ -94,7 +95,7 @@ export default class Auth extends Component {
                             ? <Button
                                 onPress={() => this._changeSwiperRoot(1)}
                                 small iconRight transparent icon style={{ position: 'absolute', top: 20, right: 0 }}>
-                                <Text style={{ color: '#FFF', right: -10 }}>Validate number</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', right: -10 }}>Validate number</Text>
                                 <Icon name="arrow-forward" style={{ color: "#FFF" }} />
                             </Button>
                             : null}
@@ -115,10 +116,10 @@ export default class Auth extends Component {
                     <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <Button iconLeft disabled={indexSwiper === 0 ? true : false} transparent onPressIn={() => this._changeSwiper(-1)} style={{ left: -10 }}>
                             <Icon name='arrow-back' style={{ color: indexSwiper ? "#EEEEEE" : "#E91E63" }} />
-                            <Text style={{ color: indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>SIGN UP</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>SIGN UP</Text>
                         </Button>
                         <Button iconRight disabled={indexSwiper === 1 ? true : false} transparent onPressIn={() => this._changeSwiper(1)}>
-                            <Text style={{ color: !indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>LOGIN</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>LOGIN</Text>
                             <Icon name='arrow-forward' style={{ color: !indexSwiper ? "#EEEEEE" : "#E91E63" }} />
                         </Button>
                     </View>

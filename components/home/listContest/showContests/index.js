@@ -71,9 +71,15 @@ class ShowContest extends Component {
                             <Left style={{ flexDirection: 'row' }}>
                                 <Button transparent onPress={() => { this.props.navigation.goBack(); }}>
                                     <Icon name='arrow-back' style={{ color: "#FFF" }} />
-                                    <Text style={{ left: 5, color: "#FFF" }}>Back</Text>
+                                    <Text
+                                        minimumFontScale={wp(4)}
+                                        allowFontScaling={false}
+                                        style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
                                 </Button>
-                                <Title style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(10) }}>{_.truncate(_.startCase(categoryContest.name), { length: 17, separator: "..." })}</Title>
+                                <Title
+                                    minimumFontScale={wp(9)}
+                                    allowFontScaling={false}
+                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{_.truncate(_.startCase(categoryContest.name), { length: 17, separator: "..." })}</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>
@@ -81,6 +87,8 @@ class ShowContest extends Component {
                                 <Item style={{ backgroundColor: '#fff', top: -10 }}>
                                     <Icon name="ios-search" style={{ color: !input ? "#E0E0E0" : "#333" }} />
                                     <Input
+                                        minimumFontScale={wp(4)}
+                                        allowFontScaling={false}
                                         onChangeText={(input) => this.setState({ input })}
                                         placeholderTextColor="#E0E0E0"
                                         placeholder="Filter by name of contest" />

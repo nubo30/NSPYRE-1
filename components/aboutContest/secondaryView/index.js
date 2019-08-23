@@ -61,12 +61,24 @@ export default class ContestDataStatistics extends Component {
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button transparent onPress={() => _changeSwiperRoot(-1)}>
                             <Icon name='arrow-back' style={{ color: '#E91E63', }} />
-                            <Text style={{ color: "#E91E63" }}>Principal</Text>
+                            <Text allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                allowFontScaling={false}
+                                style={{ color: "#E91E63" }}>Principal</Text>
                         </Button>
-                        <Title style={{ fontSize: wp(7.5), color: '#E91E63' }}>About the contest</Title>
+                        <Title
+                            minimumFontScale={wp(6.5)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(6.5), color: '#E91E63' }}>About the contest</Title>
                     </Left>
                     <Right>
-                        <Text style={{ color: '#3333', fontSize: wp(3), top: 2 }}>Participants, <Text style={{ fontSize: wp(3), color: '#333', fontWeight: 'bold' }}>{contest.participants.items.length}</Text></Text>
+                        <Text allowFontScaling={false}
+                            minimumFontScale={wp(3)}
+                            allowFontScaling={false}
+                            style={{ color: '#3333', fontSize: wp(3), top: 2 }}>Participants, <Text allowFontScaling={false}
+                                minimumFontScale={wp(3)}
+                                allowFontScaling={false}
+                                style={{ fontSize: wp(3), color: '#333', fontWeight: 'bold' }}>{contest.participants.items.length}</Text></Text>
                     </Right>
                 </Header>
                 <Content>
@@ -79,7 +91,11 @@ export default class ContestDataStatistics extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text>Would you like to show the contest statistics after it is completed?</Text>
+                                <Text allowFontScaling={false}
+                                    style={{ fontSize: wp(4) }}
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(3)}
+                                >Would you like to show the contest statistics after it is completed?</Text>
                             </Body>
                             <Right>
                                 <Switch
@@ -88,24 +104,41 @@ export default class ContestDataStatistics extends Component {
                             </Right>
                         </ListItem>
                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderBottomColor: '#F5F5F5', height: 50 }}>
-                            <Text style={{ color: '#3333' }}>
+                            <Text allowFontScaling={false}
+                                allowFontScaling={false}
+                                minimumFontScale={wp(3)}
+                                style={{ color: '#3333' }}>
                                 The information that will be displayed will be subject to limitations,
                             </Text>
-                            <Text style={{ color: '#3333' }}>
+                            <Text allowFontScaling={false}
+                                allowFontScaling={false}
+                                minimumFontScale={wp(3)}
+                                style={{ color: '#3333' }}>
                                 doing this can also encourage the participation of users in your
                             </Text>
-                            <Text style={{ color: '#3333' }}>
+                            <Text allowFontScaling={false}
+                                allowFontScaling={false}
+                                minimumFontScale={wp(3)}
+                                style={{ color: '#3333' }}>
                                 next contest!
                             </Text>
                         </Separator>
                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
-                            <Text style={{ color: '#333' }}>STATISTICS</Text>
+                            <Text allowFontScaling={false}
+                                allowFontScaling={false}
+                                style={{ color: '#333' }}>STATISTICS</Text>
                         </Separator>
 
                         <View style={{ height: 280 }}>
                             <Swiper
-                                prevButton={<Text style={{ color: '#E91E63', fontSize: wp(13) }}>‹</Text>}
-                                nextButton={<Text style={{ color: '#E91E63', fontSize: wp(13) }}>›</Text>}
+                                prevButton={<Text allowFontScaling={false}
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(12)}
+                                    style={{ color: '#E91E63', fontSize: wp(12) }}>‹</Text>}
+                                nextButton={<Text allowFontScaling={false}
+                                    allowFontScaling={false}
+                                    minimumFontScale={wp(12)}
+                                    style={{ color: '#E91E63', fontSize: wp(12) }}>›</Text>}
                                 scrollEnabled={true}
                                 loop={false}
                                 showsButtons={true}
@@ -116,10 +149,15 @@ export default class ContestDataStatistics extends Component {
                         </View>
 
                         <Separator bordered style={{ backgroundColor: '#F5F5F5', flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{ color: '#333' }}>AUDIENCE</Text>
+                            <Text allowFontScaling={false}
+                                allowFontScaling={false}
+                                style={{ color: '#333' }}>AUDIENCE</Text>
                             {audience.length
                                 ? <Button style={{ top: -10 }} onPress={() => _setModalVisibleAudience(true, false)} transparent small>
-                                    <Text style={{ color: '#E91E63' }}>Create another audience</Text>
+                                    <Text allowFontScaling={false}
+                                        allowFontScaling={false}
+                                        minimumFontScale={wp(3)}
+                                        style={{ color: '#E91E63' }}>Create another audience</Text>
                                 </Button>
                                 : <View />}
                         </Separator>
@@ -131,10 +169,18 @@ export default class ContestDataStatistics extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text>Show the tags of the audiences created</Text>
+                                <Text allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                    allowFontScaling={false}
+                                >Show the tags of the audiences created</Text>
                             </Body>
                             <Right>
-                                <Text>{audience.length} audience created</Text>
+                                <Text allowFontScaling={false}
+                                    minimumFontScale={wp(4)}
+                                    style={{ fontSize: wp(4) }}
+                                    allowFontScaling={false}
+                                >{audience.length} created</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
@@ -150,7 +196,7 @@ export default class ContestDataStatistics extends Component {
                             <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Button transparent onPress={() => this.setState({ modalVisibleShowTags: false })}>
                                     <Icon name='arrow-back' style={{ color: '#E91E63', }} />
-                                    <Text style={{ color: "#E91E63" }}>Back</Text>
+                                    <Text allowFontScaling={false} allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(4) }}>Back</Text>
                                 </Button>
                             </Left>
                             <Right />
@@ -162,14 +208,14 @@ export default class ContestDataStatistics extends Component {
                                     <Collapse>
                                         <CollapseHeader>
                                             <Separator bordered style={{ backgroundColor: '#E91E63', justifyContent: 'space-between', flexDirection: 'row' }}>
-                                                <Text style={{ color: '#FFF' }}>Audience tags #{index + 1}</Text>
-                                                <Text style={{ fontWeight: '100', color: '#FFF', right: 10 }}>{`created ${moment(item.createdAt).startOf('hour').fromNow()}`}</Text>
+                                                <Text allowFontScaling={false} style={{ color: '#FFF' }}>Audience tags #{index + 1}</Text>
+                                                <Text allowFontScaling={false} style={{ fontWeight: '100', color: '#FFF', right: 10 }}>{`created ${moment(item.createdAt).startOf('hour').fromNow()}`}</Text>
                                             </Separator>
                                         </CollapseHeader>
 
                                         <CollapseBody last>
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>General</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>General</Text>
                                             </ListItem>
 
                                             {/* AGE */}
@@ -179,11 +225,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.ages.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Ages selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Ages selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -194,11 +240,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.genders.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Genders selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Genders selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -209,11 +255,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.categoryContest.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Categories selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Categories selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -225,11 +271,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.nacionalities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Nacionalities selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Nacionalities selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -241,11 +287,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.regionalIdentity.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Regional identity selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Regional identity selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -258,15 +304,15 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.countries.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Countries selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Countries selected</Text>
                                                 </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>Education</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>Education</Text>
                                             </ListItem>
 
                                             {/* ACADEMIC LEVEL ACHIEVED */}
@@ -276,11 +322,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.academicLevelAchieved.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Academic level achieved selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Academic level achieved selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -291,11 +337,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.universities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Universities selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Universities selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -307,15 +353,15 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.schools.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Schools selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Schools selected</Text>
                                                 </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>Persons</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>Persons</Text>
                                             </ListItem>
 
                                             {/* SEXUALITIES */}
@@ -325,11 +371,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.sexualities.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Sexualitites selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Sexualitites selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -340,11 +386,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.maritalStatus.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Marital status selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Marital status selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -355,11 +401,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.parentalCondition.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Parents conditions selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Parents conditions selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -371,11 +417,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.amountOfChildren.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5, width: 30, justifyContent: 'center', alignItems: 'center' }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Amount of children selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Amount of children selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -386,11 +432,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.amountOfSimblings.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5, width: 30, justifyContent: 'center', alignItems: 'center' }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Amount of simblings selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Amount of simblings selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -401,11 +447,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.ocuppation.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Ocupations selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Ocupations selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -417,15 +463,15 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.socioeconomicLevel.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Socioeconomic level selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Socioeconomic level selected</Text>
                                                 </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>Preferences</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>Preferences</Text>
                                             </ListItem>
 
                                             {/* GENRE MUSICAL */}
@@ -435,11 +481,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.musicalGenre.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Genre musicals selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Genre musicals selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -450,11 +496,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.sports.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{elements}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Sports selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Sports selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -465,11 +511,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.politicalPeople.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Political selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Political selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -480,15 +526,15 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.peopleWhoVote.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Peoplee vote selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Peoplee vote selected</Text>
                                                 </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>Others</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>Others</Text>
                                             </ListItem>
 
                                             {/* RENT HOUSE */}
@@ -498,11 +544,11 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.rentOrOwnHouse.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Rent or own house selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Rent or own house selected</Text>
                                                 </View>}
                                             <View style={{ borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.2)' }} />
 
@@ -513,15 +559,15 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.rentOrOwnCar.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Rent or own car selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Rent or own car selected</Text>
                                                 </View>}
 
                                             <ListItem itemDivider style={{ backgroundColor: '#EEEEEE' }}>
-                                                <Text style={{ fontSize: wp(4.5), color: "#333" }}>Prizes</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333" }}>Prizes</Text>
                                             </ListItem>
 
                                             {/* PRIZES CATEGORY */}
@@ -531,16 +577,16 @@ export default class ContestDataStatistics extends Component {
                                                     <Content horizontal showsHorizontalScrollIndicator={false}>
                                                         {item.categoryPrizes.map((elements, key) =>
                                                             <View key={key} style={{ backgroundColor: randomColors[key], margin: 3, padding: 5, borderRadius: '50%', flex: 1, borderColor: '#3333', borderWidth: 0.5 }}>
-                                                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
+                                                                <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold' }}>{_.upperFirst(_.lowerCase(elements))}</Text>
                                                             </View>
                                                         )}
                                                     </Content>
-                                                    <Text style={{ color: '#BDBDBD' }}>Cateogry prizes selected</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#BDBDBD' }}>Cateogry prizes selected</Text>
                                                 </View>}
 
                                             <ListItem last style={{ justifyContent: 'space-between', borderBottomColor: 'rgba(0,0,0,0.0)', backgroundColor: '#EEEEEE' }}>
                                                 <Left>
-                                                    <Text style={{ alignSelf: 'flex-end', fontSize: wp(3), color: "#3333" }}>Your contest has searched 1,400 users with these tags.</Text>
+                                                    <Text allowFontScaling={false} style={{ alignSelf: 'flex-end', fontSize: wp(3), color: "#3333" }}>Your contest has searched 1,400 users with these tags.</Text>
                                                 </Left>
                                                 <Right>
                                                     <Button disabled={isLoading} transparent small icon style={{ alignSelf: 'flex-end' }} onPress={() => Alert.alert(
@@ -562,11 +608,11 @@ export default class ContestDataStatistics extends Component {
                                 )}
                                 keyExtractor={item => item.toString()} />
                             : <View style={{ alignItems: 'center', flex: 1, height: 200, top: 50 }}>
-                                <Text style={{ color: '#333', fontSize: wp(4.5), fontWeight: 'bold' }}>You don't have a selected audience yet</Text>
+                                <Text allowFontScaling={false} style={{ color: '#333', fontSize: wp(4.5), fontWeight: 'bold' }}>You don't have a selected audience yet</Text>
                                 <Button
                                     onPress={() => { this.setState({ modalVisibleShowTags: false }); _setModalVisibleAudience(true, false) }}
                                     small style={{ alignSelf: 'center', backgroundColor: '#E91E63', top: 10 }}>
-                                    <Text>Create one now!</Text>
+                                    <Text allowFontScaling={false}>Create one now!</Text>
                                 </Button>
                             </View>}
                     </Container>

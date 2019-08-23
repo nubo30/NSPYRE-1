@@ -20,17 +20,21 @@ class HeaderContest extends Component {
                 <Left style={{ flexDirection: 'row' }}>
                     <Button transparent onPress={() => { navigation.navigate("Home") }}>
                         <Icon name='arrow-back' style={{ color: "#FFF" }} />
-                        <Text style={{ left: 5, color: "#FFF" }}>Home</Text>
+                        <Text
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Home</Text>
                     </Button>
-                    <Title style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(10) }}>
+                    <Title
+                        minimumFontScale={wp(9)}
+                        allowFontScaling={false}
+                        style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>
                         {_.truncate(contest.general.nameOfContest, { separator: '...', length: 9 })}
                     </Title>
                 </Left>
                 <Right>
                     {isFinishedContest
-                        ? <View style={{
-                            left: 15
-                        }}>
+                        ? <View style={{ left: 15 }}>
                             <View style={{
                                 borderRadius: 10,
                                 padding: 10, backgroundColor: '#E53935',
@@ -38,7 +42,10 @@ class HeaderContest extends Component {
                                 shadowOffset: { width: 0 },
                                 shadowOpacity: 1,
                             }}>
-                                <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                <Text
+                                    minimumFontScale={wp(3)}
+                                    allowFontScaling={false}
+                                    style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
                             </View>
                         </View> :
                         contest.timer === null
@@ -46,14 +53,17 @@ class HeaderContest extends Component {
                             : new Date(contest.timer) < new Date()
                                 ? <View style={{ left: 15 }}>
                                     <View style={{
-                                        borderRadius: 10,
+                                        borderRadius: 5,
                                         padding: 10,
                                         backgroundColor: '#E53935',
                                         shadowColor: 'rgba(0,0,0,0.3)',
                                         shadowOffset: { width: 0 },
                                         shadowOpacity: 1,
                                     }}>
-                                        <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
                                     </View>
                                 </View> : <CountDown
                                     running={isCounterPause}

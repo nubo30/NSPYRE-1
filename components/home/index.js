@@ -148,7 +148,9 @@ class Home extends Component {
                                     ? <Icon name='menu' style={{ color: "#fff", fontSize: wp(9.5), top: -2 }} />
                                     : <Icon name='close' style={{ color: "#fff", fontSize: wp(11), top: -5, left: 5 }} />}
                             </Button>
-                            <Title style={{ color: "#fff", fontSize: wp('7%') }}>INFLUENCE ME NOW</Title>
+                            <Title
+                                allowFontScaling={false}
+                                style={{ color: "#fff", fontSize: wp(6) }}>INFLUENCE ME NOW</Title>
                         </Left>
                         <Right style={{ position: 'absolute', right: 0, top: 23, right: 5 }}>
                             <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex: 1, height: '100%' }}>
@@ -161,7 +163,9 @@ class Home extends Component {
                                     <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2, left: -2 }} />
                                 </Button>
                                 {notifications.length === 0 ? null : <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 30, minWidth: 30, backgroundColor: '#FFF', zIndex: 0 }}>
-                                    <Text style={{ color: "#D81B60", }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        style={{ color: "#D81B60", }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
                                 </Badge>}
                             </View>
                         </Right>
@@ -183,16 +187,19 @@ class Home extends Component {
                         content={<DrawerRight userData={userData} />}
                         open={openDrower}>
                         {/* Home Content */}
-                        <Container style={{ backgroundColor: '#FAFAFA' }}>
-                            <Header span style={{
-                                backgroundColor: '#FAFAFA',
-                                height: hp(35),
-                                flexDirection: "column",
-                                shadowColor: 'rgba(0,0,0,0.2)',
-                                shadowOpacity: 1,
-                                shadowOffset: { width: 0 },
-                                borderBottomColor: 'rgba(0,0,0,0.0)',
-                            }}>
+                        <Container
+                            allowFontScaling={false}
+                            style={{ backgroundColor: '#FAFAFA' }}>
+                            <Header
+                                span style={{
+                                    backgroundColor: '#FAFAFA',
+                                    height: hp(35),
+                                    flexDirection: "column",
+                                    shadowColor: 'rgba(0,0,0,0.2)',
+                                    shadowOpacity: 1,
+                                    shadowOffset: { width: 0 },
+                                    borderBottomColor: 'rgba(0,0,0,0.0)',
+                                }}>
                                 {/* Componentes como el avatar, your contest y redeem points */}
                                 <UserInfo
                                     prizeCategory={prizeCategory}
@@ -203,10 +210,14 @@ class Home extends Component {
                                     disabled={!online}
                                     rounded transparent style={{ alignSelf: "center", top: -10 }}
                                     onPress={() => this.showActionSheet()}>
-                                    <Text style={{ color: !online ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4.4) }}>{`Create a contest or Submit a prize`}</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        style={{ color: !online ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4) }}>{`Create a contest or Submit a prize`}</Text>
                                 </Button>
                                 <ActionSheet ref={(c) => { this.actionSheet = c; }} />
-                                <Text style={{ fontSize: wp(8), fontWeight: "200", color: "#333", textAlign: "center", top: -5 }}>
+                                <Text
+                                    allowFontScaling={false}
+                                    style={{ fontSize: wp(6.5), fontWeight: "200", color: "#333", textAlign: "center", top: -5 }}>
                                     LIST OF CONTESTS
                                 </Text>
                             </Header>

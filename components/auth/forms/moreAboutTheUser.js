@@ -5,7 +5,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import _ from 'lodash'
-import { isEmail, isAlphanumeric, isAlpha } from 'validator'
+import { isEmail, isAlphanumeric } from 'validator'
 import * as Animatable from 'react-native-animatable';
 import moment from 'moment'
 import AnimateNumber from 'react-native-animate-number'
@@ -127,11 +127,12 @@ export default class MoreAboutTheUser extends Component {
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text style={{ color: "#FFF", fontSize: wp(8), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
+                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
                         Let's get you registered!
                     </Text>
                     <AnimateNumber
-                        style={{ color: "#FFF", fontSize: wp(6), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                        allowFontScaling={false}
+                        style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
                         value={_.sum([pointsForTheName,
                             pointsForTheLastName,
                             pointsForTheUsername,
@@ -159,6 +160,7 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Name */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            allowFontScaling={false}
                                             value={name}
                                             onEndEditing={() => name ? this.setState({ pointsForTheName: 50 }) : this.setState({ pointsForTheName: 0 })}
                                             onChangeText={(value) => {
@@ -168,15 +170,16 @@ export default class MoreAboutTheUser extends Component {
                                             }}
                                             keyboardType="ascii-capable"
                                             selectionColor="#E91E63"
-                                            style={{ fontSize: wp(7), color: '#333' }}
+                                            style={{ fontSize: wp(5), color: '#333' }}
                                             placeholderTextColor="#E0E0E0"
                                             placeholder="Name" />
                                     </ListItem>
 
                                     {/* Lastname */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
-                                        <Text style={{ fontSize: wp(7), color: '#E0E0E0' }}></Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#E0E0E0' }}></Text>
                                         <Input
+                                            allowFontScaling={false}
                                             value={lastname}
                                             onEndEditing={() => lastname ? this.setState({ pointsForTheLastName: 50 }) : this.setState({ pointsForTheLastName: 0 })}
                                             onChangeText={(value) => {
@@ -186,7 +189,7 @@ export default class MoreAboutTheUser extends Component {
                                             }}
                                             keyboardType="ascii-capable"
                                             selectionColor="#E91E63"
-                                            style={{ fontSize: wp(7), color: '#333' }}
+                                            style={{ fontSize: wp(5), color: '#333' }}
                                             placeholderTextColor="#E0E0E0"
                                             placeholder="Lastname" />
                                     </ListItem>
@@ -194,6 +197,7 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Username */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            allowFontScaling={false}
                                             value={username}
                                             onEndEditing={() => isAlphanumeric(username) ? this.setState({ pointsForTheUsername: 75 }) : this.setState({ pointsForTheUsername: 0 })}
                                             onChangeText={(value) => {
@@ -202,7 +206,7 @@ export default class MoreAboutTheUser extends Component {
                                                     : this.setState({ username: value, messageFlash: { cognito: { message: value + " invalid username" } } })
                                             }}
                                             selectionColor="#E91E63"
-                                            style={{ fontSize: wp(7), color: '#333' }}
+                                            style={{ fontSize: wp(5), color: '#333' }}
                                             placeholderTextColor="#E0E0E0"
                                             placeholder="Username" />
                                     </ListItem>
@@ -210,6 +214,7 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Email */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            allowFontScaling={false}
                                             value={email}
                                             onEndEditing={() => isEmail(email) ? this.setState({ pointsForTheEmail: 60 }) : this.setState({ pointsForTheEmail: 0 })}
                                             onChangeText={(value) => {
@@ -218,13 +223,13 @@ export default class MoreAboutTheUser extends Component {
                                                     : this.setState({ email: value, messageFlash: { cognito: { message: value + " invalid email" } } })
                                             }}
                                             selectionColor="#E91E63"
-                                            style={{ fontSize: wp(7), color: '#333' }}
+                                            style={{ fontSize: wp(5), color: '#333' }}
                                             placeholderTextColor="#E0E0E0"
                                             placeholder="Email" />
                                     </ListItem>
                                 </List>
                                 <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center', top: 10 }}>
-                                    <Text style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                                 </View>
                             </Content>
                         </Row>
@@ -240,7 +245,7 @@ export default class MoreAboutTheUser extends Component {
                                 <Button iconLeft icon disabled={isLoading}
                                     onPress={() => this._validateForm()}
                                     style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
-                                    <Text style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>
+                                    <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>NEXT</Text>
                                     {!isLoading
                                         ? <Icon name="arrow-forward" style={{ left: -10 }} />
                                         : <Spinner color="#FFF" size="small" style={{ left: -10 }} />

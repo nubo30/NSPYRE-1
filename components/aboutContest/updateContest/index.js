@@ -228,6 +228,7 @@ class UpdateContest extends Component {
 
     // Validar formulario
     _validateFormPrize = () => {
+        this.setState({isLoading: trueI})
         const { nameOfPrize, descriptionOfPrize, pictureOfPrize, videoOfPrize } = this.state
         isAscii(nameOfPrize)
             ? descriptionOfPrize
@@ -425,7 +426,7 @@ class UpdateContest extends Component {
                                                 bordered
                                                 style={{ alignSelf: 'center', borderColor: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", top: 15 }}
                                                 onPress={() => this._useLibraryHandlerContest('Images')}>
-                                                <Text style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", letterSpacing: 3 }}>Change Image</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", letterSpacing: 3 }}>Change Image</Text>
                                             </Button>
                                         </View>
                                     </ImageBackground>
@@ -444,7 +445,7 @@ class UpdateContest extends Component {
                                             bordered
                                             style={{ borderColor: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", position: 'absolute', alignSelf: 'center' }}
                                             onPress={() => this._useLibraryHandlerContest('Videos')}>
-                                            <Text style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", letterSpacing: 3 }}>Change Video</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", letterSpacing: 3 }}>Change Video</Text>
                                         </Button>
                                     </View>
                                 </Swiper>
@@ -457,9 +458,9 @@ class UpdateContest extends Component {
                                         transparent
                                         onPress={() => indexSecondSwiper ? this._changeSecondSwiper(-1) : _setModalVisibleUpdate(false)}>
                                         <Icon name='arrow-back' style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF" }} />
-                                        <Text style={{ left: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF" }}>{indexSecondSwiper ? "Back" : "Contest"}</Text>
+                                        <Text allowFontScaling={false} style={{ left: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF" }}>{indexSecondSwiper ? "Back" : "Contest"}</Text>
                                     </Button>
-                                    <Title style={{ alignSelf: "center", left: 15, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", fontSize: wp(10) }}>Editing</Title>
+                                    <Title allowFontScaling={false} style={{ alignSelf: "center", left: 15, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FFF", fontSize: wp(10) }}>Editing</Title>
                                 </Left>
                                 <Right>
                                     <Button
@@ -469,7 +470,7 @@ class UpdateContest extends Component {
                                         onPress={() => this._updateContest()}>
                                         {isLoadingUploadImagenToAWS
                                             ? <Spinner color="#BDBDBD" size="small" style={{ right: 15 }} />
-                                            : <Text style={{ color: picture.localUrl || video.localUrl || dateChoose || nameOfContest || instructions || description || prizesList.length ? '#FFF' : '#9E9E9E', letterSpacing: 2 }}>UPDATE</Text>}
+                                            : <Text allowFontScaling={false} style={{ color: picture.localUrl || video.localUrl || dateChoose || nameOfContest || instructions || description || prizesList.length ? '#FFF' : '#9E9E9E', letterSpacing: 2 }}>UPDATE</Text>}
                                     </Button>
                                 </Right>
                             </Header>}
@@ -489,8 +490,8 @@ class UpdateContest extends Component {
                                         </Left>
                                         <Body>
                                             {contest.timer === null
-                                                ? <Text style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
-                                                : <Text style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{contest.timer === null ? contest.timer : moment(dateChoose ? dateChoose : contest.timer).format('LLLL')}</Text>}
+                                                ? <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
+                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{contest.timer === null ? contest.timer : moment(dateChoose ? dateChoose : contest.timer).format('LLLL')}</Text>}
                                         </Body>
                                         <Right>
                                             <Switch
@@ -518,6 +519,8 @@ class UpdateContest extends Component {
                                         <Body>
                                             <Item style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                 <Input
+                                                    allowFontScaling={false}
+                                                    allowFontScaling={false}
                                                     disabled={isLoadingUploadImagenToAWS}
                                                     style={{ right: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#000" }}
                                                     maxLength={256}
@@ -528,9 +531,9 @@ class UpdateContest extends Component {
                                             </Item>
                                         </Body>
                                         <Right>
-                                            <Text>
+                                            <Text allowFontScaling={false}>
                                                 Name of contest
-                                </Text>
+                                            </Text>
                                         </Right>
                                     </ListItem>
 
@@ -542,10 +545,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(description ? description : contest.general.description, { length: 40, separator: "..." })}</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(description ? description : contest.general.description, { length: 40, separator: "..." })}</Text>
                                         </Body>
                                         <Right>
-                                            <Text>Description</Text>
+                                            <Text allowFontScaling={false}>Description</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -558,10 +561,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(instructions ? instructions : contest.general.instructions, { length: 40, separator: "..." })}</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(instructions ? instructions : contest.general.instructions, { length: 40, separator: "..." })}</Text>
                                         </Body>
                                         <Right>
-                                            <Text>Instructions</Text>
+                                            <Text allowFontScaling={false}>Instructions</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -574,10 +577,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{contest.prizes.length} Prize created</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{contest.prizes.length} Prize created</Text>
                                         </Body>
                                         <Right>
-                                            <Text>Add new prizes</Text>
+                                            <Text allowFontScaling={false}>Add new prizes</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -607,10 +610,11 @@ class UpdateContest extends Component {
                                 <View style={{ flex: 1 }}>
                                     <Grid>
                                         <Row size={20} style={{ padding: 15, flexDirection: 'column' }}>
-                                            <Text style={{ fontSize: wp(10), color: isLoading ? "#BDBDBD" : "#D81B60" }}>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(10), color: isLoading ? "#BDBDBD" : "#D81B60" }}>
                                                 Adding New Prize
                                             </Text>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontSize: wp(4) }}>
+                                            <Text
+                                                allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : "#333", fontSize: wp(3) }}>
                                                 Lorem Ipsum es un texto de marcador de posición comúnmente utilizado en las industrias gráficas, gráficas y editoriales para previsualizar diseños y maquetas visuales.
                                             </Text>
                                         </Row>
@@ -624,10 +628,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Name of prize</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Name of prize</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text>{nameOfPrize ? nameOfPrize : 'Not specified'}</Text>
+                                                        <Text allowFontScaling={false}>{nameOfPrize ? nameOfPrize : 'Not specified'}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -640,10 +644,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Description</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Description</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text>{descriptionOfPrize ? _.truncate(descriptionOfPrize, { separator: "...", length: 20 }) : "Not specified"}</Text>
+                                                        <Text allowFontScaling={false}>{descriptionOfPrize ? _.truncate(descriptionOfPrize, { separator: "...", length: 20 }) : "Not specified"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -656,7 +660,7 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text style={{ color: isLoading ? '#BDBDBD' : null }}>Price</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? '#BDBDBD' : null }}>Price</Text>
                                                         {!isLoading ? <Picker
                                                             style={{ position: 'absolute', top: -30 }}
                                                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
@@ -679,7 +683,7 @@ class UpdateContest extends Component {
                                                         </Picker> : null}
                                                     </Body>
                                                     <Right>
-                                                        <Text>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
+                                                        <Text allowFontScaling={false}>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -692,10 +696,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Picture</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Picture</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text>{pictureOfPrize.name ? "Already selected" : "No select"}</Text>
+                                                        <Text allowFontScaling={false}>{pictureOfPrize.name ? "Already selected" : "No select"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -708,17 +712,17 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Video</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Video</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text>{videoOfPrize.name ? "Already selected" : "No select"}</Text>
+                                                        <Text allowFontScaling={false}>{videoOfPrize.name ? "Already selected" : "No select"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
                                             </List>
                                         </Row>
                                         <Row size={20} style={{ alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
-                                            <Text style={{ color: '#F44336', fontSize: wp(4) }}>
+                                            <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4) }}>
                                                 {messageFlash.cognito && messageFlash.cognito.message}
                                             </Text>
                                             <Animatable.View
@@ -734,15 +738,13 @@ class UpdateContest extends Component {
                                                 }}>
                                                 <Button
                                                     disabled={isLoading}
-                                                    onPressIn={() => this.setState({ isLoading: true })}
-                                                    onLongPress={() => this.setState({ isLoading: false })}
                                                     onPress={() => this._validateFormPrize()}
                                                     iconRight style={{
                                                         width: "100%",
                                                         alignSelf: 'center',
                                                         backgroundColor: '#E91E63'
                                                     }}>
-                                                    <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Create</Text>
+                                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Create</Text>
                                                     {isLoading ? <Spinner color="#BDBDBD" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                                 </Button>
                                             </Animatable.View>
@@ -766,7 +768,7 @@ class UpdateContest extends Component {
                     <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Left>
-                                <Title style={{ color: "#333", fontSize: wp(6) }}>DESCRIPTION</Title>
+                                <Title allowFontScaling={false} style={{ color: "#333", fontSize: wp(6) }}>DESCRIPTION</Title>
                             </Left>
                             <Right />
                         </Header>
@@ -775,6 +777,7 @@ class UpdateContest extends Component {
                             success={description ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
+                                allowFontScaling={false}
                                 style={{ padding: 10, maxHeight: 120 }}
                                 multiline
                                 autoFocus={true}
@@ -796,7 +799,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -807,7 +810,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -826,7 +829,7 @@ class UpdateContest extends Component {
                     <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                             <Left>
-                                <Title style={{ color: "#333", fontSize: wp(6) }}>INSTRUCTIONS</Title>
+                                <Title allowFontScaling={false} style={{ color: "#333", fontSize: wp(6) }}>INSTRUCTIONS</Title>
                             </Left>
                             <Right />
                         </Header>
@@ -835,6 +838,7 @@ class UpdateContest extends Component {
                             success={instructions ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
+                                allowFontScaling={false}
                                 style={{ padding: 10, maxHeight: 120 }}
                                 multiline
                                 autoFocus={true}
@@ -856,7 +860,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -867,7 +871,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -888,7 +892,7 @@ class UpdateContest extends Component {
                         behavior={Platform.OS === 'ios' ? "padding" : null}
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
                         </Header>
 
                         {/* NAME OF PRIZE */}
@@ -897,6 +901,7 @@ class UpdateContest extends Component {
                             success={isAscii(nameOfPrize) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
+                                allowFontScaling={false}
                                 placeholder="Name of prize"
                                 placeholderTextColor="#EEEE"
                                 maxLength={20}
@@ -917,7 +922,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -928,7 +933,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(nameOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: isAscii(nameOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -949,7 +954,7 @@ class UpdateContest extends Component {
                         behavior={Platform.OS === 'ios' ? "padding" : null}
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
                         </Header>
 
                         {/* NAME OF PRIZE */}
@@ -958,6 +963,7 @@ class UpdateContest extends Component {
                             success={isAscii(descriptionOfPrize) ? true : false}
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
+                                allowFontScaling={false}
                                 multiline
                                 numberOfLines={4}
                                 placeholder="Description of Prize"
@@ -979,7 +985,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -990,7 +996,7 @@ class UpdateContest extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: isAscii(descriptionOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: isAscii(descriptionOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -1007,7 +1013,7 @@ class UpdateContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicturePrize: false, pictureOfPrize: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text style={{ left: 5, color: "#D81B60" }}>{pictureOfPrize.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{pictureOfPrize.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -1015,7 +1021,7 @@ class UpdateContest extends Component {
                                 disabled={pictureOfPrize.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicturePrize: false }) }}>
-                                <Text style={{ color: pictureOfPrize.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: pictureOfPrize.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -1034,7 +1040,7 @@ class UpdateContest extends Component {
                                     backgroundColor: "#D81B60",
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{pictureOfPrize.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{pictureOfPrize.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
                             </Button>
                         </Row>
                     </Grid>
@@ -1050,7 +1056,7 @@ class UpdateContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideoPrize: false, video: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text style={{ left: 5, color: "#D81B60" }}>{videoOfPrize.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{videoOfPrize.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -1058,7 +1064,7 @@ class UpdateContest extends Component {
                                 disabled={videoOfPrize.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideoPrize: false }) }}>
-                                <Text style={{ color: videoOfPrize.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: videoOfPrize.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -1086,7 +1092,7 @@ class UpdateContest extends Component {
                                     backgroundColor: "#D81B60",
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{videoOfPrize.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{videoOfPrize.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
                         </Row>
                     </Grid>

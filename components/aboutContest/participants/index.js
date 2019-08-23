@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Video } from 'expo-av';
 import { FlatList, Image } from 'react-native'
-import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Button, List, ListItem, Thumbnail, Spinner } from 'native-base';
+import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Button, List, ListItem, Thumbnail, Spinner, TabHeading } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Col } from 'react-native-easy-grid'
 import moment from 'moment'
@@ -21,16 +21,25 @@ export default class Participants extends Component {
             <Container>
                 <Header hasTabs style={{ backgroundColor: '#F5F5F5' }}>
                     <Left>
-                        <Title style={{ fontSize: wp(10), color: "#D82B60" }}>Participations 🔥 </Title>
-                        <Subtitle>The content that participants have created for this contest is shown.</Subtitle>
+                        <Title
+                            minimumFontScale={wp(9)}
+                            allowFontScaling={false}
+                            style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥 </Title>
                     </Left>
                 </Header>
                 <Tabs style={{ flex: 1 }} tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }}>
                     <Tab
+                        heading={
+                            <TabHeading>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Global</Text>
+                            </TabHeading>
+                        }
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                         activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
-                        tabStyle={{ backgroundColor: '#F5F5F5' }}
-                        heading="GLOBAL">
+                        tabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
                             contest.participants.items.length ?
                                 <FlatList
@@ -72,13 +81,22 @@ export default class Participants extends Component {
                                                                 {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             </Left>
                                                             <Body style={{ right: 5, borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                                <Text style={{ color: '#333' }}>{item.nameUser}</Text>
-                                                                <Text note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(3.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
+                                                                <Text
+                                                                    minimumFontScale={wp(3.5)}
+                                                                    allowFontScaling={false}
+                                                                    style={{ color: '#333', fontSize: wp(3.5), top: -2 }}>{item.nameUser}</Text>
+                                                                <Text
+                                                                    minimumFontScale={wp(3)}
+                                                                    allowFontScaling={false}
+                                                                    note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(2.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
                                                             </Body>
                                                         </ListItem>
                                                     </List>
                                                     <Content>
-                                                        <Text style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
+                                                        <Text
+                                                            minimumFontScale={wp(3.5)}
+                                                            allowFontScaling={false}
+                                                            style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
                                                             {item.comment}
                                                         </Text>
                                                     </Content>
@@ -89,15 +107,25 @@ export default class Participants extends Component {
                                     keyExtractor={item => item.createdAt} />
                                 : userData.id === contest.user.id || disableParticipants === true
                                     ? <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ color: "#333", fontSize: wp(4.5) }}>You don't have any participants yet 😕</Text>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ color: "#333", fontSize: wp(4) }}>You don't have any participants yet 😕</Text>
                                         <Button
                                             onPress={() => _setModalVisibleAudience(true)}
                                             style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text>Would you like to create an audience?</Text>
+                                            <Text
+                                                minimumFontScale={wp(4)}
+                                                allowFontScaling={false}
+                                                style={{ fontSize: wp(4) }}
+                                            >Would you like to create an audience?</Text>
                                         </Button>
                                     </View>
                                     : <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center', top: 5 }}>
-                                        <Text style={{ color: "#333", fontSize: wp(4.5) }}>Be the first to join!</Text>
+                                        <Text
+                                            minimumFontScale={wp(4.5)}
+                                            allowFontScaling={false}
+                                            style={{ color: "#333", fontSize: wp(4.5) }}>Be the first to join!</Text>
                                         <Button
                                             onPress={() => _setModalVisibleJoinToTheContest(true)}
                                             style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
@@ -109,10 +137,17 @@ export default class Participants extends Component {
                     {userData.id === contest.user.id || disableParticipants == true
                         ? null
                         : <Tab
+                            heading={
+                                <TabHeading>
+                                    <Text
+                                        minimumFontScale={wp(4)}
+                                        allowFontScaling={false}
+                                        style={{ color: '#D81B60', fontSize: wp(4) }}>Created</Text>
+                                </TabHeading>
+                            }
                             activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
                             activeTabStyle={{ backgroundColor: '#F5F5F5' }}
-                            tabStyle={{ backgroundColor: '#F5F5F5' }}
-                            heading="YOURS">
+                            tabStyle={{ backgroundColor: '#F5F5F5' }}>
                             {filterParticipantsList.length ?
                                 <FlatList
                                     data={filterParticipantsList}
@@ -153,13 +188,22 @@ export default class Participants extends Component {
                                                                 {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             </Left>
                                                             <Body style={{ right: 5, borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                                <Text style={{ color: '#333' }}>{item.nameUser}</Text>
-                                                                <Text note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(3.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
+                                                                <Text
+                                                                    minimumFontScale={wp(3.5)}
+                                                                    allowFontScaling={false}
+                                                                    style={{ color: '#333', fontSize: wp(3.5) }}>{item.nameUser}</Text>
+                                                                <Text
+                                                                    minimumFontScale={wp(2.5)}
+                                                                    allowFontScaling={false}
+                                                                    note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(2.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
                                                             </Body>
                                                         </ListItem>
                                                     </List>
                                                     <Content>
-                                                        <Text style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
+                                                        <Text
+                                                            minimumFontScale={wp(3.5)}
+                                                            allowFontScaling={false}
+                                                            style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
                                                             {item.comment}
                                                         </Text>
                                                     </Content>
@@ -169,11 +213,17 @@ export default class Participants extends Component {
                                     )}
                                     keyExtractor={item => item.createdAt} />
                                 : <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: "#333", fontSize: wp(4.5) }}>You still have no participation!</Text>
+                                    <Text
+                                        minimumFontScale={wp(4.5)}
+                                        allowFontScaling={false}
+                                        style={{ color: "#333", fontSize: wp(4.5) }}>You still have no participation!</Text>
                                     <Button
                                         onPress={() => _setModalVisibleJoinToTheContest(true)}
                                         style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ letterSpacing: 2 }}>PARTICIPATE NOW</Text>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ letterSpacing: 2, fontSize: wp(4) }}>PARTICIPATE NOW</Text>
                                     </Button>
                                 </View>}
                         </Tab>

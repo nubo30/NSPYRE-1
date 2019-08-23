@@ -21,7 +21,10 @@ export default function HeaderModifyProfile(props) {
                     <Icon type="Feather" name='x' style={{ color: isLoading ? "#BDBDBD" : "#D82B60", fontSize: wp(8), left: -10 }} />
                 </Button>
                 <View style={{ justifyContent: 'center', alignItems: 'center', flex: 0.9 }}>
-                    <Title style={{ color: isLoading ? "#BDBDBD" : "#D82B60", fontSize: wp(10) }}>Profile</Title>
+                    <Title
+                        allowFontScaling={false}
+                        minimumFontScale={wp(7)}
+                        style={{ color: isLoading ? "#BDBDBD" : "#D82B60", fontSize: wp(7) }}>Profile</Title>
                 </View>
             </View>
             <PrimordaryInfo userData={userData} isLoading={isLoading} _isLoading={_isLoading} />

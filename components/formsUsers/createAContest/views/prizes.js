@@ -186,17 +186,17 @@ export default class Prizes extends Component {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>About The Contest</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>About The Contest</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(7) }}>Prizes</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Prizes</Title>
                     </Left>
                 </Header>
 
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Next!</Text> {'\n'}We reward your contest participants for you with our point system and redemption center but if you want to add some special give aways for top performers it can increase your results!</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Next!</Text> {'\n'}We reward your contest participants for you with our point system and redemption center but if you want to add some special give aways for top performers it can increase your results!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1, top: -3 }}>
@@ -210,10 +210,10 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Name of prize</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name of prize</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{name ? name : 'Not specified'}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{name ? name : 'Not specified'}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -226,10 +226,10 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Description</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Description</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -242,10 +242,10 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Picture</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Picture</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{picture.name ? "Already selected" : "No select"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{picture.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -258,10 +258,10 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Video</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Video</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{video.name ? "Already selected" : "No select"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{video.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -274,13 +274,13 @@ export default class Prizes extends Component {
                                                 { text: 'OK', onPress: () => null },
                                             ],
                                         )}>
-                                        <Text style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
+                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
                                         <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
                                     </Button>
                                 </List>
                             </Content>
                         </View>
-                        <Text style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
                             {messageFlash.cognito && messageFlash.cognito.message}
                         </Text>
                     </Row>
@@ -306,7 +306,7 @@ export default class Prizes extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2 }}>Create</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2 }}>Create</Text>
                             {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
@@ -326,7 +326,7 @@ export default class Prizes extends Component {
                         behavior={Platform.OS === 'ios' ? "padding" : null}
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
                         </Header>
 
                         {/* NAME OF PRIZE */}
@@ -359,7 +359,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -370,7 +370,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: name ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: name ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -391,7 +391,7 @@ export default class Prizes extends Component {
                         behavior={Platform.OS === 'ios' ? "padding" : null}
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Description</Title>
                         </Header>
 
                         {/* NAME OF PRIZE */}
@@ -421,7 +421,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -432,7 +432,7 @@ export default class Prizes extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -449,7 +449,7 @@ export default class Prizes extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false, picture: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text style={{ left: 5, color: "#D81B60" }}>{picture.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{picture.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -457,7 +457,7 @@ export default class Prizes extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -476,7 +476,7 @@ export default class Prizes extends Component {
                                     backgroundColor: "#D81B60",
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{picture.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{picture.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
                             </Button>
                         </Row>
                     </Grid>
@@ -492,7 +492,7 @@ export default class Prizes extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text style={{ left: 5, color: "#D81B60" }}>{video.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{video.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -500,7 +500,7 @@ export default class Prizes extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -528,7 +528,7 @@ export default class Prizes extends Component {
                                     backgroundColor: "#D81B60",
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
                         </Row>
                     </Grid>

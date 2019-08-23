@@ -205,7 +205,7 @@ export default class FormAudience extends Component {
         this.setState({ schoolsList: [{ name: 'List of schools', id: 10 * 100, children: schoolJSON.schools.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
-    _getUniversity =  () => {
+    _getUniversity = () => {
         this.setState({ universityList: [{ name: 'List of universities', id: 10 * 100, children: universities.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
@@ -460,15 +460,15 @@ export default class FormAudience extends Component {
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
                 <Grid>
                     <Row size={20} style={{ alignItems: 'center', flexDirection: 'column', backgroundColor: '#FAFAFA' }}>
-                        <Text style={{ color: "#333", fontWeight: '100', fontSize: wp(5), textAlign: 'center', top: 20, paddingLeft: 20, paddingRight: 20 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: wp(5), color: '#333' }}>{contest.user.name}</Text>, according to personalities, the audience will match the entire community, just as the cost of this customization will be generated.
+                        <Text allowFontScaling={false} style={{ color: "#333", fontWeight: '100', fontSize: wp(4), textAlign: 'center', top: 20, paddingLeft: 20, paddingRight: 20 }}>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4), color: '#333' }}>{contest.user.name}</Text>, according to personalities, the audience will match the entire community, just as the cost of this customization will be generated.
                			</Text>
                     </Row>
                     <Row size={80} style={{ backgroundColor: '#FAFAFA' }}>
                         <Content scrollEnabled={!isLoading} contentContainerStyle={{ paddingBottom: 70 }}>
                             <List style={{ width: "100%" }}>
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>Fill in the following fields</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>Fill in the following fields</Text>
                                 </ListItem>
 
                                 {/* GENDER*/}
@@ -479,10 +479,10 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify the gender of the audience</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Identify the gender of the audience</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{gender === 'NO_SELECT' ? 'Not specified' : gender}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{gender === 'NO_SELECT' ? 'Not specified' : gender}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     {isLoading ? null :
@@ -511,15 +511,15 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body style={{ right: 15 }}>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Identify the age of the audience</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Identify the age of the audience</Text>
                                     </Body>
                                     <Right>
                                         <Button small transparent bordered style={{ borderColor: '#9E9E9E' }}>
-                                            <Text style={{ color: '#9E9E9E' }}>{age.yearOne}</Text>
+                                            <Text allowFontScaling={false} style={{ color: '#9E9E9E' }}>{age.yearOne}</Text>
                                         </Button>
-                                        <Text style={{ left: -1, color: '#9E9E9E' }}> - </Text>
+                                        <Text allowFontScaling={false} style={{ left: -1, color: '#9E9E9E' }}> - </Text>
                                         <Button small transparent bordered style={{ borderColor: '#9E9E9E' }}>
-                                            <Text style={{ color: '#9E9E9E' }}>{age.yearTwo}</Text>
+                                            <Text allowFontScaling={false} style={{ color: '#9E9E9E' }}>{age.yearTwo}</Text>
                                         </Button>
                                     </Right>
 
@@ -554,12 +554,12 @@ export default class FormAudience extends Component {
 
                                 {/* CATEGORY */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>
-                                        <Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>
+                                        <Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}>
                                             {contest.user.name}
-                                        </Text>, currently they have the following options established, as a country is <Text style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
-								<Text style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
+                                        </Text>, currently they have the following options established, as a country is <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
+								<Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem
@@ -581,7 +581,7 @@ export default class FormAudience extends Component {
                                                     borderColor: '#3333',
                                                     borderWidth: 0.5
                                                 }}>
-                                                    <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(_.lowerCase(contest.category))}</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(_.lowerCase(contest.category))}</Text>
                                                 </View>
                                                 {categoryItems && categoryItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -590,14 +590,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -665,7 +665,7 @@ export default class FormAudience extends Component {
                                                     borderColor: '#3333',
                                                     borderWidth: 0.5
                                                 }}>
-                                                    <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(_.lowerCase(contest.aboutTheUser.location.country))}</Text>
+                                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(_.lowerCase(contest.aboutTheUser.location.country))}</Text>
                                                 </View>
                                                 {countryItems && countryItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -674,14 +674,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-5000%' }}>
@@ -751,7 +751,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some nationalities</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some nationalities</Text>
                                                     </View>}
                                                 {nacionalityItems && nacionalityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -760,14 +760,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -837,7 +837,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Identify the regional identity</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Identify the regional identity</Text>
                                                     </View>}
                                                 {regionalIdentityItems && regionalIdentityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -846,14 +846,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -903,7 +903,7 @@ export default class FormAudience extends Component {
 
                                 {/* SEXUAL ORIENTATION */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>Customize the audience status.</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>Customize the audience status.</Text>
                                 </ListItem>
                                 <ListItem
                                     disabled={isLoading}
@@ -926,7 +926,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose one of sexualities options</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose one of sexualities options</Text>
                                                     </View>}
                                                 {sexualityItems && sexualityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -935,14 +935,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1012,7 +1012,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose marital status</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose marital status</Text>
                                                     </View>}
                                                 {maritalStatusItems && maritalStatusItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1021,14 +1021,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1078,7 +1078,7 @@ export default class FormAudience extends Component {
 
                                 {/* LEVEL ACHIEVED */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>Reach a much more specific audience with the following fields.</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>Reach a much more specific audience with the following fields.</Text>
                                 </ListItem>
 
                                 {/* ACADEMIC LEVEL ACHIVIED */}
@@ -1103,7 +1103,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose academic level achieved</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose academic level achieved</Text>
                                                     </View>}
                                                 {academicLevelAchievedItems && academicLevelAchievedItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1112,14 +1112,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1189,7 +1189,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some schools</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some schools</Text>
                                                     </View>}
                                                 {schoolsItems && schoolsItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1198,14 +1198,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1227,9 +1227,9 @@ export default class FormAudience extends Component {
                                             dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
                                             headerComponent={
                                                 <View style={{ backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
-                                                    <Text style={{ alignSelf: 'center', textAlign: 'center', color: '#3333', fontSize: wp(3), fontWeight: '100' }}>Thanks to <Text style={{ fontWeight: 'bold', fontSize: wp(3), color: '#3333' }}> Code.org </Text> for allowing us to use the data shown here.</Text>
+                                                    <Text allowFontScaling={false} style={{ alignSelf: 'center', textAlign: 'center', color: '#3333', fontSize: wp(3), fontWeight: '100' }}>Thanks to <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#3333' }}> Code.org </Text> for allowing us to use the data shown here.</Text>
                                                     <Button small transparent iconRight>
-                                                        <Text style={{ color: '#E53935', fontWeight: 'normal', fontSize: wp(3.5) }}>If you can't find the school, please let us know.</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#E53935', fontWeight: 'normal', fontSize: wp(3.5) }}>If you can't find the school, please let us know.</Text>
                                                         <Icon name="alert" style={{ color: '#E53935' }} />
                                                     </Button>
                                                 </View>}
@@ -1283,7 +1283,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some universities</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some universities</Text>
                                                     </View>}
                                                 {universityItems && universityItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1292,14 +1292,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{item.name}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{item.name}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1322,7 +1322,7 @@ export default class FormAudience extends Component {
                                             headerComponent={
                                                 <View style={{ backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                                     <Button small transparent iconRight>
-                                                        <Text style={{ color: '#E53935', fontWeight: 'normal', fontSize: wp(3.5) }}>If you can't find the university, please let us know.</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#E53935', fontWeight: 'normal', fontSize: wp(3.5) }}>If you can't find the university, please let us know.</Text>
                                                         <Icon name="alert" style={{ color: '#E53935' }} />
                                                     </Button>
                                                 </View>}
@@ -1356,7 +1356,7 @@ export default class FormAudience extends Component {
 
                                 {/* PREFERENCES */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>Through what preferences, whether musical or sports, do you want to reach your audience?</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>Through what preferences, whether musical or sports, do you want to reach your audience?</Text>
                                 </ListItem>
 
                                 <ListItem
@@ -1380,7 +1380,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some musical tastes</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some musical tastes</Text>
                                                     </View>}
                                                 {musicalGenreItems && musicalGenreItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1389,14 +1389,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1465,7 +1465,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some sports tastes</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some sports tastes</Text>
                                                     </View>}
                                                 {sportsItems && sportsItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1474,14 +1474,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1531,7 +1531,7 @@ export default class FormAudience extends Component {
 
                                 {/* FAMILY */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>More specifications</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>More specifications</Text>
                                 </ListItem>
 
                                 {/* PARENT'S CONDITION */}
@@ -1556,7 +1556,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some parental condition</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose some parental condition</Text>
                                                     </View>}
                                                 {parentalConditionItems && parentalConditionItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1565,14 +1565,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1628,10 +1628,10 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Amount of children of a couple or single person</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Amount of children of a couple or single person</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{amountOfChildren === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(amountOfChildren))}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{amountOfChildren === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(amountOfChildren))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     {isLoading ? null :
@@ -1658,10 +1658,10 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Amount of simblings</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Amount of simblings</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{amountOfSimblings === 'NO_SELECT' ? 'Not specified' : amountOfSimblings}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{amountOfSimblings === 'NO_SELECT' ? 'Not specified' : amountOfSimblings}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     {isLoading ? null :
@@ -1682,7 +1682,7 @@ export default class FormAudience extends Component {
 
                                 {/* POLITICAL  */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}></Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}></Text>
                                 </ListItem>
 
                                 {/* POLITICAL PEOPLE */}
@@ -1693,10 +1693,10 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Political people?</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Political people?</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{politicalPeople === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(politicalPeople))}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{politicalPeople === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(politicalPeople))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     {isLoading ? null :
@@ -1725,10 +1725,10 @@ export default class FormAudience extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: isLoading ? "#BDBDBD" : null }}>People who vote?</Text>
+                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>People who vote?</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{peopleWhoVote === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(peopleWhoVote))}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{peopleWhoVote === 'NO_SELECT' ? 'Not specified' : _.startCase(_.lowerCase(peopleWhoVote))}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     {isLoading ? null :
@@ -1751,7 +1751,7 @@ export default class FormAudience extends Component {
 
                                 {/* OCUPPATION OF THE AUDIENCE */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}></Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}></Text>
                                 </ListItem>
 
                                 {/* OCUPPATION */}
@@ -1776,7 +1776,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Select some occupations</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Select some occupations</Text>
                                                     </View>}
                                                 {ocuppationItems && ocuppationItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1785,14 +1785,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1862,7 +1862,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Socioeconomic Level</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Socioeconomic Level</Text>
                                                     </View>}
                                                 {socioeconomicLevelItems && socioeconomicLevelItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1871,14 +1871,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -1948,7 +1948,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Rent or own house</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Rent or own house</Text>
                                                     </View>}
                                                 {rentOrOwnHouseItems && rentOrOwnHouseItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -1957,14 +1957,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -2034,7 +2034,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Rent or own car</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Rent or own car</Text>
                                                     </View>}
                                                 {rentOrOwnCarItems && rentOrOwnCarItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -2043,14 +2043,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -2100,7 +2100,7 @@ export default class FormAudience extends Component {
 
                                 {/* PRIZES */}
                                 <ListItem itemHeader first style={{ backgroundColor: '#FAFAFA' }}>
-                                    <Text style={{ color: "#BDBDBD" }}>Specify the category of awards for the audience</Text>
+                                    <Text allowFontScaling={false} style={{ color: "#BDBDBD", fontSize: wp(4) }}>Specify the category of awards for the audience</Text>
                                 </ListItem>
 
                                 <ListItem
@@ -2124,7 +2124,7 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose categories of your prize</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Choose categories of your prize</Text>
                                                     </View>}
                                                 {categoryPrizeItems && categoryPrizeItems.map((item, key) =>
                                                     <View key={key} style={{
@@ -2133,14 +2133,14 @@ export default class FormAudience extends Component {
                                                         borderColor: '#3333',
                                                         borderWidth: 0.5
                                                     }}>
-                                                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>{_.startCase(item.name)}</Text>
                                                     </View>
                                                 )}
                                             </Content>
                                         </View>
                                     </Body>
                                     <Right>
-                                        <Text>Add more</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                     <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>

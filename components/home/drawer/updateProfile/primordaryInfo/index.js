@@ -37,8 +37,14 @@ export default class PrimordaryInfo extends Component {
                         onPress={() => { this.setState({ modalVisibleName: true }) }}
                         style={{ height: 50, borderTopColor: "#E0E0E0", borderTopWidth: 0.8 }}>
                         <Left>
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>First Name:  </Text>
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.name}</Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>First Name:  </Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.name}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />
@@ -51,8 +57,14 @@ export default class PrimordaryInfo extends Component {
                         onPress={() => { this.setModalVisibleLastName(true) }}
                         style={{ height: 50 }}>
                         <Left>
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>Last Name: </Text>
-                            <Text style={{ color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.lastname}</Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>Last Name: </Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.lastname}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />
@@ -77,7 +89,7 @@ export default class PrimordaryInfo extends Component {
                             setModalVisibleName={this.setModalVisibleName} />
                     </Root>
                 </Modal>
-      
+
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}

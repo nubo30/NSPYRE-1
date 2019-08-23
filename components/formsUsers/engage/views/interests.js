@@ -216,13 +216,14 @@ class Interests extends PureComponent {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>Formation</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Formation</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>Interests</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>Interests</Title>
                     </Left>
                     <Right>
                         <AnimateNumber
-                            style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            allowFontScaling={false}
+                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
                             value={_.sum([coinMusicalGenreChoose,
                                 coinSportsChoose,
                                 coinCategoryPrizeChoose,
@@ -239,8 +240,8 @@ class Interests extends PureComponent {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Last thing</Text> {'\n'}Tell us about your interests, so we could recommend much better things we have for you!
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Last thing</Text> {'\n'}Tell us about your interests, so we could recommend much better things we have for you!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -273,7 +274,7 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some musical tastes</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Choose some musical tastes</Text>
                                                         </View>}
                                                     {musicalGenreItems && musicalGenreItems.map((item, key) =>
                                                         <View key={key} style={{
@@ -282,14 +283,14 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
                                             </View>
                                         </Body>
                                         <Right>
-                                            <Text>Add more</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -359,7 +360,7 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose some sports tastes</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Choose some sports tastes</Text>
                                                         </View>}
                                                     {sportsItems && sportsItems.map((item, key) =>
                                                         <View key={key} style={{
@@ -368,14 +369,14 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
                                             </View>
                                         </Body>
                                         <Right>
-                                            <Text>Add more</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -445,7 +446,7 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose categories of your prize</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Choose categories of your prize</Text>
                                                         </View>}
                                                     {categoryPrizeItems && categoryPrizeItems.map((item, key) =>
                                                         <View key={key} style={{
@@ -454,14 +455,14 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
                                             </View>
                                         </Body>
                                         <Right>
-                                            <Text>Add more</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -531,7 +532,7 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Choose categories of your preferences contest</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Choose categories of your preferences contest</Text>
                                                         </View>}
                                                     {categoryContestItems && categoryContestItems.map((item, key) =>
                                                         <View key={key} style={{
@@ -540,14 +541,14 @@ class Interests extends PureComponent {
                                                             borderColor: '#3333',
                                                             borderWidth: 0.5
                                                         }}>
-                                                            <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>{_.startCase(item.name)}</Text>
                                                         </View>
                                                     )}
                                                 </Content>
                                             </View>
                                         </Body>
                                         <Right>
-                                            <Text>Add more</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add more</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         <View style={{ backgroundColor: 'red', position: 'absolute', right: '-500000%' }}>
@@ -605,10 +606,10 @@ class Interests extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Are you political?</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : null }}>Are you political?</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{political === 'Not specified' ? 'Not specified' : _.startCase(_.lowerCase(political))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{political === 'Not specified' ? 'Not specified' : _.startCase(_.lowerCase(political))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -635,10 +636,10 @@ class Interests extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#BDBDBD" : null }}>Are you vote?</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : null }}>Are you vote?</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{vote === 'Not specified' ? 'Not specified' : _.startCase(_.lowerCase(vote))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{vote === 'Not specified' ? 'Not specified' : _.startCase(_.lowerCase(vote))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -660,7 +661,7 @@ class Interests extends PureComponent {
                                 </List>
                             </Content>
                         </View>
-                        <Text style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F44336', fontSize: wp(4), top: 10 }}>
                             {messageFlash.cognito && messageFlash.cognito.message}
                         </Text>
                     </Row>
@@ -686,7 +687,7 @@ class Interests extends PureComponent {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF", fontStyle: wp(4) }}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>

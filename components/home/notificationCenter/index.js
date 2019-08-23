@@ -40,7 +40,7 @@ class NotificationCenter extends Component {
         const parseData = JSON.parse(item.JSONdata)
         switch (parseData.type) {
             case 'participantsInTheContest':
-                navigation.navigate(parseData.rute, { userData: parseData.userData, contest: parseData.contest })
+                navigation.navigate(parseData.rute, { userData: parseData.userData, contest: Object.assign(parseData.contest, { timer: null }) })
                 break;
             default:
                 break;
@@ -59,9 +59,15 @@ class NotificationCenter extends Component {
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button transparent onPress={() => _changeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: "#FFF" }} />
-                            <Text style={{ left: 5, color: "#FFF" }}>Back</Text>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(4)}
+                                style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title style={{ fontSize: wp(7), color: "#FFF", left: 20 }}>Notification Center</Title>
+                        <Title
+                            allowFontScaling={false}
+                            minimumFontScale={wp(6)}
+                            style={{ fontSize: wp(6), color: "#FFF", left: 15 }}>Notification Center</Title>
                     </Left>
                 </Header>
                 <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
@@ -70,7 +76,10 @@ class NotificationCenter extends Component {
                         ? <List style={{ width: '100%' }}>
                             {filterDateNotifications.length
                                 ? <View>
-                                    <Text style={{ fontWeight: 'bold', left: 10, marginTop: 10, marginBottom: 5 }}>This week</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        minimumFontScale={wp(4)}
+                                        style={{ fontWeight: 'bold', left: 10, marginTop: 10, marginBottom: 5 }}>This week</Text>
                                     <FlatList
                                         data={filterDateNotifications}
                                         renderItem={({ item }) =>
@@ -82,7 +91,10 @@ class NotificationCenter extends Component {
                                                             : <UserAvatar size="55" name={item.userFrom} />}
                                                     </Left>
                                                     <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                        <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100' }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                        <Text
+                                                            allowFontScaling={false}
+                                                            minimumFontScale={wp(4)}
+                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
                                                     <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
@@ -96,7 +108,10 @@ class NotificationCenter extends Component {
                                 </View> : null}
                             {filterDateNotificationsx2.length
                                 ? <View style={{ paddingTop: 30 }}>
-                                    <Text style={{ fontWeight: 'bold', left: 10, marginBottom: 5 }}>Previous</Text>
+                                    <Text
+                                        allowFontScaling={false}
+                                        minimumFontScale={wp(4)}
+                                        style={{ fontWeight: 'bold', left: 10, marginBottom: 5 }}>Previous</Text>
                                     <FlatList
                                         data={filterDateNotificationsx2}
                                         renderItem={({ item }) =>
@@ -108,7 +123,10 @@ class NotificationCenter extends Component {
                                                             : <UserAvatar size="55" name={item.userFrom} />}
                                                     </Left>
                                                     <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                        <Text>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100' }}>, has joined your contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                        <Text
+                                                            allowFontScaling={false}
+                                                            minimumFontScale={wp(4)}
+                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, today at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
                                                     <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
@@ -122,7 +140,10 @@ class NotificationCenter extends Component {
                                 </View> : null}
                         </List>
                         : <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Text style={{ top: 50, fontSize: wp(6), color: '#333', fontWeight: '100', letterSpacing: 2 }}>
+                            <Text
+                                allowFontScaling={false}
+                                minimumFontScale={wp(6)}
+                                style={{ top: 50, fontSize: wp(6), color: '#333', fontWeight: 'normal', letterSpacing: 1 }}>
                                 Nothing here...
                             </Text>
                         </View>}

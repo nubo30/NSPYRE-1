@@ -185,13 +185,14 @@ class AbouttheirOccupations extends PureComponent {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>About You</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>About You</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>Formation</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>Formation</Title>
                     </Left>
                     <Right>
                         <AnimateNumber
-                            style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            allowFontScaling={false}
+                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
                             value={_.sum([coinSchools,
                                 coinUniversity,
                                 coinLevelAchivied,
@@ -209,8 +210,8 @@ class AbouttheirOccupations extends PureComponent {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -228,7 +229,7 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Choose your school name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Choose your school name</Text>
                                             <Button small transparent style={{ right: 25, paddingRight: 30 }}
                                                 onPress={() => Alert.alert(
                                                     `${userData.name}`,
@@ -247,7 +248,7 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Body>
                                         <Right>
-                                            <Text>{schools === 'Not specified' ? 'Not specified' : _.truncate(schools, { length: 10, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{schools === 'Not specified' ? 'Not specified' : _.truncate(schools, { length: 10, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -256,7 +257,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 renderHeader={backAction =>
                                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                                         <Button transparent small onPress={backAction}>
-                                                            <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                                         </Button>
                                                         <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                             <Icon name="ios-search" />
@@ -286,7 +287,7 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Choose your university name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Choose your university name</Text>
                                             <Button small transparent style={{ right: 25, paddingRight: 30 }}
                                                 onPress={() => Alert.alert(
                                                     `${userData.name}`,
@@ -305,7 +306,7 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Body>
                                         <Right>
-                                            <Text>{university === 'Not specified' ? 'Not specified' : _.truncate(university, { length: 10, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{university === 'Not specified' ? 'Not specified' : _.truncate(university, { length: 10, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -314,7 +315,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 renderHeader={backAction =>
                                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                                         <Button transparent small onPress={backAction}>
-                                                            <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                                         </Button>
                                                         <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                             <Icon name="ios-search" />
@@ -344,10 +345,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Level achivied reached</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Level achivied reached</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{levelAchivied === 'Not specified' ? 'Not specified' : _.truncate(levelAchivied, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{levelAchivied === 'Not specified' ? 'Not specified' : _.truncate(levelAchivied, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -375,10 +376,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What is your occupation</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What is your occupation</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{occupation === 'Not specified' ? 'Not specified' : _.truncate(occupation, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{occupation === 'Not specified' ? 'Not specified' : _.truncate(occupation, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -387,7 +388,7 @@ class AbouttheirOccupations extends PureComponent {
                                                 renderHeader={backAction =>
                                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                                         <Button transparent small onPress={backAction}>
-                                                            <Text style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                                         </Button>
                                                         <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                             <Icon name="ios-search" />
@@ -417,10 +418,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>What is your socialeconomic level</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What is your socialeconomic level</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{socioeconomicLevel === 'Not specified' ? 'Not specified' : _.truncate(socioeconomicLevel, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{socioeconomicLevel === 'Not specified' ? 'Not specified' : _.truncate(socioeconomicLevel, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -446,10 +447,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Rent or own car?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Rent or own car?</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{rentOrOwnCar === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnCar, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{rentOrOwnCar === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnCar, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -475,10 +476,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text style={{ color: isLoading ? "#EEEEEE" : null }}>Rent or own house?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Rent or own house?</Text>
                                         </Body>
                                         <Right>
-                                            <Text>{rentOrOwnHouse === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnHouse, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{rentOrOwnHouse === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnHouse, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -499,7 +500,7 @@ class AbouttheirOccupations extends PureComponent {
                                 </List>
                             </Content>
                         </View>
-                        <Text style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
                             {messageFlash.cognito && messageFlash.cognito.message}
                         </Text>
                     </Row>
@@ -525,7 +526,7 @@ class AbouttheirOccupations extends PureComponent {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>

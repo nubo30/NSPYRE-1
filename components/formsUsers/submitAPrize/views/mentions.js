@@ -105,16 +105,16 @@ class SomethingMore extends Component {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
-                            <Text style={{ color: isLoading ? "#EEEEEE" : "#FFF" }}>About the prize</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>About the prize</Text>
                         </Button>
-                        <Title style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(7) }}>Prize Delivery</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(5) }}>Prize Delivery</Title>
                     </Left>
                 </Header>
 
                 <Grid style={{ top: -10 }}>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Tell us something else</Text> {'\n'}This could create mention of your brand.
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Tell us something else</Text> {'\n'}This could create mention of your brand.
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -130,7 +130,7 @@ class SomethingMore extends Component {
                                         </Button>
                                     </Left>
                                     <Body style={{ minHeight: 60 }}>
-                                        <Text>Do you want the recipient to make a mention of you and your gift on social media?</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}> Do you want the recipient to make a mention of you and your gift on social media?</Text>
                                     </Body>
                                     <Right style={{ minHeight: 60 }}>
                                         <Switch
@@ -156,10 +156,10 @@ class SomethingMore extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Select the plataform</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Select the plataform</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{mentionInTheSocialMedias ? facebookSwitch || twitterSwitch || instagramSwitch || snapchatSwitch ? "Selected" : null : null}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}> {mentionInTheSocialMedias ? facebookSwitch || twitterSwitch || instagramSwitch || snapchatSwitch ? "Selected" : null : null}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                 </ListItem>
@@ -175,10 +175,10 @@ class SomethingMore extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text style={{ color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Make a comment</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Make a comment</Text>
                                     </Body>
                                     <Right>
-                                        <Text>{mentionInTheSocialMedias ? description ? 'Specified' : null : null}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}> {mentionInTheSocialMedias ? description ? 'Specified' : null : null}</Text>
                                         <Icon active name="arrow-forward" />
                                     </Right>
                                 </ListItem>
@@ -188,7 +188,8 @@ class SomethingMore extends Component {
                 </Grid>
 
                 {/* SUBMIT DATA TO AWS */}
-                <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }}>
+                <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }
+                }>
                     <Animatable.View
                         animation={isvalidFormAnimation ? "shake" : undefined}
                         onAnimationEnd={() => this.setState({ isvalidFormAnimation: false })}
@@ -207,7 +208,7 @@ class SomethingMore extends Component {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF" }}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
@@ -226,7 +227,7 @@ class SomethingMore extends Component {
                         enabled
                         behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Choose One Social Media</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5), top: 5, alignSelf: 'flex-start' }}>Choose One Social Media</Title>
                         </Header>
 
                         {/* FACEBOOK */}
@@ -237,7 +238,7 @@ class SomethingMore extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ fontSize: wp(6) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.facebook}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.facebook}</Text>
                             </Body>
                             <Right>
                                 <Switch
@@ -261,7 +262,7 @@ class SomethingMore extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ fontSize: wp(6) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.twitter}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.twitter}</Text>
                             </Body>
                             <Right>
                                 <Switch
@@ -285,7 +286,7 @@ class SomethingMore extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ fontSize: wp(6) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.instagram}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.instagram}</Text>
                             </Body>
                             <Right>
                                 <Switch
@@ -309,7 +310,7 @@ class SomethingMore extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={{ fontSize: wp(6) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.snapchat}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.snapchat}</Text>
                             </Body>
                             <Right>
                                 <Switch
@@ -337,7 +338,7 @@ class SomethingMore extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -348,7 +349,7 @@ class SomethingMore extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -368,9 +369,9 @@ class SomethingMore extends Component {
                         behavior={Platform.OS === 'ios' ? "padding" : null}
                         style={{ flex: 1 }}>
                         <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5), top: 5, alignSelf: 'flex-start' }}>Description</Title>
                         </Header>
-                        <Text style={{ color: '#3333', padding: 15 }}>Write what you want them to write in the body of the post. Any special instructions?(ex: take a photo of the gift and post, or, make a video of you talking about your gift!)</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', padding: 15 }}>Write what you want them to write in the body of the post. Any special instructions?(ex: take a photo of the gift and post, or, make a video of you talking about your gift!)</Text>
                         <Item
                             style={{ width: "90%", top: 15, alignSelf: "center" }}>
                             <Input
@@ -395,7 +396,7 @@ class SomethingMore extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: "#333" }}>CANCEL</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>CANCEL</Text>
                                 </Button>
                             </Col>
                             <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
@@ -406,7 +407,7 @@ class SomethingMore extends Component {
                                         borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
                                         justifyContent: 'center', alignItems: 'center'
                                     }}>
-                                    <Text style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
                                 </Button>
                             </Col>
                         </Grid>

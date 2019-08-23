@@ -127,7 +127,7 @@ export default class PhoneRegister extends Component {
             numberPhone } = this.state
         return (
             <View style={{
-                flex:1,
+                flex: 1,
                 backgroundColor: '#FFF',
                 width: screenWidth - 60,
                 borderRadius: 5,
@@ -153,10 +153,11 @@ export default class PhoneRegister extends Component {
                         <Row size={40} style={{ padding: 15 }}>
                             <List style={{ width: "100%", justifyContent: 'space-between' }}>
                                 <ListItem style={{ height: 80, alignItems: 'center', width: "90%", borderBottomColor: "rgba(0,0,0,0.0)" }}>
-                                    <Text style={{ fontWeight: 'bold', color: "#E0E0E0", fontSize: wp(7) }}>Press the <Text style={{ color: "#333", fontSize: wp(7) }}>flag</Text> to see the <Text style={{ color: "#333", fontSize: wp(7) }}>list of cities</Text></Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: "#E0E0E0", fontSize: wp(5) }}>Press the <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5) }}>flag</Text> to see the <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5) }}>list of cities</Text></Text>
                                 </ListItem>
                                 <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                     <PhoneInput
+                                        allowFontScaling={false}
                                         editable={false} selectTextOnFocus={false}
                                         ref={(ref) => { this.phone = ref; }}
                                         onChangePhoneNumber={() => { this._getNumberPhone() }}
@@ -169,15 +170,15 @@ export default class PhoneRegister extends Component {
                                         value={numberPhone}
                                         style={{ height: "100%", width: "100%" }}
                                         flagStyle={{ height: 30, width: 40 }}
-                                        textStyle={{ fontSize: wp(6), color: '#333' }}
+                                        textStyle={{ fontSize: wp(5), color: '#333' }}
                                         textProps={{ placeholder: "Your Phone Number" }}
                                         initialCountry="us" />
                                 </ListItem>
                             </List>
                         </Row>
                         <Row size={40} style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-                            <Text style={{ color: "#E0E0E0", fontSize: wp(4.5), top: 25, left: "10%" }}>We will send you a one time sms {'\n'} message.</Text>
-                            <Text style={{ color: "#F44336", fontSize: wp(4), alignSelf: 'center', textAlign: 'center', fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: "#E0E0E0", fontSize: wp(4.5), top: 25, left: "10%" }}>We will send you a one time sms {'\n'} message.</Text>
+                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4), alignSelf: 'center', textAlign: 'center', fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                         <Row size={20} style={{
                             justifyContent: 'flex-end',
@@ -193,7 +194,7 @@ export default class PhoneRegister extends Component {
                                 style={{ width: "100%" }}>
                                 <Button onPressIn={() => this._verifyNumberPhone()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
-                                    <Text style={{ fontWeight: 'bold' }}>Next</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Next</Text>
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Animatable.View>
@@ -204,18 +205,19 @@ export default class PhoneRegister extends Component {
                     <Grid style={{ paddingLeft: 15, paddingRight: 15, paddingTop: 30 }}>
                         <Content contentContainerStyle={{ flex: 1 }}>
                             <Row size={25} style={{ flexDirection: 'column', paddingLeft: 10, paddingRight: 10 }}>
-                                <Text style={{ fontSize: wp(7), color: "#E0E0E0", fontWeight: 'bold' }}>Create a <Text style={{ fontSize: wp(7), fontWeight: 'bold', color: "#333" }}>password</Text></Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(6), color: "#E0E0E0", fontWeight: 'bold' }}>Create a <Text allowFontScaling={false} style={{ fontSize: wp(6), fontWeight: 'bold', color: "#333" }}>password</Text></Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
-                                    <Text style={{ color: '#E0E0E0', fontSize: wp(4.5), fontWeight: '100', left: -15 }}>Change number <Text style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4.5) }}>{numberPhone}</Text>.</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#E0E0E0', fontSize: wp(4.5), fontWeight: '100', left: -15 }}>Change number <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4.5) }}>{numberPhone}</Text>.</Text>
                                 </Button>
-                                <Text style={{ top: 3, color: '#E0E0E0', fontSize: wp(4), fontWeight: '100' }}>The password must have numbers.</Text>
+                                <Text allowFontScaling={false} style={{ top: 3, color: '#E0E0E0', fontSize: wp(4), fontWeight: '100' }}>The password must have numbers.</Text>
                             </Row>
                             <Row size={35}>
                                 <List style={{ width: "100%", justifyContent: 'center' }}>
                                     <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                         <Input
+                                            allowFontScaling={false}
                                             textContentType="telephoneNumber"
-                                            style={{ fontSize: wp(7), color: "#333" }}
+                                            style={{ fontSize: wp(6), color: "#333" }}
                                             selectionColor="#E91E63"
                                             value={newPassword}
                                             secureTextEntry={!eyeAction}
@@ -228,7 +230,8 @@ export default class PhoneRegister extends Component {
                                     </ListItem>
                                     <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                         <Input
-                                            style={{ fontSize: wp(7), color: "#333" }}
+                                            allowFontScaling={false}
+                                            style={{ fontSize: wp(6), color: "#333" }}
                                             selectionColor="#E91E63"
                                             value={repeatPassword}
                                             secureTextEntry={!eyeAction}
@@ -243,7 +246,7 @@ export default class PhoneRegister extends Component {
                                 alignItems: 'center',
                                 flexDirection: 'column',
                             }}>
-                                <Text style={{ top: "20%", color: "#F44336", fontSize: wp(4), fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                <Text allowFontScaling={false} style={{ top: "20%", color: "#F44336", fontSize: wp(4), fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                                 <Animatable.View
                                     animation={passwordsDoNotMatchAnimation ? "shake" : undefined}
                                     onAnimationEnd={() => this.setState({ passwordsDoNotMatchAnimation: false })}
@@ -255,7 +258,7 @@ export default class PhoneRegister extends Component {
                                     <Button
                                         onPressIn={() => this._verifyPassword()}
                                         iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
-                                        <Text style={{ fontWeight: 'bold' }}>Submit</Text>
+                                        <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Submit</Text>
                                         {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                     </Button>
                                 </Animatable.View>

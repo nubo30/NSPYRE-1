@@ -21,7 +21,7 @@ export default class AuthLoadingScreen extends Component {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                 <Spinner color="#333" size="large" />
-                <Text>Loading...</Text>
+                <Text allowFontScaling={false}>Loading...</Text>
             </View>
         )
     }

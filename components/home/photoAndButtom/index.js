@@ -41,14 +41,19 @@ class UserInfo extends Component {
         const { userData, isReady, prizeCategory, offLine, contestList } = this.props
         return (
             <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent: 'space-around', left: '1.5%' }}>
-                <Button bordered small rounded disabled={!isReady || offLine}
+                <Button
+                    allowFontScaling={false}
+                    bordered small disabled={!isReady || offLine}
                     onPress={() => this._setModalVisibleYourContest(true)}
                     style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
-                    <Text style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Your Contests</Text>
+                    <Text
+                        allowFontScaling={false}
+                        style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Your Contests</Text>
                 </Button>
 
                 {/* AVATAR */}
-                <View style={{ alignSelf: 'center' }}>
+                <View
+                    style={{ alignSelf: 'center' }}>
                     {
                         Object.keys(userData).length !== 0
                             ? userData.avatar !== null
@@ -59,8 +64,10 @@ class UserInfo extends Component {
                 </View>
 
                 <Button disabled={!isReady || offLine} onPress={() => { this._redeemPointsDecision(true) }}
-                    bordered small rounded style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
-                    <Text style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Redeem Points</Text>
+                    bordered small style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
+                    <Text
+                        allowFontScaling={false}
+                        style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Redeem Points</Text>
                 </Button>
                 <Modal
                     animationType="slide"
@@ -87,24 +94,42 @@ class UserInfo extends Component {
                     isVisible={redeemPointsDecision}>
                     <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: '#FFF', borderRadius: 15, flex: 1, padding: 10 }}>
                         <Grid>
-                            <Row size={40} style={{ flexDirection: 'column', padding: 10 }}>
-                                <Text style={{ color: '#3333', fontSize: wp(10), flex: 1, flexWrap: 'wrap' }}>Choose one of the two options to continue!</Text>
+                            <Row size={40} style={{ flexDirection: 'row', padding: 5 }}>
+                                <Text
+                                    minimumFontScale={wp(9)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#3333', fontSize: wp(9), flexWrap: 'wrap', flex: 1 }}>Choose one of the two options to continue!</Text>
                             </Row>
                             <Row size={30} style={{ alignItems: 'center', justifyContent: 'center', top: -10 }}>
                                 <Button transparent style={{ width: 120, height: 120, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: wp(12), color: '#D81B60' }}>Glyff</Text>
+                                    <Text
+                                        minimumFontScale={wp(10)}
+                                        allowFontScaling={false}
+                                        style={{ fontWeight: 'bold', fontSize: wp(10), color: '#D81B60' }}>Glyff</Text>
                                 </Button>
-                                <Text style={{ fontWeight: 'bold', color: '#333' }}>OR</Text>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>OR</Text>
                                 <Button onPress={() => { this._redeemPointsDecision(false, 'prize') }} transparent style={{ width: 120, height: 120, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: wp(12), color: '#D81B60' }}>Prize</Text>
+                                    <Text
+                                        minimumFontScale={wp(10)}
+                                        allowFontScaling={false}
+                                        style={{ fontWeight: 'bold', fontSize: wp(10), color: '#D81B60' }}>Prize</Text>
                                 </Button>
                             </Row>
                             <Row size={20}>
-                                <Text style={{ color: '#3333', fontSize: wp(4), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: '#3333' }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: '#3333' }}>Prize</Text> you will be going to the list of prizes we have!</Text>
+                                <Text
+                                    minimumFontScale={wp(3)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#3333', fontSize: wp(3), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: '#3333' }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: '#3333' }}>Prize</Text> you will be going to the list of prizes we have!</Text>
                             </Row>
                             <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button transparent small onPress={() => this._redeemPointsDecision(false)} style={{ alignSelf: 'flex-end' }}>
-                                    <Text style={{ color: '#3333', fontWeight: '100' }}>No, thanks</Text>
+                                    <Text
+                                        minimumFontScale={wp(3)}
+                                        allowFontScaling={false}
+                                        style={{ color: '#3333', fontWeight: '100', fontSize: wp(3) }}>No, thanks</Text>
                                 </Button>
                             </Row>
                         </Grid>
