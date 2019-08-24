@@ -111,7 +111,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -216,6 +216,8 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -392,7 +394,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -497,6 +499,8 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -673,7 +677,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -778,6 +782,8 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -938,6 +944,8 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1099,7 +1107,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1270,6 +1278,8 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1431,7 +1441,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1602,6 +1612,8 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1763,7 +1775,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1874,6 +1886,8 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -1959,7 +1973,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2019,7 +2033,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2062,6 +2076,8 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2147,7 +2163,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2207,7 +2223,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2250,6 +2266,8 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2335,7 +2353,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2395,7 +2413,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2457,6 +2475,8 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2542,7 +2562,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2640,6 +2660,8 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2725,7 +2747,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2823,6 +2845,8 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2908,7 +2932,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -3101,6 +3125,8 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3298,6 +3324,8 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3495,6 +3523,8 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3600,6 +3630,8 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
 `;
 export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
   createEngage(input: $input) {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -3691,6 +3723,8 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3780,6 +3814,8 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
 `;
 export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
   updateEngage(input: $input) {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -3871,6 +3907,8 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3960,6 +3998,8 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
 `;
 export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
   deleteEngage(input: $input) {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -4051,6 +4091,8 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -4141,6 +4183,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
 export const createNotifications = `mutation CreateNotifications($input: CreateNotificationsInput!) {
   createNotifications(input: $input) {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom
@@ -4158,6 +4201,7 @@ export const createNotifications = `mutation CreateNotifications($input: CreateN
 export const updateNotifications = `mutation UpdateNotifications($input: UpdateNotificationsInput!) {
   updateNotifications(input: $input) {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom
@@ -4175,6 +4219,7 @@ export const updateNotifications = `mutation UpdateNotifications($input: UpdateN
 export const deleteNotifications = `mutation DeleteNotifications($input: DeleteNotificationsInput!) {
   deleteNotifications(input: $input) {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom

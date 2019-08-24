@@ -12,7 +12,7 @@ import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from 
 
 // Static Data
 import {
-    randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, ocuppationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
+    randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, occupationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
 } from '../../../../assets/data/global'
 import countries from '../../../../assets/data/countries.json'
 import universities from '../../../../assets/data/universities.json'
@@ -46,7 +46,7 @@ export default class FormAudience extends Component {
         amountOfSimblings: 'NO_SELECT',
         politicalPeople: 'NO_SELECT',
         peopleWhoVote: 'NO_SELECT',
-        ocuppationChoose: [],
+        occupationChoose: [],
         socioeconomicLevel: [],
         rentOrOwnHouseChoose: [],
         rentOrOwnCarChoose: [],
@@ -79,8 +79,8 @@ export default class FormAudience extends Component {
         sportsItems: [],
         parentalCondition: [],
         parentalConditionItems: [],
-        ocuppation: [],
-        ocuppationItems: [],
+        occupation: [],
+        occupationItems: [],
         rentOrOwnHouse: [],
         rentOrOwnHouseItems: [],
         rentOrOwnCar: [],
@@ -99,7 +99,7 @@ export default class FormAudience extends Component {
         musicalGenreList: [{ name: 'List of musics genre', id: 10 * 100, children: [] }],
         sportsList: [{ name: 'List of sports', id: 10 * 100, children: [] }],
         parentalConditionList: [{ name: 'List of sports', id: 10 * 100, children: [] }],
-        ocuppationList: [{ name: 'List of ocuppation', id: 10 * 100, children: [] }],
+        occupationList: [{ name: 'List of occupation', id: 10 * 100, children: [] }],
         rentOrOwnHouseList: [{ name: 'Current state to select (House)', id: 10 * 100, children: [] }],
         rentOrOwnCarList: [{ name: 'Current state to select (Car)', id: 10 * 100, children: [] }],
         categoryPrizeList: [{ name: 'List of category', id: 10 * 100, children: [] }],
@@ -148,7 +148,7 @@ export default class FormAudience extends Component {
             || prevState.amountOfSimblings !== this.state.amountOfSimblings
             || prevState.politicalPeople !== this.state.politicalPeople
             || prevState.peopleWhoVote !== this.state.peopleWhoVote
-            || prevState.ocuppationChoose !== this.state.ocuppationChoose
+            || prevState.occupationChoose !== this.state.occupationChoose
             || prevState.socioeconomicLevel !== this.state.socioeconomicLevel
             || prevState.rentOrOwnHouseChoose !== this.state.rentOrOwnHouseChoose
             || prevState.rentOrOwnCarChoose !== this.state.rentOrOwnCarChoose
@@ -172,7 +172,7 @@ export default class FormAudience extends Component {
                 || this.state.amountOfSimblings !== 'NO_SELECT'
                 || this.state.politicalPeople !== 'NO_SELECT'
                 || this.state.peopleWhoVote !== 'NO_SELECT'
-                || this.state.ocuppationChoose.length
+                || this.state.occupationChoose.length
                 || this.state.socioeconomicLevel.length
                 || this.state.rentOrOwnHouseChoose.length
                 || this.state.rentOrOwnCarChoose.length
@@ -189,16 +189,16 @@ export default class FormAudience extends Component {
     }
 
     _getNacionality = () => {
-        this.setState({ nacionalityList: [{ name: 'List of nacionality', id: 10 * 100, children: nacionality.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ nacionalityList: [{ name: 'List of nacionality', id: 10 * 100, children: nacionality.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getRegionalIdentity = () => {
-        this.setState({ regionalIdentityList: [{ name: 'List of regional identity', id: 10 * 100, children: regionalIdentityList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ regionalIdentityList: [{ name: 'List of regional identity', id: 10 * 100, children: regionalIdentityList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
 
     _getAcademicLevelAchieved = () => {
-        this.setState({ academicLevelAchievedList: [{ name: 'List of academic level achieved', id: 10 * 100, children: academicLevelAchievedList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ academicLevelAchievedList: [{ name: 'List of academic level achieved', id: 10 * 100, children: academicLevelAchievedList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getSchools = () => {
@@ -210,36 +210,36 @@ export default class FormAudience extends Component {
     }
 
     _getMusicGenre = () => {
-        this.setState({ musicalGenreList: [{ name: 'List of musics genre', id: 10 * 100, children: musicsGenre.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ musicalGenreList: [{ name: 'List of musics genre', id: 10 * 100, children: musicsGenre.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getSports = () => {
-        this.setState({ sportsList: [{ name: 'List of sports', id: 10 * 100, children: sportsList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ sportsList: [{ name: 'List of sports', id: 10 * 100, children: sportsList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getParentalCondition = () => {
-        this.setState({ parentalConditionList: [{ name: "List of parent's condition", id: 10 * 100, children: parentalConditionList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ parentalConditionList: [{ name: "List of parent's condition", id: 10 * 100, children: parentalConditionList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getOcuppation = () => {
-        this.setState({ ocuppationList: [{ name: "List of ocuppation", id: 10 * 100, children: ocuppationList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ occupationList: [{ name: "List of occupation", id: 10 * 100, children: occupationList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getRentOrOwnHouse = () => {
-        this.setState({ rentOrOwnHouseList: [{ name: "Current state to select (House)", id: 10 * 100, children: rentOrOwnHouseList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ rentOrOwnHouseList: [{ name: "Current state to select (House)", id: 10 * 100, children: rentOrOwnHouseList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getRentOrOwnCar = () => {
-        this.setState({ rentOrOwnCarList: [{ name: "Current state to select (Car)", id: 10 * 100, children: rentOrOwnCarList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ rentOrOwnCarList: [{ name: "Current state to select (Car)", id: 10 * 100, children: rentOrOwnCarList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
     _getCategoryPrize = () => {
-        this.setState({ categoryPrizeList: [{ name: "List of category", id: 10 * 100, children: categoryPrizeList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ categoryPrizeList: [{ name: "List of category", id: 10 * 100, children: categoryPrizeList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
 
     _getSocioeconomicLevel = () => {
-        this.setState({ socioeconomicLevelList: [{ name: "List socioeconomic level", id: 10 * 100, children: socioeconomicLevelList.map((item, key) => { return { name: _.startCase(item), id: key } }) }] })
+        this.setState({ socioeconomicLevelList: [{ name: "List socioeconomic level", id: 10 * 100, children: socioeconomicLevelList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
 
@@ -263,7 +263,7 @@ export default class FormAudience extends Component {
     onSelectedItemsChangeParentalCondition = (value) => { this.setState({ parentalCondition: value }) }
     onValueChangePoliticalPeople = (value) => this.setState({ politicalPeople: value })
     onValueChangePeopleWhoVote = (value) => { this.setState({ peopleWhoVote: value }) }
-    onSelectedItemsChangeOcuppation = (value) => { this.setState({ ocuppation: value }) }
+    onSelectedItemsChangeOcuppation = (value) => { this.setState({ occupation: value }) }
     onValueChangeSocioeconomicLevel = (value) => { this.setState({ socioeconomicLevel: value }) }
     onSelectedItemsChangeRentOrOwnHouse = (value) => { this.setState({ rentOrOwnHouse: value }) }
     onSelectedItemsChangeRentOrOwnCar = (value) => { this.setState({ rentOrOwnCar: value }) }
@@ -321,7 +321,7 @@ export default class FormAudience extends Component {
     }
 
     _updateOcuppation = (value) => {
-        this.setState({ ocuppationItems: value, ocuppationChoose: value })
+        this.setState({ occupationItems: value, occupationChoose: value })
     }
 
     _updateRentOrOwnHouse = (value) => {
@@ -347,9 +347,22 @@ export default class FormAudience extends Component {
     _validateDataForAWS = async () => {
         const { contest, _isLoading, _modalVisibleAudienceSelect } = this.props
         const audienceList = {
+            JSONdata: JSON.stringify({
+                "contest": {
+                    "id": contest.id,
+                    "user": contest.user,
+                    "prizes": [],
+                    "participants": { items: [] },
+                    "general": {
+                        "nameOfContest": contest.general.nameOfContest,
+                        "picture": { url: contest.general.picture.url },
+                        "video": { url: contest.general.video.url }
+                    }
+                }
+            }),
             audienceCreateContestId: contest.id,
             genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
-            ages: this.state.age.years ? [this.state.age.years] : ['none'],
+            ages: this.state.age.years ? [this.state.age.yearOne, this.state.age.yearTwo] : ['none'],
             categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
             countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
             nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
@@ -366,7 +379,7 @@ export default class FormAudience extends Component {
             amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
             politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
             peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
-            ocuppation: this.state.ocuppationChoose.length ? this.state.ocuppationChoose.map(item => item.name) : ['none'],
+            occupation: this.state.occupationChoose.length ? this.state.occupationChoose.map(item => item.name) : ['none'],
             socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
             rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
             rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
@@ -422,8 +435,8 @@ export default class FormAudience extends Component {
             parentalConditionItems,
             politicalPeople,
             peopleWhoVote,
-            ocuppation,
-            ocuppationItems,
+            occupation,
+            occupationItems,
             socioeconomicLevel,
             socioeconomicLevelItems,
             rentOrOwnHouse,
@@ -443,7 +456,7 @@ export default class FormAudience extends Component {
             academicLevelAchievedList,
             regionalIdentityList,
             parentalConditionList,
-            ocuppationList,
+            occupationList,
             rentOrOwnHouseList,
             rentOrOwnCarList,
             categoryPrizeList,
@@ -456,6 +469,7 @@ export default class FormAudience extends Component {
             // Actions
             isLoading
         } = this.props;
+
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
                 <Grid>
@@ -559,7 +573,7 @@ export default class FormAudience extends Component {
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
 								<Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   you can add more options to improve audience customization.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           you can add more options to improve audience customization.
 								</Text>
                                 </ListItem>
                                 <ListItem
@@ -1768,7 +1782,7 @@ export default class FormAudience extends Component {
                                     <Body style={{ right: 15 }}>
                                         <View style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', width: '97%' }}>
                                             <Content showsHorizontalScrollIndicator={false} horizontal>
-                                                {ocuppationItems.length
+                                                {occupationItems.length
                                                     ? null
                                                     : <View style={{
                                                         backgroundColor: isLoading ? "#BDBDBD" : '#E0E0E0',
@@ -1778,7 +1792,7 @@ export default class FormAudience extends Component {
                                                     }}>
                                                         <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(3.5) }}>Select some occupations</Text>
                                                     </View>}
-                                                {ocuppationItems && ocuppationItems.map((item, key) =>
+                                                {occupationItems && occupationItems.map((item, key) =>
                                                     <View key={key} style={{
                                                         backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
                                                         margin: 3, padding: 5, borderRadius: '50%', flex: 1,
@@ -1799,7 +1813,7 @@ export default class FormAudience extends Component {
                                         <SectionedMultiSelect
                                             parentChipsRemoveChildren={true}
                                             ref={SectionedMultiSelectoOcuppation => this.SectionedMultiSelectoOcuppation = SectionedMultiSelectoOcuppation}
-                                            items={ocuppationList}
+                                            items={occupationList}
                                             uniqueKey="id"
                                             subKey="children"
                                             selectText="Choose some things..."
@@ -1808,7 +1822,7 @@ export default class FormAudience extends Component {
                                             onSelectedItemsChange={this.onSelectedItemsChangeOcuppation}
                                             onSelectedItemObjectsChange={(items) => this._updateOcuppation(items)}
                                             primary="#D81B60"
-                                            selectedItems={ocuppation}
+                                            selectedItems={occupation}
                                             showDropDowns={false}
                                             dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
                                             dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}

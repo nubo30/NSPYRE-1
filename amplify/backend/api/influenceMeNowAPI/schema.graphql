@@ -61,7 +61,7 @@ type Audience @model {
   amountOfSimblings: [String]
   politicalPeople: [String]
   peopleWhoVote: [String]
-  ocuppation: [String]
+  occupation: [String]
   socioeconomicLevel: [String]
   rentOrOwnHouse: [String]
   rentOrOwnCar: [String]
@@ -224,6 +224,8 @@ enum TypeOfSocialNetwork {
 
 ##################################################################### ENGAGE #####################################################################
 type Engage @model{
+  expoPushToken: String
+  JSONdata: String
   user: User @connection(name: "UserEngage")
   aboutThePersonality: AboutThePersonality!
   aboutTheOccupations: AboutTheOccupations! 

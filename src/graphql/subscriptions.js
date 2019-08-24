@@ -111,7 +111,7 @@ export const onCreateUser = `subscription OnCreateUser {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -216,6 +216,8 @@ export const onCreateUser = `subscription OnCreateUser {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -392,7 +394,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -497,6 +499,8 @@ export const onUpdateUser = `subscription OnUpdateUser {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -673,7 +677,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -778,6 +782,8 @@ export const onDeleteUser = `subscription OnDeleteUser {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -938,6 +944,8 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1099,7 +1107,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1270,6 +1278,8 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1431,7 +1441,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1602,6 +1612,8 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1763,7 +1775,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -1874,6 +1886,8 @@ export const onCreateAudience = `subscription OnCreateAudience {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -1959,7 +1973,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2019,7 +2033,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2062,6 +2076,8 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2147,7 +2163,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2207,7 +2223,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2250,6 +2266,8 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2335,7 +2353,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2395,7 +2413,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -2457,6 +2475,8 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2542,7 +2562,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2640,6 +2660,8 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2725,7 +2747,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -2823,6 +2845,8 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2908,7 +2932,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -3101,6 +3125,8 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3298,6 +3324,8 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3495,6 +3523,8 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3600,6 +3630,8 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
 `;
 export const onCreateEngage = `subscription OnCreateEngage {
   onCreateEngage {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -3691,6 +3723,8 @@ export const onCreateEngage = `subscription OnCreateEngage {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3780,6 +3814,8 @@ export const onCreateEngage = `subscription OnCreateEngage {
 `;
 export const onUpdateEngage = `subscription OnUpdateEngage {
   onUpdateEngage {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -3871,6 +3907,8 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -3960,6 +3998,8 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
 `;
 export const onDeleteEngage = `subscription OnDeleteEngage {
   onDeleteEngage {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -4051,6 +4091,8 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -4141,6 +4183,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
 export const onCreateNotifications = `subscription OnCreateNotifications {
   onCreateNotifications {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom
@@ -4158,6 +4201,7 @@ export const onCreateNotifications = `subscription OnCreateNotifications {
 export const onUpdateNotifications = `subscription OnUpdateNotifications {
   onUpdateNotifications {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom
@@ -4175,6 +4219,7 @@ export const onUpdateNotifications = `subscription OnUpdateNotifications {
 export const onDeleteNotifications = `subscription OnDeleteNotifications {
   onDeleteNotifications {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom

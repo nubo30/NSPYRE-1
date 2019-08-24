@@ -156,17 +156,7 @@ class CardContent extends Component {
                 </TouchableHighlight>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', width: "90%", alignSelf: 'center' }}>
 
-                    <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row' }}>
-                        <Button transparent style={{ alignSelf: 'flex-start', left: 5, paddingRight: 30 }}>
-                            <Ionicons name='logo-facebook' style={{ fontSize: 30, color: "#0D47A1" }} />
-                        </Button>
-                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 5 }}>
-                            <Ionicons name='logo-twitter' style={{ fontSize: 30, color: "#1E88E5" }} />
-                        </Button>
-                        <Button transparent style={{ alignSelf: 'flex-start', paddingRight: 5 }}>
-                            <Ionicons name='logo-instagram' style={{ fontSize: 30, color: "#E91E63" }} />
-                        </Button>
-                    </View>
+                    <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row' }} />
 
                     <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <Button transparent style={{ alignSelf: 'flex-end', paddingRight: 5 }} onPress={() => Alert.alert(

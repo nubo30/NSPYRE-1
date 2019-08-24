@@ -123,7 +123,7 @@ export const getUser = `query GetUser($id: ID!) {
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -228,6 +228,8 @@ export const getUser = `query GetUser($id: ID!) {
     }
     engage {
       items {
+        expoPushToken
+        JSONdata
         user {
           id
           userId
@@ -391,6 +393,8 @@ export const listUsers = `query ListUsers(
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -538,6 +542,8 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -699,7 +705,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         amountOfSimblings
         politicalPeople
         peopleWhoVote
-        ocuppation
+        occupation
         socioeconomicLevel
         rentOrOwnHouse
         rentOrOwnCar
@@ -814,6 +820,8 @@ export const listCreateContests = `query ListCreateContests(
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -899,7 +907,7 @@ export const listCreateContests = `query ListCreateContests(
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -978,6 +986,8 @@ export const getAudience = `query GetAudience($id: ID!) {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -1063,7 +1073,7 @@ export const getAudience = `query GetAudience($id: ID!) {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -1123,7 +1133,7 @@ export const getAudience = `query GetAudience($id: ID!) {
     amountOfSimblings
     politicalPeople
     peopleWhoVote
-    ocuppation
+    occupation
     socioeconomicLevel
     rentOrOwnHouse
     rentOrOwnCar
@@ -1236,7 +1246,7 @@ export const listAudiences = `query ListAudiences(
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -1276,7 +1286,7 @@ export const listAudiences = `query ListAudiences(
       amountOfSimblings
       politicalPeople
       peopleWhoVote
-      ocuppation
+      occupation
       socioeconomicLevel
       rentOrOwnHouse
       rentOrOwnCar
@@ -1340,6 +1350,8 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -1425,7 +1437,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           amountOfSimblings
           politicalPeople
           peopleWhoVote
-          ocuppation
+          occupation
           socioeconomicLevel
           rentOrOwnHouse
           rentOrOwnCar
@@ -1593,7 +1605,7 @@ export const listParticipantss = `query ListParticipantss(
             amountOfSimblings
             politicalPeople
             peopleWhoVote
-            ocuppation
+            occupation
             socioeconomicLevel
             rentOrOwnHouse
             rentOrOwnCar
@@ -1764,6 +1776,8 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -1905,6 +1919,8 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -1970,6 +1986,8 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
 `;
 export const getEngage = `query GetEngage($id: ID!) {
   getEngage(id: $id) {
+    expoPushToken
+    JSONdata
     user {
       id
       userId
@@ -2061,6 +2079,8 @@ export const getEngage = `query GetEngage($id: ID!) {
       }
       engage {
         items {
+          expoPushToken
+          JSONdata
           user {
             id
             userId
@@ -2155,6 +2175,8 @@ export const listEngages = `query ListEngages(
 ) {
   listEngages(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      expoPushToken
+      JSONdata
       user {
         id
         userId
@@ -2185,6 +2207,8 @@ export const listEngages = `query ListEngages(
         }
         engage {
           items {
+            expoPushToken
+            JSONdata
             createdAt
           }
           nextToken
@@ -2235,6 +2259,7 @@ export const listEngages = `query ListEngages(
 export const getNotifications = `query GetNotifications($id: ID!) {
   getNotifications(id: $id) {
     id
+    nameOfcontest
     idUSerFrom
     idUserTo
     userFrom
@@ -2257,6 +2282,7 @@ export const listNotificationss = `query ListNotificationss(
   listNotificationss(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      nameOfcontest
       idUSerFrom
       idUserTo
       userFrom
