@@ -10,7 +10,11 @@ import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import Placeholder from 'rn-placeholder'
 import * as WebBrowser from 'expo-web-browser';
+import { connect } from 'react-redux'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+
+// Redux
+import { isNotExistUserInTheAPI } from "../../../store/actions/authActions"
 
 // child component
 import ModifyProfile from './updateProfile/index';
@@ -31,7 +35,14 @@ class DrawerRight extends Component {
     _setModalVisibleModidfyProfile = (visible) => this.setState({ modalVisibleModidfyProfile: visible })
 
     // Sign Out
-    handleSignOut = async () => { try { await Auth.signOut({ global: true }); this.props.navigation.navigate("Auth") } catch (error) { console.log(error) } }
+    handleSignOut = async () => {
+        const { isNotExistUserInTheAPI } = this.props
+        try {
+            isNotExistUserInTheAPI(0)
+            await Auth.signOut({ global: true }); this.props.navigation.navigate("Auth")
+        }
+        catch (error) { console.log(error) }
+    }
 
     // Politicis
     _politicis = async () => {
@@ -211,4 +222,11 @@ class DrawerRight extends Component {
     }
 }
 
-export default withNavigation(DrawerRight)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        isNotExistUserInTheAPI: (isNotExistUserInTheAPIParams) => dispatch(isNotExistUserInTheAPI(isNotExistUserInTheAPIParams))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withNavigation(DrawerRight))

@@ -65,17 +65,17 @@ export default class ActivateNumberPhone extends Component {
         return (
             <Grid>
                 <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(7), textAlign: 'center' }}>Enter the code we send to {numberPhone}</Text>
+                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(6), textAlign: 'center' }}>Enter the code we send to {numberPhone}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', left: 22 }}>Change</Text>
+                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center', left: 22 }}>Change</Text>
                         <Button small transparent style={{ left: 11 }} onPressIn={() => _changeSwiperRoot(-1)}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4), color: '#FFF' }}>phone number</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#FFF' }}>phone number</Text>
                         </Button>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center' }}>o</Text>
+                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center' }}>o</Text>
                         <Button small transparent onPress={() => this._resendCode(numberPhone)}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4), color: '#FFF', right: 10 }}>forward SMS</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#FFF', right: 10 }}>forward SMS</Text>
                         </Button>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', left: -25 }}>.</Text>
+                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center', left: -25 }}>.</Text>
                     </View>
                 </Row>
                 <Row size={70} style={{ alignSelf: 'center' }}>
@@ -108,7 +108,7 @@ export default class ActivateNumberPhone extends Component {
                                 />}
                         </Row>
                         <Row size={80} style={{ backgroundColor: '#FFF', justifyContent: 'center', padding: 20 }}>
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                     </Grid>
                 </Row>

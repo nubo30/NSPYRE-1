@@ -15,6 +15,7 @@ type User @model{
   engage: [Engage] @connection(name: "UserEngage")
   coins: Int
   notificationToken: String
+  isFirstTime: String
 }
 
 ##################################################################### SCOPE #####################################################################

@@ -111,7 +111,7 @@ class Summary extends Component {
                                     <List>
                                         <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>ABOUT YOU</Text>
+                                            <Text allowFontScaling={false}>ABOUT YOU</Text>
                                         </Separator>
 
                                         {/* NAME */}
@@ -221,7 +221,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>ABOUT THE PRIZE</Text>
+                                            <Text allowFontScaling={false}>ABOUT THE PRIZE</Text>
                                         </Separator>
 
                                         {/* Category */}
@@ -374,7 +374,7 @@ class Summary extends Component {
                             }}>
                             {isLoading
                                 ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE" }}>Creating prize, please wait...  </Text>
+                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(3) }}>Creating prize, please wait...  </Text>
                                     <Spinner size="small" color="#EEEEEE" />
                                 </View>
                                 : <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, fontSize: wp(4) }}>Create</Text>}

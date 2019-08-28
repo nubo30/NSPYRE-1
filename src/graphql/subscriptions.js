@@ -38,6 +38,7 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -159,6 +160,7 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheCompany {
           businessLocation {
@@ -240,6 +242,7 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutThePersonality {
           amountOfChildren
@@ -281,6 +284,7 @@ export const onCreateUser = `subscription OnCreateUser {
     }
     coins
     notificationToken
+    isFirstTime
   }
 }
 `;
@@ -321,6 +325,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -442,6 +447,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheCompany {
           businessLocation {
@@ -523,6 +529,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutThePersonality {
           amountOfChildren
@@ -564,6 +571,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
     }
     coins
     notificationToken
+    isFirstTime
   }
 }
 `;
@@ -604,6 +612,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -725,6 +734,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutTheCompany {
           businessLocation {
@@ -806,6 +816,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           coins
           notificationToken
+          isFirstTime
         }
         aboutThePersonality {
           amountOfChildren
@@ -847,6 +858,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
     }
     coins
     notificationToken
+    isFirstTime
   }
 }
 `;
@@ -880,6 +892,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -923,6 +936,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -959,6 +973,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -994,6 +1009,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheUser {
       companyName
@@ -1063,6 +1079,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1152,6 +1169,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1214,6 +1232,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1257,6 +1276,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -1293,6 +1313,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -1328,6 +1349,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheUser {
       companyName
@@ -1397,6 +1419,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1486,6 +1509,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1548,6 +1572,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1591,6 +1616,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -1627,6 +1653,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -1662,6 +1689,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheUser {
       companyName
@@ -1731,6 +1759,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1820,6 +1849,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1894,6 +1924,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -2084,6 +2115,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -2274,6 +2306,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -2483,6 +2516,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -2668,6 +2702,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -2853,6 +2888,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         }
         coins
         notificationToken
+        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -3061,6 +3097,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -3104,6 +3141,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -3140,6 +3178,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -3175,6 +3214,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheCompany {
       businessLocation {
@@ -3260,6 +3300,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -3303,6 +3344,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -3339,6 +3381,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -3374,6 +3417,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheCompany {
       businessLocation {
@@ -3459,6 +3503,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -3502,6 +3547,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -3538,6 +3584,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -3573,6 +3620,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutTheCompany {
       businessLocation {
@@ -3659,6 +3707,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -3702,6 +3751,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -3738,6 +3788,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -3773,6 +3824,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutThePersonality {
       amountOfChildren
@@ -3843,6 +3895,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -3886,6 +3939,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -3922,6 +3976,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -3957,6 +4012,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutThePersonality {
       amountOfChildren
@@ -4027,6 +4083,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -4070,6 +4127,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -4106,6 +4164,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             scope
             coins
             notificationToken
+            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -4141,6 +4200,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       }
       coins
       notificationToken
+      isFirstTime
     }
     aboutThePersonality {
       amountOfChildren

@@ -160,7 +160,7 @@ class Login extends Component {
                                 </ListItem>
                             </List>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             </View>
                         </Row>
                         <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
@@ -201,15 +201,15 @@ class Login extends Component {
 
                     <Grid>
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(8), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>
+                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(7), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(4), textAlign: 'center', left: 35 }}>Change</Text>
+                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 35 }}>Change</Text>
                                 <Button small transparent onPressIn={() => _changeSwiperRoot(-1)} style={{ left: 25 }}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4), color: '#333' }}>phone number</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>phone number</Text>
                                 </Button>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(4), textAlign: 'center', left: 12 }}>o</Text>
+                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 12 }}>o</Text>
                                 <Button small transparent onPress={() => this._resendCode(numberPhone)} >
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4), color: '#333' }}>forward SMS</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>forward SMS</Text>
                                 </Button>
                                 <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5), textAlign: 'center', right: 17, top: -1.5 }}>.</Text>
                             </View>
@@ -230,7 +230,7 @@ class Login extends Component {
                             />
                         </Row>
                         <Row size={50} style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                     </Grid>
                 </Swiper>

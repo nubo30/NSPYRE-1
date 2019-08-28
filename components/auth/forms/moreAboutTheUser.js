@@ -43,7 +43,7 @@ export default class MoreAboutTheUser extends Component {
         const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
         try {
             const user = await Auth.currentAuthenticatedUser();
-            if (avatar === undefined) {
+            if (avatar === null || avatar === undefined) {
                 await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
                 await Object.assign(input, {
                     id: user.attributes.sub,

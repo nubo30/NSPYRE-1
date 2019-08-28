@@ -34,7 +34,7 @@ export default class Participants extends Component {
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Global</Text>
+                                    style={{ color: '#D81B60', fontSize: wp(4) }}>All</Text>
                             </TabHeading>
                         }
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}
@@ -142,7 +142,7 @@ export default class Participants extends Component {
                                     <Text
                                         minimumFontScale={wp(4)}
                                         allowFontScaling={false}
-                                        style={{ color: '#D81B60', fontSize: wp(4) }}>Created</Text>
+                                        style={{ color: '#D81B60', fontSize: wp(4) }}>Mine</Text>
                                 </TabHeading>
                             }
                             activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}

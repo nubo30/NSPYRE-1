@@ -14,7 +14,7 @@ import { GadrientsAuth } from '../../../Global/gradients'
 import { MyStatusBar } from '../../../Global/statusBar'
 
 // Static data
-import { ocuppationList } from '../../../../assets/data/global'
+import { occupationList } from '../../../../assets/data/global'
 
 // Countries data
 import countries from '../../../../assets/data/countries.json'
@@ -170,7 +170,7 @@ class AboutYou extends Component {
             listCities
         } = this.state
         const { userData, navigation } = this.props
-        let filterOcuppationList = ocuppationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextTitleIntheCompany)) !== -1 })
+        let filterOcuppationList = occupationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextTitleIntheCompany)) !== -1 })
         let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(_.lowerCase(inputTextRegions)) !== -1 })
         let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextCountry)) !== -1 })
         let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(_.lowerCase(inputTextCities)) !== -1 })

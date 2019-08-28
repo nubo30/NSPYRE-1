@@ -178,7 +178,7 @@ export default class PhoneRegister extends Component {
                         </Row>
                         <Row size={40} style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
                             <Text allowFontScaling={false} style={{ color: "#E0E0E0", fontSize: wp(4.5), top: 25, left: "10%" }}>We will send you a one time sms {'\n'} message.</Text>
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4), alignSelf: 'center', textAlign: 'center', fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3), alignSelf: 'center', textAlign: 'center', fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                         <Row size={20} style={{
                             justifyContent: 'flex-end',
@@ -207,7 +207,7 @@ export default class PhoneRegister extends Component {
                             <Row size={25} style={{ flexDirection: 'column', paddingLeft: 10, paddingRight: 10 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(6), color: "#E0E0E0", fontWeight: 'bold' }}>Create a <Text allowFontScaling={false} style={{ fontSize: wp(6), fontWeight: 'bold', color: "#333" }}>password</Text></Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ color: '#E0E0E0', fontSize: wp(4.5), fontWeight: '100', left: -15 }}>Change number <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4.5) }}>{numberPhone}</Text>.</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#E0E0E0', fontSize: wp(4), fontWeight: '100', left: -15 }}>Change number <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{numberPhone}</Text>.</Text>
                                 </Button>
                                 <Text allowFontScaling={false} style={{ top: 3, color: '#E0E0E0', fontSize: wp(4), fontWeight: '100' }}>The password must have numbers.</Text>
                             </Row>

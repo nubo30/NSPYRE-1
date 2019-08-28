@@ -12,7 +12,7 @@ import { GadrientsAuth } from '../../../Global/gradients'
 import { MyStatusBar } from '../../../Global/statusBar'
 
 // Data
-import { levelachievedList, ocuppationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../../assets/data/global'
+import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../../assets/data/global'
 import universities from "../../../../assets/data/universities.json"
 import schoolsJson from "../../../../assets/data/schools.json"
 
@@ -170,7 +170,7 @@ class AbouttheirOccupations extends PureComponent {
         // Filter universities
         let filterSchoolsList = schoolsList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextSchools)) !== -1 })
         let filterUniversityList = universityList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextUniversity)) !== -1 })
-        let filterOcuppationList = ocuppationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextOcuppation)) !== -1 })
+        let filterOcuppationList = occupationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextOcuppation)) !== -1 })
 
         return (
             <Container>

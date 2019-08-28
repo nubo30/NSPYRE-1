@@ -1,17 +1,33 @@
 import React, { Component } from 'react'
 import { Text, View, Spinner } from 'native-base'
-import { Auth } from 'aws-amplify'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { connect } from 'react-redux'
 
-export default class AuthLoadingScreen extends Component {
+
+// GRAPHQL
+import * as queries from "../../src/graphql/queries"
+
+// Redux
+import { isNotExistUserInTheAPI } from "../../store/actions/authActions"
+
+class AuthLoadingScreen extends Component {
     constructor(props) {
         super(props);
         this._bootstrapAsync()
     }
 
     _bootstrapAsync = async () => {
+        const { isNotExistUserInTheAPI } = this.props
+
         try {
-            await Auth.currentAuthenticatedUser({ bypassCache: false })
-            this.props.navigation.navigate('Home');
+            const { attributes } = await Auth.currentAuthenticatedUser({ bypassCache: false })
+            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
+            if (data.getUser !== null) {
+                this.props.navigation.navigate('Home');
+            } else if (data.getUser === null) {
+                isNotExistUserInTheAPI(2)
+                this.props.navigation.navigate('Auth');
+            }
         } catch (error) {
             this.props.navigation.navigate('Auth');
         }
@@ -27,3 +43,10 @@ export default class AuthLoadingScreen extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        isNotExistUserInTheAPI: (isNotExistUserInTheAPIParams) => dispatch(isNotExistUserInTheAPI(isNotExistUserInTheAPIParams))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AuthLoadingScreen)

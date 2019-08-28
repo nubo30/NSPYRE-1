@@ -226,7 +226,7 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Description</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Terms</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>

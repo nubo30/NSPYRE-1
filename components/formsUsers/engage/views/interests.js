@@ -687,7 +687,7 @@ class Interests extends PureComponent {
                                 alignSelf: 'center',
                                 backgroundColor: '#E91E63'
                             }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF", fontStyle: wp(4) }}>Continue</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#EEEEEE" : "#FFF"}}>Continue</Text>
                             {isLoading ? <Spinner color={isLoading ? "#EEEEEE" : "#FFF"} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>

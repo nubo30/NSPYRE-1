@@ -143,7 +143,7 @@ class Summary extends Component {
                                     <List>
                                         <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} >ABOUT YOU</Text>
+                                            <Text allowFontScaling={false}>ABOUT YOU</Text>
                                         </Separator>
 
                                         {/* NAME */}
@@ -350,7 +350,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                            <Text allowFontScaling={false} >PRIZES</Text>
+                                            <Text allowFontScaling={false}>PRIZES</Text>
                                             <Text allowFontScaling={false} style={{ right: 15 }}>{prizes === undefined ? 0 : prizes.length} Prizes Created</Text>
                                         </Separator>
 
@@ -453,7 +453,7 @@ class Summary extends Component {
                             }}>
                             {isLoading
                                 ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE" }}>Creating contest, please wait...  </Text>
+                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(3) }}>Creating contest, please wait...  </Text>
                                     <Spinner size="small" color="#EEEEEE" />
                                 </View>
                                 : <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, fontSize: wp(4) }}>Create</Text>}

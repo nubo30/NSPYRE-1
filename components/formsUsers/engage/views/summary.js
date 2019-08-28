@@ -85,7 +85,7 @@ class Summary extends Component {
                                     <List>
                                         <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: 'rgba(0,0,0,0.0)' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>ABOUT YOU</Text>
+                                            <Text allowFontScaling={false}>ABOUT YOU</Text>
                                         </Separator>
 
                                         {/* NAME */}
@@ -164,7 +164,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>LOCATION</Text>
+                                            <Text allowFontScaling={false}>LOCATION</Text>
                                         </Separator>
 
                                         {/* Location*/}
@@ -213,7 +213,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>PREFERENCES</Text>
+                                            <Text allowFontScaling={false}>PREFERENCES</Text>
                                         </Separator>
 
                                         {/* GENDER */}
@@ -262,7 +262,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>FAMILY</Text>
+                                            <Text allowFontScaling={false}>FAMILY</Text>
                                         </Separator>
 
                                         {/* PARENT'S CONDITION */}
@@ -311,7 +311,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>FORMATION</Text>
+                                            <Text allowFontScaling={false}>FORMATION</Text>
                                         </Separator>
 
                                         {/* SCHOOLS */}
@@ -360,7 +360,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>STATUS</Text>
+                                            <Text allowFontScaling={false}>STATUS</Text>
                                         </Separator>
 
                                         {/* OCUPPATION */}
@@ -424,7 +424,7 @@ class Summary extends Component {
                                         </ListItem>
 
                                         <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>INTERESTS</Text>
+                                            <Text allowFontScaling={false}>INTERESTS</Text>
                                         </Separator>
 
                                         {/* GENRE MUSICALS */}
@@ -589,7 +589,7 @@ class Summary extends Component {
                             }}>
                             {isLoading
                                 ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(4) }}>Creating engage, please wait...  </Text>
+                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(3) }}>Creating engage, please wait...  </Text>
                                     <Spinner size="small" color="#EEEEEE" />
                                 </View>
                                 : <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, fontSize: wp(4) }}>Create</Text>}

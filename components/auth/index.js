@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Keyboard } from 'react-native'
+import { withNavigation } from 'react-navigation'
 import { Container, View, Text, Button, Icon, Toast } from 'native-base';
 import Swiper from 'react-native-swiper'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { connect } from 'react-redux'
 
 // Child Components
 import PhoneRegister from './forms/phoneRegister'
@@ -16,7 +18,7 @@ import { GadrientsAuth } from '../Global/gradients/index'
 import { MyStatusBar } from '../Global/statusBar/index'
 import Logo from '../Global/lottieJs/logo'
 
-export default class Auth extends Component {
+class Auth extends Component {
 
     state = {
         indexSwiperRoot: 0,
@@ -46,10 +48,11 @@ export default class Auth extends Component {
     _hasTheRegistrationBeenSuccessful = (value) => {
         this.setState({ hasTheRegistrationBeenSuccessful: value })
         Toast.show({
-            text: "As a last step, please log in to the application to continue!",
+            text: "Now you're registered! Login to start!",
             buttonText: "Okay",
             position: "top",
-            duration: 5000
+            duration: 10000,
+            type: "success"
         })
     }
 
@@ -67,8 +70,10 @@ export default class Auth extends Component {
 
     render() {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, indexSwiper, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
+        const { isNotExistUserInTheAPI } = this.props
         return (
             <Swiper
+                index={isNotExistUserInTheAPI === undefined ? 0 : isNotExistUserInTheAPI}
                 scrollEnabled={false}
                 ref={(swiper) => this.swiperRoot = swiper}
                 onIndexChanged={(index) => { this.setState({ indexSwiperRoot: index, validateNumberButtom: true }); Keyboard.dismiss() }}
@@ -113,7 +118,7 @@ export default class Auth extends Component {
                             <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
                         </View>
                     </Swiper>
-                    <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
+                    {/* <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <Button iconLeft disabled={indexSwiper === 0 ? true : false} transparent onPressIn={() => this._changeSwiper(-1)} style={{ left: -10 }}>
                             <Icon name='arrow-back' style={{ color: indexSwiper ? "#EEEEEE" : "#E91E63" }} />
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), color: indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>SIGN UP</Text>
@@ -122,7 +127,7 @@ export default class Auth extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>LOGIN</Text>
                             <Icon name='arrow-forward' style={{ color: !indexSwiper ? "#EEEEEE" : "#E91E63" }} />
                         </Button>
-                    </View>
+                    </View> */}
                 </Container>
 
                 {/* Activate Number Phone */}
@@ -173,3 +178,7 @@ export default class Auth extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => { return { isNotExistUserInTheAPI: state.auth.isNotExistUserInTheAPI } }
+
+export default connect(mapStateToProps)(withNavigation(Auth))
