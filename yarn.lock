@@ -3464,7 +3464,7 @@ has-values@^1.0.0:
   dependencies:
     traverse ">=0.2.4"
 
-hoist-non-react-statics@^1.0.5:
+hoist-non-react-statics@^1.0.5, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
   integrity sha1-qkSM8JhtVcxAdzsXF0t90GbLfPs=
@@ -5609,6 +5609,14 @@ react-native-half-modal@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/react-native-half-modal/-/react-native-half-modal-0.2.1.tgz#0ffee4a15ac47d462c74bfd806a0bb53325366eb"
   integrity sha512-4Nfr0Qkmfpsm6Ljvl/34EjcSuc21S0Gs0NZ7lPuV4H1zsViy6zUcUEC2aDPozykgLB00E9tVWawgvJ0Ucn+g2w==
+
+react-native-interactions@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-interactions/-/react-native-interactions-0.4.0.tgz#068054a60898de1794a099b592666c5c8d0ea66e"
+  integrity sha1-BoBUpgiY3heUoJm1kmZsXI0Opm4=
+  dependencies:
+    hoist-non-react-statics "^1.2.0"
+    prop-types "^15.5.10"
 
 react-native-iphone-x-helper@^1.0.3:
   version "1.2.0"

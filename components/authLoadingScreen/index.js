@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { InteractionManager } from 'react-native'
 import { Text, View, Spinner } from 'native-base'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { connect } from 'react-redux'
@@ -18,10 +19,9 @@ class AuthLoadingScreen extends Component {
 
     _bootstrapAsync = async () => {
         const { isNotExistUserInTheAPI } = this.props
-
         try {
-            const { attributes } = await Auth.currentAuthenticatedUser({ bypassCache: false })
-            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: attributes.sub }))
+            const session = await Auth.currentAuthenticatedUser({ bypassCache: false })
+            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: session.id || session.attributes.sub }))
             if (data.getUser !== null) {
                 this.props.navigation.navigate('Home');
             } else if (data.getUser === null) {
@@ -29,6 +29,7 @@ class AuthLoadingScreen extends Component {
                 this.props.navigation.navigate('Auth');
             }
         } catch (error) {
+            console.log(error)
             this.props.navigation.navigate('Auth');
         }
     }

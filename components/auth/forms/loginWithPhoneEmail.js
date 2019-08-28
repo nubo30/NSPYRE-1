@@ -165,6 +165,7 @@ class Login extends Component {
                         </Row>
                         <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
                             <Button
+                                disabled={isLoadingFb}
                                 onPress={() => this._openBroweserForLoginWithFacebook()}
                                 iconRight style={{
                                     top: -10,

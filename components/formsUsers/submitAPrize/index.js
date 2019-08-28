@@ -3,12 +3,15 @@ import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { Alert } from 'react-native'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
+import { AfterInteractions } from 'react-native-interactions';
+import { View } from 'react-native'
 
 // Child Component
 import AboutYou from './views/aboutYou'
 import AboutThePrize from './views/aboutThePrize'
 import Mentions from './views/mentions'
 import Summary from './views/summary'
+import AboutYouPlaceholder from './placeholder/index'
 
 import * as queries from '../../../src/graphql/queries'
 
@@ -47,51 +50,53 @@ export default class SubmitPrize extends Component {
     render() {
         const { prize, userData, dataFromThePreviousSubmitPrize, wantSuggestedFields } = this.state
         return (
-            <Swiper
-                scrollEnabled={false}
-                ref={(swiper) => this.swiper = swiper}
-                loop={false} showsButtons={false} showsPagination={false}>
+            <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutYouPlaceholder /></View>}>
+                <Swiper
+                    scrollEnabled={false}
+                    ref={(swiper) => this.swiper = swiper}
+                    loop={false} showsButtons={false} showsPagination={false}>
 
-                {/* ABOUT YOU */}
-                <AboutYou
-                    userData={userData}
-                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
+                    {/* ABOUT YOU */}
+                    <AboutYou
+                        userData={userData}
+                        dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
 
-                    // Actions
-                    wantSuggestedFields={wantSuggestedFields}
+                        // Actions
+                        wantSuggestedFields={wantSuggestedFields}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* ABOUT YOU */}
-                <AboutThePrize
-                    userData={userData}
-                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
+                    {/* ABOUT YOU */}
+                    <AboutThePrize
+                        userData={userData}
+                        dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
 
-                    // Actions
-                    wantSuggestedFields={wantSuggestedFields}
+                        // Actions
+                        wantSuggestedFields={wantSuggestedFields}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* MENTIONS */}
-                <Mentions
-                    userData={userData}
-                    prize={prize}
-                    dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
+                    {/* MENTIONS */}
+                    <Mentions
+                        userData={userData}
+                        prize={prize}
+                        dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}
 
-                    // Actions
-                    wantSuggestedFields={wantSuggestedFields}
+                        // Actions
+                        wantSuggestedFields={wantSuggestedFields}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* Summary */}
-                <Summary
-                    userData={userData}
-                    prize={prize}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
-            </Swiper>
+                    {/* Summary */}
+                    <Summary
+                        userData={userData}
+                        prize={prize}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
+                </Swiper>
+            </AfterInteractions>
         );
     }
 }
