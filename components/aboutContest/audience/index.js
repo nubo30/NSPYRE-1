@@ -132,7 +132,7 @@ export default class Audience extends Component {
                                     <Left style={{ flexDirection: 'row' }}>
                                         <Button transparent onPress={() => { this._modalVisibleAudienceSelect(false); }}>
                                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>BACK</Text>
+                                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>Back</Text>
                                         </Button>
                                         <Title allowFontScaling={false} style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
                                             Creating your audience
@@ -184,7 +184,7 @@ export default class Audience extends Component {
                                                     <Left style={{ flexDirection: 'row' }}>
                                                         <Button transparent onPress={() => { this.setState({ modalVisibleAudienceSelect: false }); _setModalVisibleAudience(false) }}>
                                                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>Back</Text>
+                                                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>Back</Text>
                                                         </Button>
                                                         <Title allowFontScaling={false} style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
                                                             Our Audience

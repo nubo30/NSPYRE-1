@@ -1,3 +1,6 @@
+/* Archivo teporal, donde se almacenan los datos que se usan para el desarrollo */
+
+
 // Colores aleatorios para los valores de la selecciones
 export const randomColors = [
     '#1E88E5',

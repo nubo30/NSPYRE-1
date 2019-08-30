@@ -115,10 +115,11 @@ class Auth extends Component {
                             dotColor="#EEEEEE"
                             showsButtons={false}>
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
-                                <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
-                            </View>
-                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
                                 <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                            </View>
+                            
+                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
+                                <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
                             </View>
                         </Swiper>
                         {/* <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>

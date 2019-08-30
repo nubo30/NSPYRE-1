@@ -194,7 +194,7 @@ export default class PhoneRegister extends Component {
                                 style={{ width: "100%" }}>
                                 <Button onPressIn={() => this._verifyNumberPhone()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Next</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Sign Up</Text>
                                     <Icon name='arrow-forward' />
                                 </Button>
                             </Animatable.View>
@@ -202,9 +202,9 @@ export default class PhoneRegister extends Component {
                     </Grid>
 
                     {/* Password */}
-                    <Grid style={{ paddingLeft: 15, paddingRight: 15, paddingTop: 30 }}>
-                        <Content contentContainerStyle={{ flex: 1 }}>
-                            <Row size={25} style={{ flexDirection: 'column', paddingLeft: 10, paddingRight: 10 }}>
+                    <Grid>
+                        <Content padder contentContainerStyle={{ flex: 1 }}>
+                            <Row size={25} style={{ flexDirection: 'column', paddingLeft: 10, paddingRight: 10, paddingTop: 25 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(6), color: "#E0E0E0", fontWeight: 'bold' }}>Create a <Text allowFontScaling={false} style={{ fontSize: wp(6), fontWeight: 'bold', color: "#333" }}>password</Text></Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
                                     <Text allowFontScaling={false} style={{ color: '#E0E0E0', fontSize: wp(4), fontWeight: '100', left: -15 }}>Change number <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{numberPhone}</Text>.</Text>
@@ -246,13 +246,13 @@ export default class PhoneRegister extends Component {
                                 alignItems: 'center',
                                 flexDirection: 'column',
                             }}>
-                                <Text allowFontScaling={false} style={{ top: "20%", color: "#F44336", fontSize: wp(4), fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                <Text allowFontScaling={false} style={{ top: "20%", color: "#F44336", fontSize: wp(3), fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                                 <Animatable.View
                                     animation={passwordsDoNotMatchAnimation ? "shake" : undefined}
                                     onAnimationEnd={() => this.setState({ passwordsDoNotMatchAnimation: false })}
                                     duration={1000}
                                     style={{
-                                        width: "100%", top: "-11%",
+                                        width: "97%", top: -5,
                                         shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                                     }}>
                                     <Button

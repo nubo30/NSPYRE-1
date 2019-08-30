@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { ImageBackground, Platform, TouchableHighlight, Alert } from 'react-native'
-import { Text, View, Button, Spinner } from "native-base"
+import { ImageBackground, Platform, TouchableHighlight, Alert, Share, Linking } from 'react-native'
+import { Text, View, Button, Spinner, Icon } from "native-base"
 import { API, graphqlOperation } from "aws-amplify"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import * as Animatable from 'react-native-animatable';
@@ -9,9 +9,6 @@ import { withNavigation } from "react-navigation"
 import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
 
-
-// Icons
-import { Ionicons } from '@expo/vector-icons'
 
 // GraphQL
 import * as mutations from '../../../../src/graphql/mutations'
@@ -35,6 +32,54 @@ class CardContent extends Component {
     componentWillUnmount() {
         this.setState({ isFinishedContest: false })
     }
+
+    _share = async (item) => {
+        try {
+            const result = await Share.share({
+                message: item.general.description,
+                title: item.general.nameOfContest,
+            }, {
+                    excludedActivityTypes: [
+                        'com.apple.UIKit.activity.PostToWeibo',
+                        'com.apple.UIKit.activity.Print',
+                        'com.apple.UIKit.activity.CopyToPasteboard',
+                        'com.apple.UIKit.activity.AssignToContact',
+                        'com.apple.UIKit.activity.SaveToCameraRoll',
+                        'com.apple.UIKit.activity.AddToReadingList',
+                        'com.apple.UIKit.activity.PostToFlickr',
+                        'com.apple.UIKit.activity.PostToVimeo',
+                        'com.apple.UIKit.activity.PostToTencentWeibo',
+                        'com.apple.UIKit.activity.AirDrop',
+                        'com.apple.UIKit.activity.OpenInIBooks',
+                        'com.apple.UIKit.activity.MarkupAsPDF',
+                        'com.apple.reminders.RemindersEditorExtension',
+                        'com.apple.mobilenotes.SharingExtension',
+                        'com.apple.mobileslideshow.StreamShareService',
+                        'com.linkedin.LinkedIn.ShareExtension',
+                        'pinterest.ShareExtension',
+                        'com.google.GooglePlus.ShareExtension',
+                        'com.tumblr.tumblr.Share-With-Tumblr',
+                        'net.whatsapp.WhatsApp.ShareExtension'
+                    ]
+                });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    console.log(result)
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                    console.log(result)
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+                console.log(result)
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
 
     render() {
         const { animation, loadingDel, isFinishedContest } = this.state
@@ -155,10 +200,12 @@ class CardContent extends Component {
                     </Animatable.View>
                 </TouchableHighlight>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', width: "90%", alignSelf: 'center' }}>
+                    <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row', justifyContent: "space-between" }}>
+                        <Button icon iconLeft transparent onPress={() => this._share(item)}>
+                            <Icon type="AntDesign" name='sharealt' style={{ color: "#F44336" }} />
+                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>Share</Text>
+                        </Button>
 
-                    <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row' }} />
-
-                    <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <Button transparent style={{ alignSelf: 'flex-end', paddingRight: 5 }} onPress={() => Alert.alert(
                             `${item.general.nameOfContest}`,
                             'Do you really want to delete this contest?',
@@ -171,8 +218,8 @@ class CardContent extends Component {
                             ],
                             { cancelable: false },
                         )}>{!loadingDel
-                            ? <Ionicons name='md-trash' style={{ fontSize: 25, color: "#EF5350" }} />
-                            : <Spinner color='#EF5350' size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
+                            ? <Icon type="Ionicons" name='md-trash' style={{ fontSize: 25, color: "#E0E0E0" }} />
+                            : <Spinner color='#E0E0E0' size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
                         </Button>
                     </View>
                 </View>

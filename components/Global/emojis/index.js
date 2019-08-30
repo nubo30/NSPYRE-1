@@ -10,11 +10,11 @@ export const DataNotFound = (props) => {
             <Text
                 allowFontScaling={false}
                 minimumFontScale={80}
-                style={{ fontSize: 80 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
+                style={{ fontSize: 60 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
             <Text
                 allowFontScaling={false}
-                minimumFontScale={16}
-                style={{ color: "#9E9E9E", fontSize: 16 }}>We could not find <Text style={{ fontWeight: 'bold', color: "#9E9E9E" }}>{inputText}</Text></Text>
+                minimumFontScale={14}
+                style={{ color: "#9E9E9E", fontSize: 14 }}>We could not find <Text style={{ fontWeight: 'bold', color: "#9E9E9E" }}>{inputText}</Text></Text>
         </View>
     )
 }
@@ -26,11 +26,11 @@ export const DataSearch = () => {
             <Text
                 allowFontScaling={false}
                 minimumFontScale={80}
-                style={{ fontSize: 80 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
+                style={{ fontSize: 60 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
             <Text
                 allowFontScaling={false}
                 minimumFontScale={16}
-                style={{ fontSize: 16 }}
+                style={{ fontSize: 14 }}
             >No encontrado</Text>
         </View>
     )

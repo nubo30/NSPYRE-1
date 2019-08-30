@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
+import { AfterInteractions } from 'react-native-interactions';
+import { View } from 'react-native'
+
 
 // Child Component
 import AboutThePersonality from './views/aboutThePersonality'
 import AbouttheirOccupations from './views/aboutTheirOccupations'
 import Interests from './views/interests'
 import Summary from './views/summary'
+import AboutThePersonalityPlaceholder from './placeholder/aboutThePersonalityPlaceholder'
 
 // Grapql
 import * as queries from '../../../src/graphql/queries'
@@ -42,39 +46,41 @@ export default class SubmitPrize extends Component {
     render() {
         const { engage, coins, userData } = this.state
         return (
-            <Swiper
-                scrollEnabled={false}
-                ref={(swiper) => this.swiper = swiper}
-                loop={false} showsButtons={false} showsPagination={false}>
-                {/* ABOUT THE PERSONALITY*/}
-                <AboutThePersonality
-                    userData={userData}
+            <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutThePersonalityPlaceholder /></View>}>
+                <Swiper
+                    scrollEnabled={false}
+                    ref={(swiper) => this.swiper = swiper}
+                    loop={false} showsButtons={false} showsPagination={false}>
+                    {/* ABOUT THE PERSONALITY*/}
+                    <AboutThePersonality
+                        userData={userData}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* ABOUT THEIR OCCUPATIONS */}
-                <AbouttheirOccupations
-                    userData={userData}
+                    {/* ABOUT THEIR OCCUPATIONS */}
+                    <AbouttheirOccupations
+                        userData={userData}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* INTEREST */}
-                <Interests
-                    userData={userData}
+                    {/* INTEREST */}
+                    <Interests
+                        userData={userData}
 
-                    _dataFromForms={this._dataFromForms}
-                    _indexChangeSwiper={this._indexChangeSwiper} />
+                        _dataFromForms={this._dataFromForms}
+                        _indexChangeSwiper={this._indexChangeSwiper} />
 
-                {/* INTEREST */}
-                <Summary
-                    userData={userData}
-                    engage={engage}
-                    coins={coins}
+                    {/* INTEREST */}
+                    <Summary
+                        userData={userData}
+                        engage={engage}
+                        coins={coins}
 
-                    _indexChangeSwiper={this._indexChangeSwiper} />
-            </Swiper>
+                        _indexChangeSwiper={this._indexChangeSwiper} />
+                </Swiper>
+            </AfterInteractions>
         );
     }
 }

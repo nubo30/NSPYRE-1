@@ -15,10 +15,10 @@ export default class AudiencePlaceholder extends Component {
                     <Left style={{ flexDirection: 'row' }}>
                         <Button transparent onPress={() => { this._modalVisibleAudienceSelect(false); }}>
                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>BACK</Text>
+                            <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>Back</Text>
                         </Button>
                         <Title allowFontScaling={false} style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
-                            Creating your audience
+                            ...
                                     </Title>
                     </Left>
                     <Right />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform } from "react-native"
+import { Platform, Share } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';

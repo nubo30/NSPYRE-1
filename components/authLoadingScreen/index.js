@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { InteractionManager } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import { Text, View, Spinner } from 'native-base'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { connect } from 'react-redux'
@@ -19,19 +19,28 @@ class AuthLoadingScreen extends Component {
 
     _bootstrapAsync = async () => {
         const { isNotExistUserInTheAPI } = this.props
-        try {
-            const session = await Auth.currentAuthenticatedUser({ bypassCache: false })
-            const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: session.id || session.attributes.sub }))
-            if (data.getUser !== null) {
-                this.props.navigation.navigate('Home');
-            } else if (data.getUser === null) {
-                isNotExistUserInTheAPI(2)
-                this.props.navigation.navigate('Auth');
+        AsyncStorage.getItem('@storage_Key', async (err, result) => {
+            if (result === null) {
+                // Se redirecciona al slide de introducción
+                this.props.navigation.navigate('IntroToApp');
+            } else {
+                // Se redirecciona directamente a la app
+                try {
+                    const session = await Auth.currentAuthenticatedUser({ bypassCache: false })
+                    const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: session.id || session.attributes.sub }))
+                    if (data.getUser !== null) {
+                        this.props.navigation.navigate('Home');
+                    } else if (data.getUser === null) {
+                        isNotExistUserInTheAPI(2)
+                        this.props.navigation.navigate('Auth');
+                    }
+                } catch (error) {
+                    console.log(error)
+                    this.props.navigation.navigate('Auth');
+                }
             }
-        } catch (error) {
-            console.log(error)
-            this.props.navigation.navigate('Auth');
-        }
+        });
+        AsyncStorage.setItem('@storage_Key', JSON.stringify({ "value": "true" }));
     }
 
     render() {

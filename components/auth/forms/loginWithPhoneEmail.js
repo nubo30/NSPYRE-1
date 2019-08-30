@@ -70,10 +70,10 @@ class Login extends Component {
     async _openBroweserForLoginWithFacebook() {
         const { _changeSwiperRoot, _activateNumberPhone, navigation, _moreUserData } = this.props
         try {
-            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(facebookAppid, { permissions: ['public_profile'] });
+            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(facebookAppid, { permissions: ['public_profile', 'user_posts'] });
             if (type === 'success') {
                 const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name`);
-                const { email, name, picture, id, last_name } = await response.json()
+                const { email, name, picture, id, last_name, posts } = await response.json()
                 this.setState({ isLoadingFb: true })
                 await Auth.federatedSignIn('facebook', { token, expires_at: expires })
                     .then(credentials => {
@@ -176,7 +176,7 @@ class Login extends Component {
                                 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', flex: 1, paddingLeft: 15 }}>
                                     <Icon name='logo-facebook' style={{ color: "#FFF", fontSize: wp(8) }} />
-                                    <Text allowFontScaling={false} style={{ left: 10, color: '#FFF' }}>Continue with facebook</Text>
+                                    <Text allowFontScaling={false} style={{ left: 10, color: '#FFF', fontWeight: 'bold' }}>Continue with facebook</Text>
                                 </View>
                                 {isLoadingFb ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                             </Button>
@@ -193,7 +193,7 @@ class Login extends Component {
                                     disable={isLoadingFb || isLoading}
                                     onPress={() => this._submit()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Submit</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
                                     {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                 </Button>
                             </Animatable.View>

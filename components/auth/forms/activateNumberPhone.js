@@ -24,7 +24,7 @@ export default class ActivateNumberPhone extends Component {
         try {
             const status = await Auth.confirmSignUp(numberPhone, code, { forceAliasCreation: true })
             await _hasTheRegistrationBeenSuccessful({ status, firstTime: 'YES' })
-            await _changeSwiper(1)
+            await _changeSwiper(-1)
             await _changeSwiperRoot(-1)
         } catch (error) {
             this._messageFlashErr(error)

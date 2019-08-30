@@ -102,7 +102,8 @@ const RootStack = createStackNavigator(
 )
 
 const AuthStack = createStackNavigator({
-    Auth: { screen: InfluencemeNow, navigationOptions }
+    Auth: { screen: InfluencemeNow, navigationOptions },
+    IntroToApp: { screen: IntroToApp, navigationOptions }
 })
 
 const AppContainer = createAppContainer(createAnimatedSwitchNavigator({
