@@ -5,9 +5,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Root, Toast } from "native-base";
 import thunk from "redux-thunk"
-import Sentry from 'sentry-expo';
 import { AppLoading } from "expo";
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
 // import awsconfig from './aws-exports'
