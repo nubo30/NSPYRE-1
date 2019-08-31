@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const showParticipationByUser = `query ShowParticipationByUser($userId: String!) {
@@ -28,201 +28,17 @@ export const getUser = `query GetUser($id: ID!) {
     createContest {
       items {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
         createdAt
         timer
-        audience {
-          items {
-            id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
-            createdAt
-          }
-          nextToken
-        }
-        participants {
-          items {
-            id
-            participantId
-            nameUser
-            comment
-            avatar
-            createdAt
-          }
-          nextToken
-        }
       }
       nextToken
     }
     submitPrize {
       items {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutTheCompany {
-          businessLocation {
-            city
-            country
-            state
-            street
-          }
-          companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
-        }
         category
-        general {
-          price
-          nameOfPrize
-          description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
-        }
       }
       nextToken
     }
@@ -230,63 +46,6 @@ export const getUser = `query GetUser($id: ID!) {
       items {
         expoPushToken
         JSONdata
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutThePersonality {
-          amountOfChildren
-          amountOfSimblings
-          birthDate
-          gender
-          location {
-            city
-            country
-            state
-            street
-          }
-          maritalStatus
-          nacionality
-          parentalCondition
-          regionalIdentity
-          sexuality
-        }
-        aboutTheOccupations {
-          levelAchivied
-          occupation
-          rentOrOwnCar
-          rentOrOwnHouse
-          schools
-          university
-          socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
-          vote
-        }
         createdAt
       }
       nextToken
@@ -314,131 +73,12 @@ export const listUsers = `query ListUsers(
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         nextToken
       }
       submitPrize {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheCompany {
-            companyName
-          }
-          category
-          general {
-            price
-            nameOfPrize
-            description
-          }
-          createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
-          }
-        }
         nextToken
       }
       engage {
-        items {
-          expoPushToken
-          JSONdata
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutThePersonality {
-            amountOfChildren
-            amountOfSimblings
-            birthDate
-            gender
-            maritalStatus
-            nacionality
-            parentalCondition
-            regionalIdentity
-            sexuality
-          }
-          aboutTheOccupations {
-            levelAchivied
-            occupation
-            rentOrOwnCar
-            rentOrOwnHouse
-            schools
-            university
-            socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
-            vote
-          }
-          createdAt
-        }
         nextToken
       }
       coins
@@ -463,131 +103,12 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         nextToken
       }
       submitPrize {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheCompany {
-            companyName
-          }
-          category
-          general {
-            price
-            nameOfPrize
-            description
-          }
-          createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
-          }
-        }
         nextToken
       }
       engage {
-        items {
-          expoPushToken
-          JSONdata
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutThePersonality {
-            amountOfChildren
-            amountOfSimblings
-            birthDate
-            gender
-            maritalStatus
-            nacionality
-            parentalCondition
-            regionalIdentity
-            sexuality
-          }
-          aboutTheOccupations {
-            levelAchivied
-            occupation
-            rentOrOwnCar
-            rentOrOwnHouse
-            schools
-            university
-            socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
-            vote
-          }
-          createdAt
-        }
         nextToken
       }
       coins
@@ -646,46 +167,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     timer
     audience {
       items {
-        createContest {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         id
         genders
         ages
@@ -720,61 +201,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         participantId
         nameUser
         comment
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
         avatar
-        contest {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         createdAt
       }
       nextToken
@@ -801,42 +228,11 @@ export const listCreateContests = `query ListCreateContests(
         phone
         datetime
         scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-            timer
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
         coins
         notificationToken
       }
       aboutTheUser {
         companyName
-        location {
-          city
-          country
-          state
-          street
-        }
         titleInTheCompany
       }
       category
@@ -844,107 +240,18 @@ export const listCreateContests = `query ListCreateContests(
         description
         instructions
         nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       prizes {
         description
         prizeId
         name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer
       audience {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-            timer
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
         nextToken
       }
       participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-            timer
-          }
-          createdAt
-        }
         nextToken
       }
     }
@@ -967,42 +274,11 @@ export const getAudience = `query GetAudience($id: ID!) {
         phone
         datetime
         scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-            timer
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
         coins
         notificationToken
       }
       aboutTheUser {
         companyName
-        location {
-          city
-          country
-          state
-          street
-        }
         titleInTheCompany
       }
       category
@@ -1010,107 +286,18 @@ export const getAudience = `query GetAudience($id: ID!) {
         description
         instructions
         nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       prizes {
         description
         prizeId
         name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer
       audience {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-            timer
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
         nextToken
       }
       participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-            timer
-          }
-          createdAt
-        }
         nextToken
       }
     }
@@ -1151,121 +338,9 @@ export const listAudiences = `query ListAudiences(
     items {
       createContest {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
         createdAt
         timer
-        audience {
-          items {
-            id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
-            createdAt
-          }
-          nextToken
-        }
-        participants {
-          items {
-            id
-            participantId
-            nameUser
-            comment
-            avatar
-            createdAt
-          }
-          nextToken
-        }
       }
       id
       genders
@@ -1331,42 +406,11 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         phone
         datetime
         scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-            timer
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
         coins
         notificationToken
       }
       aboutTheUser {
         companyName
-        location {
-          city
-          country
-          state
-          street
-        }
         titleInTheCompany
       }
       category
@@ -1374,107 +418,18 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         description
         instructions
         nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       prizes {
         description
         prizeId
         name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer
       audience {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-            timer
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
         nextToken
       }
       participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-            timer
-          }
-          createdAt
-        }
         nextToken
       }
     }
@@ -1510,121 +465,9 @@ export const listParticipantss = `query ListParticipantss(
       avatar
       contest {
         id
-        user {
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
         category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
         createdAt
         timer
-        audience {
-          items {
-            id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
-            createdAt
-          }
-          nextToken
-        }
-        participants {
-          items {
-            id
-            participantId
-            nameUser
-            comment
-            avatar
-            createdAt
-          }
-          nextToken
-        }
       }
       createdAt
     }
@@ -1697,131 +540,12 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         nextToken
       }
       submitPrize {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheCompany {
-            companyName
-          }
-          category
-          general {
-            price
-            nameOfPrize
-            description
-          }
-          createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
-          }
-        }
         nextToken
       }
       engage {
-        items {
-          expoPushToken
-          JSONdata
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutThePersonality {
-            amountOfChildren
-            amountOfSimblings
-            birthDate
-            gender
-            maritalStatus
-            nacionality
-            parentalCondition
-            regionalIdentity
-            sexuality
-          }
-          aboutTheOccupations {
-            levelAchivied
-            occupation
-            rentOrOwnCar
-            rentOrOwnHouse
-            schools
-            university
-            socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
-            vote
-          }
-          createdAt
-        }
         nextToken
       }
       coins
@@ -1900,78 +624,17 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         phone
         datetime
         scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-            timer
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
         coins
         notificationToken
       }
       aboutTheCompany {
-        businessLocation {
-          city
-          country
-          state
-          street
-        }
         companyName
-        socialMediaHandle {
-          facebook
-          twitter
-          instagram
-          snapchat
-        }
       }
       category
       general {
         price
         nameOfPrize
         description
-        instructions {
-          msg
-          typeContentInstructionsValue
-        }
-        socialMediaHandle {
-          facebook
-          twitter
-          instagram
-          snapchat
-        }
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       delivery {
@@ -2000,131 +663,12 @@ export const getEngage = `query GetEngage($id: ID!) {
       datetime
       scope
       createContest {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-        }
         nextToken
       }
       submitPrize {
-        items {
-          id
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheCompany {
-            companyName
-          }
-          category
-          general {
-            price
-            nameOfPrize
-            description
-          }
-          createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
-          }
-        }
         nextToken
       }
       engage {
-        items {
-          expoPushToken
-          JSONdata
-          user {
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutThePersonality {
-            amountOfChildren
-            amountOfSimblings
-            birthDate
-            gender
-            maritalStatus
-            nacionality
-            parentalCondition
-            regionalIdentity
-            sexuality
-          }
-          aboutTheOccupations {
-            levelAchivied
-            occupation
-            rentOrOwnCar
-            rentOrOwnHouse
-            schools
-            university
-            socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
-            vote
-          }
-          createdAt
-        }
         nextToken
       }
       coins
@@ -2188,31 +732,6 @@ export const listEngages = `query ListEngages(
         phone
         datetime
         scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-            timer
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
         coins
         notificationToken
       }
@@ -2221,12 +740,6 @@ export const listEngages = `query ListEngages(
         amountOfSimblings
         birthDate
         gender
-        location {
-          city
-          country
-          state
-          street
-        }
         maritalStatus
         nacionality
         parentalCondition
