@@ -94,7 +94,7 @@ class NotificationCenter extends Component {
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
                                                     <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
@@ -126,7 +126,7 @@ class NotificationCenter extends Component {
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
                                                     <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>

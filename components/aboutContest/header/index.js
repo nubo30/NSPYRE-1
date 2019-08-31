@@ -14,16 +14,16 @@ class HeaderContest extends Component {
 
     render() {
         const { isFinishedContest, isCounterPause } = this.state
-        const { contest, navigation } = this.props
+        const { contest, navigation, fromWhere } = this.props
         return (
             <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: 70 }}>
                 <Left style={{ flexDirection: 'row' }}>
-                    <Button transparent onPress={() => { navigation.navigate("Home") }}>
+                    <Button transparent onPress={() => fromWhere === 'createContest' ? navigation.navigate('Home') : navigation.goBack()}>
                         <Icon name='arrow-back' style={{ color: "#FFF" }} />
                         <Text
                             minimumFontScale={wp(4)}
                             allowFontScaling={false}
-                            style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Home</Text>
+                            style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
                     </Button>
                     <Title
                         minimumFontScale={wp(9)}

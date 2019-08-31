@@ -308,6 +308,7 @@ class ShowContest extends Component {
                     {/* Header Contests */}
                     <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
                         <HeaderContest
+                            fromWhere={fromWhere}
                             contest={contest} />
                         <MyStatusBar
                             backgroundColor="#FFF"

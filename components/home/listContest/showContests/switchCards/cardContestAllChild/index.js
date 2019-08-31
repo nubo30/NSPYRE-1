@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withNavigation } from "react-navigation"
 import { ImageBackground, View } from 'react-native';
 import UserAvatar from "react-native-user-avatar"
 import * as Animatable from 'react-native-animatable';
@@ -9,7 +10,7 @@ import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // This function show the content of all card section
-export default class CardContent extends Component {
+class CardContent extends Component {
     state = { isFinishedContest: false }
     render() {
         const { isFinishedContest } = this.state
@@ -35,12 +36,14 @@ export default class CardContent extends Component {
                         </Animatable.View>
                         <Body>
                             <Text
+                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
                                 style={{ fontSize: wp(4) }}>
                                 {_.truncate(_.upperFirst(_.lowerCase(item.user.name)), { length: 20, separator: '...' })}
                             </Text>
                             <Text
+                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
                                 minimumFontScale={wp(3)}
                                 allowFontScaling={false}
                                 note style={{ fontSize: wp(3) }}>Published {moment(item.createdAt).fromNow()}</Text>
@@ -130,3 +133,5 @@ export default class CardContent extends Component {
         )
     }
 }
+
+export default withNavigation(CardContent)

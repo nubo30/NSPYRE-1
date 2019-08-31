@@ -99,7 +99,7 @@ const RootStack = createStackNavigator(
         'AboutContest': { screen: AboutContest, navigationOptions },
         'Prizes': { screen: Prizes, navigationOptions },
         'AboutThePrize': { screen: AboutThePrize, navigationOptions },
-        'UserProfile': { screen: UserProfile }
+        'UserProfile': { screen: UserProfile, navigationOptions: { header: null } }
     }
 )
 

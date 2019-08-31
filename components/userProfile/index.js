@@ -17,9 +17,7 @@ import { MyStatusBar } from '../Global/statusBar/index'
 import UserProfilePlaceholder from './placeholder'
 
 class UserProfile extends Component {
-    static navigationOptions = {
-        header: null
-    };
+    static navigationOptions = { header: null };
     state = { userData: null }
 
     componentDidMount() {
@@ -64,30 +62,17 @@ class UserProfile extends Component {
                                 : <UserAvatar size="105" name={userData.name} />}
                         </Row>
                         <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>{_.startCase(_.lowerCase(userData.username))}</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>{userData.engage.items[0].aboutTheOccupations.occupation}</Text>
                         </Row>
                         <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F48FB1', fontWeight: 'bold' }}>{`${userData.engage.items[0].aboutThePersonality.location.city}, ${userData.engage.items[0].aboutThePersonality.location.country}`}</Text>
                         </Row>
 
-                        <Row size={15} style={{ backgroundColor: '#E91E63', justifyContent: 'center', alignItems: 'center' }}>
-                            <View style={{ shadowOpacity: 1, shadowColor: 'rgba(0,0,0,0.2)', shadowOffset: { width: 0 }, backgroundColor: '#E91E63', right: 10, borderRadius: "50%", }}>
-                                <Button icon style={{
-                                    alignSelf: 'center', borderRadius: "50%", height: 55, width: 55, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.2)'
-                                }}>
-                                    <Icon type="Entypo" name='phone' />
-                                </Button>
-                            </View>
-                            <View style={{ shadowOpacity: 1, shadowColor: 'rgba(0,0,0,0.2)', shadowOffset: { width: 0 }, backgroundColor: '#E91E63', left: 10, borderRadius: "50%", }}>
-                                <Button icon style={{
-                                    alignSelf: 'center', borderRadius: "50%", height: 55, width: 55, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.2)'
-                                }}>
-                                    <Icon type="Entypo" name='mail' />
-                                </Button>
-                            </View>
+                        <Row size={10} style={{ backgroundColor: '#E91E63', justifyContent: 'center' }}>
+                            <Text allowFontScaling={false} style={{ top: 5, color: '#F48FB1', fontSize: wp(3) }}>Contests {userData.createContest.items.length}, Prizes {userData.submitPrize.items.length}</Text>
                         </Row>
 
-                        <Row size={50} style={{ paddingRight: 20, paddingLeft: 20, flexDirection: 'column' }}>
+                        <Row size={65} style={{ paddingRight: 20, paddingLeft: 20, flexDirection: 'column' }}>
                             <Content padder contentContainerStyle={{ justifyContent: 'space-evenly' }} showsVerticalScrollIndicator={false}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginTop: 10, marginBottom: 15 }}>About me</Text>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4), marginBottom: 20 }}>Lorem ipsum dolor sit amet consectetur adipiscing, elit volutpat felis metus primis luctus aliquet, augue vivamus libero himenaeos maecenas. Id blandit lectus fermentum ullamcorper curabitur euismod suspendisse massa bibendu.</Text>

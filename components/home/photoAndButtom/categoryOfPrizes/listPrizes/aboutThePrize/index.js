@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Dimensions } from 'react-native'
+import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, Footer } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -15,7 +16,7 @@ import ModalRedeemPrize from './redeemPrize'
 
 const screenHeight = Dimensions.get('window').height
 
-export default class AboutPrize extends Component {
+class AboutPrize extends Component {
     state = { pictureLoading: false, modalRedeemPrizeAction: false }
 
     // Modal redeem prizes
@@ -29,6 +30,7 @@ export default class AboutPrize extends Component {
         const prize = navigation.getParam('prize')
         const userData = navigation.getParam('userData')
         const fromWhere = navigation.getParam('fromWhere')
+        
         return (
             <Container style={{ backgroundColor: '#F5F5F5' }}>
                 <View style={{ backgroundColor: '#FFF', height: screenHeight, position: 'absolute', width: '100%', top: 0 }} />
@@ -50,6 +52,7 @@ export default class AboutPrize extends Component {
                     </Body>
                     <Right>
                         <Thumbnail small source={{ uri: prize.user.avatar }} />
+                        <Button transparent onPress={() => this.props.navigation.navigate('UserProfile', { userId: prize.user.id })} style={{ position: 'absolute', width: 45, height: 45 }} />
                     </Right>
                 </Header>
                 <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: 5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5' }}>
@@ -151,3 +154,5 @@ export default class AboutPrize extends Component {
         );
     }
 }
+
+export default withNavigation(AboutPrize)
