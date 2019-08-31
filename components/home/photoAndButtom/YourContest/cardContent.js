@@ -196,6 +196,7 @@ class CardContent extends Component {
                                     </View>
                                 </View>
                             </ImageBackground>
+                        
                         </View>
                     </Animatable.View>
                 </TouchableHighlight>

@@ -26,7 +26,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.influenceMeNow.app"
     },
-    "description": "Impress me now is a tool for creators as well as us ordinary folks on social media to be able to make money by sharing new music events information and more on our social media. When we share we get rewarded with cryptocurrency or prizes no matter how big or small our following. As a brand, artist, or company you can also create a contest to be served to the primarilyCollegiate community in order to gain exposure across a new market\n"
+    "description": "Impress me now is a tool for creators as well as us ordinary folks on social media to be able to make money by sharing new music events information and more on our social media. When we share we get rewarded with cryptocurrency or prizes no matter how big or small our following. As a brand, artist, or company you can also create a contest to be served to the primarilyCollegiate community in order to gain exposure across a new market"
   },
   "hooks": {
     "postPublish": [

@@ -48,7 +48,6 @@
     "redux-thunk": "^2.3.0",
     "remove": "^0.1.5",
     "rn-viewpager": "^1.2.9",
-    "sentry-expo": "^1.12.0",
     "yarn": "^1.16.0"
   },
   "devDependencies": {
