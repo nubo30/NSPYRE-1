@@ -50,7 +50,6 @@ export const getUser = `query GetUser($id: ID!) {
           }
           coins
           notificationToken
-          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -172,7 +171,6 @@ export const getUser = `query GetUser($id: ID!) {
           }
           coins
           notificationToken
-          isFirstTime
         }
         aboutTheCompany {
           businessLocation {
@@ -254,7 +252,6 @@ export const getUser = `query GetUser($id: ID!) {
           }
           coins
           notificationToken
-          isFirstTime
         }
         aboutThePersonality {
           amountOfChildren
@@ -296,7 +293,6 @@ export const getUser = `query GetUser($id: ID!) {
     }
     coins
     notificationToken
-    isFirstTime
   }
 }
 `;
@@ -333,7 +329,6 @@ export const listUsers = `query ListUsers(
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -377,7 +372,6 @@ export const listUsers = `query ListUsers(
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -414,7 +408,6 @@ export const listUsers = `query ListUsers(
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -450,7 +443,6 @@ export const listUsers = `query ListUsers(
       }
       coins
       notificationToken
-      isFirstTime
     }
     nextToken
   }
@@ -486,7 +478,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -530,7 +521,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -567,7 +557,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -603,7 +592,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       }
       coins
       notificationToken
-      isFirstTime
     }
     aboutTheUser {
       companyName
@@ -673,7 +661,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -763,7 +750,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -842,7 +828,6 @@ export const listCreateContests = `query ListCreateContests(
         }
         coins
         notificationToken
-        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -1009,7 +994,6 @@ export const getAudience = `query GetAudience($id: ID!) {
         }
         coins
         notificationToken
-        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -1189,7 +1173,6 @@ export const listAudiences = `query ListAudiences(
           }
           coins
           notificationToken
-          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -1375,7 +1358,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         }
         coins
         notificationToken
-        isFirstTime
       }
       aboutTheUser {
         companyName
@@ -1550,7 +1532,6 @@ export const listParticipantss = `query ListParticipantss(
           }
           coins
           notificationToken
-          isFirstTime
         }
         aboutTheUser {
           companyName
@@ -1731,7 +1712,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -1775,7 +1755,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -1812,7 +1791,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -1848,7 +1826,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       }
       coins
       notificationToken
-      isFirstTime
     }
     aboutTheCompany {
       businessLocation {
@@ -1950,7 +1927,6 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         }
         coins
         notificationToken
-        isFirstTime
       }
       aboutTheCompany {
         businessLocation {
@@ -2039,7 +2015,6 @@ export const getEngage = `query GetEngage($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheUser {
             companyName
@@ -2083,7 +2058,6 @@ export const getEngage = `query GetEngage($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutTheCompany {
             companyName
@@ -2120,7 +2094,6 @@ export const getEngage = `query GetEngage($id: ID!) {
             scope
             coins
             notificationToken
-            isFirstTime
           }
           aboutThePersonality {
             amountOfChildren
@@ -2156,7 +2129,6 @@ export const getEngage = `query GetEngage($id: ID!) {
       }
       coins
       notificationToken
-      isFirstTime
     }
     aboutThePersonality {
       amountOfChildren
@@ -2243,7 +2215,6 @@ export const listEngages = `query ListEngages(
         }
         coins
         notificationToken
-        isFirstTime
       }
       aboutThePersonality {
         amountOfChildren

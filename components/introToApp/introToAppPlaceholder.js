@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 class IntroToAppPlaceholder extends Component {
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor:'#000' }}>
                 <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
                     <Grid>
                         <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>

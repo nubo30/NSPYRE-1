@@ -15,7 +15,6 @@ type User @model{
   engage: [Engage] @connection(name: "UserEngage")
   coins: Int
   notificationToken: String
-  isFirstTime: String
 }
 
 ##################################################################### SCOPE #####################################################################
@@ -288,6 +287,6 @@ type Notifications @model{
 
 type Query {
   showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser")
-  filterAudienceForContest(preferences: String!): Int @function(name: "filterAudienceForContest")
+  filterAudienceForContest(preferences: String!): String @function(name: "filterAudienceForContest")
   sendNotification(notificationId: String!): String @function(name: "notifications")
 }

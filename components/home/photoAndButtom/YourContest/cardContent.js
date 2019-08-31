@@ -196,18 +196,13 @@ class CardContent extends Component {
                                     </View>
                                 </View>
                             </ImageBackground>
-                        
+
                         </View>
                     </Animatable.View>
                 </TouchableHighlight>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', width: "90%", alignSelf: 'center' }}>
-                    <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row', justifyContent: "space-between" }}>
-                        <Button icon iconLeft transparent onPress={() => this._share(item)}>
-                            <Icon type="AntDesign" name='sharealt' style={{ color: "#F44336" }} />
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>Share</Text>
-                        </Button>
-
-                        <Button transparent style={{ alignSelf: 'flex-end', paddingRight: 5 }} onPress={() => Alert.alert(
+                    <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row', justifyContent: "flex-end" }}>
+                        <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Alert.alert(
                             `${item.general.nameOfContest}`,
                             'Do you really want to delete this contest?',
                             [
@@ -221,6 +216,9 @@ class CardContent extends Component {
                         )}>{!loadingDel
                             ? <Icon type="Ionicons" name='md-trash' style={{ fontSize: 25, color: "#E0E0E0" }} />
                             : <Spinner color='#E0E0E0' size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
+                        </Button>
+                        <Button icon transparent onPress={() => this._share(item)}>
+                            <Icon type="FontAwesome" name='share-square-o' style={{ color: "#D81B60" }} />
                         </Button>
                     </View>
                 </View>

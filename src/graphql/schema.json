@@ -57,7 +57,7 @@
           } ],
           "type" : {
             "kind" : "SCALAR",
-            "name" : "Int",
+            "name" : "String",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -659,15 +659,6 @@
         "enumValues" : null,
         "possibleTypes" : null
       }, {
-        "kind" : "SCALAR",
-        "name" : "Int",
-        "description" : "Built-in Int",
-        "fields" : null,
-        "inputFields" : null,
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
         "kind" : "OBJECT",
         "name" : "User",
         "description" : null,
@@ -959,17 +950,6 @@
           "deprecationReason" : null
         }, {
           "name" : "notificationToken",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "isFirstTime",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -2629,6 +2609,15 @@
         } ],
         "possibleTypes" : null
       }, {
+        "kind" : "SCALAR",
+        "name" : "Int",
+        "description" : "Built-in Int",
+        "fields" : null,
+        "inputFields" : null,
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
         "kind" : "OBJECT",
         "name" : "ModelParticipantsConnection",
         "description" : null,
@@ -4229,15 +4218,6 @@
           "defaultValue" : null
         }, {
           "name" : "notificationToken",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringFilterInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "isFirstTime",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -5939,15 +5919,6 @@
             "ofType" : null
           },
           "defaultValue" : null
-        }, {
-          "name" : "isFirstTime",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -6062,15 +6033,6 @@
           "defaultValue" : null
         }, {
           "name" : "notificationToken",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "isFirstTime",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",

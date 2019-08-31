@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Video } from 'expo-av';
+import { withNavigation } from 'react-navigation'
 import { FlatList, Image } from 'react-native'
 import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Button, List, ListItem, Thumbnail, Spinner, TabHeading } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -7,7 +8,7 @@ import { Grid, Col } from 'react-native-easy-grid'
 import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
 
-export default class Participants extends Component {
+class Participants extends Component {
     state = {
         // Actions
         isImgLoading: false
@@ -15,7 +16,7 @@ export default class Participants extends Component {
 
     render() {
         const { isImgLoading } = this.state
-        const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants } = this.props
+        const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants, navigation } = this.props
         const filterParticipantsList = contest.participants.items.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
         return (
             <Container>
@@ -76,7 +77,7 @@ export default class Participants extends Component {
                                                 </Col>
                                                 <Col size={60} style={{ paddingStart: 10 }}>
                                                     <List style={{ height: 50 }}>
-                                                        <ListItem thumbnail style={{ height: '100%', right: 15 }}>
+                                                        <ListItem thumbnail style={{ height: '100%', right: 15 }} onPress={() => navigation.navigate('UserProfile', { userId: item.participantId })}>
                                                             <Left>
                                                                 {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             </Left>
@@ -234,3 +235,5 @@ export default class Participants extends Component {
         );
     }
 }
+
+export default withNavigation(Participants)

@@ -64,6 +64,7 @@ import Contests from "./components/home/listContest/showContests"
 import AboutContest from "./components/aboutContest"
 import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
 import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize"
+import UserProfile from "./components/userProfile/index"
 
 class InfluencemeNow extends Component {
     state = { isReady: false }
@@ -98,6 +99,7 @@ const RootStack = createStackNavigator(
         'AboutContest': { screen: AboutContest, navigationOptions },
         'Prizes': { screen: Prizes, navigationOptions },
         'AboutThePrize': { screen: AboutThePrize, navigationOptions },
+        'UserProfile': { screen: UserProfile }
     }
 )
 

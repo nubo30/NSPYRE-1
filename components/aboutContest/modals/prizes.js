@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, ImageBackground, Dimensions } from 'react-native'
 import { Video } from 'expo-av';
-import { Button, Spinner } from 'native-base'
+import { Button, Spinner, Icon } from 'native-base'
 import Swiper from 'react-native-swiper';
 import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
