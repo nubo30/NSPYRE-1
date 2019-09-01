@@ -3,9 +3,6 @@ import { Modal } from 'react-native';
 import { Text, List, ListItem, Left, Right, View, Root, Icon } from 'native-base'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-// Icons
-import { Feather } from '@expo/vector-icons'
-
 // Child Component
 import Avatar from './avatar'
 import ModalContentName from './modalContentName'

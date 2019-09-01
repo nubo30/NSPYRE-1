@@ -39,6 +39,7 @@ class UserProfile extends Component {
     render() {
         const { userData } = this.state
         const { navigation } = this.props
+
         return userData !== null ? (
             <Container>
                 <Header transparent style={{ backgroundColor: '#E91E63' }}>
@@ -75,7 +76,7 @@ class UserProfile extends Component {
                             <Content padder showsVerticalScrollIndicator={false}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>Hobbies and preferences</Text>
                                 <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap', width: '100%' }}>
-                                    {_.flatten(_.values(userData.engage.items[0].interests)).map((item, key) =>
+                                    {[...new Set(_.flatten(_.values(userData.engage.items[0].interests)))].map((item, key) =>
                                         <View key={key} style={{ backgroundColor: '#E0E0E0', padding: 5, borderRadius: 5, margin: 5, height: 30 }}>
                                             <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333' }}>{item}</Text>
                                         </View>)}

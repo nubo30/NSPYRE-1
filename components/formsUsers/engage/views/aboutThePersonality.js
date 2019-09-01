@@ -140,6 +140,7 @@ class AboutThePersonality extends Component {
                 coinAmountOfChildren])
         }
         const data = {
+            expoPushToken: userData.notificationToken === undefined || userData.notificationToken === null ? null : userData.notificationToken,
             aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren },
             engageUserId: userData.id, createdAt: moment().toISOString()
         }
@@ -229,6 +230,7 @@ class AboutThePersonality extends Component {
         let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(_.lowerCase(inputTextRegions)) !== -1 })
         let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextCountry)) !== -1 })
         let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(_.lowerCase(inputTextCities)) !== -1 })
+
         return (
             <Container>
                 <GadrientsAuth />
