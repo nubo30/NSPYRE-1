@@ -4,7 +4,7 @@ import { Dimensions, Platform } from "react-native"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const { height } = Dimensions.get("window")
 
-export const GadrientsAuth = (indexSwiperRoot) => (
+export const GadrientsAuth = () => (
     // Gadrient of the scene auth
     <LinearGradient
         start={[0.5, 0.1]}
@@ -101,7 +101,7 @@ export const GadrientsListContenst = () => (
     // Gadrient of the scene List Contents
     <LinearGradient
         start={[1, 0.1]}
-        colors={["#F5F5F5", "#F5F5F5", "#fff"]}
+        colors={["#F5F5F5", "#F5F5F5", "#F5F5F5"]}
         style={{
             position: 'absolute',
             left: 0,

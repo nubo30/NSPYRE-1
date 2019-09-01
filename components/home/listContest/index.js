@@ -60,7 +60,6 @@ class ListContest extends Component {
   render() {
     const { categories, isReady, isScreenChange } = this.state
     const { offLine, userData } = this.props
-
     return isReady && Object.keys(userData).length !== 0 ? (
       <FlatList
         style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4 }}
@@ -111,7 +110,7 @@ class ListContest extends Component {
           </TouchableHighlight>
         }
         numColumns={2}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.id}
       />
     ) : <FlatList
         showsVerticalScrollIndicator={false}

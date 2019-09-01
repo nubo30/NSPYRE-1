@@ -105,7 +105,7 @@ class UserInfo extends Component {
                                     <Text
                                         minimumFontScale={wp(10)}
                                         allowFontScaling={false}
-                                        style={{ fontWeight: 'bold', fontSize: wp(10), color: '#D81B60' }}>Glyff</Text>
+                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: '#D81B60' }}>Glyff</Text>
                                 </Button>
                                 <Text
                                     minimumFontScale={wp(4)}
@@ -115,7 +115,7 @@ class UserInfo extends Component {
                                     <Text
                                         minimumFontScale={wp(10)}
                                         allowFontScaling={false}
-                                        style={{ fontWeight: 'bold', fontSize: wp(10), color: '#D81B60' }}>Prize</Text>
+                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: '#D81B60' }}>Prize</Text>
                                 </Button>
                             </Row>
                             <Row size={20}>

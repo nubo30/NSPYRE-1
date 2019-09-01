@@ -20,9 +20,13 @@ import schoolJSON from '../../../../assets/data/schools.json'
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
+import * as queries from '../../../../src/graphql/queries'
 
 export default class FormAudience extends Component {
     state = {
+
+        matchProfiles: { count: 0 },
+
         // Data
         age: {
             yearOne: 0,
@@ -196,7 +200,6 @@ export default class FormAudience extends Component {
         this.setState({ regionalIdentityList: [{ name: 'List of regional identity', id: 10 * 100, children: regionalIdentityList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
-
     _getAcademicLevelAchieved = () => {
         this.setState({ academicLevelAchievedList: [{ name: 'List of academic level achieved', id: 10 * 100, children: academicLevelAchievedList.map((item, key) => { return { name: item, id: key } }) }] })
     }
@@ -342,6 +345,7 @@ export default class FormAudience extends Component {
     // Send Data to AWS
     componentWillReceiveProps(nextProps) {
         if (nextProps.sendDataToAWSAction !== this.props.sendDataToAWSAction) { this._validateDataForAWS() }
+        if (nextProps.searchMatches !== this.props.searchMatches) { this._filterAudience() }
     }
 
     _validateDataForAWS = async () => {
@@ -397,6 +401,56 @@ export default class FormAudience extends Component {
         } catch (error) {
             Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", position: "top", type: "danger", duration: 3000 })
             _isLoading(false)
+        }
+    }
+
+    _filterAudience = async () => {
+        const { contest, _matchProfiles } = this.props
+        const preferences = {
+            JSONdata: {
+                "contest": {
+                    "id": contest.id,
+                    "user": contest.user,
+                    "prizes": [],
+                    "participants": { items: [] },
+                    "general": {
+                        "nameOfContest": contest.general.nameOfContest,
+                        "picture": { url: contest.general.picture.url },
+                        "video": { url: contest.general.video.url }
+                    }
+                }
+            },
+            audienceCreateContestId: contest.id,
+            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
+            ages: this.state.age.years ? [this.state.age.yearOne, this.state.age.yearTwo] : ['none'],
+            categoryContest: this.state.categoryChoose.length ? this.state.categoryChoose.map(item => item.name) : ['none'],
+            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
+            nacionalities: this.state.nacionalityChoose.length ? this.state.nacionalityChoose.map(item => item.name) : ['none'],
+            regionalIdentity: this.state.regionalIdentityChoose.length ? this.state.regionalIdentityChoose.map(item => item.name) : ['none'],
+            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
+            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
+            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
+            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
+            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
+            musicalGenre: this.state.musicalGenreChoose.length ? this.state.musicalGenreChoose.map(item => item.name) : ['none'],
+            sports: this.state.sportsChoose.length ? this.state.sportsChoose.map(item => item.name) : ['none'],
+            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
+            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
+            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
+            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
+            peopleWhoVote: this.state.peopleWhoVote !== 'NO_SELECT' ? [this.state.peopleWhoVote] : ['none'],
+            occupation: this.state.occupationChoose.length ? this.state.occupationChoose.map(item => item.name) : ['none'],
+            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
+            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
+            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
+            categoryPrizes: this.state.categoryPrizeChoose.length ? this.state.categoryPrizeChoose.map(item => item.name) : ['none'],
+            createdAt: moment().toISOString()
+        }
+        try {
+            const { data } = await API.graphql(graphqlOperation(queries.filterAudienceForContest, { preferences: JSON.stringify(preferences) }))
+            _matchProfiles(JSON.parse(data.filterAudienceForContest))
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -469,6 +523,8 @@ export default class FormAudience extends Component {
             // Actions
             isLoading
         } = this.props;
+
+        // console.log(matchProfiles, "-------")
 
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
@@ -572,9 +628,7 @@ export default class FormAudience extends Component {
                                         <Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}>
                                             {contest.user.name}
                                         </Text>, currently they have the following options established, as a country is <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#BDBDBD' }}>{contest.aboutTheUser.location.country}</Text>, as categories this
-								<Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           you can add more options to improve audience customization.
-								</Text>
+								<Text allowFontScaling={false} style={{ color: '#BDBDBD', fontWeight: 'bold' }}> {_.lowerCase(contest.category)} </Text>, you can add more options to improve audience customization.</Text>
                                 </ListItem>
                                 <ListItem
                                     disabled={isLoading}

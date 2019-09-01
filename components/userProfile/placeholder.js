@@ -36,24 +36,11 @@ class UserProfilePlaceholder extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F48FB1', fontWeight: 'bold' }}>...</Text>
                         </Row>
 
-                        <Row size={15} style={{ backgroundColor: '#E91E63', justifyContent: 'center', alignItems: 'center' }}>
-                            <View style={{ shadowOpacity: 1, shadowColor: 'rgba(0,0,0,0.2)', shadowOffset: { width: 0 }, backgroundColor: '#E91E63', right: 10, borderRadius: "50%", }}>
-                                <Button icon style={{
-                                    alignSelf: 'center', borderRadius: "50%", height: 55, width: 55, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.2)'
-                                }}>
-                                    <Icon type="Entypo" name='phone' />
-                                </Button>
-                            </View>
-                            <View style={{ shadowOpacity: 1, shadowColor: 'rgba(0,0,0,0.2)', shadowOffset: { width: 0 }, backgroundColor: '#E91E63', left: 10, borderRadius: "50%", }}>
-                                <Button icon style={{
-                                    alignSelf: 'center', borderRadius: "50%", height: 55, width: 55, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.2)'
-                                }}>
-                                    <Icon type="Entypo" name='mail' />
-                                </Button>
-                            </View>
+                        <Row size={10} style={{ backgroundColor: '#E91E63', justifyContent: 'center', alignItems: 'center' }}>
+                            <Text allowFontScaling={false} style={{ color: '#F48FB1', fontSize: wp(4), top: 5 }}>...</Text>
                         </Row>
 
-                        <Row size={50} style={{ paddingRight: 20, paddingLeft: 20, flexDirection: 'column' }}>
+                        <Row size={65} style={{ paddingRight: 20, paddingLeft: 20, flexDirection: 'column' }}>
                             <Content padder contentContainerStyle={{ justifyContent: 'space-evenly', flex: 1 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold' }}>About me</Text>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4), }}>...</Text>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, Share } from "react-native"
+import { Platform } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -74,7 +74,13 @@ class Home extends Component {
             // Delete notifications
             API.graphql(graphqlOperation(subscriptions.onDeleteNotifications)).subscribe({
                 error: ({ errors }) => { console.log(errors) },
-                next: (getData) => { this.getDataFromAWS() }
+                next: () => { this.getDataFromAWS() }
+            })
+
+            // Create Engage
+            API.graphql(graphqlOperation(subscriptions.onCreateEngage)).subscribe({
+                error: ({ errors }) => { console.log(errors) },
+                next: () => { this.getDataFromAWS() }
             })
         }
     }

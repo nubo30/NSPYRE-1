@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native'
+import { Dimensions, Alert } from 'react-native'
 import { Container, Header, Content, Footer, Button, Text, Left, Icon, Title, Right, View, Spinner } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -15,7 +15,11 @@ export default class Audience extends Component {
         progress: 0,
         sendDataToAWSAction: false,
         isValidDataForAWS: false,
-        isLoading: false
+        isLoading: false,
+        matchProfiles: { count: 0 },
+
+        // Funcs
+        searchMatches: false
     }
 
     // Incrementar la barra
@@ -39,13 +43,23 @@ export default class Audience extends Component {
         this.props._setModalVisibleAudience(false)
     }
 
+    _matchProfiles = (values) => {
+        this.setState({ matchProfiles: values })
+    }
+
     render() {
         const {
+            // Data
+            matchProfiles,
+
             // Actions
             sendDataToAWSAction,
             progress,
             isValidDataForAWS,
-            isLoading
+            isLoading,
+
+            // Funcs
+            searchMatches
         } = this.state
         const {
             // Data
@@ -86,27 +100,39 @@ export default class Audience extends Component {
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
                     {/* FORMULARIO AUDIENCE*/}
-                    <FormAudience audience={audience} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
+                    <FormAudience _matchProfiles={this._matchProfiles} searchMatches={searchMatches} audience={audience} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
                 </Content>
-                <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%", top: -3 }}>
+                <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column', minHeight: 100, padding: 10 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%" }}>
                         <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(3.5), fontWeight: 'bold' }}>5,000mil</Text>
-                        <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5) }}>de 130.000.000</Text>
+                        <Button small transparent style={{ top: -5 }} onPress={() => Alert.alert(
+                            'How does it work?',
+                            `Your preferences are filtered with Engage profiles, then you are shown the number of users that match those preferences.`,
+                            [{ text: 'Ok', onPress: () => { } }],
+                            { cancelable: false },
+                        )}>
+                            <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5), left: 10 }}>Matches found, {matchProfiles.count}</Text>
+                        </Button>
                     </View>
-                    <ProgressBarAnimated
-                        {...progressCustomStyles}
-                        width={barWidth}
-                        value={progress}
-                        maxValue={100}
-                        barEasing="linear"
-                        height={20}
-                        backgroundColorOnComplete={progress === 100 ? "#6CC644" : "#D81B60"} />
+                    <View style={{ top: -10 }}>
+                        <ProgressBarAnimated
+                            {...progressCustomStyles}
+                            width={barWidth}
+                            value={progress}
+                            maxValue={100}
+                            barEasing="linear"
+                            height={20}
+                            backgroundColorOnComplete={progress === 100 ? "#6CC644" : "#D81B60"} />
+                    </View>
+                    <Button small style={{ alignSelf: 'center', top: -5, backgroundColor: '#D81B60' }} onPress={() => this.setState({ searchMatches: !searchMatches })}>
+                        <Text>Search matches</Text>
+                    </Button>
                 </Footer>
-            </Container >
+            </Container>
         );
     }
 }
 
 const progressCustomStyles = {
-    backgroundColor: '#D81B60'
+    backgroundColor: '#D81B60',
 };

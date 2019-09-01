@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { FlatList, Platform, RefreshControl } from 'react-native';
 import { Container, View, Tab, Tabs, Text, TabHeading } from "native-base"
-import SearchBar from 'react-native-searchbar';
 import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import SearchBar from 'react-native-searchbar'
 
 // childComponents
 import HeaderContest from "./header"
 import CardContent from "./cardContent"
 import AssociatedContest from './associatedContest'
 import { DataNotFound } from "../../../Global/emojis/index"
-
-// Gradients
-import { GadrientsListContenst } from "../../../Global/gradients/index"
 
 // Graphql
 import { API, graphqlOperation } from 'aws-amplify'
@@ -72,9 +69,7 @@ class UserContest extends Component {
         // Filtra por el nombre del concurso
         let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
         return (
-            <Container>
-                <GadrientsListContenst />
-
+            <Container style={{ backgroundColor: '#FAFAFA' }}>
                 {/* Search Bar */}
                 <View style={Platform.OS === "ios" ? { position: "absolute", zIndex: 1 } : { position: "absolute" }}>
                     <SearchBar
@@ -95,8 +90,26 @@ class UserContest extends Component {
                 {/* Header */}
                 <HeaderContest _openSearchBar={this._openSearchBar} _setModalVisibleYourContest={_setModalVisibleYourContest} />
                 <Tabs
+                    style={{ backgroundColor: '#FFF' }}
                     onChangeTab={() => { this._closeSearchBar(); this._emptySearchInput() }}
                     tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
+                    <Tab
+                        heading={
+                            <TabHeading>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Matched</Text>
+                            </TabHeading>
+                        }
+                        activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
+                        textStyle={{ color: '#D81B60' }}
+                        tabStyle={{ backgroundColor: "#F5F5F5" }}
+                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        <View>
+                            <Text>asd</Text>
+                        </View>
+                    </Tab>
                     <Tab
                         heading={
                             <TabHeading>
@@ -167,4 +180,4 @@ class UserContest extends Component {
         )
     }
 }
-export default UserContest
+export default (UserContest)

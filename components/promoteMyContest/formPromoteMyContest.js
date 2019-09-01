@@ -30,13 +30,13 @@ class FormPromoteMyContest extends Component {
     componentWillUpdate(none, prevState) { this.props.audienceReachData(prevState) }
 
     // Picker Region
-    onValueChangeDRegion = (value: string) => { this.setState({ demographicRegion: value, location: [] }) }
+    onValueChangeDRegion = () => { this.setState({ demographicRegion: value, location: [] }) }
 
     // Picker Age
-    onValueChangeAge = (value: string) => { this.setState({ age: value }) }
+    onValueChangeAge = () => { this.setState({ age: value }) }
 
     // Picker Gender
-    onValueChangeGender = (value: string) => { this.setState({ gender: value }) }
+    onValueChangeGender = () => { this.setState({ gender: value }) }
 
     // Picker Education
     onValueChangeEducation = (education) => { this.setState({ education }) }
@@ -45,7 +45,7 @@ class FormPromoteMyContest extends Component {
     onValueChangeLocation = (location) => { this.setState({ location }) }
 
     // Picker Select amount of people
-    onValueChangeAmountOfPeople = (value: string) => { this.setState({ amountOfPeople: value }) }
+    onValueChangeAmountOfPeople = () => { this.setState({ amountOfPeople: value }) }
 
     render() {
         const { demographicRegion } = this.state

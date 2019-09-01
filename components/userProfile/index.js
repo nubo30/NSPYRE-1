@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { withNavigation } from 'react-navigation'
 import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, View, Thumbnail } from 'native-base';
+import { Container, Header, Title, Content, Button, Left, Icon, Text, View, Thumbnail } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import UserAvatar from "react-native-user-avatar"
 import _ from 'lodash'
-import { normalizeEmail } from 'validator'
 
 // GRAPFQL
 import * as queries from '../../src/graphql/queries'
@@ -72,12 +71,10 @@ class UserProfile extends Component {
                             <Text allowFontScaling={false} style={{ top: 5, color: '#F48FB1', fontSize: wp(3) }}>Contests {userData.createContest.items.length}, Prizes {userData.submitPrize.items.length}</Text>
                         </Row>
 
-                        <Row size={65} style={{ paddingRight: 20, paddingLeft: 20, flexDirection: 'column' }}>
-                            <Content padder contentContainerStyle={{ justifyContent: 'space-evenly' }} showsVerticalScrollIndicator={false}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginTop: 10, marginBottom: 15 }}>About me</Text>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4), marginBottom: 20 }}>Lorem ipsum dolor sit amet consectetur adipiscing, elit volutpat felis metus primis luctus aliquet, augue vivamus libero himenaeos maecenas. Id blandit lectus fermentum ullamcorper curabitur euismod suspendisse massa bibendu.</Text>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20 }}>Hobbies and preferences</Text>
-                                <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap' }}>
+                        <Row size={65} style={{ flexDirection: 'column' }}>
+                            <Content padder showsVerticalScrollIndicator={false}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>Hobbies and preferences</Text>
+                                <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap', width: '100%' }}>
                                     {_.flatten(_.values(userData.engage.items[0].interests)).map((item, key) =>
                                         <View key={key} style={{ backgroundColor: '#E0E0E0', padding: 5, borderRadius: 5, margin: 5, height: 30 }}>
                                             <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333' }}>{item}</Text>

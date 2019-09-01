@@ -1,10 +1,8 @@
 import React from 'react'
-import { Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import {
     Left,
-    Body,
     Button,
     Header,
     Right,
@@ -13,14 +11,11 @@ import {
     Icon,
 } from "native-base"
 
-// Icon
-import { Feather, Ionicons } from "@expo/vector-icons"
-
 // This header show properties of section "Contest created by user"
 function HeaderContest(props) {
     const { _setModalVisibleYourContest } = props
     return (
-        <Header style={{ height: 70, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
+        <Header transparent style={{ height: 70 }}>
             <Left style={{ flexDirection: 'row' }}>
                 <Button transparent onPress={() => _setModalVisibleYourContest(false)}>
                     <Icon name='arrow-back' style={{ color: "#D81B60" }} />
