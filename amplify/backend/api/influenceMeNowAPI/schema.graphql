@@ -41,6 +41,7 @@ type CreateContest @model {
 }
 
 type Audience @model {
+  JSONdata: String
   createContest: CreateContest @connection(name: "CreateContestAudience") 
   id: ID!
   genders: [String]

@@ -92,6 +92,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -375,6 +376,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -658,6 +660,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -1048,6 +1051,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1382,6 +1386,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1716,6 +1721,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1854,6 +1860,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
 `;
 export const createAudience = `mutation CreateAudience($input: CreateAudienceInput!) {
   createAudience(input: $input) {
+    JSONdata
     createContest {
       id
       user {
@@ -1948,6 +1955,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2044,6 +2052,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
 `;
 export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInput!) {
   updateAudience(input: $input) {
+    JSONdata
     createContest {
       id
       user {
@@ -2138,6 +2147,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2234,6 +2244,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
 `;
 export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInput!) {
   deleteAudience(input: $input) {
+    JSONdata
     createContest {
       id
       user {
@@ -2328,6 +2339,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2537,6 +2549,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2722,6 +2735,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2907,6 +2921,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category

@@ -104,6 +104,7 @@ export const getUser = `query GetUser($id: ID!) {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -646,6 +647,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -882,6 +884,7 @@ export const listCreateContests = `query ListCreateContests(
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -954,6 +957,7 @@ export const listCreateContests = `query ListCreateContests(
 `;
 export const getAudience = `query GetAudience($id: ID!) {
   getAudience(id: $id) {
+    JSONdata
     createContest {
       id
       user {
@@ -1048,6 +1052,7 @@ export const getAudience = `query GetAudience($id: ID!) {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -1149,6 +1154,7 @@ export const listAudiences = `query ListAudiences(
 ) {
   listAudiences(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      JSONdata
       createContest {
         id
         user {
@@ -1227,6 +1233,7 @@ export const listAudiences = `query ListAudiences(
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -1412,6 +1419,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -1586,6 +1594,7 @@ export const listParticipantss = `query ListParticipantss(
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages

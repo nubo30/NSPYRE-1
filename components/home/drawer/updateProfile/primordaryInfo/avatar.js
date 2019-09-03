@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Alert } from 'react-native'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import { Text, Button, Thumbnail, View, Spinner, Toast, ActionSheet } from 'native-base'
 import * as ImagePicker from 'expo-image-picker';
@@ -20,8 +21,17 @@ class Avatar extends Component {
 
     // permission to access the user's phone library
     askPermissionsAsync = async () => {
-        await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        await Permissions.askAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        const statusCamera = await Permissions.askAsync(Permissions.CAMERA);
+        console.log(statusCameraRoll, statusCamera)
+        if (statusCameraRoll.status === 'denied' || statusCamera.status === 'denied') {
+            Alert.alert(
+                'Denial',
+                'You have denied access to the camera and roll camera, please enable it in your phone settings to continue',
+                [{ text: 'Ok', onPress: () => { } }],
+                { cancelable: false },
+            )
+        }
     }
 
     useLibraryHandler = async () => {
@@ -32,7 +42,7 @@ class Avatar extends Component {
         }
     }
 
-    _getNameOfLocalUrlAvatar = async (fileUri, access = "public") => {
+    _getNameOfLocalUrlAvatar = async (fileUri) => {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.onload = function () { resolve(xhr.response) };

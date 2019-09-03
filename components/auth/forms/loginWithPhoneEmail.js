@@ -17,6 +17,9 @@ const screenHeight = Dimensions.get('screen').height
 
 const facebookAppid = "884636148579880"
 
+// ChildComponent
+import ForgottenPassword from '../passwordForget'
+
 // GRPAHQL
 import * as queries from '../../../src/graphql/queries'
 
@@ -29,7 +32,10 @@ class Login extends Component {
         isLoading: false,
         isLoadingFb: false,
         wrongLoginAnimation: false,
-        user: {}
+        user: {},
+
+        // actions
+        forgetPasswordModal: false
     }
 
     _getNumberPhone = () => {
@@ -97,6 +103,10 @@ class Login extends Component {
         }
     }
 
+    _forgetPasswordModal = (value) => {
+        this.setState({ forgetPasswordModal: value })
+    }
+
     render() {
         const { numberPhoneState, password, eyeAction, messageFlash, isLoading, isLoadingFb, wrongLoginAnimation } = this.state
         const { numberPhone } = this.props
@@ -123,7 +133,6 @@ class Login extends Component {
                             <List style={{ width: "100%", justifyContent: 'space-between' }}>
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <PhoneInput
-                                        allowFontScaling={false}
                                         editable={false} selectTextOnFocus={false}
                                         ref={(ref) => { this.phone = ref; }}
                                         onChangePhoneNumber={() => { this._getNumberPhone() }}
@@ -158,6 +167,9 @@ class Login extends Component {
                                         onPress={() => this.setState({ eyeAction: !eyeAction })}
                                         active name={eyeAction ? "eye" : "eye-off"} style={{ color: "#E0E0E0" }} />
                                 </ListItem>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() => this._forgetPasswordModal(true)}>
+                                    <Text allowFontScaling={false} style={{ color: '#3333', fontSize: wp(3) }}>Forgot your password?</Text>
+                                </Button>
                             </List>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
@@ -235,6 +247,7 @@ class Login extends Component {
                         </Row>
                     </Grid>
                 </Swiper>
+                <ForgottenPassword forgetPasswordModal={this.state.forgetPasswordModal} _forgetPasswordModal={this._forgetPasswordModal} />
             </View>
         );
     }

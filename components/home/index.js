@@ -166,14 +166,15 @@ class Home extends Component {
                                         this._changeSwiper(1)
                                         this.setState({ openDrower: false });
                                     }}
-                                    transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000 }}>
-                                    <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2, left: -2 }} />
+                                    transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000, left: 10 }}>
+                                    <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2 }} />
                                 </Button>
-                                {notifications.length === 0 ? null : <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 30, minWidth: 30, backgroundColor: '#FFF', zIndex: 0 }}>
-                                    <Text
-                                        allowFontScaling={false}
-                                        style={{ color: "#D81B60", }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
-                                </Badge>}
+                                {notifications.length === 0 ? null :
+                                    <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 20, minWidth: 20, backgroundColor: '#FFF', zIndex: 0, minHeight: 20, maxHeight: 20 }}>
+                                        <Text
+                                            allowFontScaling={false}
+                                            style={{ color: "#D81B60", fontSize: wp(2.5), position: 'absolute', minHeight: 20, maxHeight: 20, maxWidth: 20, minWidth: 20, alignSelf: 'center' }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
+                                    </Badge>}
                             </View>
                         </Right>
                     </Header>

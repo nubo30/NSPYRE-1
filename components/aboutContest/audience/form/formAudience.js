@@ -399,6 +399,7 @@ export default class FormAudience extends Component {
                 this.props._setModalVisibleAudience(false)
             }, 2000);
         } catch (error) {
+            console.log(error)
             Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", position: "top", type: "danger", duration: 3000 })
             _isLoading(false)
         }

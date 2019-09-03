@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { Keyboard } from 'react-native'
 import { API, graphqlOperation } from "aws-amplify"
-import { isAscii } from 'validator';
-import { Grid, Col } from 'react-native-easy-grid'
-import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner } from 'native-base'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Toast, Container, Right, Content } from 'native-base'
 
 // Max lenght of the form
 const maxLength = 20
@@ -19,6 +17,7 @@ export default class UpdateLastName extends Component {
     _updateLastNameAWS = async () => {
         const { userData, _isLoading, setModalVisibleLastName } = this.props
         const input = { lastname: this.state.lastName, id: userData.id }
+        _isLoading(true)
         try {
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
             _isLoading(false)
@@ -30,71 +29,57 @@ export default class UpdateLastName extends Component {
     }
 
     render() {
-        const { userData, isLoading, _isLoading } = this.props
+        const { lastName } = this.state
+        const { userData, isLoading, setModalVisibleLastName } = this.props
         return (
-            <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
+            <Container>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
                     <Left>
                         <Title
                             allowFontScaling={false}
                             minimumFontScale={wp(6)}
-                            style={{ color: "#333", fontSize: wp(6) }}>Edit your last name</Title>
+                            style={{ color: "#D81B60", fontSize: wp(6) }}>Edit your last name</Title>
                     </Left>
+                    <Right>
+                        <Button
+                            onPress={() => lastName ? this._updateLastNameAWS() : setModalVisibleLastName(false)}
+                            disabled={isLoading}
+                            small transparent style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            {isLoading ? <Spinner size="small" color="#3333" style={{ right: 5 }} /> : <Text
+                                allowFontScaling={false}
+                                style={{ fontSize: wp(4), color: lastName ? '#D81B60' : '#3333', letterSpacing: 1 }}>{lastName ? "Done" : "Cancel"}</Text>}
+                        </Button>
+                    </Right>
                 </Header>
-                <Item
-                    error={isAscii(this.state.lastName) ? false : true}
-                    success={isAscii(this.state.lastName) ? true : false}
-                    style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                    <Input
-                        allowFontScaling={false}
-                        minimumFontScale={wp(4)}
-                        placeholder={userData && userData.lastname}
-                        autoCapitalize="words" autoFocus={true} ref={(ref) => { lastName = ref }}
-                        maxLength={20} value={this.state.lastName} keyboardType="ascii-capable" selectionColor="#333"
-                        onChangeText={(lastName) => this.setState({ lastName })} />
-                    <Text
-                        allowFontScaling={false}
-                        minimumFontScale={wp(4)}
-                        style={{ right: 15, color: "#E0E0E0", fontSize: wp(4) }}>
-                        {maxLength - this.state.lastName.length}
-                    </Text>
-                    <Icon
-                        style={{ color: isAscii(this.state.lastName) ? '#4CAF50' : '#EF5350' }}
-                        name={isAscii(this.state.lastName) ? 'checkmark-circle' : 'close-circle'} />
-                </Item>
-                <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                        <Button
-                            bordered
-                            onPress={() => this.props.setModalVisibleLastName(false)}
-                            style={{
-                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                justifyContent: 'center', alignItems: 'center'
-                            }}>
-                            <Text
-                                allowFontScaling={false}
-                                minimumFontScale={wp(4)}
-                                style={{ color: "#333", fontSize: wp(4) }}>CANCEL</Text>
-                        </Button>
-                    </Col>
-                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                        <Button
-                            bordered
-                            disabled={isLoading || this.state.lastName === "" ? true : false}
-                            onPressIn={() => _isLoading(true)}
-                            onPress={this.state.lastName ? () => this._updateLastNameAWS() : null}
-                            style={{
-                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                justifyContent: 'center', alignItems: 'center'
-                            }}>
-                            {isLoading ? <Spinner size="small" color="#BDBDBD" /> : <Text
-                                allowFontScaling={false}
-                                minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isAscii(this.state.lastName) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>}
-                        </Button>
-                    </Col>
-                </Grid>
-            </KeyboardAvoidingView>
+                <Content scrollEnabled={false} keyboardShouldPersistTaps={'handled'}>
+                    <Item
+                        error={lastName ? false : true}
+                        success={lastName ? true : false}
+                        style={{ width: "90%", alignSelf: "center" }}>
+                        <Input
+                            onSubmitEditing={() => lastName ? this._updateLastNameAWS() : Keyboard.dismiss()}
+                            returnKeyType='done'
+                            autoFocus={true}
+                            allowFontScaling={false}
+                            minimumFontScale={wp(4)}
+                            placeholder={userData && userData.lastname}
+                            maxLength={20}
+                            value={lastName}
+                            keyboardType="ascii-capable"
+                            selectionColor="#D81B60"
+                            onChangeText={(lastName) => this.setState({ lastName })} />
+                        <Text
+                            allowFontScaling={false}
+                            minimumFontScale={wp(4)}
+                            style={{ right: 15, color: "#E0E0E0", fontSize: wp(4) }}>
+                            {maxLength - lastName.length}
+                        </Text>
+                        <Icon
+                            style={{ color: lastName ? '#4CAF50' : '#EF5350' }}
+                            lastName={lastName ? 'checkmark-circle' : 'close-circle'} />
+                    </Item>
+                </Content>
+            </Container>
         )
     }
 }

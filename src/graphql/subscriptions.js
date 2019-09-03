@@ -92,6 +92,7 @@ export const onCreateUser = `subscription OnCreateUser {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -375,6 +376,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -658,6 +660,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
         timer
         audience {
           items {
+            JSONdata
             id
             genders
             ages
@@ -1048,6 +1051,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1382,6 +1386,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1716,6 +1721,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
     timer
     audience {
       items {
+        JSONdata
         createContest {
           id
           user {
@@ -1854,6 +1860,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
 `;
 export const onCreateAudience = `subscription OnCreateAudience {
   onCreateAudience {
+    JSONdata
     createContest {
       id
       user {
@@ -1948,6 +1955,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2044,6 +2052,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
 `;
 export const onUpdateAudience = `subscription OnUpdateAudience {
   onUpdateAudience {
+    JSONdata
     createContest {
       id
       user {
@@ -2138,6 +2147,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2234,6 +2244,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
 `;
 export const onDeleteAudience = `subscription OnDeleteAudience {
   onDeleteAudience {
+    JSONdata
     createContest {
       id
       user {
@@ -2328,6 +2339,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2537,6 +2549,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2722,6 +2735,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
@@ -2907,6 +2921,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
       timer
       audience {
         items {
+          JSONdata
           createContest {
             id
             category
