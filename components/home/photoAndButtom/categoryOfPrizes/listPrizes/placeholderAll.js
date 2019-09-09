@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'native-base';
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia } from 'rn-placeholder'
 
 const timesRepeat = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
@@ -17,7 +17,7 @@ export default class PlaceholderAllPrizes extends Component {
                     borderRadius: 15,
                     height: 100
                 }}>
-                    <Placeholder.Media animate="fade" size={120} style={{ width: "100%", borderRadius: 15, height: 100 }} />
+                    <PlaceholderMedia animate="fade" size={120} style={{ width: "100%", borderRadius: 15, height: 100 }} />
                 </View>
             )))
     }

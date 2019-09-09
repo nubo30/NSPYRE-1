@@ -8,7 +8,7 @@ import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { Text, List, ListItem, Left, Body, Right, Container, Thumbnail, Content, Button, Icon, Switch } from 'native-base';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia } from "rn-placeholder"
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -129,7 +129,7 @@ class DrawerRight extends Component {
                                     ? userData.avatar !== null
                                         ? <Thumbnail style={{ width: 45, height: 45, borderRadius: 22.5 }} source={{ uri: userData.avatar }} />
                                         : <UserAvatar size="45" name={userData.name} />
-                                    : <Placeholder.Media animate="fade" style={{ width: 45, height: 45, borderRadius: 22.5 }} />
+                                    : <PlaceholderMedia animate="fade" style={{ width: 45, height: 45, borderRadius: 22.5 }} />
                             }
                             <Body style={{ borderBottomColor: "rgba(0,0,0,0.0)" }}>
                                 <Text

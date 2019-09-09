@@ -1,5 +1,8 @@
 {
   "expo": {
+    "packagerOpts": {
+      "nonPersistent": true
+    },
     "name": "Influencemenow",
     "slug": "influence-me-now",
     "privacy": "public",

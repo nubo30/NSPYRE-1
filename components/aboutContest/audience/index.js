@@ -78,12 +78,12 @@ export default class Audience extends Component {
         return (
             <Container style={{ backgroundColor: '#FFF', width: "85%", borderRadius: 20, maxHeight: "50%", padding: 2 }}>
                 <Header span style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)', flexDirection: 'column' }}>
-                    <Text allowFontScaling={false} style={{ fontSize: wp(15), letterSpacing: 3 }}>{hideCongrastSectionAudience ? '🎉' : '👍'}</Text>
-                    <Text allowFontScaling={false} style={{ fontSize: wp(8), letterSpacing: 3 }}>{hideCongrastSectionAudience ? 'Congrats!' : 'Very good!'}</Text>
-                    <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(6), top: 10, letterSpacing: 2 }}>{contest.user.name}</Text>
+                    <Text allowFontScaling={false} style={{ fontSize: wp(14), letterSpacing: 3 }}>{hideCongrastSectionAudience ? '🎉' : '👍'}</Text>
+                    <Text allowFontScaling={false} style={{ fontSize: wp(7), letterSpacing: 3 }}>{hideCongrastSectionAudience ? 'Congrats!' : 'Very good!'}</Text>
+                    <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5), top: 10, letterSpacing: 2 }}>{contest.user.name}</Text>
                 </Header>
                 <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', padding: 15 }}>
-                    <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(5), fontWeight: '100' }}>
+                    <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(4), fontWeight: '100' }}>
                         Do you want to share your contest with our community or yours only?
                     </Text>
                 </Content>
@@ -93,17 +93,17 @@ export default class Audience extends Component {
                             <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(0);
                             }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2 }}>Your only</Text>
+                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontSize: wp(3.5) }}>Your only</Text>
                             </Button>
                             <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(1);
                             }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2 }}>Ours also</Text>
+                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontSize: wp(3.5) }}>Ours also</Text>
                             </Button>
                         </Row>
                         <Row size={30} style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
                             <Button transparent style={{ justifyContent: 'center', top: -13 }} onPress={() => _setModalVisibleAudience(false)}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, color: "#E0E0E0" }}>No, Thanks</Text>
+                                <Text allowFontScaling={false} style={{ letterSpacing: 2, color: "#E0E0E0", fontSize: wp(3) }}>No, Thanks</Text>
                             </Button>
                         </Row>
                     </Grid>

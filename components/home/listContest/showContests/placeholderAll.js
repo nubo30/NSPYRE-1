@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Card, CardItem, Left, Body } from 'native-base';
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia, PlaceholderLine } from 'rn-placeholder'
 
 const timesRepeat = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
@@ -18,10 +18,10 @@ export default class PlaceholderAll extends Component {
                 }}>
                     <CardItem style={{ borderTopEndRadius: 5, borderTopStartRadius: 5 }}>
                         <Left>
-                            <Placeholder.Media animate="fade" size={40} hasRadius />
+                            <PlaceholderMedia animate="fade" size={50} style={{ borderRadius: "50%" }} />
                             <Body>
-                                <Placeholder.Line animate="fade" width="61%" textSize={14} style={{ top: -3 }} />
-                                <Placeholder.Line animate="fade" width="47%" textSize={14} style={{ top: 3 }} />
+                                <PlaceholderLine animate="fade" width="61%" textSize={14} style={{ top: 5 }} />
+                                <PlaceholderLine animate="fade" width="47%" textSize={14} style={{ top: 5 }} />
                             </Body>
                         </Left>
                     </CardItem>
@@ -31,7 +31,7 @@ export default class PlaceholderAll extends Component {
                             borderBottomRightRadius: 5,
                             overflow: 'hidden', flex: 1
                         }}>
-                            <Placeholder.Media animate="fade" size={120} style={{ width: "100%" }} />
+                            <PlaceholderMedia animate="fade" size={120} style={{ width: "100%" }} />
                         </View>
                     </CardItem>
                 </Card>

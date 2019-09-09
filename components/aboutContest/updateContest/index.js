@@ -228,7 +228,7 @@ class UpdateContest extends Component {
 
     // Validar formulario
     _validateFormPrize = () => {
-        this.setState({isLoading: trueI})
+        this.setState({ isLoading: true })
         const { nameOfPrize, descriptionOfPrize, pictureOfPrize, videoOfPrize } = this.state
         isAscii(nameOfPrize)
             ? descriptionOfPrize
@@ -490,8 +490,8 @@ class UpdateContest extends Component {
                                         </Left>
                                         <Body>
                                             {contest.timer === null
-                                                ? <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
-                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD" }}>{contest.timer === null ? contest.timer : moment(dateChoose ? dateChoose : contest.timer).format('LLLL')}</Text>}
+                                                ? <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
+                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{contest.timer === null ? contest.timer : moment(dateChoose ? dateChoose : contest.timer).format('LLLL')}</Text>}
                                         </Body>
                                         <Right>
                                             <Switch
@@ -519,10 +519,8 @@ class UpdateContest extends Component {
                                         <Body>
                                             <Item style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                 <Input
-                                                    allowFontScaling={false}
-                                                    allowFontScaling={false}
                                                     disabled={isLoadingUploadImagenToAWS}
-                                                    style={{ right: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#000" }}
+                                                    style={{ right: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#000", fontSize: wp(5) }}
                                                     maxLength={256}
                                                     placeholder={contest.general.nameOfContest}
                                                     placeholderTextColor={isLoadingUploadImagenToAWS ? "#BDBDBD" : "#000"}
@@ -531,7 +529,7 @@ class UpdateContest extends Component {
                                             </Item>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false}>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>
                                                 Name of contest
                                             </Text>
                                         </Right>
@@ -545,10 +543,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(description ? description : contest.general.description, { length: 40, separator: "..." })}</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null, fontSize: wp(4) }}>{_.truncate(description ? description : contest.general.description, { length: 40, separator: "..." })}</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false}>Description</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Description</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -561,10 +559,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{_.truncate(instructions ? instructions : contest.general.instructions, { length: 40, separator: "..." })}</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null, fontSize: wp(4) }}>{_.truncate(instructions ? instructions : contest.general.instructions, { length: 40, separator: "..." })}</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false}>Instructions</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Instructions</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -577,10 +575,10 @@ class UpdateContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null }}>{contest.prizes.length} Prize created</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null, fontSize: wp(4) }}>{contest.prizes.length} Prize created</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false}>Add new prizes</Text>
+                                            <Text allowFontScaling={false} onPress={{ fontSize: wp(4) }}>Add new prizes</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -603,14 +601,13 @@ class UpdateContest extends Component {
                                         style={{ position: 'absolute', bottom: 0, alignSelf: 'center' }}>
                                         <Ionicons name="md-trash" style={{ color: '#F44336', fontSize: wp(7) }} />
                                     </Button>
-
                                 </View>
 
                                 {/* ADD PRIZES */}
                                 <View style={{ flex: 1 }}>
                                     <Grid>
                                         <Row size={20} style={{ padding: 15, flexDirection: 'column' }}>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(10), color: isLoading ? "#BDBDBD" : "#D81B60" }}>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(9), color: isLoading ? "#BDBDBD" : "#D81B60" }}>
                                                 Adding New Prize
                                             </Text>
                                             <Text
@@ -628,10 +625,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Name of prize</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Name of prize</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false}>{nameOfPrize ? nameOfPrize : 'Not specified'}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{nameOfPrize ? nameOfPrize : 'Not specified'}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -644,10 +641,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Description</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Description</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false}>{descriptionOfPrize ? _.truncate(descriptionOfPrize, { separator: "...", length: 20 }) : "Not specified"}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{descriptionOfPrize ? _.truncate(descriptionOfPrize, { separator: "...", length: 20 }) : "Not specified"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -660,7 +657,7 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? '#BDBDBD' : null }}>Price</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? '#BDBDBD' : null, fontSize: wp(4) }}>Price</Text>
                                                         {!isLoading ? <Picker
                                                             style={{ position: 'absolute', top: -30 }}
                                                             textStyle={{ color: 'rgba(0,0,0,0.0)' }}
@@ -683,7 +680,7 @@ class UpdateContest extends Component {
                                                         </Picker> : null}
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false}>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -696,10 +693,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Picture</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Picture</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false}>{pictureOfPrize.name ? "Already selected" : "No select"}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{pictureOfPrize.name ? "Already selected" : "No select"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -712,10 +709,10 @@ class UpdateContest extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null }}>Video</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Video</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false}>{videoOfPrize.name ? "Already selected" : "No select"}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{videoOfPrize.name ? "Already selected" : "No select"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -744,7 +741,7 @@ class UpdateContest extends Component {
                                                         alignSelf: 'center',
                                                         backgroundColor: '#E91E63'
                                                     }}>
-                                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF" }}>Create</Text>
+                                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, color: isLoading ? "#BDBDBD" : "#FFF", fontSize: wp(4) }}>Create</Text>
                                                     {isLoading ? <Spinner color="#BDBDBD" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                                 </Button>
                                             </Animatable.View>

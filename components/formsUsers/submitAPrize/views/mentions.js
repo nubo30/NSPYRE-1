@@ -222,197 +222,190 @@ class SomethingMore extends Component {
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5), top: 5, alignSelf: 'flex-start' }}>Choose One Social Media</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Choose One Social...</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={
+                                    facebookSwitch ||
+                                        twitterSwitch ||
+                                        instagramSwitch ||
+                                        snapchatSwitch
+                                        ? () => this._visibleModalSocialMediaHandleChoose(false)
+                                        : () => {
+                                            this.setState({ socialMediaHandle: { facebook: "", twitter: "", instagram: "", snapchat: "" } });
+                                            this._visibleModalSocialMediaHandleChoose(false)
+                                        }
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: facebookSwitch ||
+                                            twitterSwitch ||
+                                            instagramSwitch ||
+                                            snapchatSwitch ? "#E91E63" : "#3333"
+                                    }}>{
+                                            facebookSwitch ||
+                                                twitterSwitch ||
+                                                instagramSwitch ||
+                                                snapchatSwitch ? "Done" : "Cancel"
+                                        }</Text>
+                                </Button>
+                            </Right>
                         </Header>
+                        <Content scrollEnabled={false}>
+                            {/* FACEBOOK */}
+                            <ListItem icon>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#3b5998" }}>
+                                        <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.facebook}</Text>
+                                </Body>
+                                <Right>
+                                    <Switch
+                                        value={facebookSwitch}
+                                        onChange={() => this.setState({
+                                            facebookSwitch: !facebookSwitch,
+                                            twitterSwitch: false,
+                                            instagramSwitch: false,
+                                            snapchatSwitch: false,
+                                            socialMediaHandleSeleted: !facebookSwitch ? prize.aboutTheCompany.socialMediaHandle.facebook : "",
+                                            typeOfSocialNetwork: 'fb'
+                                        })} />
+                                </Right>
+                            </ListItem>
 
-                        {/* FACEBOOK */}
-                        <ListItem icon>
-                            <Left>
-                                <Button style={{ backgroundColor: "#3b5998" }}>
-                                    <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.facebook}</Text>
-                            </Body>
-                            <Right>
-                                <Switch
-                                    value={facebookSwitch}
-                                    onChange={() => this.setState({
-                                        facebookSwitch: !facebookSwitch,
-                                        twitterSwitch: false,
-                                        instagramSwitch: false,
-                                        snapchatSwitch: false,
-                                        socialMediaHandleSeleted: !facebookSwitch ? prize.aboutTheCompany.socialMediaHandle.facebook : "",
-                                        typeOfSocialNetwork: 'fb'
-                                    })} />
-                            </Right>
-                        </ListItem>
+                            {/* TWITTER */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#00acee" }}>
+                                        <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.twitter}</Text>
+                                </Body>
+                                <Right>
+                                    <Switch
+                                        value={twitterSwitch}
+                                        onChange={() => this.setState({
+                                            twitterSwitch: !twitterSwitch,
+                                            facebookSwitch: false,
+                                            instagramSwitch: false,
+                                            snapchatSwitch: false,
+                                            socialMediaHandleSeleted: !twitterSwitch ? prize.aboutTheCompany.socialMediaHandle.twitter : "",
+                                            typeOfSocialNetwork: 'tt'
+                                        })} />
+                                </Right>
+                            </ListItem>
 
-                        {/* TWITTER */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#00acee" }}>
-                                    <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.twitter}</Text>
-                            </Body>
-                            <Right>
-                                <Switch
-                                    value={twitterSwitch}
-                                    onChange={() => this.setState({
-                                        twitterSwitch: !twitterSwitch,
-                                        facebookSwitch: false,
-                                        instagramSwitch: false,
-                                        snapchatSwitch: false,
-                                        socialMediaHandleSeleted: !twitterSwitch ? prize.aboutTheCompany.socialMediaHandle.twitter : "",
-                                        typeOfSocialNetwork: 'tt'
-                                    })} />
-                            </Right>
-                        </ListItem>
+                            {/* INSTAGRAM */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#E1306C" }}>
+                                        <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.instagram}</Text>
+                                </Body>
+                                <Right>
+                                    <Switch
+                                        value={instagramSwitch}
+                                        onChange={() => this.setState({
+                                            instagramSwitch: !instagramSwitch,
+                                            twitterSwitch: false,
+                                            facebookSwitch: false,
+                                            snapchatSwitch: false,
+                                            socialMediaHandleSeleted: !instagramSwitch ? prize.aboutTheCompany.socialMediaHandle.instagram : "",
+                                            typeOfSocialNetwork: 'ig'
+                                        })} />
+                                </Right>
+                            </ListItem>
 
-                        {/* INSTAGRAM */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#E1306C" }}>
-                                    <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.instagram}</Text>
-                            </Body>
-                            <Right>
-                                <Switch
-                                    value={instagramSwitch}
-                                    onChange={() => this.setState({
-                                        instagramSwitch: !instagramSwitch,
-                                        twitterSwitch: false,
-                                        facebookSwitch: false,
-                                        snapchatSwitch: false,
-                                        socialMediaHandleSeleted: !instagramSwitch ? prize.aboutTheCompany.socialMediaHandle.instagram : "",
-                                        typeOfSocialNetwork: 'ig'
-                                    })} />
-                            </Right>
-                        </ListItem>
-
-                        {/* SNACPCHAT */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#FFEA00" }}>
-                                    <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.snapchat}</Text>
-                            </Body>
-                            <Right>
-                                <Switch
-                                    value={snapchatSwitch}
-                                    onChange={() => this.setState({
-                                        snapchatSwitch: !snapchatSwitch,
-                                        twitterSwitch: false,
-                                        instagramSwitch: false,
-                                        facebookSwitch: false,
-                                        socialMediaHandleSeleted: !snapchatSwitch ? prize.aboutTheCompany.socialMediaHandle.snapchat : "",
-                                        typeOfSocialNetwork: 'sc'
-                                    })} />
-                            </Right>
-                        </ListItem>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => {
-                                        this.setState({ socialMediaHandle: { facebook: "", twitter: "", instagram: "", snapchat: "" } });
-                                        this._visibleModalSocialMediaHandleChoose(false)
-                                    }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => this._visibleModalSocialMediaHandleChoose(false)}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                            {/* SNACPCHAT */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#FFEA00" }}>
+                                        <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(5) }}>{prize && prize.aboutTheCompany && prize.aboutTheCompany.socialMediaHandle && prize.aboutTheCompany.socialMediaHandle.snapchat}</Text>
+                                </Body>
+                                <Right>
+                                    <Switch
+                                        value={snapchatSwitch}
+                                        onChange={() => this.setState({
+                                            snapchatSwitch: !snapchatSwitch,
+                                            twitterSwitch: false,
+                                            instagramSwitch: false,
+                                            facebookSwitch: false,
+                                            socialMediaHandleSeleted: !snapchatSwitch ? prize.aboutTheCompany.socialMediaHandle.snapchat : "",
+                                            typeOfSocialNetwork: 'sc'
+                                        })} />
+                                </Right>
+                            </ListItem>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* DESCRIPTION */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalDescription}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'} enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Description</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    description
+                                        ? this.setState({ visibleModalDescription: false })
+                                        : this.setState({ description: "", visibleModalDescription: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: description ? "#E91E63" : "#3333"
+                                    }}>{description ? "Done" : "Cancel"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', padding: 15 }}>Write what you want them to write in the body of the post. Any special instructions?(ex: take a photo of the gift and post, or, make a video of you talking about your gift!)</Text>
-                        <Item
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                multiline
-                                numberOfLines={3}
-                                placeholder="Write something here"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={description}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(5), padding: 5, maxHeight: 170 }}
-                                onChangeText={(value) => this.setState({ description: value })} />
-                        </Item>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalDescription: false, description: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={description ? () => this.setState({ visibleModalDescription: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* DESCRIPTION */}
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', padding: 15 }}>Write what you want them to write in the body of the post. Any special instructions?(ex: take a photo of the gift and post, or, make a video of you talking about your gift!)</Text>
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Description"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={description}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 170 }}
+                                    onChangeText={(value) => this.setState({ description: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
+
             </Container>
         );
     }

@@ -171,7 +171,6 @@ class Summary extends Component {
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
-                                                <Icon active name="arrow-forward" />
                                             </Right>
                                         </ListItem>
 

@@ -5,7 +5,7 @@ import { Button, Text, Thumbnail, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia } from 'rn-placeholder'
 import ModalAnimation from "react-native-modal";
 import { Grid, Row } from 'react-native-easy-grid'
 
@@ -59,7 +59,7 @@ class UserInfo extends Component {
                             ? userData.avatar !== null
                                 ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 52.5 }} source={{ uri: userData.avatar }} />
                                 : <UserAvatar size="105" name={userData.name} />
-                            : <Placeholder.Media animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
+                            : <PlaceholderMedia animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
                     }
                 </View>
 

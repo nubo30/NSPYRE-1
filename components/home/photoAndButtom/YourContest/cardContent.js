@@ -101,29 +101,11 @@ class CardContent extends Component {
                             flex: 0,
                             borderRadius: 5,
                             elevation: Platform.OS === 'ios' ? 10 : 5,
-                            marginBottom: 70,
-                            width: "90%", height: 200,
+                            marginBottom: 10,
+                            width: "90%", height: 100,
                             alignSelf: "center",
                             marginTop: 30,
                         }}>
-                        <Text
-                            minimumFontScale={wp(6)}
-                            allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(6), top: -10 }}>
-                            {_.startCase(item.general.nameOfContest)}
-                        </Text>
-                        <Text
-                            minimumFontScale={wp(4)}
-                            allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
-                            {`The category is ${_.lowerCase(item.category)}`}
-                        </Text>
-                        <Text
-                            minimumFontScale={wp(3)}
-                            allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(3), top: -10, color: "#BDBDBD", fontWeight: '100', fontStyle: 'italic' }}>
-                            {`Published ${moment(item.createdAt).fromNow()}`}
-                        </Text>
                         <View style={{
                             borderRadius: 5,
                             shadowColor: 'rgba(0,0,0,0.3)',
@@ -132,7 +114,7 @@ class CardContent extends Component {
                             <ImageBackground
                                 borderRadius={5}
                                 source={{ uri: item.general.picture.url }}
-                                style={{ height: 200, width: "100%" }}>
+                                style={{ height: 100, width: "100%" }}>
                                 <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
                                     {isFinishedContest
                                         ? <View style={{
@@ -196,12 +178,31 @@ class CardContent extends Component {
                                     </View>
                                 </View>
                             </ImageBackground>
-
                         </View>
                     </Animatable.View>
                 </TouchableHighlight>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', width: "90%", alignSelf: 'center' }}>
-                    <View style={{ flex: 1, alignSelf: 'center', flexDirection: 'row', justifyContent: "flex-end" }}>
+                    <View style={{ flex: 0.5 }}>
+                        <Text
+                            minimumFontScale={wp(6)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(6), top: -10 }}>
+                            {_.startCase(item.general.nameOfContest)}
+                        </Text>
+                        <Text
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
+                            The category is <Text style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: 'bold' }}>{_.lowerCase(item.category)}</Text>
+                        </Text>
+                        <Text
+                            minimumFontScale={wp(3)}
+                            allowFontScaling={false}
+                            style={{ color: "#333", fontSize: wp(3), top: -10, color: "#BDBDBD", fontWeight: '100', fontStyle: 'italic' }}>
+                            {`Published ${moment(item.createdAt).fromNow()}`}
+                        </Text>
+                    </View>
+                    <View style={{ flex: 0.5, alignSelf: 'center', flexDirection: 'row', justifyContent: "flex-end" }}>
                         <Button transparent style={{ alignSelf: 'flex-end' }} onPress={() => Alert.alert(
                             `${item.general.nameOfContest}`,
                             'Do you really want to delete this contest?',

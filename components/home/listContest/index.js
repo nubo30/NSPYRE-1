@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { View, FlatList, TouchableHighlight, ImageBackground, Text, Alert } from 'react-native';
 import { withNavigation, withNavigationFocus } from "react-navigation"
 import * as Animatable from 'react-native-animatable';
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia } from 'rn-placeholder'
 import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -117,7 +117,7 @@ class ListContest extends Component {
         data={_.times(9, () => [{ id: 1 }])}
         renderItem={() =>
           <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'rgba(0,0,0,0.0)' }}>
-            <Placeholder.Media
+            <PlaceholderMedia
               style={{ width: "95%", alignSelf: "center", marginBottom: 10, height: 100, borderRadius: 5 }}
               hasRadius={false} animate="fade" />
           </View>

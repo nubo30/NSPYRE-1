@@ -3,7 +3,7 @@ import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Button, Left, Icon, Text, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
-import Placeholder from 'rn-placeholder'
+import { PlaceholderMedia } from 'rn-placeholder'
 import _ from 'lodash'
 
 import { MyStatusBar } from '../Global/statusBar/index'
@@ -27,7 +27,7 @@ class UserProfilePlaceholder extends Component {
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
                     <Grid>
                         <Row size={25} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
-                            <Placeholder.Media animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
+                            <PlaceholderMedia animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
                         </Row>
                         <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>...</Text>

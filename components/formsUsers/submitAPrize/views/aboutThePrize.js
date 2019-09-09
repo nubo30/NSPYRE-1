@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, Image, Keyboard } from 'react-native'
+import { Dimensions, Modal, Toast, Platform, Image, Keyboard } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner, CheckBox } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { isAscii } from 'validator'
 import Swiper from 'react-native-swiper'
@@ -153,11 +153,17 @@ export default class AboutTheContest extends Component {
         const data = { category, general: { nameOfPrize, price, description, instructions: { typeContentInstructionsValue, msg: instructions }, socialMediaHandle, picture, video } }
         try {
             await _dataFromForms(data)
-            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
+            this.setState({ isLoading: false })
             await _indexChangeSwiper(1)
         } catch (error) {
-            alert(error)
-            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
+            this.setState({ isLoading: false })
+            Toast.show({
+                text: "Oops! The prize could not be created, try again.",
+                buttonText: "Okay",
+                type: "danger",
+                position: 'top',
+                duration: 3000
+            })
         }
     }
 
@@ -217,7 +223,6 @@ export default class AboutTheContest extends Component {
             typeContentInstructionsActionVideos,
             typeContentInstructionsActionMemes,
             indexSwiperInstructions,
-            keyboardDidShowAction,
 
             isvalidFormAnimation,
             isLoading,
@@ -270,9 +275,14 @@ export default class AboutTheContest extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Category</Text>
-                                            {isLoading ? null :
+                                        </Body>
+                                        <Right>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(category))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <View style={{ position: 'absolute', width: '100%' }}>
                                                 <Picker
-                                                    style={{ position: 'absolute', top: -30 }}
                                                     textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE CATEGORY"
@@ -294,12 +304,8 @@ export default class AboutTheContest extends Component {
                                                     <Picker.Item label="Coupon Codes" value="COUPON_CODES" />
                                                     <Picker.Item label="Hats" value="HATS" />
                                                     <Picker.Item label="Others" value="OTHERS" />
-                                                </Picker>}
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(category))}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
+                                                </Picker>
+                                            </View>}
                                     </ListItem>
 
                                     {/* PRICE */}
@@ -413,18 +419,6 @@ export default class AboutTheContest extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
-
-                                    <Button iconRight small transparent style={{ alignSelf: 'center', top: 10 }}
-                                        onPress={() => Alert.alert(
-                                            'Why we need this?',
-                                            'We need this information to be able to get other users to find your contest!',
-                                            [
-                                                { text: 'OK', onPress: () => null },
-                                            ],
-                                        )}>
-                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
-                                        <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
-                                    </Button>
                                 </List>
                             </Content>
                         </View>
@@ -462,189 +456,160 @@ export default class AboutTheContest extends Component {
 
                 {/* PRICE */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalPrice}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        enabled
-                        behavior="padding"
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Price</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Price</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    price
+                                        ? this.setState({ visibleModalPrice: false })
+                                        : this.setState({ price: "", visibleModalPrice: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: price ? "#E91E63" : "#3333"
+                                    }}>{
+                                            price ? "Done" : "Cancel"
+                                        }</Text>
+                                </Button>
+                            </Right>
                         </Header>
-
-                        {/* PRICE */}
-                        <Item
-                            error={price !== 0 ? false : true}
-                            success={price !== 0 ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                placeholder="0,000.00"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={numeraljs(price).format('0,0')}
-                                keyboardType="numeric"
-                                selectionColor="#E91E63"
-                                onChangeText={(value) => this.setState({ price: value })} />
-                            <Text allowFontScaling={false} style={{ fontSize: wp(6), color: price !== 0 ? '#388E3C' : '#3333' }}>$</Text>
-                        </Item>
-
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalPrice: false, price: 0 }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={price !== 0 ? () => this.setState({ visibleModalPrice: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: price !== 0 ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* COMPANY NAMEY */}
+                            <Item
+                                error={price !== 0 ? false : true}
+                                success={price !== 0 ? true : false}
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    onSubmitEditing={() => price ? this.setState({ visibleModalPrice: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    placeholder="0,000.00"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={numeraljs(price).format('0,0')}
+                                    keyboardType="numeric"
+                                    selectionColor="#E91E63"
+                                    onChangeText={(value) => this.setState({ price: value })} />
+                                <Text allowFontScaling={false} style={{ fontSize: wp(6), color: price !== 0 ? '#388E3C' : '#3333' }}>$</Text>
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* NAME OF PRIZE */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalNameOfPrize}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-
-                        enabled
-                        behavior="padding"
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
-                        </Header>
-                        {/* NAME OF PRIZE */}
-                        <ListItem icon>
+                    <Container>
+                        <Header transparent>
                             <Left>
-                                <Button style={{ backgroundColor: "#009688" }}>
-                                    <Icon type="Entypo" name="star" />
-                                </Button>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Name of prize</Title>
                             </Left>
-                            <Body>
-                                <Input
-                                    allowFontScaling={false}
-                                    placeholder="Name of prize"
-                                    placeholderTextColor="#EEEE"
-                                    maxLength={20}
-                                    autoFocus={true}
-                                    value={nameOfPrize}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    onChangeText={(value) => this.setState({ nameOfPrize: value })} />
-                            </Body>
-                            <Right />
-                        </ListItem>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalNameOfPrize: false, nameOfPrize: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    nameOfPrize
+                                        ? this.setState({ visibleModalNameOfPrize: false })
+                                        : this.setState({ nameOfPrize: "", visibleModalNameOfPrize: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: nameOfPrize ? "#E91E63" : "#3333"
+                                    }}>{
+                                            nameOfPrize ? "Done" : "Cancel"
+                                        }</Text>
                                 </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={nameOfPrize ? () => this.setState({ visibleModalNameOfPrize: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: isAscii(nameOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                            </Right>
+                        </Header>
+                        <Content scrollEnabled={false}>
+                            {/* COMPANY NAMEY */}
+                            <ListItem icon>
+                                <Left>
+                                    <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
+                                        <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Input
+                                        onSubmitEditing={() => nameOfPrize ? this.setState({ visibleModalNameOfPrize: false }) : Keyboard.dismiss()}
+                                        returnKeyType='done'
+                                        allowFontScaling={false}
+                                        placeholder="Company Name"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={20}
+                                        autoFocus={true}
+                                        value={nameOfPrize}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        onChangeText={(value) => this.setState({ nameOfPrize: value })} />
+                                </Body>
+                                <Right />
+                            </ListItem>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* DESCRIPTION */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalDescription}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        enabled
-                        behavior="padding"
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Description</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    description
+                                        ? this.setState({ visibleModalDescription: false })
+                                        : this.setState({ description: "", visibleModalDescription: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: description ? "#E91E63" : "#3333"
+                                    }}>{description ? "Done" : "Cancel"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-
-                        <Item
-                            error={isAscii(description) ? false : true}
-                            success={isAscii(description) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                multiline
-                                numberOfLines={3}
-                                placeholder="Description"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={description}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ padding: 5, maxHeight: 170 }}
-                                onChangeText={(value) => this.setState({ description: value })} />
-                        </Item>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalDescription: false, description: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={description ? () => this.setState({ visibleModalDescription: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: isAscii(description) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* DESCRIPTION */}
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Description"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={description}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 170 }}
+                                    onChangeText={(value) => this.setState({ description: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* INSTRUCTIONS */}
@@ -658,18 +623,26 @@ export default class AboutTheContest extends Component {
                     <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
                         <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Button
-                                transparent
-                                onPress={() => indexSwiperInstructions ? this._swiperInstructions(null) : this.setState({
-                                    visibleModalInstructions: false,
-                                    typeContentInstructionsActionVideos: false,
-                                    typeContentInstructionsActionMemes: false,
-                                    typeContentInstructionsValue: ''
-                                })}>
+                                onPress={() => indexSwiperInstructions ? this._swiperInstructions(null) : this.setState({ visibleModalInstructions: false, typeContentInstructionsActionVideos: false, typeContentInstructionsActionMemes: false, typeContentInstructionsValue: '' })}
+                                transparent>
                                 <Icon name='arrow-back' style={{ color: "#E91E63" }} />
-                                <Text allowFontScaling={false} style={{ color: "#E91E63" }}>Back</Text>
+                                <Text allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(4) }}>Back</Text>
                             </Button>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6) }}>Instructions</Title>
+                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5) }}>Instructions</Title>
                         </Left>
+                        <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                            <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                instructions
+                                    ? this.setState({ visibleModalInstructions: false })
+                                    : this.setState({ instructions: "", visibleModalInstructions: false })
+                            }>
+                                <Text allowFontScaling={false} style={{
+                                    fontSize: wp(4),
+                                    letterSpacing: 1,
+                                    color: instructions ? "#E91E63" : "#3333"
+                                }}>{instructions ? "Done" : "Cancel"}</Text>
+                            </Button>
+                        </Right>
                     </Header>
                     <Swiper
                         scrollEnabled={false}
@@ -677,7 +650,7 @@ export default class AboutTheContest extends Component {
                         ref={(swiperInstructions) => this.swiperInstructions = swiperInstructions}
                         loop={false} showsButtons={false} showsPagination={false}>
                         <View style={{ flex: 1 }}>
-                            <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(6), color: '#333' }}>
+                            <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(5), color: '#333' }}>
                                 To continue you must choose between these two options, what do you want your participants to do?
                                 </Text>
                             <ListItem style={{ height: 70 }}
@@ -730,72 +703,32 @@ export default class AboutTheContest extends Component {
                         </View>
 
                         <View style={{ flex: 1 }}>
-                            <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
-                                <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(6), color: '#333' }}>
-                                    Target the content you want your participants to share, for example: "Share a video, the best video will be the winner of the prize!"
+                            <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(4), color: '#333' }}>
+                                Target the content you want your participants to share, for example: "Share a video, the best video will be the winner of the prize!"
                                </Text>
-                                <Item
-                                    error={instructions ? false : true}
-                                    success={instructions ? true : false}
-                                    style={{ width: "90%", alignSelf: "center" }}>
-                                    <Input
-                                        allowFontScaling={false}
-                                        onSubmitEditing={Keyboard.dismiss}
-                                        multiline
-                                        autoCorrect={false}
-                                        numberOfLines={3}
-                                        placeholder="Instructions"
-                                        placeholderTextColor="#EEEE"
-                                        value={instructions}
-                                        keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
-                                        style={{ padding: 5, maxHeight: 200 }}
-                                        onChangeText={(value) => this.setState({ instructions: value })} />
-                                </Item>
-                                <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                        <Button
-                                            bordered
-                                            onPress={() => {
-                                                this.setState({
-                                                    visibleModalInstructions: false,
-                                                    instructions: '',
-                                                    indexSwiperInstructions: 0,
-                                                    typeContentInstructionsActionVideos: false,
-                                                    typeContentInstructionsActionMemes: false,
-                                                    typeContentInstructionsValue: ''
-                                                })
-                                            }}
-                                            style={{
-                                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                                justifyContent: 'center', alignItems: 'center',
-                                                top: keyboardDidShowAction ? -62 : 0
-                                            }}>
-                                            <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                        </Button>
-                                    </Col>
-                                    <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                        <Button
-                                            bordered
-                                            onPress={instructions ? () => this.setState({
-                                                visibleModalInstructions: false
-                                            }) : null}
-                                            style={{
-                                                borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                                justifyContent: 'center', alignItems: 'center',
-                                                top: keyboardDidShowAction ? -62 : 0
-                                            }}>
-                                            <Text allowFontScaling={false} style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                        </Button>
-                                    </Col>
-                                </Grid>
-                            </KeyboardAvoidingView>
+                            <Item
+                                error={instructions ? false : true}
+                                success={instructions ? true : false}
+                                style={{ width: "90%", alignSelf: "center" }}>
+                                <Input
+                                    onSubmitEditing={() => instructions ? this.setState({ visibleModalInstructions: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    autoCorrect={false}
+                                    numberOfLines={3}
+                                    placeholder="Instructions"
+                                    placeholderTextColor="#EEEE"
+                                    value={instructions}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 200 }}
+                                    onChangeText={(value) => this.setState({ instructions: value })} />
+                            </Item>
                         </View>
                     </Swiper>
-
                 </Modal>
 
-                {/* USER SOCIAL MEDIA HANDLE */}
+                {/* COMPANY SOCIAL MEDIA HANDLE */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
@@ -803,139 +736,135 @@ export default class AboutTheContest extends Component {
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-
-                        enabled
-                        behavior="padding" style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Socials Medias</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Social Media Handle</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
+                                        ? this.setState({ visibleModalSocialMediaHandle: false })
+                                        : this.setState({ companyName: "", visibleModalSocialMediaHandle: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color:
+                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
+                                                ? "#E91E63" : "#3333"
+                                    }}>{
+                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
+                                                ? "Done" : "Cancel"
+                                        }</Text>
+                                </Button>
+                            </Right>
                         </Header>
+                        <Content scrollEnabled={false}>
 
-                        {/* FACEBOOK */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#3b5998" }}>
-                                    <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
-                                </Button>
-                            </Left>
-                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item>
-                                    <Input
-                                        allowFontScaling={false}
-                                        autoFocus={true}
-                                        placeholder="Facebook"
-                                        placeholderTextColor="#EEEE"
-                                        maxLength={512}
-                                        value={socialMediaHandle.facebook}
-                                        keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
-                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
-                                    />
-                                </Item>
-                            </Body>
-                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                        </ListItem>
+                            {/* FACEBOOK */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#3b5998" }}>
+                                        <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
+                                    </Button>
+                                </Left>
+                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                    <Item>
+                                        <Input
+                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
+                                            returnKeyType='done'
+                                            autoFocus={true}
+                                            placeholder="Facebook"
+                                            placeholderTextColor="#EEEE"
+                                            maxLength={512}
+                                            value={socialMediaHandle.facebook}
+                                            keyboardType="ascii-capable"
+                                            selectionColor="#E91E63"
+                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
+                                        />
+                                    </Item>
+                                </Body>
+                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                            </ListItem>
 
-                        {/* TWITTER */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#00acee" }}>
-                                    <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
-                                </Button>
-                            </Left>
-                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item>
-                                    <Input
-                                        allowFontScaling={false}
-                                        placeholder="Twitter"
-                                        placeholderTextColor="#EEEE"
-                                        maxLength={512}
-                                        value={socialMediaHandle.twitter}
-                                        keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
-                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
-                                    />
-                                </Item>
-                            </Body>
-                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                        </ListItem>
+                            {/* TWITTER */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#00acee" }}>
+                                        <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
+                                    </Button>
+                                </Left>
+                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                    <Item>
+                                        <Input
+                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
+                                            returnKeyType='done'
+                                            placeholder="Twitter"
+                                            placeholderTextColor="#EEEE"
+                                            maxLength={512}
+                                            value={socialMediaHandle.twitter}
+                                            keyboardType="ascii-capable"
+                                            selectionColor="#E91E63"
+                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
+                                        />
+                                    </Item>
+                                </Body>
+                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                            </ListItem>
 
-                        {/* INSTAGRAM */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#E1306C" }}>
-                                    <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                </Button>
-                            </Left>
-                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item>
-                                    <Input
-                                        allowFontScaling={false}
-                                        placeholder="Instagram"
-                                        placeholderTextColor="#EEEE"
-                                        maxLength={512}
-                                        value={socialMediaHandle.instagram}
-                                        keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
-                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
-                                    />
-                                </Item>
-                            </Body>
-                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                        </ListItem>
+                            {/* INSTAGRAM */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#E1306C" }}>
+                                        <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                    </Button>
+                                </Left>
+                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                    <Item>
+                                        <Input
+                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
+                                            returnKeyType='done'
+                                            placeholder="Instagram"
+                                            placeholderTextColor="#EEEE"
+                                            maxLength={512}
+                                            value={socialMediaHandle.instagram}
+                                            keyboardType="ascii-capable"
+                                            selectionColor="#E91E63"
+                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
+                                        />
+                                    </Item>
+                                </Body>
+                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                            </ListItem>
 
-                        {/* SNACPCHAT */}
-                        <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#FFEA00" }}>
-                                    <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                </Button>
-                            </Left>
-                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Item>
-                                    <Input
-                                        allowFontScaling={false}
-                                        placeholder="Snapchat"
-                                        placeholderTextColor="#EEEE"
-                                        maxLength={512}
-                                        value={socialMediaHandle.snapchat}
-                                        keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
-                                        onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
-                                    />
-                                </Item>
-                            </Body>
-                            <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                        </ListItem>
+                            {/* SNACPCHAT */}
+                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#FFEA00" }}>
+                                        <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
+                                    </Button>
+                                </Left>
+                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                    <Item>
+                                        <Input
+                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
+                                            returnKeyType='done'
+                                            placeholder="Snapchat"
+                                            placeholderTextColor="#EEEE"
+                                            maxLength={512}
+                                            value={socialMediaHandle.snapchat}
+                                            keyboardType="ascii-capable"
+                                            selectionColor="#E91E63"
+                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
+                                        />
+                                    </Item>
+                                </Body>
+                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
+                            </ListItem>
 
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => {
-                                        this.setState({ socialMediaHandle: { facebook: "", twitter: "", instagram: "", snapchat: "" } });
-                                        this._visibleModalSocialMediaHandle(false)
-                                    }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? () => this._visibleModalSocialMediaHandle(false) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: isAscii(socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* PICTURE */}
@@ -948,7 +877,7 @@ export default class AboutTheContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false, picture: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{picture.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -956,7 +885,7 @@ export default class AboutTheContest extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>Ok</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -991,7 +920,7 @@ export default class AboutTheContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{picture.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -999,7 +928,7 @@ export default class AboutTheContest extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>Ok</Text>
                             </Button>
                         </Right>
                     </Header>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, Platform, RefreshControl } from 'react-native';
-import { Container, View, Tab, Tabs, Text, TabHeading } from "native-base"
+import { Container, View, Tab, Tabs, Text, TabHeading, Icon } from "native-base"
 import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import SearchBar from 'react-native-searchbar'
@@ -19,7 +19,7 @@ import { showParticipationByUser } from '../../../../src/graphql/queries'
 class UserContest extends Component {
     constructor() {
         super()
-        this.state = { input: "", contestAsociated: [], contestList: [], refreshing: false }
+        this.state = { input: "", contestParticipated: [], contestList: [], refreshing: false }
         this._isMounted = true
     }
 
@@ -38,21 +38,21 @@ class UserContest extends Component {
     }
 
     componentDidMount() {
-        this.getContestAsociated()
+        this.getContestParticipated()
     }
 
-    getContestAsociated = async () => {
+    getContestParticipated = async () => {
         if (this._isMounted) {
             const { userData } = this.props
             const { data } = await API.graphql(graphqlOperation(showParticipationByUser, { userId: userData.id }));
-            let contestAsociated = JSON.parse(data.showParticipationByUser)
-            this.setState({ contestAsociated })
+            let contestParticipated = JSON.parse(data.showParticipationByUser)
+            this.setState({ contestParticipated })
         }
     }
 
     _onRefresh = () => {
         this.setState({ refreshing: true });
-        this.getContestAsociated().then(() => {
+        this.getContestParticipated().then(() => {
             this.setState({ refreshing: false });
         });
     }
@@ -64,10 +64,11 @@ class UserContest extends Component {
 
     render() {
         const { userData, _setModalVisibleYourContest } = this.props
-        const { input, contestAsociated, refreshing } = this.state
+        const { input, contestParticipated, refreshing } = this.state
 
         // Filtra por el nombre del concurso
-        let filterContest = []; filterContest = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
+        let filterContestCreated = []; filterContestCreated = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
+        let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
         return (
             <Container style={{ backgroundColor: '#FAFAFA' }}>
                 {/* Search Bar */}
@@ -106,8 +107,9 @@ class UserContest extends Component {
                         textStyle={{ color: '#D81B60' }}
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
-                        <View>
-                            <Text>asd</Text>
+                        <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1, top: -40 }}>
+                            <Icon type="Ionicons" name="ios-construct" style={{ fontSize: wp(20), color: '#3333', alignSelf: 'center' }} />
+                            <Text style={{ alignSelf: 'center', color: "#3333" }}>In construction</Text>
                         </View>
                     </Tab>
                     <Tab
@@ -124,9 +126,9 @@ class UserContest extends Component {
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
-                            filterContest && filterContest.length
+                            filterContestCreated && filterContestCreated.length
                                 ? <FlatList
-                                    data={filterContest}
+                                    data={filterContestCreated}
                                     renderItem={({ item, index }) =>
                                         <View key={index}>
                                             <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
@@ -151,9 +153,9 @@ class UserContest extends Component {
                         tabStyle={{ backgroundColor: "#F5F5F5" }}
                         activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
-                            contestAsociated && contestAsociated.length
+                            filterContestParticipated && filterContestParticipated.length
                                 ? <FlatList
-                                    data={contestAsociated}
+                                    data={filterContestParticipated}
                                     refreshControl={
                                         <RefreshControl tintColor="#D82B60" refreshing={refreshing} onRefresh={this._onRefresh} />
                                     }
@@ -167,12 +169,7 @@ class UserContest extends Component {
                                         </View>
                                     }
                                     keyExtractor={(item, index) => index.toString()} />
-                                : <View style={{ justifyContent: 'center', alignItems: 'center', top: 40 }}>
-                                    <Text
-                                        allowFontScaling={false}
-                                        minimumFontScale={wp(5)}
-                                        style={{ color: '#BDBDBD', fontSize: wp(5), alignSelf: 'center', textAlign: 'center' }}>You have not joined any contest!</Text>
-                                </View>
+                                : <DataNotFound inputText={input} />
                         }
                     </Tab>
                 </Tabs>

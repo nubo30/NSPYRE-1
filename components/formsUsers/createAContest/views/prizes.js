@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform, Image } from 'react-native'
+import { Dimensions, Alert, Modal, Platform, Image, Keyboard } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Item, Input, Spinner } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 
 // Gradients
@@ -312,131 +312,109 @@ export default class Prizes extends Component {
                     </Animatable.View>
                 </Footer>
 
-                {/* NAME MODAL */}
+                {/* NAME OF CONTEST */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalName}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
-                        </Header>
-
-                        {/* NAME OF PRIZE */}
-                        <ListItem icon>
+                    <Container>
+                        <Header transparent>
                             <Left>
-                                <Button style={{ backgroundColor: "#009688" }}>
-                                    <Icon type="Entypo" name="star" />
-                                </Button>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Company Name</Title>
                             </Left>
-                            <Body>
-                                <Input
-                                    placeholder="Name of prize"
-                                    placeholderTextColor="#EEEE"
-                                    maxLength={20}
-                                    autoFocus={true}
-                                    value={name}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    onChangeText={(value) => this.setState({ name: value })} />
-                            </Body>
-                            <Right />
-                        </ListItem>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalName: false, name: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    name
+                                        ? this.setState({ visibleModalName: false })
+                                        : this.setState({ name: "", visibleModalName: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: name ? "#E91E63" : "#3333"
+                                    }}>{name ? "Done" : "Cancel"}</Text>
                                 </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={name ? () => this.setState({ visibleModalName: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: name ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                            </Right>
+                        </Header>
+                        <Content scrollEnabled={false}>
+                            {/* COMPANY NAME */}
+                            <ListItem icon>
+                                <Left>
+                                    <Button style={{ backgroundColor: "#009688" }}>
+                                        <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Input
+                                        onSubmitEditing={() => name ? this.setState({ visibleModalName: false }) : Keyboard.dismiss()}
+                                        returnKeyType='done'
+                                        allowFontScaling={false}
+                                        placeholder="Company name"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={20}
+                                        autoFocus={true}
+                                        value={name}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        onChangeText={(value) => this.setState({ name: value })} />
+                                </Body>
+                                <Right />
+                            </ListItem>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* DESCRIPTION */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalDescription}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(6), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Terms</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    description
+                                        ? this.setState({ visibleModalDescription: false })
+                                        : this.setState({ description: "", visibleModalDescription: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: description ? "#E91E63" : "#3333"
+                                    }}>{description ? "Done" : "Cancel"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-
-                        {/* NAME OF PRIZE */}
-                        <Item
-                            error={description ? false : true}
-                            success={description ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                multiline
-                                numberOfLines={4}
-                                placeholder="Description"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={description}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ padding: 10, maxHeight: 200 }}
-                                onChangeText={(value) => this.setState({ description: value })} />
-                        </Item>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalDescription: false, description: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={description ? () => this.setState({ visibleModalDescription: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* DESCRIPTION */}
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Description"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={description}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 170 }}
+                                    onChangeText={(value) => this.setState({ description: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* PICTURE */}
@@ -449,7 +427,7 @@ export default class Prizes extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false, picture: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{picture.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -457,7 +435,7 @@ export default class Prizes extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -492,7 +470,7 @@ export default class Prizes extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{video.name ? "DELETE" : "BACK"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{video.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -500,7 +478,7 @@ export default class Prizes extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(5) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>Ok</Text>
                             </Button>
                         </Right>
                     </Header>
