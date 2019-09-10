@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View } from 'native-base';
 import { PlaceholderLine, PlaceholderMedia } from 'rn-placeholder'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import _ from 'lodash'
 
 export default class PlaceholderCardContest extends Component {
     state = { repeat: [{ id: 1, id: 2, id: 3 }] }

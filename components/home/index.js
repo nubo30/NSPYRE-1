@@ -4,7 +4,6 @@ import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge } from 'native-base';
-import _ from 'lodash'
 import Swiper from 'react-native-swiper'
 
 // Child Components

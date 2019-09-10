@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input } from "native-base"
-import _ from 'lodash'
+import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // childComponents
@@ -52,8 +52,8 @@ class UserContest extends Component {
         const { input, contestParticipated, refreshing } = this.state
 
         // Filtra por el nombre del concurso
-        let filterContestCreated = []; filterContestCreated = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
-        let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
+        let filterContestCreated = []; filterContestCreated = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
+        let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
             <Container style={{ backgroundColor: '#FAFAFA' }}>
                 {/* Header */}

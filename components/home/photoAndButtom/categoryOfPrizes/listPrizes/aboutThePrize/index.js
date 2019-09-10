@@ -4,7 +4,9 @@ import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, Footer } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import _ from 'lodash'
+import upperFirst from 'lodash/upperFirst'
+import lowerCase from 'lodash/lowerCase'
+import startCase from 'lodash/startCase'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
 
@@ -41,14 +43,14 @@ class AboutPrize extends Component {
                             <Text
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
-                                style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(prize.category))}</Text>
+                                style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{upperFirst(lowerCase(prize.category))}</Text>
                         </Button>
                     </Left>
                     <Body>
                         <Title
                             minimumFontScale={wp(7)}
                             allowFontScaling={false}
-                            style={{ fontSize: wp(7), color: '#D81B60' }}>{_.startCase(prize.general.nameOfPrize)}</Title>
+                            style={{ fontSize: wp(7), color: '#D81B60' }}>{startCase(prize.general.nameOfPrize)}</Title>
                     </Body>
                     <Right>
                         <Thumbnail small source={{ uri: prize.user.avatar }} />
@@ -118,7 +120,7 @@ class AboutPrize extends Component {
                                 <Text
                                     minimumFontScale={wp(2.5)}
                                     allowFontScaling={false}
-                                    style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{_.startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
+                                    style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
                             </View>
                         </View>
                         <Text

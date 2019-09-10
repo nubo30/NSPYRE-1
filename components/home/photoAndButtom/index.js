@@ -3,7 +3,6 @@ import { Modal, Dimensions } from 'react-native'
 import { withNavigation } from "react-navigation"
 import { Button, Text, Thumbnail, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import { PlaceholderMedia } from 'rn-placeholder'
 import ModalAnimation from "react-native-modal";

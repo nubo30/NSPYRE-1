@@ -1,8 +1,6 @@
 {
   "expo": {
-    "packagerOpts": {
-      "nonPersistent": true
-    },
+    "owner": "nubo",
     "name": "Influencemenow",
     "slug": "influence-me-now",
     "privacy": "public",
@@ -25,6 +23,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.dominio.influencemenow"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.influenceMeNow.app"

@@ -3,8 +3,10 @@ import React, { Component } from 'react'
 import { ImageBackground, View, TouchableHighlight } from 'react-native';
 import { withNavigation } from 'react-navigation'
 import * as Animatable from 'react-native-animatable';
-import { Text } from "native-base"
-import _ from 'lodash'
+import { Text } from "native-base";
+import truncate from 'lodash/truncate';
+import upperFirst from 'lodash/upperFirst'
+import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // This function show the content of all card section
@@ -70,7 +72,7 @@ class AssociatedContest extends Component {
                                         minimumFontScale={wp(8)}
                                         allowFontScaling={false}
                                         style={{ color: "#FFF", fontSize: wp(8), position: "absolute", bottom: 0, padding: 10 }}>
-                                        {_.truncate(_.upperFirst(_.lowerCase(item.contestData.Item.general.nameOfContest)), { length: 20, separator: '...' })}
+                                        {truncate(upperFirst(lowerCase(item.contestData.Item.general.nameOfContest)), { length: 20, separator: '...' })}
                                     </Text>
                                     <View style={{ flexDirection: 'row', bottom: 0, right: 0, position: 'absolute', padding: 5 }}>
                                         <Text

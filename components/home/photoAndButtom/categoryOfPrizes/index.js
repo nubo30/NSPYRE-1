@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableHighlight, ImageBackground } from 'react-native';
 import { withNavigation } from 'react-navigation'
 import { Container, View, Text, Spinner, Tab, Tabs, Button, Content, TabHeading } from "native-base"
-import _ from "lodash"
+import lowerFirst from "lodash/lowerFirst"
 import * as Animatable from 'react-native-animatable';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
@@ -154,7 +154,7 @@ class ListGeneralPrizes extends Component {
                                                             minimumFontScale={wp(3)}
                                                             allowFontScaling={false}
                                                             style={{ color: "#FFF", fontSize: wp(3), position: "absolute", bottom: 0, padding: 10, right: 0, fontStyle: 'italic' }}>
-                                                            Published at {_.lowerFirst(`${moment(item.createdAt).format('LL')}`)}
+                                                            Published at {lowerFirst(`${moment(item.createdAt).format('LL')}`)}
                                                         </Text>
                                                     </View>
                                                 </ImageBackground>

@@ -15,7 +15,10 @@ import {
     Spinner,
     View
 } from "native-base"
-import _ from 'lodash'
+import lowerCase from 'lodash/lowerCase'
+import truncate from 'lodash/truncate'
+import startCase from 'lodash/startCase'
+import lowerFirst from 'lodash/lowerFirst'
 import * as Animatable from 'react-native-animatable';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -72,7 +75,7 @@ class ShowPrizes extends Component {
         const { navigation } = this.props
         const categoryPrizes = navigation.getParam('categoryPrizes');
         const userData = navigation.getParam('userData')
-        let filterPrize = prizes && prizes.filter((item) => { return item.general.nameOfPrize.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
+        let filterPrize = prizes && prizes.filter((item) => { return item.general.nameOfPrize.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
             <Container>
                 <Header span style={{ backgroundColor: "#D82B60", borderBottomColor: "rgba(0,0,0,0.0)", height: 110 }}>
@@ -89,7 +92,7 @@ class ShowPrizes extends Component {
                                 <Title
                                     minimumFontScale={wp(9)}
                                     allowFontScaling={false}
-                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{_.truncate(_.startCase(categoryPrizes.name), { length: 17, separator: "..." })}</Title>
+                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{truncate(startCase(categoryPrizes.name), { length: 17, separator: "..." })}</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>
@@ -155,7 +158,7 @@ class ShowPrizes extends Component {
                                                     minimumFontScale={wp(2.5)}
                                                     allowFontScaling={false}
                                                     style={{ color: "#FFF", fontSize: wp(3.5), position: "absolute", bottom: 0, padding: 10, right: 0, fontStyle: 'italic' }}>
-                                                    Published by {_.startCase(item.user.name)}, at {_.lowerFirst(`${moment(item.createdAt).format('LL')}`)}.
+                                                    Published by {startCase(item.user.name)}, at {lowerFirst(`${moment(item.createdAt).format('LL')}`)}.
                                                 </Text>
                                             </View>
                                         </ImageBackground>

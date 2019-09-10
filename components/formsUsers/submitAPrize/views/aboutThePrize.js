@@ -473,13 +473,7 @@ export default class AboutTheContest extends Component {
                                         ? this.setState({ visibleModalPrice: false })
                                         : this.setState({ price: "", visibleModalPrice: false })
                                 }>
-                                    <Text allowFontScaling={false} style={{
-                                        fontSize: wp(4),
-                                        letterSpacing: 1,
-                                        color: price ? "#E91E63" : "#3333"
-                                    }}>{
-                                            price ? "Done" : "Cancel"
-                                        }</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), letterSpacing: 1, color: price ? "#E91E63" : "#3333" }}>{price ? "Done" : "Cancel"}</Text>
                                 </Button>
                             </Right>
                         </Header>

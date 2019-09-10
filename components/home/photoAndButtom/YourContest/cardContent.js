@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { ImageBackground, Platform, TouchableHighlight, Alert, Share, Linking } from 'react-native'
+import { ImageBackground, Platform, TouchableHighlight, Alert, Share } from 'react-native'
 import { Text, View, Button, Spinner, Icon } from "native-base"
 import { API, graphqlOperation } from "aws-amplify"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import * as Animatable from 'react-native-animatable';
-import _ from 'lodash'
+import startCase from 'lodash/startCase'
+import lowerCase from 'lodash/lowerCase'
 import { withNavigation } from "react-navigation"
 import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
@@ -187,13 +188,13 @@ class CardContent extends Component {
                             minimumFontScale={wp(6)}
                             allowFontScaling={false}
                             style={{ color: "#333", fontSize: wp(6), top: -10 }}>
-                            {_.startCase(item.general.nameOfContest)}
+                            {startCase(item.general.nameOfContest)}
                         </Text>
                         <Text
                             minimumFontScale={wp(4)}
                             allowFontScaling={false}
                             style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
-                            The category is <Text style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: 'bold' }}>{_.lowerCase(item.category)}</Text>
+                            The category is <Text style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: 'bold' }}>{lowerCase(item.category)}</Text>
                         </Text>
                         <Text
                             minimumFontScale={wp(3)}
