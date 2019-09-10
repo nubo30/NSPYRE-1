@@ -29,11 +29,7 @@ function HeaderContest(props) {
                     minimumFontScale={wp(6)}
                     style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>Yours Contests</Title>
             </Left>
-            <Right>
-                <Button transparent onPress={() => props._openSearchBar()}>
-                    <Icon type="Ionicons" name="ios-search" style={{ fontSize: wp(6), color: "#D81B60" }} />
-                </Button>
-            </Right>
+            <Right />
         </Header>
     )
 }

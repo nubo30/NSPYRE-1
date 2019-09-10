@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, Platform, RefreshControl } from 'react-native';
-import { Container, View, Tab, Tabs, Text, TabHeading, Icon } from "native-base"
+import { FlatList, RefreshControl } from 'react-native';
+import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input } from "native-base"
 import _ from 'lodash'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import SearchBar from 'react-native-searchbar'
 
 // childComponents
 import HeaderContest from "./header"
@@ -21,20 +20,6 @@ class UserContest extends Component {
         super()
         this.state = { input: "", contestParticipated: [], contestList: [], refreshing: false }
         this._isMounted = true
-    }
-
-
-    _emptySearchInput = () => {
-        this.setState({ input: "" })
-        this.searchBar._clearInput()
-    }
-
-    _openSearchBar = () => {
-        this.searchBar.show()
-    }
-
-    _closeSearchBar = () => {
-        this.searchBar.hide()
     }
 
     componentDidMount() {
@@ -71,28 +56,23 @@ class UserContest extends Component {
         let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
         return (
             <Container style={{ backgroundColor: '#FAFAFA' }}>
-                {/* Search Bar */}
-                <View style={Platform.OS === "ios" ? { position: "absolute", zIndex: 1 } : { position: "absolute" }}>
-                    <SearchBar
-                        ref={(ref) => this.searchBar = ref}
-                        handleChangeText={(input) => this.setState({ input })}
-                        allowFontScaling={false}
-                        minimumFontScale={wp(6)}
-                        fontSize={15}
-                        placeholder={`Filter by name...`}
-                        animate={false}
-                        iconColor="#D81B60"
-                        backgroundColor="#F5F5F5"
-                        heightAdjust={-5}
-                        autoCorrect={false}
-                    />
-                </View>
-
                 {/* Header */}
-                <HeaderContest _openSearchBar={this._openSearchBar} _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                <HeaderContest _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                <Header searchBar rounded transparent style={{ height: 50, width: 300 }}>
+                    <Item style={{ top: -10, backgroundColor: '#FAFAFA' }}>
+                        <Icon name="ios-search" style={{ color: !input ? "#D81B60" : "#333" }} />
+                        <Input
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            value={input}
+                            onChangeText={(input) => this.setState({ input })}
+                            placeholderTextColor="#D81B60"
+                            placeholder="Filter by name of contest" />
+                    </Item>
+                </Header>
                 <Tabs
-                    style={{ backgroundColor: '#FFF' }}
-                    onChangeTab={() => { this._closeSearchBar(); this._emptySearchInput() }}
+                    style={{ backgroundColor: '#FAFAFA' }}
+                    onChangeTab={() => this.setState({ input: "" })}
                     tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
                     <Tab
                         heading={
@@ -105,8 +85,8 @@ class UserContest extends Component {
                         }
                         activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
                         textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#F5F5F5" }}
-                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        tabStyle={{ backgroundColor: "#FAFAFA" }}
+                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1, top: -40 }}>
                             <Icon type="Ionicons" name="ios-construct" style={{ fontSize: wp(20), color: '#3333', alignSelf: 'center' }} />
                             <Text style={{ alignSelf: 'center', color: "#3333" }}>In construction</Text>
@@ -123,8 +103,8 @@ class UserContest extends Component {
                         }
                         activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
                         textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#F5F5F5" }}
-                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        tabStyle={{ backgroundColor: "#FAFAFA" }}
+                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
                         {
                             filterContestCreated && filterContestCreated.length
                                 ? <FlatList
@@ -150,8 +130,8 @@ class UserContest extends Component {
                         }
                         activeTextStyle={{ color: '#D81B60' }}
                         textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#F5F5F5" }}
-                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        tabStyle={{ backgroundColor: "#FAFAFA" }}
+                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
                         {
                             filterContestParticipated && filterContestParticipated.length
                                 ? <FlatList
