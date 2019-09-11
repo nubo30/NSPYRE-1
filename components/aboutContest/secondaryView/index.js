@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 // Child Component
 import { MyStatusBar } from '../../Global/statusBar/index'
-import { randomColors } from '../../Global/data/index'
+import { randomColors } from '../../Global/data/global'
 import CBarChart from '../charts/CBarChart'
 import CPieChart from '../charts/CPieChart'
 

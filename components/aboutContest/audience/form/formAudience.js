@@ -13,10 +13,7 @@ import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from 
 // Static Data
 import {
     randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, occupationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
-} from '../../../../assets/data/global'
-import countries from '../../../../assets/data/countries.json'
-import universities from '../../../../assets/data/universities.json'
-import schoolJSON from '../../../../assets/data/schools.json'
+} from '../../../Global/data/global'
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
@@ -113,11 +110,11 @@ export default class FormAudience extends Component {
     componentDidMount() {
         this._isMounted = true;
         if (this._isMounted) {
-            this._getContry()
+            this._getCountry()
             this._getAcademicLevelAchieved()
             this._getNacionality()
-            this._getSchools()
-            this._getUniversity()
+            this._getUniversityFromAPI()
+            this._getSchoolsFromAPI()
             this._getMusicGenre()
             this._getSports()
             this._getParentalCondition()
@@ -186,10 +183,37 @@ export default class FormAudience extends Component {
         }
     }
 
-    _getContry = () => {
+    _getCountry = async () => {
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            response.json().then(json => this._getNameCountry(json))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    _getNameCountry = (countries) => {
         const { contest } = this.props
         _.remove(countries, { name: contest.aboutTheUser.location.country })
         this.setState({ countryList: [{ name: 'List of countries', id: 10 * 100, children: countries.map((item, key) => { return { name: item.name, id: key } }) }] })
+    }
+
+    _getUniversityFromAPI = async () => {
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/universities.json')
+            response.json().then(json => this._getUniversity(json))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    _getSchoolsFromAPI = async () => {
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/schools.json')
+            response.json().then(json => this._getSchools(json))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     _getNacionality = () => {
@@ -204,11 +228,11 @@ export default class FormAudience extends Component {
         this.setState({ academicLevelAchievedList: [{ name: 'List of academic level achieved', id: 10 * 100, children: academicLevelAchievedList.map((item, key) => { return { name: item, id: key } }) }] })
     }
 
-    _getSchools = () => {
-        this.setState({ schoolsList: [{ name: 'List of schools', id: 10 * 100, children: schoolJSON.schools.map((item, key) => { return { name: item.name, id: key } }) }] })
+    _getSchools = (schoolsData) => {
+        this.setState({ schoolsList: [{ name: 'List of schools', id: 10 * 100, children: schoolsData.schools.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
-    _getUniversity = () => {
+    _getUniversity = (universities) => {
         this.setState({ universityList: [{ name: 'List of universities', id: 10 * 100, children: universities.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 

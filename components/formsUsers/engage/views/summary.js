@@ -17,7 +17,7 @@ import { MyStatusBar } from '../../../Global/statusBar/index'
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
-import { randomColors } from '../../../Global/data/index'
+import { randomColors } from '../../../Global/data/global'
 
 // GraphQL
 import * as mutations from '../../../../src/graphql/mutations'

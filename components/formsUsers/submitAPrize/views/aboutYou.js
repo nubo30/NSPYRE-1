@@ -16,9 +16,6 @@ import { MyStatusBar } from '../../../Global/statusBar/index'
 // Icons
 import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'
 
-// Countries data
-import countries from '../../../../assets/data/countries.json'
-
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
@@ -53,6 +50,7 @@ class AboutYou extends Component {
         visibleModalSocialMediaHandle: false,
 
         // Data API
+        dataCountries: [],
         listCountries: [],
         listRegions: [],
         listCities: []
@@ -63,17 +61,23 @@ class AboutYou extends Component {
         this._getCountry()
     }
 
-    _getCountry = async () => {
-        this.setState({ listCountries: countries.map(item => item.name) })
-    }
-
-
     componentWillUpdate(nextProps, nextState) {
         if (nextState.businessLocation.country !== this.state.businessLocation.country) { this._getRegions(nextState.businessLocation.country) }
         if (nextState.businessLocation.state !== this.state.businessLocation.state) { this._getCities(nextState.businessLocation.state) }
     }
+
+    _getCountry = async () => {
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            response.json().then(json => this.setState({ listCountries: json.map(item => item.name), dataCountries: json }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     _getRegions = async (country) => {
-        let regions = []; regions = countries.filter(item => item.name.indexOf(country) !== -1)
+        const { dataCountries } = this.state
+        let regions = []; regions = dataCountries.filter(item => item.name.indexOf(country) !== -1)
         if (regions.length !== 0) {
             this.setState({
                 listRegions: regions[0].states.map(items => items),

@@ -5,7 +5,9 @@ import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, I
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
-import _ from 'lodash'
+import lowerCase from 'lodash/lowerCase'
+import startCase from 'lodash/startCase'
+import truncate from 'lodash/truncate'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
 
@@ -14,10 +16,7 @@ import { GadrientsAuth } from '../../../Global/gradients'
 import { MyStatusBar } from '../../../Global/statusBar'
 
 // Static data
-import { occupationList } from '../../../../assets/data/global'
-
-// Countries data
-import countries from '../../../../assets/data/countries.json'
+import { occupationList } from '../../../Global/data/global'
 
 
 const screenWidth = Dimensions.get('window').width
@@ -49,6 +48,7 @@ class AboutYou extends Component {
         visibleModalTitleInTheCompany: false,
 
         // Data API
+        dataCountries: [],
         listCountries: [],
         listRegions: [],
         listCities: []
@@ -58,18 +58,42 @@ class AboutYou extends Component {
         this._getCountry()
     }
 
-    _getCountry = async () => {
-        this.setState({ listCountries: countries.map(item => item.name) })
-    }
-
     componentWillUpdate(nextProps, nextState) {
         if (nextState.location.country !== this.state.location.country) { this._getRegions(nextState.location.country) }
         if (nextState.location.state !== this.state.location.state) { this._getCities(nextState.location.state) }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.wantSuggestedFields) {
+            const { dataFromThePreviousContest } = nextProps
+            this.setState({
+                location: {
+                    street: dataFromThePreviousContest.aboutTheUser.location.street,
+                    state: dataFromThePreviousContest.aboutTheUser.location.state,
+                    city: dataFromThePreviousContest.aboutTheUser.location.city,
+                    country: dataFromThePreviousContest.aboutTheUser.location.country
+                },
+                companyName: dataFromThePreviousContest.aboutTheUser.companyName,
+                titleInTheCompany: dataFromThePreviousContest.aboutTheUser.titleInTheCompany,
+                coinLocation: 60,
+                coinCompanyName: 50,
+                coinTitleInTheCompany: 50
+            })
+        }
+    }
+
+    _getCountry = async () => {
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            response.json().then(json => this.setState({ listCountries: json.map(item => item.name), dataCountries: json }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     _getRegions = async (country) => {
-        let regions = []; regions = countries.filter(item => item.name.indexOf(country) !== -1)
+        const { dataCountries } = this.state
+        let regions = []; regions = dataCountries.filter(item => item.name.indexOf(country) !== -1)
         if (regions.length !== 0) {
             this.setState({
                 listRegions: regions[0].states.map(items => items),
@@ -124,25 +148,6 @@ class AboutYou extends Component {
         }, 500);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.wantSuggestedFields) {
-            const { dataFromThePreviousContest } = nextProps
-            this.setState({
-                location: {
-                    street: dataFromThePreviousContest.aboutTheUser.location.street,
-                    state: dataFromThePreviousContest.aboutTheUser.location.state,
-                    city: dataFromThePreviousContest.aboutTheUser.location.city,
-                    country: dataFromThePreviousContest.aboutTheUser.location.country
-                },
-                companyName: dataFromThePreviousContest.aboutTheUser.companyName,
-                titleInTheCompany: dataFromThePreviousContest.aboutTheUser.titleInTheCompany,
-                coinLocation: 60,
-                coinCompanyName: 50,
-                coinTitleInTheCompany: 50
-            })
-        }
-    }
-
     render() {
         const {
             isvalidFormAnimation,
@@ -170,10 +175,10 @@ class AboutYou extends Component {
             listCities
         } = this.state
         const { userData, navigation } = this.props
-        let filterOcuppationList = occupationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextTitleIntheCompany)) !== -1 })
-        let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(_.lowerCase(inputTextRegions)) !== -1 })
-        let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextCountry)) !== -1 })
-        let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(_.lowerCase(inputTextCities)) !== -1 })
+        let filterOcuppationList = occupationList.filter((item) => { return item.toLowerCase().indexOf(lowerCase(inputTextTitleIntheCompany)) !== -1 })
+        let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(lowerCase(inputTextRegions)) !== -1 })
+        let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(lowerCase(inputTextCountry)) !== -1 })
+        let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(lowerCase(inputTextCities)) !== -1 })
         return (
             <Container>
                 <GadrientsAuth />
@@ -215,7 +220,7 @@ class AboutYou extends Component {
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && startCase(lowerCase(userData.name))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -230,7 +235,7 @@ class AboutYou extends Component {
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && startCase(lowerCase(userData.lastname))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -291,7 +296,7 @@ class AboutYou extends Component {
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? _.truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>

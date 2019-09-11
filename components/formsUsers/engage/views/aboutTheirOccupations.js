@@ -12,9 +12,7 @@ import { GadrientsAuth } from '../../../Global/gradients'
 import { MyStatusBar } from '../../../Global/statusBar'
 
 // Data
-import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../../assets/data/global'
-import universities from "../../../../assets/data/universities.json"
-import schoolsJson from "../../../../assets/data/schools.json"
+import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../Global/data/global'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -63,11 +61,21 @@ class AbouttheirOccupations extends PureComponent {
     }
 
     _getSchools = async () => {
-        this.setState({ schoolsList: schoolsJson.schools.map(item => item.name).sort() })
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/schools.json')
+            response.json().then(json => this.setState({ schoolsList: json.schools.map(item => item.name).sort() }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     _getUniversity = async () => {
-        this.setState({ universityList: universities.map(item => item.name).sort() })
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            response.json().then(json => this.setState({ universityList: json.map(item => item.name).sort() }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Modals

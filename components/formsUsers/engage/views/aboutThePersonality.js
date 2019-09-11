@@ -12,8 +12,7 @@ import AnimateNumber from 'react-native-animate-number'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Data
-import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../Global/data/index'
-import countries from '../../../../assets/data/countries.json'
+import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../Global/data/global'
 // Gradients
 import { GadrientsAuth } from '../../../Global/gradients/index'
 import { MyStatusBar } from '../../../Global/statusBar/index'
@@ -66,6 +65,7 @@ class AboutThePersonality extends Component {
         datePickerAction: false,
 
         // Data API
+        dataCountries:[],
         listCountries: [],
         listRegions: [],
         listCities: []
@@ -76,21 +76,27 @@ class AboutThePersonality extends Component {
     }
 
     _getCountry = async () => {
-        this.setState({ listCountries: countries.map(item => item.name) })
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.location.country !== this.state.location.country) { this._getRegions(nextState.location.country) }
-        if (nextState.location.state !== this.state.location.state) { this._getCities(nextState.location.state) }
+        try {
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            response.json().then(json => this.setState({ listCountries: json.map(item => item.name), dataCountries: json }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     _getRegions = async (country) => {
-        let regions = []; regions = countries.filter(item => item.name.indexOf(country) !== -1)
+        const { dataCountries } = this.state
+        let regions = []; regions = dataCountries.filter(item => item.name.indexOf(country) !== -1)
         if (regions.length !== 0) {
             this.setState({
                 listRegions: regions[0].states.map(items => items),
             })
         }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.location.country !== this.state.location.country) { this._getRegions(nextState.location.country) }
+        if (nextState.location.state !== this.state.location.state) { this._getCities(nextState.location.state) }
     }
 
     _getCities = async (region) => {
