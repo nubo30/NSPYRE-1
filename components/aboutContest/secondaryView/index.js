@@ -9,8 +9,8 @@ import moment from 'moment'
 import _ from 'lodash'
 
 // Child Component
-import { MyStatusBar } from '../../Global/statusBar/index'
-import { randomColors } from '../../Global/data/global'
+import { MyStatusBar } from '../../global/statusBar/index'
+import { randomColors } from '../../global/static/colors'
 import CBarChart from '../charts/CBarChart'
 import CPieChart from '../charts/CPieChart'
 

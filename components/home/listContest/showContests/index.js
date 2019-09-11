@@ -19,9 +19,9 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Child Components
 import CardContestAll from "./switchCards/cardContestAll"
-import { DataNotFound } from "../../../Global/emojis/index"
+import { DataNotFound } from "../../../global/emojis/index"
 import PlaceholderAll from './placeholderAll'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 // GraphQL
 import * as queries from '../../../../src/graphql/queries'

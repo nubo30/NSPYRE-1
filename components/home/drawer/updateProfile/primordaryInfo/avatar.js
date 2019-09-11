@@ -114,7 +114,7 @@ class Avatar extends Component {
                 </View>
                 <Button
                     disabled={isLoading}
-                    small rounded bordered
+                    small bordered
                     onPress={() => { this.useLibraryHandler() }}
                     style={{ borderColor: isLoading ? "#BDBDBD" : "#D81B60", alignSelf: "center", width: 110, justifyContent: 'center' }}>
                     {isLoading

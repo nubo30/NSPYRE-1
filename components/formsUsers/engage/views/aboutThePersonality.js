@@ -5,17 +5,17 @@ import { Container, Input, Header, Item, Title, Content, Footer, Button, Left, R
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
-import _ from 'lodash'
+import sum from 'lodash/sum'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
 import AnimateNumber from 'react-native-animate-number'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Data
-import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../Global/data/global'
+import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as nacionalityList, parentalConditionList } from '../../../global/data/global'
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

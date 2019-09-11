@@ -8,11 +8,11 @@ import _ from 'lodash'
 import AnimateNumber from 'react-native-animate-number'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients'
-import { MyStatusBar } from '../../../Global/statusBar'
+import { GadrientsAuth } from '../../../global/gradients'
+import { MyStatusBar } from '../../../global/statusBar'
 
 // Data
-import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../Global/data/global'
+import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../global/data/global'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

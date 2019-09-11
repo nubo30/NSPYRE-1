@@ -6,7 +6,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { PlaceholderMedia } from 'rn-placeholder'
 import _ from 'lodash'
 
-import { MyStatusBar } from '../Global/statusBar/index'
+import { MyStatusBar } from '../global/statusBar/index'
 
 class UserProfilePlaceholder extends Component {
     render() {

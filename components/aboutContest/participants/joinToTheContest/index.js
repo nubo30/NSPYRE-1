@@ -14,9 +14,9 @@ import moment from 'moment'
 import AWS from 'aws-sdk'
 
 // Animations
-import AnimationManWihtHearts from '../../../Global/lottieJs/manWithHearts'
-import InstructionsGirlWithPhone from '../../../Global/lottieJs/instructionsGirlWithPhone'
-import CongratsParticipate from '../../../Global/lottieJs/congratsParticipate'
+import AnimationManWihtHearts from '../../../global/lottieJs/manWithHearts'
+import InstructionsGirlWithPhone from '../../../global/lottieJs/instructionsGirlWithPhone'
+import CongratsParticipate from '../../../global/lottieJs/congratsParticipate'
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height

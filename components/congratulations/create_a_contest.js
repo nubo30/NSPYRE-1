@@ -4,7 +4,7 @@ import { Button, Text, View } from 'native-base';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Gadrient
-import { colors } from "../Global/static/colors"
+import { colors } from "../global/static/colors"
 
 class Create_A_Contest extends Component {
 

@@ -12,8 +12,9 @@ import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from 
 
 // Static Data
 import {
-    randomColors, cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, occupationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
-} from '../../../Global/data/global'
+     cateogryList, sexualityList, academicLevelAchievedList, maritalStatusList, musicsGenre, sportsList, nacionality, regionalIdentityList, parentalConditionList, occupationList, rentOrOwnHouseList, rentOrOwnCarList, categoryPrizeList, socioeconomicLevelList
+} from '../../../global/data/global'
+import { randomColors } from '../../../global/static/colors'
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'

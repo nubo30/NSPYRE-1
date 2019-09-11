@@ -23,8 +23,8 @@ import JoinToTheContest from './participants/joinToTheContest'
 import VideoPageOne from './video'
 
 // Gradients
-import { GadrientsAboutContest } from "../Global/gradients"
-import { MyStatusBar } from '../Global/statusBar'
+import { GadrientsAboutContest } from "../global/gradients"
+import { MyStatusBar } from '../global/statusBar'
 
 // Icons
 import { Ionicons } from '@expo/vector-icons'

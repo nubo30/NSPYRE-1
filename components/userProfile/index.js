@@ -5,12 +5,15 @@ import { Container, Header, Title, Content, Button, Left, Icon, Text, View, Thum
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import UserAvatar from "react-native-user-avatar"
-import _ from 'lodash'
+import flatten from 'lodash/flatten'
+import startCase from 'lodash/startCase'
+import lowerCase from 'lodash/lowerCase'
+import values from 'lodash/values'
 
 // GRAPFQL
 import * as queries from '../../src/graphql/queries'
 
-import { MyStatusBar } from '../Global/statusBar/index'
+import { MyStatusBar } from '../global/statusBar/index'
 
 // Child Component
 import UserProfilePlaceholder from './placeholder'
@@ -51,7 +54,7 @@ class UserProfile extends Component {
                             <Icon name='arrow-back' style={{ color: '#FFF', }} />
                             <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(6), alignSelf: 'center' }}>{_.startCase(_.lowerCase(`${userData.name} ${userData.lastname}`))}</Title>
+                        <Title allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(6), alignSelf: 'center' }}>{startCase(lowerCase(`${userData.name} ${userData.lastname}`))}</Title>
                     </Left>
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
@@ -76,7 +79,7 @@ class UserProfile extends Component {
                             <Content padder showsVerticalScrollIndicator={false}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>Hobbies and preferences</Text>
                                 <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap', width: '100%' }}>
-                                    {[...new Set(_.flatten(_.values(userData.engage.items[0].interests)))].map((item, key) =>
+                                    {[...new Set(flatten(values(userData.engage.items[0].interests)))].map((item, key) =>
                                         <View key={key} style={{ backgroundColor: '#E0E0E0', padding: 5, borderRadius: 5, margin: 5, height: 30 }}>
                                             <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333' }}>{item}</Text>
                                         </View>)}

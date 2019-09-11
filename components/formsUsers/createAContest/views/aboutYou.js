@@ -12,11 +12,11 @@ import { normalizeEmail } from 'validator'
 import moment from 'moment'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients'
-import { MyStatusBar } from '../../../Global/statusBar'
+import { GadrientsAuth } from '../../../global/gradients'
+import { MyStatusBar } from '../../../global/statusBar'
 
 // Static data
-import { occupationList } from '../../../Global/data/global'
+import { occupationList } from '../../../global/data/global'
 
 
 const screenWidth = Dimensions.get('window').width

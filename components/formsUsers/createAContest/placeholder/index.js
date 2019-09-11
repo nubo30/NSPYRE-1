@@ -5,8 +5,8 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 
-import { GadrientsAuth } from '../../../Global/gradients'
-import { MyStatusBar } from '../../../Global/statusBar'
+import { GadrientsAuth } from '../../../global/gradients'
+import { MyStatusBar } from '../../../global/statusBar'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

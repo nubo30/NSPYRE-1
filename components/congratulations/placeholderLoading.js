@@ -3,7 +3,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { Container, Header, Content, Footer, Left, Right, Body, FooterTab } from 'native-base';
 import Placeholder from 'rn-placeholder'
 
-import { MyStatusBar } from '../Global/statusBar/index'
+import { MyStatusBar } from '../global/statusBar/index'
 
 export default function PlaceholderLoading() {
     return (

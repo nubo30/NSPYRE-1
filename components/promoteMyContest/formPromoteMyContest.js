@@ -10,12 +10,8 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { audienceReachData } from "../../store/actions/projectsActions"
 
 // Style
-import { colors } from '../Global/static/colors'
+import { colors } from '../global/static/colors'
 import { Ionicons } from '@expo/vector-icons'
-
-// Data
-// import { SystemEducation } from "../Global/static/systemEducation"
-// import { Location } from "../Global/static/location"
 
 class FormPromoteMyContest extends Component {
     state = {

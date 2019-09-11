@@ -12,7 +12,7 @@ import DrawerRight from "./drawer"
 import ListContest from "./listContest"
 
 // gadrient
-import { MyStatusBar } from '../Global/statusBar'
+import { MyStatusBar } from '../global/statusBar'
 
 // Graphql
 import * as queries from '../../src/graphql/queries'

@@ -13,8 +13,8 @@ import Swiper from 'react-native-swiper'
 import AWS from 'aws-sdk'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
 import { Ionicons, Entypo, FontAwesome, MaterialIcons, Feather, Foundation, AntDesign } from '@expo/vector-icons'

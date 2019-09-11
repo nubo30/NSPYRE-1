@@ -9,8 +9,8 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
 import { Entypo, FontAwesome, AntDesign, MaterialIcons, Feather, Ionicons } from '@expo/vector-icons'

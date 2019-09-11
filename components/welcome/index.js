@@ -7,9 +7,9 @@ import * as Animatable from 'react-native-animatable';
 import _ from 'lodash'
 
 // Gradients
-import { GadrientsAuth } from '../Global/gradients/index'
-import { MyStatusBar } from '../Global/statusBar/index'
-import { colors } from "../Global/static/colors"
+import { GadrientsAuth } from '../global/gradients/index'
+import { MyStatusBar } from '../global/statusBar/index'
+import { colors } from "../global/static/colors"
 
 const engage = `Now tell us a little about yourself so we can get you started on your first contest! 😁`
 const createContest = `Tell us about yourself and the contest you want to build! 🔥 \nIf you want to use our community to promote your contest we will let you know the prize as you build... and you can use our prize center for FREE for any size compaign! ❤`

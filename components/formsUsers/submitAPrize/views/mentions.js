@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Dimensions, Modal } from 'react-native'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, ListItem, Input, Item, Spinner, Switch } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -7,8 +7,8 @@ import { Grid, Row, Col } from 'react-native-easy-grid'
 import _ from 'lodash'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
 import { Ionicons, MaterialCommunityIcons, Entypo, Feather, AntDesign } from '@expo/vector-icons'

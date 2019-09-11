@@ -6,9 +6,9 @@ import * as Animatable from 'react-native-animatable';
 import PhoneInput from 'react-native-phone-input'
 
 // Child Components
-import { GadrientsAuth } from '../../Global/gradients/index'
-import { MyStatusBar } from '../../Global/statusBar/index'
-import Logo from '../../Global/lottieJs/logo'
+import { GadrientsAuth } from '../../global/gradients/index'
+import { MyStatusBar } from '../../global/statusBar/index'
+import Logo from '../../global/lottieJs/logo'
 
 class AuthPlaceholder extends Component {
     render() {

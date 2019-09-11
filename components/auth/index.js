@@ -16,9 +16,9 @@ import Scope from './forms/scope'
 import AuthPlaceholder from './placeholder/index'
 
 // Gradients
-import { GadrientsAuth } from '../Global/gradients/index'
-import { MyStatusBar } from '../Global/statusBar/index'
-import Logo from '../Global/lottieJs/logo'
+import { GadrientsAuth } from '../global/gradients/index'
+import { MyStatusBar } from '../global/statusBar/index'
+import Logo from '../global/lottieJs/logo'
 
 class Auth extends Component {
 

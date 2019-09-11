@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import HeaderContest from "./header"
 import CardContent from "./cardContent"
 import AssociatedContest from './associatedContest'
-import { DataNotFound } from "../../../Global/emojis/index"
+import { DataNotFound } from "../../../global/emojis/index"
 
 // Graphql
 import { API, graphqlOperation } from 'aws-amplify'

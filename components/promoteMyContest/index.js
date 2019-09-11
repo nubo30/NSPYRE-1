@@ -12,7 +12,7 @@ import HeaderPromoteContest from './header/index'
 import FormPromoteContest from './formPromoteMyContest'
 
 // Styles
-import { colors } from "../Global/static/colors"
+import { colors } from "../global/static/colors"
 
 // GraphQL
 import * as queries from "../../src/graphql/queries"

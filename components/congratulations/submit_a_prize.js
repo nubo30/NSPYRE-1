@@ -6,7 +6,7 @@ import { graphqlOperation, API } from 'aws-amplify'
 import _ from "lodash"
 
 // Gadrient
-import { colors } from "../Global/static/colors"
+import { colors } from "../global/static/colors"
 
 // GraphQL
 import * as mutations from '../../src/graphql/mutations'

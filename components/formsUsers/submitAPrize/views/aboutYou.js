@@ -10,8 +10,8 @@ import { isAscii, normalizeEmail } from 'validator'
 import moment from 'moment'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
 import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'

@@ -9,7 +9,7 @@ import UserAvatar from "react-native-user-avatar"
 import moment from 'moment'
 
 
-import { MyStatusBar } from '../../Global/statusBar/index'
+import { MyStatusBar } from '../../global/statusBar/index'
 
 import * as mutations from '../../../src/graphql/mutations'
 

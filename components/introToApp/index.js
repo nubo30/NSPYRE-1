@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Video } from 'expo-av';
 
 // Animaciones
-import IntroToApp1 from '../Global/lottieJs/introApp1'
+import IntroToApp1 from '../global/lottieJs/introApp1'
 
 // GRAPHQL
 import * as queries from '../../src/graphql/queries'

@@ -7,8 +7,8 @@ import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 
 // Gradients
-import { GadrientsAuth } from '../../../Global/gradients/index'
-import { MyStatusBar } from '../../../Global/statusBar/index'
+import { GadrientsAuth } from '../../../global/gradients/index'
+import { MyStatusBar } from '../../../global/statusBar/index'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

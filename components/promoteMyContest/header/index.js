@@ -5,8 +5,8 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Placeholder from 'rn-placeholder'
 
 // background of header
-import { MyStatusBar } from '../../Global/statusBar/index'
-import { GradientTypeForm } from "../../Global/gradients/index"
+import { MyStatusBar } from '../../global/statusBar/index'
+import { GradientTypeForm } from "../../global/gradients/index"
 
 function FormPromoteContest(props) {
     return (

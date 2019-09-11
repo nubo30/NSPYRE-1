@@ -6,7 +6,7 @@ import { withNavigation } from "react-navigation"
 import { graphqlOperation, API } from 'aws-amplify'
 
 // Gadrient
-import { colors } from "../Global/static/colors"
+import { colors } from "../global/static/colors"
 
 // Child Componente
 import CategoryOfPrizes from '../home/photoAndButtom/categoryOfPrizes/index'
