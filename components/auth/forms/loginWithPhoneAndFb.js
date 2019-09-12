@@ -143,11 +143,12 @@ class Login extends Component {
                             <List style={{ width: "100%", justifyContent: 'space-between' }}>
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <PhoneInput
-                                        editable={false} selectTextOnFocus={false}
+                                        editable={false}
+                                        selectTextOnFocus={false}
                                         ref={(ref) => { this.phone = ref; }}
                                         onChangePhoneNumber={() => { this._getNumberPhone() }}
                                         autoFormat={true}
-                                        buttonTextStyle={{ backgroundColor: 'red' }}
+                                        autoCorrect={false}
                                         confirmText="OK"
                                         cancelText="CANCEL"
                                         pickerButtonColor="#E91E63"
@@ -167,6 +168,7 @@ class Login extends Component {
                                         returnKeyType='send'
                                         onSubmitEditing={() => this.phone.isValidNumber() ? this._submit() : Keyboard.dismiss()}
                                         allowFontScaling={false}
+                                        autoCorrect={false}
                                         textContentType="password"
                                         style={{ fontSize: wp(6), color: "#333" }}
                                         selectionColor="#E91E63"
@@ -214,8 +216,8 @@ class Login extends Component {
                                     shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button
-                                    disable={isLoadingFb || isLoading}
-                                    onPress={() => this._submit()}
+                                    disable={isLoading}
+                                    onPress={() => isLoadingFb ? {} : this._submit()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
                                     {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
@@ -228,7 +230,7 @@ class Login extends Component {
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(7), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left:12 }}>Change</Text>
+                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 12 }}>Change</Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>phone number</Text>
                                 </Button>
