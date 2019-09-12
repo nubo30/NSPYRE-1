@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { connect } from 'react-redux'
 import { AfterInteractions } from 'react-native-interactions';
+import * as WebBrowser from 'expo-web-browser';
 
 // Child Components
 import PhoneRegister from './forms/phoneRegister'
@@ -70,6 +71,13 @@ class Auth extends Component {
         this.setState({ activateNumberPhone: value })
     }
 
+    // Privacy Policies
+    _privacyPolicies = async () => {
+        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/');
+    };
+
+
+
     render() {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         const { isNotExistUserInTheAPI } = this.props
@@ -122,6 +130,11 @@ class Auth extends Component {
                                 <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
                             </View>
                         </Swiper>
+                        <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                            <Button small transparent style={{ alignSelf: 'center' }} onPress={() => this._privacyPolicies()}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textDecorationLine: 'underline', color: '#3333' }}>Privacy policies</Text>
+                            </Button>
+                        </View>
                     </Container>
 
                     {/* Activate Number Phone */}

@@ -44,10 +44,9 @@ class DrawerRight extends Component {
         catch (error) { console.log(error) }
     }
 
-    // Politicis
-    _politicis = async () => {
-        let result = await WebBrowser.openBrowserAsync('https://expo.io');
-        this.setState({ result });
+    // Privacy Policies
+    _privacyPolicies = async () => {
+        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/');
     };
 
     componentDidMount() {
@@ -199,7 +198,7 @@ class DrawerRight extends Component {
                         </ListItem>
                     </List>
                     <Button
-                        onPress={() => this._politicis()}
+                        onPress={() => this._privacyPolicies()}
                         style={{ alignSelf: 'center' }} transparent>
                         <Text
                             allowFontScaling={false}
