@@ -310,7 +310,13 @@ class AboutYou extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Title in the company</Text>
-                                            {isLoading ? null :
+                                        </Body>
+                                        <Right>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{titleInTheCompany}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <View style={{ position: 'absolute' }}>
                                                 <Picker
                                                     renderHeader={backAction =>
                                                         <Header searchBar transparent rounded style={{ left: -20 }}>
@@ -327,7 +333,6 @@ class AboutYou extends Component {
                                                                 <Icon type="Entypo" name="creative-commons-attribution" />
                                                             </Item>
                                                         </Header>}
-                                                    style={{ position: 'absolute', top: -40, width: "100%" }}
                                                     textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -337,26 +342,9 @@ class AboutYou extends Component {
                                                     selectedValue={titleInTheCompany}
                                                     onValueChange={(value) => this.setState({ titleInTheCompany: value })}>
                                                     {filterOcuppationList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                                </Picker>}
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{titleInTheCompany}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
+                                                </Picker>
+                                            </View>}
                                     </ListItem>
-
-
-                                    <Button iconRight small transparent style={{ alignSelf: 'center', top: 10 }}
-                                        onPress={() => Alert.alert(
-                                            'Why we need this?',
-                                            'We need this information to be able to get other users to find your contest!',
-                                            [
-                                                { text: 'OK', onPress: () => null },
-                                            ],
-                                        )}>
-                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
-                                        <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
-                                    </Button>
                                 </List>
 
                             </Content>

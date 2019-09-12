@@ -8,6 +8,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import PhoneInput from 'react-native-phone-input'
 import _ from 'lodash'
+import replace from 'lodash/replace'
 import * as Animatable from 'react-native-animatable';
 import Swiper from 'react-native-swiper'
 import CodeInput from 'react-native-confirmation-code-input';
@@ -39,7 +40,7 @@ class Login extends Component {
     }
 
     _getNumberPhone = () => {
-        const numberPhoneClear = _.replace(_.replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
+        const numberPhoneClear = replace(replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
         this.setState({ numberPhoneState: numberPhoneClear })
     }
 
@@ -51,9 +52,18 @@ class Login extends Component {
             const user = await Auth.signIn({ username: numberPhoneState ? numberPhoneState : numberPhone, password })
             if (user.challengeName === 'SMS_MFA') { this.setState({ user }) }
             this._changeSwiper(1)
-            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error }, isLoading: false })
+            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: "" }, isLoading: false })
         } catch (error) {
             this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error }, isLoading: false })
+        }
+    }
+
+    _resendCode = async (username) => {
+        try {
+            const response = await Auth.resendSignUp(username)
+            console.log(response, "<-----")
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -154,6 +164,8 @@ class Login extends Component {
                                 </ListItem>
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <Input
+                                        returnKeyType='send'
+                                        onSubmitEditing={() => this.phone.isValidNumber() ? this._submit() : Keyboard.dismiss()}
                                         allowFontScaling={false}
                                         textContentType="password"
                                         style={{ fontSize: wp(6), color: "#333" }}
@@ -216,15 +228,10 @@ class Login extends Component {
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(7), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 35 }}>Change</Text>
-                                <Button small transparent onPressIn={() => _changeSwiperRoot(-1)} style={{ left: 25 }}>
+                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left:12 }}>Change</Text>
+                                <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>phone number</Text>
                                 </Button>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 12 }}>o</Text>
-                                <Button small transparent onPress={() => this._resendCode(numberPhone)} >
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>forward SMS</Text>
-                                </Button>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5), textAlign: 'center', right: 17, top: -1.5 }}>.</Text>
                             </View>
                         </Row>
                         <Row size={20} style={{ alignSelf: 'center', flexDirection: 'column' }}>

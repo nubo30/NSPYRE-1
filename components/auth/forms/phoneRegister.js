@@ -6,6 +6,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import PhoneInput from 'react-native-phone-input'
 import _ from 'lodash'
+import replace from 'lodash/replace'
 import * as Animatable from 'react-native-animatable';
 import Swiper from 'react-native-swiper'
 
@@ -34,9 +35,10 @@ export default class PhoneRegister extends Component {
 
     _getNumberPhone = () => {
         const { _numberPhone } = this.props
-        const numberPhoneClear = _.replace(_.replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
+        const numberPhoneClear = replace(_.replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
         this.setState({ numberPhone: numberPhoneClear })
         _numberPhone(numberPhoneClear, this.state.newPassword)
+        this.phone.isValidNumber() ? this._changeSwiper(1) : null
     }
 
     _verifyNumberPhone = () => {
@@ -114,6 +116,10 @@ export default class PhoneRegister extends Component {
         }
     }
 
+    _changeFocusInput = () => {
+        this.secondTextInput.focus();
+    }
+
     render() {
         const {
             invalidPhoneNumberAnimation,
@@ -125,6 +131,7 @@ export default class PhoneRegister extends Component {
             repeatPassword,
             newPassword,
             numberPhone } = this.state
+
         return (
             <View style={{
                 flex: 1,
@@ -157,8 +164,8 @@ export default class PhoneRegister extends Component {
                                 </ListItem>
                                 <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                     <PhoneInput
-                                        allowFontScaling={false}
-                                        editable={false} selectTextOnFocus={false}
+                                        editable={false}
+                                        selectTextOnFocus={false}
                                         ref={(ref) => { this.phone = ref; }}
                                         onChangePhoneNumber={() => { this._getNumberPhone() }}
                                         autoFormat={true}
@@ -215,6 +222,8 @@ export default class PhoneRegister extends Component {
                                 <List style={{ width: "100%", justifyContent: 'center' }}>
                                     <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                         <Input
+                                            returnKeyType='next'
+                                            blurOnSubmit={false}
                                             allowFontScaling={false}
                                             textContentType="telephoneNumber"
                                             style={{ fontSize: wp(6), color: "#333" }}
@@ -230,6 +239,8 @@ export default class PhoneRegister extends Component {
                                     </ListItem>
                                     <ListItem style={{ height: 70, alignItems: 'center', width: "90%" }}>
                                         <Input
+                                            returnKeyType='send'
+                                            onSubmitEditing={() => this.phone.isValidNumber() ? this._verifyPassword() : Keyboard.dismiss()}
                                             allowFontScaling={false}
                                             style={{ fontSize: wp(6), color: "#333" }}
                                             selectionColor="#E91E63"

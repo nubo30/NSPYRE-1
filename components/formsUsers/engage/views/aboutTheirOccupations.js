@@ -260,31 +260,33 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                renderHeader={backAction =>
-                                                    <Header searchBar transparent rounded style={{ left: -20 }}>
-                                                        <Button transparent small onPress={backAction}>
-                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
-                                                        </Button>
-                                                        <Item style={{ backgroundColor: '#F5F5F5' }}>
-                                                            <Icon name="ios-search" />
-                                                            <Input
-                                                                placeholder="Filter"
-                                                                value={inputTextSchools}
-                                                                onChangeText={(value) => this.setState({ inputTextSchools: value })} />
-                                                            <Icon type="FontAwesome" name="university" style={{ fontSize: wp(3) }} />
-                                                        </Item>
-                                                    </Header>}
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={schools}
-                                                onValueChange={(value) => this.setState({ schools: value, coinSchools: 50 })}>
-                                                {filterSchoolsList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    renderHeader={backAction =>
+                                                        <Header searchBar transparent rounded style={{ left: -20 }}>
+                                                            <Button transparent small onPress={backAction}>
+                                                                <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            </Button>
+                                                            <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                                                <Icon name="ios-search" />
+                                                                <Input
+                                                                    placeholder="Filter"
+                                                                    value={inputTextSchools}
+                                                                    onChangeText={(value) => this.setState({ inputTextSchools: value })} />
+                                                                <Icon type="FontAwesome" name="university" style={{ fontSize: wp(3) }} />
+                                                            </Item>
+                                                        </Header>}
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={schools}
+                                                    onValueChange={(value) => this.setState({ schools: value, coinSchools: 50 })}>
+                                                    {filterSchoolsList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* UNIVERSITY */}
@@ -318,31 +320,33 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                renderHeader={backAction =>
-                                                    <Header searchBar transparent rounded style={{ left: -20 }}>
-                                                        <Button transparent small onPress={backAction}>
-                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
-                                                        </Button>
-                                                        <Item style={{ backgroundColor: '#F5F5F5' }}>
-                                                            <Icon name="ios-search" />
-                                                            <Input
-                                                                placeholder="Filter"
-                                                                value={inputTextUniversity}
-                                                                onChangeText={(value) => this.setState({ inputTextUniversity: value })} />
-                                                            <Icon type="FontAwesome" name="university" style={{ fontSize: wp(3) }} />
-                                                        </Item>
-                                                    </Header>}
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={university}
-                                                onValueChange={(value) => this.setState({ university: value, coinUniversity: 50 })}>
-                                                {filterUniversityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    renderHeader={backAction =>
+                                                        <Header searchBar transparent rounded style={{ left: -20 }}>
+                                                            <Button transparent small onPress={backAction}>
+                                                                <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            </Button>
+                                                            <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                                                <Icon name="ios-search" />
+                                                                <Input
+                                                                    placeholder="Filter"
+                                                                    value={inputTextUniversity}
+                                                                    onChangeText={(value) => this.setState({ inputTextUniversity: value })} />
+                                                                <Icon type="FontAwesome" name="university" style={{ fontSize: wp(3) }} />
+                                                            </Item>
+                                                        </Header>}
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={university}
+                                                    onValueChange={(value) => this.setState({ university: value, coinUniversity: 50 })}>
+                                                    {filterUniversityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* LEVEL ACHIVIED*/}
@@ -360,18 +364,20 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={levelAchivied}
-                                                onValueChange={(value) => this.setState({ levelAchivied: value, coinLevelAchivied: 50 })}>
-                                                {levelachievedList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={levelAchivied}
+                                                    onValueChange={(value) => this.setState({ levelAchivied: value, coinLevelAchivied: 50 })}>
+                                                    {levelachievedList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     <Separator bordered />
@@ -391,31 +397,33 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                renderHeader={backAction =>
-                                                    <Header searchBar transparent rounded style={{ left: -20 }}>
-                                                        <Button transparent small onPress={backAction}>
-                                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
-                                                        </Button>
-                                                        <Item style={{ backgroundColor: '#F5F5F5' }}>
-                                                            <Icon name="ios-search" />
-                                                            <Input
-                                                                placeholder="Filter"
-                                                                value={inputTextOcuppation}
-                                                                onChangeText={(value) => this.setState({ inputTextOcuppation: value })} />
-                                                            <Icon type="Entypo" name="briefcase" style={{ fontSize: wp(3) }} />
-                                                        </Item>
-                                                    </Header>}
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={occupation}
-                                                onValueChange={(value) => this.setState({ occupation: value, coinOccupation: 50 })}>
-                                                {filterOcuppationList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    renderHeader={backAction =>
+                                                        <Header searchBar transparent rounded style={{ left: -20 }}>
+                                                            <Button transparent small onPress={backAction}>
+                                                                <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                                            </Button>
+                                                            <Item style={{ backgroundColor: '#F5F5F5' }}>
+                                                                <Icon name="ios-search" />
+                                                                <Input
+                                                                    placeholder="Filter"
+                                                                    value={inputTextOcuppation}
+                                                                    onChangeText={(value) => this.setState({ inputTextOcuppation: value })} />
+                                                                <Icon type="Entypo" name="briefcase" style={{ fontSize: wp(3) }} />
+                                                            </Item>
+                                                        </Header>}
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={occupation}
+                                                    onValueChange={(value) => this.setState({ occupation: value, coinOccupation: 50 })}>
+                                                    {filterOcuppationList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* SOCIOECONOMIC LEVEL */}
@@ -433,18 +441,20 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={socioeconomicLevel}
-                                                onValueChange={(value) => this.setState({ socioeconomicLevel: value, coinSocioeconomicLevel: 50 })}>
-                                                {socioeconomicLevelList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={socioeconomicLevel}
+                                                    onValueChange={(value) => this.setState({ socioeconomicLevel: value, coinSocioeconomicLevel: 50 })}>
+                                                    {socioeconomicLevelList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* RENT CAR OR OWN */}
@@ -462,18 +472,20 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={rentOrOwnCar}
-                                                onValueChange={(value) => this.setState({ rentOrOwnCar: value, coinRentOrOwnCar: 25 })}>
-                                                {rentOrOwnCarList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={rentOrOwnCar}
+                                                    onValueChange={(value) => this.setState({ rentOrOwnCar: value, coinRentOrOwnCar: 25 })}>
+                                                    {rentOrOwnCarList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* RENT HOUSE OR OWN */}
@@ -491,18 +503,20 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 150, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={rentOrOwnHouse}
-                                                onValueChange={(value) => this.setState({ rentOrOwnHouse: value, coinRentOrOwnHouse: 25 })}>
-                                                {rentOrOwnHouseList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={rentOrOwnHouse}
+                                                    onValueChange={(value) => this.setState({ rentOrOwnHouse: value, coinRentOrOwnHouse: 25 })}>
+                                                    {rentOrOwnHouseList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                 </List>

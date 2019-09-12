@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native'
+import { Dimensions, Keyboard } from 'react-native'
 import { Text, List, ListItem, Button, Input, Content, View, Icon, Spinner } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
@@ -160,6 +160,13 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Name */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            returnKeyType="done"
+                                            onSubmitEditing={() =>
+                                                name &&
+                                                    lastname &&
+                                                    username &&
+                                                    email ? this._validateForm() : Keyboard.dismiss()
+                                            }
                                             allowFontScaling={false}
                                             value={name}
                                             onEndEditing={() => name ? this.setState({ pointsForTheName: 50 }) : this.setState({ pointsForTheName: 0 })}
@@ -179,6 +186,13 @@ export default class MoreAboutTheUser extends Component {
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#E0E0E0' }}></Text>
                                         <Input
+                                            returnKeyType="done"
+                                            onSubmitEditing={() =>
+                                                name &&
+                                                    lastname &&
+                                                    username &&
+                                                    email ? this._validateForm() : Keyboard.dismiss()
+                                            }
                                             allowFontScaling={false}
                                             value={lastname}
                                             onEndEditing={() => lastname ? this.setState({ pointsForTheLastName: 50 }) : this.setState({ pointsForTheLastName: 0 })}
@@ -197,6 +211,13 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Username */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            returnKeyType="done"
+                                            onSubmitEditing={() =>
+                                                name &&
+                                                    lastname &&
+                                                    username &&
+                                                    email ? this._validateForm() : Keyboard.dismiss()
+                                            }
                                             allowFontScaling={false}
                                             value={username}
                                             onEndEditing={() => isAlphanumeric(username) ? this.setState({ pointsForTheUsername: 75 }) : this.setState({ pointsForTheUsername: 0 })}
@@ -214,6 +235,13 @@ export default class MoreAboutTheUser extends Component {
                                     {/* Email */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
                                         <Input
+                                            returnKeyType="done"
+                                            onSubmitEditing={() =>
+                                                name &&
+                                                    lastname &&
+                                                    username &&
+                                                    email ? this._validateForm() : Keyboard.dismiss()
+                                            }
                                             allowFontScaling={false}
                                             value={email}
                                             onEndEditing={() => isEmail(email) ? this.setState({ pointsForTheEmail: 60 }) : this.setState({ pointsForTheEmail: 0 })}

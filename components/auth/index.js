@@ -9,7 +9,7 @@ import { AfterInteractions } from 'react-native-interactions';
 
 // Child Components
 import PhoneRegister from './forms/phoneRegister'
-import LoginWithPhoneEmail from './forms/loginWithPhoneEmail'
+import LoginWithPhoneAndFb from './forms/loginWithPhoneAndFb'
 import ActivateNumberPhone from './forms/activateNumberPhone'
 import MoreAboutTheUser from './forms/moreAboutTheUser'
 import Scope from './forms/scope'
@@ -71,7 +71,7 @@ class Auth extends Component {
     }
 
     render() {
-        const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, indexSwiper, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
+        const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         const { isNotExistUserInTheAPI } = this.props
         return (
             <AfterInteractions placeholder={<View style={{ flex: 1 }}><AuthPlaceholder /></View>}>
@@ -102,7 +102,7 @@ class Auth extends Component {
                             validateNumberButtom
                                 ? <Button
                                     onPress={() => this._changeSwiperRoot(1)}
-                                    small iconRight transparent icon style={{ position: 'absolute', top: 20, right: 0 }}>
+                                    iconRight icon transparent style={{ position: 'absolute', top: 10, right: 0, zIndex: 1000 }}>
                                     <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', right: -10 }}>Validate number</Text>
                                     <Icon name="arrow-forward" style={{ color: "#FFF" }} />
                                 </Button>
@@ -115,23 +115,13 @@ class Auth extends Component {
                             dotColor="#EEEEEE"
                             showsButtons={false}>
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
-                                <LoginWithPhoneEmail _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                                <LoginWithPhoneAndFb _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
                             </View>
-                            
+
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
                                 <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
                             </View>
                         </Swiper>
-                        {/* <View style={{ position: 'absolute', bottom: "1.5%", width: '70%', alignSelf: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
-                        <Button iconLeft disabled={indexSwiper === 0 ? true : false} transparent onPressIn={() => this._changeSwiper(-1)} style={{ left: -10 }}>
-                            <Icon name='arrow-back' style={{ color: indexSwiper ? "#EEEEEE" : "#E91E63" }} />
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>SIGN UP</Text>
-                        </Button>
-                        <Button iconRight disabled={indexSwiper === 1 ? true : false} transparent onPressIn={() => this._changeSwiper(1)}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !indexSwiper ? "#EEEEEE" : "#E91E63", fontWeight: "bold" }}>LOGIN</Text>
-                            <Icon name='arrow-forward' style={{ color: !indexSwiper ? "#EEEEEE" : "#E91E63" }} />
-                        </Button>
-                    </View> */}
                     </Container>
 
                     {/* Activate Number Phone */}

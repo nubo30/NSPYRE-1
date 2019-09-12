@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Auth } from 'aws-amplify'
-import { Modal, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
+import { Modal, TextInput, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
 import { View, Container, Header, Left, Button, Icon, Right, Text, Spinner, Toast } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Row, Grid } from 'react-native-easy-grid'

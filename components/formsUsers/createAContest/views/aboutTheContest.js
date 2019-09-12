@@ -208,7 +208,13 @@ export default class AboutTheContest extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Category</Text>
-                                            {isLoading ? null :
+                                        </Body>
+                                        <Right>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(category))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <View style={{ position: 'absolute' }}>
                                                 <Picker
                                                     style={{ position: 'absolute', top: -30 }}
                                                     textStyle={{ color: 'rgba(0,0,0,0.0)' }}
@@ -229,12 +235,8 @@ export default class AboutTheContest extends Component {
                                                     <Picker.Item label="Beverage" value="BEVERAGE" />
                                                     <Picker.Item label="Gamer" value="GAMER" />
                                                     <Picker.Item label="Apparel" value="APPAREL" />
-                                                </Picker>}
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(category))}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
+                                                </Picker>
+                                            </View>}
                                     </ListItem>
 
                                     {/* NAME CONTEST */}
