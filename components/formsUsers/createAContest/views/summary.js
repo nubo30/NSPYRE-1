@@ -12,6 +12,8 @@ import { normalizeEmail } from 'validator'
 import Swiper from 'react-native-swiper'
 import AWS from 'aws-sdk'
 
+import { securityCredentials } from '../../../global/aws/credentials'
+
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
@@ -35,11 +37,7 @@ class Summary extends Component {
         this.setState({ isLoading: true })
         const { navigation, userData, contest } = this.props
 
-        AWS.config.update({
-            accessKeyId: "AKIAIQA34573X4TITQEQ",
-            secretAccessKey: "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",
-            "region": "sa-east-1"
-        })
+        AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
 
         // PICTURE OF THE CONTEST
         const blobPicture = await new Promise((resolve, reject) => {

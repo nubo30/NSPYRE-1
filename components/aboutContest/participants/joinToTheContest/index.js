@@ -13,6 +13,8 @@ import _ from 'lodash'
 import moment from 'moment'
 import AWS from 'aws-sdk'
 
+import { securityCredentials } from "../../../global/aws/credentials"
+
 // Animations
 import AnimationManWihtHearts from '../../../global/lottieJs/manWithHearts'
 import InstructionsGirlWithPhone from '../../../global/lottieJs/instructionsGirlWithPhone'
@@ -101,12 +103,7 @@ export default class JoinToTheContest extends Component {
         this.setState({ isLoading: true })
         const { video, picture, commentText } = this.state
         const { userData, contest } = this.props
-
-        AWS.config.update({
-            accessKeyId: "AKIAIQA34573X4TITQEQ",
-            secretAccessKey: "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",
-            "region": "sa-east-1"
-        })
+        AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
 
         // PICTURE OF THE CONTEST
         let blobPicture

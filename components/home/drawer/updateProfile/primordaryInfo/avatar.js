@@ -12,6 +12,7 @@ import bytes from 'bytes'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 import * as mutations from '../../../../../src/graphql/mutations'
+import { securityCredentials } from '../../../../global/aws/credentials'
 
 // This function change the avatar user
 class Avatar extends Component {
@@ -59,11 +60,7 @@ class Avatar extends Component {
     _updateAvatar = async () => {
         const { avatar } = this.state
         const { _isLoading, userData } = this.props
-        AWS.config.update({
-            accessKeyId: "AKIAIQA34573X4TITQEQ",
-            secretAccessKey: "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",
-            "region": "sa-east-1"
-        });
+        AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
         try {
             _isLoading(true)
             await Storage.put(`users/${userData.email}/avatar/${avatar.name}`, avatar.blob, {

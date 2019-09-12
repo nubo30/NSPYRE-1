@@ -16,6 +16,7 @@ import * as Animatable from 'react-native-animatable'
 import { isAscii } from 'validator'
 import omitDeep from 'omit-deep'
 
+import { securityCredentials } from '../../global/aws/credentials'
 
 // Icons
 import { Ionicons, Feather, AntDesign, MaterialCommunityIcons, Entypo, MaterialIcons, FontAwesome } from '@expo/vector-icons'
@@ -160,11 +161,7 @@ class UpdateContest extends Component {
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
         omitDeep(contest, ['user', '__typename', 'audience', 'participants'])
-        AWS.config.update({
-            accessKeyId: "AKIAIQA34573X4TITQEQ",
-            secretAccessKey: "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",
-            "region": "sa-east-1"
-        })
+        AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
         let blobPicture; let blobVideo
 
         // PICTURE OF THE CONTEST

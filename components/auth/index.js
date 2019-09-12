@@ -76,8 +76,6 @@ class Auth extends Component {
         await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/');
     };
 
-
-
     render() {
         const { activateNumberPhone, moreUserData, userData, indexSwiperRoot, numberPhone, validateNumberButtom, hasTheRegistrationBeenSuccessful } = this.state
         const { isNotExistUserInTheAPI } = this.props
