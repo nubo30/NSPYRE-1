@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Platform } from "react-native"
+import { Platform, AsyncStorage, Alert } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge } from 'native-base';
+import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge, Body } from 'native-base';
 import Swiper from 'react-native-swiper'
+import twitter, { TWLoginButton, decodeHTMLEntities, getRelativeTime } from 'react-native-simple-twitter';
 
 // Child Components
 import UserInfo from "./photoAndButtom"
@@ -49,7 +50,7 @@ class Home extends Component {
         this.setState({ isLoading: value })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { online } = this.props.networkStatus
         if (online) {
             this.getDataFromAWS()
@@ -82,6 +83,34 @@ class Home extends Component {
                 next: () => { this.getDataFromAWS() }
             })
         }
+
+
+        console.log(decodeHTMLEntities('&amp; &apos; &#x27; &#x2F; &#39; &#47; &lt; &gt; &nbsp; &quot;'));
+        console.log(getRelativeTime(new Date(new Date().getTime() - 32390)));
+        console.log(getRelativeTime('Thu Apr 06 15:28:43 +0000 2017'));
+
+        /* check AsyncStorage */
+        try {
+            const userData = await AsyncStorage.getItem("user");
+
+            if (userData !== null) {
+                const user = JSON.parse(userData);
+
+                twitter.setAccessToken(user.token, user.tokenSecret);
+
+                try {
+                    const user = await twitter.get('account/verify_credentials.json', { include_entities: false, skip_status: true, include_email: true });
+
+                    this.props.navigation.replace('Home', { user });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+
     }
 
     getDataFromAWS = async () => {
@@ -131,6 +160,47 @@ class Home extends Component {
     _changeSwiper = (i) => {
         this.swiper.scrollBy(i)
     }
+
+
+
+
+
+
+    onPress = (e) => {
+        console.log('button pressed');
+    }
+
+    onClose = (e) => {
+        console.log('press close button');
+    }
+
+    onError = (err) => {
+        console.log(err);
+    }
+
+    onGetAccessToken = ({ oauth_token: token, oauth_token_secret: tokenSecret }) => {
+        console.log("-------------------->", token, tokenSecret, "<-----------")
+    }
+
+    onSuccess = async (user) => {
+        try {
+            await AsyncStorage.setItem("user", JSON.stringify({ ...user, token: this.state.token, tokenSecret: this.state.tokenSecret }))
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+        Alert.alert(
+            'Success',
+            'ログインできました',
+            [
+                {
+                    text: 'Go HomeScreen',
+                },
+            ],
+        );
+    }
+
 
     render() {
         const { userData, openDrower, isReady, prizeCategory, notifications, isLoading, refreshing } = this.state
@@ -235,6 +305,40 @@ class Home extends Component {
                     </Drawer>
                 </Container>
                 <NotificationCenter _refreshing={this._refreshing} refreshing={refreshing} _refreshData={this._refreshData} _deleteNotificationLoading={this._deleteNotificationLoading} isLoading={isLoading} notifications={notifications} _changeSwiper={this._changeSwiper} />
+
+                {/* <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                    <TWLoginButton
+                        // headerColor="#F5F5F5"
+                        renderHeader={(props) =>
+                            <Header>
+                                <Left>
+                                    <Button transparent onPress={() => props.onClose()}>
+                                        <Icon name='arrow-back' />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Title>Header</Title>
+                                </Body>
+                                <Right>
+                                    <Button transparent>
+                                        <Icon name='menu' />
+                                    </Button>
+                                </Right>
+                            </Header>
+                        }
+                        children={
+                            <View style={{ backgroundColor: '#00acee', padding: 10, borderRadius: 5 }}>
+                                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Twitter Access</Text>
+                            </View>
+                        }
+                        onPress={this.onPress}
+                        onGetAccessToken={this.onGetAccessToken}
+                        onSuccess={this.onSuccess}
+                        onClose={this.onClose}
+                        onError={this.onError}
+                    />
+                </View> */}
+
             </Swiper>
         )
     }

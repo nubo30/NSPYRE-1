@@ -46,7 +46,7 @@ class DrawerRight extends Component {
 
     // Privacy Policies
     _privacyPolicies = async () => {
-        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/');
+        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/terms_and_conditions.html');
     };
 
     componentDidMount() {
@@ -203,7 +203,7 @@ class DrawerRight extends Component {
                         <Text
                             allowFontScaling={false}
                             minimumFontScale={wp(2)}
-                            style={{ color: '#333', fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Security politics</Text>
+                            style={{ color: '#333', fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Terms & Conditions</Text>
                     </Button>
                 </Content>
                 {/* Modify Profile User */}

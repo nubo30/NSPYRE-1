@@ -73,7 +73,7 @@ class Auth extends Component {
 
     // Privacy Policies
     _privacyPolicies = async () => {
-        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/');
+        await WebBrowser.openBrowserAsync('https://nubo30.github.io/influencemenowProvacyPolicy/app_privacy_policy.html');
     };
 
     render() {

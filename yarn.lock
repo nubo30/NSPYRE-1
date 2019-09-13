@@ -5400,6 +5400,13 @@ react-native-responsive-screen@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.2.2.tgz#59d82146b61c62510032fb795652335433f05f93"
   integrity sha512-0UDQIBD+bW7+3NNt+ukSleUkKxbRiNupmzLQjdjyRoAjqxidN8+1gs0mHXfmhowcg2b875zTYrtQUG3022yHKw==
 
+react-native-safe-area-view@^0.13.1:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.13.2.tgz#fd8245182cfa3240dcc679b010cff43ad32cecb1"
+  integrity sha512-UEeoHi7HXObKd111RKZa6a+aQdxLHlngfaoM3UBgeDDc+7BU7Vd54DSzFFWDL3lwFhieTSvLh6z89jHDypA9KQ==
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.3.tgz#3cc34d2fcc8886bc8a8bd1ab226d4345d02c23b0"
@@ -5423,6 +5430,14 @@ react-native-sectioned-multi-select@^0.6.5:
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/react-native-sectioned-multi-select/-/react-native-sectioned-multi-select-0.6.7.tgz#26f975b3e506b4bbd045ad7dcd0e38b868bdab88"
   integrity sha512-8Bw92AStb0DlgaEd6N91t/fYDOYY+n9lN5sHyIplRvPAic1sdlab5IV6XwCnnAnuzSXKp3HY15rcsRGF+dO+jg==
+
+react-native-simple-twitter@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-twitter/-/react-native-simple-twitter-2.3.0.tgz#4f2fcd051cea8d445388827022fd43ef85dd7973"
+  integrity sha512-6I2JIgklb5WoaKv38oSGCls6NR1RdOIqL8zPBe37zkrh1qGlqD/yAbLOi37IZRJGKP6vQkUzz1f6GnKfMk8A7g==
+  dependencies:
+    crypto-js "^3.1.9-1"
+    react-native-safe-area-view "^0.13.1"
 
 react-native-svg@~9.5.1:
   version "9.5.3"
