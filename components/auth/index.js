@@ -20,6 +20,7 @@ import AuthPlaceholder from './placeholder/index'
 import { GadrientsAuth } from '../global/gradients/index'
 import { MyStatusBar } from '../global/statusBar/index'
 import Logo from '../global/lottieJs/logo'
+import { colorsPalette } from '../global/static/colors'
 
 class Auth extends Component {
 
@@ -92,7 +93,7 @@ class Auth extends Component {
 
                     {/* MAIN */}
                     <Container>
-                        <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                        <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                         <View style={{
                             bottom: "50%",
                             backgroundColor: 'rgba(0,0,0,0.6)',
@@ -109,28 +110,47 @@ class Auth extends Component {
                                 ? <Button
                                     onPress={() => this._changeSwiperRoot(1)}
                                     iconRight icon transparent style={{ position: 'absolute', top: 10, right: 0, zIndex: 1000 }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', right: -10 }}>Validate number</Text>
-                                    <Icon name="arrow-forward" style={{ color: "#FFF" }} />
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.secondaryColor, right: -10 }}>Validate number</Text>
+                                    <Icon name="arrow-forward" style={{ color: colorsPalette.secondaryColor }} />
                                 </Button>
                                 : null}
+
+                        {/* Este swiper es el que se aloja en la pantalla inicial, donde se puede registrar o hacer login */}
                         <Swiper
                             ref={(swiper) => this.swiper = swiper}
                             onIndexChanged={(index) => { this.setState({ indexSwiper: index }); Keyboard.dismiss() }}
                             loop={false}
-                            activeDotColor="#E91E63"
-                            dotColor="#EEEEEE"
+                            activeDotColor={colorsPalette.primaryColor}
+                            dotColor={colorsPalette.thirdColor}
                             showsButtons={false}>
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
-                                <LoginWithPhoneAndFb _moreUserData={this._moreUserData} hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _activateNumberPhone={this._activateNumberPhone} />
+                                <LoginWithPhoneAndFb
+
+                                    // Actions & data
+                                    hasTheRegistrationBeenSuccessful={hasTheRegistrationBeenSuccessful}
+                                    numberPhone={numberPhone}
+
+                                    // Functions
+                                    _moreUserData={this._moreUserData}
+                                    _changeSwiperRoot={this._changeSwiperRoot}
+                                    _activateNumberPhone={this._activateNumberPhone} />
                             </View>
 
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>
-                                <PhoneRegister _password={this._password} _numberPhone={this._numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _userData={this._userData} />
+                                <PhoneRegister
+
+                                    // Functions
+                                    _password={this._password}
+                                    _numberPhone={this._numberPhone}
+                                    _changeSwiperRoot={this._changeSwiperRoot}
+                                    _userData={this._userData} />
                             </View>
                         </Swiper>
+
+                        {/* Politica de privacidad */}
                         <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                             <Button small transparent style={{ alignSelf: 'center' }} onPress={() => this._privacyPolicies()}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textDecorationLine: 'underline', color: '#3333' }}>Privacy policies</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textDecorationLine: 'underline', color: colorsPalette.thirdColor }}>Privacy policies</Text>
                             </Button>
                         </View>
                     </Container>
@@ -138,13 +158,13 @@ class Auth extends Component {
                     {/* Activate Number Phone */}
                     {activateNumberPhone
                         ? <Container>
-                            <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                             <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                             <GadrientsAuth />
                             <MoreAboutTheUser moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
                         </Container>
                         : <Container>
-                            <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                             <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                             <GadrientsAuth />
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -55 }}>
@@ -160,13 +180,13 @@ class Auth extends Component {
                     {/* More about the user */}
                     {activateNumberPhone
                         ? <Container>
-                            <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                             <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                             <GadrientsAuth />
                             <Scope moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} />
                         </Container>
                         : <Container>
-                            <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                             <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                             <GadrientsAuth />
                             <MoreAboutTheUser moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} _moreUserData={this._moreUserData} />
@@ -174,7 +194,7 @@ class Auth extends Component {
 
                     {/* Action of user */}
                     <Container>
-                        <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                        <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                         <View style={{ bottom: "50%", backgroundColor: 'rgba(0,0,0,0.6)', position: 'absolute', height: "0.5%", width: "100%", shadowColor: "rgba(0,0,0,0.9)", shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                         <GadrientsAuth />
                         <Scope moreUserData={moreUserData} userData={userData} numberPhone={numberPhone} _changeSwiperRoot={this._changeSwiperRoot} />

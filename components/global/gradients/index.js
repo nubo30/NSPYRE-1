@@ -4,11 +4,14 @@ import { Dimensions, Platform } from "react-native"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const { height } = Dimensions.get("window")
 
+// Colors
+import { colorsPalette } from '../static/colors'
+
 export const GadrientsAuth = () => (
     // Gadrient of the scene auth
     <LinearGradient
         start={[0.5, 0.1]}
-        colors={["#E91E63", "#C2185B"]}
+        colors={[colorsPalette.primaryColor, colorsPalette.primaryColorGradient]}
         style={{
             position: 'absolute',
             left: 0,
@@ -24,30 +27,13 @@ export const GadrientsAuthX2 = () => (
     // Gadrient of the scene auth
     <LinearGradient
         start={[1, 1]}
-        colors={["#fff", "#FFF"]}
+        colors={[colorsPalette.secondaryColor, colorsPalette.secondaryColor]}
         style={{
             position: 'absolute',
             left: 0,
             right: 0,
             bottom: 0,
             height: height - height / 2,
-        }}
-    />
-)
-
-export const GradientTypeForm = () => (
-    // Gadrient of the scene "More info"
-    <LinearGradient
-        start={Platform.OS === 'ios'
-            ? [0.5, 0.2]
-            : [0.2, 0.6]}
-        colors={["#1976D2", "#0D47A1"]}
-        style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: wp(50)
         }}
     />
 )
@@ -123,21 +109,6 @@ export const GadrientsAboutContest = () => (
             right: 0,
             top: 0,
             height: "110%",
-        }}
-    />
-)
-
-export const GadrientsCreateAContest = () => (
-    // Gadrient of the scene Create a Constest
-    <LinearGradient
-        start={[1, 0.1]}
-        colors={["#0D47A1", "#1565C0", "#1976D2"]}
-        style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: "100%",
         }}
     />
 )

@@ -18,6 +18,9 @@ import { securityCredentials } from '../../../global/aws/credentials'
 import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
 
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
+
 // Icons
 import { Ionicons, Entypo, FontAwesome, MaterialIcons, Feather, Foundation, AntDesign } from '@expo/vector-icons'
 
@@ -113,46 +116,46 @@ class Summary extends Component {
         return (
             <Container>
                 <GadrientsAuth />
-                <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                <Header style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+                <Header transparent>
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button
                             disabled={isLoading}
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
-                            <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
-                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Back</Text>
+                            <Icon name='arrow-back' style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }} />
+                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Summary</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontSize: wp(6) }}>Summary</Title>
                     </Left>
                 </Header>
 
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please, check all the content that you have chosen, if there is something that you do not think you can go back and edit it</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, textAlign: 'left', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>We done!</Text> {'\n'}Please, check all the content that you have chosen, if there is something that you do not think you can go back and edit it</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>
-                        <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
+                        <View style={{ backgroundColor: colorsPalette.secondaryColor, width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
                             {Object.keys(contest).length !== 0 ?
                                 <Content contentContainerStyle={{ paddingTop: 10 }} scrollEnabled={!isLoading}>
                                     <List>
-                                        <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
-                                        <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
+                                        <View style={{ backgroundColor: colorsPalette.opaqueWhite2, height: screenHeight, position: 'absolute', top: -screenHeight + 5, left: 0, right: 0 }} />
+                                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: colorsPalette.opaqueWhite2 }}>
                                             <Text allowFontScaling={false}>ABOUT YOU</Text>
                                         </Separator>
 
                                         {/* NAME */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
-                                                    <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#007AFF" }}>
+                                                    <Ionicons style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="md-person" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData.name}</Text>
@@ -162,12 +165,12 @@ class Summary extends Component {
                                         {/* Lastname */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                    <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-person" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                                    <Ionicons style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="md-person" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Lastname</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData.lastname}</Text>
@@ -177,12 +180,12 @@ class Summary extends Component {
                                         {/* PHONE */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                    <Foundation style={{ fontSize: wp(5.6), color: '#FFF' }} active name="telephone" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#F4511E" }}>
+                                                    <Foundation style={{ fontSize: wp(5.6), color: colorsPalette.secondaryColor }} active name="telephone" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number Phone</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Number Phone</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData.phone === null ? 'Not specified' : userData.phone}</Text>
@@ -192,12 +195,12 @@ class Summary extends Component {
                                         {/* EMAIL */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
-                                                    <Ionicons style={{ fontSize: wp(5), color: '#FFF' }} active name="md-mail" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#4DB6AC" }}>
+                                                    <Ionicons style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="md-mail" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Email</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
@@ -208,12 +211,12 @@ class Summary extends Component {
                                         {/* LOCATION */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }}>
-                                                    <Entypo style={{ fontSize: wp(6), color: '#FFF' }} active name="location-pin" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D" }}>
+                                                    <Entypo style={{ fontSize: wp(6), color: colorsPalette.secondaryColor }} active name="location-pin" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Location</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Location</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(`${contest.aboutTheUser.location.city}, ${contest.aboutTheUser.location.country}, ${contest.aboutTheUser.location.state}, ${contest.aboutTheUser.location.street}`, { length: 29, separator: '...' })}</Text>
@@ -223,12 +226,12 @@ class Summary extends Component {
                                         {/* COMPANY NAME */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                    <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 2 }} active name="building" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#EC407A" }}>
+                                                    <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, left: 2 }} active name="building" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Company Name</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(`${contest.aboutTheUser.companyName}`, { separator: '...', length: 15 })}</Text>
@@ -238,31 +241,31 @@ class Summary extends Component {
                                         {/* TITTLE IN THE COMPANY */}
                                         <ListItem icon last>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                    <Entypo style={{ fontSize: wp(5.5), color: '#FFF', left: 1, top: 1 }} active name="creative-commons-attribution" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                                    <Entypo style={{ fontSize: wp(5.5), color: colorsPalette.secondaryColor, left: 1, top: 1 }} active name="creative-commons-attribution" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Title in the company</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Title in the company</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(`${contest.aboutTheUser.titleInTheCompany}`, { separator: '...', length: 20 })}</Text>
                                             </Right>
                                         </ListItem>
 
-                                        <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
+                                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: colorsPalette.opaqueWhite2 }}>
                                             <Text allowFontScaling={false} >ABOUT THE CONTEST</Text>
                                         </Separator>
 
                                         {/* Category */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#007AFF" }}>
-                                                    <AntDesign style={{ fontSize: wp(5), color: '#FFF' }} active name="select1" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#007AFF" }}>
+                                                    <AntDesign style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="select1" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Category</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Category</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.startCase(_.lowerCase(contest && contest.category))}</Text>
@@ -272,12 +275,12 @@ class Summary extends Component {
                                         {/* NAME CONTEST */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                    <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                                    <Entypo style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="star" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name Of Contest</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name Of Contest</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.startCase(contest && contest.general && contest.general.nameOfContest)}</Text>
@@ -287,12 +290,12 @@ class Summary extends Component {
                                         {/* DESCRIPTION */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                    <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#F4511E" }}>
+                                                    <MaterialIcons style={{ fontSize: wp(5.6), color: colorsPalette.secondaryColor }} active name="description" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Description</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Description</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(`${contest && contest.general && contest.general.description}`, { separator: '...', length: 20 })}</Text>
@@ -302,12 +305,12 @@ class Summary extends Component {
                                         {/* INSTRUCTION */}
                                         <ListItem icon>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                    <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="warning" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#EC407A" }}>
+                                                    <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, left: 1 }} active name="warning" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Instructions</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Instructions</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(`${contest && contest.general && contest.general.instructions}`, { separator: '...', length: 20 })}</Text>
@@ -317,10 +320,10 @@ class Summary extends Component {
                                         {/* IMAGEN */}
                                         <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC", right: 10 }}>
-                                                    <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="picture-o" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#4DB6AC", right: 10 }}>
+                                                    <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, left: 1 }} active name="picture-o" />
                                                 </Button>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Picture</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Picture</Text>
                                             </Left>
                                             <Image style={{ height: "100%", width: "60%" }} source={{ uri: contest && contest.general && contest.general.picture.localUrl }} />
                                         </ListItem>
@@ -330,10 +333,10 @@ class Summary extends Component {
                                         {/* VIDEO */}
                                         <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                             <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D", right: 10 }}>
-                                                    <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D", right: 10 }}>
+                                                    <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
                                                 </Button>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Video</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
                                             </Left>
                                             <Video
                                                 source={{ uri: contest && contest.general && contest.general.video.localUrl }}
@@ -347,7 +350,7 @@ class Summary extends Component {
                                                 style={{ width: "60%", height: "100%" }} />
                                         </ListItem>
 
-                                        <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: colorsPalette.opaqueWhite2, flexDirection: 'row', justifyContent: 'space-between' }}>
                                             <Text allowFontScaling={false}>PRIZES</Text>
                                             <Text allowFontScaling={false} style={{ right: 15 }}>{prizes === undefined ? 0 : prizes.length} Prizes Created</Text>
                                         </Separator>
@@ -362,12 +365,12 @@ class Summary extends Component {
                                                     {/* NAME PRIZE */}
                                                     <ListItem icon>
                                                         <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                                <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                                                <Entypo style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="star" />
                                                             </Button>
                                                         </Left>
                                                         <Body>
-                                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name Of Prize</Text>
+                                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name Of Prize</Text>
                                                         </Body>
                                                         <Right>
                                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{item.name}</Text>
@@ -377,12 +380,12 @@ class Summary extends Component {
                                                     {/* DESCRIPTION */}
                                                     <ListItem icon>
                                                         <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                                <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
+                                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#F4511E" }}>
+                                                                <MaterialIcons style={{ fontSize: wp(5.6), color: colorsPalette.secondaryColor }} active name="description" />
                                                             </Button>
                                                         </Left>
                                                         <Body>
-                                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Description</Text>
+                                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Description</Text>
                                                         </Body>
                                                         <Right>
                                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{_.truncate(item.description, { separator: "...", length: 20 })}</Text>
@@ -392,10 +395,10 @@ class Summary extends Component {
                                                     {/* IMAGEN */}
                                                     <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                                         <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC", right: 10 }}>
-                                                                <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="picture-o" />
+                                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#4DB6AC", right: 10 }}>
+                                                                <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, left: 1 }} active name="picture-o" />
                                                             </Button>
-                                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Picture</Text>
+                                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Picture</Text>
                                                         </Left>
                                                         <Image style={{ height: "100%", width: "60%" }} source={{ uri: item.picture.localUrl }} />
                                                     </ListItem>
@@ -405,10 +408,10 @@ class Summary extends Component {
                                                     {/* VIDEO */}
                                                     <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                                         <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D", right: 10 }}>
-                                                                <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
+                                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D", right: 10 }}>
+                                                                <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
                                                             </Button>
-                                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Video</Text>
+                                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
                                                         </Left>
                                                         <Video
                                                             source={{ uri: item.video.localUrl }}
@@ -429,7 +432,7 @@ class Summary extends Component {
                     </Row>
                 </Grid>
 
-                <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }}>
+                <Footer style={{ backgroundColor: colorsPalette.transparent, borderTopColor: colorsPalette.transparent }}>
                     <Animatable.View
                         animation={errSubmitdata ? "shake" : undefined}
                         onAnimationEnd={() => this.setState({ errSubmitdata: false })}
@@ -438,7 +441,7 @@ class Summary extends Component {
                             justifyContent: 'center',
                             alignItems: 'center',
                             width: "80%",
-                            shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                            shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
                             disabled={isLoading}
@@ -446,13 +449,13 @@ class Summary extends Component {
                             iconRight style={{
                                 width: "80%",
                                 alignSelf: 'center',
-                                backgroundColor: '#E91E63',
+                                backgroundColor: colorsPalette.primaryColor,
                                 justifyContent: 'center',
                             }}>
                             {isLoading
                                 ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: "#EEEEEE", fontSize: wp(3) }}>Creating contest, please wait...  </Text>
-                                    <Spinner size="small" color="#EEEEEE" />
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.opaqueWhite, fontSize: wp(3) }}>Creating contest, please wait...  </Text>
+                                    <Spinner size="small" color={colorsPalette.opaqueWhite} />
                                 </View>
                                 : <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2, fontSize: wp(4) }}>Create</Text>}
                         </Button>

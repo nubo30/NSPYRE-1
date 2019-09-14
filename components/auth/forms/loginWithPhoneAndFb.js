@@ -18,6 +18,9 @@ const screenHeight = Dimensions.get('screen').height
 
 import { fBCredentials } from "../../global/socialNetWorksCredentials"
 
+// colors
+import { colorsPalette } from '../../global/static/colors'
+
 // ChildComponent
 import ForgottenPassword from '../passwordForget'
 
@@ -85,17 +88,14 @@ class Login extends Component {
     async _openBroweserForLoginWithFacebook() {
         const { _changeSwiperRoot, _activateNumberPhone, navigation, _moreUserData } = this.props
         try {
-            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile'] });
-            // const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile', 'user_posts'] });
+            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile', 'user_posts'] });
             if (type === 'success') {
-                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name`);
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name,posts`);
                 const { email, name, picture, last_name } = await response.json()
-                console.log(email, "<---------------------------")
-                // const { email, name, picture, id, last_name, posts } = await response.json()
                 this.setState({ isLoadingFb: true })
                 await Auth.federatedSignIn('facebook', { token, expires_at: expires })
                     .then(credentials => {
-                        const input = { email, name, avatar: picture.data.url, id: credentials._identityId, last_name }
+                        const input = { email, name, avatar: picture.data.url, id: credentials._identityId, last_name, tokenfb: token }
                         API.graphql(graphqlOperation(queries.getUser, { id: credentials._identityId })).then(({ data }) => {
                             if (data.getUser === null) {
                                 _moreUserData(input)
@@ -126,10 +126,10 @@ class Login extends Component {
         return (
             <View style={{
                 flex: 1,
-                backgroundColor: '#FFF',
+                backgroundColor: colorsPalette.secondaryColor,
                 width: screenWidth - 60,
                 borderRadius: 5,
-                shadowColor: "rgba(0,0,0,0.3)",
+                shadowColor: colorsPalette.primaryShadowColor,
                 shadowOpacity: 1,
                 shadowOffset: { width: 1 },
                 maxHeight: screenHeight / 2 + 40
@@ -153,17 +153,17 @@ class Login extends Component {
                                         autoCorrect={false}
                                         confirmText="OK"
                                         cancelText="CANCEL"
-                                        pickerButtonColor="#E91E63"
+                                        pickerButtonColor={colorsPalette.primaryColor}
                                         pickerItemStyle={{ fontSize: 18 }}
                                         value={numberPhoneState ? numberPhoneState : numberPhone}
                                         style={{ height: "100%", width: "100%" }}
                                         flagStyle={{ height: 30, width: 40 }}
-                                        textStyle={{ fontSize: wp(6), color: '#333' }}
+                                        textStyle={{ fontSize: wp(6), color: colorsPalette.darkFont }}
                                         textProps={{ placeholder: "Your Phone Number" }}
                                         initialCountry="us" />
                                 </ListItem>
-                                <ListItem itemDivider style={{ backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', top: 10 }}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>AND</Text>
+                                <ListItem itemDivider style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', alignItems: 'center', top: 10 }}>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.darkFont }}>AND</Text>
                                 </ListItem>
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <Input
@@ -172,23 +172,23 @@ class Login extends Component {
                                         allowFontScaling={false}
                                         autoCorrect={false}
                                         textContentType="password"
-                                        style={{ fontSize: wp(6), color: "#333" }}
-                                        selectionColor="#E91E63"
+                                        style={{ fontSize: wp(6), color: colorsPalette.darkFont }}
+                                        selectionColor={colorsPalette.primaryColor}
                                         value={password}
                                         secureTextEntry={!eyeAction}
                                         onChangeText={(value) => this.setState({ password: value })}
-                                        placeholderTextColor="#E0E0E0"
+                                        placeholderTextColor={colorsPalette.gradientGray}
                                         placeholder="Password" />
                                     <Icon
                                         onPress={() => this.setState({ eyeAction: !eyeAction })}
-                                        active name={eyeAction ? "eye" : "eye-off"} style={{ color: "#E0E0E0" }} />
+                                        active name={eyeAction ? "eye" : "eye-off"} style={{ color: colorsPalette.gradientGray }} />
                                 </ListItem>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() => this._forgetPasswordModal(true)}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333', fontSize: wp(3) }}>Forgot your password?</Text>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.thirdColor, fontSize: wp(3) }}>Forgot your password?</Text>
                                 </Button>
                             </List>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             </View>
                         </Row>
                         <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
@@ -199,14 +199,14 @@ class Login extends Component {
                                     top: -10,
                                     width: "100%",
                                     alignSelf: 'flex-end',
-                                    backgroundColor: '#3b5998',
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                    backgroundColor: colorsPalette.fbColor,
+                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', flex: 1, paddingLeft: 15 }}>
-                                    <Icon name='logo-facebook' style={{ color: "#FFF", fontSize: wp(8) }} />
-                                    <Text allowFontScaling={false} style={{ left: 10, color: '#FFF', fontWeight: 'bold' }}>Continue with facebook</Text>
+                                    <Icon name='logo-facebook' style={{ color: colorsPalette.secondaryColor, fontSize: wp(8) }} />
+                                    <Text allowFontScaling={false} style={{ left: 10, color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Continue with facebook</Text>
                                 </View>
-                                {isLoadingFb ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                                {isLoadingFb ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                             </Button>
 
                             <Animatable.View
@@ -215,14 +215,14 @@ class Login extends Component {
                                 duration={1000}
                                 style={{
                                     width: "100%",
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button
                                     disable={isLoading}
                                     onPress={() => isLoadingFb ? {} : this._submit()}
-                                    iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: '#E91E63' }}>
+                                    iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: colorsPalette.primaryColor }}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
-                                    {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                                    {isLoading ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                                 </Button>
                             </Animatable.View>
                         </Row>
@@ -230,11 +230,11 @@ class Login extends Component {
 
                     <Grid>
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(7), textAlign: 'center' }}>Enter the code we send to {numberPhone ? numberPhone : numberPhoneState}</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(6.5), textAlign: 'center' }}>Enter the code we send to <Text style={{ color: colorsPalette.darkFont, fontSize: wp(6.5), textAlign: 'center', fontWeight: 'bold' }}>{numberPhone ? numberPhone : numberPhoneState}</Text></Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3), textAlign: 'center', left: 12 }}>Change</Text>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(3), textAlign: 'center', left: 12 }}>Change</Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#333' }}>phone number</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: colorsPalette.darkFont }}>phone number</Text>
                                 </Button>
                             </View>
                         </Row>
@@ -243,8 +243,8 @@ class Login extends Component {
                                 disable={false}
                                 keyboardType="numeric"
                                 codeLength={6}
-                                activeColor='#D81B60'
-                                inactiveColor='#FCE4EC'
+                                activeColor={colorsPalette.primaryColor}
+                                inactiveColor={colorsPalette.thirdColor}
                                 className='border-b'
                                 autoFocus={false}
                                 ignoreCase={true}
@@ -254,7 +254,7 @@ class Login extends Component {
                             />
                         </Row>
                         <Row size={50} style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                     </Grid>
                 </Swiper>

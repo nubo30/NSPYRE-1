@@ -3,6 +3,7 @@
 
 export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
+    tokenfb
     id
     userId
     name
@@ -17,6 +18,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -139,6 +141,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -220,6 +223,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -287,6 +291,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
 `;
 export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
+    tokenfb
     id
     userId
     name
@@ -301,6 +306,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -423,6 +429,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -504,6 +511,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -571,6 +579,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
 `;
 export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
   deleteUser(input: $input) {
+    tokenfb
     id
     userId
     name
@@ -585,6 +594,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -707,6 +717,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -788,6 +799,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -857,6 +869,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
   createCreateContest(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -871,6 +884,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -914,6 +928,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -950,6 +965,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1055,6 +1071,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1144,6 +1161,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1192,6 +1210,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
   updateCreateContest(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -1206,6 +1225,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1249,6 +1269,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1285,6 +1306,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1390,6 +1412,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1479,6 +1502,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1527,6 +1551,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
   deleteCreateContest(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -1541,6 +1566,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1584,6 +1610,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1620,6 +1647,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1725,6 +1753,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1814,6 +1843,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1864,6 +1894,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2056,6 +2087,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2248,6 +2280,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2458,6 +2491,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2644,6 +2678,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2830,6 +2865,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -3050,6 +3086,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
   createSubmitPrize(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3064,6 +3101,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3107,6 +3145,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3143,6 +3182,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3249,6 +3289,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
   updateSubmitPrize(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3263,6 +3304,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3306,6 +3348,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3342,6 +3385,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3448,6 +3492,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
   deleteSubmitPrize(input: $input) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3462,6 +3507,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3505,6 +3551,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3541,6 +3588,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3648,6 +3696,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -3662,6 +3711,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3705,6 +3755,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3741,6 +3792,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3832,6 +3884,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -3846,6 +3899,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3889,6 +3943,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3925,6 +3980,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -4016,6 +4072,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -4030,6 +4087,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -4073,6 +4131,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -4109,6 +4168,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name

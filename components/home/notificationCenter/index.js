@@ -13,6 +13,9 @@ import { MyStatusBar } from '../../global/statusBar/index'
 
 import * as mutations from '../../../src/graphql/mutations'
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
+
 
 class NotificationCenter extends Component {
 
@@ -54,24 +57,24 @@ class NotificationCenter extends Component {
         let filterDateNotificationsx2 = notifications.filter(item => new Date(item.expirationDateWeek) > new Date() ? null : Object.assign(item, JSON.parse(item.JSONdata)))
         let areThereNotifications = filterDateNotifications.length + filterDateNotificationsx2.length
         return (
-            <Container style={{ backgroundColor: "#FAFAFA" }}>
-                <Header noLeft style={{ backgroundColor: "#D81B60", justifyContent: 'center', alignItems: 'center' }}>
+            <Container style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                <Header noLeft style={{ backgroundColor: colorsPalette.primaryColor, justifyContent: 'center', alignItems: 'center' }}>
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button transparent onPress={() => _changeSwiper(-1)}>
-                            <Icon name='arrow-back' style={{ color: "#FFF" }} />
+                            <Icon name='arrow-back' style={{ color: colorsPalette.secondaryColor }} />
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
+                                style={{ left: 5, color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Back</Text>
                         </Button>
                         <Title
                             allowFontScaling={false}
                             minimumFontScale={wp(6)}
-                            style={{ fontSize: wp(6), color: "#FFF", left: 15 }}>Notification Center</Title>
+                            style={{ fontSize: wp(6), color: colorsPalette.secondaryColor, left: 15 }}>Notification Center</Title>
                     </Left>
                 </Header>
-                <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                <Content refreshControl={<RefreshControl tintColor="#D81B60" refreshing={refreshing} onRefresh={this._onRefresh} />}>
+                <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
+                <Content refreshControl={<RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefresh} />}>
                     {areThereNotifications
                         ? <List style={{ width: '100%' }}>
                             {filterDateNotifications.length
@@ -90,15 +93,15 @@ class NotificationCenter extends Component {
                                                             ? <Thumbnail source={{ uri: item.avatar }} />
                                                             : <UserAvatar size="55" name={item.userFrom} />}
                                                     </Left>
-                                                    <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                    <Body style={{ borderBottomColor: colorsPalette.transparent }}>
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
-                                                    <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                    <Right style={{ borderBottomColor: colorsPalette.transparent }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
-                                                            {isLoading && itemState === item.id ? <Spinner size="small" color="#F44336" style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: '#F44336' }} />}
+                                                            {isLoading && itemState === item.id ? <Spinner size="small" color={colorsPalette.errColor} style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: colorsPalette.errColor }} />}
                                                         </Button>
                                                     </Right>
                                                 </ListItem>
@@ -122,15 +125,15 @@ class NotificationCenter extends Component {
                                                             ? <Thumbnail source={{ uri: item.avatar }} />
                                                             : <UserAvatar size="55" name={item.userFrom} />}
                                                     </Left>
-                                                    <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                    <Body style={{ borderBottomColor: colorsPalette.transparent }}>
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: '#333', fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: '#333', fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: '#333' }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
-                                                    <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                    <Right style={{ borderBottomColor: colorsPalette.transparent }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
-                                                            {isLoading && itemState === item.id ? <Spinner size="small" color="#F44336" style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: '#F44336' }} />}
+                                                            {isLoading && itemState === item.id ? <Spinner size="small" color={colorsPalette.errColor} style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: colorsPalette.errColor }} />}
                                                         </Button>
                                                     </Right>
                                                 </ListItem>
@@ -143,7 +146,7 @@ class NotificationCenter extends Component {
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(6)}
-                                style={{ top: 50, fontSize: wp(6), color: '#333', fontWeight: 'normal', letterSpacing: 1 }}>
+                                style={{ top: 50, fontSize: wp(6), color: colorsPalette.darkFont, fontWeight: 'normal', letterSpacing: 1 }}>
                                 Nothing here...
                             </Text>
                         </View>}

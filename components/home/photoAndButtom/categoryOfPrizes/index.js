@@ -10,6 +10,8 @@ import moment from 'moment'
 // Component Child
 import Header from './header'
 
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
 
 class ListGeneralPrizes extends Component {
     state = {
@@ -29,22 +31,24 @@ class ListGeneralPrizes extends Component {
         const { valueKey, loadingImgYours, loadingImgCategory } = this.state
         const { userData, _setModalVisibleRedeemPoints, prizeCategory, navigation } = this.props
         return (
-            <Container style={{ backgroundColor: '#F5F5F5' }}>
+            <Container style={{ backgroundColor: colorsPalette.primaryColor }}>
                 <Header _setModalVisibleRedeemPoints={_setModalVisibleRedeemPoints} />
-                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
+                <Tabs
+                    style={{ backgroundColor: colorsPalette.secondaryColor }}
+                    tabBarUnderlineStyle={{ backgroundColor: colorsPalette.secondaryColor }}>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Categories</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Categories</Text>
                             </TabHeading>
                         }
-                        activeTextStyle={{ color: '#D81B60' }}
-                        textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#F5F5F5" }}
-                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        activeTextStyle={{ color: colorsPalette.secondaryColor }}
+                        textStyle={{ color: colorsPalette.secondaryColor }}
+                        tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
+                        activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         <Content>
                             {prizeCategory.map((item, key) => (
                                 <TouchableHighlight
@@ -73,7 +77,7 @@ class ListGeneralPrizes extends Component {
                                             borderRadius={5}
                                             source={{ uri: item.picture }}
                                             style={{ height: 125, width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
-                                            <Spinner color="#D81B60" animating={loadingImgCategory} style={{ position: 'absolute', alignSelf: 'center' }} />
+                                            <Spinner color={colorsPalette.secondaryColor} animating={loadingImgCategory} style={{ position: 'absolute', alignSelf: 'center' }} />
                                             <View style={{
                                                 backgroundColor: 'rgba(0,0,0,0.2)',
                                                 width: "100%",
@@ -95,17 +99,17 @@ class ListGeneralPrizes extends Component {
                     </Tab>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Created</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Created</Text>
                             </TabHeading>
                         }
-                        activeTextStyle={{ color: '#D81B60' }}
-                        textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#F5F5F5" }}
-                        activeTabStyle={{ backgroundColor: '#F5F5F5' }}>
+                        activeTextStyle={{ color: colorsPalette.secondaryColor }}
+                        textStyle={{ color: colorsPalette.secondaryColor }}
+                        tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
+                        activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         {
                             userData.submitPrize.items.length
                                 ? <Content>
@@ -169,7 +173,7 @@ class ListGeneralPrizes extends Component {
                                         style={{ color: '#BDBDBD', fontSize: wp(5.5), alignSelf: 'center', textAlign: 'center' }}>You don't have prizes created yet</Text>
                                     <Button
                                         onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                        style={{ alignSelf: 'center', backgroundColor: '#D81B60', top: 10 }}>
+                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor, top: 10 }}>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}
@@ -183,7 +187,7 @@ class ListGeneralPrizes extends Component {
                                 ? <View style={{ minHeight: 50, justifyContent: 'center', alignItems: 'center' }}>
                                     <Button
                                         onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                        style={{ alignSelf: 'center', backgroundColor: '#D81B60' }}>
+                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor }}>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}

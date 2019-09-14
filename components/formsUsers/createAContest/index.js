@@ -45,7 +45,7 @@ export default class CreateContest extends Component {
         this.swiper.scrollBy(i)
     }
 
-    _dataFromForms = (data, coinsParams) => {
+    _dataFromForms = (data) => {
         const { contest } = this.state
         this.setState({
             contest: Object.assign(contest, data),
@@ -57,36 +57,42 @@ export default class CreateContest extends Component {
         return (
             <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutYouPlaceholder /></View>}>
                 <Swiper
-                    scrollEnabled={false}
+                    scrollEnabled={true}
                     ref={(swiper) => this.swiper = swiper}
                     loop={false} showsButtons={false} showsPagination={false}>
 
                     {/* ABOUT YOU */}
                     <AboutYou
+                        // Data
                         userData={userData}
                         dataFromThePreviousContest={dataFromThePreviousContest}
 
                         // Actions
                         wantSuggestedFields={wantSuggestedFields}
 
+                        // Functions
                         _dataFromForms={this._dataFromForms}
                         _indexChangeSwiper={this._indexChangeSwiper} />
 
                     {/* ABOUT THE CONTEST */}
                     <AboutTheContest
+                        // Data
                         userData={userData}
                         dataFromThePreviousContest={dataFromThePreviousContest}
 
                         // Actions
                         wantSuggestedFields={wantSuggestedFields}
 
+                        // Functions
                         _dataFromForms={this._dataFromForms}
                         _indexChangeSwiper={this._indexChangeSwiper} />
 
                     {/* PRIZES */}
                     <Prizes
+                        // Data
                         userData={userData}
 
+                        // Functions
                         _dataFromForms={this._dataFromForms}
                         _indexChangeSwiper={this._indexChangeSwiper} />
 

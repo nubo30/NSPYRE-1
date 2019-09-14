@@ -12,6 +12,9 @@ const screenHeight = Dimensions.get('screen').height
 
 import { errListAws } from '../errorsAws/index'
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
+
 export default class ActivateNumberPhone extends Component {
 
     state = {
@@ -65,26 +68,26 @@ export default class ActivateNumberPhone extends Component {
         return (
             <Grid>
                 <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(6), textAlign: 'center' }}>Enter the code we send to {numberPhone}</Text>
+                    <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(6), textAlign: 'center' }}>Enter the code we send to {numberPhone}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center', left: 22 }}>Change</Text>
+                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3), textAlign: 'center', left: 22 }}>Change</Text>
                         <Button small transparent style={{ left: 11 }} onPressIn={() => _changeSwiperRoot(-1)}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#FFF' }}>phone number</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: colorsPalette.secondaryColor }}>phone number</Text>
                         </Button>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center' }}>o</Text>
+                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3), textAlign: 'center' }}>o</Text>
                         <Button small transparent onPress={() => this._resendCode(numberPhone)}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: '#FFF', right: 10 }}>forward SMS</Text>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: colorsPalette.secondaryColor, right: 10 }}>forward SMS</Text>
                         </Button>
-                        <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(3), textAlign: 'center', left: -25 }}>.</Text>
+                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3), textAlign: 'center', left: -25 }}>.</Text>
                     </View>
                 </Row>
                 <Row size={70} style={{ alignSelf: 'center' }}>
                     <Grid style={{
-                        backgroundColor: '#FFF',
+                        backgroundColor: colorsPalette.secondaryColor,
                         maxWidth: screenWidth - 60,
                         borderRadius: 5,
                         alignSelf: 'center',
-                        shadowColor: "rgba(0,0,0,0.3)",
+                        shadowColor: colorsPalette.primaryShadowColor,
                         shadowOpacity: 1,
                         shadowOffset: { width: 1 },
                         maxHeight: screenHeight / 2 + 40,
@@ -97,8 +100,8 @@ export default class ActivateNumberPhone extends Component {
                                     disable={false}
                                     keyboardType="numeric"
                                     codeLength={6}
-                                    activeColor='#D81B60'
-                                    inactiveColor='#FCE4EC'
+                                    activeColor={colorsPalette.primaryColor}
+                                    inactiveColor={colorsPalette.gradientGray}
                                     className='border-b'
                                     autoFocus={false}
                                     ignoreCase={true}
@@ -107,8 +110,8 @@ export default class ActivateNumberPhone extends Component {
                                     onFulfill={(code) => { this._confirmCode(code) }}
                                 />}
                         </Row>
-                        <Row size={80} style={{ backgroundColor: '#FFF', justifyContent: 'center', padding: 20 }}>
-                            <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', padding: 20 }}>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                     </Grid>
                 </Row>

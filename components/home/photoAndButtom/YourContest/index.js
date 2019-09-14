@@ -14,7 +14,9 @@ import { DataNotFound } from "../../../global/emojis/index"
 import { API, graphqlOperation } from 'aws-amplify'
 import { showParticipationByUser } from '../../../../src/graphql/queries'
 
-
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
+import { MyStatusBar } from '../../../global/statusBar'
 class UserContest extends Component {
     constructor() {
         super()
@@ -55,56 +57,58 @@ class UserContest extends Component {
         let filterContestCreated = []; filterContestCreated = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
-            <Container style={{ backgroundColor: '#FAFAFA' }}>
+            <Container style={{ backgroundColor: colorsPalette.primaryColor }}>
                 {/* Header */}
                 <HeaderContest _setModalVisibleYourContest={_setModalVisibleYourContest} />
                 <Header searchBar rounded transparent style={{ height: 50, width: 300 }}>
-                    <Item style={{ top: -10, backgroundColor: '#FAFAFA' }}>
-                        <Icon name="ios-search" style={{ color: !input ? "#D81B60" : "#333" }} />
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+                    <Item style={{ top: -10, backgroundColor: colorsPalette.primaryColor }}>
+                        <Icon name="ios-search" style={{ color: colorsPalette.secondaryColor }} />
                         <Input
                             minimumFontScale={wp(4)}
                             allowFontScaling={false}
+                            selectionColor={colorsPalette.secondaryColor}
+                            style={{ color: colorsPalette.secondaryColor }}
                             value={input}
                             onChangeText={(input) => this.setState({ input })}
-                            placeholderTextColor="#D81B60"
+                            placeholderTextColor={colorsPalette.secondaryColor}
                             placeholder="Filter by name of contest" />
                     </Item>
                 </Header>
                 <Tabs
-                    style={{ backgroundColor: '#FAFAFA' }}
+                    style={{ backgroundColor: colorsPalette.secondaryColor }}
                     onChangeTab={() => this.setState({ input: "" })}
-                    tabBarUnderlineStyle={{ backgroundColor: '#D81B60' }}>
+                    tabBarUnderlineStyle={{ backgroundColor: colorsPalette.secondaryColor }}>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Matched</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Matched</Text>
                             </TabHeading>
                         }
-                        activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
-                        textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#FAFAFA" }}
-                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
+                        activeTextStyle={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}
+                        textStyle={{ color: colorsPalette.secondaryColor }}
+                        activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1, top: -40 }}>
-                            <Icon type="Ionicons" name="ios-construct" style={{ fontSize: wp(20), color: '#3333', alignSelf: 'center' }} />
+                            <Icon type="Ionicons" name="ios-construct" style={{ fontSize: wp(20), color: colorsPalette.thirdColor, alignSelf: 'center' }} />
                             <Text style={{ alignSelf: 'center', color: "#3333" }}>In construction</Text>
                         </View>
                     </Tab>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Created</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Created</Text>
                             </TabHeading>
                         }
-                        activeTextStyle={{ color: '#D81B60', fontSize: wp(4) }}
-                        textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#FAFAFA" }}
-                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
+                        activeTextStyle={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}
+                        textStyle={{ color: colorsPalette.secondaryColor }}
+                        tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
+                        activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         {
                             filterContestCreated && filterContestCreated.length
                                 ? <FlatList
@@ -112,7 +116,7 @@ class UserContest extends Component {
                                     renderItem={({ item, index }) =>
                                         <View key={index}>
                                             <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
-                                            <View style={{ borderBottomColor: '#BDBDBD', borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
+                                            <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
                                         </View>
                                     }
                                     keyExtractor={(item, index) => index.toString()} />
@@ -121,23 +125,23 @@ class UserContest extends Component {
                     </Tab>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: '#D81B60', fontSize: wp(4) }}>Participated</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Participated</Text>
                             </TabHeading>
                         }
-                        activeTextStyle={{ color: '#D81B60' }}
-                        textStyle={{ color: '#D81B60' }}
-                        tabStyle={{ backgroundColor: "#FAFAFA" }}
-                        activeTabStyle={{ backgroundColor: '#FAFAFA' }}>
+                        activeTextStyle={{ color: colorsPalette.secondaryColor }}
+                        textStyle={{ color: colorsPalette.secondaryColor }}
+                        tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
+                        activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         {
                             filterContestParticipated && filterContestParticipated.length
                                 ? <FlatList
                                     data={filterContestParticipated}
                                     refreshControl={
-                                        <RefreshControl tintColor="#D82B60" refreshing={refreshing} onRefresh={this._onRefresh} />
+                                        <RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefresh} />
                                     }
                                     renderItem={({ item, index }) =>
                                         <View key={index}>
@@ -145,7 +149,7 @@ class UserContest extends Component {
                                                 item={item}
                                                 userData={userData}
                                                 _setModalVisibleYourContest={_setModalVisibleYourContest} />
-                                            <View style={{ borderBottomColor: '#BDBDBD', borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
+                                            <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
                                         </View>
                                     }
                                     keyExtractor={(item, index) => index.toString()} />

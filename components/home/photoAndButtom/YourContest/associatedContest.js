@@ -9,11 +9,12 @@ import upperFirst from 'lodash/upperFirst'
 import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
+
 // This function show the content of all card section
 class AssociatedContest extends Component {
-    state = {
-        animation: false,
-    }
+    state = { animation: false }
 
     render() {
         const { animation } = this.state
@@ -49,7 +50,7 @@ class AssociatedContest extends Component {
                             width: "90%",
                             alignSelf: "center",
                             marginTop: 20,
-                            shadowColor: 'rgba(0,0,0,0.3)',
+                            shadowColor: colorsPalette.primaryShadowColor,
                             shadowOffset: { width: 0 },
                             shadowOpacity: 1
                         }}>
@@ -71,14 +72,14 @@ class AssociatedContest extends Component {
                                     <Text
                                         minimumFontScale={wp(8)}
                                         allowFontScaling={false}
-                                        style={{ color: "#FFF", fontSize: wp(8), position: "absolute", bottom: 0, padding: 10 }}>
+                                        style={{ color: colorsPalette.secondaryColor, fontSize: wp(8), position: "absolute", bottom: 0, padding: 10 }}>
                                         {truncate(upperFirst(lowerCase(item.contestData.Item.general.nameOfContest)), { length: 20, separator: '...' })}
                                     </Text>
                                     <View style={{ flexDirection: 'row', bottom: 0, right: 0, position: 'absolute', padding: 5 }}>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}
-                                            style={{ color: "#FFF", left: -5, fontSize: wp(4), top: -10 }}>🏆 {item.contestData.Item.prizes.length}</Text>
+                                            style={{ color: colorsPalette.secondaryColor, left: -5, fontSize: wp(4), top: -10 }}>🏆 {item.contestData.Item.prizes.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>

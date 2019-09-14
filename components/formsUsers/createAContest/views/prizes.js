@@ -16,6 +16,9 @@ import { MyStatusBar } from '../../../global/statusBar/index'
 // Icons
 import { Ionicons, Entypo, FontAwesome, MaterialIcons, Feather } from '@expo/vector-icons'
 
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
+
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
@@ -177,40 +180,40 @@ export default class Prizes extends Component {
         return (
             <Container>
                 <GadrientsAuth />
-                <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-                <Header style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+                <Header transparent>
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button
                             disabled={isLoading}
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
-                            <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
-                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>About The Contest</Text>
+                            <Icon name='arrow-back' style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }} />
+                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontSize: wp(4) }}>About The Contest</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Prizes</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontSize: wp(6) }}>Prizes</Title>
                     </Left>
                 </Header>
 
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Next!</Text> {'\n'}We reward your contest participants for you with our point system and redemption center but if you want to add some special give aways for top performers it can increase your results!</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, textAlign: 'left', fontWeight: '100' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Next!</Text> {'\n'}We reward your contest participants for you with our point system and redemption center but if you want to add some special give aways for top performers it can increase your results!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
-                        <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1, top: -3 }}>
+                        <View style={{ backgroundColor: colorsPalette.secondaryColor, width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1, top: -3 }}>
                             <Content contentContainerStyle={{ paddingTop: 10 }}>
                                 <List>
                                     {/* NAME PRIZE */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalName: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
-                                                <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                                <Entypo style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="star" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name of prize</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name of prize</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{name ? name : 'Not specified'}</Text>
@@ -221,12 +224,12 @@ export default class Prizes extends Component {
                                     {/* DESCRIPTION */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalDescription: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
-                                                <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
+                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#F4511E" }}>
+                                                <MaterialIcons style={{ fontSize: wp(5.6), color: colorsPalette.secondaryColor }} active name="description" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Terms</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Terms</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>
@@ -237,12 +240,12 @@ export default class Prizes extends Component {
                                     {/* PICTURE */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicture: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC" }}>
-                                                <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF' }} active name="picture-o" />
+                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#4DB6AC" }}>
+                                                <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor }} active name="picture-o" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Picture</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Picture</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{picture.name ? "Already selected" : "No select"}</Text>
@@ -253,41 +256,29 @@ export default class Prizes extends Component {
                                     {/* VIDEO */}
                                     <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })}>
                                         <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }}>
-                                                <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
+                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D" }}>
+                                                <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Video</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{video.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
-
-                                    <Button iconRight small transparent style={{ alignSelf: 'center', top: 10 }}
-                                        onPress={() => Alert.alert(
-                                            'Why we need this?',
-                                            'We need this information to be able to get other users to find your contest!',
-                                            [
-                                                { text: 'OK', onPress: () => null },
-                                            ],
-                                        )}>
-                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
-                                        <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
-                                    </Button>
                                 </List>
                             </Content>
                         </View>
-                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
+                        <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3.5), top: 10 }}>
                             {messageFlash.cognito && messageFlash.cognito.message}
                         </Text>
                     </Row>
                 </Grid>
 
                 {/* Validar formulario */}
-                <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }}>
+                <Footer style={{ backgroundColor: colorsPalette.transparent, borderTopColor: colorsPalette.transparent }}>
                     <Animatable.View
                         animation={isvalidFormAnimation ? "shake" : undefined}
                         onAnimationEnd={() => this.setState({ isvalidFormAnimation: false })}
@@ -296,7 +287,7 @@ export default class Prizes extends Component {
                             justifyContent: 'center',
                             alignItems: 'center',
                             width: "80%",
-                            shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                            shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                         }}>
                         <Button
                             disabled={isLoading}
@@ -304,10 +295,10 @@ export default class Prizes extends Component {
                             iconRight style={{
                                 width: "100%",
                                 alignSelf: 'center',
-                                backgroundColor: '#E91E63'
+                                backgroundColor: colorsPalette.primaryColor
                             }}>
                             <Text allowFontScaling={false} style={{ fontWeight: 'bold', letterSpacing: 2 }}>Create</Text>
-                            {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                            {isLoading ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                         </Button>
                     </Animatable.View>
                 </Footer>
@@ -323,7 +314,7 @@ export default class Prizes extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Company Name</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Company Name</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
@@ -334,7 +325,7 @@ export default class Prizes extends Component {
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
                                         letterSpacing: 1,
-                                        color: name ? "#E91E63" : "#3333"
+                                        color: name ? colorsPalette.primaryColor : colorsPalette.thirdColor
                                     }}>{name ? "Done" : "Cancel"}</Text>
                                 </Button>
                             </Right>
@@ -344,7 +335,7 @@ export default class Prizes extends Component {
                             <ListItem icon>
                                 <Left>
                                     <Button style={{ backgroundColor: "#009688" }}>
-                                        <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                        <Entypo style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="star" />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -353,12 +344,12 @@ export default class Prizes extends Component {
                                         returnKeyType='done'
                                         allowFontScaling={false}
                                         placeholder="Company name"
-                                        placeholderTextColor="#EEEE"
+                                        placeholderTextColor={colorsPalette.gradientGray}
                                         maxLength={20}
                                         autoFocus={true}
                                         value={name}
                                         keyboardType="ascii-capable"
-                                        selectionColor="#E91E63"
+                                        selectionColor={colorsPalette.primaryColor}
                                         onChangeText={(value) => this.setState({ name: value })} />
                                 </Body>
                                 <Right />
@@ -378,7 +369,7 @@ export default class Prizes extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Terms</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Terms</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
@@ -389,7 +380,7 @@ export default class Prizes extends Component {
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
                                         letterSpacing: 1,
-                                        color: description ? "#E91E63" : "#3333"
+                                        color: description ? colorsPalette.primaryColor : colorsPalette.thirdColor
                                     }}>{description ? "Done" : "Cancel"}</Text>
                                 </Button>
                             </Right>
@@ -405,11 +396,11 @@ export default class Prizes extends Component {
                                     multiline
                                     numberOfLines={3}
                                     placeholder="Description"
-                                    placeholderTextColor="#EEEE"
+                                    placeholderTextColor={colorsPalette.gradientGray}
                                     autoFocus={true}
                                     value={description}
                                     keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
+                                    selectionColor={colorsPalette.primaryColor}
                                     style={{ padding: 5, maxHeight: 170 }}
                                     onChangeText={(value) => this.setState({ description: value })} />
                             </Item>
@@ -422,12 +413,12 @@ export default class Prizes extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={VisibleModalPicture}>
-                    <Header style={{ height: Platform.OS === 'ios' ? 70 : 50, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
+                    <Header transparent style={{ height: Platform.OS === 'ios' ? 70 : 50 }}>
                         <Left style={{ flexDirection: 'row' }}>
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false, picture: { name: "", type: "", localUrl: "" } }) }}>
-                                <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
+                                <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
+                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -435,7 +426,7 @@ export default class Prizes extends Component {
                                 disabled={picture.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: picture.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>OK</Text>
+                                <Text allowFontScaling={false} style={{ color: picture.name ? colorsPalette.primaryColor : colorsPalette.opaqueWhite, fontSize: wp(4) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -443,7 +434,7 @@ export default class Prizes extends Component {
                         <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
                             {picture.name
                                 ? <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
-                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
+                                : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: colorsPalette.opaqueWhite }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button
@@ -451,10 +442,10 @@ export default class Prizes extends Component {
                                 transparent
                                 style={{
                                     top: 10,
-                                    backgroundColor: "#D81B60",
+                                    backgroundColor: colorsPalette.primaryColor,
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{picture.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{picture.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
                             </Button>
                         </Row>
                     </Grid>
@@ -465,12 +456,12 @@ export default class Prizes extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={visibleModalVideo}>
-                    <Header style={{ height: Platform.OS === 'ios' ? 70 : 50, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
+                    <Header transparent style={{ height: Platform.OS === 'ios' ? 70 : 50 }}>
                         <Left style={{ flexDirection: 'row' }}>
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
-                                <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{video.name ? "Delete" : "Back"}</Text>
+                                <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
+                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{video.name ? "Delete" : "Back"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -478,7 +469,7 @@ export default class Prizes extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: video.name ? "#D81B60" : "#EEEEEE", fontSize: wp(4) }}>Ok</Text>
+                                <Text allowFontScaling={false} style={{ color: video.name ? colorsPalette.primaryColor : colorsPalette.opaqueWhite, fontSize: wp(4) }}>Ok</Text>
                             </Button>
                         </Right>
                     </Header>
@@ -495,7 +486,7 @@ export default class Prizes extends Component {
                                     shouldPlay
                                     isLooping={false}
                                     style={{ width: "100%", height: "100%" }} />
-                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
+                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: colorsPalette.opaqueWhite }} />}
                         </Row>
                         <Row size={30} style={{ flexDirection: 'column' }}>
                             <Button
@@ -503,10 +494,10 @@ export default class Prizes extends Component {
                                 transparent
                                 style={{
                                     top: 10,
-                                    backgroundColor: "#D81B60",
+                                    backgroundColor: colorsPalette.primaryColor,
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
                         </Row>
                     </Grid>

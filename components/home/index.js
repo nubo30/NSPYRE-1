@@ -10,10 +10,12 @@ import Swiper from 'react-native-swiper'
 import UserInfo from "./photoAndButtom"
 import DrawerRight from "./drawer"
 import ListContest from "./listContest"
-import Twitter from './twitter/index'
 
 // gadrient
 import { MyStatusBar } from '../global/statusBar'
+
+// Colors
+import { colorsPalette } from '../global/static/colors'
 
 // Graphql
 import * as queries from '../../src/graphql/queries'
@@ -147,17 +149,17 @@ class Home extends Component {
                 loop={false}>
                 <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                     {/* Header */}
-                    <Header style={{ backgroundColor: "#D81B60" }} onLayout={(event) => this.measureView(event)}>
+                    <Header style={{ backgroundColor: colorsPalette.primaryColor }} onLayout={(event) => this.measureView(event)}>
                         <Left style={{ flexDirection: "row", alignItems: "center" }}>
                             <Button style={{ minWidth: wp(11) }} transparent
                                 onPress={() => { this.setState({ openDrower: !openDrower }); }}>
                                 {!openDrower
-                                    ? <Icon name='menu' style={{ color: "#fff", fontSize: wp(9.5), top: -2 }} />
-                                    : <Icon name='close' style={{ color: "#fff", fontSize: wp(11), top: -5, left: 5 }} />}
+                                    ? <Icon name='menu' style={{ color: colorsPalette.secondaryColor, fontSize: wp(9.5), top: -2 }} />
+                                    : <Icon name='close' style={{ color: colorsPalette.secondaryColor, fontSize: wp(11), top: -5, left: 5 }} />}
                             </Button>
                             <Title
                                 allowFontScaling={false}
-                                style={{ color: "#fff", fontSize: wp(6) }}>INFLUENCE ME NOW</Title>
+                                style={{ color: colorsPalette.secondaryColor, fontSize: wp(6) }}>INFLUENCE ME NOW</Title>
                         </Left>
                         <Right style={{ position: 'absolute', right: 0, top: 23, right: 5 }}>
                             <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex: 1, height: '100%' }}>
@@ -167,18 +169,18 @@ class Home extends Component {
                                         this.setState({ openDrower: false });
                                     }}
                                     transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000, left: 10 }}>
-                                    <Icon type="Feather" name='bell' style={{ color: '#FFF', fontSize: wp(6.5), top: 2 }} />
+                                    <Icon type="Feather" name='bell' style={{ color: colorsPalette.secondaryColor, fontSize: wp(6.5), top: 2 }} />
                                 </Button>
                                 {notifications.length === 0 ? null :
-                                    <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 20, minWidth: 20, backgroundColor: '#FFF', zIndex: 0, minHeight: 20, maxHeight: 20 }}>
+                                    <Badge style={{ position: 'absolute', right: 0, top: 0, maxWidth: 20, minWidth: 20, backgroundColor: colorsPalette.secondaryColor, zIndex: 0, minHeight: 20, maxHeight: 20 }}>
                                         <Text
                                             allowFontScaling={false}
-                                            style={{ color: "#D81B60", fontSize: wp(2.5), position: 'absolute', minHeight: 20, maxHeight: 20, maxWidth: 20, minWidth: 20, alignSelf: 'center' }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
+                                            style={{ color: colorsPalette.primaryColor, fontSize: wp(2.5), position: 'absolute', minHeight: 20, maxHeight: 20, maxWidth: 20, minWidth: 20, alignSelf: 'center' }}>{notifications.length > 9 ? `+9` : notifications.length}</Text>
                                     </Badge>}
                             </View>
                         </Right>
                     </Header>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
 
                     {/* Drower left */}
                     <Drawer
@@ -188,8 +190,10 @@ class Home extends Component {
                         closedDrawerOffset={Platform.OS === 'ios' ? -3 : 0}
                         styles={{
                             main: {
-                                shadowColor: 'rgba(0,0,0,0.2)', shadowOpacity: 10,
-                                shadowOffset: { width: -5, height: 1 }, zIndex: 1000
+                                shadowColor: 'rgba(0,0,0,0.1)',
+                                shadowOpacity: 1,
+                                shadowOffset: { width: -5, height: 1 },
+                                zIndex: 1000
                             }
                         }}
                         content={<DrawerRight userData={userData} />}
@@ -197,16 +201,16 @@ class Home extends Component {
                         {/* Home Content */}
                         <Container
                             allowFontScaling={false}
-                            style={{ backgroundColor: '#FAFAFA' }}>
+                            style={{ backgroundColor: colorsPalette.secondaryColor }}>
                             <Header
                                 span style={{
-                                    backgroundColor: '#FAFAFA',
+                                    backgroundColor: colorsPalette.secondaryColor,
                                     height: hp(35),
                                     flexDirection: "column",
-                                    shadowColor: 'rgba(0,0,0,0.2)',
+                                    shadowColor: colorsPalette.primaryShadowColor,
                                     shadowOpacity: 1,
-                                    shadowOffset: { width: 0 },
-                                    borderBottomColor: 'rgba(0,0,0,0.0)',
+                                    shadowOffset: { width: 0, height: 1.5 },
+                                    borderBottomColor: colorsPalette.transparent
                                 }}>
                                 {/* Componentes como el avatar, your contest y redeem points */}
                                 <UserInfo
@@ -220,12 +224,12 @@ class Home extends Component {
                                     onPress={() => this.showActionSheet()}>
                                     <Text
                                         allowFontScaling={false}
-                                        style={{ color: !online ? "#3333" : "#D82B60", textAlign: "center", fontSize: wp(4) }}>{`Create a contest or Submit a prize`}</Text>
+                                        style={{ color: !online ? colorsPalette.thirdColor : colorsPalette.primaryColor, textAlign: "center", fontSize: wp(4) }}>{`Create a contest or Submit a prize`}</Text>
                                 </Button>
                                 <ActionSheet ref={(c) => { this.actionSheet = c; }} />
                                 <Text
                                     allowFontScaling={false}
-                                    style={{ fontSize: wp(6.5), fontWeight: "200", color: "#333", textAlign: "center", top: -5 }}>
+                                    style={{ fontSize: wp(6.5), fontWeight: "200", color: colorsPalette.darkFont, textAlign: "center", top: -5 }}>
                                     LIST OF CONTESTS
                                 </Text>
                             </Header>
@@ -236,7 +240,6 @@ class Home extends Component {
                     </Drawer>
                 </Container>
                 <NotificationCenter _refreshing={this._refreshing} refreshing={refreshing} _refreshData={this._refreshData} _deleteNotificationLoading={this._deleteNotificationLoading} isLoading={isLoading} notifications={notifications} _changeSwiper={this._changeSwiper} />
-                <Twitter />
             </Swiper>
         )
     }

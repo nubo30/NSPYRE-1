@@ -3,6 +3,7 @@
 
 export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
+    tokenfb
     id
     userId
     name
@@ -17,6 +18,7 @@ export const onCreateUser = `subscription OnCreateUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -139,6 +141,7 @@ export const onCreateUser = `subscription OnCreateUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -220,6 +223,7 @@ export const onCreateUser = `subscription OnCreateUser {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -287,6 +291,7 @@ export const onCreateUser = `subscription OnCreateUser {
 `;
 export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
+    tokenfb
     id
     userId
     name
@@ -301,6 +306,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -423,6 +429,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -504,6 +511,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -571,6 +579,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
 `;
 export const onDeleteUser = `subscription OnDeleteUser {
   onDeleteUser {
+    tokenfb
     id
     userId
     name
@@ -585,6 +594,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -707,6 +717,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -788,6 +799,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -857,6 +869,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
   onCreateCreateContest {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -871,6 +884,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -914,6 +928,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -950,6 +965,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1055,6 +1071,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1144,6 +1161,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1192,6 +1210,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
   onUpdateCreateContest {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -1206,6 +1225,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1249,6 +1269,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1285,6 +1306,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1390,6 +1412,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1479,6 +1502,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1527,6 +1551,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
   onDeleteCreateContest {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -1541,6 +1566,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1584,6 +1610,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1620,6 +1647,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1725,6 +1753,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1814,6 +1843,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1864,6 +1894,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2056,6 +2087,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2248,6 +2280,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2458,6 +2491,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2644,6 +2678,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -2830,6 +2865,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -3050,6 +3086,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
   onCreateSubmitPrize {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3064,6 +3101,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3107,6 +3145,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3143,6 +3182,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3249,6 +3289,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
   onUpdateSubmitPrize {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3263,6 +3304,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3306,6 +3348,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3342,6 +3385,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3448,6 +3492,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
   onDeleteSubmitPrize {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -3462,6 +3507,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3505,6 +3551,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3541,6 +3588,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3648,6 +3696,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -3662,6 +3711,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3705,6 +3755,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3741,6 +3792,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -3832,6 +3884,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -3846,6 +3899,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3889,6 +3943,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -3925,6 +3980,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -4016,6 +4072,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -4030,6 +4087,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -4073,6 +4131,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -4109,6 +4168,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name

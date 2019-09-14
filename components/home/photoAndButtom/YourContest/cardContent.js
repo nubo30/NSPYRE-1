@@ -10,6 +10,8 @@ import { withNavigation } from "react-navigation"
 import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
 
+// Colors
+import { colorsPalette } from '../../../global/static/colors'
 
 // GraphQL
 import * as mutations from '../../../../src/graphql/mutations'
@@ -88,7 +90,7 @@ class CardContent extends Component {
         return (
             <View>
                 <TouchableHighlight
-                    underlayColor="rgba(0,0,0,0.0)"
+                    underlayColor={colorsPalette.transparent}
                     onPress={() => this.setState({ animation: true })}>
                     <Animatable.View
                         onAnimationEnd={() => {
@@ -109,14 +111,14 @@ class CardContent extends Component {
                         }}>
                         <View style={{
                             borderRadius: 5,
-                            shadowColor: 'rgba(0,0,0,0.3)',
+                            shadowColor: colorsPalette.primaryShadowColor,
                             shadowOffset: { width: 0 }, shadowOpacity: 1
                         }}>
                             <ImageBackground
                                 borderRadius={5}
                                 source={{ uri: item.general.picture.url }}
                                 style={{ height: 100, width: "100%" }}>
-                                <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                <View style={{ backgroundColor: colorsPalette.primaryShadowColor, width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
                                     {isFinishedContest
                                         ? <View style={{
                                             position: 'absolute',
@@ -126,15 +128,15 @@ class CardContent extends Component {
                                         }}>
                                             <View style={{
                                                 borderRadius: 5,
-                                                padding: 10, backgroundColor: '#E53935',
-                                                shadowColor: 'rgba(0,0,0,0.3)',
+                                                padding: 10, backgroundColor: colorsPalette.errColor,
+                                                shadowColor: colorsPalette.primaryShadowColor,
                                                 shadowOffset: { width: 0 },
                                                 shadowOpacity: 1,
                                             }}>
                                                 <Text
                                                     minimumFontScale={wp(3)}
                                                     allowFontScaling={false}
-                                                    style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                                    style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
                                             </View>
                                         </View> :
                                         item.timer === null
@@ -148,20 +150,20 @@ class CardContent extends Component {
                                                 }}>
                                                     <View style={{
                                                         borderRadius: 5,
-                                                        padding: 10, backgroundColor: '#E53935',
-                                                        shadowColor: 'rgba(0,0,0,0.3)',
+                                                        padding: 10, backgroundColor: colorsPalette.errColor,
+                                                        shadowColor: colorsPalette.primaryShadowColor,
                                                         shadowOffset: { width: 0 },
                                                         shadowOpacity: 1,
                                                     }}>
                                                         <Text
                                                             minimumFontScale={wp(3)}
                                                             allowFontScaling={false}
-                                                            style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
+                                                            style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
                                                     </View>
                                                 </View> : <CountDown
-                                                    digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
-                                                    digitTxtStyle={{ color: '#FFF' }}
-                                                    timeLabelStyle={{ color: '#FFF' }}
+                                                    digitStyle={{ backgroundColor: colorsPalette.transparent }}
+                                                    digitTxtStyle={{ color: colorsPalette.secondaryColor }}
+                                                    timeLabelStyle={{ color: colorsPalette.secondaryColor }}
                                                     until={moment(item.timer).diff(moment(new Date()), 'seconds')}
                                                     onFinish={() => this.setState({ isFinishedContest: true })}
                                                     onPress={() => { }}
@@ -171,11 +173,11 @@ class CardContent extends Component {
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}
-                                            style={{ color: "#FFF", left: -10, fontSize: wp(4) }}>🏆 {item.prizes.length}</Text>
+                                            style={{ color: colorsPalette.secondaryColor, left: -10, fontSize: wp(4) }}>🏆 {item.prizes.length}</Text>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}
-                                            style={{ color: "#FFF", left: 10, fontSize: wp(4) }}>👥 {item.participants.items.length}</Text>
+                                            style={{ color: colorsPalette.secondaryColor, left: 10, fontSize: wp(4) }}>👥 {item.participants.items.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>
@@ -187,19 +189,19 @@ class CardContent extends Component {
                         <Text
                             minimumFontScale={wp(6)}
                             allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(6), top: -10 }}>
+                            style={{ color: colorsPalette.darkFont, fontSize: wp(6), top: -10 }}>
                             {startCase(item.general.nameOfContest)}
                         </Text>
                         <Text
                             minimumFontScale={wp(4)}
                             allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: '100' }}>
-                            The category is <Text style={{ color: "#333", fontSize: wp(4), top: -10, color: "#BDBDBD", fontWeight: 'bold' }}>{lowerCase(item.category)}</Text>
+                            style={{ color: colorsPalette.darkFont, fontSize: wp(4), top: -10, color: colorsPalette.underlinesColor, fontWeight: '100' }}>
+                            The category is <Text style={{ color: colorsPalette.darkFont, fontSize: wp(4), top: -10, color: colorsPalette.underlinesColor, fontWeight: 'bold' }}>{lowerCase(item.category)}</Text>
                         </Text>
                         <Text
                             minimumFontScale={wp(3)}
                             allowFontScaling={false}
-                            style={{ color: "#333", fontSize: wp(3), top: -10, color: "#BDBDBD", fontWeight: '100', fontStyle: 'italic' }}>
+                            style={{ color: colorsPalette.darkFont, fontSize: wp(3), top: -10, color: colorsPalette.underlinesColor, fontWeight: '100', fontStyle: 'italic' }}>
                             {`Published ${moment(item.createdAt).fromNow()}`}
                         </Text>
                     </View>
@@ -216,11 +218,11 @@ class CardContent extends Component {
                             ],
                             { cancelable: false },
                         )}>{!loadingDel
-                            ? <Icon type="Ionicons" name='md-trash' style={{ fontSize: 25, color: "#E0E0E0" }} />
-                            : <Spinner color='#E0E0E0' size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
+                            ? <Icon type="Ionicons" name='md-trash' style={{ fontSize: 25, color: colorsPalette.gradientGray }} />
+                            : <Spinner color={colorsPalette.gradientGray} size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
                         </Button>
                         <Button icon transparent onPress={() => this._share(item)}>
-                            <Icon type="FontAwesome" name='share-square-o' style={{ color: "#D81B60" }} />
+                            <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
                         </Button>
                     </View>
                 </View>

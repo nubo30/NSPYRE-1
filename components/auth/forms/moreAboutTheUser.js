@@ -17,6 +17,9 @@ const screenHeight = Dimensions.get('screen').height
 // GRAPHQL
 import * as mutations from '../../../src/graphql/mutations'
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
+
 export default class MoreAboutTheUser extends Component {
     state = {
         name: "",
@@ -39,29 +42,31 @@ export default class MoreAboutTheUser extends Component {
 
     _submitInformationAboutTheUser = async () => {
         const { avatar, name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
-        const { _changeSwiperRoot, _moreUserData } = this.props
+        const { _changeSwiperRoot, _moreUserData, moreUserData } = this.props
         const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
         try {
             const user = await Auth.currentAuthenticatedUser();
             if (avatar === null || avatar === undefined) {
                 await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
                 await Object.assign(input, {
+                    tokenfb: null,
                     id: user.attributes.sub,
                     userId: user.attributes.sub,
                     phone: user.attributes.phone_number,
                     coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
                 })
-                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
+                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC COGNITO
                 _moreUserData(input)
                 _changeSwiperRoot(1)
             } else {
                 await Object.assign(input, {
+                    tokenfb: moreUserData.tokenfb,
                     id: user.id,
                     userId: user.id,
                     phone: null,
                     coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
                 })
-                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC
+                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC FB
                 _moreUserData(input)
                 _changeSwiperRoot(1)
             }
@@ -127,12 +132,12 @@ export default class MoreAboutTheUser extends Component {
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
+                    <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
                         Let's get you registered!
                     </Text>
                     <AnimateNumber
                         allowFontScaling={false}
-                        style={{ color: "#FFF", fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                        style={{ color: colorsPalette.secondaryColor, fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
                         value={_.sum([pointsForTheName,
                             pointsForTheLastName,
                             pointsForTheUsername,
@@ -148,13 +153,13 @@ export default class MoreAboutTheUser extends Component {
                         maxWidth: screenWidth - 60,
                         borderRadius: 5,
                         alignSelf: 'center',
-                        shadowColor: "rgba(0,0,0,0.3)",
+                        shadowColor: colorsPalette.primaryShadowColor,
                         shadowOpacity: 1,
                         shadowOffset: { width: 1 },
                         maxHeight: screenHeight / 2 + 85,
                         top: -13
                     }}>
-                        <Row size={80} style={{ backgroundColor: '#FFF', justifyContent: 'center', borderRadius: 5 }}>
+                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderRadius: 5 }}>
                             <Content>
                                 <List style={{ width: "100%", padding: 10 }}>
                                     {/* Name */}
@@ -176,15 +181,14 @@ export default class MoreAboutTheUser extends Component {
                                                     : this.setState({ name: value, messageFlash: { cognito: { message: value + " invalid name" } } })
                                             }}
                                             keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            style={{ fontSize: wp(5), color: '#333' }}
-                                            placeholderTextColor="#E0E0E0"
+                                            selectionColor={colorsPalette.primaryColor}
+                                            style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
+                                            placeholderTextColor={colorsPalette.gradientGray}
                                             placeholder="Name" />
                                     </ListItem>
 
                                     {/* Lastname */}
                                     <ListItem style={{ height: 60, width: "90%" }}>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#E0E0E0' }}></Text>
                                         <Input
                                             returnKeyType="done"
                                             onSubmitEditing={() =>
@@ -202,9 +206,9 @@ export default class MoreAboutTheUser extends Component {
                                                     : this.setState({ lastname: value, messageFlash: { cognito: { message: value + " invalid lastname" } } })
                                             }}
                                             keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            style={{ fontSize: wp(5), color: '#333' }}
-                                            placeholderTextColor="#E0E0E0"
+                                            selectionColor={colorsPalette.primaryColor}
+                                            style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
+                                            placeholderTextColor={colorsPalette.gradientGray}
                                             placeholder="Lastname" />
                                     </ListItem>
 
@@ -226,9 +230,9 @@ export default class MoreAboutTheUser extends Component {
                                                     ? this.setState({ username: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ username: value, messageFlash: { cognito: { message: value + " invalid username" } } })
                                             }}
-                                            selectionColor="#E91E63"
-                                            style={{ fontSize: wp(5), color: '#333' }}
-                                            placeholderTextColor="#E0E0E0"
+                                            selectionColor={colorsPalette.primaryColor}
+                                            style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
+                                            placeholderTextColor={colorsPalette.gradientGray}
                                             placeholder="Username" />
                                     </ListItem>
 
@@ -250,33 +254,33 @@ export default class MoreAboutTheUser extends Component {
                                                     ? this.setState({ email: value, messageFlash: { cognito: { message: "" } } })
                                                     : this.setState({ email: value, messageFlash: { cognito: { message: value + " invalid email" } } })
                                             }}
-                                            selectionColor="#E91E63"
-                                            style={{ fontSize: wp(5), color: '#333' }}
-                                            placeholderTextColor="#E0E0E0"
+                                            selectionColor={colorsPalette.primaryColor}
+                                            style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
+                                            placeholderTextColor={colorsPalette.gradientGray}
                                             placeholder="Email" />
                                     </ListItem>
                                 </List>
                                 <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center', top: 10 }}>
-                                    <Text allowFontScaling={false} style={{ color: "#F44336", fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                                 </View>
                             </Content>
                         </Row>
-                        <Row size={20} style={{ backgroundColor: '#FFF', borderBottomLeftRadius: 5, borderBottomRightRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                        <Row size={20} style={{ backgroundColor: colorsPalette.secondaryColor, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
                             <Animatable.View
                                 animation={invalidFormAnimation ? "shake" : undefined}
                                 onAnimationEnd={() => this.setState({ invalidFormAnimation: false })}
                                 duration={1000}
                                 style={{
                                     width: "100%",
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button iconLeft icon disabled={isLoading}
                                     onPress={() => this._validateForm()}
-                                    style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
+                                    style={{ width: "80%", backgroundColor: colorsPalette.primaryColor, alignSelf: 'center' }}>
                                     <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>NEXT</Text>
                                     {!isLoading
                                         ? <Icon name="arrow-forward" style={{ left: -10 }} />
-                                        : <Spinner color="#FFF" size="small" style={{ left: -10 }} />
+                                        : <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} />
                                     }
                                 </Button>
                             </Animatable.View>

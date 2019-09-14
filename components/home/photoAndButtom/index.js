@@ -15,6 +15,9 @@ import CategoryOfPrizes from "./categoryOfPrizes";
 const widthScreen = Dimensions.get('screen').width
 const heightScreen = Dimensions.get('screen').height
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
+
 // This function show the avatar/your content/render point
 class UserInfo extends Component {
     state = {
@@ -44,10 +47,10 @@ class UserInfo extends Component {
                     allowFontScaling={false}
                     bordered small disabled={!isReady || offLine}
                     onPress={() => this._setModalVisibleYourContest(true)}
-                    style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
+                    style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center' }}>
                     <Text
                         allowFontScaling={false}
-                        style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Your Contests</Text>
+                        style={{ color: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, fontSize: wp(3) }}>Your Contests</Text>
                 </Button>
 
                 {/* AVATAR */}
@@ -63,10 +66,10 @@ class UserInfo extends Component {
                 </View>
 
                 <Button disabled={!isReady || offLine} onPress={() => { this._redeemPointsDecision(true) }}
-                    bordered small style={{ borderColor: offLine ? "#3333" : "#D81B60", alignSelf: 'center' }}>
+                    bordered small style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center' }}>
                     <Text
                         allowFontScaling={false}
-                        style={{ color: offLine ? "#3333" : "#D81B60", fontSize: wp(3) }}>Redeem Points</Text>
+                        style={{ color: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, fontSize: wp(3) }}>Redeem Points</Text>
                 </Button>
                 <Modal
                     animationType="slide"
@@ -75,6 +78,7 @@ class UserInfo extends Component {
                     <CategoryOfPrizes
 
                         _setModalVisibleRedeemPoints={this._setModalVisibleRedeemPoints}
+
                         prizeCategory={prizeCategory}
                         userData={userData} />
                 </Modal>
@@ -91,20 +95,20 @@ class UserInfo extends Component {
                     animationOut="zoomOutUp"
                     onModalHide={() => fromWhere === 'prize' ? this._setModalVisibleRedeemPoints(true) : null}
                     isVisible={redeemPointsDecision}>
-                    <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: '#FFF', borderRadius: 15, flex: 1, padding: 10 }}>
+                    <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor, borderRadius: 15, flex: 1, padding: 10 }}>
                         <Grid>
                             <Row size={40} style={{ flexDirection: 'row', padding: 5 }}>
                                 <Text
                                     minimumFontScale={wp(9)}
                                     allowFontScaling={false}
-                                    style={{ color: '#3333', fontSize: wp(9), flexWrap: 'wrap', flex: 1 }}>Choose one of the two options to continue!</Text>
+                                    style={{ color: colorsPalette.gradientGray, fontSize: wp(9), flexWrap: 'wrap', flex: 1 }}>Choose one of the two options to continue!</Text>
                             </Row>
                             <Row size={30} style={{ alignItems: 'center', justifyContent: 'center', top: -10 }}>
                                 <Button transparent style={{ width: 120, height: 120, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
                                     <Text
                                         minimumFontScale={wp(10)}
                                         allowFontScaling={false}
-                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: '#D81B60' }}>Glyff</Text>
+                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: colorsPalette.primaryColor }}>Glyff</Text>
                                 </Button>
                                 <Text
                                     minimumFontScale={wp(4)}
@@ -114,21 +118,21 @@ class UserInfo extends Component {
                                     <Text
                                         minimumFontScale={wp(10)}
                                         allowFontScaling={false}
-                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: '#D81B60' }}>Prize</Text>
+                                        style={{ fontWeight: 'bold', fontSize: wp(9), color: colorsPalette.primaryColor }}>Prize</Text>
                                 </Button>
                             </Row>
                             <Row size={20}>
                                 <Text
                                     minimumFontScale={wp(3)}
                                     allowFontScaling={false}
-                                    style={{ color: '#3333', fontSize: wp(3), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: '#3333' }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: '#3333' }}>Prize</Text> you will be going to the list of prizes we have!</Text>
+                                    style={{ color: colorsPalette.gradientGray, fontSize: wp(3), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Prize</Text> you will be going to the list of prizes we have!</Text>
                             </Row>
                             <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button transparent small onPress={() => this._redeemPointsDecision(false)} style={{ alignSelf: 'flex-end' }}>
                                     <Text
                                         minimumFontScale={wp(3)}
                                         allowFontScaling={false}
-                                        style={{ color: '#3333', fontWeight: '100', fontSize: wp(3) }}>No, thanks</Text>
+                                        style={{ color: colorsPalette.gradientGray, fontWeight: '100', fontSize: wp(3) }}>No, thanks</Text>
                                 </Button>
                             </Row>
                         </Grid>

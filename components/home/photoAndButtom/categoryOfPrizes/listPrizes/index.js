@@ -29,6 +29,9 @@ import { DataNotFound } from "../../../../global/emojis/index"
 import PlaceholderAll from './placeholderAll'
 import { MyStatusBar } from '../../../../global/statusBar/index'
 
+// Colors
+import { colorsPalette } from '../../../../global/static/colors'
+
 // GraphQL
 import * as queries from '../../../../../src/graphql/queries'
 
@@ -78,33 +81,33 @@ class ShowPrizes extends Component {
         let filterPrize = prizes && prizes.filter((item) => { return item.general.nameOfPrize.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
             <Container>
-                <Header span style={{ backgroundColor: "#D82B60", borderBottomColor: "rgba(0,0,0,0.0)", height: 110 }}>
+                <Header span style={{ backgroundColor: colorsPalette.primaryColor, borderBottomColor: colorsPalette.transparent, height: 110 }}>
                     <Grid>
                         <Row size={50}>
                             <Left style={{ flexDirection: 'row' }}>
                                 <Button transparent onPress={() => { this.props.navigation.goBack(); }}>
-                                    <Icon name='arrow-back' style={{ color: "#FFF" }} />
+                                    <Icon name='arrow-back' style={{ color: colorsPalette.secondaryColor }} />
                                     <Text
                                         minimumFontScale={wp(4)}
                                         allowFontScaling={false}
-                                        style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
+                                        style={{ left: 5, color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Back</Text>
                                 </Button>
                                 <Title
                                     minimumFontScale={wp(9)}
                                     allowFontScaling={false}
-                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{truncate(startCase(categoryPrizes.name), { length: 17, separator: "..." })}</Title>
+                                    style={{ alignSelf: "center", left: 15, color: colorsPalette.secondaryColor, fontSize: wp(9) }}>{truncate(startCase(categoryPrizes.name), { length: 17, separator: "..." })}</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>
-                            <Header searchBar rounded style={{ height: "100%", width: 300, backgroundColor: "#D82B60", borderBottomColor: "rgba(0,0,0,0.0)" }}>
-                                <Item style={{ backgroundColor: '#fff', top: -10 }}>
-                                    <Icon name="ios-search" style={{ color: !input ? "#E0E0E0" : "#333" }} />
+                            <Header searchBar rounded style={{ height: "100%", width: 300, backgroundColor: colorsPalette.primaryColor, borderBottomColor: colorsPalette.transparent }}>
+                                <Item style={{ backgroundColor: colorsPalette.secondaryColor, top: -10 }}>
+                                    <Icon name="ios-search" style={{ color: !input ? colorsPalette.gradientGray : colorsPalette.darkFont }} />
                                     <Input
                                         autoCorrect={false}
                                         minimumFontScale={wp(9)}
                                         allowFontScaling={false}
                                         onChangeText={(input) => this.setState({ input })}
-                                        placeholderTextColor="#E0E0E0"
+                                        placeholderTextColor={colorsPalette.gradientGray}
                                         placeholder="Filter by name of contest" />
                                 </Item>
                             </Header>
@@ -116,20 +119,20 @@ class ShowPrizes extends Component {
                     ? filterPrize.length
                         ? <FlatList
                             data={filterPrize}
-                            refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
+                            refreshControl={<RefreshControl tintColor={colorsPalette.primaryColor} refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
                             renderItem={({ item }) =>
                                 <TouchableHighlight
                                     onPress={() => { this._animationPulse(item) }}
-                                    underlayColor="rgba(0,0,0,0.0)">
+                                    underlayColor={colorsPalette.transparent}>
                                     <Animatable.View
                                         animation={animationPulseId === item.id ? "pulse" : undefined}
                                         onAnimationEnd={() => { navigation.navigate('AboutThePrize', { prize: item, userData }); this.setState({ animationPulseId: "" }) }}
                                         duration={200}
                                         style={{
                                             height: 100,
-                                            shadowColor: 'rgba(0,0,0,0.3)',
+                                            shadowColor: colorsPalette.primaryShadowColor,
                                             shadowOffset: { width: 0 }, shadowOpacity: 1,
                                             width: '95%',
                                             alignSelf: 'center',
@@ -140,7 +143,7 @@ class ShowPrizes extends Component {
                                             source={{ uri: item.general.picture.url }}
                                             borderRadius={5}
                                             style={{ height: "100%", width: "100%", flex: 1 }}>
-                                            <Spinner color="#FFF" animating={loadingImg} style={{ position: 'absolute', zIndex: 1 }} />
+                                            <Spinner color={colorsPalette.secondaryColor} animating={loadingImg} style={{ position: 'absolute', zIndex: 1 }} />
                                             <View style={{
                                                 backgroundColor: 'rgba(0,0,0,0.2)',
                                                 width: "100%", height: "100%",
@@ -151,13 +154,13 @@ class ShowPrizes extends Component {
                                                 <Text
                                                     minimumFontScale={wp(7)}
                                                     allowFontScaling={false}
-                                                    style={{ color: "#FFF", fontSize: wp(7), top: 0, padding: 10 }}>
+                                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(7), top: 0, padding: 10 }}>
                                                     {item.general.nameOfPrize}
                                                 </Text>
                                                 <Text
                                                     minimumFontScale={wp(2.5)}
                                                     allowFontScaling={false}
-                                                    style={{ color: "#FFF", fontSize: wp(3.5), position: "absolute", bottom: 0, padding: 10, right: 0, fontStyle: 'italic' }}>
+                                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(3.5), position: "absolute", bottom: 0, padding: 10, right: 0, fontStyle: 'italic' }}>
                                                     Published by {startCase(item.user.name)}, at {lowerFirst(`${moment(item.createdAt).format('LL')}`)}.
                                                 </Text>
                                             </View>

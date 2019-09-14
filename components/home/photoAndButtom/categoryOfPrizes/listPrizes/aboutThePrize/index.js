@@ -10,8 +10,8 @@ import startCase from 'lodash/startCase'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
 
-// Icons
-import { Entypo } from '@expo/vector-icons'
+// Colors
+import { colorsPalette } from '../../../../../global/static/colors'
 
 // Child Components
 import ModalRedeemPrize from './redeemPrize'
@@ -32,7 +32,7 @@ class AboutPrize extends Component {
         const prize = navigation.getParam('prize')
         const userData = navigation.getParam('userData')
         const fromWhere = navigation.getParam('fromWhere')
-        
+
         return (
             <Container style={{ backgroundColor: '#F5F5F5' }}>
                 <View style={{ backgroundColor: '#FFF', height: screenHeight, position: 'absolute', width: '100%', top: 0 }} />
@@ -79,7 +79,7 @@ class AboutPrize extends Component {
                 </View>
                 <Content contentContainerStyle={{ backgroundColor: '#FFF', top: 10 }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', padding: 30 }}>
-                        <Entypo name="bookmark" style={{ fontSize: wp(10), color: '#D81B60' }} />
+                        <Icon type="Entypo" name="bookmark" style={{ fontSize: wp(10), color: '#D81B60' }} />
                         <Text
                             minimumFontScale={wp(3.5)}
                             allowFontScaling={false}

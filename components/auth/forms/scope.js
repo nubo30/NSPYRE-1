@@ -15,6 +15,9 @@ const screenHeight = Dimensions.get('screen').height
 // GRAPHQL
 import * as mutations from '../../../src/graphql/mutations'
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
+
 class Scope extends Component {
     state = {
         scope: "",
@@ -66,8 +69,8 @@ class Scope extends Component {
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
-                    <Text allowFontScaling={false} style={{ color: "#FFF", fontSize: wp(7), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
-                        Hey <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(7) }}>{moreUserData && moreUserData.name}</Text>, how do you want to continue?
+                    <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(7), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
+                        Hey <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.secondaryColor, fontSize: wp(7) }}>{moreUserData && moreUserData.name}</Text>, how do you want to continue?
                     </Text>
                 </Row>
                 <Row size={80} style={{ alignSelf: 'center' }}>
@@ -75,52 +78,52 @@ class Scope extends Component {
                         maxWidth: screenWidth - 60,
                         borderRadius: 5,
                         alignSelf: 'center',
-                        shadowColor: "rgba(0,0,0,0.3)",
+                        shadowColor: colorsPalette.primaryShadowColor,
                         shadowOpacity: 1,
                         shadowOffset: { width: 1 },
                         maxHeight: screenHeight / 2 + 85,
                         top: -13
                     }}>
-                        <Row size={80} style={{ backgroundColor: '#FFF', justifyContent: 'center', borderRadius: 5, alignItems: 'center', flexDirection: 'column' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#333", alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>What do you want to do now?</Text>
+                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center', flexDirection: 'column' }}>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>What do you want to do now?</Text>
                             <List style={{ width: "100%", padding: 10 }}>
                                 <ListItem style={{ height: 60, width: "90%" }}>
-                                    <CheckBox checked={scope === "engage" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("engage")} />
+                                    <CheckBox checked={scope === "engage" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("engage")} />
                                     <Body>
-                                        <Text allowFontScaling={false} onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: "#E0E0E0", }}>Engage</Text>
+                                        <Text allowFontScaling={false} onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: colorsPalette.gradientGray, }}>Engage</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
-                                    <CheckBox checked={scope === "createContest" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("createContest")} />
+                                    <CheckBox checked={scope === "createContest" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("createContest")} />
                                     <Body>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("createContest")}>Create Contest</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("createContest")}>Create Contest</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
-                                    <CheckBox checked={scope === "submitPrize" ? true : false} color="#E91E63" onPress={() => this._scopeSelect("submitPrize")} />
+                                    <CheckBox checked={scope === "submitPrize" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("submitPrize")} />
                                     <Body>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: "#E0E0E0" }} onPress={() => this._scopeSelect("submitPrize")}>Submit Prize</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("submitPrize")}>Submit Prize</Text>
                                     </Body>
                                 </ListItem>
                             </List>
                         </Row>
-                        <Row size={20} style={{ backgroundColor: '#FFF', borderBottomLeftRadius: 5, borderBottomRightRadius: 5, flexDirection: "column" }}>
-                            <Text allowFontScaling={false} style={{ top: -20, alignSelf: 'center', fontSize: wp(4), color: '#F44336' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                        <Row size={20} style={{ backgroundColor: colorsPalette.secondaryColor, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, flexDirection: "column" }}>
+                            <Text allowFontScaling={false} style={{ top: -20, alignSelf: 'center', fontSize: wp(4), color: colorsPalette.errColor }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             <Animatable.View
                                 animation={scopeAnimation ? "shake" : undefined}
                                 onAnimationEnd={() => this.setState({ scopeAnimation: false })}
                                 duration={1000}
                                 style={{
                                     width: "100%",
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { width: 1 }, shadowOpacity: 1, justifyContent: 'center'
+                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1, justifyContent: 'center'
                                 }}>
                                 <Button
                                     iconLeft
                                     onPress={scope ? () => this._submit() : () => this._scopeSelect()}
-                                    style={{ width: "80%", backgroundColor: '#E91E63', alignSelf: 'center' }}>
+                                    style={{ width: "80%", backgroundColor: colorsPalette.primaryColor, alignSelf: 'center' }}>
                                     <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold' }}>NEXT</Text>
-                                    {isLoading ? <Spinner color="#FFF" size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' style={{ left: -10 }} />}
+                                    {isLoading ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' style={{ left: -10 }} />}
                                 </Button>
                             </Animatable.View>
                         </Row>

@@ -8,6 +8,9 @@ import Swiper from 'react-native-swiper'
 import PhoneInput from 'react-native-phone-input'
 import CodeInput from 'react-native-confirmation-code-input';
 
+// Colors
+import { colorsPalette } from '../global/static/colors'
+
 
 class PasswordForget extends Component {
     state = {
@@ -103,8 +106,8 @@ class PasswordForget extends Component {
                             <Button
                                 transparent
                                 onPress={() => swiperIndex === 1 ? this._changeSwiper(-1) : _forgetPasswordModal(false)}>
-                                <Icon name='arrow-back' style={{ color: '#D81B60', }} />
-                                <Text allowFontScaling={false} style={{ color: "#D81B60", fontSize: wp(4) }}>Close</Text>
+                                <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }}>Close</Text>
                             </Button>
                         </Left>
                         <Right />
@@ -122,10 +125,10 @@ class PasswordForget extends Component {
                         <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                             <Grid style={{ flex: 1 }}>
                                 <Row size={20} style={{ justifyContent: "center", alignItems: "flex-end", bottom: 10, padding: 40 }}>
-                                    <Text allowFontScaling={false} style={{ textAlign: "center", fontSize: wp(3) }}>Please, enter your number phone, we will be sending a PIN such phone so you can reset your password.</Text>
+                                    <Text allowFontScaling={false} style={{ textAlign: "center", fontSize: wp(3), color: colorsPalette.darkFont }}>Please, enter your number phone, we will be sending a PIN such phone so you can reset your password.</Text>
                                 </Row>
                                 <Row size={20} style={{ justifyContent: "center", alignItems: "center" }}>
-                                    <View style={{ width: "80%", borderBottomWidth: 1, borderBottomColor: "#D81B60", maxHeight: 50 }}>
+                                    <View style={{ width: "80%", borderBottomWidth: 1, borderBottomColor: colorsPalette.primaryColor, maxHeight: 50 }}>
                                         <PhoneInput
                                             editable={false} selectTextOnFocus={false}
                                             ref={(ref) => { this.phone = ref; }}
@@ -134,12 +137,12 @@ class PasswordForget extends Component {
                                             buttonTextStyle={{ backgroundColor: 'red' }}
                                             confirmText="OK"
                                             cancelText="CANCEL"
-                                            pickerButtonColor="#E91E63"
+                                            pickerButtonColor={colorsPalette.primaryColor}
                                             pickerItemStyle={{ fontSize: 18 }}
                                             value={phoneNumber}
                                             style={{ height: "100%", width: "100%" }}
                                             flagStyle={{ height: 30, width: 40 }}
-                                            textStyle={{ fontSize: wp(6), color: '#333' }}
+                                            textStyle={{ fontSize: wp(6), color: colorsPalette.darkFont }}
                                             textProps={{ placeholder: "Your Phone Number" }}
                                             initialCountry="us" />
                                     </View>
@@ -148,15 +151,15 @@ class PasswordForget extends Component {
                                     <Button small iconRight
                                         onPress={() => this._sendNumberPhoneForRecoveryPassword()}
                                         disabled={!this.state.loading}
-                                        style={{ backgroundColor: this.state.sendEmailForRecoveryPassword ? "#D81B60" : "#F48FB1", marginTop: 15 }}>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5) }}>Submit</Text>
+                                        style={{ backgroundColor: this.state.sendEmailForRecoveryPassword ? colorsPalette.primaryColor : colorsPalette.gradientGray, marginTop: 15 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.secondaryColor }}>Submit</Text>
                                         {!this.state.loading
                                             ? <Icon type="Ionicons" name="md-send" />
-                                            : <Spinner color='#FFF' size="small" hidesWhenStopped={true} style={{ right: 5 }} />}
+                                            : <Spinner color={colorsPalette.secondaryColor} size="small" hidesWhenStopped={true} style={{ right: 5 }} />}
                                     </Button>
                                 </Row>
                                 <Row size={50} style={{ justifyContent: "center" }}>
-                                    <Text scrollEnabled={false} style={{ fontSize: wp(4), color: "#F44336", marginTop: 50 }}>
+                                    <Text scrollEnabled={false} style={{ fontSize: wp(4), color: colorsPalette.errColor, marginTop: 50 }}>
                                         {this.state.messageFlash.cognito && this.state.messageFlash.cognito.message}
                                     </Text>
                                 </Row>
@@ -167,20 +170,20 @@ class PasswordForget extends Component {
                         <KeyboardAvoidingView enabled behavior={Platform.OS === 'ios' ? "padding" : null} style={{ flex: 1 }}>
                             <Grid style={{ flex: 1 }}>
                                 <Row size={20} style={{ justifyContent: "center", alignItems: "flex-end", bottom: 10, padding: 40 }}>
-                                    <Text style={{ textAlign: 'center', fontSize: wp(4), color: "#333" }}>
-                                        We have sent you a PIN to the email {<Text style={{ fontWeight: "bold", color: "#333" }}>{this.state.email}</Text>}, use this PIN to fill in the following
+                                    <Text style={{ textAlign: 'center', fontSize: wp(4), color: colorsPalette.darkFont }}>
+                                        We have sent you a PIN to the email {<Text style={{ fontWeight: "bold", color: colorsPalette.darkFont }}>{this.state.email}</Text>}, use this PIN to fill in the following
                                     </Text>
                                 </Row>
                                 <Row size={10} style={{ justifyContent: "center", alignItems: "flex-start" }}>
-                                    <View style={{ width: "80%", borderBottomWidth: 1, borderBottomColor: "#D81B60" }}>
+                                    <View style={{ width: "80%", borderBottomWidth: 1, borderBottomColor: colorsPalette.primaryColor }}>
                                         <TextInput
-                                            maxLength={99} selectionColor="#D81B60"
+                                            maxLength={99} selectionColor={colorsPalette.primaryColor}
                                             placeholder="New password" secureTextEntry
-                                            placeholderTextColor="#333" autoFocus={false}
-                                            underlineColorAndroid='rgba(0,0,0,0.0)'
+                                            placeholderTextColor={colorsPalette.darkFont} autoFocus={false}
+                                            underlineColorAndroid={colorsPalette.transparent}
                                             onChangeText={(newPassword) => this.setState({ newPassword })}
                                             value={this.state.newPassword}
-                                            style={{ fontSize: wp(7), width: "100%", color: "#333", textAlign: "center", top: -5 }} />
+                                            style={{ fontSize: wp(7), width: "100%", color: colorsPalette.darkFont, textAlign: "center", top: -5 }} />
                                     </View>
                                 </Row>
                                 <Row size={20} style={{ justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
@@ -188,8 +191,8 @@ class PasswordForget extends Component {
                                         ref="codeInputRef"
                                         keyboardType="numeric"
                                         codeLength={6}
-                                        activeColor='#D81B60'
-                                        inactiveColor='#FCE4EC'
+                                        activeColor={colorsPalette.primaryColor}
+                                        inactiveColor={colorsPalette.gradientGray}
                                         className='border-circle'
                                         autoFocus={false}
                                         ignoreCase={true}
@@ -199,7 +202,7 @@ class PasswordForget extends Component {
                                     />
                                 </Row>
                                 <Row size={50} style={{ justifyContent: "center" }}>
-                                    <Text scrollEnabled={false} style={{ fontSize: wp(4), color: "#333", marginTop: 50, color: "#F44336" }}>
+                                    <Text scrollEnabled={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont, marginTop: 50, color: colorsPalette.errColor }}>
                                         {this.state.messageFlash.cognito && this.state.messageFlash.cognito.message}
                                     </Text>
                                 </Row>

@@ -15,6 +15,7 @@ export const sendNotification = `query SendNotification($notificationId: String!
 `;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
+    tokenfb
     id
     userId
     name
@@ -29,6 +30,7 @@ export const getUser = `query GetUser($id: ID!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -151,6 +153,7 @@ export const getUser = `query GetUser($id: ID!) {
       items {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -232,6 +235,7 @@ export const getUser = `query GetUser($id: ID!) {
         expoPushToken
         JSONdata
         user {
+          tokenfb
           id
           userId
           name
@@ -304,6 +308,7 @@ export const listUsers = `query ListUsers(
 ) {
   listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      tokenfb
       id
       userId
       name
@@ -318,6 +323,7 @@ export const listUsers = `query ListUsers(
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -361,6 +367,7 @@ export const listUsers = `query ListUsers(
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -397,6 +404,7 @@ export const listUsers = `query ListUsers(
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -453,6 +461,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
   getCreateContest(id: $id) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -467,6 +476,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -510,6 +520,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -546,6 +557,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -651,6 +663,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         createContest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -740,6 +753,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         contest {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -793,6 +807,7 @@ export const listCreateContests = `query ListCreateContests(
     items {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -961,6 +976,7 @@ export const getAudience = `query GetAudience($id: ID!) {
     createContest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -1158,6 +1174,7 @@ export const listAudiences = `query ListAudiences(
       createContest {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -1328,6 +1345,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
     contest {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -1519,6 +1537,7 @@ export const listParticipantss = `query ListParticipantss(
       contest {
         id
         user {
+          tokenfb
           id
           userId
           name
@@ -1695,6 +1714,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
   getSubmitPrize(id: $id) {
     id
     user {
+      tokenfb
       id
       userId
       name
@@ -1709,6 +1729,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1752,6 +1773,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -1788,6 +1810,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -1899,6 +1922,7 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
     items {
       id
       user {
+        tokenfb
         id
         userId
         name
@@ -1998,6 +2022,7 @@ export const getEngage = `query GetEngage($id: ID!) {
     expoPushToken
     JSONdata
     user {
+      tokenfb
       id
       userId
       name
@@ -2012,6 +2037,7 @@ export const getEngage = `query GetEngage($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -2055,6 +2081,7 @@ export const getEngage = `query GetEngage($id: ID!) {
         items {
           id
           user {
+            tokenfb
             id
             userId
             name
@@ -2091,6 +2118,7 @@ export const getEngage = `query GetEngage($id: ID!) {
           expoPushToken
           JSONdata
           user {
+            tokenfb
             id
             userId
             name
@@ -2187,6 +2215,7 @@ export const listEngages = `query ListEngages(
       expoPushToken
       JSONdata
       user {
+        tokenfb
         id
         userId
         name
