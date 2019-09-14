@@ -16,7 +16,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
 
-const facebookAppid = "884636148579880"
+import { fBCredentials } from "../../global/socialNetWorksCredentials"
 
 // ChildComponent
 import ForgottenPassword from '../passwordForget'
@@ -60,8 +60,7 @@ class Login extends Component {
 
     _resendCode = async (username) => {
         try {
-            const response = await Auth.resendSignUp(username)
-            console.log(response, "<-----")
+            await Auth.resendSignUp(username)
         } catch (error) {
             console.log(error)
         }
@@ -86,10 +85,13 @@ class Login extends Component {
     async _openBroweserForLoginWithFacebook() {
         const { _changeSwiperRoot, _activateNumberPhone, navigation, _moreUserData } = this.props
         try {
-            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(facebookAppid, { permissions: ['public_profile', 'user_posts'] });
+            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile'] });
+            // const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile', 'user_posts'] });
             if (type === 'success') {
                 const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name`);
-                const { email, name, picture, id, last_name, posts } = await response.json()
+                const { email, name, picture, last_name } = await response.json()
+                console.log(email, "<---------------------------")
+                // const { email, name, picture, id, last_name, posts } = await response.json()
                 this.setState({ isLoadingFb: true })
                 await Auth.federatedSignIn('facebook', { token, expires_at: expires })
                     .then(credentials => {
