@@ -13,7 +13,9 @@ import {
     Button,
     Title,
 } from "native-base"
-import _ from 'lodash'
+import truncate from 'lodash/truncate'
+import startCase from 'lodash/startCase'
+import lowerCase from 'lodash/lowerCase'
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
@@ -62,7 +64,7 @@ class ShowContest extends Component {
         const { input, contests } = this.state
         const categoryContest = this.props.navigation.getParam('categoryContest');
         const userData = this.props.navigation.getParam('userData')
-        let filterContest = contests && contests.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(_.lowerCase(input)) !== -1 })
+        let filterContest = contests && contests.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
             <Container>
                 <Header span style={{ backgroundColor: "#D82B60", borderBottomColor: "rgba(0,0,0,0.0)", height: 110 }}>
@@ -79,7 +81,7 @@ class ShowContest extends Component {
                                 <Title
                                     minimumFontScale={wp(9)}
                                     allowFontScaling={false}
-                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{_.truncate(_.startCase(categoryContest.name), { length: 17, separator: "..." })}</Title>
+                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>{truncate(startCase(categoryContest.name), { length: 17, separator: "..." })}</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>
@@ -99,16 +101,17 @@ class ShowContest extends Component {
                 </Header>
                 <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                 {contests !== null
-                    ? filterContest.length ? <FlatList
-                        data={filterContest}
-                        refreshControl={
-                            <RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
-                        }
-                        keyExtractor={item => item.id}
-                        initialNumToRender={2}
-                        renderItem={({ item, index }) =>
-                            <CardContestAll userData={userData} index={index} item={item} />
-                        } /> : <DataNotFound inputText={input} />
+                    ? filterContest.length
+                        ? <FlatList
+                            data={filterContest}
+                            refreshControl={
+                                <RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
+                            }
+                            keyExtractor={item => item.id}
+                            initialNumToRender={2}
+                            renderItem={({ item, index }) =>
+                                <CardContestAll userData={userData} index={index} item={item} />
+                            } /> : <DataNotFound inputText={input} />
                     : <PlaceholderAll />}
             </Container>
         )

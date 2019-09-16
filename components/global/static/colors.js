@@ -1,6 +1,11 @@
 export const colorsPalette = {
     primaryColor: "#E91E63",
     primaryColorGradient: "#C2185B",
+    // primaryColor: "#4A148C",
+    // primaryColorGradient: "#6A1B9A",
+    // primaryColor: "#616161",
+    // primaryColorGradient: "#BDBDBD",
+
     errColor: "#F44336",
     secondaryColor: "#FFF",
     opaqueWhite: "#EEEEEE", // usado para mostrarse cuando un elemento esta cargando, [isLoading: true]

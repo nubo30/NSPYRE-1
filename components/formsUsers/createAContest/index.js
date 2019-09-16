@@ -34,7 +34,7 @@ export default class CreateContest extends Component {
             await userData.data.getUser.createContest.items.length ? Alert.alert(
                 `${userData.data.getUser.name}`,
                 'We have seen that this is not your first contest, do you want to fill in the suggested fields?',
-                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
+                [{ text: 'Ok', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } },], { cancelable: false },
             ) : null
         } catch (error) {
             console.log(error)
@@ -57,7 +57,7 @@ export default class CreateContest extends Component {
         return (
             <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutYouPlaceholder /></View>}>
                 <Swiper
-                    scrollEnabled={true}
+                    scrollEnabled={false}
                     ref={(swiper) => this.swiper = swiper}
                     loop={false} showsButtons={false} showsPagination={false}>
 

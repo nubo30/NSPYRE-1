@@ -22,6 +22,8 @@ import ModifyProfile from './updateProfile/index';
 // GRAPHQL
 import * as mutations from '../../../src/graphql/mutations'
 
+// Colors
+import { colorsPalette } from '../../global/static/colors'
 
 class DrawerRight extends Component {
     state = {
@@ -120,8 +122,8 @@ class DrawerRight extends Component {
         const { userData } = this.props
         return (
             <Container>
-                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'space-between' }}>
-                    <List style={{ backgroundColor: '#FFF' }}>
+                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: colorsPalette.opaqueWhite2, justifyContent: 'space-between' }}>
+                    <List style={{ backgroundColor: colorsPalette.secondaryColor }}>
                         <ListItem style={{ borderBottomColor: "#CFD8DC", borderBottomWidth: 0.5 }} thumbnail itemDivider>
                             {
                                 Object.keys(userData).length !== 0
@@ -130,7 +132,7 @@ class DrawerRight extends Component {
                                         : <UserAvatar size="45" name={userData.name} />
                                     : <PlaceholderMedia animate="fade" style={{ width: 45, height: 45, borderRadius: 22.5 }} />
                             }
-                            <Body style={{ borderBottomColor: "rgba(0,0,0,0.0)" }}>
+                            <Body style={{ borderBottomColor: colorsPalette.transparent }}>
                                 <Text
                                     allowFontScaling={false}
                                     minimumFontScale={wp(4)}
@@ -145,7 +147,7 @@ class DrawerRight extends Component {
                         </ListItem>
 
                         {/* NOTIFICATIONS */}
-                        <ListItem icon style={{ backgroundColor: '#FFF' }}>
+                        <ListItem icon style={{ backgroundColor: colorsPalette.secondaryColor }}>
                             <Left>
                                 <Button style={{ backgroundColor: "#F44336" }}>
                                     <Icon type="MaterialIcons" active name="photo-filter" />
@@ -164,7 +166,7 @@ class DrawerRight extends Component {
                         </ListItem>
 
                         {/* Modify Profile */}
-                        <ListItem icon last onPress={() => this._setModalVisibleModidfyProfile(true)} style={{ backgroundColor: '#FFF' }}>
+                        <ListItem icon last onPress={() => this._setModalVisibleModidfyProfile(true)} style={{ backgroundColor: colorsPalette.secondaryColor }}>
                             <Left>
                                 <Button style={{ backgroundColor: "#2979FF" }}>
                                     <Icon type="MaterialCommunityIcons" name="account-edit" />
@@ -174,7 +176,7 @@ class DrawerRight extends Component {
                                 <Text
                                     allowFontScaling={false}
                                     minimumFontScale={wp(4)}
-                                    style={{ color: "#333", fontSize: wp(4) }}>Update profile</Text>
+                                    style={{ color: colorsPalette.darkFont, fontSize: wp(4) }}>Update profile</Text>
                             </Body>
                             <Right>
                                 <Icon type="Feather" name="arrow-right" size={20} color="#E0E0E0" />
@@ -189,12 +191,12 @@ class DrawerRight extends Component {
                             last style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: '#FFF'
+                                backgroundColor: colorsPalette.secondaryColor
                             }}>
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: "#F44336" }}>Sign Out</Text>
+                                style={{ fontSize: wp(4), color: colorsPalette.errColor }}>Sign Out</Text>
                         </ListItem>
                     </List>
                     <Button
@@ -203,7 +205,7 @@ class DrawerRight extends Component {
                         <Text
                             allowFontScaling={false}
                             minimumFontScale={wp(2)}
-                            style={{ color: '#333', fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Terms & Conditions</Text>
+                            style={{ color: colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Terms & Conditions</Text>
                     </Button>
                 </Content>
                 {/* Modify Profile User */}

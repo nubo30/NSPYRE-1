@@ -31,7 +31,7 @@ export default class SubmitPrize extends Component {
             await userData.data.getUser.submitPrize.items.length ? Alert.alert(
                 `${userData.data.getUser.name}`,
                 'We have seen that this is not your first prize, do you want to fill in the suggested fields?',
-                [{ text: 'OK', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } }], { cancelable: false },
+                [{ text: 'Ok', onPress: () => this.setState({ wantSuggestedFields: true }), style: 'cancel', }, { text: 'No', onPress: () => { } }], { cancelable: false },
             ) : null
         } catch (error) {
             alert(error)

@@ -5,8 +5,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 // Child component
 import PrimordaryInfo from './primordaryInfo/index'
 
-// Icons
-import { Feather } from "@expo/vector-icons"
+// Colors
+import { colorsPalette } from "../../../global/static/colors"
 
 // This function is the header of slide modify the profile user
 export default function HeaderModifyProfile(props) {
@@ -18,13 +18,13 @@ export default function HeaderModifyProfile(props) {
                     transparent
                     disabled={isLoading}
                     onPress={() => _setModalVisibleModidfyProfile(false)}>
-                    <Icon type="Feather" name='x' style={{ color: isLoading ? "#BDBDBD" : "#D82B60", fontSize: wp(8), left: -10 }} />
+                    <Icon type="Feather" name='x' style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.primaryColor, fontSize: wp(8), left: -10 }} />
                 </Button>
                 <View style={{ justifyContent: 'center', alignItems: 'center', flex: 0.9 }}>
                     <Title
                         allowFontScaling={false}
                         minimumFontScale={wp(7)}
-                        style={{ color: isLoading ? "#BDBDBD" : "#D82B60", fontSize: wp(7) }}>Profile</Title>
+                        style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.primaryColor, fontSize: wp(7) }}>Profile</Title>
                 </View>
             </View>
             <PrimordaryInfo userData={userData} isLoading={isLoading} _isLoading={_isLoading} />

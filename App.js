@@ -41,6 +41,10 @@ Amplify.configure({
     }
 });
 
+console.disableYellowBox = true;
+YellowBox.ignoreWarnings(["ReactNative.NativeModules.LottieAnimationView.getConstants"]);
+
+
 // Redux
 import rootReducer from "./store/reducers/rootReducer"
 import { networkStatusOnline, networkStatusOffline } from './store/network/actions'

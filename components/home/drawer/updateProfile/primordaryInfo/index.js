@@ -8,6 +8,9 @@ import Avatar from './avatar'
 import ModalContentName from './modalContentName'
 import ModalContentLastName from './modalContentLastName'
 
+// Colors
+import { colorsPalette } from '../../../../global/static/colors'
+
 // This function show the name, lastname and avatar of user
 export default class PrimordaryInfo extends Component {
     state = {
@@ -37,11 +40,11 @@ export default class PrimordaryInfo extends Component {
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>First Name:  </Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "700" }}>First Name:  </Text>
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.name}</Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "100" }}>{userData && userData.name}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />
@@ -57,11 +60,11 @@ export default class PrimordaryInfo extends Component {
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "700" }}>Last Name: </Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "700" }}>Last Name: </Text>
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : "#333", fontWeight: "100" }}>{userData && userData.lastname}</Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "100" }}>{userData && userData.lastname}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />

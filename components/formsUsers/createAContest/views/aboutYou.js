@@ -417,7 +417,7 @@ class AboutYou extends Component {
                                         letterSpacing: 1,
                                         color: location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? colorsPalette.primaryColor : colorsPalette.thirdColor
                                     }}>{
-                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "Done" : "Cancel"
+                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "DONE" : "CANCEL"
                                         }</Text>
                                 </Button>
                             </Right>
@@ -618,7 +618,7 @@ class AboutYou extends Component {
                                         letterSpacing: 1,
                                         color: companyName ? colorsPalette.primaryColor : colorsPalette.thirdColor
                                     }}>{
-                                            companyName ? "Done" : "Cancel"
+                                            companyName ? "DONE" : "CANCEL"
                                         }</Text>
                                 </Button>
                             </Right>

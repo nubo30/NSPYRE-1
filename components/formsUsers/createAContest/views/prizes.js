@@ -123,7 +123,7 @@ export default class Prizes extends Component {
         const { prizes, name, description, picture, video } = this.state
         prizes.push({ name, description, picture, video, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
         try {
-            await Alert.alert(
+            Alert.alert(
                 `Hey ${userData.name}`,
                 'Would you like to create another prize?',
                 [
@@ -132,6 +132,7 @@ export default class Prizes extends Component {
                             _dataFromForms({ prizes })
                             _indexChangeSwiper(1);
                             this.setState({
+                                isLoading: false,
                                 name: "",
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
@@ -142,6 +143,7 @@ export default class Prizes extends Component {
                     {
                         text: 'OK', onPress: () => {
                             this.setState({
+                                isLoading: false,
                                 name: "",
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
@@ -154,8 +156,15 @@ export default class Prizes extends Component {
             )
         } catch (error) {
             console.log(error)
-            this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
         }
+    }
+
+    _toSummary = () => {
+        const { name, description, picture, video } = this.state
+        const { _indexChangeSwiper } = this.props
+        name || description || picture.localUrl || video.localUrl
+            ? this._validateForm()
+            : _indexChangeSwiper(1);
     }
 
     render() {
@@ -163,6 +172,7 @@ export default class Prizes extends Component {
             isvalidFormAnimation,
             isLoading,
             messageFlash,
+            prizes,
 
             // Input
             name,
@@ -291,7 +301,7 @@ export default class Prizes extends Component {
                         }}>
                         <Button
                             disabled={isLoading}
-                            onPress={() => this._validateForm()}
+                            onPress={() => prizes.length ? this._toSummary() : this._validateForm()}
                             iconRight style={{
                                 width: "100%",
                                 alignSelf: 'center',
@@ -326,7 +336,7 @@ export default class Prizes extends Component {
                                         fontSize: wp(4),
                                         letterSpacing: 1,
                                         color: name ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{name ? "Done" : "Cancel"}</Text>
+                                    }}>{name ? "DONE" : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -381,7 +391,7 @@ export default class Prizes extends Component {
                                         fontSize: wp(4),
                                         letterSpacing: 1,
                                         color: description ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{description ? "Done" : "Cancel"}</Text>
+                                    }}>{description ? "DONE" : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -469,7 +479,7 @@ export default class Prizes extends Component {
                                 disabled={video.name ? false : true}
                                 transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: video.name ? colorsPalette.primaryColor : colorsPalette.opaqueWhite, fontSize: wp(4) }}>Ok</Text>
+                                <Text allowFontScaling={false} style={{ color: video.name ? colorsPalette.primaryColor : colorsPalette.opaqueWhite, fontSize: wp(4) }}>OK</Text>
                             </Button>
                         </Right>
                     </Header>

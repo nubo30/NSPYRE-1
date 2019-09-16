@@ -719,7 +719,7 @@ class AboutThePersonality extends Component {
                                         letterSpacing: 1,
                                         color: location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "#E91E63" : "#3333"
                                     }}>{
-                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "Done" : "Cancel"
+                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "DONE" : "CANCEL"
                                         }</Text>
                                 </Button>
                             </Right>

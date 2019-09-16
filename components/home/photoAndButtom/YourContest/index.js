@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input } from "native-base"
+import { withNavigation } from 'react-navigation'
+import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input, Button } from "native-base"
 import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -17,6 +18,7 @@ import { showParticipationByUser } from '../../../../src/graphql/queries'
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
 import { MyStatusBar } from '../../../global/statusBar'
+
 class UserContest extends Component {
     constructor() {
         super()
@@ -44,10 +46,13 @@ class UserContest extends Component {
         });
     }
 
-    componentWillUnmount() {
-        this._isMounted = false
-    }
+    componentWillUnmount() { this._isMounted = false }
 
+    _createContest = () => {
+        const { navigation, _setModalVisibleYourContest } = this.props
+        _setModalVisibleYourContest(false)
+        navigation.navigate('CreateContest')
+    }
 
     render() {
         const { userData, _setModalVisibleYourContest } = this.props
@@ -96,6 +101,7 @@ class UserContest extends Component {
                             <Text style={{ alignSelf: 'center', color: "#3333" }}>In construction</Text>
                         </View>
                     </Tab>
+
                     <Tab
                         heading={
                             <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
@@ -110,19 +116,27 @@ class UserContest extends Component {
                         tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
                         activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         {
-                            filterContestCreated && filterContestCreated.length
-                                ? <FlatList
-                                    data={filterContestCreated}
-                                    renderItem={({ item, index }) =>
-                                        <View key={index}>
-                                            <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
-                                            <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
-                                        </View>
-                                    }
-                                    keyExtractor={(item, index) => index.toString()} />
-                                : <DataNotFound inputText={input} />
+                            userData && userData.createContest.items.length ?
+                                filterContestCreated && filterContestCreated.length
+                                    ? <FlatList
+                                        data={filterContestCreated}
+                                        renderItem={({ item, index }) =>
+                                            <View key={index}>
+                                                <CardContent userData={userData} item={item} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                                                <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
+                                            </View>
+                                        }
+                                        keyExtractor={(item, index) => index.toString()} />
+                                    : <DataNotFound inputText={input} />
+                                : <View style={{ flex: 1, alignItems: 'center', top: 50 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray }}>You have no contest created!</Text>
+                                    <Button style={{ backgroundColor: colorsPalette.primaryColor, alignSelf: 'center', top: 15 }} onPress={() => this._createContest()}>
+                                        <Text style={{ fontWeight: 'bold' }}>Create one!</Text>
+                                    </Button>
+                                </View>
                         }
                     </Tab>
+
                     <Tab
                         heading={
                             <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>
@@ -161,4 +175,4 @@ class UserContest extends Component {
         )
     }
 }
-export default (UserContest)
+export default withNavigation(UserContest)

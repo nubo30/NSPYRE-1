@@ -219,7 +219,6 @@ export default class AboutTheContest extends Component {
                                         {isLoading ? null :
                                             <View style={{ position: 'absolute' }}>
                                                 <Picker
-                                                    style={{ position: 'absolute', top: -30 }}
                                                     textStyle={{ color: colorsPalette.transparent }}
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE CATEGORY"
@@ -379,7 +378,7 @@ export default class AboutTheContest extends Component {
                                         fontSize: wp(4),
                                         letterSpacing: 1,
                                         color: nameOfContest ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{nameOfContest ? "Done" : "Cancel"}</Text>
+                                    }}>{nameOfContest ? "DONE" : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -434,7 +433,7 @@ export default class AboutTheContest extends Component {
                                         fontSize: wp(4),
                                         letterSpacing: 1,
                                         color: description ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{description ? "Done" : "Cancel"}</Text>
+                                    }}>{description ? "DONE" : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -484,7 +483,7 @@ export default class AboutTheContest extends Component {
                                         fontSize: wp(4),
                                         letterSpacing: 1,
                                         color: instructions ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{instructions ? "Done" : "Cancel"}</Text>
+                                    }}>{instructions ? "DONE" : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -520,7 +519,7 @@ export default class AboutTheContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ VisibleModalPicture: false, picture: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{picture.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
@@ -563,7 +562,7 @@ export default class AboutTheContest extends Component {
                             <Button transparent
                                 onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
                                 <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{picture.name ? "Delete" : "Back"}</Text>
+                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{picture.name ? "DELETE" : "BACK"}</Text>
                             </Button>
                         </Left>
                         <Right>
