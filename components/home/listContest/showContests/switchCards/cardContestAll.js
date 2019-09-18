@@ -23,7 +23,7 @@ class cardContestAll extends Component {
                         this.setState({ activeAnimation: false });
                         this.props.navigation.navigate("AboutContest", { contest: item, fromWhere: 'categoryContest', userData })
                     }}>
-                    <CardContent item={item} />
+                    <CardContent userData={userData} item={item} />
                 </Animatable.View>
             </TouchableHighlight>
         )

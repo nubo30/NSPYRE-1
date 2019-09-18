@@ -82,10 +82,11 @@ class Participants extends Component {
                                                                 {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             </Left>
                                                             <Body style={{ right: 5, borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                                {console.log(item.id)}
                                                                 <Text
                                                                     minimumFontScale={wp(3.5)}
                                                                     allowFontScaling={false}
-                                                                    style={{ color: '#333', fontSize: wp(3.5), top: -2 }}>{item.nameUser}</Text>
+                                                                    style={{ color: '#333', fontSize: wp(3.5), top: -2 }}>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
                                                                 <Text
                                                                     minimumFontScale={wp(3)}
                                                                     allowFontScaling={false}
@@ -192,7 +193,7 @@ class Participants extends Component {
                                                                 <Text
                                                                     minimumFontScale={wp(3.5)}
                                                                     allowFontScaling={false}
-                                                                    style={{ color: '#333', fontSize: wp(3.5) }}>{item.nameUser}</Text>
+                                                                    style={{ color: '#333', fontSize: wp(3.5) }}>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
                                                                 <Text
                                                                     minimumFontScale={wp(2.5)}
                                                                     allowFontScaling={false}

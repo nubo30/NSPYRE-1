@@ -1,38 +1,66 @@
 import React, { Component } from 'react';
-import { Modal, FlatList } from 'react-native'
-import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Button, Icon, Separator, Switch, Thumbnail } from 'native-base';
+import { Modal } from 'react-native'
+import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Button, Icon, Separator, Switch } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import moment from 'moment';
-import UserAvatar from "react-native-user-avatar"
 import flatten from 'lodash/flatten'
 import values from 'lodash/values'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
 
-// Social Networks List
-import { snl } from './socialNetworksList/index'
+// Child Components
+import Share from './share'
 
-export default class staticstics extends Component {
+class Staticstics extends Component {
     state = {
         publicStatistics: false,
         usersSharedModal: false,
-        usersCommentsModal: false
+        modalAnimated: false,
+        userInfo: {}
+    }
+
+    // Determinar en cual aplicación se ha compartido el concurso
+    _applicationInWhichTheContestHasBeenShared = (value) => {
+        switch (value) {
+            case "ph.telegra.Telegraph.Share": return "Telegram"
+            case "net.whatsapp.WhatsApp.ShareExtension": return "WhatsApp"
+            case "com.google.hangouts.ShareExtension": return "Hangouts"
+            case "com.atebits.Tweetie2.ShareExtension": return "Twitter"
+            case "com.apple.UIKit.activity.PostToFacebook": return "Facebook"
+            case "com.tinyspeck.chatlyio.share": return "Slack"
+            case "com.google.Gmail.ShareExtension": return "Gmail"
+            default: break;
+        }
+    }
+
+    _closeAllModalsAndGoToProfileUser = (item) => {
+        const { _modalVisibleShowStatistics, navigation } = this.props
+        this.setState({ usersSharedModal: false });
+        setTimeout(() => {
+            _modalVisibleShowStatistics(false);
+            navigation.navigate("UserProfile", { userId: item.idUserSharing })
+        }, 1000);
+    }
+
+    _usersSharedModal = (value) => {
+        this.setState({ usersSharedModal: value })
     }
 
     render() {
         const {
+
             // Actions
             publicStatistics,
             usersSharedModal,
-            usersCommentsModal
         } = this.state
         const {
             // Data
             contest,
+            userData,
 
             // Functions
-            _modalVisibleShowStatistics } = this.props
+            _modalVisibleShowStatistics
+        } = this.props
         const sharedCount = contest.statistics && contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
         return (
             <Container>
@@ -40,7 +68,7 @@ export default class staticstics extends Component {
                     <Left>
                         <Button transparent onPress={() => _modalVisibleShowStatistics(false)}>
                             <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                            <Text style={{ color: colorsPalette.primaryColor }}>Back</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Back</Text>
                         </Button>
                     </Left>
                     <Body />
@@ -88,7 +116,7 @@ export default class staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* CANTIDAD DE LAS VECES QUE SE HA COMPARTIDO EL CONCURSO */}
-                        <ListItem last icon onPress={() => this.setState({ usersSharedModal: true })}>
+                        <ListItem last icon onPress={() => this._usersSharedModal(true)}>
                             <Left>
                                 <Button style={{ backgroundColor: "#F44336" }}>
                                     <Icon type="FontAwesome" name="share-square-o" />
@@ -178,86 +206,11 @@ export default class staticstics extends Component {
                     transparent={false}
                     visible={usersSharedModal}
                     onRequestClose={() => { }}>
-                    <Container>
-                        <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                            <Left>
-                                <Button transparent onPress={() => this.setState({ usersSharedModal: false })}>
-                                    <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                    <Text style={{ color: colorsPalette.primaryColor }}>Close</Text>
-                                </Button>
-                            </Left>
-                            <Body />
-                            <Right />
-                        </Header>
-                        <Content>
-                            <List>
-                                <FlatList
-                                    data={contest.statistics && contest.statistics.userSharing}
-                                    renderItem={({ item }) => (
-                                        <ListItem avatar>
-                                            <Left>
-                                                {item.avatar !== null
-                                                    ? <Thumbnail source={{ uri: item.avatar }} />
-                                                    : <UserAvatar size="55" name={item.name} />}
-                                            </Left>
-                                            <Body>
-                                                <Text>{item.name}</Text>
-                                                <Text note>
-                                                    {/* Hacer una función donde se determine que red social es según el valor que se le pase por parametro */}
-                                                    {`Shared on ${[...new Set(item.whereItHasBeenShared)][0] === 'ph.telegra.Telegraph.Share' ? 'Telegram' : null}, ${[...new Set(item.whereItHasBeenShared)][1] === 'net.whatsapp.WhatsApp.ShareExtension' ? 'WhatsApp' : null} and others. ${moment(item.createdAt).fromNow()}`}
-                                                </Text>
-                                            </Body>
-                                        </ListItem>
-                                    )}
-                                    keyExtractor={items => items.createdAt} />
-                            </List>
-                        </Content>
-                    </Container>
+                    <Share userData={userData} sharedCount={sharedCount} contest={contest} _usersSharedModal={this._usersSharedModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
                 </Modal>
-
-                {/* USUARIOS QUE HAN COMENTADO */}
-                <Modal
-                    animationType="fade"
-                    transparent={false}
-                    visible={usersCommentsModal}
-                    onRequestClose={() => { }}>
-                    <Container>
-                        <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                            <Left>
-                                <Button transparent onPress={() => this.setState({ usersCommentsModal: false })}>
-                                    <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                    <Text style={{ color: colorsPalette.primaryColor }}>Close</Text>
-                                </Button>
-                            </Left>
-                            <Body />
-                            <Right />
-                        </Header>
-                        <Content>
-                            <List>
-                                <ListItem avatar>
-                                    <Left>
-                                        <Thumbnail source={{ uri: 'https://images.unsplash.com/photo-1568659672931-c98d3639a4b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }} />
-                                    </Left>
-                                    <Body>
-                                        <Text>Kumar Pratik</Text>
-                                        <Text note>Es el mejro concurso en el cual he participado!</Text>
-                                    </Body>
-                                </ListItem>
-                            </List>
-                        </Content>
-                    </Container>
-                </Modal>
-
             </Container>
         );
     }
 }
 
-// .map(item =>
-//     item === 'ph.telegra.Telegraph.Share'
-//         ? 'Telegram, '
-//         : item === 'net.whatsapp.WhatsApp.ShareExtension'
-//             ? 'WhatsApp, '
-//             : item === 'com.google.hangouts.ShareExtension'
-//                 ? 'Hangouts'
-//                 : item
+export default Staticstics

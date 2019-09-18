@@ -14,7 +14,7 @@ class CardContent extends Component {
     state = { isFinishedContest: false }
     render() {
         const { isFinishedContest } = this.state
-        const { item } = this.props
+        const { item, userData } = this.props
         return item.user && (
             <Card style={{
                 flex: 0,
@@ -40,7 +40,7 @@ class CardContent extends Component {
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
                                 style={{ fontSize: wp(4) }}>
-                                {_.truncate(_.upperFirst(_.lowerCase(item.user.name)), { length: 20, separator: '...' })}
+                                {userData.id === item.user.id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.user.name)), { length: 20, separator: '...' })}
                             </Text>
                             <Text
                                 onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}

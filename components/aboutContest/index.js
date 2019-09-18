@@ -489,6 +489,7 @@ class ShowContest extends Component {
                         <SecondaryView
                             // Data
                             contest={contest}
+                            userData={userData}
 
                             // Actions
                             swiperIndex={swiperIndex}

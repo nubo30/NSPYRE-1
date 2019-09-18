@@ -55,6 +55,7 @@ export default class ContestDataStatistics extends Component {
         const {
             // Data
             contest,
+            userData,
 
             swiperIndex,
             _changeSwiperRoot,
@@ -596,13 +597,12 @@ export default class ContestDataStatistics extends Component {
                     <Statistics
                         // Data
                         contest={contest}
+                        userData={userData}
 
                         // Functions
                         _modalVisibleShowStatistics={this._modalVisibleShowStatistics}
                     />
                 </Modal>
-
-
             </Container>
         );
     }
