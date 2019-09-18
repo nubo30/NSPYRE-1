@@ -135,7 +135,13 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -426,7 +432,13 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -717,7 +729,13 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -930,9 +948,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -1120,9 +1135,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         id
         genders
@@ -1213,16 +1225,19 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         createdAt
       }
       nextToken
     }
     statistics {
-      share
+      userSharing {
+        name
+        idUserSharing
+        whereItHasBeenShared
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -1283,9 +1298,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -1473,9 +1485,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         id
         genders
@@ -1566,16 +1575,19 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         createdAt
       }
       nextToken
     }
     statistics {
-      share
+      userSharing {
+        name
+        idUserSharing
+        whereItHasBeenShared
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -1636,9 +1648,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -1826,9 +1835,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         id
         genders
@@ -1919,16 +1925,19 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         createdAt
       }
       nextToken
     }
     statistics {
-      share
+      userSharing {
+        name
+        idUserSharing
+        whereItHasBeenShared
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -2098,7 +2107,13 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -2294,7 +2309,13 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -2490,7 +2511,13 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -2704,7 +2731,13 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -2894,7 +2927,13 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -3084,7 +3123,13 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -3200,9 +3245,6 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken
@@ -3407,9 +3449,6 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -3612,9 +3651,6 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken
@@ -3820,9 +3856,6 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -4011,9 +4044,6 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -4201,9 +4231,6 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken

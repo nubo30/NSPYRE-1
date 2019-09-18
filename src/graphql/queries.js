@@ -147,7 +147,13 @@ export const getUser = `query GetUser($id: ID!) {
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -363,9 +369,6 @@ export const listUsers = `query ListUsers(
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         nextToken
       }
@@ -518,9 +521,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken
@@ -709,9 +709,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         id
         genders
@@ -802,16 +799,19 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           participants {
             nextToken
           }
-          statistics {
-            share
-          }
         }
         createdAt
       }
       nextToken
     }
     statistics {
-      share
+      userSharing {
+        name
+        idUserSharing
+        whereItHasBeenShared
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -984,7 +984,13 @@ export const listCreateContests = `query ListCreateContests(
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     nextToken
@@ -1156,7 +1162,13 @@ export const getAudience = `query GetAudience($id: ID!) {
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -1315,7 +1327,13 @@ export const listAudiences = `query ListAudiences(
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       id
@@ -1531,7 +1549,13 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         nextToken
       }
       statistics {
-        share
+        userSharing {
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -1684,7 +1708,13 @@ export const listParticipantss = `query ListParticipantss(
           nextToken
         }
         statistics {
-          share
+          userSharing {
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
         }
       }
       createdAt
@@ -1798,9 +1828,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken
@@ -2109,9 +2136,6 @@ export const getEngage = `query GetEngage($id: ID!) {
           }
           participants {
             nextToken
-          }
-          statistics {
-            share
           }
         }
         nextToken

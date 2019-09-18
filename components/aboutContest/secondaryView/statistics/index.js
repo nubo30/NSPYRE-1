@@ -4,10 +4,14 @@ import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Bu
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment';
 import UserAvatar from "react-native-user-avatar"
-
+import flatten from 'lodash/flatten'
+import values from 'lodash/values'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
+
+// Social Networks List
+import { snl } from './socialNetworksList/index'
 
 export default class staticstics extends Component {
     state = {
@@ -29,8 +33,7 @@ export default class staticstics extends Component {
 
             // Functions
             _modalVisibleShowStatistics } = this.props
-
-        const users = contest.statistics.share.map(item => JSON.parse(item))
+        const sharedCount = contest.statistics && contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
         return (
             <Container>
                 <Header>
@@ -100,7 +103,7 @@ export default class staticstics extends Component {
                                 >Shared</Text>
                             </Body>
                             <Right>
-                                <Text>{contest.statistics === null ? 0 : contest.statistics.share.length}</Text>
+                                <Text>{flatten(values(sharedCount)).length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
@@ -189,17 +192,20 @@ export default class staticstics extends Component {
                         <Content>
                             <List>
                                 <FlatList
-                                    data={users}
+                                    data={contest.statistics && contest.statistics.userSharing}
                                     renderItem={({ item }) => (
                                         <ListItem avatar>
                                             <Left>
-                                                {item.userSharing.avatar !== null
-                                                    ? <Thumbnail source={{ uri: item.userSharing.avatar }} />
-                                                    : <UserAvatar size="55" name={item.userSharing.name} />}
+                                                {item.avatar !== null
+                                                    ? <Thumbnail source={{ uri: item.avatar }} />
+                                                    : <UserAvatar size="55" name={item.name} />}
                                             </Left>
                                             <Body>
-                                                <Text>{item.userSharing.name}</Text>
-                                                <Text note>Shared 10 times on Facebook and others, {moment(item.createdAt).fromNow()}</Text>
+                                                <Text>{item.name}</Text>
+                                                <Text note>
+                                                    {/* Hacer una función donde se determine que red social es según el valor que se le pase por parametro */}
+                                                    {`Shared on ${[...new Set(item.whereItHasBeenShared)][0] === 'ph.telegra.Telegraph.Share' ? 'Telegram' : null}, ${[...new Set(item.whereItHasBeenShared)][1] === 'net.whatsapp.WhatsApp.ShareExtension' ? 'WhatsApp' : null} and others. ${moment(item.createdAt).fromNow()}`}
+                                                </Text>
                                             </Body>
                                         </ListItem>
                                     )}
@@ -246,3 +252,12 @@ export default class staticstics extends Component {
         );
     }
 }
+
+// .map(item =>
+//     item === 'ph.telegra.Telegraph.Share'
+//         ? 'Telegram, '
+//         : item === 'net.whatsapp.WhatsApp.ShareExtension'
+//             ? 'WhatsApp, '
+//             : item === 'com.google.hangouts.ShareExtension'
+//                 ? 'Hangouts'
+//                 : item

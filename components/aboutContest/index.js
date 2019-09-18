@@ -142,33 +142,55 @@ class ShowContest extends Component {
 
                 });
 
-
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
                     // shared with activity type of result.activityType
                     omitDeep(contest, ['__typename'])
                     if (contest.statistics !== null) {
-
-                        const input = {
-                            id: contest.id,
-                            statistics: {
-                                share: [...contest.statistics.share, JSON.stringify({
-                                    whereItHasBeenShared: result.activityType,
-                                    createdAt: moment().toISOString(),
-                                    userSharing: { id, avatar, name }
-                                })]
+                        // Si el usuario exista entonces se actualizará [whereItHasBeenShared] y se agregará un nuevo elemento
+                        const userSharing = contest.statistics.userSharing.filter(item => item.idUserSharing.indexOf(id) !== -1) // Se verifica si el suaurio existe
+                        if (userSharing.length !== 0) {
+                            const input = {
+                                id: contest.id,
+                                statistics: {
+                                    userSharing: [
+                                        {
+                                            name,
+                                            avatar,
+                                            idUserSharing: id,
+                                            createdAt: moment().toISOString(),
+                                            whereItHasBeenShared: [...userSharing[0].whereItHasBeenShared, result.activityType],
+                                        }
+                                    ]
+                                }
                             }
+                            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                        } else if (userSharing.length === 0) {
+                            // Se crea un nuevo usuario si no existe
+                            const input = {
+                                id: contest.id,
+                                statistics: {
+                                    userSharing: [...contest.statistics.userSharing,
+                                    {
+                                        name,
+                                        avatar,
+                                        idUserSharing: id,
+                                        createdAt: moment().toISOString(),
+                                        whereItHasBeenShared: [result.activityType],
+                                    }
+                                    ]
+                                }
+                            }
+                            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                         }
-                        await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                     } else if (contest.statistics === null) {
+                        // Se agrega un nuevo usuario, ya que no existe ninguno
                         const input = {
                             id: contest.id,
                             statistics: {
-                                share: [JSON.stringify({
-                                    whereItHasBeenShared: result.activityType,
-                                    createdAt: moment().toISOString(),
-                                    userSharing: { id, avatar, name }
-                                })]
+                                userSharing: [
+                                    { name, avatar, idUserSharing: id, createdAt: moment().toISOString(), whereItHasBeenShared: [result.activityType] }
+                                ]
                             }
                         }
                         await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
@@ -268,29 +290,6 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
-        //         // Agregar elemento al array de un usuario
-        //         let data = {
-        //             share: {
-        //                 users: [{
-        //                     name: "Yank", id: "1A", content: ["lalalalla"]
-        //                 },
-        //                 {
-        //                     name: "Carlos", id: "2B", content: ["Hoy es un buen día!"]
-        //                 }]
-        //             }
-        //         }
-
-
-
-        //         // Actualizar el contenido de un usuario en particular por su ID
-        //         // const content = data.share.users.filter(item => item.id.indexOf("1A") !== -1)
-        //         // data = { share: { users: _.reject(data.share.users, { id: "1A" }) } }
-        //         // data.share.users.push({ name: "Yank", id: "1A", content: [...content[0].content, "Hola mundo"] })
-
-        //         // Agregar un nuevo usuario a
-        //         data = { share: { users: [...data.share.users, { name: "Yank", id: "3C", content: ["Y yo aquí y tu allá"] }] } }
-        //         console.log(data)
-
         return (
             <Swiper
                 scrollEnabled={isReady === null ? false : true}

@@ -43,20 +43,16 @@ type CreateContest @model {
 }
 
 type Statistics {
-    share: [String]
+    userSharing: [UserSharing]
 }
 
-# type Share {
-#   userSharing: UserSharing
-#   whereItHasBeenShared: String
-#   createdAt: String
-# }
-
-# type UserSharing  {
-#   id: String 
-#   avatar: AWSURL
-#   name: String
-#   }
+type UserSharing  {
+  name: String
+  idUserSharing: String
+  whereItHasBeenShared: [String]
+  createdAt: AWSDateTime
+  avatar: AWSURL
+  }
 
 type Audience @model {
   JSONdata: String
