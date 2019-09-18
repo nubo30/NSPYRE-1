@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ImageBackground, Platform, TouchableHighlight, Alert, Share } from 'react-native'
+import { ImageBackground, Platform, TouchableHighlight, Alert } from 'react-native'
 import { Text, View, Button, Spinner, Icon } from "native-base"
 import { API, graphqlOperation } from "aws-amplify"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -35,54 +35,6 @@ class CardContent extends Component {
     componentWillUnmount() {
         this.setState({ isFinishedContest: false })
     }
-
-    _share = async (item) => {
-        try {
-            const result = await Share.share({
-                message: item.general.description,
-                title: item.general.nameOfContest,
-            }, {
-                excludedActivityTypes: [
-                    'com.apple.UIKit.activity.PostToWeibo',
-                    'com.apple.UIKit.activity.Print',
-                    'com.apple.UIKit.activity.CopyToPasteboard',
-                    'com.apple.UIKit.activity.AssignToContact',
-                    'com.apple.UIKit.activity.SaveToCameraRoll',
-                    'com.apple.UIKit.activity.AddToReadingList',
-                    'com.apple.UIKit.activity.PostToFlickr',
-                    'com.apple.UIKit.activity.PostToVimeo',
-                    'com.apple.UIKit.activity.PostToTencentWeibo',
-                    'com.apple.UIKit.activity.AirDrop',
-                    'com.apple.UIKit.activity.OpenInIBooks',
-                    'com.apple.UIKit.activity.MarkupAsPDF',
-                    'com.apple.reminders.RemindersEditorExtension',
-                    'com.apple.mobilenotes.SharingExtension',
-                    'com.apple.mobileslideshow.StreamShareService',
-                    'com.linkedin.LinkedIn.ShareExtension',
-                    'pinterest.ShareExtension',
-                    'com.google.GooglePlus.ShareExtension',
-                    'com.tumblr.tumblr.Share-With-Tumblr',
-                    'net.whatsapp.WhatsApp.ShareExtension'
-                ]
-            });
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    console.log(result)
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                    console.log(result)
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-                console.log(result)
-            }
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
 
     render() {
         const { animation, loadingDel, isFinishedContest } = this.state
@@ -220,9 +172,6 @@ class CardContent extends Component {
                         )}>{!loadingDel
                             ? <Icon type="Ionicons" name='md-trash' style={{ fontSize: 25, color: colorsPalette.gradientGray }} />
                             : <Spinner color={colorsPalette.gradientGray} size="small" hidesWhenStopped={true} animating={this.state.loadingDel} />}
-                        </Button>
-                        <Button icon transparent onPress={() => this._share(item)}>
-                            <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
                         </Button>
                     </View>
                 </View>
