@@ -39,7 +39,24 @@ type CreateContest @model {
   timer: AWSDateTime
   audience: [Audience] @connection(name:"CreateContestAudience")
   participants: [Participants] @connection(name:"CreateContestParticipants")
+  statistics: Statistics
 }
+
+type Statistics {
+    share: [String]
+}
+
+# type Share {
+#   userSharing: UserSharing
+#   whereItHasBeenShared: String
+#   createdAt: String
+# }
+
+# type UserSharing  {
+#   id: String 
+#   avatar: AWSURL
+#   name: String
+#   }
 
 type Audience @model {
   JSONdata: String

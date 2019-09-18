@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, Share } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { Button, Text, Icon } from "native-base"
@@ -8,6 +8,8 @@ import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import moment from 'moment'
+import omitDeep from 'omit-deep'
 
 // Child Components
 import HeaderContest from "./header"
@@ -26,12 +28,13 @@ import VideoPageOne from './video'
 import { GadrientsAboutContest } from "../global/gradients"
 import { MyStatusBar } from '../global/statusBar'
 
-// Icons
-import { Ionicons } from '@expo/vector-icons'
+// Colors
+import { colorsPalette } from '../global/static/colors'
 
 // GRAPHQL
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
+import * as mutations from '../../src/graphql/mutations'
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 75 : 73;
@@ -103,6 +106,86 @@ class ShowContest extends Component {
             console.log(error);
         }
     }
+
+    _share = async (item) => {
+        const { contest } = this.state
+        const { id, avatar, name } = this.props.navigation.getParam('userData');
+        try {
+            const result = await Share.share({
+                message: item.general.description,
+                title: item.general.nameOfContest,
+            },
+                {
+                    tintColor: "red",
+                    excludedActivityTypes: [
+                        'com.apple.UIKit.activity.Print',
+                        'com.apple.UIKit.activity.CopyToPasteboard',
+                        'com.apple.UIKit.activity.SaveToCameraRoll',
+                        'com.apple.UIKit.activity.AirDrop',
+                        'com.apple.UIKit.activity.PostToWeibo',
+                        'com.apple.UIKit.activity.AssignToContact',
+                        'com.apple.UIKit.activity.AddToReadingList',
+                        'com.apple.UIKit.activity.PostToFlickr',
+                        'com.apple.UIKit.activity.PostToVimeo',
+                        'com.apple.UIKit.activity.PostToTencentWeibo',
+                        'com.apple.UIKit.activity.OpenInIBooks',
+                        'com.apple.UIKit.activity.MarkupAsPDF',
+                        'com.apple.reminders.RemindersEditorExtension',
+                        'com.apple.mobilenotes.SharingExtension',
+                        'com.apple.mobileslideshow.StreamShareService',
+                        'com.linkedin.LinkedIn.ShareExtension',
+                        'pinterest.ShareExtension',
+                        'com.google.GooglePlus.ShareExtension',
+                        'com.tumblr.tumblr.Share-With-Tumblr',
+                        'net.whatsapp.WhatsApp.ShareExtension',
+                    ],
+
+                });
+
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                    omitDeep(contest, ['__typename'])
+                    if (contest.statistics !== null) {
+
+                        const input = {
+                            id: contest.id,
+                            statistics: {
+                                share: [...contest.statistics.share, JSON.stringify({
+                                    whereItHasBeenShared: result.activityType,
+                                    createdAt: moment().toISOString(),
+                                    userSharing: { id, avatar, name }
+                                })]
+                            }
+                        }
+                        await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                    } else if (contest.statistics === null) {
+                        const input = {
+                            id: contest.id,
+                            statistics: {
+                                share: [JSON.stringify({
+                                    whereItHasBeenShared: result.activityType,
+                                    createdAt: moment().toISOString(),
+                                    userSharing: { id, avatar, name }
+                                })]
+                            }
+                        }
+                        await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                    }
+
+                } else {
+                    // shared
+                    console.log(result)
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+                console.log(result)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
 
     _setModalVisiblePrizes = (visible) => {
@@ -185,6 +268,29 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
+        //         // Agregar elemento al array de un usuario
+        //         let data = {
+        //             share: {
+        //                 users: [{
+        //                     name: "Yank", id: "1A", content: ["lalalalla"]
+        //                 },
+        //                 {
+        //                     name: "Carlos", id: "2B", content: ["Hoy es un buen día!"]
+        //                 }]
+        //             }
+        //         }
+
+
+
+        //         // Actualizar el contenido de un usuario en particular por su ID
+        //         // const content = data.share.users.filter(item => item.id.indexOf("1A") !== -1)
+        //         // data = { share: { users: _.reject(data.share.users, { id: "1A" }) } }
+        //         // data.share.users.push({ name: "Yank", id: "1A", content: [...content[0].content, "Hola mundo"] })
+
+        //         // Agregar un nuevo usuario a
+        //         data = { share: { users: [...data.share.users, { name: "Yank", id: "3C", content: ["Y yo aquí y tu allá"] }] } }
+        //         console.log(data)
+
         return (
             <Swiper
                 scrollEnabled={isReady === null ? false : true}
@@ -213,21 +319,17 @@ class ShowContest extends Component {
                         <Grid style={styles.scrollViewContent}>
 
                             {/* Botton social network */}
-                            <Row size={15} style={{ justifyContent: 'flex-end' }}>
-                                <View style={{ justifyContent: 'center', left: 5, flexDirection: 'row' }}>
-                                    {userLogin
-                                        ? <Button
-                                            onPress={() => this._setModalVisibleUpdate(true)}
-                                            transparent color="#fff" style={{
-                                                borderRadius: 100,
-                                                width: 50,
-                                                height: 50,
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}>
-                                            <Ionicons name="md-create" style={{ color: "#BDBDBD", fontSize: 30 }} />
-                                        </Button>
-                                        : null}
+                            <Row size={15}>
+                                <View style={{ justifyContent: 'flex-end', flexDirection: 'row', width: '100%' }}>
+                                    {userLogin ? <Button
+                                        style={{ left: 10 }}
+                                        onPress={() => this._setModalVisibleUpdate(true)}
+                                        transparent>
+                                        <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
+                                    </Button> : null}
+                                    <Button icon transparent onPress={() => this._share(contest)}>
+                                        <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
+                                    </Button>
                                 </View>
                             </Row>
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, ImageBackground, KeyboardAvoidingView, Alert, Platform, Image } from 'react-native';
+import { Modal, ImageBackground, KeyboardAvoidingView, Alert, Platform, Image, Keyboard } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
-import { Header, Left, Button, Icon, Text, Title, View, Right, ListItem, Body, Switch, Item, Input, List, Picker, Spinner, Toast, Root } from 'native-base'
+import { Header, Left, Button, Icon, Text, Title, View, Right, ListItem, Body, Switch, Item, Input, List, Spinner, Toast, Root, Container, Content } from 'native-base'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -17,6 +17,9 @@ import { isAscii } from 'validator'
 import omitDeep from 'omit-deep'
 
 import { securityCredentials } from '../../global/aws/credentials'
+
+// Colors
+import { colorsPalette } from "../../global/static/colors";
 
 // Icons
 import { Ionicons, Feather, AntDesign, MaterialCommunityIcons, Entypo, MaterialIcons, FontAwesome } from '@expo/vector-icons'
@@ -40,9 +43,6 @@ class UpdateContest extends Component {
         descriptionOfPrize: "",
         pictureOfPrize: { name: "", type: "", localUrl: "", url: "" },
         videoOfPrize: { name: "", type: "", localUrl: "", url: "" },
-
-        // Picker
-        price: 'NO_SELECT',
 
         // List
         prizesList: [],
@@ -157,6 +157,7 @@ class UpdateContest extends Component {
 
     // Actualizar datos en AWS
     _updateContest = async () => {
+        this.setState({ isLoadingUploadImagenToAWS: true })
         const { nameOfContest, description, instructions, picture, dateChoose, video } = this.state
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
@@ -188,6 +189,7 @@ class UpdateContest extends Component {
             });
 
         }
+
         Object.assign(contest, {
             general: {
                 nameOfContest: nameOfContest ? nameOfContest : contest.general.nameOfContest,
@@ -375,7 +377,6 @@ class UpdateContest extends Component {
             nameOfContest,
             description,
             instructions,
-            price,
             prizesList,
             indexSwiper,
             indexSecondSwiper,
@@ -387,8 +388,8 @@ class UpdateContest extends Component {
             videoOfPrize,
 
             // Modals
-            openModalInstructions,
             openModalDescription,
+            openModalInstructions,
             visibleModalNameOfPrize,
             visibleModalDescriptionPrize,
             VisibleModalPicturePrize,
@@ -463,7 +464,6 @@ class UpdateContest extends Component {
                                     <Button
                                         transparent
                                         disabled={picture.localUrl || video.localUrl || dateChoose || nameOfContest || instructions || description || prizesList.length ? false : true}
-                                        onPressIn={() => this.setState({ isLoadingUploadImagenToAWS: true })}
                                         onPress={() => this._updateContest()}>
                                         {isLoadingUploadImagenToAWS
                                             ? <Spinner color="#BDBDBD" size="small" style={{ right: 15 }} />
@@ -516,6 +516,8 @@ class UpdateContest extends Component {
                                         <Body>
                                             <Item style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                                                 <Input
+                                                    onSubmitEditing={() => nameOfContest ? this._updateContest() : Keyboard.dismiss()}
+                                                    returnKeyType='done'
                                                     disabled={isLoadingUploadImagenToAWS}
                                                     style={{ right: 5, color: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#000", fontSize: wp(5) }}
                                                     maxLength={256}
@@ -575,7 +577,7 @@ class UpdateContest extends Component {
                                             <Text allowFontScaling={false} style={{ color: isLoadingUploadImagenToAWS ? "#BDBDBD" : null, fontSize: wp(4) }}>{contest.prizes.length} Prize created</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} onPress={{ fontSize: wp(4) }}>Add new prizes</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Add new prizes</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -646,41 +648,6 @@ class UpdateContest extends Component {
                                                     </Right>
                                                 </ListItem>
 
-                                                {/* PRICE */}
-                                                <ListItem disabled={isLoading} icon>
-                                                    <Left>
-                                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
-                                                            <Ionicons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="ios-pricetag" />
-                                                        </Button>
-                                                    </Left>
-                                                    <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? '#BDBDBD' : null, fontSize: wp(4) }}>Price</Text>
-                                                        {!isLoading ? <Picker
-                                                            style={{ position: 'absolute', top: -30 }}
-                                                            textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                            mode="dropdown"
-                                                            iosHeader="SELECT ONE PRICE"
-                                                            headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                            headerTitleStyle={{ color: "#D81B60" }}
-                                                            headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                            selectedValue={price}
-                                                            onValueChange={(value) => this.onValueChangePrice(value)}>
-                                                            <Picker.Item label="0$ - 25$" value="P0_25" />
-                                                            <Picker.Item label="50$ - 100$" value="P50_100" />
-                                                            <Picker.Item label="100$ - 200$" value="P100_200" />
-                                                            <Picker.Item label="200$ - 350$" value="P200_250" />
-                                                            <Picker.Item label="350$ - 400$" value="P350_400" />
-                                                            <Picker.Item label="400$ - 750$" value="P400_750" />
-                                                            <Picker.Item label="750$ - 1250$" value="P750_1250" />
-                                                            <Picker.Item label="Others" value="OTHERS" />
-                                                            <Picker.Item label="No select" value="NO_SELECT" />
-                                                        </Picker> : null}
-                                                    </Body>
-                                                    <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.replace(_.replace(_.startCase(_.lowerCase(_.replace(price, new RegExp("_", "g"), " "))), new RegExp("P", "g"), ""), '0 ', "0$ - ")}{price === 'OTHERS' || price === 'NO_SELECT' ? '' : '$'}</Text>
-                                                        <Icon active name="arrow-forward" />
-                                                    </Right>
-                                                </ListItem>
 
                                                 {/* PICTURE */}
                                                 <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicturePrize: true })}>
@@ -752,126 +719,103 @@ class UpdateContest extends Component {
 
                 {/* MODAL DESCRIPTION */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
                     transparent={false}
                     visible={openModalDescription}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
+                    <Container>
+                        <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: "#333", fontSize: wp(6) }}>DESCRIPTION</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Description</Title>
                             </Left>
-                            <Right />
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    description
+                                        ? this.setState({ openModalDescription: false })
+                                        : this.setState({ description: "", openModalDescription: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: description ? colorsPalette.primaryColor : colorsPalette.thirdColor
+                                    }}>{description ? "DONE" : "CANCEL"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-                        <Item
-                            error={description ? false : true}
-                            success={description ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                style={{ padding: 10, maxHeight: 120 }}
-                                multiline
-                                autoFocus={true}
-                                maxLength={1024}
-                                value={description}
-                                selectionColor="#333"
-                                keyboardType="default"
-                                onChangeText={(description) => this.setState({ description })} />
-                            <Icon
-                                style={{ color: description ? '#4CAF50' : '#EF5350' }}
-                                name={description ? 'checkmark-circle' : 'close-circle'} />
-                        </Item>
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => this.setState({ openModalDescription: false })}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={description ? () => this.setState({ openModalDescription: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: description ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* DESCRIPTION */}
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    onSubmitEditing={() => description ? this.setState({ openModalDescription: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Description"
+                                    placeholderTextColor={colorsPalette.gradientGray}
+                                    autoFocus={true}
+                                    value={description}
+                                    keyboardType="ascii-capable"
+                                    selectionColor={colorsPalette.primaryColor}
+                                    style={{ padding: 5, maxHeight: 170 }}
+                                    onChangeText={(value) => this.setState({ description: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* MODAL INSTRUCTIONS */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
                     transparent={false}
                     visible={openModalInstructions}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView enabled behavior="padding" style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
+                    <Container>
+                        <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: "#333", fontSize: wp(6) }}>INSTRUCTIONS</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Instructions</Title>
                             </Left>
-                            <Right />
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    instructions
+                                        ? this.setState({ openModalInstructions: false })
+                                        : this.setState({ instructions: "", openModalInstructions: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: instructions ? colorsPalette.primaryColor : colorsPalette.thirdColor
+                                    }}>{instructions ? "DONE" : "CANCEL"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-                        <Item
-                            error={instructions ? false : true}
-                            success={instructions ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                style={{ padding: 10, maxHeight: 120 }}
-                                multiline
-                                autoFocus={true}
-                                maxLength={1024}
-                                value={instructions}
-                                selectionColor="#333"
-                                keyboardType="default"
-                                onChangeText={(instructions) => this.setState({ instructions })} />
-                            <Icon
-                                style={{ color: instructions ? '#4CAF50' : '#EF5350' }}
-                                name={instructions ? 'checkmark-circle' : 'close-circle'} />
-                        </Item>
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => this.setState({ openModalInstructions: false })}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={instructions ? () => this.setState({ openModalInstructions: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: instructions ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    onSubmitEditing={() => instructions ? this.setState({ openModalInstructions: false }) : Keyboard.dismiss()}
+                                    returnKeyType='done'
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Instructions"
+                                    placeholderTextColor={colorsPalette.gradientGray}
+                                    autoFocus={true}
+                                    value={instructions}
+                                    keyboardType="ascii-capable"
+                                    selectionColor={colorsPalette.primaryColor}
+                                    style={{ padding: 5, maxHeight: 170 }}
+                                    onChangeText={(value) => this.setState({ instructions: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
-
+              
                 {/* NAME PRIZE MODAL */}
                 <Modal
                     transparent={false}

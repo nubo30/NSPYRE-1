@@ -34,6 +34,7 @@ class ListGeneralPrizes extends Component {
             <Container style={{ backgroundColor: colorsPalette.primaryColor }}>
                 <Header _setModalVisibleRedeemPoints={_setModalVisibleRedeemPoints} />
                 <Tabs
+                    initialPage={2}
                     style={{ backgroundColor: colorsPalette.secondaryColor }}
                     tabBarUnderlineStyle={{ backgroundColor: colorsPalette.secondaryColor }}>
                     <Tab

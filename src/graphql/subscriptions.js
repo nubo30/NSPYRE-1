@@ -134,6 +134,9 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           nextToken
         }
+        statistics {
+          share
+        }
       }
       nextToken
     }
@@ -421,6 +424,9 @@ export const onUpdateUser = `subscription OnUpdateUser {
             createdAt
           }
           nextToken
+        }
+        statistics {
+          share
         }
       }
       nextToken
@@ -710,6 +716,9 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           nextToken
         }
+        statistics {
+          share
+        }
       }
       nextToken
     }
@@ -921,6 +930,9 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -1108,6 +1120,9 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         id
         genders
@@ -1198,10 +1213,16 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         createdAt
       }
       nextToken
+    }
+    statistics {
+      share
     }
   }
 }
@@ -1262,6 +1283,9 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -1449,6 +1473,9 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         id
         genders
@@ -1539,10 +1566,16 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         createdAt
       }
       nextToken
+    }
+    statistics {
+      share
     }
   }
 }
@@ -1603,6 +1636,9 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -1790,6 +1826,9 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         id
         genders
@@ -1880,10 +1919,16 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         createdAt
       }
       nextToken
+    }
+    statistics {
+      share
     }
   }
 }
@@ -2051,6 +2096,9 @@ export const onCreateAudience = `subscription OnCreateAudience {
           createdAt
         }
         nextToken
+      }
+      statistics {
+        share
       }
     }
     id
@@ -2245,6 +2293,9 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         }
         nextToken
       }
+      statistics {
+        share
+      }
     }
     id
     genders
@@ -2437,6 +2488,9 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           createdAt
         }
         nextToken
+      }
+      statistics {
+        share
       }
     }
     id
@@ -2649,6 +2703,9 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         }
         nextToken
       }
+      statistics {
+        share
+      }
     }
     createdAt
   }
@@ -2835,6 +2892,9 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           createdAt
         }
         nextToken
+      }
+      statistics {
+        share
       }
     }
     createdAt
@@ -3023,6 +3083,9 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         }
         nextToken
       }
+      statistics {
+        share
+      }
     }
     createdAt
   }
@@ -3137,6 +3200,9 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
           }
           participants {
             nextToken
+          }
+          statistics {
+            share
           }
         }
         nextToken
@@ -3341,6 +3407,9 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -3543,6 +3612,9 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
           }
           participants {
             nextToken
+          }
+          statistics {
+            share
           }
         }
         nextToken
@@ -3748,6 +3820,9 @@ export const onCreateEngage = `subscription OnCreateEngage {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -3936,6 +4011,9 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
           participants {
             nextToken
           }
+          statistics {
+            share
+          }
         }
         nextToken
       }
@@ -4123,6 +4201,9 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
           }
           participants {
             nextToken
+          }
+          statistics {
+            share
           }
         }
         nextToken
