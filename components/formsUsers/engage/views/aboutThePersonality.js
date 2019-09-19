@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Dimensions, Modal, Keyboard } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Input, Header, Item, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import sum from 'lodash/sum'
 import startCase from 'lodash/startCase'
 import lowerCase from 'lodash/lowerCase'
@@ -685,8 +685,8 @@ class AboutThePersonality extends Component {
                     </Animatable.View>
                 </Footer>
 
-             {/* LOCATION MODAL */}
-             <Modal
+                {/* LOCATION MODAL */}
+                <Modal
                     transparent={false}
                     hardwareAccelerated={true}
                     visible={visibleModalLocation}

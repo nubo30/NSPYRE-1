@@ -103,8 +103,15 @@ class Share extends Component {
                                     </Left>
                                     <Body>
                                         <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}</Text>
+                                        {console.log([...new Set(item.whereItHasBeenShared)].length)}
                                         <Text note allowFontScaling={false}>
-                                            {`Shared on ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])} and others. ${moment(item.createdAt).fromNow()}`}
+                                            {[...new Set(item.whereItHasBeenShared)].length === 1
+                                                ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}. ${moment(item.createdAt).fromNow()}`
+                                                : [...new Set(item.whereItHasBeenShared)].length === 2
+                                                    ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}. ${moment(item.createdAt).fromNow()}`
+                                                    : [...new Set(item.whereItHasBeenShared)].length <= 3
+                                                        ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])}. ${moment(item.createdAt).fromNow()}`
+                                                        : `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])} and others... ${moment(item.createdAt).fromNow()}`}
                                         </Text>
                                     </Body>
                                 </ListItem>
@@ -139,7 +146,7 @@ class Share extends Component {
                                     <Text allowFontScaling={false}>{userData.id === userInfo.idUserSharing ? "You" : userInfo.name}</Text>
                                     <Text note allowFontScaling={false}>
                                         Shared in {[...new Set(userInfo.whereItHasBeenShared.map(item => this._applicationInWhichTheContestHasBeenShared(item)))].join(', ')}.
-                                            </Text>
+                                    </Text>
                                 </Body>
                             </ListItem>
                             <Button style={{ alignSelf: 'center', backgroundColor: colorsPalette.primaryColor }} small onPress={() => this.setState({ modalAnimated: false })}>

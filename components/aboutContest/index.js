@@ -10,6 +10,7 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import omitDeep from 'omit-deep'
+import findIndex from 'lodash/findIndex'
 
 // Child Components
 import HeaderContest from "./header"
@@ -153,17 +154,18 @@ class ShowContest extends Component {
                             const input = {
                                 id: contest.id,
                                 statistics: {
-                                    userSharing: [
-                                        {
-                                            name,
-                                            avatar,
-                                            idUserSharing: id,
-                                            createdAt: moment().toISOString(),
-                                            whereItHasBeenShared: [...userSharing[0].whereItHasBeenShared, result.activityType],
-                                        }
-                                    ]
+                                    userSharing: [...contest.statistics.userSharing,
+                                    {
+                                        name,
+                                        avatar,
+                                        idUserSharing: id,
+                                        createdAt: moment().toISOString(),
+                                        whereItHasBeenShared: [...userSharing[0].whereItHasBeenShared, result.activityType],
+                                    }]
                                 }
                             }
+                            const index = findIndex(input.statistics.userSharing, { idUserSharing: id })
+                            input.statistics.userSharing.splice(index, 1)
                             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                         } else if (userSharing.length === 0) {
                             // Se crea un nuevo usuario si no existe
@@ -290,6 +292,7 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
+
         return (
             <Swiper
                 scrollEnabled={isReady === null ? false : true}

@@ -154,6 +154,8 @@ export default class ContestDataStatistics extends Component {
                         </ListItem>
                     </List>
                 </Content>
+               
+                {/* Modal para veer lso tags de la audiencia */}
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -588,7 +590,7 @@ export default class ContestDataStatistics extends Component {
                     </Container>
                 </Modal>
 
-
+                {/* Modal de las estadisticas */}
                 <Modal
                     animationType="slide"
                     transparent={false}
