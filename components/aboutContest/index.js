@@ -149,52 +149,68 @@ class ShowContest extends Component {
                     // shared with activity type of result.activityType
                     omitDeep(contest, ['__typename'])
 
-                    if (contest.statistics.userSharing !== null) {
-                        // Si el usuario exista entonces se actualizará [whereItHasBeenShared] y se agregará un nuevo elemento
-                        const userSharing = contest.statistics && contest.statistics.userSharing.filter(item => item.idUserSharing.indexOf(id) !== -1) // Se verifica si el suaurio existe
-                        if (userSharing.length !== 0) {
-                            const input = {
-                                id: contest.id,
-                                statistics: {
-                                    userLikes: contest.statistics.userLikes,
-                                    userSharing: [...contest.statistics.userSharing,
-                                    {
-                                        name,
-                                        avatar,
-                                        idUserSharing: id,
-                                        createdAt: moment().toISOString(),
-                                        whereItHasBeenShared: [...userSharing[0].whereItHasBeenShared, result.activityType],
-                                    }]
-                                }
-                            }
-                            const index = findIndex(input.statistics.userSharing, { idUserSharing: id })
-                            input.statistics.userSharing.splice(index, 1)
-                            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
-                        } else if (userSharing.length === 0) {
-                            // Se crea un nuevo usuario si no existe
-                            const input = {
-                                id: contest.id,
-                                statistics: {
-                                    userLikes: contest.statistics.userLikes,
-                                    userSharing: [...contest.statistics.userSharing,
-                                    {
-                                        name,
-                                        avatar,
-                                        idUserSharing: id,
-                                        createdAt: moment().toISOString(),
-                                        whereItHasBeenShared: [result.activityType],
+                    if (contest.statistics !== null) {
+                        if (contest.statistics.userSharing !== null) {
+                            // Si el usuario exista entonces se actualizará [whereItHasBeenShared] y se agregará un nuevo elemento
+                            const userSharing = contest.statistics.userSharing.filter(item => item.idUserSharing.indexOf(id) !== -1) // Se verifica si el suaurio existe
+                            if (userSharing.length !== 0) {
+                                const input = {
+                                    id: contest.id,
+                                    statistics: {
+                                        userLikes: contest.statistics.userLikes,
+                                        userSharing: [...contest.statistics.userSharing,
+                                        {
+                                            name,
+                                            avatar,
+                                            idUserSharing: id,
+                                            createdAt: moment().toISOString(),
+                                            whereItHasBeenShared: [...userSharing[0].whereItHasBeenShared, result.activityType],
+                                        }]
                                     }
+                                }
+                                const index = findIndex(input.statistics.userSharing, { idUserSharing: id })
+                                input.statistics.userSharing.splice(index, 1)
+                                console.log(" Si el usuario exista entonces se actualizará [whereItHasBeenShared] y se agregará un nuevo elemento")
+                                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                            } else if (userSharing.length === 0) {
+                                // Se crea un nuevo usuario si no existe
+                                const input = {
+                                    id: contest.id,
+                                    statistics: {
+                                        userLikes: contest.statistics.userLikes,
+                                        userSharing: [...contest.statistics.userSharing,
+                                        {
+                                            name,
+                                            avatar,
+                                            idUserSharing: id,
+                                            createdAt: moment().toISOString(),
+                                            whereItHasBeenShared: [result.activityType],
+                                        }
+                                        ]
+                                    }
+                                }
+                                console.log("Se crea un nuevo usuario si no existe")
+                                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                            }
+                        } else if (contest.statistics.userSharing === null) {
+                            // Se agrega un nuevo usuario, ya que no existe ninguno
+                            const input = {
+                                id: contest.id,
+                                statistics: {
+                                    userLikes: contest.statistics.userLikes,
+                                    userSharing: [
+                                        { name, avatar, idUserSharing: id, createdAt: moment().toISOString(), whereItHasBeenShared: [result.activityType] }
                                     ]
                                 }
                             }
                             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                         }
-                    } else if (contest.statistics.userSharing === null) {
+                    } else if (contest.statistics === null) {
                         // Se agrega un nuevo usuario, ya que no existe ninguno
                         const input = {
                             id: contest.id,
                             statistics: {
-                                userLikes: contest.statistics.userLikes,
+                                userLikes: null,
                                 userSharing: [
                                     { name, avatar, idUserSharing: id, createdAt: moment().toISOString(), whereItHasBeenShared: [result.activityType] }
                                 ]
@@ -202,6 +218,7 @@ class ShowContest extends Component {
                         }
                         await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                     }
+
 
                 } else {
                     // shared
@@ -332,7 +349,7 @@ class ShowContest extends Component {
                                         <Button icon transparent onPress={() => this._share(contest)} style={{ alignSelf: 'flex-end' }}>
                                             <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
                                         </Button>
-                                        <View style={{right: 15}}>
+                                        <View style={{ right: 15 }}>
                                             <Likes userData={userData} contest={contest} />
                                         </View>
                                     </View>

@@ -61,7 +61,7 @@ class Staticstics extends Component {
             // Functions
             _modalVisibleShowStatistics
         } = this.props
-        const sharedCount = contest.statistics && contest.statistics.userSharing === null ? [] : contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
+        const sharedCount = contest.statistics === null ? [] : contest.statistics.userSharing === null ? [] : contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
 
         return (
             <Container>
@@ -159,7 +159,7 @@ class Staticstics extends Component {
                         </ListItem>
 
                         {/* CANTIDAD DE LIKES */}
-                        <ListItem last icon disabled={contest.statistics && contest.statistics.userLikes.length ? false : true} onPress={() => this.setState({ usersCommentsModal: true })}>
+                        <ListItem last icon disabled={contest.statistics === null ? true : contest.statistics.userLikes === null ? true : contest.statistics.userLikes.length ? false : true} onPress={() => this.setState({ usersCommentsModal: true })}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E91E63" }}>
                                     <Icon type="AntDesign" name="heart" />
@@ -174,7 +174,7 @@ class Staticstics extends Component {
                                 >Likes</Text>
                             </Body>
                             <Right>
-                                <Text>{contest.statistics && contest.statistics.userLikes.length}</Text>
+                                <Text>{contest.statistics === null ? 0 : contest.statistics.userLikes === null ? 0 : contest.statistics.userLikes.length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
