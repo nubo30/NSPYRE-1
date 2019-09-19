@@ -44,12 +44,20 @@ type CreateContest @model {
 
 type Statistics {
     userSharing: [UserSharing]
+    userLikes: [UserLikes]
 }
 
 type UserSharing  {
   name: String
   idUserSharing: String
   whereItHasBeenShared: [String]
+  createdAt: AWSDateTime
+  avatar: AWSURL
+  }
+
+type UserLikes  {
+  name: String
+  idUserLike: String
   createdAt: AWSDateTime
   avatar: AWSURL
   }

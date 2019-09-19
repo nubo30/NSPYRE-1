@@ -155,7 +155,7 @@ export default class ContestDataStatistics extends Component {
                     </List>
                 </Content>
                
-                {/* Modal para veer lso tags de la audiencia */}
+                {/* Modal para veer los tags de la audiencia */}
                 <Modal
                     animationType="slide"
                     transparent={false}

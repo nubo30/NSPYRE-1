@@ -61,7 +61,8 @@ class Staticstics extends Component {
             // Functions
             _modalVisibleShowStatistics
         } = this.props
-        const sharedCount = contest.statistics && contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
+        const sharedCount = contest.statistics && contest.statistics.userSharing === null ? [] : contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
+
         return (
             <Container>
                 <Header>
@@ -116,7 +117,7 @@ class Staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* CANTIDAD DE LAS VECES QUE SE HA COMPARTIDO EL CONCURSO */}
-                        <ListItem last icon onPress={() => this._usersSharedModal(true)}>
+                        <ListItem disabled={sharedCount.length ? false : true} last icon onPress={() => this._usersSharedModal(true)}>
                             <Left>
                                 <Button style={{ backgroundColor: "#F44336" }}>
                                     <Icon type="FontAwesome" name="share-square-o" />
@@ -158,7 +159,7 @@ class Staticstics extends Component {
                         </ListItem>
 
                         {/* CANTIDAD DE LIKES */}
-                        <ListItem last icon onPress={() => this.setState({ usersCommentsModal: true })}>
+                        <ListItem last icon disabled={contest.statistics && contest.statistics.userLikes.length ? false : true} onPress={() => this.setState({ usersCommentsModal: true })}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E91E63" }}>
                                     <Icon type="AntDesign" name="heart" />
@@ -173,11 +174,13 @@ class Staticstics extends Component {
                                 >Likes</Text>
                             </Body>
                             <Right>
-                                <Text>30</Text>
+                                <Text>{contest.statistics && contest.statistics.userLikes.length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
+
+                        {/* VIDEO */}
                         <ListItem last icon onPress={() => this.setState({ usersCommentsModal: true })}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>

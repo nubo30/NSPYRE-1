@@ -9,7 +9,7 @@ export const colorsPalette = {
     underlinesColor: '#BDBDBD',
     thirdColor: "#3333",
     transparent: 'transparent',
-
+    heartColor: "#D32F2F",
 
     // shadow components
     primaryShadowColor: "rgba(0,0,0,0.3)",

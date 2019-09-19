@@ -24,6 +24,7 @@ import Participants from './participants'
 import SecondaryView from './secondaryView'
 import JoinToTheContest from './participants/joinToTheContest'
 import VideoPageOne from './video'
+import Likes from './secondaryView/statistics/likes'
 
 // Gradients
 import { GadrientsAboutContest } from "../global/gradients"
@@ -147,13 +148,15 @@ class ShowContest extends Component {
                 if (result.activityType) {
                     // shared with activity type of result.activityType
                     omitDeep(contest, ['__typename'])
-                    if (contest.statistics !== null) {
+
+                    if (contest.statistics.userSharing !== null) {
                         // Si el usuario exista entonces se actualizará [whereItHasBeenShared] y se agregará un nuevo elemento
-                        const userSharing = contest.statistics.userSharing.filter(item => item.idUserSharing.indexOf(id) !== -1) // Se verifica si el suaurio existe
+                        const userSharing = contest.statistics && contest.statistics.userSharing.filter(item => item.idUserSharing.indexOf(id) !== -1) // Se verifica si el suaurio existe
                         if (userSharing.length !== 0) {
                             const input = {
                                 id: contest.id,
                                 statistics: {
+                                    userLikes: contest.statistics.userLikes,
                                     userSharing: [...contest.statistics.userSharing,
                                     {
                                         name,
@@ -172,6 +175,7 @@ class ShowContest extends Component {
                             const input = {
                                 id: contest.id,
                                 statistics: {
+                                    userLikes: contest.statistics.userLikes,
                                     userSharing: [...contest.statistics.userSharing,
                                     {
                                         name,
@@ -185,11 +189,12 @@ class ShowContest extends Component {
                             }
                             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
                         }
-                    } else if (contest.statistics === null) {
+                    } else if (contest.statistics.userSharing === null) {
                         // Se agrega un nuevo usuario, ya que no existe ninguno
                         const input = {
                             id: contest.id,
                             statistics: {
+                                userLikes: contest.statistics.userLikes,
                                 userSharing: [
                                     { name, avatar, idUserSharing: id, createdAt: moment().toISOString(), whereItHasBeenShared: [result.activityType] }
                                 ]
@@ -322,16 +327,23 @@ class ShowContest extends Component {
 
                             {/* Botton social network */}
                             <Row size={15}>
-                                <View style={{ justifyContent: 'flex-end', flexDirection: 'row', width: '100%' }}>
-                                    {userLogin ? <Button
-                                        style={{ left: 10 }}
-                                        onPress={() => this._setModalVisibleUpdate(true)}
-                                        transparent>
-                                        <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
-                                    </Button> : null}
-                                    <Button icon transparent onPress={() => this._share(contest)}>
-                                        <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
-                                    </Button>
+                                <View style={{ width: '100%', flexDirection: 'row' }}>
+                                    <View style={{ flex: 0.5, flexDirection: 'row' }}>
+                                        <Button icon transparent onPress={() => this._share(contest)} style={{ alignSelf: 'flex-end' }}>
+                                            <Icon type="FontAwesome" name='share-square-o' style={{ color: colorsPalette.primaryColor }} />
+                                        </Button>
+                                        <View style={{right: 15}}>
+                                            <Likes userData={userData} contest={contest} />
+                                        </View>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', flex: 0.5, justifyContent: 'flex-end' }}>
+                                        {userLogin ? <Button
+                                            style={{ alignSelf: 'flex-end' }}
+                                            onPress={() => this._setModalVisibleUpdate(true)}
+                                            transparent>
+                                            <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
+                                        </Button> : null}
+                                    </View>
                                 </View>
                             </Row>
 

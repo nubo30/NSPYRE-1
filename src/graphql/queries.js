@@ -154,6 +154,12 @@ export const getUser = `query GetUser($id: ID!) {
             createdAt
             avatar
           }
+          userLikes {
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -812,6 +818,12 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         createdAt
         avatar
       }
+      userLikes {
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -988,6 +1000,12 @@ export const listCreateContests = `query ListCreateContests(
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }
@@ -1169,6 +1187,12 @@ export const getAudience = `query GetAudience($id: ID!) {
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -1331,6 +1355,12 @@ export const listAudiences = `query ListAudiences(
             name
             idUserSharing
             whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          userLikes {
+            name
+            idUserLike
             createdAt
             avatar
           }
@@ -1556,6 +1586,12 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -1712,6 +1748,12 @@ export const listParticipantss = `query ListParticipantss(
             name
             idUserSharing
             whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          userLikes {
+            name
+            idUserLike
             createdAt
             avatar
           }

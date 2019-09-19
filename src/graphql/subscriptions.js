@@ -142,6 +142,12 @@ export const onCreateUser = `subscription OnCreateUser {
             createdAt
             avatar
           }
+          userLikes {
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -439,6 +445,12 @@ export const onUpdateUser = `subscription OnUpdateUser {
             createdAt
             avatar
           }
+          userLikes {
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -733,6 +745,12 @@ export const onDeleteUser = `subscription OnDeleteUser {
             name
             idUserSharing
             whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          userLikes {
+            name
+            idUserLike
             createdAt
             avatar
           }
@@ -1238,6 +1256,12 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         createdAt
         avatar
       }
+      userLikes {
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -1585,6 +1609,12 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         name
         idUserSharing
         whereItHasBeenShared
+        createdAt
+        avatar
+      }
+      userLikes {
+        name
+        idUserLike
         createdAt
         avatar
       }
@@ -1938,6 +1968,12 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         createdAt
         avatar
       }
+      userLikes {
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -2111,6 +2147,12 @@ export const onCreateAudience = `subscription OnCreateAudience {
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }
@@ -2316,6 +2358,12 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -2515,6 +2563,12 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }
@@ -2738,6 +2792,12 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -2934,6 +2994,12 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -3127,6 +3193,12 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }

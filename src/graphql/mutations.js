@@ -142,6 +142,12 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             createdAt
             avatar
           }
+          userLikes {
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -439,6 +445,12 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             createdAt
             avatar
           }
+          userLikes {
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
         }
       }
       nextToken
@@ -733,6 +745,12 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             name
             idUserSharing
             whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          userLikes {
+            name
+            idUserLike
             createdAt
             avatar
           }
@@ -1238,6 +1256,12 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         createdAt
         avatar
       }
+      userLikes {
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -1585,6 +1609,12 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         name
         idUserSharing
         whereItHasBeenShared
+        createdAt
+        avatar
+      }
+      userLikes {
+        name
+        idUserLike
         createdAt
         avatar
       }
@@ -1938,6 +1968,12 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         createdAt
         avatar
       }
+      userLikes {
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
     }
   }
 }
@@ -2111,6 +2147,12 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }
@@ -2316,6 +2358,12 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     id
@@ -2515,6 +2563,12 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }
@@ -2738,6 +2792,12 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -2934,6 +2994,12 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           createdAt
           avatar
         }
+        userLikes {
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
       }
     }
     createdAt
@@ -3127,6 +3193,12 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        userLikes {
+          name
+          idUserLike
           createdAt
           avatar
         }

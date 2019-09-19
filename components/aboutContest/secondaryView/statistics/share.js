@@ -26,7 +26,7 @@ class Share extends Component {
                     case "ph.telegra.Telegraph.Share": return ({ appName: "Telegram", color: colorsPalette.tgColor })
                     case "net.whatsapp.WhatsApp.ShareExtension": return ({ appName: "WhatsApp", color: colorsPalette.waColor })
                     case "com.google.hangouts.ShareExtension": return ({ appName: "Hangouts", color: colorsPalette.hgColor })
-                    case "com.atebits.Tweetie2.ShareExtension": return ({ appName: "Twitter", color: colorsPalette.tgColor })
+                    case "com.atebits.Tweetie2.ShareExtension": return ({ appName: "Twitter", color: colorsPalette.ttColor })
                     case "com.apple.UIKit.activity.PostToFacebook": return ({ appName: "Facebook", color: colorsPalette.fbColor })
                     case "com.tinyspeck.chatlyio.share": return ({ appName: "Slack", color: colorsPalette.scColor })
                     case "com.google.Gmail.ShareExtension": return ({ appName: "Gmail", color: colorsPalette.glColor })
@@ -90,33 +90,36 @@ class Share extends Component {
                         <CPieChart sharedCount={this._applicationInWhichTheContestHasBeenShared(flatten(sharedCount))} />
                     </View>
                     <List style={{ flex: 0.6 }}>
-                        <FlatList
-                            data={contest.statistics && contest.statistics.userSharing}
-                            renderItem={({ item }) => (
-                                <ListItem avatar
-                                    onPress={() => this._closeAllModalsAndGoToProfileUser(item)}
-                                    onLongPress={() => this.setState({ modalAnimated: true, userInfo: item })} underlayColor={colorsPalette.secondaryColor}>
-                                    <Left>
-                                        {item.avatar !== null
-                                            ? <Thumbnail source={{ uri: item.avatar }} />
-                                            : <UserAvatar size="55" name={item.name} />}
-                                    </Left>
-                                    <Body>
-                                        <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}</Text>
-                                        {console.log([...new Set(item.whereItHasBeenShared)].length)}
-                                        <Text note allowFontScaling={false}>
-                                            {[...new Set(item.whereItHasBeenShared)].length === 1
-                                                ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}. ${moment(item.createdAt).fromNow()}`
-                                                : [...new Set(item.whereItHasBeenShared)].length === 2
-                                                    ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}. ${moment(item.createdAt).fromNow()}`
-                                                    : [...new Set(item.whereItHasBeenShared)].length <= 3
-                                                        ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])}. ${moment(item.createdAt).fromNow()}`
-                                                        : `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])} and others... ${moment(item.createdAt).fromNow()}`}
-                                        </Text>
-                                    </Body>
-                                </ListItem>
-                            )}
-                            keyExtractor={items => items.createdAt} />
+                        <Content padder>
+                            <Text allowFontScaling style={{ color: colorsPalette.gradientGray, fontSize: wp(4), width: "80%" }}>List of users who shared the contest - Press and hold for more information.</Text>
+                            <FlatList
+                                data={contest.statistics && contest.statistics.userSharing}
+                                renderItem={({ item }) => (
+                                    <ListItem avatar
+                                        onPress={() => this._closeAllModalsAndGoToProfileUser(item)}
+                                        onLongPress={() => this.setState({ modalAnimated: true, userInfo: item })} underlayColor={colorsPalette.secondaryColor}>
+                                        <Left>
+                                            {item.avatar !== null
+                                                ? <Thumbnail source={{ uri: item.avatar }} />
+                                                : <UserAvatar size="55" name={item.name} />}
+                                        </Left>
+                                        <Body>
+                                            <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}</Text>
+                                            {console.log([...new Set(item.whereItHasBeenShared)].length)}
+                                            <Text note allowFontScaling={false}>
+                                                {[...new Set(item.whereItHasBeenShared)].length === 1
+                                                    ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}. ${moment(item.createdAt).fromNow()}`
+                                                    : [...new Set(item.whereItHasBeenShared)].length === 2
+                                                        ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}. ${moment(item.createdAt).fromNow()}`
+                                                        : [...new Set(item.whereItHasBeenShared)].length <= 3
+                                                            ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])} and ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])}. ${moment(item.createdAt).fromNow()}`
+                                                            : `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][1])}, ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][2])} and others... ${moment(item.createdAt).fromNow()}`}
+                                            </Text>
+                                        </Body>
+                                    </ListItem>
+                                )}
+                                keyExtractor={items => items.createdAt} />
+                        </Content>
                     </List>
                 </Content>
 
