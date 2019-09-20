@@ -51,7 +51,7 @@ class HeaderContest extends Component {
                         </View> :
                         contest.timer === null
                             ? null
-                            : new Date(contest.timer) < new Date()
+                            : new Date(contest.timer.end) < new Date()
                                 ? <View style={{ left: 15 }}>
                                     <View style={{
                                         borderRadius: 5,
@@ -72,7 +72,7 @@ class HeaderContest extends Component {
                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
                                     digitTxtStyle={{ color: '#FFF' }}
                                     timeLabelStyle={{ color: '#FFF' }}
-                                    until={moment(Object.keys(contest).length !== 0 ? contest.timer : contest.timer).diff(moment(new Date()), 'seconds')}
+                                    until={moment(Object.keys(contest).length !== 0 ? contest.timer.end : contest.timer.end).diff(moment(new Date()), 'seconds')}
                                     onFinish={() => this.setState({ isFinishedContest: true })}
                                     onPress={() => { }}
                                     size={15}

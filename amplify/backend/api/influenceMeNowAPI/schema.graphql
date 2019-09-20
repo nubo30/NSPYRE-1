@@ -36,10 +36,15 @@ type CreateContest @model {
   general: General!
   prizes: [Prizes]
   createdAt: AWSDateTime!
-  timer: AWSDateTime
+  timer: Timer
   audience: [Audience] @connection(name:"CreateContestAudience")
   participants: [Participants] @connection(name:"CreateContestParticipants")
   statistics: Statistics
+}
+
+type Timer {
+  start: AWSDateTime
+  end: AWSDateTime
 }
 
 type Statistics {

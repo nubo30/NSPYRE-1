@@ -91,7 +91,10 @@ export const onCreateUser = `subscription OnCreateUser {
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -394,7 +397,10 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -697,7 +703,10 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -959,7 +968,10 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1109,7 +1121,10 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       }
     }
     createdAt
-    timer
+    timer {
+      start
+      end
+    }
     audience {
       items {
         JSONdata
@@ -1146,7 +1161,10 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1236,7 +1254,10 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1315,7 +1336,10 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1465,7 +1489,10 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
       }
     }
     createdAt
-    timer
+    timer {
+      start
+      end
+    }
     audience {
       items {
         JSONdata
@@ -1502,7 +1529,10 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1592,7 +1622,10 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1671,7 +1704,10 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1821,7 +1857,10 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
       }
     }
     createdAt
-    timer
+    timer {
+      start
+      end
+    }
     audience {
       items {
         JSONdata
@@ -1858,7 +1897,10 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -1948,7 +1990,10 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -2000,7 +2045,6 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2073,7 +2117,10 @@ export const onCreateAudience = `subscription OnCreateAudience {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -2081,7 +2128,6 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -2136,7 +2182,6 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -2208,7 +2253,6 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2281,7 +2325,10 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -2289,7 +2336,6 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -2344,7 +2390,6 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -2416,7 +2461,6 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2489,7 +2533,10 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -2497,7 +2544,6 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -2552,7 +2598,6 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -2642,7 +2687,6 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2715,7 +2759,10 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -2723,7 +2770,6 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -2778,7 +2824,6 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -2844,7 +2889,6 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2917,7 +2961,10 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -2925,7 +2972,6 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -2980,7 +3026,6 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -3046,7 +3091,6 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -3119,7 +3163,10 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -3127,7 +3174,6 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -3182,7 +3228,6 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -3311,7 +3356,10 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -3514,7 +3562,10 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -3717,7 +3768,10 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -3921,7 +3975,10 @@ export const onCreateEngage = `subscription OnCreateEngage {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -4109,7 +4166,10 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -4297,7 +4357,10 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }

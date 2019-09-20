@@ -24,7 +24,7 @@ import Participants from './participants'
 import SecondaryView from './secondaryView'
 import JoinToTheContest from './participants/joinToTheContest'
 import VideoPageOne from './video'
-import Likes from './secondaryView/statistics/likes'
+import Likes from './buttons/like'
 
 // Gradients
 import { GadrientsAboutContest } from "../global/gradients"

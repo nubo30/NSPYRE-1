@@ -93,7 +93,7 @@ class CardContent extends Component {
                                         </View> :
                                         item.timer === null
                                             ? null
-                                            : new Date(item.timer) < new Date()
+                                            : new Date(item.timer.end) < new Date()
                                                 ? <View style={{
                                                     position: 'absolute',
                                                     right: 0,
@@ -116,7 +116,7 @@ class CardContent extends Component {
                                                     digitStyle={{ backgroundColor: colorsPalette.transparent }}
                                                     digitTxtStyle={{ color: colorsPalette.secondaryColor }}
                                                     timeLabelStyle={{ color: colorsPalette.secondaryColor }}
-                                                    until={moment(item.timer).diff(moment(new Date()), 'seconds')}
+                                                    until={moment(item.timer.end).diff(moment(new Date()), 'seconds')}
                                                     onFinish={() => this.setState({ isFinishedContest: true })}
                                                     onPress={() => { }}
                                                     size={20}

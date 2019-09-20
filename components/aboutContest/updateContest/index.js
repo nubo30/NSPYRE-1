@@ -198,7 +198,7 @@ class UpdateContest extends Component {
                 picture: picture.localUrl ? picture : contest.general.picture,
                 video: video.localUrl ? video : contest.general.video,
             },
-            timer: dateChoose ? dateChoose : contest.timer
+            timer: dateChoose ? { end: dateChoose, start: moment().toISOString() } : contest.timer
         })
         const input = contest
         try {
@@ -815,7 +815,7 @@ class UpdateContest extends Component {
                         </Content>
                     </Container>
                 </Modal>
-              
+
                 {/* NAME PRIZE MODAL */}
                 <Modal
                     transparent={false}

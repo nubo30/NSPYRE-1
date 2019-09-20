@@ -10,12 +10,14 @@ import { colorsPalette } from '../../../global/static/colors'
 
 // Child Components
 import Share from './share'
+import Likes from './likes'
 
 class Staticstics extends Component {
     state = {
         publicStatistics: false,
         usersSharedModal: false,
         modalAnimated: false,
+        usersLikesModal: false,
         userInfo: {}
     }
 
@@ -46,12 +48,17 @@ class Staticstics extends Component {
         this.setState({ usersSharedModal: value })
     }
 
+    _usersLikesModal = (value) => {
+        this.setState({ usersLikesModal: value })
+    }
+
     render() {
         const {
 
             // Actions
             publicStatistics,
             usersSharedModal,
+            usersLikesModal
         } = this.state
         const {
             // Data
@@ -159,7 +166,7 @@ class Staticstics extends Component {
                         </ListItem>
 
                         {/* CANTIDAD DE LIKES */}
-                        <ListItem last icon disabled={contest.statistics === null ? true : contest.statistics.userLikes === null ? true : contest.statistics.userLikes.length ? false : true} onPress={() => this.setState({ usersCommentsModal: true })}>
+                        <ListItem last icon disabled={contest.statistics === null ? true : contest.statistics.userLikes === null ? true : contest.statistics.userLikes.length ? false : true} onPress={() => this._usersLikesModal(true)}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E91E63" }}>
                                     <Icon type="AntDesign" name="heart" />
@@ -211,6 +218,16 @@ class Staticstics extends Component {
                     onRequestClose={() => { }}>
                     <Share userData={userData} sharedCount={sharedCount} contest={contest} _usersSharedModal={this._usersSharedModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
                 </Modal>
+
+                {/* USUARIOS QUE HAN DEJADO LIKES EN EL CONCURSO */}
+                <Modal
+                    animationType="fade"
+                    transparent={false}
+                    visible={usersLikesModal}
+                    onRequestClose={() => { }}>
+                    <Likes userData={userData} contest={contest} _usersLikesModal={this._usersLikesModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
+                </Modal>
+
             </Container>
         );
     }

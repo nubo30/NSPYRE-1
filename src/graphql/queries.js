@@ -103,7 +103,10 @@ export const getUser = `query GetUser($id: ID!) {
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -368,7 +371,10 @@ export const listUsers = `query ListUsers(
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -521,7 +527,10 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -671,7 +680,10 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       }
     }
     createdAt
-    timer
+    timer {
+      start
+      end
+    }
     audience {
       items {
         JSONdata
@@ -708,7 +720,10 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -798,7 +813,10 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -853,7 +871,6 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -926,7 +943,10 @@ export const listCreateContests = `query ListCreateContests(
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -934,7 +954,6 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -989,7 +1008,6 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -1037,7 +1055,6 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -1110,7 +1127,10 @@ export const getAudience = `query GetAudience($id: ID!) {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -1118,7 +1138,6 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -1173,7 +1192,6 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -1307,7 +1325,10 @@ export const listAudiences = `query ListAudiences(
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -1436,7 +1457,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -1509,7 +1529,10 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         }
       }
       createdAt
-      timer
+      timer {
+        start
+        end
+      }
       audience {
         items {
           JSONdata
@@ -1517,7 +1540,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           id
           genders
@@ -1572,7 +1594,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            timer
           }
           createdAt
         }
@@ -1700,7 +1721,10 @@ export const listParticipantss = `query ListParticipantss(
           }
         }
         createdAt
-        timer
+        timer {
+          start
+          end
+        }
         audience {
           items {
             JSONdata
@@ -1864,7 +1888,10 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -2043,7 +2070,6 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
             id
             category
             createdAt
-            timer
           }
           nextToken
         }
@@ -2172,7 +2198,10 @@ export const getEngage = `query GetEngage($id: ID!) {
             name
           }
           createdAt
-          timer
+          timer {
+            start
+            end
+          }
           audience {
             nextToken
           }
@@ -2336,7 +2365,6 @@ export const listEngages = `query ListEngages(
             id
             category
             createdAt
-            timer
           }
           nextToken
         }

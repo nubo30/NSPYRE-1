@@ -1,105 +1,73 @@
 import React, { Component } from 'react';
-import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { FlatList } from 'react-native'
+import { withNavigation } from 'react-navigation'
+import { Container, Header, Title, Content, Button, Left, Body, Icon, Text, View, List, ListItem, Thumbnail } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import UserAvatar from 'react-native-user-avatar'
 import moment from 'moment'
-import remove from 'lodash/remove'
-import omitDeep from 'omit-deep'
 
-
-// AWS
-import * as mutations from '../../../../src/graphql/mutations'
+// Child Components
+import CBarChart from './charts/CLineChart'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
 
-export default class Likes extends Component {
-    state = {
-        actionlike: false,
-        disable: false
-    }
-    componentWillReceiveProps(prevProps) {
-        const isUserExists = prevProps.contest.statistics === null ? [] : prevProps.contest.statistics.userLikes === null ? [] : prevProps.contest.statistics.userLikes.filter(item => item.idUserLike.indexOf(prevProps.userData.id) !== -1) // Se verifica si el suaurio existe
-        this.setState({ actionlike: isUserExists === null ? 0 : isUserExists.length ? true : false })
-    }
+class Likes extends Component {
 
-    _likes = async (value) => {
-        const { userData, contest } = this.props
-        omitDeep(contest, ['__typename'])
-        try {
-            if (contest.statistics !== null) {
-                if (value) {
-                    const input = {
-                        id: contest.id,
-                        statistics: {
-                            userSharing: contest.statistics.userSharing,
-                            userLikes: contest.statistics.userLikes === null ? [{
-                                avatar: userData.avatar,
-                                createdAt: moment().toISOString(),
-                                idUserLike: userData.id,
-                                name: userData.name
-                            }] : [...contest.statistics.userLikes, {
-                                avatar: userData.avatar,
-                                createdAt: moment().toISOString(),
-                                idUserLike: userData.id,
-                                name: userData.name
-                            }]
-                        }
-                    }
-                    await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
-                } else {
-                    remove(contest.statistics.userLikes, { idUserLike: userData.id }) // Elimina un "Like" usando el id del usuario
-                    const input = {
-                        id: contest.id,
-                        statistics: {
-                            userSharing: contest.statistics.userSharing,
-                            userLikes: contest.statistics.userLikes
-                        }
-                    }
-                    await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
-                }
-            } else if (contest.statistics === null) {
-                const input = {
-                    id: contest.id,
-                    statistics: {
-                        userSharing: null,
-                        userLikes: [{
-                            avatar: userData.avatar,
-                            createdAt: moment().toISOString(),
-                            idUserLike: userData.id,
-                            name: userData.name
-                        }]
-                    }
-                }
-                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    _disableButton = () => {
-        this.setState({ disable: true })
+    _closeAllModalsAndGoToProfileUser = (item) => {
+        const { _usersLikesModal, _modalVisibleShowStatistics, navigation } = this.props
+        _usersLikesModal(false)
         setTimeout(() => {
-            this.setState({ disable: false })
-        }, 2500);
+            _modalVisibleShowStatistics(false);
+            navigation.navigate("UserProfile", { userId: item.idUserLike })
+        }, 500);
     }
 
     render() {
-        const { actionlike, disable } = this.state
-        const { contest } = this.props
-        // console.log(contest.statistics, "<-------------------------[][][][]")
+        const { _usersLikesModal, contest } = this.props
 
         return (
-            <Button
-                disabled={disable}
-                iconLeft
-                transparent
-                onPressIn={() => { this.setState({ actionlike: !actionlike }); this._disableButton() }}
-                onPress={() => { this._likes(actionlike) }}>
-                <Icon type="Ionicons" name='ios-heart' style={{ color: actionlike ? colorsPalette.heartColor : colorsPalette.gradientGray }} />
-                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), left: -5, color: actionlike ? colorsPalette.underlinesColor : colorsPalette.gradientGray }}>{contest.statistics === null ? 0 : contest.statistics.userLikes === null ? 0 : contest.statistics.userLikes.length}</Text>
-            </Button>
+            <Container>
+                <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                    <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Button transparent onPress={() => _usersLikesModal(false)}>
+                            <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Close</Text>
+                        </Button>
+                        <Title allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(4.5) }}>Likes obtained by users</Title>
+                    </Left>
+                </Header>
+
+                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
+                    <View style={{ backgroundColor: colorsPalette.secondaryColor, flex: 0.4, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
+                        <CBarChart contest={contest}/>
+                    </View>
+                    <List style={{ flex: 0.6 }}>
+                        <Content padder>
+                            <Text allowFontScaling style={{ color: colorsPalette.gradientGray, fontSize: wp(4), width: "80%" }}>List of users who likes the contest - Press and hold for more information.</Text>
+                            <FlatList
+                                data={contest.statistics.userLikes}
+                                renderItem={({ item }) => (
+                                    <ListItem avatar
+                                        onPress={() => this._closeAllModalsAndGoToProfileUser(item)} underlayColor={colorsPalette.secondaryColor}>
+                                        <Left>
+                                            {item.avatar !== null
+                                                ? <Thumbnail source={{ uri: item.avatar }} />
+                                                : <UserAvatar size="55" name={item.name} />}
+                                        </Left>
+                                        <Body>
+                                            <Text allowFontScaling={false}>{item.name}</Text>
+                                            <Text allowFontScaling={false} note>Likes your contest, {moment(item.createdAt).fromNow()}</Text>
+                                        </Body>
+                                    </ListItem>
+                                )}
+                                keyExtractor={items => items.createdAt} />
+                        </Content>
+                    </List>
+                </Content>
+            </Container>
         );
     }
 }
+
+export default withNavigation(Likes)
