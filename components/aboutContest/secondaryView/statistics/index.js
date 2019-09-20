@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-native'
+import { Modal, Alert } from 'react-native'
 import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Button, Icon, Separator, Switch } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import flatten from 'lodash/flatten'
@@ -52,6 +52,20 @@ class Staticstics extends Component {
         this.setState({ usersLikesModal: value })
     }
 
+    _ifTimerDifNull = () => {
+        const { contest, userData } = this.props
+        if (contest.timer !== null) {
+            this._usersLikesModal(true)
+        } else if (contest.timer === null) {
+            Alert.alert(
+                `${userData.name}`,
+                'First enable the contest timer to continue',
+                [{ text: 'OK', onPress: () => { } }],
+                { cancelable: false },
+            );
+        }
+    }
+
     render() {
         const {
 
@@ -69,7 +83,7 @@ class Staticstics extends Component {
             _modalVisibleShowStatistics
         } = this.props
         const sharedCount = contest.statistics === null ? [] : contest.statistics.userSharing === null ? [] : contest.statistics.userSharing.map(item => item.whereItHasBeenShared)
-
+        
         return (
             <Container>
                 <Header>
@@ -166,7 +180,7 @@ class Staticstics extends Component {
                         </ListItem>
 
                         {/* CANTIDAD DE LIKES */}
-                        <ListItem last icon disabled={contest.statistics === null ? true : contest.statistics.userLikes === null ? true : contest.statistics.userLikes.length ? false : true} onPress={() => this._usersLikesModal(true)}>
+                        <ListItem last icon disabled={contest.statistics === null ? true : contest.statistics.userLikes === null ? true : contest.statistics.userLikes.length ? false : true} onPress={() => this._ifTimerDifNull()}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E91E63" }}>
                                     <Icon type="AntDesign" name="heart" />
