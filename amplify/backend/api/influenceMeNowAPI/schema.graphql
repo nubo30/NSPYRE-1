@@ -39,20 +39,13 @@ type CreateContest @model {
   timer: Timer
   audience: [Audience] @connection(name:"CreateContestAudience")
   participants: [Participants] @connection(name:"CreateContestParticipants")
-  statistics: Statistics
+  usersSharing: [UsersSharing] @connection(name:"CreateContestUsersSharing")
+  usersLikes: [UsersLikes] @connection(name:"CreateContestUsersLikes")
 }
 
-type Timer {
-  start: AWSDateTime
-  end: AWSDateTime
-}
-
-type Statistics {
-    userSharing: [UserSharing]
-    userLikes: [UserLikes]
-}
-
-type UserSharing  {
+type UsersSharing @model {
+  createContest: CreateContest @connection(name: "CreateContestUsersSharing") 
+  id: ID!
   name: String
   idUserSharing: String
   whereItHasBeenShared: [String]
@@ -60,12 +53,19 @@ type UserSharing  {
   avatar: AWSURL
   }
 
-type UserLikes  {
+type UsersLikes @model {
+  createContest: CreateContest @connection(name: "CreateContestUsersLikes") 
+  id: ID!
   name: String
   idUserLike: String
   createdAt: AWSDateTime
   avatar: AWSURL
   }
+
+type Timer {
+  start: AWSDateTime
+  end: AWSDateTime
+}
 
 type Audience @model {
   JSONdata: String

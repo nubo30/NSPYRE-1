@@ -1,81 +1,66 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify'
+import { withNavigation } from 'react-navigation'
 import { Button, Icon, Text } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
-import remove from 'lodash/remove'
-import omitDeep from 'omit-deep'
 
 
 // AWS
 import * as mutations from '../../../src/graphql/mutations'
+import * as queries from '../../../src/graphql/queries'
 
 // Colors
 import { colorsPalette } from '../../global/static/colors'
 
-export default class Likes extends Component {
+class Likes extends Component {
     state = {
-        actionlike: false,
-        disable: false
-    }
-    componentWillReceiveProps(prevProps) {
-        const isUserExists = prevProps.contest.statistics === null ? [] : prevProps.contest.statistics.userLikes === null ? [] : prevProps.contest.statistics.userLikes.filter(item => item.idUserLike.indexOf(prevProps.userData.id) !== -1) // Se verifica si el suaurio existe
-        this.setState({ actionlike: isUserExists === null ? 0 : isUserExists.length ? true : false })
+        disable: false,
+        actionLike: false
     }
 
-    _likes = async (value) => {
-        const { userData, contest } = this.props
-        omitDeep(contest, ['__typename'])
+    componentWillMount() {
+        this._isThisUserLikeBefore()
+    }
+
+    _isThisUserLikeBefore = async () => {
+        const userData = this.props.navigation.getParam('userData')
+        const { contest } = this.props
         try {
-            if (contest.statistics !== null) {
-                if (value) {
-                    const input = {
-                        id: contest.id,
-                        statistics: {
-                            userSharing: contest.statistics.userSharing,
-                            userLikes: contest.statistics.userLikes === null ? [{
-                                avatar: userData.avatar,
-                                createdAt: moment().toISOString(),
-                                idUserLike: userData.id,
-                                name: userData.name
-                            }] : [...contest.statistics.userLikes, {
-                                avatar: userData.avatar,
-                                createdAt: moment().toISOString(),
-                                idUserLike: userData.id,
-                                name: userData.name
-                            }]
-                        }
-                    }
-                    await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
-                } else {
-                    remove(contest.statistics.userLikes, { idUserLike: userData.id }) // Elimina un "Like" usando el id del usuario
-                    const input = {
-                        id: contest.id,
-                        statistics: {
-                            userSharing: contest.statistics.userSharing,
-                            userLikes: contest.statistics.userLikes
-                        }
-                    }
-                    await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+            const response = await API.graphql(graphqlOperation(queries.getUsersLikes, { id: userData.id + contest.id }))
+            this.setState({ actionLike: response.data.getUsersLikes === null ? false : true })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    _likes = async () => {
+        const userData = this.props.navigation.getParam('userData')
+        const { contest } = this.props
+        try {
+            if (this.state.actionLike) {
+                const like = {
+                    id: userData.id + contest.id,
+                    name: userData.name,
+                    idUserLike: userData.id,
+                    createdAt: moment().toISOString(),
+                    avatar: userData.avatar, // Avatar del usuario que ha dado like al concurso
+                    usersLikesCreateContestId: contest.id,
                 }
-            } else if (contest.statistics === null) {
-                const input = {
-                    id: contest.id,
-                    statistics: {
-                        userSharing: null,
-                        userLikes: [{
-                            avatar: userData.avatar,
-                            createdAt: moment().toISOString(),
-                            idUserLike: userData.id,
-                            name: userData.name
-                        }]
-                    }
-                }
-                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
+                await API.graphql(graphqlOperation(mutations.createUsersLikes, { input: like }))
+                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            } else {
+                await API.graphql(graphqlOperation(mutations.deleteUsersLikes, { input: { id: userData.id + contest.id } }))
+                await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
             }
         } catch (error) {
             console.log(error)
         }
+    }
+
+    _actionLike = () => {
+        this.setState({ actionLike: !this.state.actionLike })
+        setTimeout(() => { this._likes() }, 500);
     }
 
     _disableButton = () => {
@@ -86,19 +71,22 @@ export default class Likes extends Component {
     }
 
     render() {
-        const { actionlike, disable } = this.state
+        const { disable, actionLike } = this.state
         const { contest } = this.props
-
         return (
             <Button
                 disabled={disable}
                 iconLeft
                 transparent
-                onPressIn={() => { this.setState({ actionlike: !actionlike }); this._disableButton() }}
-                onPress={() => { this._likes(actionlike) }}>
-                <Icon type="Ionicons" name='ios-heart' style={{ color: actionlike ? colorsPalette.heartColor : colorsPalette.gradientGray }} />
-                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), left: -5, color: actionlike ? colorsPalette.underlinesColor : colorsPalette.gradientGray }}>{contest.statistics === null ? 0 : contest.statistics.userLikes === null ? 0 : contest.statistics.userLikes.length}</Text>
+                onPressIn={() => { this._disableButton() }}
+                onPress={() => { this._actionLike() }}>
+                <Icon type="Ionicons" name='ios-heart' style={{ color: actionLike ? colorsPalette.heartColor : colorsPalette.gradientGray }} />
+                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), left: -5, color: actionLike ? colorsPalette.underlinesColor : colorsPalette.gradientGray }}>
+                    {contest.usersLikes === null ? 0 : contest.usersLikes.items.length}
+                </Text>
             </Button>
         );
     }
 }
+
+export default withNavigation(Likes)

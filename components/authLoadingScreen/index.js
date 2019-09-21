@@ -35,7 +35,6 @@ class AuthLoadingScreen extends Component {
                         this.props.navigation.navigate('Auth');
                     }
                 } catch (error) {
-                    console.log(error)
                     this.props.navigation.navigate('Auth');
                 }
             }

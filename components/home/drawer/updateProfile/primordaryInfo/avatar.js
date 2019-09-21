@@ -24,7 +24,6 @@ class Avatar extends Component {
     askPermissionsAsync = async () => {
         const statusCameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         const statusCamera = await Permissions.askAsync(Permissions.CAMERA);
-        console.log(statusCameraRoll, statusCamera)
         if (statusCameraRoll.status === 'denied' || statusCamera.status === 'denied') {
             Alert.alert(
                 'Denial',

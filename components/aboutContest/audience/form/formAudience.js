@@ -550,8 +550,6 @@ export default class FormAudience extends Component {
             isLoading
         } = this.props;
 
-        // console.log(matchProfiles, "-------")
-
         return (
             <Container contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }} >
                 <Grid>

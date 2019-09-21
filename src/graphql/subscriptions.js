@@ -137,20 +137,26 @@ export const onCreateUser = `subscription OnCreateUser {
           }
           nextToken
         }
-        statistics {
-          userSharing {
+        usersSharing {
+          items {
+            id
             name
             idUserSharing
             whereItHasBeenShared
             createdAt
             avatar
           }
-          userLikes {
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
             name
             idUserLike
             createdAt
             avatar
           }
+          nextToken
         }
       }
       nextToken
@@ -443,20 +449,26 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
           nextToken
         }
-        statistics {
-          userSharing {
+        usersSharing {
+          items {
+            id
             name
             idUserSharing
             whereItHasBeenShared
             createdAt
             avatar
           }
-          userLikes {
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
             name
             idUserLike
             createdAt
             avatar
           }
+          nextToken
         }
       }
       nextToken
@@ -749,20 +761,26 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
           nextToken
         }
-        statistics {
-          userSharing {
+        usersSharing {
+          items {
+            id
             name
             idUserSharing
             whereItHasBeenShared
             createdAt
             avatar
           }
-          userLikes {
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
             name
             idUserLike
             createdAt
             avatar
           }
+          nextToken
         }
       }
       nextToken
@@ -978,6 +996,12 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -1171,6 +1195,12 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         id
         genders
@@ -1264,25 +1294,137 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         createdAt
       }
       nextToken
     }
-    statistics {
-      userSharing {
+    usersSharing {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserSharing
         whereItHasBeenShared
         createdAt
         avatar
       }
-      userLikes {
+      nextToken
+    }
+    usersLikes {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserLike
         createdAt
         avatar
       }
+      nextToken
     }
   }
 }
@@ -1346,6 +1488,12 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -1539,6 +1687,12 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         id
         genders
@@ -1632,25 +1786,137 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         createdAt
       }
       nextToken
     }
-    statistics {
-      userSharing {
+    usersSharing {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserSharing
         whereItHasBeenShared
         createdAt
         avatar
       }
-      userLikes {
+      nextToken
+    }
+    usersLikes {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserLike
         createdAt
         avatar
       }
+      nextToken
     }
   }
 }
@@ -1714,6 +1980,12 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -1907,6 +2179,12 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         id
         genders
@@ -2000,26 +2278,1359 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         createdAt
       }
       nextToken
     }
-    statistics {
-      userSharing {
+    usersSharing {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserSharing
         whereItHasBeenShared
         createdAt
         avatar
       }
-      userLikes {
+      nextToken
+    }
+    usersLikes {
+      items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+        }
+        id
         name
         idUserLike
         createdAt
         avatar
       }
+      nextToken
     }
+  }
+}
+`;
+export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
+  onCreateUsersSharing {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserSharing
+    whereItHasBeenShared
+    createdAt
+    avatar
+  }
+}
+`;
+export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
+  onUpdateUsersSharing {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserSharing
+    whereItHasBeenShared
+    createdAt
+    avatar
+  }
+}
+`;
+export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
+  onDeleteUsersSharing {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserSharing
+    whereItHasBeenShared
+    createdAt
+    avatar
+  }
+}
+`;
+export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
+  onCreateUsersLikes {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserLike
+    createdAt
+    avatar
+  }
+}
+`;
+export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
+  onUpdateUsersLikes {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserLike
+    createdAt
+    avatar
+  }
+}
+`;
+export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
+  onDeleteUsersLikes {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserLike
+    createdAt
+    avatar
   }
 }
 `;
@@ -2187,20 +3798,36 @@ export const onCreateAudience = `subscription OnCreateAudience {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     id
@@ -2395,20 +4022,36 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     id
@@ -2603,20 +4246,36 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     id
@@ -2829,20 +4488,36 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     createdAt
@@ -3031,20 +4706,36 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     createdAt
@@ -3233,20 +4924,36 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         }
         nextToken
       }
-      statistics {
-        userSharing {
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserSharing
           whereItHasBeenShared
           createdAt
           avatar
         }
-        userLikes {
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
           name
           idUserLike
           createdAt
           avatar
         }
+        nextToken
       }
     }
     createdAt
@@ -3364,6 +5071,12 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             nextToken
           }
           participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
             nextToken
           }
         }
@@ -3572,6 +5285,12 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -3776,6 +5495,12 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             nextToken
           }
           participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
             nextToken
           }
         }
@@ -3985,6 +5710,12 @@ export const onCreateEngage = `subscription OnCreateEngage {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -4176,6 +5907,12 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
           participants {
             nextToken
           }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
         }
         nextToken
       }
@@ -4365,6 +6102,12 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             nextToken
           }
           participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
             nextToken
           }
         }

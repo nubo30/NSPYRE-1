@@ -45,7 +45,7 @@ export default class ChartLineChart extends Component {
             arrayNumberdays.push(startDay.getDate() - 1); // Días en formato date        
         }
 
-        const map = contest.statistics.userLikes
+        const map = contest.usersLikes && contest.usersLikes.items
             .map(item => new Date(item.createdAt).getDate())
             .map(item => item)
             .reduce((prev, cur) => { prev[cur] = (prev[cur] || 0) + 1; return prev; }, {});
@@ -92,7 +92,7 @@ export default class ChartLineChart extends Component {
                         fromZero={true}
                     /> : null}
 
-                <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.primaryColor }}>Total Likes: {contest.statistics.userLikes.length}</Text>
+                <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.primaryColor }}>Total Likes: {contest.usersLikes && contest.usersLikes.items.length}</Text>
             </View>
         );
     }

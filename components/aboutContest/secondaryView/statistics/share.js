@@ -93,7 +93,7 @@ class Share extends Component {
                         <Content padder>
                             <Text allowFontScaling style={{ color: colorsPalette.gradientGray, fontSize: wp(4), width: "80%" }}>List of users who shared the contest - Press and hold for more information.</Text>
                             <FlatList
-                                data={contest.statistics && contest.statistics.userSharing}
+                                data={contest.usersSharing && contest.usersSharing.items}
                                 renderItem={({ item }) => (
                                     <ListItem avatar
                                         onPress={() => this._closeAllModalsAndGoToProfileUser(item)}
@@ -105,7 +105,6 @@ class Share extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}</Text>
-                                            {console.log([...new Set(item.whereItHasBeenShared)].length)}
                                             <Text note allowFontScaling={false}>
                                                 {[...new Set(item.whereItHasBeenShared)].length === 1
                                                     ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}. ${moment(item.createdAt).fromNow()}`

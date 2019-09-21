@@ -25,7 +25,6 @@ class Likes extends Component {
 
     render() {
         const { _usersLikesModal, contest } = this.props
-
         return (
             <Container>
                 <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
@@ -40,13 +39,13 @@ class Likes extends Component {
 
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
                     <View style={{ backgroundColor: colorsPalette.secondaryColor, flex: 0.4, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
-                        <CBarChart contest={contest}/>
+                        <CBarChart contest={contest} />
                     </View>
                     <List style={{ flex: 0.6 }}>
                         <Content padder>
                             <Text allowFontScaling style={{ color: colorsPalette.gradientGray, fontSize: wp(4), width: "80%" }}>List of users who likes the contest - Press and hold for more information.</Text>
                             <FlatList
-                                data={contest.statistics.userLikes}
+                                data={contest.usersLikes && contest.usersLikes.items}
                                 renderItem={({ item }) => (
                                     <ListItem avatar
                                         onPress={() => this._closeAllModalsAndGoToProfileUser(item)} underlayColor={colorsPalette.secondaryColor}>

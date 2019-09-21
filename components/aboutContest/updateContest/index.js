@@ -161,7 +161,7 @@ class UpdateContest extends Component {
         const { nameOfContest, description, instructions, picture, dateChoose, video } = this.state
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
-        omitDeep(contest, ['user', '__typename', 'audience', 'participants'])
+        omitDeep(contest, ['user', '__typename', 'audience', 'participants', 'usersSharing', 'usersLikes'])
         AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
         let blobPicture; let blobVideo
 
@@ -211,7 +211,6 @@ class UpdateContest extends Component {
             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
         } catch (error) {
-            console.log(error);
             Toast.show({ text: 'An error has occurred, try again.', buttonText: 'Okay', type: 'danger' })
         } finally {
             this.setState({ isLoadingUploadImagenToAWS: false })
