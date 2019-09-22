@@ -97,7 +97,6 @@ class UpdateContest extends Component {
         await Permissions.askAsync(Permissions.CAMERA);
     }
 
-    // UPLOAD PHOTOS CONTEST
     _useLibraryHandlerContest = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
@@ -161,7 +160,7 @@ class UpdateContest extends Component {
         const { nameOfContest, description, instructions, picture, dateChoose, video } = this.state
         const { contest } = this.props
         const userData = { id: this.props.userData.id, email: this.props.userData.email, firstPicture: contest.general.picture, firstVideo: contest.general.video }
-        omitDeep(contest, ['user', '__typename', 'audience', 'participants', 'usersSharing', 'usersLikes'])
+        omitDeep(contest, ['user', '__typename', 'audience', 'participants', 'usersSharing', 'usersLikes', 'viewsVideo'])
         AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
         let blobPicture; let blobVideo
 
@@ -176,7 +175,7 @@ class UpdateContest extends Component {
                 xhr.send(null);
             });
         }
-
+        // VIDEO OF THE CONTEST
         if (video.localUrl) {
             // VIDEO OF THE CONTEST
             blobVideo = await new Promise((resolve, reject) => {
@@ -210,10 +209,12 @@ class UpdateContest extends Component {
             }) : null
             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
-        } catch (error) {
-            Toast.show({ text: 'An error has occurred, try again.', buttonText: 'Okay', type: 'danger' })
-        } finally {
+            Toast.show({ text: 'It has been updated successfully.', buttonText: 'Okay', type: 'success' })
             this.setState({ isLoadingUploadImagenToAWS: false })
+        } catch (error) {
+            console.log(error, "Error!")
+            this.setState({ isLoadingUploadImagenToAWS: false })
+            Toast.show({ text: 'An error has occurred, try again.', buttonText: 'Okay', type: 'danger' })
         }
     }
 

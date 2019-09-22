@@ -31,6 +31,7 @@ class Staticstics extends Component {
             case "com.apple.UIKit.activity.PostToFacebook": return "Facebook"
             case "com.tinyspeck.chatlyio.share": return "Slack"
             case "com.google.Gmail.ShareExtension": return "Gmail"
+            case "com.apple.UIKit.activity.Message": return "SMS"
             default: break;
         }
     }
@@ -201,7 +202,7 @@ class Staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* VIDEO */}
-                        <ListItem last icon onPress={() => this.setState({ usersCommentsModal: true })}>
+                        <ListItem last icon onPress={() => {}}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
                                     <Icon type="FontAwesome" name="video-camera" />
@@ -216,7 +217,7 @@ class Staticstics extends Component {
                                 >Promotional video views</Text>
                             </Body>
                             <Right>
-                                <Text>30,000</Text>
+                                <Text>{contest.viewsVideo && contest.viewsVideo.items.length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>

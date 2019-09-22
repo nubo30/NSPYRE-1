@@ -95,6 +95,7 @@ class Login extends Component {
                 this.setState({ isLoadingFb: true })
                 await Auth.federatedSignIn('facebook', { token, expires_at: expires })
                     .then(credentials => {
+                        // console.log(credentials)
                         const input = { email, name, avatar: picture.data.url, id: credentials._identityId, last_name, tokenfb: token }
                         API.graphql(graphqlOperation(queries.getUser, { id: credentials._identityId })).then(({ data }) => {
                             if (data.getUser === null) {

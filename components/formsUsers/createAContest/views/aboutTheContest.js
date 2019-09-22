@@ -70,8 +70,11 @@ export default class AboutTheContest extends Component {
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
-        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
+        if (typeof ImagePicker.launchImageLibraryAsync == 'function') {
+            let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
+            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
+        }
+
     }
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
@@ -193,7 +196,7 @@ export default class AboutTheContest extends Component {
                 </Header>
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>
                             <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Great! {'\n'}</Text> Now tell us about the contest you want to build!
                         </Text>
                     </Row>

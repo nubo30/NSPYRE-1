@@ -134,7 +134,7 @@ class Summary extends Component {
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, textAlign: 'left', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, textAlign: 'left' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>We done!</Text> {'\n'}Please, check all the content that you have chosen, if there is something that you do not think you can go back and edit it</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>

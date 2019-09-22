@@ -203,7 +203,7 @@ class AboutYou extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
                         </Text>
                     </Row>

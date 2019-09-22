@@ -41,6 +41,16 @@ type CreateContest @model {
   participants: [Participants] @connection(name:"CreateContestParticipants")
   usersSharing: [UsersSharing] @connection(name:"CreateContestUsersSharing")
   usersLikes: [UsersLikes] @connection(name:"CreateContestUsersLikes")
+  viewsVideo: [ViewsVideo] @connection(name:"CreateContestViewsVideo")
+}
+
+type ViewsVideo @model {
+  createContest: CreateContest @connection(name: "CreateContestViewsVideo") 
+  id: ID!
+  name: String
+  idUserView: String
+  createdAt: AWSDateTime
+  avatar: AWSURL
 }
 
 type UsersSharing @model {
