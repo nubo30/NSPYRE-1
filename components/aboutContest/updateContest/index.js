@@ -97,15 +97,29 @@ class UpdateContest extends Component {
         await Permissions.askAsync(Permissions.CAMERA);
     }
 
+    // Abrir la libreria de imagenes
     _useLibraryHandlerContest = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (!result.cancelled) {
-            action === 'Images'
-                ? this._getNameOfLocalUrlImage(result.uri)
-                : this._getNameOfLocalUrlVideo(result.uri)
+        ms = new Date(1000 * Math.round(result.duration / 1000)); // round to nearest second
+        if (ms.getUTCSeconds() <= 5) {
+            if (!result.cancelled) {
+                action === 'Images'
+                    ? this._getNameOfLocalUrlImage(result.uri)
+                    : this._getNameOfLocalUrlVideo(result.uri)
+            }
+        } else if (ms.getUTCSeconds() > 5) {
+            Alert.alert(
+                '',
+                'You cannot choose a video that exceeds one minute.',
+                [{ text: 'OK', onPress: () => { } }],
+                { cancelable: false },
+            );
         }
     }
+
+
+
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
         const { contest } = this.props

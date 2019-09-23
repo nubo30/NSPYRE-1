@@ -44,7 +44,7 @@ export default class PrimordaryInfo extends Component {
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "100" }}>{userData && userData.name}</Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : 'rgba(0,0,0,0.4)' }}>{userData && userData.name}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />
@@ -64,7 +64,7 @@ export default class PrimordaryInfo extends Component {
                             <Text
                                 allowFontScaling={false}
                                 minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.darkFont, fontWeight: "100" }}>{userData && userData.lastname}</Text>
+                                style={{ fontSize: wp(4), color: isLoading ? colorsPalette.opaqueWhite : 'rgba(0,0,0,0.4)' }}>{userData && userData.lastname}</Text>
                         </Left>
                         <Right>
                             <Icon active name="arrow-forward" />

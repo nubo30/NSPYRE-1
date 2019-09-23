@@ -56,7 +56,7 @@ class Likes extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false}>{item.name}</Text>
-                                            <Text allowFontScaling={false} note>Likes your contest, {moment(item.createdAt).fromNow()}</Text>
+                                            <Text allowFontScaling={false} note style={{ fontWeight: 'normal' }}>Likes your contest, {moment(item.createdAt).fromNow()}</Text>
                                         </Body>
                                     </ListItem>
                                 )}

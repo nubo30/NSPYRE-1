@@ -107,7 +107,7 @@ class Share extends Component {
                                         </Left>
                                         <Body>
                                             <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}</Text>
-                                            <Text note allowFontScaling={false}>
+                                            <Text note allowFontScaling={false} style={{ fontWeight: 'normal' }}>
                                                 {[...new Set(item.whereItHasBeenShared)].length === 1
                                                     ? `Shared in ${this._applicationInWhichTheContestHasBeenShared([...new Set(item.whereItHasBeenShared)][0])}. ${moment(item.createdAt).fromNow()}`
                                                     : [...new Set(item.whereItHasBeenShared)].length === 2
@@ -129,7 +129,7 @@ class Share extends Component {
                     <ModalAnimated
                         isVisible={modalAnimated}
                         onSwipeComplete={() => this.setState({ modalAnimated: false })}
-                        swipeDirection={['up', 'left', 'right', 'down']}
+                        swipeDirection={['left', 'right']}
                         style={{ justifyContent: 'flex-end', margin: 0 }}>
                         <View style={{
                             backgroundColor: colorsPalette.secondaryColor,
@@ -148,7 +148,7 @@ class Share extends Component {
                                 </Left>
                                 <Body style={{ borderBottomColor: colorsPalette.transparent }}>
                                     <Text allowFontScaling={false}>{userData.id === userInfo.idUserSharing ? "You" : userInfo.name}</Text>
-                                    <Text note allowFontScaling={false}>
+                                    <Text note allowFontScaling={false} style={{ fontWeight: 'normal' }}>
                                         Shared in {[...new Set(userInfo.whereItHasBeenShared.map(item => this._applicationInWhichTheContestHasBeenShared(item)))].join(', ')}.
                                     </Text>
                                 </Body>

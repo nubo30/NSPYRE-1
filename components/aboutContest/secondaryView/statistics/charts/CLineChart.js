@@ -63,7 +63,6 @@ export default class ChartLineChart extends Component {
             return { [key]: val[key] + (updateList[key] || 0) }
         })
         const dataShowInTheGraph = dataToConvertToArrayOfString.map(item => (Object.values(item)[0]))
-
         const data = {
             labels: weekdays,
             datasets: [{
@@ -91,7 +90,6 @@ export default class ChartLineChart extends Component {
                         withHorizontalLabels={false}
                         fromZero={true}
                     /> : null}
-
                 <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.primaryColor }}>Total Likes: {contest.usersLikes && contest.usersLikes.items.length}</Text>
             </View>
         );
