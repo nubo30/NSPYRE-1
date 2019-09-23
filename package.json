@@ -2,7 +2,6 @@
   "main": "node_modules/expo/AppEntry.js",
   "homepage": "https://nubo30.github.io/influencemenowwp/",
   "scripts": {
-    "deploy": "expo-gh-pages",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
