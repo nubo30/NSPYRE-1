@@ -76,7 +76,7 @@ class Summary extends Component {
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please verify all your information and confirm that everything is fine!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>

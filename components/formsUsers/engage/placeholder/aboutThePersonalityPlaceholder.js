@@ -35,7 +35,7 @@ class AboutThePersonalityPlaceholder extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about yourself and a little more! 🤗
                         </Text>
                     </Row>

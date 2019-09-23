@@ -67,13 +67,19 @@ export default class AboutTheContest extends Component {
         }, 500);
     }
 
+
+    // Preguntar al usuario por los permisos para abrir la libreria de imagenes y videos
+    askPermissionsAsync = async () => {
+        await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        await Permissions.askAsync(Permissions.CAMERA);
+    }
+
+
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
-        await this.askPermissionsAsync()
-        if (typeof ImagePicker.launchImageLibraryAsync == 'function') {
-            let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
-        }
+        // await this.askPermissionsAsync()
+        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
+        if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
 
     }
 
@@ -121,12 +127,6 @@ export default class AboutTheContest extends Component {
                 url: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${userData.email}/contest/videos/owner/${name}`
             }
         })
-    }
-
-    // Preguntar al usuario por los permisos para abrir la libreria de imagenes y videos
-    askPermissionsAsync = async () => {
-        await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        await Permissions.askAsync(Permissions.CAMERA);
     }
 
     _submit = async () => {

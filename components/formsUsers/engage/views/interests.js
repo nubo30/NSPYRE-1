@@ -241,7 +241,7 @@ class Interests extends PureComponent {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Last thing</Text> {'\n'}Tell us about your interests, so we could recommend much better things we have for you!
                         </Text>
                     </Row>

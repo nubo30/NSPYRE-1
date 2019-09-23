@@ -218,7 +218,7 @@ class AbouttheirOccupations extends PureComponent {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
                         </Text>
                     </Row>

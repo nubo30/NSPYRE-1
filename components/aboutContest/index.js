@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, StatusBar } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { Button, Text, Icon } from "native-base"
@@ -27,6 +27,7 @@ import Likes from './buttons/like'
 // Gradients
 import { GadrientsAboutContest } from "../global/gradients"
 import { MyStatusBar } from '../global/statusBar'
+import { colorsPalette } from '../global/static/colors'
 
 // GRAPHQL
 import * as queries from '../../src/graphql/queries'
@@ -192,7 +193,7 @@ class ShowContest extends Component {
                 loop={false}
                 showsPagination={false}>
                 <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
-                    <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
                     <GadrientsAboutContest />
 
                     {/* Slider / Submit a video / submit a meme */}
@@ -272,7 +273,7 @@ class ShowContest extends Component {
                             styles.header,
                             { transform: [{ translateY: headerTranslate }] },
                         ]}>
-                        <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
+                        <MyStatusBar backgroundColor={colorsPalette.lightSBI} barStyle="light-content" />
                         <Animated.Image
                             style={[
                                 styles.backgroundImage,
@@ -387,6 +388,7 @@ class ShowContest extends Component {
                 </View>
                 {userLogin
                     ? <View style={{ flex: 1 }}>
+                        <StatusBar backgroundColor="blue" barStyle="dark-content" animated={true} />
                         <SecondaryView
                             // Data
                             contest={contest}

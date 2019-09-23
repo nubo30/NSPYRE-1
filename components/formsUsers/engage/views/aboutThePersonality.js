@@ -281,7 +281,7 @@ class AboutThePersonality extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about yourself and a little more! 🤗
                         </Text>
                     </Row>
@@ -374,7 +374,7 @@ class AboutThePersonality extends Component {
                                             animationType="fade"
                                             androidMode={"spinner"}
                                             titleIOS=""
-                                            textStyle={{ color: "#333", fontWeight: '100' }}
+                                            textStyle={{ color: "#333" }}
                                             placeHolderTextStyle={{ color: '#333' }}
                                             minimumDate={new Date(1970, 1, 1)}
                                             maximumDate={new Date()}

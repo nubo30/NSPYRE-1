@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View } from 'native-base'
+import * as Animatable from 'react-native-animatable';
 
 // Data not found
 var emojis = ['😫', '😣', '😥', '😯', '😓', '😔', '😕', '🙃', '🙁', '😞', '😟', '😢', '😭', '😰', '😩', '😧', '😦', '😱'];
@@ -22,7 +23,7 @@ export const DataNotFound = (props) => {
 // Search data
 export const DataSearch = () => {
     return (
-        <View style={{ justifyContent: "flex-start", flex: 1, alignItems: 'center', top: 60 }}>
+        <View style={{ justifyContent: "flex-start", flex: 1, alignItems: 'center', top: 60, backgroundColor:'red' }}>
             <Text
                 allowFontScaling={false}
                 minimumFontScale={80}
