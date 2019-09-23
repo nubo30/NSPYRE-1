@@ -374,8 +374,8 @@ class AboutThePersonality extends Component {
                                             animationType="fade"
                                             androidMode={"spinner"}
                                             titleIOS=""
-                                            textStyle={{ color: "#333" }}
-                                            placeHolderTextStyle={{ color: '#333' }}
+                                            textStyle={{ color: "#000" }}
+                                            placeHolderTextStyle={{ color: '#000' }}
                                             minimumDate={new Date(1970, 1, 1)}
                                             maximumDate={new Date()}
                                             isVisible={datePickerAction}

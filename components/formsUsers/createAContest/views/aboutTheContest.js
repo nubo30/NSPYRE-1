@@ -77,7 +77,7 @@ export default class AboutTheContest extends Component {
 
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
-        // await this.askPermissionsAsync()
+        await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
         if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
 

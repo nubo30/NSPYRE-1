@@ -8,10 +8,12 @@ export const DataNotFound = (props) => {
     const { inputText } = props
     return (
         <View style={{ justifyContent: "flex-start", flex: 1, alignItems: 'center', top: 60 }}>
-            <Text
-                allowFontScaling={false}
-                minimumFontScale={80}
-                style={{ fontSize: 60 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
+            <Animatable.View animation="fadeIn">
+                <Text
+                    allowFontScaling={false}
+                    minimumFontScale={80}
+                    style={{ fontSize: 60 }}>{`${emojis[Math.floor(Math.random() * emojis.length)]}`}</Text>
+            </Animatable.View>
             <Text
                 allowFontScaling={false}
                 minimumFontScale={14}
@@ -23,7 +25,7 @@ export const DataNotFound = (props) => {
 // Search data
 export const DataSearch = () => {
     return (
-        <View style={{ justifyContent: "flex-start", flex: 1, alignItems: 'center', top: 60, backgroundColor:'red' }}>
+        <View style={{ justifyContent: "flex-start", flex: 1, alignItems: 'center', top: 60, backgroundColor: 'red' }}>
             <Text
                 allowFontScaling={false}
                 minimumFontScale={80}
