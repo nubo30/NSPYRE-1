@@ -177,6 +177,7 @@ export const getUser = `query GetUser($id: ID!) {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -882,59 +883,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     usersSharing {
       items {
-        createContest {
-          id
-          user {
-            tokenfb
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer {
-            start
-            end
-          }
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-          usersSharing {
-            nextToken
-          }
-          usersLikes {
-            nextToken
-          }
-          viewsVideo {
-            nextToken
-          }
-        }
         id
         name
         idUserSharing
@@ -946,59 +894,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     usersLikes {
       items {
-        createContest {
-          id
-          user {
-            tokenfb
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer {
-            start
-            end
-          }
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-          usersSharing {
-            nextToken
-          }
-          usersLikes {
-            nextToken
-          }
-          viewsVideo {
-            nextToken
-          }
-        }
         id
         name
         idUserLike
@@ -1009,64 +904,12 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     viewsVideo {
       items {
-        createContest {
-          id
-          user {
-            tokenfb
-            id
-            userId
-            name
-            username
-            lastname
-            email
-            avatar
-            phone
-            datetime
-            scope
-            coins
-            notificationToken
-          }
-          aboutTheUser {
-            companyName
-            titleInTheCompany
-          }
-          category
-          general {
-            description
-            instructions
-            nameOfContest
-          }
-          prizes {
-            description
-            prizeId
-            name
-          }
-          createdAt
-          timer {
-            start
-            end
-          }
-          audience {
-            nextToken
-          }
-          participants {
-            nextToken
-          }
-          usersSharing {
-            nextToken
-          }
-          usersLikes {
-            nextToken
-          }
-          viewsVideo {
-            nextToken
-          }
-        }
         id
         name
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -1283,6 +1126,7 @@ export const listCreateContests = `query ListCreateContests(
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -1293,219 +1137,12 @@ export const listCreateContests = `query ListCreateContests(
 `;
 export const getViewsVideo = `query GetViewsVideo($id: ID!) {
   getViewsVideo(id: $id) {
-    createContest {
-      id
-      user {
-        tokenfb
-        id
-        userId
-        name
-        username
-        lastname
-        email
-        avatar
-        phone
-        datetime
-        scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
-        coins
-        notificationToken
-      }
-      aboutTheUser {
-        companyName
-        location {
-          city
-          country
-          state
-          street
-        }
-        titleInTheCompany
-      }
-      category
-      general {
-        description
-        instructions
-        nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      prizes {
-        description
-        prizeId
-        name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      createdAt
-      timer {
-        start
-        end
-      }
-      audience {
-        items {
-          JSONdata
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
-        nextToken
-      }
-      participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-          }
-          createdAt
-        }
-        nextToken
-      }
-      usersSharing {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserSharing
-          whereItHasBeenShared
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      usersLikes {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserLike
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      viewsVideo {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserView
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-    }
     id
     name
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -1666,6 +1303,7 @@ export const listViewsVideos = `query ListViewsVideos(
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -1675,6 +1313,7 @@ export const listViewsVideos = `query ListViewsVideos(
       idUserView
       createdAt
       avatar
+      dataVideo
     }
     nextToken
   }
@@ -1886,6 +1525,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -2056,6 +1696,7 @@ export const listUsersSharings = `query ListUsersSharings(
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -2277,6 +1918,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -2446,6 +2088,7 @@ export const listUsersLikess = `query ListUsersLikess(
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -2667,6 +2310,7 @@ export const getAudience = `query GetAudience($id: ID!) {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -2857,6 +2501,7 @@ export const listAudiences = `query ListAudiences(
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -3116,6 +2761,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3300,6 +2946,7 @@ export const listParticipantss = `query ListParticipantss(
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }

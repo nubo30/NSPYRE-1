@@ -101,14 +101,13 @@ class UpdateContest extends Component {
     _useLibraryHandlerContest = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        ms = new Date(1000 * Math.round(result.duration / 1000)); // round to nearest second
-        if (ms.getUTCSeconds() <= 5) {
+        if (Math.round(result.duration) <= 60000) {
             if (!result.cancelled) {
                 action === 'Images'
                     ? this._getNameOfLocalUrlImage(result.uri)
                     : this._getNameOfLocalUrlVideo(result.uri)
             }
-        } else if (ms.getUTCSeconds() > 5) {
+        } else if (Math.round(result.duration) > 61000) {
             Alert.alert(
                 '',
                 'You cannot choose a video that exceeds one minute.',
@@ -118,7 +117,24 @@ class UpdateContest extends Component {
         }
     }
 
-
+    _useLibraryHandlerPrizes = async (action) => {
+        await this.askPermissionsAsync()
+        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
+        if (Math.round(result.duration) <= 60000) {
+            if (!result.cancelled) {
+                action === 'Images'
+                    ? this._getNameOfLocalUrlImagePrizes(result.uri)
+                    : this._getNameOfLocalUrlVideoPrizes(result.uri)
+            }
+        } else if (Math.round(result.duration) > 61000) {
+            Alert.alert(
+                '',
+                'You cannot choose a video that exceeds one minute.',
+                [{ text: 'OK', onPress: () => { } }],
+                { cancelable: false },
+            );
+        }
+    }
 
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
@@ -166,7 +182,6 @@ class UpdateContest extends Component {
             }
         })
     }
-
 
     // Actualizar datos en AWS
     _updateContest = async () => {
@@ -252,16 +267,6 @@ class UpdateContest extends Component {
                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
             : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
-    }
-
-    _useLibraryHandlerPrizes = async (action) => {
-        await this.askPermissionsAsync()
-        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (!result.cancelled) {
-            action === 'Images'
-                ? this._getNameOfLocalUrlImagePrizes(result.uri)
-                : this._getNameOfLocalUrlVideoPrizes(result.uri)
-        }
     }
 
     _getNameOfLocalUrlImagePrizes = async (fileUri, access = "public") => {
@@ -417,7 +422,6 @@ class UpdateContest extends Component {
             isvalidFormAnimation,
             messageFlash
         } = this.state
-
         return (
             <Modal
                 animationType="slide"
@@ -502,17 +506,17 @@ class UpdateContest extends Component {
                                         <Body>
                                             {contest.timer === null
                                                 ? <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
-                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{contest.timer === null ? contest.timer : moment(dateChoose ? dateChoose : contest.timer).format('LLLL')}</Text>}
+                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{contest.timer && contest.timer.end === null ? contest.timer.end : moment(dateChoose ? dateChoose : contest.timer.end).format('LLLL')}</Text>}
                                         </Body>
                                         <Right>
                                             <Switch
-                                                value={timerSwitch}
+                                                value={timerSwitch || contest.timer !== null}
                                                 onValueChange={() => { this.setState({ timerSwitch: !timerSwitch }); this._dateTimePicker() }}
-                                                disabled={isLoadingUploadImagenToAWS} />
+                                                disabled={isLoadingUploadImagenToAWS || contest.timer !== null} />
                                         </Right>
                                         <DateTimePicker
                                             mode="datetime"
-                                            titleIOS="Press Confirm to change the current time"
+                                            titleIOS="When you choose the termination date it cannot be updated again. If in any case you want to update it please contact support@nspyre.com"
                                             isVisible={isDateTimePickerVisible}
                                             onConfirm={this.handleDatePicked}
                                             onCancel={this.hideDateTimePicker}
@@ -1035,17 +1039,17 @@ class UpdateContest extends Component {
                                     style={{ width: "100%", height: "100%" }} />
                                 : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
                         </Row>
-                        <Row size={30} style={{ flexDirection: 'column' }}>
+                        <Row size={30} style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                             <Button
                                 onPress={() => this._useLibraryHandlerPrizes('Videos')}
                                 transparent
                                 style={{
-                                    top: 10,
-                                    backgroundColor: "#D81B60",
+                                    backgroundColor: colorsPalette.primaryColor,
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{videoOfPrize.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
                         </Row>
                     </Grid>
                 </Modal>

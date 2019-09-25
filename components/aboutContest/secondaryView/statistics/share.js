@@ -28,6 +28,7 @@ class Share extends Component {
                     case "com.google.hangouts.ShareExtension": return ({ appName: "Hangouts", color: colorsPalette.hgColor })
                     case "com.atebits.Tweetie2.ShareExtension": return ({ appName: "Twitter", color: colorsPalette.ttColor })
                     case "com.apple.UIKit.activity.PostToFacebook": return ({ appName: "Facebook", color: colorsPalette.fbColor })
+                    case "com.facebook.Messenger.ShareExtension": return ({ appName: "Messenger", color: colorsPalette.mgColor })
                     case "com.tinyspeck.chatlyio.share": return ({ appName: "Slack", color: colorsPalette.scColor })
                     case "com.google.Gmail.ShareExtension": return ({ appName: "Gmail", color: colorsPalette.glColor })
                     case "com.apple.UIKit.activity.Message": return ({ appName: "SMS", color: colorsPalette.smsColor })
@@ -41,6 +42,7 @@ class Share extends Component {
                 case "com.google.hangouts.ShareExtension": return "Hangouts"
                 case "com.atebits.Tweetie2.ShareExtension": return "Twitter"
                 case "com.apple.UIKit.activity.PostToFacebook": return "Facebook"
+                case "com.facebook.Messenger.ShareExtension": return "Messenger"
                 case "com.tinyspeck.chatlyio.share": return "Slack"
                 case "com.google.Gmail.ShareExtension": return "Gmail"
                 case "com.apple.UIKit.activity.Message": return "SMS"

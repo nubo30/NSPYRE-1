@@ -614,19 +614,21 @@ class Interests extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={political}
-                                                onValueChange={(value) => this.setState({ political: value, coinPolitical: 25 })}>
-                                                <Picker.Item label="Yes" value="YES" />
-                                                <Picker.Item label="No" value="NO" />
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: "100%" }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={political}
+                                                    onValueChange={(value) => this.setState({ political: value, coinPolitical: 25 })}>
+                                                    <Picker.Item label="Yes" value="YES" />
+                                                    <Picker.Item label="No" value="NO" />
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* VOTE */}
@@ -644,19 +646,21 @@ class Interests extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={vote}
-                                                onValueChange={(value) => this.setState({ vote: value, coinVote: 25 })}>
-                                                <Picker.Item label="Yes" value="YES" />
-                                                <Picker.Item label="No" value="NO" />
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: "100%" }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={vote}
+                                                    onValueChange={(value) => this.setState({ vote: value, coinVote: 25 })}>
+                                                    <Picker.Item label="Yes" value="YES" />
+                                                    <Picker.Item label="No" value="NO" />
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                 </List>

@@ -51,6 +51,7 @@ type ViewsVideo @model {
   idUserView: String
   createdAt: AWSDateTime
   avatar: AWSURL
+  dataVideo: [String]
 }
 
 type UsersSharing @model {

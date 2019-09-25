@@ -388,7 +388,6 @@ class ShowContest extends Component {
                 </View>
                 {userLogin
                     ? <View style={{ flex: 1 }}>
-                        <StatusBar backgroundColor="blue" barStyle="dark-content" animated={true} />
                         <SecondaryView
                             // Data
                             contest={contest}

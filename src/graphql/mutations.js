@@ -165,6 +165,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -487,6 +488,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -809,6 +811,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -1531,6 +1534,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2101,6 +2105,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2671,6 +2676,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2679,437 +2685,23 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
 `;
 export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVideoInput!) {
   createViewsVideo(input: $input) {
-    createContest {
-      id
-      user {
-        tokenfb
-        id
-        userId
-        name
-        username
-        lastname
-        email
-        avatar
-        phone
-        datetime
-        scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
-        coins
-        notificationToken
-      }
-      aboutTheUser {
-        companyName
-        location {
-          city
-          country
-          state
-          street
-        }
-        titleInTheCompany
-      }
-      category
-      general {
-        description
-        instructions
-        nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      prizes {
-        description
-        prizeId
-        name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      createdAt
-      timer {
-        start
-        end
-      }
-      audience {
-        items {
-          JSONdata
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
-        nextToken
-      }
-      participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-          }
-          createdAt
-        }
-        nextToken
-      }
-      usersSharing {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserSharing
-          whereItHasBeenShared
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      usersLikes {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserLike
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      viewsVideo {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserView
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-    }
     id
     name
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
 export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVideoInput!) {
   updateViewsVideo(input: $input) {
-    createContest {
-      id
-      user {
-        tokenfb
-        id
-        userId
-        name
-        username
-        lastname
-        email
-        avatar
-        phone
-        datetime
-        scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
-        coins
-        notificationToken
-      }
-      aboutTheUser {
-        companyName
-        location {
-          city
-          country
-          state
-          street
-        }
-        titleInTheCompany
-      }
-      category
-      general {
-        description
-        instructions
-        nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      prizes {
-        description
-        prizeId
-        name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      createdAt
-      timer {
-        start
-        end
-      }
-      audience {
-        items {
-          JSONdata
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
-        nextToken
-      }
-      participants {
-        items {
-          id
-          participantId
-          nameUser
-          comment
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          avatar
-          contest {
-            id
-            category
-            createdAt
-          }
-          createdAt
-        }
-        nextToken
-      }
-      usersSharing {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserSharing
-          whereItHasBeenShared
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      usersLikes {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserLike
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-      viewsVideo {
-        items {
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          name
-          idUserView
-          createdAt
-          avatar
-        }
-        nextToken
-      }
-    }
     id
     name
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -3319,6 +2911,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3328,6 +2921,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -3537,6 +3131,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3756,6 +3351,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3975,6 +3571,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4194,6 +3791,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4412,6 +4010,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4630,6 +4229,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4849,6 +4449,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5088,6 +4689,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5327,6 +4929,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5584,6 +5187,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5817,6 +5421,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -6050,6 +5655,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }

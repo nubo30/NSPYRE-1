@@ -20,10 +20,6 @@ const chartConfig = {
 export default class ChartLineChart extends Component {
     state = { heightView: 0, weekdays: [], arrayDataLenght: [] }
 
-    // componentDidMount() {
-
-    // }
-
     render() {
         const { heightView } = this.state
         const { contest } = this.props

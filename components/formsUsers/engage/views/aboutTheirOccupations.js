@@ -219,7 +219,7 @@ class AbouttheirOccupations extends PureComponent {
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
                         <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
+                            <Text allowFontScaling={false} style={{ fontSize: wp(9), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
@@ -260,7 +260,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     renderHeader={backAction =>
@@ -320,7 +320,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     renderHeader={backAction =>
@@ -364,7 +364,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -397,7 +397,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     renderHeader={backAction =>
@@ -441,7 +441,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -472,7 +472,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -503,7 +503,7 @@ class AbouttheirOccupations extends PureComponent {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"

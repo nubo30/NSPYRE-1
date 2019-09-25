@@ -88,9 +88,9 @@ class Login extends Component {
     async _openBroweserForLoginWithFacebook() {
         const { _changeSwiperRoot, _activateNumberPhone, navigation, _moreUserData } = this.props
         try {
-            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile', 'user_posts'] });
+            const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(fBCredentials.appId, { permissions: ['public_profile'] });
             if (type === 'success') {
-                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name,posts`);
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,email,name,picture,last_name`);
                 const { email, name, picture, last_name } = await response.json()
                 this.setState({ isLoadingFb: true })
                 await Auth.federatedSignIn('facebook', { token, expires_at: expires })

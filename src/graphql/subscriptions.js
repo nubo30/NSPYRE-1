@@ -165,6 +165,7 @@ export const onCreateUser = `subscription OnCreateUser {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -487,6 +488,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -809,6 +811,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
             idUserView
             createdAt
             avatar
+            dataVideo
           }
           nextToken
         }
@@ -1531,6 +1534,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2101,6 +2105,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2671,6 +2676,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         idUserView
         createdAt
         avatar
+        dataVideo
       }
       nextToken
     }
@@ -2883,6 +2889,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -2892,6 +2899,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -3101,6 +3109,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3110,6 +3119,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -3319,6 +3329,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3328,6 +3339,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
     idUserView
     createdAt
     avatar
+    dataVideo
   }
 }
 `;
@@ -3537,6 +3549,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3756,6 +3769,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -3975,6 +3989,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4194,6 +4209,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4412,6 +4428,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4630,6 +4647,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -4849,6 +4867,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5088,6 +5107,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5327,6 +5347,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5584,6 +5605,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -5817,6 +5839,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }
@@ -6050,6 +6073,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           idUserView
           createdAt
           avatar
+          dataVideo
         }
         nextToken
       }

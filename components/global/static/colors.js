@@ -24,6 +24,7 @@ export const colorsPalette = {
 
     // Apps color
     fbColor: "#3b5998", // Facebook
+    mgColor: "#0084ff", // Messenger facebook
     tgColor: "#0088cc", // Telegram
     waColor: "#4aae20",// WhatsApp
     hgColor: "#0f9d58",// Hangouts

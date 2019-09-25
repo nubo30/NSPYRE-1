@@ -48,7 +48,7 @@ export default class MoreAboutTheUser extends Component {
             const user = await Auth.currentAuthenticatedUser();
             if (avatar === null || avatar === undefined) {
                 await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
-                await Object.assign(input, {
+                Object.assign(input, {
                     tokenfb: null,
                     id: user.attributes.sub,
                     userId: user.attributes.sub,
@@ -59,7 +59,7 @@ export default class MoreAboutTheUser extends Component {
                 _moreUserData(input)
                 _changeSwiperRoot(1)
             } else {
-                await Object.assign(input, {
+                Object.assign(input, {
                     tokenfb: moreUserData.tokenfb,
                     id: user.id,
                     userId: user.id,

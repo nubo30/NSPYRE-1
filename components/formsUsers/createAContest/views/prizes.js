@@ -63,12 +63,11 @@ export default class Prizes extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        ms = new Date(1000 * Math.round(result.duration / 1000)); // round to nearest second
-        if (ms.getUTCSeconds() <= 5) {
+        if (Math.round(result.duration) <= 60000) {
             if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
-        } else if (ms.getUTCSeconds() > 5) {
+        } else if (Math.round(result.duration) > 61000) {
             Alert.alert(
-                '',                
+                '',
                 'You cannot choose a video that exceeds one minute.',
                 [{ text: 'OK', onPress: () => { } }],
                 { cancelable: false },
@@ -508,17 +507,17 @@ export default class Prizes extends Component {
                                     style={{ width: "100%", height: "100%" }} />
                                 : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: colorsPalette.opaqueWhite }} />}
                         </Row>
-                        <Row size={30} style={{ flexDirection: 'column' }}>
+                        <Row size={30} style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                             <Button
                                 onPress={() => this._useLibraryHandler('Videos')}
                                 transparent
                                 style={{
-                                    top: 10,
                                     backgroundColor: colorsPalette.primaryColor,
                                     borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
                                 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
                         </Row>
                     </Grid>
                 </Modal>

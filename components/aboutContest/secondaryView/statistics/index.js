@@ -11,6 +11,7 @@ import { colorsPalette } from '../../../global/static/colors'
 // Child Components
 import Share from './share'
 import Likes from './likes'
+import ViewsVideo from './viewsVideo'
 
 class Staticstics extends Component {
     state = {
@@ -18,6 +19,7 @@ class Staticstics extends Component {
         usersSharedModal: false,
         modalAnimated: false,
         usersLikesModal: false,
+        usersViewsVideoModal: false,
         userInfo: {}
     }
 
@@ -29,6 +31,7 @@ class Staticstics extends Component {
             case "com.google.hangouts.ShareExtension": return "Hangouts"
             case "com.atebits.Tweetie2.ShareExtension": return "Twitter"
             case "com.apple.UIKit.activity.PostToFacebook": return "Facebook"
+            case "com.facebook.Messenger.ShareExtension": return "Messenger"
             case "com.tinyspeck.chatlyio.share": return "Slack"
             case "com.google.Gmail.ShareExtension": return "Gmail"
             case "com.apple.UIKit.activity.Message": return "SMS"
@@ -53,6 +56,11 @@ class Staticstics extends Component {
         this.setState({ usersLikesModal: value })
     }
 
+
+    _usersViewsVideoModal = (value) => {
+        this.setState({ usersViewsVideoModal: value })
+    }
+
     _ifTimerDifNull = () => {
         const { contest, userData } = this.props
         if (contest.timer !== null) {
@@ -73,7 +81,8 @@ class Staticstics extends Component {
             // Actions
             publicStatistics,
             usersSharedModal,
-            usersLikesModal
+            usersLikesModal,
+            usersViewsVideoModal
         } = this.state
         const {
             // Data
@@ -84,6 +93,7 @@ class Staticstics extends Component {
             _modalVisibleShowStatistics
         } = this.props
         const sharedCount = contest.usersSharing === null ? [] : contest.usersSharing.items.map(item => item.whereItHasBeenShared)
+
         return (
             <Container>
                 <Header>
@@ -202,7 +212,7 @@ class Staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* VIDEO */}
-                        <ListItem last icon onPress={() => {}}>
+                        <ListItem last icon onPress={() => { this._usersViewsVideoModal(true) }}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
                                     <Icon type="FontAwesome" name="video-camera" />
@@ -240,6 +250,15 @@ class Staticstics extends Component {
                     visible={usersLikesModal}
                     onRequestClose={() => { }}>
                     <Likes userData={userData} contest={contest} _usersLikesModal={this._usersLikesModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
+                </Modal>
+
+                {/* USUARIOS QUE HAN VISTO EL VIDEO */}
+                <Modal
+                    animationType="fade"
+                    transparent={false}
+                    visible={usersViewsVideoModal}
+                    onRequestClose={() => { }}>
+                    <ViewsVideo userData={userData} contest={contest} _usersViewsVideoModal={this._usersViewsVideoModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
                 </Modal>
 
             </Container>

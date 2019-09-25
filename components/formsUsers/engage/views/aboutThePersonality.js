@@ -419,18 +419,19 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={regionalIdentity}
-                                                onValueChange={(value) => this.setState({ regionalIdentity: value, coinRegionalIdentity: 100 })}>
-                                                {regionalIdentityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: '100%' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={regionalIdentity}
+                                                    onValueChange={(value) => this.setState({ regionalIdentity: value, coinRegionalIdentity: 100 })}>
+                                                    {regionalIdentityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>}
                                     </ListItem>
 
                                     {/* NACIONALITY */}
@@ -448,18 +449,20 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={nacionality}
-                                                onValueChange={(value) => this.setState({ nacionality: value, coinNacionality: 50 })}>
-                                                {nacionalityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: '100%' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={nacionality}
+                                                    onValueChange={(value) => this.setState({ nacionality: value, coinNacionality: 50 })}>
+                                                    {nacionalityList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     <Separator bordered />
@@ -479,21 +482,22 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={gender}
-                                                onValueChange={(value) => this.setState({ gender: value, coinGender: 50 })}>
-                                                <Picker.Item label="Male" value="Male" />
-                                                <Picker.Item label="Famale" value="Famale" />
-                                                <Picker.Item label="Other" value="Other" />
-                                                <Picker.Item label="Do not specify" value="Not specified" />
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: '100%' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={gender}
+                                                    onValueChange={(value) => this.setState({ gender: value, coinGender: 50 })}>
+                                                    <Picker.Item label="Male" value="Male" />
+                                                    <Picker.Item label="Famale" value="Famale" />
+                                                    <Picker.Item label="Other" value="Other" />
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* SEXUALITY */}
@@ -511,18 +515,20 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={gender}
-                                                onValueChange={(value) => this.setState({ sexuality: value, coinSexuality: 50 })}>
-                                                {sexualityList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: '100%' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={gender}
+                                                    onValueChange={(value) => this.setState({ sexuality: value, coinSexuality: 50 })}>
+                                                    {sexualityList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     {/* MARITAL STATUS */}
@@ -540,18 +546,20 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <Picker
-                                                mode="dropdown"
-                                                iosHeader="SELECT ONE"
-                                                style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
-                                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
-                                                headerTitleStyle={{ color: "#D81B60" }}
-                                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
-                                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                selectedValue={maritalStatus}
-                                                onValueChange={(value) => this.setState({ maritalStatus: value, coinMaritalStatus: 50 })}>
-                                                {maritalStatusList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
-                                            </Picker>}
+                                            <View style={{ position: 'absolute', width: '100%' }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={maritalStatus}
+                                                    onValueChange={(value) => this.setState({ maritalStatus: value, coinMaritalStatus: 50 })}>
+                                                    {maritalStatusList[0].children.map((item, key) => <Picker.Item key={key} label={item.name} value={item.name} />)}
+                                                </Picker>
+                                            </View>
+                                        }
                                     </ListItem>
 
                                     <Separator bordered />
@@ -571,7 +579,7 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: '100%' }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -602,7 +610,7 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: '100%' }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
@@ -633,7 +641,7 @@ class AboutThePersonality extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: '100%' }}>
                                                 <Picker
                                                     mode="dropdown"
                                                     iosHeader="SELECT ONE"
