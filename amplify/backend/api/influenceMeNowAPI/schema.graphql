@@ -163,7 +163,28 @@ type Participants @model {
   avatar: AWSURL
   contest: CreateContest @connection(name: "CreateContestParticipants")
   createdAt: AWSDateTime!
+  likesToParticipants: [LikesToParticipants] @connection(name:"ParticipantsLikesToParticipants")
+  commentsToParticipants: [CommentsToParticipants] @connection(name:"ParticipantsCommentsToParticipants")
 }
+
+type LikesToParticipants @model {
+  participants: Participants @connection(name: "ParticipantsLikesToParticipants") 
+  id: ID!
+  name: String
+  idUserLike: String
+  createdAt: AWSDateTime
+  avatar: AWSURL
+  }
+
+  type CommentsToParticipants @model{
+  participants: Participants @connection(name: "ParticipantsCommentsToParticipants") 
+  id: ID!
+  name: String
+  idUserComments: String
+  createdAt: AWSDateTime
+  avatar: AWSURL
+  comments: String
+  }
 
 ##################################################################### LISTOFCONTEST #####################################################################
 type ContestCategory @model {

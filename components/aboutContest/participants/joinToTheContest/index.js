@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Dimensions, Image } from "react-native";
+import { View, Dimensions, Image, Alert } from "react-native";
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -50,7 +50,16 @@ export default class JoinToTheContest extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
+        if (Math.round(result.duration) <= 60000) {
+            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
+        } else if (Math.round(result.duration) > 61000) {
+            Alert.alert(
+                '',
+                'You cannot choose a video that exceeds one minute.',
+                [{ text: 'OK', onPress: () => { } }],
+                { cancelable: false },
+            );
+        }
     }
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
@@ -208,7 +217,7 @@ export default class JoinToTheContest extends Component {
             _setModalVisibleJoinToTheContest } = this.props
         return (
             <Modal isVisible={modalVisibleJoinToTheContest}>
-                <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100, padding: 15 }}>
+                <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100 }}>
                     <Swiper
                         scrollEnabled={false}
                         onIndexChanged={(index) => this.setState({ swiperIndex: index })}
@@ -219,8 +228,8 @@ export default class JoinToTheContest extends Component {
                         {/* INTRO */}
                         <Grid>
                             <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 0.3 }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(9), color: '#D82B60', top: 20 }}>You are about to join the contest!</Text>
+                                <View style={{ flex: 0.3, justifyContent: 'flex-end' }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60' }}>You are about to join the contest!</Text>
                                 </View>
                                 <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
                                     <AnimationManWihtHearts />
@@ -307,11 +316,11 @@ export default class JoinToTheContest extends Component {
                         {/* UPLOAD VIDEO OR MEME */}
                         <Grid>
                             <Row size={20} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
                             </Row>
                             {video.localUrl !== null
                                 ? <Row size={60} style={{ flexDirection: 'column' }}>
-                                    <View style={{ flex: 1, padding: 15, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
                                         <Video
                                             source={{ uri: video.localUrl }}
                                             useNativeControls
@@ -326,12 +335,14 @@ export default class JoinToTheContest extends Component {
                                                 width: "100%", height: "100%"
                                             }} />
                                     </View>
-                                    <Button
-                                        onPress={() => this._useLibraryHandler('Videos')}
-                                        transparent
-                                        icon style={{ alignSelf: 'center', top: -10 }}>
-                                        <Icon type="Feather" name="refresh-ccw" style={{ color: '#333' }} />
-                                    </Button>
+                                    <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Button
+                                            onPress={() => this._useLibraryHandler('Videos')}
+                                            transparent
+                                            style={{ alignSelf: 'center' }}>
+                                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change video</Text>
+                                        </Button>
+                                    </View>
                                 </Row>
                                 : null}
 
@@ -408,7 +419,7 @@ export default class JoinToTheContest extends Component {
                         {/* COMMENTS */}
                         <Grid>
                             <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(10), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
                                 <Form style={{ padding: 10 }}>
                                     <Textarea
                                         editable={isLoading}

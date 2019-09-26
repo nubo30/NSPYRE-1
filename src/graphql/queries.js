@@ -878,11 +878,85 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           }
         }
         createdAt
+        likesToParticipants {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        commentsToParticipants {
+          items {
+            id
+            name
+            idUserComments
+            createdAt
+            avatar
+            comments
+          }
+          nextToken
+        }
       }
       nextToken
     }
     usersSharing {
       items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+          viewsVideo {
+            nextToken
+          }
+        }
         id
         name
         idUserSharing
@@ -894,6 +968,59 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     usersLikes {
       items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+          viewsVideo {
+            nextToken
+          }
+        }
         id
         name
         idUserLike
@@ -904,6 +1031,59 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     viewsVideo {
       items {
+        createContest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+          viewsVideo {
+            nextToken
+          }
+        }
         id
         name
         idUserView
@@ -1080,6 +1260,12 @@ export const listCreateContests = `query ListCreateContests(
             createdAt
           }
           createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -1137,6 +1323,221 @@ export const listCreateContests = `query ListCreateContests(
 `;
 export const getViewsVideo = `query GetViewsVideo($id: ID!) {
   getViewsVideo(id: $id) {
+    createContest {
+      id
+      user {
+        tokenfb
+        id
+        userId
+        name
+        username
+        lastname
+        email
+        avatar
+        phone
+        datetime
+        scope
+        createContest {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        submitPrize {
+          items {
+            id
+            category
+            createdAt
+          }
+          nextToken
+        }
+        engage {
+          items {
+            expoPushToken
+            JSONdata
+            createdAt
+          }
+          nextToken
+        }
+        coins
+        notificationToken
+      }
+      aboutTheUser {
+        companyName
+        location {
+          city
+          country
+          state
+          street
+        }
+        titleInTheCompany
+      }
+      category
+      general {
+        description
+        instructions
+        nameOfContest
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      prizes {
+        description
+        prizeId
+        name
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+      }
+      createdAt
+      timer {
+        start
+        end
+      }
+      audience {
+        items {
+          JSONdata
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          genders
+          ages
+          categoryContest
+          countries
+          nacionalities
+          regionalIdentity
+          sexualities
+          maritalStatus
+          academicLevelAchieved
+          schools
+          universities
+          musicalGenre
+          sports
+          parentalCondition
+          amountOfChildren
+          amountOfSimblings
+          politicalPeople
+          peopleWhoVote
+          occupation
+          socioeconomicLevel
+          rentOrOwnHouse
+          rentOrOwnCar
+          categoryPrizes
+          createdAt
+        }
+        nextToken
+      }
+      participants {
+        items {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+        }
+        nextToken
+      }
+      usersSharing {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      usersLikes {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsVideo {
+        items {
+          createContest {
+            id
+            category
+            createdAt
+          }
+          id
+          name
+          idUserView
+          createdAt
+          avatar
+          dataVideo
+        }
+        nextToken
+      }
+    }
     id
     name
     idUserView
@@ -1479,6 +1880,12 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             createdAt
           }
           createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -1872,6 +2279,12 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             createdAt
           }
           createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -2264,6 +2677,12 @@ export const getAudience = `query GetAudience($id: ID!) {
             createdAt
           }
           createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -2715,6 +3134,12 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             createdAt
           }
           createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -2767,6 +3192,93 @@ export const getParticipants = `query GetParticipants($id: ID!) {
       }
     }
     createdAt
+    likesToParticipants {
+      items {
+        participants {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+        }
+        id
+        name
+        idUserLike
+        createdAt
+        avatar
+      }
+      nextToken
+    }
+    commentsToParticipants {
+      items {
+        participants {
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+        }
+        id
+        name
+        idUserComments
+        createdAt
+        avatar
+        comments
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -2952,6 +3464,727 @@ export const listParticipantss = `query ListParticipantss(
         }
       }
       createdAt
+      likesToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
+  getLikesToParticipants(id: $id) {
+    participants {
+      id
+      participantId
+      nameUser
+      comment
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      avatar
+      contest {
+        id
+        user {
+          tokenfb
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+          notificationToken
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
+        category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+        timer {
+          start
+          end
+        }
+        audience {
+          items {
+            JSONdata
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            occupation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
+        usersSharing {
+          items {
+            id
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsVideo {
+          items {
+            id
+            name
+            idUserView
+            createdAt
+            avatar
+            dataVideo
+          }
+          nextToken
+        }
+      }
+      createdAt
+      likesToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserLike
+    createdAt
+    avatar
+  }
+}
+`;
+export const listLikesToParticipantss = `query ListLikesToParticipantss(
+  $filter: ModelLikesToParticipantsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLikesToParticipantss(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      participants {
+        id
+        participantId
+        nameUser
+        comment
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        avatar
+        contest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+          viewsVideo {
+            nextToken
+          }
+        }
+        createdAt
+        likesToParticipants {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        commentsToParticipants {
+          items {
+            id
+            name
+            idUserComments
+            createdAt
+            avatar
+            comments
+          }
+          nextToken
+        }
+      }
+      id
+      name
+      idUserLike
+      createdAt
+      avatar
+    }
+    nextToken
+  }
+}
+`;
+export const getCommentsToParticipants = `query GetCommentsToParticipants($id: ID!) {
+  getCommentsToParticipants(id: $id) {
+    participants {
+      id
+      participantId
+      nameUser
+      comment
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      avatar
+      contest {
+        id
+        user {
+          tokenfb
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+          notificationToken
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
+        category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+        timer {
+          start
+          end
+        }
+        audience {
+          items {
+            JSONdata
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            occupation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
+        usersSharing {
+          items {
+            id
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsVideo {
+          items {
+            id
+            name
+            idUserView
+            createdAt
+            avatar
+            dataVideo
+          }
+          nextToken
+        }
+      }
+      createdAt
+      likesToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+        }
+        nextToken
+      }
+    }
+    id
+    name
+    idUserComments
+    createdAt
+    avatar
+    comments
+  }
+}
+`;
+export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
+  $filter: ModelCommentsToParticipantsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCommentsToParticipantss(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      participants {
+        id
+        participantId
+        nameUser
+        comment
+        video {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        picture {
+          localUrl
+          url
+          name
+          type
+          blob
+        }
+        avatar
+        contest {
+          id
+          user {
+            tokenfb
+            id
+            userId
+            name
+            username
+            lastname
+            email
+            avatar
+            phone
+            datetime
+            scope
+            coins
+            notificationToken
+          }
+          aboutTheUser {
+            companyName
+            titleInTheCompany
+          }
+          category
+          general {
+            description
+            instructions
+            nameOfContest
+          }
+          prizes {
+            description
+            prizeId
+            name
+          }
+          createdAt
+          timer {
+            start
+            end
+          }
+          audience {
+            nextToken
+          }
+          participants {
+            nextToken
+          }
+          usersSharing {
+            nextToken
+          }
+          usersLikes {
+            nextToken
+          }
+          viewsVideo {
+            nextToken
+          }
+        }
+        createdAt
+        likesToParticipants {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        commentsToParticipants {
+          items {
+            id
+            name
+            idUserComments
+            createdAt
+            avatar
+            comments
+          }
+          nextToken
+        }
+      }
+      id
+      name
+      idUserComments
+      createdAt
+      avatar
+      comments
     }
     nextToken
   }

@@ -1136,11 +1136,6 @@ accordion-collapse-react-native@^0.1.11:
   resolved "https://registry.yarnpkg.com/accordion-collapse-react-native/-/accordion-collapse-react-native-0.1.11.tgz#2dadd40dcd83b20874fadbfcf4bad45c8cd256ad"
   integrity sha512-kIizzZNqPjZJt+NLUo9z67AR7jfu3vOl9KQXDnElOZO3+LcqjUwmrS8XcV7tXA1yB2xpsnp/Xihu74vyJGHYhQ==
 
-add@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
-  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
-
 amazon-cognito-identity-js@^3.0.15:
   version "3.0.15"
   resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-3.0.15.tgz#2dcd79ca65486d6293b5a166140d68330b718b5f"
@@ -5330,7 +5325,7 @@ react-native-modal-datetime-picker@^6.0.0:
     prop-types "^15.6.2"
     react-native-modal "^9.0.0"
 
-react-native-modal@^11.1.0:
+react-native-modal@^11.4.0:
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.4.0.tgz#29f2fd241aed864f3c7ce25a941498ebe2ab217a"
   integrity sha512-5AsvppV843bGBOgRotORhb0OJLAf3EOueJ1Z0a9vH/ZO3E2KdnGpxgJFRWx2SZhgUmQ65YP392rsMZl/NYwdIw==
@@ -5361,6 +5356,11 @@ react-native-progress-bar-animated@^1.0.6:
   integrity sha512-UPAAwxtBVV+sPwhgVd78SA7QybPshV5CydaV0GJyM+eZ89ikkZQSasAUAgIQwVVCW1Tj6XNrgizimXM9JdczeA==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-read-more-text@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-read-more-text/-/react-native-read-more-text-1.1.0.tgz#d6f02a5caff8c91297957be66ecb42287c084e96"
+  integrity sha512-xmaytGMZyZPnJZQ8z0Tkbx6ff1XNznIRmbsfhaTczEbxkZonIIcPt9RmCMgyoSxOrXAsINsKNNbUt1OopNb92Q==
 
 react-native-reanimated@~1.1.0:
   version "1.1.0"

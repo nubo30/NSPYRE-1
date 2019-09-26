@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
+import { API, graphqlOperation } from 'aws-amplify'
 import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { FlatList, Image } from 'react-native'
-import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, Subtitle, View, Button, List, ListItem, Thumbnail, Spinner, TabHeading } from 'native-base';
+import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, View, Button, Thumbnail, TabHeading, Card, CardItem, Right } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Col } from 'react-native-easy-grid'
 import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
+
+
+// Child Components
+import ButtonListLikes from './likes'
+import ButtonComments from './comments'
+import ButtonStatistics from './buttonStatistics'
+
+// AWS
+import * as mutations from '../../../src/graphql/mutations'
 
 class Participants extends Component {
     state = {
         // Actions
         isImgLoading: false
+    }
+
+    _updateDataWithTab = async () => {
+        const { contest } = this.props
+        try {
+            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -28,10 +46,10 @@ class Participants extends Component {
                             style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥 </Title>
                     </Left>
                 </Header>
-                <Tabs style={{ flex: 1 }} tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }}>
+                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }} onChangeTab={(i) => this._updateDataWithTab()}>
                     <Tab
                         heading={
-                            <TabHeading>
+                            <TabHeading style={{ backgroundColor: "#F5F5F5" }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
@@ -43,69 +61,52 @@ class Participants extends Component {
                         tabStyle={{ backgroundColor: '#F5F5F5' }}>
                         {
                             contest.participants.items.length ?
-                                <FlatList
-                                    data={contest.participants.items}
-                                    renderItem={({ item }) => (
-                                        <View style={{ height: 150, borderBottomWidth: 0.5, borderBottomColor: 'rgba(0,0,0,0.2)', padding: 5, top: 10 }}>
-                                            <Grid style={{ height: 100, flex: 1 }}>
-                                                <Col size={40}>
-                                                    <View style={{
-                                                        borderRadius: 10,
-                                                        overflow: 'hidden',
-                                                        flex: 1,
-                                                    }}>
-                                                        {item.video && item.video.url === null
-                                                            ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                                                <Spinner size="large" color="#D82B60" animating={isImgLoading} style={{ position: 'absolute' }} />
-                                                                <Image
-                                                                    onLoadEnd={() => this.setState({ isImgLoading: false })}
-                                                                    onLoadStart={() => this.setState({ isImgLoading: true })}
-                                                                    style={{ height: "100%", width: "100%" }} source={{ uri: item.picture.url }} />
-                                                            </View>
-                                                            : <Video
-                                                                source={{ uri: item.video && item.video.url }}
-                                                                useNativeControls={true}
-                                                                rate={1.0}
-                                                                volume={1.0}
-                                                                isMuted={false}
-                                                                resizeMode="cover"
-                                                                shouldPlay={false}
-                                                                isLooping={false}
-                                                                style={{ width: "100%", height: "100%" }}
-                                                            />}
-                                                    </View>
-                                                </Col>
-                                                <Col size={60} style={{ paddingStart: 10 }}>
-                                                    <List style={{ height: 50 }}>
-                                                        <ListItem thumbnail style={{ height: '100%', right: 15 }} onPress={() => navigation.navigate('UserProfile', { userId: item.participantId })}>
-                                                            <Left>
-                                                                {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
-                                                            </Left>
-                                                            <Body style={{ right: 5, borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                                <Text
-                                                                    minimumFontScale={wp(3.5)}
-                                                                    allowFontScaling={false}
-                                                                    style={{ color: '#333', fontSize: wp(3.5), top: -2 }}>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
-                                                                <Text
-                                                                    minimumFontScale={wp(3)}
-                                                                    allowFontScaling={false}
-                                                                    note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(2.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
+                                <Container>
+                                    <Content padder showsVerticalScrollIndicator={false}>
+                                        <FlatList
+                                            data={contest.participants.items}
+                                            renderItem={({ item }) => (
+                                                <Card>
+                                                    <CardItem>
+                                                        <Left>
+                                                            {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                            <Body>
+                                                                <Text>{item.nameUser}</Text>
+                                                                <Text note>{moment(item.createdAt).fromNow()}</Text>
                                                             </Body>
-                                                        </ListItem>
-                                                    </List>
-                                                    <Content>
-                                                        <Text
-                                                            minimumFontScale={wp(3.5)}
-                                                            allowFontScaling={false}
-                                                            style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
-                                                            {item.comment}
-                                                        </Text>
-                                                    </Content>
-                                                </Col>
-                                            </Grid>
-                                        </View>
-                                    )}
-                                    keyExtractor={item => item.createdAt} />
+                                                        </Left>
+                                                    </CardItem>
+                                                    <CardItem>
+                                                        <Body>
+                                                            {item.picture && item.picture.url === null
+                                                                ? <Video
+                                                                    source={{ uri: item.video && item.video.url }}
+                                                                    useNativeControls={true}
+                                                                    rate={1.0}
+                                                                    volume={1.0}
+                                                                    isMuted={false}
+                                                                    resizeMode="cover"
+                                                                    shouldPlay={false}
+                                                                    isLooping={false}
+                                                                    style={{ width: "110%", height: 200, alignSelf: 'center' }} />
+                                                                : <Image source={{ uri: item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
+                                                                {item.comment}
+                                                            </Text>
+                                                        </Body>
+                                                    </CardItem>
+                                                    <CardItem>
+                                                        <Left style={{ right: 10 }}>
+                                                            <ButtonListLikes item={item} contest={contest} />
+                                                            <ButtonComments item={item} contest={contest} />
+                                                        </Left>
+                                                    </CardItem>
+                                                </Card>
+
+                                            )}
+                                            keyExtractor={item => item.createdAt} />
+                                    </Content>
+                                </Container>
                                 : userData.id === contest.user.id || disableParticipants === true
                                     ? <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text
@@ -139,7 +140,7 @@ class Participants extends Component {
                         ? null
                         : <Tab
                             heading={
-                                <TabHeading>
+                                <TabHeading style={{ backgroundColor: "#F5F5F5" }}>
                                     <Text
                                         minimumFontScale={wp(4)}
                                         allowFontScaling={false}
@@ -150,69 +151,55 @@ class Participants extends Component {
                             activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                             tabStyle={{ backgroundColor: '#F5F5F5' }}>
                             {filterParticipantsList.length ?
-                                <FlatList
-                                    data={filterParticipantsList}
-                                    renderItem={({ item }) => (
-                                        <View style={{ height: 150, borderBottomWidth: 0.5, borderBottomColor: 'rgba(0,0,0,0.2)', padding: 5, top: 10 }}>
-                                            <Grid style={{ height: 100, flex: 1 }}>
-                                                <Col size={40}>
-                                                    <View style={{
-                                                        borderRadius: 10,
-                                                        overflow: 'hidden',
-                                                        flex: 1,
-                                                    }}>
-                                                        {item.video && item.video.url === null
-                                                            ? <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                                                <Spinner size="large" color="#D82B60" animating={isImgLoading} style={{ position: 'absolute' }} />
-                                                                <Image
-                                                                    onLoadEnd={() => this.setState({ isImgLoading: false })}
-                                                                    onLoadStart={() => this.setState({ isImgLoading: true })}
-                                                                    style={{ height: "100%", width: "100%" }} source={{ uri: item.picture.url }} />
-                                                            </View>
-                                                            : <Video
-                                                                source={{ uri: item.video && item.video.url }}
-                                                                useNativeControls={true}
-                                                                rate={1.0}
-                                                                volume={1.0}
-                                                                isMuted={false}
-                                                                resizeMode="cover"
-                                                                shouldPlay={false}
-                                                                isLooping={false}
-                                                                style={{ width: "100%", height: "100%" }}
-                                                            />}
-                                                    </View>
-                                                </Col>
-                                                <Col size={60} style={{ paddingStart: 10 }}>
-                                                    <List style={{ height: 50 }}>
-                                                        <ListItem thumbnail style={{ height: '100%', right: 15 }}>
-                                                            <Left>
-                                                                {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
-                                                            </Left>
-                                                            <Body style={{ right: 5, borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                                <Text
-                                                                    minimumFontScale={wp(3.5)}
-                                                                    allowFontScaling={false}
-                                                                    style={{ color: '#333', fontSize: wp(3.5) }}>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
-                                                                <Text
-                                                                    minimumFontScale={wp(2.5)}
-                                                                    allowFontScaling={false}
-                                                                    note numberOfLines={1} style={{ fontStyle: 'italic', fontSize: wp(2.5) }}>Published {moment(item.createdAt).fromNow()}</Text>
+                                <Container>
+                                    <Content padder showsVerticalScrollIndicator={false}>
+                                        <FlatList
+                                            data={filterParticipantsList}
+                                            renderItem={({ item }) => (
+                                                <Card>
+                                                    <CardItem>
+                                                        <Left>
+                                                            {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                            <Body>
+                                                                <Text>{item.nameUser}</Text>
+                                                                <Text note>{moment(item.createdAt).fromNow()}</Text>
                                                             </Body>
-                                                        </ListItem>
-                                                    </List>
-                                                    <Content>
-                                                        <Text
-                                                            minimumFontScale={wp(3.5)}
-                                                            allowFontScaling={false}
-                                                            style={{ fontSize: wp(3.5), color: "#BDBDBD" }}>
-                                                            {item.comment}
-                                                        </Text>
-                                                    </Content>
-                                                </Col>
-                                            </Grid>
-                                        </View>
-                                    )}
-                                    keyExtractor={item => item.createdAt} />
+                                                        </Left>
+                                                    </CardItem>
+                                                    <CardItem>
+                                                        <Body>
+                                                            {item.picture && item.picture.url === null
+                                                                ? <Video
+                                                                    source={{ uri: item.video && item.video.url }}
+                                                                    useNativeControls={true}
+                                                                    rate={1.0}
+                                                                    volume={1.0}
+                                                                    isMuted={false}
+                                                                    resizeMode="cover"
+                                                                    shouldPlay={false}
+                                                                    isLooping={false}
+                                                                    style={{ width: "110%", height: 200, alignSelf: 'center' }} />
+                                                                : <Image source={{ uri: item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
+                                                                {item.comment}
+                                                            </Text>
+                                                        </Body>
+                                                    </CardItem>
+                                                    <CardItem>
+                                                        <Left style={{ right: 10 }}>
+                                                            <ButtonListLikes item={item} contest={contest} />
+                                                            <ButtonComments item={item} contest={contest} />
+                                                        </Left>
+                                                        <Right style={{ alignItems: 'flex-end' }}>
+                                                            <ButtonStatistics item={item} contest={contest} />
+                                                        </Right>
+                                                    </CardItem>
+                                                </Card>
+
+                                            )}
+                                            keyExtractor={item => item.createdAt} />
+                                    </Content>
+                                </Container>
                                 : <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text
                                         minimumFontScale={wp(4.5)}
@@ -230,7 +217,6 @@ class Participants extends Component {
                         </Tab>
                     }
                 </Tabs>
-
             </Container>
         );
     }
