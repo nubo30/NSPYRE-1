@@ -56,9 +56,9 @@ class LikesParticipations extends Component {
     componentWillReceiveProps(prevProps) {
         const userData = this.props.navigation.getParam('userData')
         let thisUserMakeLikeBefore = [];
-        thisUserMakeLikeBefore = prevProps.item.likesToParticipants.items === undefined
+        thisUserMakeLikeBefore = prevProps.item.likesToParticipants && prevProps.item.likesToParticipants.items === undefined
             ? []
-            : prevProps.item.likesToParticipants.items.filter(items => { return items.id.indexOf(userData.id + prevProps.item.id) !== -1 })
+            : prevProps.item.likesToParticipants && prevProps.item.likesToParticipants.items.filter(items => { return items.id.indexOf(userData.id + prevProps.item.id) !== -1 })
         this.setState({ like: thisUserMakeLikeBefore.length ? true : false })
     }
 
@@ -74,7 +74,7 @@ class LikesParticipations extends Component {
                         onPress={() => { like ? this._deleteLike() : this._createLike(); this.setState({ like: !like }) }}
                         small iconLeft style={{ maxWidth: 80, backgroundColor: colorsPalette.transparent, right: 3 }}>
                         <Icon name="heart" style={{ color: like ? colorsPalette.heartColor : colorsPalette.gradientGray }} />
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3), right: 13, color: like ? colorsPalette.heartColor : colorsPalette.gradientGray }}>{item.likesToParticipants.items && item.likesToParticipants.items.length}</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), right: 13, color: like ? colorsPalette.heartColor : colorsPalette.gradientGray }}>{item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items.length}</Text>
                     </Button>
                 </View>
                 <ModalAnimated
@@ -96,8 +96,8 @@ class LikesParticipations extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', color: colorsPalette.gradientGray }}>Users Likes</Text>
                         </View>
                         <Content contentContainerStyle={{ flex: 1 }}>
-                            {item.likesToParticipants.items && item.likesToParticipants.items.length ? <FlatList
-                                data={item.likesToParticipants.items && item.likesToParticipants.items}
+                            {item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items.length ? <FlatList
+                                data={item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items}
                                 renderItem={({ item }) => (
                                     <ListItem
                                         avatar

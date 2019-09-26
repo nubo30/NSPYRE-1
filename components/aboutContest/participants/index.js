@@ -89,7 +89,7 @@ class Participants extends Component {
                                                                     shouldPlay={false}
                                                                     isLooping={false}
                                                                     style={{ width: "110%", height: 200, alignSelf: 'center' }} />
-                                                                : <Image source={{ uri: item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                                : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
                                                             <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
                                                                 {item.comment}
                                                             </Text>
@@ -179,7 +179,7 @@ class Participants extends Component {
                                                                     shouldPlay={false}
                                                                     isLooping={false}
                                                                     style={{ width: "110%", height: 200, alignSelf: 'center' }} />
-                                                                : <Image source={{ uri: item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                                : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
                                                             <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
                                                                 {item.comment}
                                                             </Text>

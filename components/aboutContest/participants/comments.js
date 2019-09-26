@@ -116,7 +116,7 @@ class Comments extends Component {
                     onLongPress={() => this.setState({ modalAnimated: true })}
                     small iconLeft style={{ backgroundColor: colorsPalette.transparent, right: 20 }}>
                     <Icon type="MaterialCommunityIcons" name="comment" style={{ color: colorsPalette.gradientGray, right: 5 }} />
-                    <Text allowFontScaling={false} style={{ fontSize: wp(3), right: 15, color: colorsPalette.gradientGray }}>{item.commentsToParticipants.items && item.commentsToParticipants.items.length}</Text>
+                    <Text allowFontScaling={false} style={{ fontSize: wp(3), right: 15, color: colorsPalette.gradientGray }}>{item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.length}</Text>
                 </Button>
 
                 {/* VER LOS COMENTARIOS DE LOS USUARIOS */}
@@ -144,8 +144,8 @@ class Comments extends Component {
                                 <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', color: colorsPalette.gradientGray, top: -10 }}>User Comments</Text>
                             </View>
                             <Content contentContainerStyle={{ flex: 1 }}>
-                                {item.commentsToParticipants.items && item.commentsToParticipants.items.length ? <FlatList
-                                    data={item.commentsToParticipants.items && item.commentsToParticipants.items}
+                                {item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.length ? <FlatList
+                                    data={item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items}
                                     renderItem={({ item }) => (
                                         <View>
                                             <View>
