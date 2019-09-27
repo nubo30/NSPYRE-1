@@ -145,7 +145,7 @@ class Comments extends Component {
                             </View>
                             <Content contentContainerStyle={{ flex: 1 }}>
                                 {item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.length ? <FlatList
-                                    data={item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items}
+                                    data={item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })}
                                     renderItem={({ item }) => (
                                         <View>
                                             <View>

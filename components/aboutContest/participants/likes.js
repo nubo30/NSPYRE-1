@@ -86,7 +86,8 @@ class LikesParticipations extends Component {
                         backgroundColor: colorsPalette.secondaryColor,
                         padding: 15,
                         justifyContent: 'center',
-                        borderRadius: 10,
+                        borderTopStartRadius: 10,
+                        borderTopEndRadius: 10,
                         borderColor: 'rgba(0, 0, 0, 0.3)',
                         flex: 1,
                         maxHeight: 400
@@ -97,7 +98,7 @@ class LikesParticipations extends Component {
                         </View>
                         <Content contentContainerStyle={{ flex: 1 }}>
                             {item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items.length ? <FlatList
-                                data={item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items}
+                                data={item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })}
                                 renderItem={({ item }) => (
                                     <ListItem
                                         avatar

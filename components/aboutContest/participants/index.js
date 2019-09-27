@@ -7,12 +7,15 @@ import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, View, B
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
+import upperFirst from 'lodash/upperFirst'
+import ReadMore from 'react-native-read-more-text';
 
 
 // Child Components
 import ButtonListLikes from './likes'
 import ButtonComments from './comments'
-import ButtonStatistics from './buttonStatistics'
+import ButtonStatistics from './statistics/index'
+import UpdateParticipant from './updateParticipant'
 
 // AWS
 import * as mutations from '../../../src/graphql/mutations'
@@ -43,7 +46,7 @@ class Participants extends Component {
                         <Title
                             minimumFontScale={wp(9)}
                             allowFontScaling={false}
-                            style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥 </Title>
+                            style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥</Title>
                     </Left>
                 </Header>
                 <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }} onChangeTab={(i) => this._updateDataWithTab()}>
@@ -72,7 +75,7 @@ class Participants extends Component {
                                                             {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             <Body>
                                                                 <Text>{item.nameUser}</Text>
-                                                                <Text note>{moment(item.createdAt).fromNow()}</Text>
+                                                                <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
                                                             </Body>
                                                         </Left>
                                                     </CardItem>
@@ -90,9 +93,11 @@ class Participants extends Component {
                                                                     isLooping={false}
                                                                     style={{ width: "110%", height: 200, alignSelf: 'center' }} />
                                                                 : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
-                                                            <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
-                                                                {item.comment}
-                                                            </Text>
+                                                            <View style={{ top: 10 }}>
+                                                                <ReadMore numberOfLines={6}>
+                                                                    {item.comment}
+                                                                </ReadMore>
+                                                            </View>
                                                         </Body>
                                                     </CardItem>
                                                     <CardItem>
@@ -162,7 +167,7 @@ class Participants extends Component {
                                                             {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
                                                             <Body>
                                                                 <Text>{item.nameUser}</Text>
-                                                                <Text note>{moment(item.createdAt).fromNow()}</Text>
+                                                                <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
                                                             </Body>
                                                         </Left>
                                                     </CardItem>
@@ -181,8 +186,10 @@ class Participants extends Component {
                                                                     style={{ width: "110%", height: 200, alignSelf: 'center' }} />
                                                                 : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
                                                             <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
-                                                                {item.comment}
                                                             </Text>
+                                                            <ReadMore numberOfLines={6}>
+                                                                {item.comment}
+                                                            </ReadMore>
                                                         </Body>
                                                     </CardItem>
                                                     <CardItem>
@@ -190,7 +197,8 @@ class Participants extends Component {
                                                             <ButtonListLikes item={item} contest={contest} />
                                                             <ButtonComments item={item} contest={contest} />
                                                         </Left>
-                                                        <Right style={{ alignItems: 'flex-end' }}>
+                                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                                            <UpdateParticipant item={item} contest={contest} />
                                                             <ButtonStatistics item={item} contest={contest} />
                                                         </Right>
                                                     </CardItem>

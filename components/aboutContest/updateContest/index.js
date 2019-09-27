@@ -15,6 +15,7 @@ import Swiper from 'react-native-swiper'
 import * as Animatable from 'react-native-animatable'
 import { isAscii } from 'validator'
 import omitDeep from 'omit-deep'
+import AWS from 'aws-sdk'
 
 import { securityCredentials } from '../../global/aws/credentials'
 
@@ -215,7 +216,6 @@ class UpdateContest extends Component {
                 xhr.open("GET", video.localUrl ? video.localUrl : contest.general.video.localUrl, true);
                 xhr.send(null);
             });
-
         }
 
         Object.assign(contest, {
@@ -329,9 +329,9 @@ class UpdateContest extends Component {
             prizeId: '_' + Math.random().toString(36).substr(2, 9)
         })
         AWS.config.update({
-            accessKeyId: "AKIAIQA34573X4TITQEQ",
-            secretAccessKey: "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",
-            "region": "sa-east-1"
+            accessKeyId: securityCredentials.accessKeyId,
+            secretAccessKey: securityCredentials.secretAccessKey,
+            "region": securityCredentials.region
         })
 
         // PICTURE OF THE CONTEST

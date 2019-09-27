@@ -50,15 +50,19 @@ export default class JoinToTheContest extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (Math.round(result.duration) <= 60000) {
-            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
-        } else if (Math.round(result.duration) > 61000) {
-            Alert.alert(
-                '',
-                'You cannot choose a video that exceeds one minute.',
-                [{ text: 'OK', onPress: () => { } }],
-                { cancelable: false },
-            );
+        if (result.type === 'image') {
+            if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
+        } else {
+            if (Math.round(result.duration) <= 60000) {
+                if (!result.cancelled) { this._getNameOfLocalUrlVideo(result.uri) }
+            } else if (Math.round(result.duration) > 61000) {
+                Alert.alert(
+                    '',
+                    'You cannot choose a video that exceeds one minute.',
+                    [{ text: 'OK', onPress: () => { } }],
+                    { cancelable: false },
+                );
+            }
         }
     }
 
@@ -348,20 +352,17 @@ export default class JoinToTheContest extends Component {
 
                             {picture.localUrl !== null
                                 ? <Row size={60} style={{ flexDirection: 'column' }}>
-                                    <View style={{
-                                        shadowColor: "rgba(0,0,0,0.5)", shadowOffset: { width: 1 }, shadowOpacity: 1,
-                                        flex: 1, padding: 15, justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                        <Image style={{
-                                            height: "100%", width: "100%"
-                                        }} source={{ uri: picture.localUrl }} />
+                                    <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
                                     </View>
-                                    <Button
-                                        onPress={() => this._useLibraryHandler('Images')}
-                                        transparent
-                                        icon style={{ alignSelf: 'center', top: -10 }}>
-                                        <Icon type="Feather" name="refresh-ccw" style={{ color: '#333' }} />
-                                    </Button>
+                                    <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Button
+                                            onPress={() => this._useLibraryHandler('Images')}
+                                            transparent
+                                            style={{ alignSelf: 'center' }}>
+                                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change picture</Text>
+                                        </Button>
+                                    </View>
                                 </Row>
                                 : null}
 
@@ -419,17 +420,17 @@ export default class JoinToTheContest extends Component {
                         {/* COMMENTS */}
                         <Grid>
                             <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'flex-start' }}>Create a comment</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'flex-start', left: 10 }}>Create a comment</Text>
                                 <Form style={{ padding: 10 }}>
                                     <Textarea
                                         editable={isLoading}
-                                        bordered
                                         allowFontScaling={false}
                                         onChangeText={(value) => this.setState({ commentText: value })}
                                         value={commentText}
-                                        maxLength={512}
+                                        maxLength={1024}
+                                        autoFocus={true}
                                         selectionColor="#D82B60"
-                                        style={{ borderColor: '#D82B60', borderRadius: 5, padding: 10, fontSize: wp(4.3), minWidth: '95%' }}
+                                        style={{ borderColor: '#FFF', padding: 10, fontSize: wp(4), minWidth: '95%' }}
                                         rowSpan={8}
                                         placeholder="Briefly describe any thoughts you want to illustrate in your participation!" />
                                 </Form>
