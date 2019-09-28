@@ -10,8 +10,14 @@ import { colorsPalette } from '../../../global/static/colors'
 
 export default class Statistics extends Component {
     state = { modalVisible: false }
+
+    _modalAction = (value) =>{
+        this.setState({modalVisible: value})
+    }
+
     render() {
         const { modalVisible } = this.state
+        const { contest, item } = this.props
         return (
             <View>
                 <Button icon transparent
@@ -39,6 +45,7 @@ export default class Statistics extends Component {
                             <Right />
                         </Header>
                         <Tabs
+                            locked
                             style={{ backgroundColor: colorsPalette.secondaryColor }}
                             tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }}
                             renderTabBar={() => <ScrollableTab />}>
@@ -47,7 +54,7 @@ export default class Statistics extends Component {
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
                                 heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon name="heart" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>LIKES</Text></TabHeading>}>
-                                {/* <Tab1 /> */}
+                                <Likes contest={contest} item={item}  _modalAction={this._modalAction}/>
                             </Tab>
                             <Tab
                                 activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}

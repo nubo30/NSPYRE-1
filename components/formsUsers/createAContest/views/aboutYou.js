@@ -318,7 +318,7 @@ class AboutYou extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
-                                            <View style={{ position: 'absolute' }}>
+                                            <View style={{ position: 'absolute', width: "100%" }}>
                                                 <Picker
                                                     renderHeader={backAction =>
                                                         <Header searchBar transparent rounded style={{ left: -20 }}>

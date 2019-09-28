@@ -428,7 +428,7 @@ export default class JoinToTheContest extends Component {
                                         onChangeText={(value) => this.setState({ commentText: value })}
                                         value={commentText}
                                         maxLength={1024}
-                                        autoFocus={true}
+                                        autoFocus={swiperIndex === 3 ? true : false}
                                         selectionColor="#D82B60"
                                         style={{ borderColor: '#FFF', padding: 10, fontSize: wp(4), minWidth: '95%' }}
                                         rowSpan={8}

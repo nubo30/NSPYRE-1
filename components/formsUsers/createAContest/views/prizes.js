@@ -63,15 +63,19 @@ export default class Prizes extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (Math.round(result.duration) <= 60000) {
-            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
-        } else if (Math.round(result.duration) > 61000) {
-            Alert.alert(
-                '',
-                'You cannot choose a video that exceeds one minute.',
-                [{ text: 'OK', onPress: () => { } }],
-                { cancelable: false },
-            );
+        if (result.type === 'image') {
+            if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
+        } else {
+            if (Math.round(result.duration) <= 60000) {
+                if (!result.cancelled) { this._getNameOfLocalUrlVideo(result.uri) }
+            } else if (Math.round(result.duration) > 61000) {
+                Alert.alert(
+                    '',
+                    'You cannot choose a video that exceeds one minute.',
+                    [{ text: 'OK', onPress: () => { } }],
+                    { cancelable: false },
+                );
+            }
         }
     }
 

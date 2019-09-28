@@ -103,6 +103,7 @@ class LikesParticipations extends Component {
                                     <ListItem
                                         avatar
                                         underlayColor={colorsPalette.secondaryColor}>
+                                        <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { this.setState({ modalAnimated: false }); this.props.navigation.navigate('UserProfile', { userId: item.idUserLike }) }} />
                                         <Left>
                                             {item.avatar !== null
                                                 ? <Thumbnail source={{ uri: item.avatar }} />

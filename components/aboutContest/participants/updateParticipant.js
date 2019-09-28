@@ -177,11 +177,13 @@ class UpdateParticipations extends Component {
                     <Container>
                         <Header>
                             <Left>
-                                <Button transparent onPress={() => this.setState({
-                                    modalVisibleEdit: false,
-                                    picture: { name: "", type: "", localUrl: "", url: "" },
-                                    video: { name: "", type: "", localUrl: "", url: "" }
-                                })}>
+                                <Button
+                                    disabled={isLoading ? true : false}
+                                    transparent onPress={() => this.setState({
+                                        modalVisibleEdit: false,
+                                        picture: { name: "", type: "", localUrl: "", url: "" },
+                                        video: { name: "", type: "", localUrl: "", url: "" }
+                                    })}>
                                     <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
                                     <Text
                                         allowFontScaling={false}
@@ -238,11 +240,13 @@ class UpdateParticipations extends Component {
                                         style={{ width: "100%", height: 200, alignSelf: 'center' }} />}
                                 {item.video.url === null
                                     ? <Button
+                                        disabled={isLoading ? true : false}
                                         onPress={() => this._useLibraryHandlerContest('Images')}
                                         style={{ width: "60%", alignSelf: 'center', justifyContent: 'center', alignItems: 'center', top: 20, backgroundColor: colorsPalette.primaryColor }}>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(4), letterSpacing: 2 }}> {video.localUrl ? "Another picture" : "Change picture"}</Text>
                                     </Button>
                                     : <Button
+                                        disabled={isLoading ? true : false}
                                         onPress={() => this._useLibraryHandlerContest('Videos')}
                                         style={{ width: "60%", alignSelf: 'center', justifyContent: 'center', alignItems: 'center', top: 20, backgroundColor: colorsPalette.primaryColor }}>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(4), letterSpacing: 2 }}> {video.localUrl ? "Another video" : "Change video"}</Text>

@@ -9,6 +9,7 @@ import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
 import upperFirst from 'lodash/upperFirst'
 import ReadMore from 'react-native-read-more-text';
+import * as Animatable from 'react-native-animatable'
 
 
 // Child Components
@@ -49,7 +50,7 @@ class Participants extends Component {
                             style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥</Title>
                     </Left>
                 </Header>
-                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }} onChangeTab={(i) => this._updateDataWithTab()}>
+                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }} onChangeTab={() => this._updateDataWithTab()}>
                     <Tab
                         heading={
                             <TabHeading style={{ backgroundColor: "#F5F5F5" }}>
@@ -69,45 +70,47 @@ class Participants extends Component {
                                         <FlatList
                                             data={contest.participants.items}
                                             renderItem={({ item }) => (
-                                                <Card>
-                                                    <CardItem>
-                                                        <Left>
-                                                            {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                <Animatable.View animation="fadeIn">
+                                                    <Card>
+                                                        <CardItem>
+                                                            <Button transparent style={{ position: 'absolute', zIndex: 1000, width: 200 }} onPress={() => navigation.navigate('UserProfile', { userId: item.participantId })} />
+                                                            <Left>
+                                                                {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                                <Body>
+                                                                    <Text>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
+                                                                    <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
+                                                                </Body>
+                                                            </Left>
+                                                        </CardItem>
+                                                        <CardItem>
                                                             <Body>
-                                                                <Text>{item.nameUser}</Text>
-                                                                <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
+                                                                {item.picture && item.picture.url === null
+                                                                    ? <Video
+                                                                        source={{ uri: item.video && item.video.url }}
+                                                                        useNativeControls={true}
+                                                                        rate={1.0}
+                                                                        volume={1.0}
+                                                                        isMuted={false}
+                                                                        resizeMode="cover"
+                                                                        shouldPlay={false}
+                                                                        isLooping={false}
+                                                                        style={{ width: "110%", height: 200, alignSelf: 'center' }} />
+                                                                    : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                                <View style={{ top: 10 }}>
+                                                                    <ReadMore numberOfLines={6}>
+                                                                        {item.comment}
+                                                                    </ReadMore>
+                                                                </View>
                                                             </Body>
-                                                        </Left>
-                                                    </CardItem>
-                                                    <CardItem>
-                                                        <Body>
-                                                            {item.picture && item.picture.url === null
-                                                                ? <Video
-                                                                    source={{ uri: item.video && item.video.url }}
-                                                                    useNativeControls={true}
-                                                                    rate={1.0}
-                                                                    volume={1.0}
-                                                                    isMuted={false}
-                                                                    resizeMode="cover"
-                                                                    shouldPlay={false}
-                                                                    isLooping={false}
-                                                                    style={{ width: "110%", height: 200, alignSelf: 'center' }} />
-                                                                : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
-                                                            <View style={{ top: 10 }}>
-                                                                <ReadMore numberOfLines={6}>
-                                                                    {item.comment}
-                                                                </ReadMore>
-                                                            </View>
-                                                        </Body>
-                                                    </CardItem>
-                                                    <CardItem>
-                                                        <Left style={{ right: 10 }}>
-                                                            <ButtonListLikes item={item} contest={contest} />
-                                                            <ButtonComments item={item} contest={contest} />
-                                                        </Left>
-                                                    </CardItem>
-                                                </Card>
-
+                                                        </CardItem>
+                                                        <CardItem>
+                                                            <Left style={{ right: 10 }}>
+                                                                <ButtonListLikes item={item} contest={contest} />
+                                                                <ButtonComments item={item} contest={contest} />
+                                                            </Left>
+                                                        </CardItem>
+                                                    </Card>
+                                                </Animatable.View>
                                             )}
                                             keyExtractor={item => item.createdAt} />
                                     </Content>
@@ -161,49 +164,51 @@ class Participants extends Component {
                                         <FlatList
                                             data={filterParticipantsList}
                                             renderItem={({ item }) => (
-                                                <Card>
-                                                    <CardItem>
-                                                        <Left>
-                                                            {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                <Animatable.View animation="fadeIn">
+                                                    <Card>
+                                                        <CardItem>
+                                                            <Button transparent style={{ position: 'absolute', zIndex: 1000, width: 200 }} onPress={() => navigation.navigate('UserProfile', { userId: item.participantId })} />
+                                                            <Left>
+                                                                {item.avatar === null ? <UserAvatar size="35" name={item.nameUser} /> : <Thumbnail small source={{ uri: item.avatar }} />}
+                                                                <Body>
+                                                                    <Text>{userData.id === item.participantId ? "You" : item.nameUser}</Text>
+                                                                    <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
+                                                                </Body>
+                                                            </Left>
+                                                        </CardItem>
+                                                        <CardItem>
                                                             <Body>
-                                                                <Text>{item.nameUser}</Text>
-                                                                <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
+                                                                {item.picture && item.picture.url === null
+                                                                    ? <Video
+                                                                        source={{ uri: item.video && item.video.url }}
+                                                                        useNativeControls={true}
+                                                                        rate={1.0}
+                                                                        volume={1.0}
+                                                                        isMuted={false}
+                                                                        resizeMode="cover"
+                                                                        shouldPlay={false}
+                                                                        isLooping={false}
+                                                                        style={{ width: "110%", height: 200, alignSelf: 'center' }} />
+                                                                    : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
+                                                                <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
+                                                                </Text>
+                                                                <ReadMore numberOfLines={6}>
+                                                                    {item.comment}
+                                                                </ReadMore>
                                                             </Body>
-                                                        </Left>
-                                                    </CardItem>
-                                                    <CardItem>
-                                                        <Body>
-                                                            {item.picture && item.picture.url === null
-                                                                ? <Video
-                                                                    source={{ uri: item.video && item.video.url }}
-                                                                    useNativeControls={true}
-                                                                    rate={1.0}
-                                                                    volume={1.0}
-                                                                    isMuted={false}
-                                                                    resizeMode="cover"
-                                                                    shouldPlay={false}
-                                                                    isLooping={false}
-                                                                    style={{ width: "110%", height: 200, alignSelf: 'center' }} />
-                                                                : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "110%", flex: 1, alignSelf: 'center' }} />}
-                                                            <Text allowFontScaling={false} style={{ fontSize: wp(3), top: 10 }}>
-                                                            </Text>
-                                                            <ReadMore numberOfLines={6}>
-                                                                {item.comment}
-                                                            </ReadMore>
-                                                        </Body>
-                                                    </CardItem>
-                                                    <CardItem>
-                                                        <Left style={{ right: 10 }}>
-                                                            <ButtonListLikes item={item} contest={contest} />
-                                                            <ButtonComments item={item} contest={contest} />
-                                                        </Left>
-                                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                                            <UpdateParticipant item={item} contest={contest} />
-                                                            <ButtonStatistics item={item} contest={contest} />
-                                                        </Right>
-                                                    </CardItem>
-                                                </Card>
-
+                                                        </CardItem>
+                                                        <CardItem>
+                                                            <Left style={{ right: 10 }}>
+                                                                <ButtonListLikes item={item} contest={contest} />
+                                                                <ButtonComments item={item} contest={contest} />
+                                                            </Left>
+                                                            <Right style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                                                <UpdateParticipant item={item} contest={contest} />
+                                                                <ButtonStatistics item={item} contest={contest} />
+                                                            </Right>
+                                                        </CardItem>
+                                                    </Card>
+                                                </Animatable.View>
                                             )}
                                             keyExtractor={item => item.createdAt} />
                                     </Content>
