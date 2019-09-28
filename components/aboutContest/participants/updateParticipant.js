@@ -139,7 +139,7 @@ class UpdateParticipations extends Component {
             video: video.url ? video : item.video,
             picture: picture.localUrl ? picture : item.picture,
             avatar: item.avatar,
-            createdAt: moment().toISOString(),
+            createdAt: item.createdAt,
             participantsContestId: contest.id,
         }
         omitDeep(participants, ['__typename'])
@@ -147,8 +147,8 @@ class UpdateParticipations extends Component {
             if (picture.localUrl) { await Storage.put(`users/${userData.email}/contest/participants/pictures/${picture.name}`, blobPicture, { contentType: picture.type }) }
             if (video.localUrl) { await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, { contentType: video.type }) }
             await API.graphql(graphqlOperation(mutations.updateParticipants, { input: participants }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
             this.setState({
+                modalVisibleEdit: false,
                 picture: { name: "", type: "", localUrl: "", url: "" },
                 video: { name: "", type: "", localUrl: "", url: "" },
                 isLoading: false

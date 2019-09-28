@@ -22,7 +22,7 @@ class Comments extends Component {
     _makeComment = async () => {
         this.setState({ isLoading: true })
         const userData = this.props.navigation.getParam('userData')
-        const { contest, item } = this.props
+        const { item, _getParticipation } = this.props
         const comment = {
             name: userData.name,
             idUserComments: userData.id,
@@ -33,12 +33,12 @@ class Comments extends Component {
         }
         try {
             await API.graphql(graphqlOperation(mutations.createCommentsToParticipants, { input: comment }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
             this.setState({ isLoading: false, modalComment: false })
+            _getParticipation()
         } catch (error) {
             this.setState({ isLoading: false })
             Toast.show({
-                text: "Error updated, try again",
+                text: "Oops! An error has occurred. Try again, please",
                 buttonText: "Okay",
                 type: "danger",
                 position: 'top',
@@ -52,7 +52,7 @@ class Comments extends Component {
         this.setState({ isLoading: true })
         const userData = this.props.navigation.getParam('userData')
         const { itemToUpdate } = this.state
-        const { contest } = this.props
+        const { _getParticipation } = this.props
         const comment = {
             id: itemToUpdate.id,
             name: itemToUpdate.name,
@@ -64,8 +64,8 @@ class Comments extends Component {
         }
         try {
             await API.graphql(graphqlOperation(mutations.updateCommentsToParticipants, { input: comment }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
             this.setState({ isLoading: false, modalUpdateComment: false })
+            _getParticipation()
             setTimeout(() => { this.setState({ modalAnimated: true }) }, 500);
         } catch (error) {
             this.setState({ isLoading: false })
@@ -88,11 +88,11 @@ class Comments extends Component {
     }
 
     _deleteComment = async (item) => {
-        const { contest } = this.props
+        const { _getParticipation } = this.props
         try {
             await API.graphql(graphqlOperation(mutations.deleteCommentsToParticipants, { input: { id: item.id } }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
             this.setState({ modalAnimated: false })
+            _getParticipation()
             setTimeout(() => { this.setState({ modalAnimated: true }) }, 500);
         } catch (error) {
             Toast.show({
@@ -205,110 +205,143 @@ class Comments extends Component {
 
                 {/* Modal para crear comentarios */}
                 <ModalAnimated
+                    onSwipeComplete={() => this.setState({ modalComment: false })}
+                    swipeDirection={['left', 'right', 'down']}
                     isVisible={modalComment}
                     style={{ justifyContent: 'flex-end', margin: 0 }}>
                     <Root>
-                        <Container>
-                            <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                                <Left>
-                                    <Button transparent onPress={() => this.setState({ modalComment: false })}>
-                                        <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                        <Text
-                                            allowFontScaling={false}
-                                            minimumFontScale={wp(4)}
-                                            style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>Back</Text>
-                                    </Button>
-                                </Left>
-                                <Body>
-                                    <Title>Comment</Title>
-                                </Body>
-                                <Right>
-                                    <Button
-                                        disabled={comment.length > 10 ? false : true}
-                                        transparent
-                                        onPress={() => this._makeComment()}>
-                                        {isLoading
-                                            ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5 }} />
-                                            : <Text
+                        <View style={{
+                            backgroundColor: colorsPalette.secondaryColor,
+                            justifyContent: 'center',
+                            borderTopStartRadius: 10,
+                            borderTopEndRadius: 10,
+                            borderColor: 'rgba(0, 0, 0, 0.3)',
+                            flex: 1,
+                            minHeight: 600,
+                            maxHeight: 600,
+                            position: 'absolute',
+                            bottom: 0,
+                            width: '100%'
+                        }}>
+                            <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                                <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                                    <Left>
+                                        <Button transparent onPress={() => this.setState({ modalComment: false })}>
+                                            <Text
                                                 allowFontScaling={false}
                                                 minimumFontScale={wp(4)}
-                                                style={{ color: comment.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4) }}>DONE</Text>}
-                                    </Button>
-                                </Right>
-                            </Header>
-                            <Content scrollEnabled={false}>
-                                <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
-                                    <Text>PLEASE, WRITE YOUR COMMENT:</Text>
-                                </ListItem>
-                                <Form style={{ padding: 10 }}>
-                                    <Textarea
-                                        maxLength={1024}
-                                        autoFocus={true}
-                                        value={comment}
-                                        onChangeText={(comment) => this.setState({ comment })}
-                                        allowFontScaling={false}
-                                        style={{ borderColor: colorsPalette.transparent }}
-                                        rowSpan={10}
-                                        selectionColor={colorsPalette.primaryColor}
-                                    />
-                                </Form>
-                            </Content>
-                        </Container>
+                                                style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Title style={{ top: -10 }}>Comment</Title>
+                                    </Body>
+                                    <Right>
+                                        <Button
+                                            style={{ top: -10 }}
+                                            disabled={comment.length > 10 ? false : true}
+                                            transparent
+                                            onPress={() => this._makeComment()}>
+                                            {isLoading
+                                                ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5, top: -5 }} />
+                                                : <Text
+                                                    allowFontScaling={false}
+                                                    minimumFontScale={wp(4)}
+                                                    style={{ color: comment.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4), top: -5 }}>DONE</Text>}
+                                        </Button>
+                                    </Right>
+                                </Header>
+                                <Content scrollEnabled={false}>
+                                    <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
+                                        <Text>PLEASE, WRITE YOUR COMMENT:</Text>
+                                    </ListItem>
+                                    <Form style={{ padding: 10 }}>
+                                        <Textarea
+                                            maxLength={1024}
+                                            autoFocus={true}
+                                            value={comment}
+                                            onChangeText={(comment) => this.setState({ comment })}
+                                            allowFontScaling={false}
+                                            style={{ borderColor: colorsPalette.transparent }}
+                                            rowSpan={10}
+                                            selectionColor={colorsPalette.primaryColor}
+                                        />
+                                    </Form>
+                                </Content>
+                            </Container>
+                        </View>
                     </Root>
                 </ModalAnimated>
 
                 {/* MODAL PARA ACTUALZIAR LOS COMENTARIOS */}
-                <Modal
+                <ModalAnimated
+                    onSwipeComplete={() => this.setState({ modalUpdateComment: false })}
+                    swipeDirection={['left', 'right', 'down']}
+                    style={{ justifyContent: 'flex-end', margin: 0 }}
                     animationType="slide"
-                    visible={modalUpdateComment}>
+                    isVisible={modalUpdateComment}>
                     <Root>
-                        <Container>
-                            <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                                <Left>
-                                    <Button transparent onPress={() => this.setState({ modalUpdateComment: false })}>
-                                        <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                        <Text
-                                            allowFontScaling={false}
-                                            minimumFontScale={wp(4)}
-                                            style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>Back</Text>
-                                    </Button>
-                                </Left>
-                                <Body>
-                                    <Title>Update comment</Title>
-                                </Body>
-                                <Right>
-                                    <Button
-                                        disabled={comment.length > 10 ? false : true}
-                                        transparent
-                                        onPress={() => this._updateComment()}>
-                                        {isLoading
-                                            ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5 }} />
-                                            : <Text
+                        <View style={{
+                            backgroundColor: colorsPalette.secondaryColor,
+                            justifyContent: 'center',
+                            borderTopStartRadius: 10,
+                            borderTopEndRadius: 10,
+                            borderColor: 'rgba(0, 0, 0, 0.3)',
+                            flex: 1,
+                            minHeight: 600,
+                            maxHeight: 600,
+                            position: 'absolute',
+                            bottom: 0,
+                            width: '100%'
+                        }}>
+                            <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                                <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                                    <Left>
+                                        <Button transparent onPress={() => this.setState({ modalUpdateComment: false })}>
+                                            <Text
                                                 allowFontScaling={false}
                                                 minimumFontScale={wp(4)}
-                                                style={{ color: comment.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4) }}>UPDATE</Text>}
-                                    </Button>
-                                </Right>
-                            </Header>
-                            <Content scrollEnabled={false}>
-                                <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
-                                    <Text>PLEASE, UPDATE YOUR COMMENT:</Text>
-                                </ListItem>
-                                <Form style={{ padding: 10 }}>
-                                    <Textarea
-                                        maxLength={1024}
-                                        autoFocus={true}
-                                        value={comment}
-                                        onChangeText={(comment) => this.setState({ comment })}
-                                        allowFontScaling={false}
-                                        style={{ borderColor: colorsPalette.transparent }}
-                                        rowSpan={10}
-                                        selectionColor={colorsPalette.primaryColor} />
-                                </Form>
-                            </Content>
-                        </Container>
+                                                style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
+                                        </Button>
+                                    </Left>
+                                    <Body>
+                                        <Title style={{ top: -10 }}>Update comment</Title>
+                                    </Body>
+                                    <Right>
+                                        <Button
+                                            style={{ top: -10 }}
+                                            disabled={comment.length > 10 ? false : true}
+                                            transparent
+                                            onPress={() => this._updateComment()}>
+                                            {isLoading
+                                                ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5, top: -5 }} />
+                                                : <Text
+                                                    allowFontScaling={false}
+                                                    minimumFontScale={wp(4)}
+                                                    style={{ color: comment.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4), top: -5 }}>UPDATE</Text>}
+                                        </Button>
+                                    </Right>
+                                </Header>
+                                <Content scrollEnabled={false}>
+                                    <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
+                                        <Text>PLEASE, UPDATE YOUR COMMENT:</Text>
+                                    </ListItem>
+                                    <Form style={{ padding: 10 }}>
+                                        <Textarea
+                                            maxLength={1024}
+                                            autoFocus={true}
+                                            value={comment}
+                                            onChangeText={(comment) => this.setState({ comment })}
+                                            allowFontScaling={false}
+                                            style={{ borderColor: colorsPalette.transparent }}
+                                            rowSpan={10}
+                                            selectionColor={colorsPalette.primaryColor} />
+                                    </Form>
+                                </Content>
+                            </Container>
+                        </View>
                     </Root>
-                </Modal>
+                </ModalAnimated>
             </View>
         );
     }

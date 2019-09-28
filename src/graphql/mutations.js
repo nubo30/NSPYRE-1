@@ -128,6 +128,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -451,6 +452,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -774,6 +776,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -1271,6 +1274,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -1362,6 +1366,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -1863,6 +1868,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -1954,6 +1960,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -2455,6 +2462,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -2546,6 +2554,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -2881,6 +2890,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3107,6 +3117,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3333,6 +3344,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3559,6 +3571,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3785,6 +3798,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4011,6 +4025,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4237,6 +4252,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4462,6 +4478,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4687,6 +4704,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4913,6 +4931,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5159,6 +5178,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5405,6 +5425,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5517,6 +5538,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
 `;
 export const createParticipants = `mutation CreateParticipants($input: CreateParticipantsInput!) {
   createParticipants(input: $input) {
+    contestId
     id
     participantId
     nameUser
@@ -5669,6 +5691,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5755,6 +5778,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -5798,6 +5822,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -5836,6 +5861,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -5844,6 +5870,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
 `;
 export const updateParticipants = `mutation UpdateParticipants($input: UpdateParticipantsInput!) {
   updateParticipants(input: $input) {
+    contestId
     id
     participantId
     nameUser
@@ -5996,6 +6023,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -6082,6 +6110,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6125,6 +6154,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6163,6 +6193,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -6171,6 +6202,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
 `;
 export const deleteParticipants = `mutation DeleteParticipants($input: DeleteParticipantsInput!) {
   deleteParticipants(input: $input) {
+    contestId
     id
     participantId
     nameUser
@@ -6323,6 +6355,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -6409,6 +6442,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6452,6 +6486,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6490,6 +6525,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -6499,6 +6535,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
 export const createLikesToParticipants = `mutation CreateLikesToParticipants($input: CreateLikesToParticipantsInput!) {
   createLikesToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -6631,6 +6668,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -6677,6 +6715,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6695,6 +6734,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6708,6 +6748,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -6723,6 +6764,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
 export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($input: UpdateLikesToParticipantsInput!) {
   updateLikesToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -6855,6 +6897,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -6901,6 +6944,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6919,6 +6963,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6932,6 +6977,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -6947,6 +6993,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
 export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($input: DeleteLikesToParticipantsInput!) {
   deleteLikesToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7079,6 +7126,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7125,6 +7173,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7143,6 +7192,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7156,6 +7206,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7173,6 +7224,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
 ) {
   createCommentsToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7305,6 +7357,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7351,6 +7404,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7369,6 +7423,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7382,6 +7437,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7392,6 +7448,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;
@@ -7400,6 +7457,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
 ) {
   updateCommentsToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7532,6 +7590,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7578,6 +7637,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7596,6 +7656,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7609,6 +7670,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7619,6 +7681,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;
@@ -7627,6 +7690,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
 ) {
   deleteCommentsToParticipants(input: $input) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7759,6 +7823,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7805,6 +7870,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7823,6 +7889,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7836,6 +7903,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7846,6 +7914,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;

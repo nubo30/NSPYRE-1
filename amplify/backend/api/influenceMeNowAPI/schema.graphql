@@ -154,6 +154,7 @@ type Prizes {
 }
 
 type Participants @model {
+  contestId: ID!
   id: ID!
   participantId: ID!
   nameUser: String
@@ -184,6 +185,7 @@ type LikesToParticipants @model {
   createdAt: AWSDateTime
   avatar: AWSURL
   comments: String
+  edited: String
   }
 
 ##################################################################### LISTOFCONTEST #####################################################################

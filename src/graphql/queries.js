@@ -140,6 +140,7 @@ export const getUser = `query GetUser($id: ID!) {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -805,6 +806,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -896,6 +898,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -1235,6 +1238,7 @@ export const listCreateContests = `query ListCreateContests(
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -1456,6 +1460,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -1667,6 +1672,7 @@ export const listViewsVideos = `query ListViewsVideos(
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -1855,6 +1861,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -2066,6 +2073,7 @@ export const listUsersSharings = `query ListUsersSharings(
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -2254,6 +2262,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -2464,6 +2473,7 @@ export const listUsersLikess = `query ListUsersLikess(
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -2652,6 +2662,7 @@ export const getAudience = `query GetAudience($id: ID!) {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -2883,6 +2894,7 @@ export const listAudiences = `query ListAudiences(
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -2957,6 +2969,7 @@ export const listAudiences = `query ListAudiences(
 `;
 export const getParticipants = `query GetParticipants($id: ID!) {
   getParticipants(id: $id) {
+    contestId
     id
     participantId
     nameUser
@@ -2976,139 +2989,10 @@ export const getParticipants = `query GetParticipants($id: ID!) {
       blob
     }
     avatar
-    contest {
-      id
-      user {
-        tokenfb
-        id
-        userId
-        name
-        username
-        lastname
-        email
-        avatar
-        phone
-        datetime
-        scope
-        createContest {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        submitPrize {
-          items {
-            id
-            category
-            createdAt
-          }
-          nextToken
-        }
-        engage {
-          items {
-            expoPushToken
-            JSONdata
-            createdAt
-          }
-          nextToken
-        }
-        coins
-        notificationToken
-      }
-      aboutTheUser {
-        companyName
-        location {
-          city
-          country
-          state
-          street
-        }
-        titleInTheCompany
-      }
-      category
-      general {
-        description
-        instructions
-        nameOfContest
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
-      prizes {
-        description
-        prizeId
-        name
-        picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-      }
       createdAt
-      timer {
-        start
-        end
-      }
-      audience {
-        items {
-          JSONdata
-          createContest {
-            id
-            category
-            createdAt
-          }
-          id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
-          createdAt
-        }
-        nextToken
-      }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3128,18 +3012,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             blob
           }
           avatar
-          contest {
-            id
-            category
-            createdAt
-          }
           createdAt
-          likesToParticipants {
-            nextToken
-          }
-          commentsToParticipants {
-            nextToken
-          }
         }
         nextToken
       }
@@ -3195,6 +3068,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -3214,18 +3088,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             blob
           }
           avatar
-          contest {
-            id
-            category
-            createdAt
-          }
           createdAt
-          likesToParticipants {
-            nextToken
-          }
-          commentsToParticipants {
-            nextToken
-          }
         }
         id
         name
@@ -3238,6 +3101,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -3257,18 +3121,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             blob
           }
           avatar
-          contest {
-            id
-            category
-            createdAt
-          }
           createdAt
-          likesToParticipants {
-            nextToken
-          }
-          commentsToParticipants {
-            nextToken
-          }
         }
         id
         name
@@ -3276,6 +3129,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -3289,6 +3143,7 @@ export const listParticipantss = `query ListParticipantss(
 ) {
   listParticipantss(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      contestId
       id
       participantId
       nameUser
@@ -3308,165 +3163,11 @@ export const listParticipantss = `query ListParticipantss(
         blob
       }
       avatar
-      contest {
-        id
-        user {
-          tokenfb
-          id
-          userId
-          name
-          username
-          lastname
-          email
-          avatar
-          phone
-          datetime
-          scope
-          createContest {
-            nextToken
-          }
-          submitPrize {
-            nextToken
-          }
-          engage {
-            nextToken
-          }
-          coins
-          notificationToken
-        }
-        aboutTheUser {
-          companyName
-          location {
-            city
-            country
-            state
-            street
-          }
-          titleInTheCompany
-        }
-        category
-        general {
-          description
-          instructions
-          nameOfContest
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        prizes {
-          description
-          prizeId
-          name
-          picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-        }
-        createdAt
-        timer {
-          start
-          end
-        }
-        audience {
-          items {
-            JSONdata
-            id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
-            createdAt
-          }
-          nextToken
-        }
-        participants {
-          items {
-            id
-            participantId
-            nameUser
-            comment
-            avatar
-            createdAt
-          }
-          nextToken
-        }
-        usersSharing {
-          items {
-            id
-            name
-            idUserSharing
-            whereItHasBeenShared
-            createdAt
-            avatar
-          }
-          nextToken
-        }
-        usersLikes {
-          items {
-            id
-            name
-            idUserLike
-            createdAt
-            avatar
-          }
-          nextToken
-        }
-        viewsVideo {
-          items {
-            id
-            name
-            idUserView
-            createdAt
-            avatar
-            dataVideo
-          }
-          nextToken
-        }
-      }
       createdAt
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -3485,6 +3186,7 @@ export const listParticipantss = `query ListParticipantss(
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -3498,17 +3200,17 @@ export const listParticipantss = `query ListParticipantss(
           createdAt
           avatar
           comments
+          edited
         }
-        nextToken
       }
     }
-    nextToken
   }
 }
 `;
 export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
   getLikesToParticipants(id: $id) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -3641,6 +3343,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -3687,6 +3390,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -3705,6 +3409,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -3718,6 +3423,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -3742,6 +3448,7 @@ export const listLikesToParticipantss = `query ListLikesToParticipantss(
   ) {
     items {
       participants {
+        contestId
         id
         participantId
         nameUser
@@ -3833,6 +3540,7 @@ export const listLikesToParticipantss = `query ListLikesToParticipantss(
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -3850,6 +3558,7 @@ export const listLikesToParticipantss = `query ListLikesToParticipantss(
 export const getCommentsToParticipants = `query GetCommentsToParticipants($id: ID!) {
   getCommentsToParticipants(id: $id) {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -3982,6 +3691,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -4028,6 +3738,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -4046,6 +3757,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -4059,6 +3771,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -4069,6 +3782,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;
@@ -4084,6 +3798,7 @@ export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
   ) {
     items {
       participants {
+        contestId
         id
         participantId
         nameUser
@@ -4175,6 +3890,7 @@ export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -4185,6 +3901,7 @@ export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
       createdAt
       avatar
       comments
+      edited
     }
     nextToken
   }

@@ -128,6 +128,7 @@ export const onCreateUser = `subscription OnCreateUser {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -451,6 +452,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -774,6 +776,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -1271,6 +1274,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -1362,6 +1366,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -1863,6 +1868,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -1954,6 +1960,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -2455,6 +2462,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
     }
     participants {
       items {
+        contestId
         id
         participantId
         nameUser
@@ -2546,6 +2554,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             createdAt
             avatar
             comments
+            edited
           }
           nextToken
         }
@@ -2881,6 +2890,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3107,6 +3117,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3333,6 +3344,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3559,6 +3571,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -3785,6 +3798,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4011,6 +4025,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4237,6 +4252,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4462,6 +4478,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4687,6 +4704,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -4913,6 +4931,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5159,6 +5178,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5405,6 +5425,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5517,6 +5538,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
 `;
 export const onCreateParticipants = `subscription OnCreateParticipants {
   onCreateParticipants {
+    contestId
     id
     participantId
     nameUser
@@ -5669,6 +5691,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -5755,6 +5778,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -5798,6 +5822,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -5836,6 +5861,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -5844,6 +5870,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
 `;
 export const onUpdateParticipants = `subscription OnUpdateParticipants {
   onUpdateParticipants {
+    contestId
     id
     participantId
     nameUser
@@ -5996,6 +6023,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -6082,6 +6110,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6125,6 +6154,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6163,6 +6193,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -6171,6 +6202,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
 `;
 export const onDeleteParticipants = `subscription OnDeleteParticipants {
   onDeleteParticipants {
+    contestId
     id
     participantId
     nameUser
@@ -6323,6 +6355,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
       }
       participants {
         items {
+          contestId
           id
           participantId
           nameUser
@@ -6409,6 +6442,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
     likesToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6452,6 +6486,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
     commentsToParticipants {
       items {
         participants {
+          contestId
           id
           participantId
           nameUser
@@ -6490,6 +6525,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         createdAt
         avatar
         comments
+        edited
       }
       nextToken
     }
@@ -6499,6 +6535,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
 export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticipants {
   onCreateLikesToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -6631,6 +6668,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -6677,6 +6715,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6695,6 +6734,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6708,6 +6748,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -6723,6 +6764,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
 export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticipants {
   onUpdateLikesToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -6855,6 +6897,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -6901,6 +6944,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6919,6 +6963,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -6932,6 +6977,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -6947,6 +6993,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
 export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticipants {
   onDeleteLikesToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7079,6 +7126,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7125,6 +7173,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7143,6 +7192,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7156,6 +7206,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7171,6 +7222,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
 export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToParticipants {
   onCreateCommentsToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7303,6 +7355,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7349,6 +7402,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7367,6 +7421,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7380,6 +7435,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7390,12 +7446,14 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;
 export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToParticipants {
   onUpdateCommentsToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7528,6 +7586,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7574,6 +7633,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7592,6 +7652,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7605,6 +7666,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7615,12 +7677,14 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;
 export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToParticipants {
   onDeleteCommentsToParticipants {
     participants {
+      contestId
       id
       participantId
       nameUser
@@ -7753,6 +7817,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
         }
         participants {
           items {
+            contestId
             id
             participantId
             nameUser
@@ -7799,6 +7864,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
       likesToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7817,6 +7883,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
       commentsToParticipants {
         items {
           participants {
+            contestId
             id
             participantId
             nameUser
@@ -7830,6 +7897,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
           createdAt
           avatar
           comments
+          edited
         }
         nextToken
       }
@@ -7840,6 +7908,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
     createdAt
     avatar
     comments
+    edited
   }
 }
 `;

@@ -22,9 +22,11 @@ class LikesParticipations extends Component {
         like: false
     }
 
+    componentDidMount() { this.setState({ like: this.props.item.likesToParticipants.items.length ? true : false }) }
+
     _createLike = async () => {
         const userData = this.props.navigation.getParam('userData')
-        const { contest, item } = this.props
+        const { item, _getParticipation } = this.props
         const like = {
             id: userData.id + item.id,
             name: userData.name,
@@ -35,7 +37,7 @@ class LikesParticipations extends Component {
         }
         try {
             await API.graphql(graphqlOperation(mutations.createLikesToParticipants, { input: like }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            _getParticipation()
         } catch (error) {
             console.log(error)
         }
@@ -43,23 +45,17 @@ class LikesParticipations extends Component {
 
     _deleteLike = async () => {
         const userData = this.props.navigation.getParam('userData')
-        const { item } = this.props
-        const { contest } = this.props
+        const { item, _getParticipation } = this.props
         try {
             await API.graphql(graphqlOperation(mutations.deleteLikesToParticipants, { input: { id: userData.id + item.id } }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            _getParticipation()
         } catch (error) {
             console.log(error)
         }
     }
 
     componentWillReceiveProps(prevProps) {
-        const userData = this.props.navigation.getParam('userData')
-        let thisUserMakeLikeBefore = [];
-        thisUserMakeLikeBefore = prevProps.item.likesToParticipants && prevProps.item.likesToParticipants.items === undefined
-            ? []
-            : prevProps.item.likesToParticipants && prevProps.item.likesToParticipants.items.filter(items => { return items.id.indexOf(userData.id + prevProps.item.id) !== -1 })
-        this.setState({ like: thisUserMakeLikeBefore.length ? true : false })
+        this.setState({ like: prevProps.item.likesToParticipants.items.length ? true : false })
     }
 
     render() {
@@ -71,7 +67,7 @@ class LikesParticipations extends Component {
                 <View style={{ flexDirection: 'row' }}>
                     <Button
                         onLongPress={() => this.setState({ modalAnimated: true })}
-                        onPress={() => { like ? this._deleteLike() : this._createLike(); this.setState({ like: !like }) }}
+                        onPress={() => { this.setState({ like: !like }); like ? this._deleteLike() : this._createLike() }}
                         small iconLeft style={{ maxWidth: 80, backgroundColor: colorsPalette.transparent, right: 3 }}>
                         <Icon name="heart" style={{ color: like ? colorsPalette.heartColor : colorsPalette.gradientGray }} />
                         <Text allowFontScaling={false} style={{ fontSize: wp(3), right: 13, color: like ? colorsPalette.heartColor : colorsPalette.gradientGray }}>{item.likesToParticipants && item.likesToParticipants.items && item.likesToParticipants && item.likesToParticipants.items.length}</Text>
