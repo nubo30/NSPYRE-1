@@ -61,7 +61,7 @@ export default class Statistics extends Component {
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
                                 heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="MaterialCommunityIcons" name="comment" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>COMMENTS</Text></TabHeading>}>
-                                {/* <Tab2 /> */}
+                                <Comments contest={contest} item={item}  _modalAction={this._modalAction}/>
                             </Tab>
                             <Tab
                                 activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
