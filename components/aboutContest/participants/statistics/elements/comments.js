@@ -76,6 +76,8 @@ class Likes extends Component {
                             <ScrollView horizontal>
                                 {heightView.height ?
                                     <BarChart
+                                        withVerticalLabels={true}
+                                        withHorizontalLabels={false}
                                         data={data}
                                         width={screenWidth + (data.datasets[0].data.length > 6 ? (data.datasets[0].data.length * 25) : 0)}
                                         height={heightView.height}

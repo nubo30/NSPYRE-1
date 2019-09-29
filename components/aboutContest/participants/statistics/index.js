@@ -5,14 +5,15 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 import Likes from './elements/likes';
 import Comments from './elements/comments';
+import Share from './elements/share'
 
 import { colorsPalette } from '../../../global/static/colors'
 
 export default class Statistics extends Component {
     state = { modalVisible: false }
 
-    _modalAction = (value) =>{
-        this.setState({modalVisible: value})
+    _modalAction = (value) => {
+        this.setState({ modalVisible: value })
     }
 
     render() {
@@ -54,21 +55,28 @@ export default class Statistics extends Component {
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
                                 heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon name="heart" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>LIKES</Text></TabHeading>}>
-                                <Likes contest={contest} item={item}  _modalAction={this._modalAction}/>
+                                <Likes contest={contest} item={item} _modalAction={this._modalAction} />
                             </Tab>
                             <Tab
                                 activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
                                 heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="MaterialCommunityIcons" name="comment" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>COMMENTS</Text></TabHeading>}>
-                                <Comments contest={contest} item={item}  _modalAction={this._modalAction}/>
+                                <Comments contest={contest} item={item} _modalAction={this._modalAction} />
                             </Tab>
                             <Tab
                                 activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
-                                heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="AntDesign" name="eye" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>VIEWS</Text></TabHeading>}>
-                                {/* <Tab3 /> */}
+                                heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="FontAwesome" name="share" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>SHARES</Text></TabHeading>}>
+                                <Share contest={contest} item={item} _modalAction={this._modalAction} />
+                            </Tab>
+                            <Tab
+                                activeTextStyle={{ color: '#D82B60', fontWeight: 'bold' }}
+                                activeTabStyle={{ backgroundColor: '#F5F5F5' }}
+                                tabStyle={{ backgroundColor: '#F5F5F5' }}
+                                heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="FontAwesome" name="video-camera" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>VIEWS</Text></TabHeading>}>
+                                <Share contest={contest} item={item} _modalAction={this._modalAction} />
                             </Tab>
                         </Tabs>
                     </Container>

@@ -166,6 +166,17 @@ type Participants @model {
   createdAt: AWSDateTime!
   likesToParticipants: [LikesToParticipants] @connection(name:"ParticipantsLikesToParticipants")
   commentsToParticipants: [CommentsToParticipants] @connection(name:"ParticipantsCommentsToParticipants")
+  shareParticipants: [ShareParticipants] @connection(name:"ShareParticipants")
+}
+
+type ShareParticipants @model{
+  participants: Participants @connection(name:"ShareParticipants")
+  id: ID!
+  name: String
+  idUserSharing: String
+  whereItHasBeenShared: [String]
+  createdAt: AWSDateTime
+  avatar: AWSURL
 }
 
 type LikesToParticipants @model {

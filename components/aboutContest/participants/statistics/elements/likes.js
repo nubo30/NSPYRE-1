@@ -75,6 +75,10 @@ class Likes extends Component {
                             <ScrollView horizontal>
                                 {heightView.height ?
                                     <BarChart
+                                        // horizontalLabelRotation={0}
+                                        // verticalLabelRotation={10}
+                                        withVerticalLabels={true}
+                                        withHorizontalLabels={false}
                                         data={data}
                                         width={screenWidth + (data.datasets[0].data.length > 6 ? (data.datasets[0].data.length * 25) : 0)}
                                         height={heightView.height}
@@ -112,7 +116,7 @@ class Likes extends Component {
                                                         </Left>
                                                         <Body style={{ top: 5 }}>
                                                             <Text allowFontScaling={false}>{userData.id === item.users.idUserLike ? "You" : item.users.name}</Text>
-                                                            <Text allowFontScaling={false} note>Liked your post. {moment(item.users.createdAt).calendar()}</Text>
+                                                            <Text allowFontScaling={false} note style={{ fontSize: wp(3), fontWeight: 'normal' }}>Liked your post. {moment(item.users.createdAt).calendar()}</Text>
                                                         </Body>
                                                     </ListItem>
                                                 </List>)}

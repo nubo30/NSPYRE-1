@@ -16,29 +16,29 @@ class SharesParticipations extends Component {
 
     state = { userSharing: {} }
 
-    componentDidMount() {
-        this._isThisUserSharingBefore()
-    }
+    // componentDidMount() {
+    //     this._isThisUserSharingBefore()
+    // }
 
-    _isThisUserSharingBefore = async () => {
-        const userData = this.props.navigation.getParam('userData')
-        const { contest } = this.props
-        try {
-            const response = await API.graphql(graphqlOperation(queries.getUsersSharing, { id: userData.id + contest.id }))
-            this.setState({ userSharing: response.data.getUsersSharing })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // _isThisUserSharingBefore = async () => {
+    //     const userData = this.props.navigation.getParam('userData')
+    //     const { contest } = this.props
+    //     try {
+    //         const response = await API.graphql(graphqlOperation(queries.getUsersSharing, { id: userData.id + contest.id }))
+    //         this.setState({ userSharing: response.data.getUsersSharing })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     _share = async () => {
         const userData = this.props.navigation.getParam('userData')
-        const { contest } = this.props
-        this._isThisUserSharingBefore()
+        const { item } = this.props
+        // this._isThisUserSharingBefore()  
         try {
             const result = await Share.share({
-                message: contest.general.description,
-                title: contest.general.nameOfContest,
+                message: item.comment,
+                title: "Compartido!",
             }, {
                 tintColor: "red",
                 excludedActivityTypes: [
@@ -66,9 +66,18 @@ class SharesParticipations extends Component {
 
             });
 
+            const share = {
+                name: userData.name,
+                idUserSharing: userData.id,
+                whereItHasBeenShared: result.activityType, // aplicacion donde se ha compartido el concurso
+                createdAt: moment().toISOString(),
+                avatar: userData.avatar,
+                shareParticipantsParticipantsId: item.id
+            }
             if (result.action === Share.sharedAction) {
                 if (this.state.userSharing !== null) {
-                  // Se crean modelos en AWS, estos harán referencias al contenido que un usaurio genera cuando comparte la participación
+                    // Se crean modelos en AWS, estos harán referencias al contenido que un usaurio genera cuando comparte la participación
+                    await API.graphql(graphqlOperation(mutations.createShareParticipants, { input: share }))
                 }
             } else if (result.action === Share.dismissedAction) {
                 // dismissed
