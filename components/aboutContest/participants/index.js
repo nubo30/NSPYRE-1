@@ -27,7 +27,8 @@ class Participants extends Component {
     state = {
         // Actions
         isImgLoading: false,
-        participation: []
+        participation: [],
+        actionVideo: false
     }
 
     componentDidMount() {
@@ -67,10 +68,17 @@ class Participants extends Component {
         this._getParticipation()
     }
 
+    _playVideo = (index) => {
+        if (this.state.actionVideo) {
+            this[`ref${index}`].playAsync()
+        } else {
+            this[`ref${index}`].pauseAsync()
+        }
+    }
 
 
     render() {
-        const { isImgLoading, participation } = this.state
+        const { isImgLoading, participation, actionVideo } = this.state
         const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants, navigation } = this.props
         const filterParticipantsList = participation.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
         return (
@@ -101,7 +109,7 @@ class Participants extends Component {
                                 <FlatList
                                     showsVerticalScrollIndicator={false}
                                     data={participation.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })}
-                                    renderItem={({ item }) => (
+                                    renderItem={({ item, index }) => (
                                         <Animatable.View animation="fadeIn" style={{ padding: 10 }}>
                                             <Card>
                                                 <CardItem>
@@ -117,16 +125,34 @@ class Participants extends Component {
                                                 <CardItem>
                                                     <Body>
                                                         {item.picture && item.picture.url === null
-                                                            ? <Video
-                                                                source={{ uri: item.video && item.video.url }}
-                                                                useNativeControls={true}
-                                                                rate={1.0}
-                                                                volume={1.0}
-                                                                isMuted={false}
-                                                                resizeMode="cover"
-                                                                shouldPlay={false}
-                                                                isLooping={false}
-                                                                style={{ width: "109.5%", height: 200, alignSelf: 'center' }} />
+                                                            ? <View style={{ flex: 1, height: "100%", width: "100%", justifyContent: 'center', alignItems: 'center' }}>
+                                                                <Button
+                                                                    transparent
+                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
+                                                                    onPress={() => { this._playVideo(index); }}
+                                                                    style={{ height: "60%", width: "100%", position: 'absolute', zIndex: 1000 }} />
+                                                                <Button
+                                                                    transparent
+                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
+                                                                    onPress={() => { this._playVideo(index); }}
+                                                                    style={{ height: "60%", width: "10%", position: 'absolute', zIndex: 1000, bottom: 0, left: 0 }} />
+                                                                <Button
+                                                                    transparent
+                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
+                                                                    onPress={() => { this._playVideo(index); }}
+                                                                    style={{ height: "20%", width: "70%", position: 'absolute', zIndex: 1000, top: 0 }} />
+                                                                <Video
+                                                                    ref={r => this[`ref${index}`] = r}
+                                                                    source={{ uri: item.video && item.video.url }}
+                                                                    useNativeControls={true}
+                                                                    rate={1.0}
+                                                                    volume={1.0}
+                                                                    isMuted={false}
+                                                                    resizeMode="cover"
+                                                                    shouldPlay={false}
+                                                                    isLooping={false}
+                                                                    style={{ width: "109.5%", height: 200, alignSelf: 'center' }} />
+                                                            </View>
                                                             : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "109.5%", flex: 1, alignSelf: 'center' }} />}
                                                         <View style={{ top: 10 }}>
                                                             <ReadMore numberOfLines={6}>

@@ -6,6 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Likes from './elements/likes';
 import Comments from './elements/comments';
 import Share from './elements/share'
+import ViewsVideos from './elements/views'
 
 import { colorsPalette } from '../../../global/static/colors'
 
@@ -76,7 +77,7 @@ export default class Statistics extends Component {
                                 activeTabStyle={{ backgroundColor: '#F5F5F5' }}
                                 tabStyle={{ backgroundColor: '#F5F5F5' }}
                                 heading={<TabHeading style={{ backgroundColor: colorsPalette.secondaryColor }}><Icon type="FontAwesome" name="video-camera" style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }} /><Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>VIEWS</Text></TabHeading>}>
-                                <Share contest={contest} item={item} _modalAction={this._modalAction} />
+                                <ViewsVideos contest={contest} item={item} _modalAction={this._modalAction} />
                             </Tab>
                         </Tabs>
                     </Container>
