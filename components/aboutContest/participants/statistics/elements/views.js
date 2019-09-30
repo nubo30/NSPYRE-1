@@ -34,6 +34,7 @@ class ViewsVideos extends Component {
         clearDaysCount: [],
         usersViews: [],
         dataPerUSers: {},
+        dataUserShow: {},
         durationInVideoData: {
             labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
             datasets: [{
@@ -142,7 +143,6 @@ class ViewsVideos extends Component {
 
     _showDataPerUser = (item) => {
         const { contest } = this.props
-
         const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
         let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
@@ -192,6 +192,7 @@ class ViewsVideos extends Component {
             }
         })
         this.setState({
+            dataUserShow: item,
             dataPerUSers, durationInVideoDataUser: {
                 labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
                 datasets: [{
@@ -203,9 +204,16 @@ class ViewsVideos extends Component {
         })
     }
 
+    _graphToClear = () => {
+        less20User = 0
+        between20_40User = 0
+        between40_80User = 0
+        between80_100User = 0
+    }
+
     render() {
         const userData = this.props.navigation.getParam('userData')
-        const { heightView, clearDaysCount, durationInVideoData, usersViews, modalUsers, dataListByDay, dataPerUSers, durationInVideoDataUser } = this.state
+        const { heightView, clearDaysCount, durationInVideoData, usersViews, modalUsers, dataListByDay, dataPerUSers, durationInVideoDataUser, dataUserShow } = this.state
         const { item } = this.props
         return (
             <Swiper
@@ -312,113 +320,116 @@ class ViewsVideos extends Component {
                                                 </Body>
                                             </ListItem>
                                         </List>
-                                        <ModalAnimated
-                                            onSwipeComplete={() => this.setState({ modalUsers: false })}
-                                            swipeDirection={['left', 'right', 'down']}
-                                            isVisible={modalUsers}
-                                            style={{ justifyContent: 'flex-end', margin: 0 }}>
-                                            <Root>
-                                                <View style={{
-                                                    backgroundColor: colorsPalette.secondaryColor,
-                                                    justifyContent: 'center',
-                                                    borderTopStartRadius: 10,
-                                                    borderTopEndRadius: 10,
-                                                    borderColor: 'rgba(0, 0, 0, 0.3)',
-                                                    flex: 1,
-                                                    minHeight: 600,
-                                                    maxHeight: 600,
-                                                    position: 'absolute',
-                                                    bottom: 0,
-                                                    width: '100%'
-                                                }}>
-                                                    <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
-                                                        <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
-                                                            <Left>
-                                                                <Button transparent onPress={() => this.setState({ modalUsers: false })}>
-                                                                    <Text
-                                                                        allowFontScaling={false}
-                                                                        minimumFontScale={wp(4)}
-                                                                        style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
-                                                                </Button>
-                                                            </Left>
-                                                            <Body>
-                                                                <Title style={{ top: -10 }}>About the user</Title>
-                                                            </Body>
-                                                            <Right />
-                                                        </Header>
-                                                        <Grid>
-                                                            <Row size={10} style={{ flexDirection: 'column' }}>
-                                                                <List>
-                                                                    <ListItem thumbnail>
-                                                                        <Left>
-                                                                            <Thumbnail source={{ uri: item.users.avatar }} />
-                                                                        </Left>
-                                                                        <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                                                            <Text>{item.users.name}</Text>
-                                                                            <Text allowFontScaling={false} note style={{ fontSize: wp(3), fontWeight: 'normal', color: "#3333" }}>This user has watched the video {item.count} times.</Text>
-                                                                        </Body>
-                                                                    </ListItem>
-                                                                </List>
-                                                            </Row>
-                                                            <Row size={5} style={{ flexDirection: 'column' }}>
-                                                                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center' }}>Views are listed by days</Text>
-                                                            </Row>
-                                                            <Row size={42.5}>
-                                                                <View style={{ backgroundColor: '#FFF', height: 185, width: 46, position: 'absolute', zIndex: 1000, left: 0, top: 0 }} />
-                                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                                                    {Object.keys(dataPerUSers).length !== 0
-                                                                        ? <BarChart
-                                                                            withVerticalLabels={true}
-                                                                            withHorizontalLabels={false}
-                                                                            data={dataPerUSers}
-                                                                            width={screenWidth + (dataPerUSers.datasets[0].data.length > 6 ? (dataPerUSers.datasets[0].data.length * 25) : 0)}
-                                                                            height={220}
-                                                                            style={{ left: -35 }}
-                                                                            chartConfig={{
-                                                                                decimalPlaces: 0, // optional, defaults to 2dp
-                                                                                backgroundGradientFrom: '#FFF',
-                                                                                backgroundGradientTo: '#FFF',
-                                                                                backgroundGradientFromOpacity: 0,
-                                                                                backgroundGradientToOpacity: 0,
-                                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                                                                strokeWidth: 0 // optional, default 3
-                                                                            }} /> : null}
-                                                                </ScrollView>
-                                                            </Row>
-                                                            <Row size={42.5} style={{ flexDirection: 'column' }}>
-                                                                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center', top: -10 }}>Stopped video</Text>
-                                                                <View style={{ backgroundColor: '#FFF', height: 200, width: 46, position: 'absolute', zIndex: 1000, right: 0, top: 0 }} />
-                                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                                                    {Object.keys(dataPerUSers).length !== 0
-                                                                        ? <LineChart
-                                                                            withVerticalLabels={true}
-                                                                            withHorizontalLabels={false}
-                                                                            data={durationInVideoDataUser}
-                                                                            width={screenWidth + 50}
-                                                                            height={220}
-                                                                            style={{ left: -10 }}
-                                                                            chartConfig={{
-                                                                                decimalPlaces: 0, // optional, defaults to 2dp
-                                                                                backgroundGradientFrom: '#FFF',
-                                                                                backgroundGradientTo: '#FFF',
-                                                                                backgroundGradientFromOpacity: 0,
-                                                                                backgroundGradientToOpacity: 0,
-                                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                                                                strokeWidth: 0 // optional, default 3
-                                                                            }} />
-                                                                        : null}
-                                                                </ScrollView>
-                                                            </Row>
-                                                        </Grid>
-                                                    </Container>
-                                                </View>
-                                            </Root>
-                                        </ModalAnimated>
-
                                     </View>
                                 )}
                                 keyExtractor={item => JSON.stringify(item)} />
                         </Row>
+                        <ModalAnimated
+                            onSwipeComplete={() => { this._graphToClear(); this.setState({ modalUsers: false }) }}
+                            swipeDirection={['left', 'right', 'down']}
+                            isVisible={modalUsers}
+                            style={{ justifyContent: 'flex-end', margin: 0 }}>
+                            <Root>
+                                <View style={{
+                                    backgroundColor: colorsPalette.secondaryColor,
+                                    justifyContent: 'center',
+                                    borderTopStartRadius: 10,
+                                    borderTopEndRadius: 10,
+                                    borderColor: 'rgba(0, 0, 0, 0.3)',
+                                    flex: 1,
+                                    minHeight: 600,
+                                    maxHeight: 600,
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    width: '100%'
+                                }}>
+                                    <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                                        <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                                            <Left>
+                                                <Button transparent
+                                                    onPress={() => { this.setState({ modalUsers: false }); this._graphToClear() }}>
+                                                    <Text
+                                                        allowFontScaling={false}
+                                                        minimumFontScale={wp(4)}
+                                                        style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
+                                                </Button>
+                                            </Left>
+                                            <Body>
+                                                <Title style={{ top: -10 }}>About the user</Title>
+                                            </Body>
+                                            <Right />
+                                        </Header>
+                                        <Grid>
+                                            <Row size={10} style={{ flexDirection: 'column' }}>
+                                                {Object.keys(dataUserShow).length !== 0 ?
+                                                    <List>
+                                                        <ListItem thumbnail>
+                                                            <Left>
+                                                                <Thumbnail source={{ uri: dataUserShow.users.avatar }} />
+                                                            </Left>
+                                                            <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                                                                <Text>{dataUserShow.users.name}</Text>
+                                                                <Text allowFontScaling={false} note style={{ fontSize: wp(3), fontWeight: 'normal', color: "#3333" }}>This user has watched the video {dataUserShow.count} times.</Text>
+                                                            </Body>
+                                                        </ListItem>
+                                                    </List>
+                                                    : null}
+                                            </Row>
+                                            <Row size={5} style={{ flexDirection: 'column' }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center' }}>Views are listed by days</Text>
+                                            </Row>
+                                            <Row size={42.5}>
+                                                <View style={{ backgroundColor: '#FFF', height: 185, width: 46, position: 'absolute', zIndex: 1000, left: 0, top: 0 }} />
+                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                                                    {Object.keys(dataPerUSers).length !== 0
+                                                        ? <BarChart
+                                                            withVerticalLabels={true}
+                                                            withHorizontalLabels={false}
+                                                            data={dataPerUSers}
+                                                            width={screenWidth + (dataPerUSers.datasets[0].data.length > 6 ? (dataPerUSers.datasets[0].data.length * 25) : 0)}
+                                                            height={220}
+                                                            style={{ left: -35 }}
+                                                            chartConfig={{
+                                                                decimalPlaces: 0, // optional, defaults to 2dp
+                                                                backgroundGradientFrom: '#FFF',
+                                                                backgroundGradientTo: '#FFF',
+                                                                backgroundGradientFromOpacity: 0,
+                                                                backgroundGradientToOpacity: 0,
+                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
+                                                                strokeWidth: 0 // optional, default 3
+                                                            }} /> : null}
+                                                </ScrollView>
+                                            </Row>
+                                            <Row size={42.5} style={{ flexDirection: 'column' }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center', top: -10 }}>Stopped video</Text>
+                                                <View style={{ backgroundColor: '#FFF', height: 200, width: 46, position: 'absolute', zIndex: 1000, right: 0, top: 0 }} />
+                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                                                    {Object.keys(dataPerUSers).length !== 0
+                                                        ? <LineChart
+                                                            withVerticalLabels={true}
+                                                            withHorizontalLabels={false}
+                                                            data={durationInVideoDataUser}
+                                                            width={screenWidth + 50}
+                                                            height={220}
+                                                            style={{ left: -10 }}
+                                                            chartConfig={{
+                                                                decimalPlaces: 0, // optional, defaults to 2dp
+                                                                backgroundGradientFrom: '#FFF',
+                                                                backgroundGradientTo: '#FFF',
+                                                                backgroundGradientFromOpacity: 0,
+                                                                backgroundGradientToOpacity: 0,
+                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
+                                                                strokeWidth: 0 // optional, default 3
+                                                            }} />
+                                                        : null}
+                                                </ScrollView>
+                                            </Row>
+                                        </Grid>
+                                    </Container>
+                                </View>
+                            </Root>
+                        </ModalAnimated>
+
                     </Grid>
 
                 </Container>

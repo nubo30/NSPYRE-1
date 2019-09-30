@@ -25,7 +25,7 @@ class Likes extends Component {
 
         */
 
-        const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
         let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
         let weekdays = [] // Días de la semana
@@ -33,7 +33,7 @@ class Likes extends Component {
         while (startDay <= endDay) {
             weekdays.push(DAYS[startDay.getDay()])
             startDay = new Date(startDay.getTime() + (24 * 60 * 60 * 1000)); // Días en formato date
-            arrayNumberdays.push(startDay.getDate() - 1); // Días en formato date        
+            arrayNumberdays.push(startDay.getDate()); // Días en formato date        
         }
         const map = item.commentsToParticipants.items && item.commentsToParticipants.items
             .map(item => new Date(item.createdAt).getDate())

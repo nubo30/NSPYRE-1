@@ -181,7 +181,7 @@ class Comments extends Component {
                                                                     onPress: () => { },
                                                                     style: 'cancel',
                                                                 },
-                                                                { text: 'OK', onPress: () => { this.setState({ isLoading: true }); this._deleteComment(item) } },
+                                                                { text: 'OK', onPress: () => this._deleteComment(item) },
                                                             ],
                                                             { cancelable: false },
                                                         )}>
