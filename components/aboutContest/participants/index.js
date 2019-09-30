@@ -20,8 +20,11 @@ import UpdateParticipant from './updateParticipant'
 import ButtonShare from './share'
 
 // AWS
-import * as queries from '../../../src/graphql/queries'
+import * as queries from '../../../src/graphql/customQueries'
 import * as subscriptions from '../../../src/graphql/subscriptions'
+import * as mutations from '../../../src/graphql/mutations'
+
+let fullscreenVideo = 0
 
 class Participants extends Component {
     state = {
@@ -52,6 +55,7 @@ class Participants extends Component {
                 this._getParticipation()
             }
         })
+
     }
 
     _getParticipation = async () => {
@@ -68,14 +72,79 @@ class Participants extends Component {
         this._getParticipation()
     }
 
-    _playVideo = (index) => {
-        if (this.state.actionVideo) {
-            this[`ref${index}`].playAsync()
+    _onPlaybackStatusUpdate = async (playbackStatus, index, item) => {
+        const userData = this.props.navigation.getParam('userData')
+        const views = {
+            participantsId: item.participantId,
+            name: userData.name,
+            idUserView: userData.id,
+            uri: item.video.url,
+            didJustFinish: playbackStatus.durationMillis === playbackStatus.positionMillis ? true : false,
+            durationMillis: playbackStatus.durationMillis,
+            positionMillis: playbackStatus.positionMillis,
+            isPaused: playbackStatus.durationMillis !== playbackStatus.positionMillis ? true : false,
+            createdAt: moment().toISOString(),
+            avatar: userData.avatar,
+            viewsParticipantsParticipantsId: item.id
+        }
+
+        if (!playbackStatus.isLoaded) {
+            // Update your UI for the unloaded state
+            if (playbackStatus.error) {
+                console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
+                // Send Expo team the error on Slack or the forums so we can help you debug!
+            }
         } else {
-            this[`ref${index}`].pauseAsync()
+            // Update your UI for the loaded state
+            if (playbackStatus.isPlaying) {
+                if (fullscreenVideo++ === 1) { await this[`ref${index}`].presentFullscreenPlayer() }
+            } else {
+                if (fullscreenVideo > 1) { fullscreenVideo = 0 }
+            }
+
+            if (playbackStatus.isBuffering) {
+                // Update your UI for the buffering state
+                // console.log('El vieeo esta en el buffer')
+            }
+
+            if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+                // The player has just finished playing and will stop. Maybe you want to play something else?
+                try {
+                    await API.graphql(graphqlOperation(mutations.createViewsParticipants, { input: views }))
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+        }
+    };
+
+    _durationVideo = async (data, index, item) => {
+        if (data.fullscreenUpdate === 3) {
+            if (data.status.positionMillis >= 3000) {
+                const userData = this.props.navigation.getParam('userData')
+                const views = {
+                    participantsId: item.participantId,
+                    name: userData.name,
+                    idUserView: userData.id,
+                    uri: item.video.url,
+                    didJustFinish: data.status.durationMillis === data.status.positionMillis ? true : false,
+                    durationMillis: data.status.durationMillis,
+                    positionMillis: data.status.positionMillis,
+                    isPaused: data.status.durationMillis !== data.status.positionMillis ? true : false,
+                    createdAt: moment().toISOString(),
+                    avatar: userData.avatar,
+                    viewsParticipantsParticipantsId: item.id
+                }
+                try {
+                    await API.graphql(graphqlOperation(mutations.createViewsParticipants, { input: views }))
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            this[`ref${index}`].stopAsync()
         }
     }
-
 
     render() {
         const { isImgLoading, participation, actionVideo } = this.state
@@ -126,22 +195,9 @@ class Participants extends Component {
                                                     <Body>
                                                         {item.picture && item.picture.url === null
                                                             ? <View style={{ flex: 1, height: "100%", width: "100%", justifyContent: 'center', alignItems: 'center' }}>
-                                                                <Button
-                                                                    transparent
-                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
-                                                                    onPress={() => { this._playVideo(index); }}
-                                                                    style={{ height: "60%", width: "100%", position: 'absolute', zIndex: 1000 }} />
-                                                                <Button
-                                                                    transparent
-                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
-                                                                    onPress={() => { this._playVideo(index); }}
-                                                                    style={{ height: "60%", width: "10%", position: 'absolute', zIndex: 1000, bottom: 0, left: 0 }} />
-                                                                <Button
-                                                                    transparent
-                                                                    onPressIn={() => this.setState({ actionVideo: !this.state.actionVideo })}
-                                                                    onPress={() => { this._playVideo(index); }}
-                                                                    style={{ height: "20%", width: "70%", position: 'absolute', zIndex: 1000, top: 0 }} />
                                                                 <Video
+                                                                    onFullscreenUpdate={(s) => this._durationVideo(s, index, item)}
+                                                                    onPlaybackStatusUpdate={(s) => this._onPlaybackStatusUpdate(s, index, item)}
                                                                     ref={r => this[`ref${index}`] = r}
                                                                     source={{ uri: item.video && item.video.url }}
                                                                     useNativeControls={true}
@@ -152,6 +208,7 @@ class Participants extends Component {
                                                                     shouldPlay={false}
                                                                     isLooping={false}
                                                                     style={{ width: "109.5%", height: 200, alignSelf: 'center' }} />
+                                                                <Button transparent style={{ width: 80, height: 50, position: 'absolute', top: 0, left: -15 }} />
                                                             </View>
                                                             : <Image source={{ uri: item.picture && item.picture.url }} style={{ height: 200, width: "109.5%", flex: 1, alignSelf: 'center' }} />}
                                                         <View style={{ top: 10 }}>

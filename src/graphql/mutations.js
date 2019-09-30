@@ -1381,6 +1381,22 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           }
           nextToken
         }
+        viewsParticipants {
+          items {
+            participantsId
+            id
+            name
+            idUserView
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
+            createdAt
+            avatar
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -1981,6 +1997,22 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             name
             idUserSharing
             whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsParticipants {
+          items {
+            participantsId
+            id
+            name
+            idUserView
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
             createdAt
             avatar
           }
@@ -2591,6 +2623,22 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           }
           nextToken
         }
+        viewsParticipants {
+          items {
+            participantsId
+            id
+            name
+            idUserView
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
+            createdAt
+            avatar
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -2958,6 +3006,9 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -3186,6 +3237,9 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -3418,6 +3472,9 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -3646,6 +3703,9 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -3878,6 +3938,9 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -4106,6 +4169,9 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -4338,6 +4404,9 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -4565,6 +4634,9 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -4796,6 +4868,9 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -5024,6 +5099,9 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -5276,6 +5354,9 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -5524,6 +5605,9 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -5795,6 +5879,9 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -5885,6 +5972,9 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
@@ -5930,6 +6020,9 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -5981,11 +6074,70 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
         idUserSharing
         whereItHasBeenShared
+        createdAt
+        avatar
+      }
+      nextToken
+    }
+    viewsParticipants {
+      items {
+        participants {
+          contestId
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+          shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
+            nextToken
+          }
+        }
+        participantsId
+        id
+        name
+        idUserView
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
         createdAt
         avatar
       }
@@ -6184,6 +6336,9 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -6274,6 +6429,9 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
@@ -6319,6 +6477,9 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -6370,11 +6531,70 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
         idUserSharing
         whereItHasBeenShared
+        createdAt
+        avatar
+      }
+      nextToken
+    }
+    viewsParticipants {
+      items {
+        participants {
+          contestId
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+          shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
+            nextToken
+          }
+        }
+        participantsId
+        id
+        name
+        idUserView
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
         createdAt
         avatar
       }
@@ -6573,6 +6793,9 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         nextToken
       }
@@ -6663,6 +6886,9 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
@@ -6708,6 +6934,9 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             nextToken
           }
           shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
             nextToken
           }
         }
@@ -6759,6 +6988,9 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           shareParticipants {
             nextToken
           }
+          viewsParticipants {
+            nextToken
+          }
         }
         id
         name
@@ -6769,6 +7001,902 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
       }
       nextToken
     }
+    viewsParticipants {
+      items {
+        participants {
+          contestId
+          id
+          participantId
+          nameUser
+          comment
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          avatar
+          contest {
+            id
+            category
+            createdAt
+          }
+          createdAt
+          likesToParticipants {
+            nextToken
+          }
+          commentsToParticipants {
+            nextToken
+          }
+          shareParticipants {
+            nextToken
+          }
+          viewsParticipants {
+            nextToken
+          }
+        }
+        participantsId
+        id
+        name
+        idUserView
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
+        createdAt
+        avatar
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createViewsParticipants = `mutation CreateViewsParticipants($input: CreateViewsParticipantsInput!) {
+  createViewsParticipants(input: $input) {
+    participants {
+      contestId
+      id
+      participantId
+      nameUser
+      comment
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      avatar
+      contest {
+        id
+        user {
+          tokenfb
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+          notificationToken
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
+        category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+        timer {
+          start
+          end
+        }
+        audience {
+          items {
+            JSONdata
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            occupation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
+        usersSharing {
+          items {
+            id
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsVideo {
+          items {
+            id
+            name
+            idUserView
+            createdAt
+            avatar
+            dataVideo
+          }
+          nextToken
+        }
+      }
+      createdAt
+      likesToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+          edited
+        }
+        nextToken
+      }
+      shareParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    participantsId
+    id
+    name
+    idUserView
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
+    createdAt
+    avatar
+  }
+}
+`;
+export const updateViewsParticipants = `mutation UpdateViewsParticipants($input: UpdateViewsParticipantsInput!) {
+  updateViewsParticipants(input: $input) {
+    participants {
+      contestId
+      id
+      participantId
+      nameUser
+      comment
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      avatar
+      contest {
+        id
+        user {
+          tokenfb
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+          notificationToken
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
+        category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+        timer {
+          start
+          end
+        }
+        audience {
+          items {
+            JSONdata
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            occupation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
+        usersSharing {
+          items {
+            id
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsVideo {
+          items {
+            id
+            name
+            idUserView
+            createdAt
+            avatar
+            dataVideo
+          }
+          nextToken
+        }
+      }
+      createdAt
+      likesToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+          edited
+        }
+        nextToken
+      }
+      shareParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    participantsId
+    id
+    name
+    idUserView
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
+    createdAt
+    avatar
+  }
+}
+`;
+export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input: DeleteViewsParticipantsInput!) {
+  deleteViewsParticipants(input: $input) {
+    participants {
+      contestId
+      id
+      participantId
+      nameUser
+      comment
+      video {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      picture {
+        localUrl
+        url
+        name
+        type
+        blob
+      }
+      avatar
+      contest {
+        id
+        user {
+          tokenfb
+          id
+          userId
+          name
+          username
+          lastname
+          email
+          avatar
+          phone
+          datetime
+          scope
+          createContest {
+            nextToken
+          }
+          submitPrize {
+            nextToken
+          }
+          engage {
+            nextToken
+          }
+          coins
+          notificationToken
+        }
+        aboutTheUser {
+          companyName
+          location {
+            city
+            country
+            state
+            street
+          }
+          titleInTheCompany
+        }
+        category
+        general {
+          description
+          instructions
+          nameOfContest
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        prizes {
+          description
+          prizeId
+          name
+          picture {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+          video {
+            localUrl
+            url
+            name
+            type
+            blob
+          }
+        }
+        createdAt
+        timer {
+          start
+          end
+        }
+        audience {
+          items {
+            JSONdata
+            id
+            genders
+            ages
+            categoryContest
+            countries
+            nacionalities
+            regionalIdentity
+            sexualities
+            maritalStatus
+            academicLevelAchieved
+            schools
+            universities
+            musicalGenre
+            sports
+            parentalCondition
+            amountOfChildren
+            amountOfSimblings
+            politicalPeople
+            peopleWhoVote
+            occupation
+            socioeconomicLevel
+            rentOrOwnHouse
+            rentOrOwnCar
+            categoryPrizes
+            createdAt
+          }
+          nextToken
+        }
+        participants {
+          items {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          nextToken
+        }
+        usersSharing {
+          items {
+            id
+            name
+            idUserSharing
+            whereItHasBeenShared
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        usersLikes {
+          items {
+            id
+            name
+            idUserLike
+            createdAt
+            avatar
+          }
+          nextToken
+        }
+        viewsVideo {
+          items {
+            id
+            name
+            idUserView
+            createdAt
+            avatar
+            dataVideo
+          }
+          nextToken
+        }
+      }
+      createdAt
+      likesToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserLike
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      commentsToParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserComments
+          createdAt
+          avatar
+          comments
+          edited
+        }
+        nextToken
+      }
+      shareParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          id
+          name
+          idUserSharing
+          whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+    }
+    participantsId
+    id
+    name
+    idUserView
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
+    createdAt
+    avatar
   }
 }
 `;
@@ -7007,6 +8135,31 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
           createdAt
           avatar
         }
@@ -7262,6 +8415,31 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
         }
         nextToken
       }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
     }
     id
     name
@@ -7507,6 +8685,31 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
           createdAt
           avatar
         }
@@ -7762,6 +8965,31 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
         }
         nextToken
       }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
     }
     id
     name
@@ -8006,6 +9234,31 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
           createdAt
           avatar
         }
@@ -8260,6 +9513,31 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
         }
         nextToken
       }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
     }
     id
     name
@@ -8506,6 +9784,31 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
           createdAt
           avatar
         }
@@ -8764,6 +10067,31 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
         }
         nextToken
       }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
+          createdAt
+          avatar
+        }
+        nextToken
+      }
     }
     id
     name
@@ -9012,6 +10340,31 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
           name
           idUserSharing
           whereItHasBeenShared
+          createdAt
+          avatar
+        }
+        nextToken
+      }
+      viewsParticipants {
+        items {
+          participants {
+            contestId
+            id
+            participantId
+            nameUser
+            comment
+            avatar
+            createdAt
+          }
+          participantsId
+          id
+          name
+          idUserView
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
           createdAt
           avatar
         }

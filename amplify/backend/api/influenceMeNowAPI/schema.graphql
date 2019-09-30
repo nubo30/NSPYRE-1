@@ -167,7 +167,24 @@ type Participants @model {
   likesToParticipants: [LikesToParticipants] @connection(name:"ParticipantsLikesToParticipants")
   commentsToParticipants: [CommentsToParticipants] @connection(name:"ParticipantsCommentsToParticipants")
   shareParticipants: [ShareParticipants] @connection(name:"ShareParticipants")
+  viewsParticipants: [ViewsParticipants] @connection(name:"ViewsParticipants")
 }
+
+type ViewsParticipants @model{
+  participants: Participants @connection(name:"ViewsParticipants")
+  participantsId: ID!
+  id: ID!
+  name: String
+  idUserView: String
+  uri: AWSURL
+  didJustFinish: Boolean
+  durationMillis: Int
+  positionMillis: Int
+  isPaused: Boolean
+  createdAt: AWSDateTime
+  avatar: AWSURL
+}
+
 
 type ShareParticipants @model{
   participants: Participants @connection(name:"ShareParticipants")
