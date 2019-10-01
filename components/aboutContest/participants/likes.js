@@ -22,7 +22,10 @@ class LikesParticipations extends Component {
         like: false
     }
 
-    componentDidMount() { this.setState({ like: this.props.item.likesToParticipants.items.length ? true : false }) }
+    componentDidMount() {
+        const userData = this.props.navigation.getParam('userData')
+        this.setState({ like: this.props.item.likesToParticipants.items.filter(item => item.idUserLike.indexOf(userData.id) !== -1).length ? true : false })
+    }
 
     _createLike = async () => {
         const userData = this.props.navigation.getParam('userData')
@@ -55,7 +58,8 @@ class LikesParticipations extends Component {
     }
 
     componentWillReceiveProps(prevProps) {
-        this.setState({ like: prevProps.item.likesToParticipants.items.length ? true : false })
+        const userData = this.props.navigation.getParam('userData')
+        this.setState({ like: prevProps.item.likesToParticipants.items.filter(item => item.idUserLike.indexOf(userData.id) !== -1).length ? true : false })
     }
 
     render() {
