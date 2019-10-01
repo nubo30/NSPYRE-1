@@ -166,7 +166,11 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -490,7 +494,11 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -814,7 +822,11 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -1587,7 +1599,11 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -2208,7 +2224,11 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -2829,7 +2849,11 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -3055,7 +3079,11 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3065,7 +3093,11 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3288,7 +3320,11 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3298,7 +3334,11 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3521,7 +3561,11 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3531,7 +3575,11 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3754,7 +3802,11 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3987,7 +4039,11 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4220,7 +4276,11 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4453,7 +4513,11 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4685,7 +4749,11 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4917,7 +4985,11 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5150,7 +5222,11 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5403,7 +5479,11 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5656,7 +5736,11 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5928,7 +6012,11 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -6385,7 +6473,11 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -6842,7 +6934,11 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -7234,7 +7330,11 @@ export const createViewsParticipants = `mutation CreateViewsParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -7514,7 +7614,11 @@ export const updateViewsParticipants = `mutation UpdateViewsParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -7794,7 +7898,11 @@ export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8074,7 +8182,11 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8349,7 +8461,11 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8624,7 +8740,11 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8899,7 +9019,11 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9173,7 +9297,11 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9447,7 +9575,11 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9723,7 +9855,11 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -10001,7 +10137,11 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -10279,7 +10419,11 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }

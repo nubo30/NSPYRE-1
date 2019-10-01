@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import { Text, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
-import { LineChart } from 'react-native-chart-kit'
+import { BarChart } from 'react-native-chart-kit'
 
 import { colorsPalette } from '../../../../global/static/colors'
 
@@ -18,18 +18,10 @@ const chartConfig = {
 }
 
 export default class ChartLineChart extends Component {
-    state = { heightView: 0, weekdays: [], arrayDataLenght: [] }
+    state = { heightView: 0, data: [] }
 
-    render() {
-        const { heightView } = this.state
+    componentDidMount() {
         const { contest } = this.props
-        /*
-        
-            Se obtienen los días de la semana entre el intervalo de la fecha inicial
-            y la fecha final del concurso (Contador).
-
-        */
-
         const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
         let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
@@ -68,25 +60,42 @@ export default class ChartLineChart extends Component {
                 decimalPlaces: -1,
             }]
         }
+        this.setState({ data })
+    }
+
+    render() {
+        const { heightView, data } = this.state
+        /*
+        
+            Se obtienen los días de la semana entre el intervalo de la fecha inicial
+            y la fecha final del concurso (Contador).
+
+        */
 
 
         return (
             <View
-                onLayout={(event) => { this.setState({ heightView: { height } = event.nativeEvent.layout }) }}
-                style={{ justifyContent: 'center', alignItems: 'center', height: "100%", right: 10 }}>
-                {heightView.height
-                    ? <LineChart
-                        data={data}
-                        width={screenWidth - 10}
-                        height={heightView.height - 40}
-                        chartConfig={chartConfig}
-                        bezier
-                        withDots={true}
-                        withVerticalLabels={false}
-                        withHorizontalLabels={false}
-                        fromZero={true}
-                    /> : null}
-                <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.primaryColor }}>Total Likes: {contest.usersLikes && contest.usersLikes.items.length}</Text>
+                style={{ alignItems: 'center', justifyContent: 'center', right: 10, flex: 1 }}
+                onLayout={(event) => { this.setState({ heightView: { height } = event.nativeEvent.layout }) }}>
+                <View style={{ backgroundColor: '#FFF', height: '100%', width: 35, position: 'absolute', zIndex: 1000, left: 0 }} />
+                <ScrollView horizontal>
+                    {heightView.height ?
+                        <BarChart
+                            withVerticalLabels={true}
+                            withHorizontalLabels={false}
+                            data={data}
+                            width={screenWidth + (data.datasets[0].data.length > 6 ? (data.datasets[0].data.length * 25) : 0)}
+                            height={heightView.height}
+                            chartConfig={{
+                                decimalPlaces: 0, // optional, defaults to 2dp
+                                backgroundGradientFrom: '#FFF',
+                                backgroundGradientTo: '#FFF',
+                                backgroundGradientFromOpacity: 0,
+                                backgroundGradientToOpacity: 0,
+                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
+                                strokeWidth: 0 // optional, default 3
+                            }} /> : null}
+                </ScrollView>
             </View>
         );
     }

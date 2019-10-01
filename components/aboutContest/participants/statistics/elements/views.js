@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, ScrollView, FlatList } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Thumbnail, Root } from 'native-base';
+import { Container, Header, Title, Button, Left, Right, Body, Text, View, List, ListItem, Thumbnail, Root } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { BarChart, LineChart } from 'react-native-chart-kit'
@@ -126,7 +126,10 @@ class ViewsVideos extends Component {
             .groupBy('id').values().map((group) => ({ ...group[0], count: group.length, group }));
 
         this.setState({
-            usersViews, dataListByDay, clearDaysCount, durationInVideoData: {
+            usersViews,
+            dataListByDay,
+            clearDaysCount,
+            durationInVideoData: {
                 labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
                 datasets: [{
                     data: [less20, between20_40, between40_80, between80_100],
@@ -431,7 +434,6 @@ class ViewsVideos extends Component {
                         </ModalAnimated>
 
                     </Grid>
-
                 </Container>
             </Swiper>
         );

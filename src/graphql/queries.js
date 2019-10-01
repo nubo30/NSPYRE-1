@@ -178,7 +178,11 @@ export const getUser = `query GetUser($id: ID!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -1119,7 +1123,11 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -1349,7 +1357,11 @@ export const listCreateContests = `query ListCreateContests(
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -1577,7 +1589,11 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -1587,7 +1603,11 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -1749,7 +1769,11 @@ export const listViewsVideos = `query ListViewsVideos(
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -1759,7 +1783,11 @@ export const listViewsVideos = `query ListViewsVideos(
       idUserView
       createdAt
       avatar
-      dataVideo
+      uri
+      didJustFinish
+      durationMillis
+      positionMillis
+      isPaused
     }
     nextToken
   }
@@ -1984,7 +2012,11 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -2156,7 +2188,11 @@ export const listUsersSharings = `query ListUsersSharings(
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -2391,7 +2427,11 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -2562,7 +2602,11 @@ export const listUsersLikess = `query ListUsersLikess(
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -2797,7 +2841,11 @@ export const getAudience = `query GetAudience($id: ID!) {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -2989,7 +3037,11 @@ export const listAudiences = `query ListAudiences(
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -3263,7 +3315,11 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3659,7 +3715,11 @@ export const listParticipantss = `query ListParticipantss(
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -3725,7 +3785,7 @@ export const listParticipantss = `query ListParticipantss(
         }
         nextToken
       }
-      viewsParticipants (limit: 10000) {
+      viewsParticipants {
         items {
           participants {
             contestId
@@ -3929,7 +3989,11 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -4361,7 +4425,11 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -4783,7 +4851,11 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -5203,7 +5275,11 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }

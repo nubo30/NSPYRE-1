@@ -34,7 +34,11 @@ class AssociatedContest extends Component {
                                         timer: null,
                                         user: {
                                             id: item.contestData.Item.createContestUserId
-                                        }, participants: {
+                                        },
+                                        participants: {
+                                            items: []
+                                        },
+                                        usersLikes: {
                                             items: []
                                         }
                                     }),

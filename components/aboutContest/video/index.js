@@ -9,115 +9,112 @@ import moment from 'moment'
 import * as queries from '../../../src/graphql/queries'
 import * as mutations from '../../../src/graphql/mutations'
 
-let count = 0
+let durationVideo = 1
 
 class VideoExplainTheContest extends Component {
 
     state = {
         videoData: undefined,
         thisUserHasAlreadySeenTheVideo: null,
-        oldView: {}
+        oldView: {},
+        swiperIndexState: 0,
+        playVideo: false
     }
 
-    componentWillMount() {
-        this._thisUserHasAlreadySeenTheVideo()
+
+    _getPorcentageOfNum = (num, amount) => {
+        return num * amount / 100;
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        // console.log(nextState.videoData)
-        if (nextState.videoData && nextState.videoData.isPlaying === true) {
-            if (nextState.thisUserHasAlreadySeenTheVideo === false) {
-                if (count++ < 1) { this._createView(nextState.videoData) }
-            }
-        }
-    }
-
-    _thisUserHasAlreadySeenTheVideo = async () => {
-        // Se verifica si el usuario en sesion ha visto ay este videoI
+    _onPlaybackStatusUpdate = async (playbackStatus) => {
         const userData = this.props.navigation.getParam('userData')
         const { contest } = this.props
-        try {
-            const response = await API.graphql(graphqlOperation(queries.getViewsVideo, { id: userData.id + contest.id }))
-            this.setState({ thisUserHasAlreadySeenTheVideo: response.data.getViewsVideo === null ? false : true, oldView: response.data.getViewsVideo })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    _createView = async (videoData) => {
-        // Se crea la vista en AWS si esta no existe
-        const userData = this.props.navigation.getParam('userData')
-        const { contest } = this.props
-        const input = {
-            viewsVideoCreateContestId: contest.id,
-            id: userData.id + contest.id,
+        const views = {
             name: userData.name,
             idUserView: userData.id,
             createdAt: moment().toISOString(),
             avatar: userData.avatar,
-            dataVideo: [JSON.stringify({
-                createdAt: moment().toISOString(),
-                didJustFinish: videoData.didJustFinish,
-                durationMillis: videoData.durationMillis,
-                hasJustBeenInterrupted: videoData.hasJustBeenInterrupted,
-                positionMillis: videoData.positionMillis,
-                uri: videoData.uri
-            })]
+            uri: playbackStatus.uri,
+            didJustFinish: playbackStatus.durationMillis === playbackStatus.positionMillis ? true : false,
+            durationMillis: playbackStatus.durationMillis,
+            positionMillis: playbackStatus.positionMillis,
+            isPaused: playbackStatus.durationMillis !== playbackStatus.positionMillis ? true : false,
+            viewsVideoCreateContestId: contest.id
+        }
+
+        if (!playbackStatus.isLoaded) {
+            // Update your UI for the unloaded state
+            if (playbackStatus.error) {
+                console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
+                // Send Expo team the error on Slack or the forums so we can help you debug!
+            }
+        } else {
+            // Update your UI for the loaded state
+            if (playbackStatus.isPlaying) {
+                // El video se esta reproduciendo
+            } else {
+                // if (fullscreenVideo > 1) { fullscreenVideo = 0 }
+            }
+            if (playbackStatus.isBuffering) {
+                // Update your UI for the buffering state
+                // console.log('El vieeo esta en el buffer')
+            }
+            if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+                // The player has just finished playing and will stop. Maybe you want to play something else?
+                try {
+                    await API.graphql(graphqlOperation(mutations.createViewsVideo, { input: views }))
+                } catch (error) {
+                    console.log(error)
+                }
+            }
 
         }
-        try {
-            await API.graphql(graphqlOperation(mutations.createViewsVideo, { input }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
-        } catch (error) {
-            console.log(error)
+    };
+
+    _durationVideo = async (playbackStatus) => {
+        if (playbackStatus.durationMillis !== playbackStatus.positionMillis) {
+            if (playbackStatus.positionMillis >= this._getPorcentageOfNum(5, playbackStatus.durationMillis)) {
+                const userData = this.props.navigation.getParam('userData')
+                const { contest } = this.props
+                const views = {
+                    name: userData.name,
+                    idUserView: userData.id,
+                    createdAt: moment().toISOString(),
+                    avatar: userData.avatar,
+                    uri: playbackStatus.uri,
+                    didJustFinish: playbackStatus.durationMillis === playbackStatus.positionMillis ? true : false,
+                    durationMillis: playbackStatus.durationMillis,
+                    positionMillis: playbackStatus.positionMillis,
+                    isPaused: playbackStatus.durationMillis !== playbackStatus.positionMillis ? true : false,
+                    viewsVideoCreateContestId: contest.id
+                }
+                try {
+                    await API.graphql(graphqlOperation(mutations.createViewsVideo, { input: views }))
+                } catch (error) {
+                    console.log(error)
+                }
+                this.videoRef.stopAsync()
+            }
         }
     }
 
-    _updateCreateView = async () => {
-        // Se actualzia la vista en AWS
-        const userData = this.props.navigation.getParam('userData')
-        const { contest } = this.props
-        const { oldView, videoData } = this.state
-        const newView = {
-            id: userData.id + contest.id,
-            name: userData.name,
-            idUserView: userData.id,
-            createdAt: moment().toISOString(),
-            avatar: videoData.createdAt,
-            dataVideo: [...oldView.dataVideo, JSON.stringify({
-                createdAt: moment().toISOString(),
-                didJustFinish: videoData.didJustFinish,
-                durationMillis: videoData.durationMillis,
-                hasJustBeenInterrupted: videoData.hasJustBeenInterrupted,
-                positionMillis: videoData.positionMillis,
-                uri: videoData.uri
-            })]
-
-        }
-        try {
-            await API.graphql(graphqlOperation(mutations.updateViewsVideo, { input: newView }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
-        } catch (error) {
-            console.log(error)
+    componentWillReceiveProps(props) {
+        if (props.swiperIndex === 0) {
+            this.videoRef.stopAsync()
+            this.videoRef.getStatusAsync().then(item => { this._durationVideo(item) })
         }
     }
 
-    componentWillUnmount() {
-        if (this.state.thisUserHasAlreadySeenTheVideo === true) {
-            this._updateCreateView()
-        }
-    }
 
     render() {
         const { contest, swiperIndex } = this.props
         return (
             <Container>
                 <Video
+                    onPlaybackStatusUpdate={(s) => this._onPlaybackStatusUpdate(s)}
                     ref={r => this.videoRef = r}
-                    onPlaybackStatusUpdate={swiperIndex === 1 ? (videoData) => { this.setState({ videoData }) } : () => { }}
                     source={{ uri: contest && contest.general.video.url }}
                     useNativeControls={true}
-                    usePoster={true}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}

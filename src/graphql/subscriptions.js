@@ -166,7 +166,11 @@ export const onCreateUser = `subscription OnCreateUser {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -490,7 +494,11 @@ export const onUpdateUser = `subscription OnUpdateUser {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -814,7 +822,11 @@ export const onDeleteUser = `subscription OnDeleteUser {
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -1587,7 +1599,11 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -2208,7 +2224,11 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -2829,7 +2849,11 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         idUserView
         createdAt
         avatar
-        dataVideo
+        uri
+        didJustFinish
+        durationMillis
+        positionMillis
+        isPaused
       }
       nextToken
     }
@@ -3055,7 +3079,11 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3065,7 +3093,11 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3288,7 +3320,11 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3298,7 +3334,11 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3521,7 +3561,11 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3531,7 +3575,11 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
     idUserView
     createdAt
     avatar
-    dataVideo
+    uri
+    didJustFinish
+    durationMillis
+    positionMillis
+    isPaused
   }
 }
 `;
@@ -3754,7 +3802,11 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -3987,7 +4039,11 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4220,7 +4276,11 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4453,7 +4513,11 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4685,7 +4749,11 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -4917,7 +4985,11 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5150,7 +5222,11 @@ export const onCreateAudience = `subscription OnCreateAudience {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5403,7 +5479,11 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5656,7 +5736,11 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -5928,7 +6012,11 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -6385,7 +6473,11 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -6842,7 +6934,11 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           idUserView
           createdAt
           avatar
-          dataVideo
+          uri
+          didJustFinish
+          durationMillis
+          positionMillis
+          isPaused
         }
         nextToken
       }
@@ -7234,7 +7330,11 @@ export const onCreateViewsParticipants = `subscription OnCreateViewsParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -7514,7 +7614,11 @@ export const onUpdateViewsParticipants = `subscription OnUpdateViewsParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -7794,7 +7898,11 @@ export const onDeleteViewsParticipants = `subscription OnDeleteViewsParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8074,7 +8182,11 @@ export const onCreateShareParticipants = `subscription OnCreateShareParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8349,7 +8461,11 @@ export const onUpdateShareParticipants = `subscription OnUpdateShareParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8624,7 +8740,11 @@ export const onDeleteShareParticipants = `subscription OnDeleteShareParticipants
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -8899,7 +9019,11 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9173,7 +9297,11 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9447,7 +9575,11 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9721,7 +9853,11 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -9997,7 +10133,11 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }
@@ -10273,7 +10413,11 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
             idUserView
             createdAt
             avatar
-            dataVideo
+            uri
+            didJustFinish
+            durationMillis
+            positionMillis
+            isPaused
           }
           nextToken
         }

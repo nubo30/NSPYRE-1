@@ -32,7 +32,6 @@ class Participants extends Component {
         // Actions
         isImgLoading: false,
         participation: null,
-        actionVideo: false,
     }
 
     componentDidMount() {
@@ -120,9 +119,13 @@ class Participants extends Component {
         }
     };
 
+    _getPorcentageOfNum = (num, amount) => {
+        return num * amount / 100;
+    }
+
     _durationVideo = async (data, index, item) => {
         if (data.fullscreenUpdate === 3) {
-            if (data.status.positionMillis >= 3000) {
+            if (data.status.positionMillis >= this._getPorcentageOfNum(5, data.status.durationMillis)) {
                 const userData = this.props.navigation.getParam('userData')
                 const views = {
                     participantsId: item.participantId,
@@ -148,7 +151,7 @@ class Participants extends Component {
     }
 
     render() {
-        const { isImgLoading, participation, actionVideo } = this.state
+        const {  participation } = this.state
         const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants, navigation } = this.props
         const filterParticipantsList = participation && participation.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
         return (
@@ -294,7 +297,7 @@ class Participants extends Component {
                                                     </CardItem>
                                                     <CardItem>
                                                         <Body>
-                                                            <View style={{ backgroundColor: '#3333', height: 200, width: "109.5%", position: 'absolute', alignSelf:'center' }} />
+                                                            <View style={{ backgroundColor: '#3333', height: 200, width: "109.5%", position: 'absolute', alignSelf: 'center' }} />
                                                             {item.picture && item.picture.url === null
                                                                 ? <Video
                                                                     source={{ uri: item.video && item.video.url }}

@@ -51,7 +51,11 @@ type ViewsVideo @model {
   idUserView: String
   createdAt: AWSDateTime
   avatar: AWSURL
-  dataVideo: [String]
+  uri: AWSURL
+  didJustFinish: Boolean
+  durationMillis: Int
+  positionMillis: Int
+  isPaused: Boolean
 }
 
 type UsersSharing @model {

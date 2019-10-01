@@ -75,8 +75,6 @@ class Likes extends Component {
                             <ScrollView horizontal>
                                 {heightView.height ?
                                     <BarChart
-                                        // horizontalLabelRotation={0}
-                                        // verticalLabelRotation={10}
                                         withVerticalLabels={true}
                                         withHorizontalLabels={false}
                                         data={data}
