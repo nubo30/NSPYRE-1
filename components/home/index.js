@@ -138,7 +138,6 @@ class Home extends Component {
     render() {
         const { userData, openDrower, isReady, prizeCategory, notifications, isLoading, refreshing } = this.state
         const { online } = this.props.networkStatus
-
         return (
             <Swiper
                 ref={(swiper) => this.swiper = swiper}

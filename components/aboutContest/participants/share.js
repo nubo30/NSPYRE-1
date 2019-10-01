@@ -63,6 +63,7 @@ class SharesParticipations extends Component {
                 if (this.state.userSharing !== null) {
                     // Se crean modelos en AWS, estos harán referencias al contenido que un usaurio genera cuando comparte la participación
                     await API.graphql(graphqlOperation(mutations.createShareParticipants, { input: share }))
+                    this._createNotification()
                 }
             } else if (result.action === Share.dismissedAction) {
                 // dismissed
@@ -72,6 +73,47 @@ class SharesParticipations extends Component {
             console.log(error);
         }
     };
+
+    _createNotification = async () => {
+        const userData = this.props.navigation.getParam('userData')
+        const { contest, item } = this.props
+        try {
+            const respose = await API.graphql(graphqlOperation(queries.getUser, { id: item.participantId }))
+            const input = {
+                createdAt: moment().toISOString(),
+                expirationDateWeek: new Date(new Date().setDate(new Date().getDate() + 7)),
+                avatar: userData.avatar === null ? null : userData.avatar,
+                idUSerFrom: userData.id,
+                idUserTo: item.participantId,
+                userFrom: userData.name,
+                userTo: item.nameUser,
+                expoPushToken: respose.data.getUser.notificationToken === null ? 'none' : respose.data.getUser.notificationToken,
+                messageTitle: `Hey ${item.nameUser}!`,
+                messageBody: `${userData.name} shared your participation in the contest ${contest.general.nameOfContest}!, take a look!`,
+                nameOfcontest: contest.general.nameOfContest,
+                JSONdata: JSON.stringify({
+                    "type": 'shareParticipants',
+                    "rute": "AboutContest",
+                    "userData": { id: userData.id },
+                    "contest": {
+                        "id": contest.id,
+                        "user": { id: contest.user.id },
+                        "prizes": [],
+                        "participants": { items: [] },
+                        "general": {
+                            "nameOfContest": contest.general.nameOfContest,
+                            "picture": { url: contest.general.picture.url },
+                            "video": { url: contest.general.video.url }
+                        }
+                    }
+                }),
+            }
+            const { data } = await API.graphql(graphqlOperation(mutations.createNotifications, { input }))
+            await API.graphql(graphqlOperation(queries.sendNotification, { notificationId: data.createNotifications.id }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     render() {
         return (

@@ -151,7 +151,7 @@ class Participants extends Component {
     }
 
     render() {
-        const {  participation } = this.state
+        const { participation } = this.state
         const { _setModalVisibleJoinToTheContest, _setModalVisibleAudience, userData, contest, disableParticipants, navigation } = this.props
         const filterParticipantsList = participation && participation.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
         return (
@@ -224,8 +224,8 @@ class Participants extends Component {
                                             </CardItem>
                                             <CardItem>
                                                 <Left style={{ right: 10 }}>
-                                                    <ButtonListLikes _getParticipation={this._getParticipation} item={item} />
-                                                    <ButtonComments _getParticipation={this._getParticipation} item={item} />
+                                                    <ButtonListLikes _getParticipation={this._getParticipation} item={item} contest={contest} />
+                                                    <ButtonComments _getParticipation={this._getParticipation} item={item} contest={contest} />
                                                 </Left>
                                                 <Right>
                                                     <ButtonShare item={item} contest={contest} />
