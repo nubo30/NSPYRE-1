@@ -82,13 +82,6 @@ export const onCreateUser = `subscription OnCreateUser {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -410,13 +403,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -732,13 +718,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -1181,13 +1160,6 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       prizeId
       name
       picture {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
-      video {
         localUrl
         url
         name
@@ -1812,13 +1784,6 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         type
         blob
       }
-      video {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
     }
     createdAt
     timer {
@@ -2437,13 +2402,6 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         type
         blob
       }
-      video {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
     }
     createdAt
     timer {
@@ -2944,13 +2902,6 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -3179,13 +3130,6 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -3426,13 +3370,6 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -3661,13 +3598,6 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -3904,13 +3834,6 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -4135,13 +4058,6 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -4378,13 +4294,6 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -4608,13 +4517,6 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -4850,13 +4752,6 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -5081,13 +4976,6 @@ export const onCreateAudience = `subscription OnCreateAudience {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -5344,13 +5232,6 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -5595,13 +5476,6 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -5871,13 +5745,6 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -6338,13 +6205,6 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -6799,13 +6659,6 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -7246,13 +7099,6 @@ export const onCreateViewsParticipants = `subscription OnCreateViewsParticipants
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -7524,13 +7370,6 @@ export const onUpdateViewsParticipants = `subscription OnUpdateViewsParticipants
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -7814,13 +7653,6 @@ export const onDeleteViewsParticipants = `subscription OnDeleteViewsParticipants
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -8092,13 +7924,6 @@ export const onCreateShareParticipants = `subscription OnCreateShareParticipants
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -8377,13 +8202,6 @@ export const onUpdateShareParticipants = `subscription OnUpdateShareParticipants
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -8650,13 +8468,6 @@ export const onDeleteShareParticipants = `subscription OnDeleteShareParticipants
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -8935,13 +8746,6 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -9207,13 +9011,6 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -9491,13 +9288,6 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -9763,13 +9553,6 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -10049,13 +9832,6 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -10323,13 +10099,6 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name

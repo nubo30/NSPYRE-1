@@ -94,13 +94,6 @@ export const getUser = `query GetUser($id: ID!) {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -711,13 +704,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         type
         blob
       }
-      video {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
     }
     createdAt
     timer {
@@ -1222,13 +1208,6 @@ export const listCreateContests = `query ListCreateContests(
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -1448,13 +1427,6 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -1685,13 +1657,6 @@ export const listViewsVideos = `query ListViewsVideos(
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -1871,13 +1836,6 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -2104,13 +2062,6 @@ export const listUsersSharings = `query ListUsersSharings(
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -2286,13 +2237,6 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -2518,13 +2462,6 @@ export const listUsersLikess = `query ListUsersLikess(
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -2700,13 +2637,6 @@ export const getAudience = `query GetAudience($id: ID!) {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -2953,13 +2883,6 @@ export const listAudiences = `query ListAudiences(
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -3174,13 +3097,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -3631,13 +3547,6 @@ export const listParticipantss = `query ListParticipantss(
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -3899,13 +3808,6 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -4341,13 +4243,6 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -4767,13 +4662,6 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -5185,13 +5073,6 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name

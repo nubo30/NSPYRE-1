@@ -8,6 +8,7 @@ import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import truncate from 'lodash/truncate'
 
 // Child Components
 import HeaderContest from "./header"
@@ -30,9 +31,10 @@ import { GadrientsAboutContest } from "../global/gradients"
 // GRAPHQL
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
+import { colorsPalette } from '../global/static/colors';
 
 const HEADER_MAX_HEIGHT = 300;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 75 : 73;
+const HEADER_MIN_HEIGHT = 110;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 let subscription
@@ -182,37 +184,36 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
-
         return (
-            <Swiper
-                scrollEnabled={isReady === null ? false : true}
-                ref={(swiperRoot) => this.swiperRoot = swiperRoot}
-                onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
-                loop={false}
-                showsPagination={false}>
-                <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
-                    <GadrientsAboutContest />
+            contest !== null
+                ? <Swiper
+                    scrollEnabled={isReady === null ? false : true}
+                    ref={(swiperRoot) => this.swiperRoot = swiperRoot}
+                    onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
+                    loop={false}
+                    showsPagination={false}>
+                    <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
+                        <GadrientsAboutContest />
 
-                    {/* Slider / Submit a video / submit a meme */}
-                    <Animated.ScrollView
-                        style={{ height: "100%" }}
-                        scrollEventThrottle={1}
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-                            { useNativeDriver: true }
-                        )}
-                        contentInset={{
-                            top: HEADER_MAX_HEIGHT
-                        }}
-                        contentOffset={{
-                            y: -HEADER_MAX_HEIGHT
-                        }}>
-                        <Grid style={styles.scrollViewContent}>
+                        {/* Slider / Submit a video / submit a meme */}
+                        <Animated.ScrollView
+                            style={{ height: "100%" }}
+                            scrollEventThrottle={1}
+                            onScroll={Animated.event(
+                                [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+                                { useNativeDriver: true }
+                            )}
+                            contentInset={{
+                                top: HEADER_MAX_HEIGHT
+                            }}
+                            contentOffset={{
+                                y: -HEADER_MAX_HEIGHT
+                            }}>
+                            <Grid style={styles.scrollViewContent}>
 
-                            {/* Botton social network */}
-                            <Row size={15}>
-                                <View style={{ width: '100%', flexDirection: 'row' }}>
-                                    <View style={{ flex: 0.5, flexDirection: 'row' }}>
+                                {/* Botton social network */}
+                                <Row size={15}>
+                                    <View style={{ flexDirection: 'row', flex: 0.3 }}>
                                         <View>
                                             <Shares userData={userData} contest={contest} />
                                         </View>
@@ -220,180 +221,196 @@ class ShowContest extends Component {
                                             <Likes userData={userData} contest={contest} />
                                         </View>
                                     </View>
-                                    <View style={{ flexDirection: 'row', flex: 0.5, justifyContent: 'flex-end' }}>
-                                        {userLogin ? <Button
-                                            style={{ alignSelf: 'flex-end' }}
-                                            onPress={() => this._setModalVisibleUpdate(true)}
-                                            transparent>
-                                            <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
-                                        </Button> : null}
+                                    <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                                        <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${contest.aboutTheUser.location.city}, ${contest.aboutTheUser.location.country}.`, { length: 30, separator: "..." })}</Text>
                                     </View>
+                                    <View style={{ flex: 0.2, justifyContent: 'flex-end' }}>
+                                        {userLogin ?
+                                            <Button
+                                                style={{ alignSelf: 'flex-end' }}
+                                                onPress={() => this._setModalVisibleUpdate(true)}
+                                                transparent>
+                                                <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
+                                            </Button>
+                                            : null}
+                                    </View>
+                                </Row>
+
+                                {/* Slider */}
+                                <Row size={30}>
+                                    <Swiper
+                                        loop={false}
+                                        height={Platform.OS === 'ios' ? 240 : 300}
+                                        activeDotColor="#D82B60"
+                                        dotColor="#BDBDBD"
+                                        showsButtons={false}>
+                                        <SwiperPrizes
+                                            _setModalVisiblePrizes={this._setModalVisiblePrizes}
+                                            contest={contest} />
+                                        <SwiperAboutTheContest
+                                            _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest}
+                                            contest={contest} />
+                                    </Swiper>
+                                </Row>
+
+                                {/* Stats/Submit a video or a meme */}
+                                <Row size={65}>
+                                    <Participants
+                                        // Data
+                                        userData={userData}
+                                        contest={contest}
+                                        disableParticipants={this.props.navigation.getParam('disableParticipants')}
+
+                                        // Functions
+                                        _setModalVisibleAudience={this._setModalVisibleAudience}
+                                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
+                                </Row>
+                            </Grid>
+                        </Animated.ScrollView>
+
+                        {/* Image Background */}
+                        <Animated.View
+                            pointerEvents="none"
+                            style={[
+                                styles.header,
+                                { transform: [{ translateY: headerTranslate }] },
+                            ]}>
+                            <Animated.Image
+                                style={[
+                                    styles.backgroundImage,
+                                    {
+                                        opacity: imageOpacity,
+                                        transform: [{ translateY: imageTranslate }],
+
+                                    },
+                                ]}
+                                source={{ uri: contest.general.picture.url }}
+                            />
+                            {
+                                userLogin && fromWhere === 'createContest' &&
+                                <View style={styles.swiperIndicator}>
+                                    <Animatable.View
+                                        animation="pulse"
+                                        easing="ease-in-out"
+                                        iterationCount="infinite"
+                                        style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
+                                    >
+                                        <Text
+                                            minimumFontScale={wp(7)}
+                                            allowFontScaling={false}
+                                            style={{ textAlign: 'center', color: 'white', fontSize: wp(7), opacity: 0.8 }}>Swipe</Text>
+                                        <Icon
+                                            name='arrow-long-right'
+                                            type='Entypo'
+                                            style={{ color: 'white', marginTop: '2%', marginLeft: '4%', fontSize: wp(8), opacity: 0.8 }}
+                                        />
+                                    </Animatable.View>
                                 </View>
-                            </Row>
+                            }
+                            <View style={{ flex: 1, left: 15 }}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(9), color: '#FFF', position: 'absolute', bottom: 0, left: 0 }}>{contest.aboutTheUser.companyName === null ? contest.user.name : contest.aboutTheUser.companyName}</Text>
+                            </View>
+                        </Animated.View>
 
-                            {/* Slider */}
-                            <Row size={30}>
-                                <Swiper
-                                    loop={false}
-                                    height={Platform.OS === 'ios' ? 240 : 300}
-                                    activeDotColor="#D82B60"
-                                    dotColor="#BDBDBD"
-                                    showsButtons={false}>
-                                    <SwiperPrizes
-                                        _setModalVisiblePrizes={this._setModalVisiblePrizes}
-                                        contest={contest} />
-                                    <SwiperAboutTheContest
-                                        _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest}
-                                        contest={contest} />
-                                </Swiper>
-                            </Row>
+                        {/* Header Contests */}
+                        <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
+                            <HeaderContest fromWhere={fromWhere} contest={contest} />
+                        </Animated.View>
 
-                            {/* Stats/Submit a video or a meme */}
-                            <Row size={65}>
-                                <Participants
-                                    // Data
-                                    userData={userData}
+                        {/* Modals */}
+                        <PrizeModal
+                            // Data
+                            contest={contest}
+
+                            // Action
+                            modalVisiblePrizes={modalVisiblePrizes}
+                            // Function
+                            _setModalVisiblePrizes={this._setModalVisiblePrizes} />
+
+                        <AboutModal
+                            // Data
+                            contest={contest}
+                            userData={userData}
+                            disableParticipants={this.props.navigation.getParam('disableParticipants')}
+
+                            // Action
+                            modalVisibleAboutTheContest={modalVisibleAboutTheContest}
+                            // Function
+                            _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest}
+                            _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest} />
+
+                        <UpdateContest
+                            // Data
+                            contest={contest}
+                            userData={userData}
+
+                            // Action
+                            openModalUpdateContest={openModalUpdateContest}
+                            // Funtion
+                            _setModalVisibleUpdate={this._setModalVisibleUpdate} />
+
+                        {/* Audience Modals */}
+                        <Modal
+                            isVisible={modalVisibleAudience}
+                            onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
+                            onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
+                            swipeDirection={modalVisibleAudience ? null : ['down']}
+                            animationInTiming={900}
+                            animationIn="slideInUp"
+                            backdropOpacity={0.40}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
+                                <Audience
+                                    // DATA
                                     contest={contest}
-                                    disableParticipants={this.props.navigation.getParam('disableParticipants')}
+                                    userData={userData}
+
+                                    // Actions
+                                    hideCongrastSectionAudience={hideCongrastSectionAudience}
 
                                     // Functions
-                                    _setModalVisibleAudience={this._setModalVisibleAudience}
-                                    _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
-                            </Row>
-                        </Grid>
-                    </Animated.ScrollView>
-
-                    {/* Image Background */}
-                    <Animated.View
-                        pointerEvents="none"
-                        style={[
-                            styles.header,
-                            { transform: [{ translateY: headerTranslate }] },
-                        ]}>
-                        <Animated.Image
-                            style={[
-                                styles.backgroundImage,
-                                {
-                                    opacity: imageOpacity,
-                                    transform: [{ translateY: imageTranslate }],
-
-                                },
-                            ]}
-                            source={{ uri: contest.general.picture.url }}
-                        />
-                        {
-                            userLogin && fromWhere === 'createContest' &&
-                            <View style={styles.swiperIndicator}>
-                                <Animatable.View
-                                    animation="pulse"
-                                    easing="ease-in-out"
-                                    iterationCount="infinite"
-                                    style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
-                                >
-                                    <Text
-                                        minimumFontScale={wp(7)}
-                                        allowFontScaling={false}
-                                        style={{ textAlign: 'center', color: 'white', fontSize: wp(7), opacity: 0.8 }}>Swipe</Text>
-                                    <Icon
-                                        name='arrow-long-right'
-                                        type='Entypo'
-                                        style={{ color: 'white', marginTop: '2%', marginLeft: '4%', fontSize: wp(8), opacity: 0.8 }}
-                                    />
-                                </Animatable.View>
+                                    _setModalVisibleAudience={this._setModalVisibleAudience} />
                             </View>
-                        }
-                    </Animated.View>
+                        </Modal>
 
-                    {/* Header Contests */}
-                    <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
-                        <HeaderContest fromWhere={fromWhere} contest={contest} />
-                    </Animated.View>
-
-                    {/* Modals */}
-                    <PrizeModal
-                        // Data
-                        contest={contest}
-
-                        // Action
-                        modalVisiblePrizes={modalVisiblePrizes}
-                        // Function
-                        _setModalVisiblePrizes={this._setModalVisiblePrizes} />
-
-                    <AboutModal
-                        // Data
-                        contest={contest}
-                        userData={userData}
-                        disableParticipants={this.props.navigation.getParam('disableParticipants')}
-
-                        // Action
-                        modalVisibleAboutTheContest={modalVisibleAboutTheContest}
-                        // Function
-                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest}
-                        _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest} />
-
-                    <UpdateContest
-                        // Data
-                        contest={contest}
-                        userData={userData}
-
-                        // Action
-                        openModalUpdateContest={openModalUpdateContest}
-                        // Funtion
-                        _setModalVisibleUpdate={this._setModalVisibleUpdate} />
-
-                    {/* Audience Modals */}
-                    <Modal
-                        isVisible={modalVisibleAudience}
-                        onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
-                        onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
-                        swipeDirection={modalVisibleAudience ? null : ['down']}
-                        animationInTiming={900}
-                        animationIn="slideInUp"
-                        backdropOpacity={0.40}>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
-                            <Audience
-                                // DATA
-                                contest={contest}
-                                userData={userData}
-
-                                // Actions
-                                hideCongrastSectionAudience={hideCongrastSectionAudience}
-
-                                // Functions
-                                _setModalVisibleAudience={this._setModalVisibleAudience} />
-                        </View>
-                    </Modal>
-
-                    {/* Join to the contest */}
-                    <JoinToTheContest
-                        // Data
-                        contest={contest}
-                        userData={userData}
-
-                        // Actions
-                        modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
-
-                        // Function
-                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
-
-                </View>
-                {userLogin
-                    ? <View style={{ flex: 1 }}>
-                        <SecondaryView
+                        {/* Join to the contest */}
+                        <JoinToTheContest
                             // Data
                             contest={contest}
                             userData={userData}
 
                             // Actions
-                            swiperIndex={swiperIndex}
+                            modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
 
                             // Function
-                            _setModalVisibleAudience={this._setModalVisibleAudience}
-                            _changeSwiperRoot={this._changeSwiperRoot}
-                        />
+                            _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
+
                     </View>
-                    : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
-            </Swiper>
+                    {userLogin
+                        ? <View style={{ flex: 1 }}>
+                            <SecondaryView
+                                // Data
+                                contest={contest}
+                                userData={userData}
+
+                                // Actions
+                                swiperIndex={swiperIndex}
+
+                                // Function
+                                _setModalVisibleAudience={this._setModalVisibleAudience}
+                                _changeSwiperRoot={this._changeSwiperRoot}
+                            />
+                        </View>
+                        : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
+                </Swiper>
+                : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, textAlign: 'center' }}>This contest has been deleted</Text>
+                    <Button
+                        onPress={() => this.props.navigation.goBack()}
+                        style={{ backgroundColor: colorsPalette.primaryColor, top: 15 }}>
+                        <Text>Comeback</Text>
+                    </Button>
+                </View>
         )
     }
 }

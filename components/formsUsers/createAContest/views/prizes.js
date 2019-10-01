@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Dimensions, Alert, Modal, Platform, Image, Keyboard } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Item, Input, Spinner } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -33,7 +32,6 @@ export default class Prizes extends Component {
         name: "",
         description: "",
         picture: { name: "", type: "", localUrl: "" },
-        video: { name: "", type: "", localUrl: "" },
 
         // Modal
         visibleModalName: false,
@@ -44,15 +42,13 @@ export default class Prizes extends Component {
 
     // Validar formulario
     _validateForm = () => {
-        const { name, description, picture, video } = this.state
+        const { name, description, picture } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             name
                 ? description
                     ? picture.name
-                        ? video.name
-                            ? this._submit()
-                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                        ? this._submit()
                         : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
@@ -63,20 +59,7 @@ export default class Prizes extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (result.type === 'image') {
-            if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
-        } else {
-            if (Math.round(result.duration) <= 60000) {
-                if (!result.cancelled) { this._getNameOfLocalUrlVideo(result.uri) }
-            } else if (Math.round(result.duration) > 61000) {
-                Alert.alert(
-                    '',
-                    'You cannot choose a video that exceeds one minute.',
-                    [{ text: 'OK', onPress: () => { } }],
-                    { cancelable: false },
-                );
-            }
-        }
+        if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
     }
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
@@ -101,29 +84,6 @@ export default class Prizes extends Component {
         })
     }
 
-    _getNameOfLocalUrlVideo = async (fileUri, access = "public") => {
-        const { userData } = this.props
-        const blob = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () { resolve(xhr.response) };
-            xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-            xhr.responseType = "blob";
-            xhr.open("GET", fileUri, true);
-            xhr.send(null);
-        });
-        const { name, type } = blob._data;
-        this.setState({
-            video: {
-                ...this.state.video,
-                localUrl: fileUri,
-                name,
-                type,
-                blob,
-                url: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${userData.email}/contest/prizes/videos/owner/${name}`
-            }
-        })
-    }
-
     // Preguntar al usuario por los permisos para abrir la libreria de imagenes y videos
     askPermissionsAsync = async () => {
         await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -133,8 +93,8 @@ export default class Prizes extends Component {
     // Send data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { prizes, name, description, picture, video } = this.state
-        prizes.push({ name, description, picture, video, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
+        const { prizes, name, description, picture } = this.state
+        prizes.push({ name, description, picture, prizeId: '_' + Math.random().toString(36).substr(2, 9) })
         try {
             Alert.alert(
                 `Hey ${userData.name}`,
@@ -149,7 +109,6 @@ export default class Prizes extends Component {
                                 name: "",
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
-                                video: { name: "", type: "", localUrl: "" },
                             })
                         }
                     },
@@ -160,7 +119,6 @@ export default class Prizes extends Component {
                                 name: "",
                                 description: "",
                                 picture: { name: "", type: "", localUrl: "" },
-                                video: { name: "", type: "", localUrl: "" },
                             })
                         }
                     },
@@ -173,9 +131,9 @@ export default class Prizes extends Component {
     }
 
     _toSummary = () => {
-        const { name, description, picture, video } = this.state
+        const { name, description, picture } = this.state
         const { _indexChangeSwiper } = this.props
-        name || description || picture.localUrl || video.localUrl
+        name || description || picture.localUrl
             ? this._validateForm()
             : _indexChangeSwiper(1);
     }
@@ -191,7 +149,6 @@ export default class Prizes extends Component {
             name,
             description,
             picture,
-            video,
 
             // Modal
             visibleModalName,
@@ -275,22 +232,6 @@ export default class Prizes extends Component {
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
-
-                                    {/* VIDEO */}
-                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })}>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D" }}>
-                                                <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{video.name ? "Already selected" : "No select"}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
-                                    </ListItem>
                                 </List>
                             </Content>
                         </View>
@@ -326,7 +267,7 @@ export default class Prizes extends Component {
                     </Animatable.View>
                 </Footer>
 
-                {/* NAME OF CONTEST */}
+                {/* NAME OF PRIZE */}
                 <Modal
                     hardwareAccelerated={true}
                     transparent={false}
@@ -337,7 +278,7 @@ export default class Prizes extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Company Name</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Name of prize</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
@@ -411,20 +352,17 @@ export default class Prizes extends Component {
                         <Content scrollEnabled={false}>
                             {/* DESCRIPTION */}
                             <Item
-                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
                                 <Input
                                     allowFontScaling={false}
-                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
-                                    returnKeyType='done'
                                     multiline
                                     numberOfLines={3}
-                                    placeholder="Description"
                                     placeholderTextColor={colorsPalette.gradientGray}
                                     autoFocus={true}
                                     value={description}
                                     keyboardType="ascii-capable"
                                     selectionColor={colorsPalette.primaryColor}
-                                    style={{ padding: 5, maxHeight: 170 }}
+                                    style={{ padding: 5, maxHeight: 220 }}
                                     onChangeText={(value) => this.setState({ description: value })} />
                             </Item>
                         </Content>
@@ -473,59 +411,6 @@ export default class Prizes extends Component {
                         </Row>
                     </Grid>
                 </Modal>
-
-                {/* VIDEO */}
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={visibleModalVideo}>
-                    <Header transparent style={{ height: Platform.OS === 'ios' ? 70 : 50 }}>
-                        <Left style={{ flexDirection: 'row' }}>
-                            <Button transparent
-                                onPress={() => { this.setState({ visibleModalVideo: false, video: { name: "", type: "", localUrl: "" } }) }}>
-                                <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: colorsPalette.primaryColor, fontSize: wp(4) }}>{video.name ? "Delete" : "Back"}</Text>
-                            </Button>
-                        </Left>
-                        <Right>
-                            <Button
-                                disabled={video.name ? false : true}
-                                transparent
-                                onPress={() => { this.setState({ visibleModalVideo: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: video.name ? colorsPalette.primaryColor : colorsPalette.opaqueWhite, fontSize: wp(4) }}>OK</Text>
-                            </Button>
-                        </Right>
-                    </Header>
-                    <Grid>
-                        <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            {video.name
-                                ? <Video
-                                    source={{ uri: video.localUrl }}
-                                    useNativeControls
-                                    rate={1.0}
-                                    volume={1.0}
-                                    isMuted={false}
-                                    resizeMode="cover"
-                                    shouldPlay
-                                    isLooping={false}
-                                    style={{ width: "100%", height: "100%" }} />
-                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: colorsPalette.opaqueWhite }} />}
-                        </Row>
-                        <Row size={30} style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                            <Button
-                                onPress={() => this._useLibraryHandler('Videos')}
-                                transparent
-                                style={{
-                                    backgroundColor: colorsPalette.primaryColor,
-                                    borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
-                                }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
-                            </Button>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
-                        </Row>
-                    </Grid>
-                </Modal>
-
             </Container>
         );
     }

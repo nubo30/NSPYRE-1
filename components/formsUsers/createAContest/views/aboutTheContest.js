@@ -381,7 +381,7 @@ export default class AboutTheContest extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Company Name</Title>
+                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Name of contest</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
@@ -401,8 +401,8 @@ export default class AboutTheContest extends Component {
                             {/* COMPANY NAMEY */}
                             <ListItem icon>
                                 <Left>
-                                    <Button style={{ backgroundColor: "#EC407A" }}>
-                                        <Icon type="FontAwesome" name="building-o" />
+                                    <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
+                                        <Entypo style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="star" />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -410,7 +410,6 @@ export default class AboutTheContest extends Component {
                                         onSubmitEditing={() => nameOfContest ? this.setState({ visibleModalNameOfContest: false }) : Keyboard.dismiss()}
                                         returnKeyType='done'
                                         allowFontScaling={false}
-                                        placeholder="Company name"
                                         placeholderTextColor={colorsPalette.gradientGray}
                                         maxLength={20}
                                         autoFocus={true}
@@ -455,20 +454,17 @@ export default class AboutTheContest extends Component {
                         <Content scrollEnabled={false}>
                             {/* DESCRIPTION */}
                             <Item
-                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
                                 <Input
                                     allowFontScaling={false}
-                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
-                                    returnKeyType='done'
                                     multiline
                                     numberOfLines={3}
-                                    placeholder="Description"
                                     placeholderTextColor={colorsPalette.gradientGray}
                                     autoFocus={true}
                                     value={description}
                                     keyboardType="ascii-capable"
                                     selectionColor={colorsPalette.primaryColor}
-                                    style={{ padding: 5, maxHeight: 170 }}
+                                    style={{ padding: 5, maxHeight: 220 }}
                                     onChangeText={(value) => this.setState({ description: value })} />
                             </Item>
                         </Content>
@@ -504,20 +500,17 @@ export default class AboutTheContest extends Component {
                         </Header>
                         <Content scrollEnabled={false}>
                             <Item
-                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
                                 <Input
                                     allowFontScaling={false}
-                                    onSubmitEditing={() => instructions ? this.setState({ visibleModalInstructions: false }) : Keyboard.dismiss()}
-                                    returnKeyType='done'
                                     multiline
-                                    numberOfLines={3}
-                                    placeholder="Instructions"
+                                    numberOfLines={5}
                                     placeholderTextColor={colorsPalette.gradientGray}
                                     autoFocus={true}
                                     value={instructions}
                                     keyboardType="ascii-capable"
                                     selectionColor={colorsPalette.primaryColor}
-                                    style={{ padding: 5, maxHeight: 170 }}
+                                    style={{ padding: 5, maxHeight: 220 }}
                                     onChangeText={(value) => this.setState({ instructions: value })} />
                             </Item>
                         </Content>

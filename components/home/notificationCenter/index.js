@@ -43,7 +43,7 @@ class NotificationCenter extends Component {
         const parseData = JSON.parse(item.JSONdata)
         switch (parseData.type) {
             case 'participantsInTheContest':
-                navigation.navigate(parseData.rute, { userData: parseData.userData, contest: Object.assign(parseData.contest, { timer: null }) })
+                navigation.navigate(parseData.rute, { userData: parseData.userData, contest: Object.assign(parseData.contest, { timer: null, aboutTheUser: { location: "" }, usersLikes: { items: [] } }) })
                 break;
             default:
                 break;
@@ -90,16 +90,16 @@ class NotificationCenter extends Component {
                                                 <ListItem disabled={isLoading} avatar onPress={() => this._navigateToScreen(item)}>
                                                     <Left style={{ top: -5 }}>
                                                         {item.avatar !== null
-                                                            ? <Thumbnail source={{ uri: item.avatar }} />
-                                                            : <UserAvatar size="55" name={item.userFrom} />}
+                                                            ? <Thumbnail small source={{ uri: item.avatar }} />
+                                                            : <UserAvatar size="35" name={item.userFrom} />}
                                                     </Left>
-                                                    <Body style={{ borderBottomColor: colorsPalette.transparent }}>
+                                                    <Body style={{ borderBottomColor: colorsPalette.transparent, top: -5 }}>
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(3) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: 'normal', fontSize: wp(3) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(3) }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
-                                                    <Right style={{ borderBottomColor: colorsPalette.transparent }}>
+                                                    <Right style={{ borderBottomColor: colorsPalette.transparent, top: -10 }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
                                                             {isLoading && itemState === item.id ? <Spinner size="small" color={colorsPalette.errColor} style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: colorsPalette.errColor }} />}
                                                         </Button>
@@ -122,16 +122,16 @@ class NotificationCenter extends Component {
                                                 <ListItem disabled={isLoading} avatar onPress={() => this._navigateToScreen(item)}>
                                                     <Left style={{ top: -5 }}>
                                                         {item.avatar !== null
-                                                            ? <Thumbnail source={{ uri: item.avatar }} />
-                                                            : <UserAvatar size="55" name={item.userFrom} />}
+                                                            ? <Thumbnail small source={{ uri: item.avatar }} />
+                                                            : <UserAvatar size="35" name={item.userFrom} />}
                                                     </Left>
-                                                    <Body style={{ borderBottomColor: colorsPalette.transparent }}>
+                                                    <Body style={{ borderBottomColor: colorsPalette.transparent, top: -5 }}>
                                                         <Text
                                                             allowFontScaling={false}
                                                             minimumFontScale={wp(4)}
-                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(4) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: '100', fontSize: wp(4) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
+                                                            style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(3) }} onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.idUSerFrom })}>{_.startCase(item.userFrom)}<Text style={{ color: colorsPalette.darkFont, fontWeight: 'normal', fontSize: wp(3) }} onPress={() => this._navigateToScreen(item)}>, has joined your <Text style={{ fontWeight: 'bold', color: colorsPalette.darkFont, fontSize: wp(3) }} onPress={() => this._navigateToScreen(item)}>{_.lowerCase(item.contest.general.nameOfContest)}</Text> contest, at {moment(item.createdAt).fromNow()}. Touch to see!</Text></Text>
                                                     </Body>
-                                                    <Right style={{ borderBottomColor: colorsPalette.transparent }}>
+                                                    <Right style={{ borderBottomColor: colorsPalette.transparent, top: -10 }}>
                                                         <Button disabled={isLoading} transparent onPress={() => this._deleteNotifications(item)}>
                                                             {isLoading && itemState === item.id ? <Spinner size="small" color={colorsPalette.errColor} style={{ left: -14 }} /> : <Icon name='md-trash' type="Ionicons" style={{ color: colorsPalette.errColor }} />}
                                                         </Button>

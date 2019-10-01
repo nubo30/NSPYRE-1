@@ -57,7 +57,7 @@ export default class CreateContest extends Component {
         return (
             <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutYouPlaceholder /></View>}>
                 <Swiper
-                    scrollEnabled={false}
+                    scrollEnabled={true}
                     ref={(swiper) => this.swiper = swiper}
                     loop={false} showsButtons={false} showsPagination={false}>
 

@@ -76,19 +76,8 @@ class Summary extends Component {
                     xhr.open("GET", item.picture.localUrl, true);
                     xhr.send(null);
                 });
-
-                // VIDEO OF THE CONTEST
-                const blobVideo_ = await new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.onload = function () { resolve(xhr.response) };
-                    xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-                    xhr.responseType = "blob";
-                    xhr.open("GET", item.video.localUrl, true);
-                    xhr.send(null);
-                });
                 try {
                     await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${item.picture.name}`, blobPicture_, { contentType: item.picture.type })
-                    await Storage.put(`users/${userData.email}/contest/prizes/videos/owner/${item.video.name}`, blobVideo_, { contentType: item.video.type })
                 } catch (error) {
                     console.log('Error al crear los premios');
                 }
@@ -404,26 +393,6 @@ class Summary extends Component {
                                                     </ListItem>
 
                                                     <View style={{ borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.1)', width: '83%', alignSelf: 'flex-end' }} />
-
-                                                    {/* VIDEO */}
-                                                    <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
-                                                        <Left>
-                                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D", right: 10 }}>
-                                                                <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
-                                                            </Button>
-                                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
-                                                        </Left>
-                                                        <Video
-                                                            source={{ uri: item.video.localUrl }}
-                                                            useNativeControls
-                                                            rate={1.0}
-                                                            volume={1.0}
-                                                            isMuted={false}
-                                                            resizeMode="cover"
-                                                            shouldPlay={false}
-                                                            isLooping={false}
-                                                            style={{ width: "60%", height: "100%" }} />
-                                                    </ListItem>
                                                 </List>)}
                                         </Swiper>
                                     </List>

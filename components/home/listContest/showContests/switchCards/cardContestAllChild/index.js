@@ -40,7 +40,7 @@ class CardContent extends Component {
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
                                 style={{ fontSize: wp(4) }}>
-                                {userData.id === item.user.id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.user.name)), { length: 20, separator: '...' })}
+                                {userData.id === item.user.id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.aboutTheUser.companyName === null ? item.user.name : item.aboutTheUser.companyName)), { length: 20, separator: '...' })}
                             </Text>
                             <Text
                                 onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}

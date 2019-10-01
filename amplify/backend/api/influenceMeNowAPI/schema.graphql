@@ -154,7 +154,6 @@ type Prizes {
     prizeId: String
     name: String
     picture: Picture
-    video: Video
 }
 
 type Participants @model {

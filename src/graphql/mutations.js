@@ -82,13 +82,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -410,13 +403,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -732,13 +718,6 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -1181,13 +1160,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
       prizeId
       name
       picture {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
-      video {
         localUrl
         url
         name
@@ -1812,13 +1784,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         type
         blob
       }
-      video {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
     }
     createdAt
     timer {
@@ -2437,13 +2402,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         type
         blob
       }
-      video {
-        localUrl
-        url
-        name
-        type
-        blob
-      }
     }
     createdAt
     timer {
@@ -2944,13 +2902,6 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -3179,13 +3130,6 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -3426,13 +3370,6 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -3661,13 +3598,6 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -3904,13 +3834,6 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -4135,13 +4058,6 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -4378,13 +4294,6 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -4608,13 +4517,6 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -4850,13 +4752,6 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -5081,13 +4976,6 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -5344,13 +5232,6 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -5595,13 +5476,6 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -5871,13 +5745,6 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         prizeId
         name
         picture {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
-        video {
           localUrl
           url
           name
@@ -6338,13 +6205,6 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -6799,13 +6659,6 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           type
           blob
         }
-        video {
-          localUrl
-          url
-          name
-          type
-          blob
-        }
       }
       createdAt
       timer {
@@ -7246,13 +7099,6 @@ export const createViewsParticipants = `mutation CreateViewsParticipants($input:
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -7524,13 +7370,6 @@ export const updateViewsParticipants = `mutation UpdateViewsParticipants($input:
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -7814,13 +7653,6 @@ export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input:
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -8092,13 +7924,6 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -8377,13 +8202,6 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -8650,13 +8468,6 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -8935,13 +8746,6 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -9207,13 +9011,6 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -9491,13 +9288,6 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -9765,13 +9555,6 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name
@@ -10053,13 +9836,6 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
             type
             blob
           }
-          video {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
         }
         createdAt
         timer {
@@ -10329,13 +10105,6 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
           prizeId
           name
           picture {
-            localUrl
-            url
-            name
-            type
-            blob
-          }
-          video {
             localUrl
             url
             name

@@ -589,7 +589,7 @@ class AboutYou extends Component {
                                     ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
                                     : null}
                             </Picker>
-
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2), textAlign: 'center', alignSelf: 'center', width: "90%", top: 20, color: colorsPalette.darkFont }}>The location where the contest was created for the participants will be displayed (Optional)</Text>
                         </Content>
                     </Container>
                 </Modal>
@@ -647,6 +647,7 @@ class AboutYou extends Component {
                                 </Body>
                                 <Right />
                             </ListItem>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2), textAlign: 'center', alignSelf: 'center', width: "90%", top: 20, color: colorsPalette.darkFont }}>If not specific this field we will show your name in the contest profile (Optional)</Text>
                         </Content>
                     </Container>
                 </Modal>
