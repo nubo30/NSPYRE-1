@@ -1,128 +1,82 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions } from 'react-native'
 import { Video } from 'expo-av';
-import { Button, Spinner, Content } from 'native-base'
-import { Grid, Row } from "react-native-easy-grid"
+import { Header, Text, View, Body, Title, Container } from 'native-base'
+import { Grid, Col, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
 import Modal from "react-native-modal";
 
-const { height } = Dimensions.get('window');
+
+import { colorsPalette } from '../../global/static/colors'
 
 export default class About extends Component {
     constructor() {
         super();
         this.state = {
             thumbnailLoading: false,
-            closeModalFromParticipate: false
         }
     }
 
     render() {
-        const { thumbnailLoading, closeModalFromParticipate } = this.state
-        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest, _setModalVisibleJoinToTheContest, userData, disableParticipants } = this.props
-        const filterParticipantsList = contest.participants.items.filter((item) => { return item.participantId.indexOf(userData.id) !== -1 })
+        const { modalVisibleAboutTheContest, _setModalVisibleAboutTheContest, contest } = this.props
         return (
             <Modal
-                onModalHide={closeModalFromParticipate ? () => {
-                    this.setState({ closeModalFromParticipate: false });
-                    _setModalVisibleJoinToTheContest(true)
-                } : () => { }}
+                style={{ justifyContent: 'flex-end', margin: 0 }}
                 isVisible={modalVisibleAboutTheContest}
-                onSwipeComplete={() => _setModalVisibleAboutTheContest(false)}
+                onSwipeComplete={() => { _setModalVisibleAboutTheContest(false); this.setState({ indexSwiper: 0 }) }}
                 swipeDirection={['down']}>
-                <View style={{ flex: 1, top: 20 }}>
-                    <View style={{
-                        height: height - 150,
-                        width: "100%",
-                        position: 'absolute',
-                        bottom: 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: '#FFF',
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10
-                    }}>
-                        <Grid style={{ width: "100%" }}>
-                            <Row size={40} style={{
-                                borderTopLeftRadius: 10, borderTopRightRadius: 10,
-                                justifyContent: 'center',
-                                shadowColor: "rgba(0,0,0,0.3)",
-                                shadowOpacity: 1,
-                                shadowOffset: { width: 0 }
-                            }}>
-                                <Spinner color="#D82B60" size="large" animating={thumbnailLoading} style={{ position: 'absolute', alignSelf: 'center' }} />
-                                <View style={{
-                                    borderTopEndRadius: 10,
-                                    borderTopStartRadius: 10,
-                                    overflow: 'hidden',
-                                    flex: 1
-                                }}>
-                                    {/* VIDEO */}
-                                    <View style={{
-                                        borderTopEndRadius: 10,
-                                        borderTopStartRadius: 10,
-                                        overflow: 'hidden',
-                                        flex: 1
-                                    }}>
-                                        <Video
-                                            source={{ uri: contest.general.video.url }}
-                                            useNativeControls={true}
-                                            rate={1.0}
-                                            volume={1.0}
-                                            isMuted={false}
-                                            resizeMode="cover"
-                                            shouldPlay={false}
-                                            isLooping={false}
-                                            style={{
-                                                width: "100%",
-                                                height: "100%",
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                borderTopEndRadius: 10,
-                                                borderTopStartRadius: 10,
-                                            }}
-                                        />
-                                    </View>
-                                </View>
+                <View style={{
+                    backgroundColor: colorsPalette.secondaryColor,
+                    borderTopStartRadius: 10,
+                    borderTopEndRadius: 10,
+                    borderColor: 'rgba(0, 0, 0, 0.3)',
+                    flex: 1,
+                    maxHeight: 500,
+                    minHeight: 500,
+                    position: 'absolute',
+                    bottom: 0,
+                    width: '100%'
+                }}>
+                    <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                        <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                            <Body>
+                                <Title style={{ top: -10, fontSize: wp(10), color: colorsPalette.darkFont }}>About the contest</Title>
+                            </Body>
+                        </Header>
+                        <Grid>
+                            <Row size={50}>
+                                <View style={{ height: "100%", width: "100%", position: "absolute", backgroundColor: "#3333" }} />
+                                <Video
+                                    source={{ uri: contest.general.video.url }}
+                                    useNativeControls={true}
+                                    rate={1.0}
+                                    volume={1.0}
+                                    isMuted={false}
+                                    resizeMode="cover"
+                                    shouldPlay={false}
+                                    isLooping={false}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}
+                                />
                             </Row>
-                            <Row size={40} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
-                                <Content>
-                                    <Text
-                                        minimumFontScale={wp(6)}
-                                        allowFontScaling={false}
-                                        style={{ top: 5, fontSize: wp(6), color: "#D82B60" }}>Description</Text>
-                                    <Text
-                                        minimumFontScale={wp(3.5)}
-                                        allowFontScaling={false}
-                                        style={{ fontSize: wp(3.5), fontWeight: '100', top: 10, color: "#3333" }}>{contest.general.description}</Text>
-                                    <Text
-                                        minimumFontScale={wp(6)}
-                                        allowFontScaling={false}
-                                        style={{ top: 15, fontSize: wp(6), color: "#D82B60" }}>Instructions</Text>
-                                    <Text
-                                        minimumFontScale={wp(3.5)}
-                                        allowFontScaling={false}
-                                        style={{ fontSize: wp(3.5), fontWeight: '100', top: 20, color: "#3333" }}>{contest.general.instructions}</Text>
-                                </Content>
-                            </Row>
-                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                {userData.id === contest.user.id || disableParticipants === true
-                                    ? null : filterParticipantsList.length
-                                        ? <Button disabled style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text
-                                                minimumFontScale={wp(4)}
-                                                allowFontScaling={false}
-                                                style={{ letterSpacing: 2, color: '#FFF', fontSize: wp(4) }}>YOU'RE IN 🎉</Text>
-                                        </Button>
-                                        : <Button
-                                            onPress={() => { this.setState({ closeModalFromParticipate: true }); _setModalVisibleAboutTheContest(false) }}
-                                            style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ letterSpacing: 2, color: '#FFF' }}>PARTICIPATE NOW</Text>
-                                        </Button>}
+                            <Row size={50}>
+                                <Grid>
+                                    <Col size={50} style={{ alignItems: 'center', padding: 5 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont }}>Description</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{contest.general.description}</Text>
+                                    </Col>
+                                    <Col size={50} style={{ alignItems: 'center', padding: 5 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont }}>Instructions</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{contest.general.instructions}</Text>
+                                    </Col>
+                                </Grid>
                             </Row>
                         </Grid>
-                    </View>
+                    </Container>
                 </View>
             </Modal>
         )

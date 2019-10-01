@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { ImageBackground, Dimensions, ScrollView } from 'react-native'
-import { Video } from 'expo-av';
-import { Button, Header, Left, Text, View, Body, Title, Content, Container, Right } from 'native-base'
+import { ImageBackground, ScrollView, Alert } from 'react-native'
+import { Button, Header, Left, Text, View, Body, Title, Container, Right } from 'native-base'
 import Swiper from 'react-native-swiper';
 import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
 import Modal from "react-native-modal";
-
-const { height } = Dimensions.get('window');
 
 import { colorsPalette } from '../../global/static/colors'
 import PrizeAnimation from '../../global/lottieJs/prizes'
@@ -93,7 +90,15 @@ export default class Prizes extends Component {
                                     <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont, textAlign: 'center', width: "80%" }}>Before continuing, would you like to read the contest instructions?</Text>
                                 </Row>
                                 <Row size={60} style={{ justifyContent: "space-evenly" }}>
-                                    <Button style={{ backgroundColor: colorsPalette.primaryColor, top: 20 }}>
+                                    <Button style={{ backgroundColor: colorsPalette.primaryColor, top: 20 }}
+                                        onPress={() => Alert.alert(
+                                            'Contest Instructions',
+                                            `${contest.general.instructions}`,
+                                            [
+                                                { text: 'OK', onPress: () => {} },
+                                            ],
+                                            { cancelable: false },
+                                        )}>
                                         <Text allowFontScaling={false}>YES</Text>
                                     </Button>
                                     <Button style={{ backgroundColor: colorsPalette.gradientGray, top: 20 }} onPress={() => this._changeSwiper(1)}>

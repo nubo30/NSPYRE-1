@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Platform, StyleSheet, View, StatusBar } from 'react-native';
+import { Animated, Platform, StyleSheet, View } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { Button, Text, Icon } from "native-base"
@@ -26,8 +26,6 @@ import Likes from './buttons/like'
 
 // Gradients
 import { GadrientsAboutContest } from "../global/gradients"
-import { MyStatusBar } from '../global/statusBar'
-import { colorsPalette } from '../global/static/colors'
 
 // GRAPHQL
 import * as queries from '../../src/graphql/queries'
@@ -193,7 +191,6 @@ class ShowContest extends Component {
                 loop={false}
                 showsPagination={false}>
                 <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
-                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
                     <GadrientsAboutContest />
 
                     {/* Slider / Submit a video / submit a meme */}
@@ -273,7 +270,6 @@ class ShowContest extends Component {
                             styles.header,
                             { transform: [{ translateY: headerTranslate }] },
                         ]}>
-                        <MyStatusBar backgroundColor={colorsPalette.lightSBI} barStyle="light-content" />
                         <Animated.Image
                             style={[
                                 styles.backgroundImage,
@@ -310,12 +306,7 @@ class ShowContest extends Component {
 
                     {/* Header Contests */}
                     <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
-                        <HeaderContest
-                            fromWhere={fromWhere}
-                            contest={contest} />
-                        <MyStatusBar
-                            backgroundColor="#FFF"
-                            barStyle="light-content" />
+                        <HeaderContest fromWhere={fromWhere} contest={contest} />
                     </Animated.View>
 
                     {/* Modals */}
@@ -400,7 +391,8 @@ class ShowContest extends Component {
                             _setModalVisibleAudience={this._setModalVisibleAudience}
                             _changeSwiperRoot={this._changeSwiperRoot}
                         />
-                    </View> : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
+                    </View>
+                    : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
             </Swiper>
         )
     }

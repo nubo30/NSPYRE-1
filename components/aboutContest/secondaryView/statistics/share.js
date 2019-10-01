@@ -32,6 +32,7 @@ class Share extends Component {
                     case "com.tinyspeck.chatlyio.share": return ({ appName: "Slack", color: colorsPalette.scColor })
                     case "com.google.Gmail.ShareExtension": return ({ appName: "Gmail", color: colorsPalette.glColor })
                     case "com.apple.UIKit.activity.Message": return ({ appName: "SMS", color: colorsPalette.smsColor })
+                    case "com.skype.skype.sharingextension": return ({ appName: "Skype", color: colorsPalette.spColor })
                     default: break;
                 }
             })
@@ -46,6 +47,7 @@ class Share extends Component {
                 case "com.tinyspeck.chatlyio.share": return "Slack"
                 case "com.google.Gmail.ShareExtension": return "Gmail"
                 case "com.apple.UIKit.activity.Message": return "SMS"
+                case "com.skype.skype.sharingextension": return "Skype"
                 default: break;
             }
         }

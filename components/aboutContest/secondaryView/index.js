@@ -67,7 +67,6 @@ export default class ContestDataStatistics extends Component {
         return (
             <Container style={{ backgroundColor: colorsPalette.opaqueWhite2 }}>
                 <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                    {swiperIndex ? <MyStatusBar backgroundColor={colorsPalette.darckSB} barStyle="dark-content" /> : null}
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button transparent onPress={() => _changeSwiperRoot(-1)}>
                             <Icon name='arrow-back' style={{ color: colorsPalette.primaryColor, }} />

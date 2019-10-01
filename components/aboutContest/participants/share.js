@@ -16,21 +16,6 @@ class SharesParticipations extends Component {
 
     state = { userSharing: {} }
 
-    // componentDidMount() {
-    //     this._isThisUserSharingBefore()
-    // }
-
-    // _isThisUserSharingBefore = async () => {
-    //     const userData = this.props.navigation.getParam('userData')
-    //     const { contest } = this.props
-    //     try {
-    //         const response = await API.graphql(graphqlOperation(queries.getUsersSharing, { id: userData.id + contest.id }))
-    //         this.setState({ userSharing: response.data.getUsersSharing })
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
     _share = async () => {
         const userData = this.props.navigation.getParam('userData')
         const { item } = this.props

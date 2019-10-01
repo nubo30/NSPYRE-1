@@ -35,6 +35,7 @@ class Staticstics extends Component {
             case "com.tinyspeck.chatlyio.share": return "Slack"
             case "com.google.Gmail.ShareExtension": return "Gmail"
             case "com.apple.UIKit.activity.Message": return "SMS"
+            case "com.skype.skype.sharingextension": return "Skype"
             default: break;
         }
     }
@@ -93,7 +94,7 @@ class Staticstics extends Component {
             _modalVisibleShowStatistics
         } = this.props
         const sharedCount = contest.usersSharing === null ? [] : contest.usersSharing.items.map(item => item.whereItHasBeenShared)
-
+        console.log(sharedCount)
         return (
             <Container>
                 <Header>
