@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, Dimensions } from 'react-native'
+import { ImageBackground, Dimensions, ScrollView } from 'react-native'
 import { Video } from 'expo-av';
-import { Button, Spinner, Icon } from 'native-base'
+import { Button, Header, Left, Text, View, Body, Title, Content, Container, Right } from 'native-base'
 import Swiper from 'react-native-swiper';
 import { Grid, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -10,10 +10,9 @@ import Modal from "react-native-modal";
 
 const { height } = Dimensions.get('window');
 
-// Icons
-import { Ionicons } from '@expo/vector-icons'
+import { colorsPalette } from '../../global/static/colors'
+import PrizeAnimation from '../../global/lottieJs/prizes'
 
-// This function show the Awards of content
 export default class Prizes extends Component {
     constructor() {
         super();
@@ -23,164 +22,108 @@ export default class Prizes extends Component {
         }
     }
 
-    _changeSwiper = (i) => { this.swiper.scrollBy(i) }
+    _changeSwiper = (i) => {
+        this.swiper.scrollBy(i)
+    }
 
     render() {
         const { thumbnailLoading, indexSwiper } = this.state
         const { modalVisiblePrizes, _setModalVisiblePrizes, contest } = this.props
         return (
             <Modal
+                style={{ justifyContent: 'flex-end', margin: 0 }}
                 isVisible={modalVisiblePrizes}
-                onSwipeComplete={() => _setModalVisiblePrizes(false)}
+                onSwipeComplete={() => { _setModalVisiblePrizes(false); this.setState({ indexSwiper: 0 }) }}
                 swipeDirection={['down']}>
-                <View style={{ flex: 1, top: 20 }}>
-                    {contest.prizes.length <= 1 ? null :
-                        <View style={{
-                            flexDirection: 'row',
-                            position: 'absolute',
-                            zIndex: 1000,
-                            bottom: 0,
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}>
-                            <Button
-                                disabled={indexSwiper <= 0 ? true : false}
-                                iconRight
-                                transparent
-                                style={{ right: "15%", top: -10 }}
-                                onPress={() => this._changeSwiper(-1)}>
-                                <Icon type="Ionicons" name='ios-arrow-back' style={{ fontSize: wp(7), color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60", right: 10 }} />
-                                <Text
-                                    minimumFontScale={wp(4)}
-                                    allowFontScaling={false}
-                                    style={{ fontSize: wp(4), top: -1, color: 0 === indexSwiper ? "#E0E0E0" : "#D82B60" }}>Back</Text>
-                            </Button>
-                            <Button
-                                disabled={contest.prizes.length === indexSwiper + 1}
-                                iconLeft
-                                transparent
-                                style={{ left: "15%", top: -10 }}
-                                onPress={() => this._changeSwiper(1)}>
-                                <Text
-                                    minimumFontScale={wp(4)}
-                                    allowFontScaling={false}
-                                    style={{ fontSize: wp(4), top: -1, color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60" }}>Next</Text>
-                                <Icon type="Ionicons" name='ios-arrow-forward' style={{ fontSize: wp(7), color: contest.prizes.length === indexSwiper + 1 ? "#E0E0E0" : "#D82B60", left: 10 }} />
-                            </Button>
-                        </View>
-                    }
-                    <Swiper
-                        scrollEnabled={false}
-                        ref={(swiper) => this.swiper = swiper}
-                        onIndexChanged={(value) => this.setState({ indexSwiper: value })}
-                        pagingEnabled={false}
-                        activeDotColor="#D82B60"
-                        loop={false}>
-                        {contest.prizes.map((item, key) =>
-                            <View key={key} style={{
-                                height: height - 150,
-                                width: "100%",
-                                position: 'absolute',
-                                bottom: 0,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: '#FFF',
-                                borderTopLeftRadius: 10,
-                                borderTopRightRadius: 10
-                            }}>
-                                <Grid style={{ width: "100%" }}>
-                                    <Row size={40} style={{
-                                        borderTopLeftRadius: 10, borderTopRightRadius: 10,
-                                        justifyContent: 'center',
-                                        shadowColor: "rgba(0,0,0,0.3)",
-                                        shadowOpacity: 1,
-                                        shadowOffset: { width: 0 }
-                                    }}>
-                                        <Spinner color="#D82B60" size="large" animating={thumbnailLoading} style={{ position: 'absolute', alignSelf: 'center' }} />
-                                        <View style={{
-                                            borderTopEndRadius: 10,
-                                            borderTopStartRadius: 10,
-                                            overflow: 'hidden',
-                                            flex: 1
-                                        }}>
-                                            <Swiper
-                                                nextButton={<Text
-                                                    minimumFontScale={wp(12)}
-                                                    allowFontScaling={false}
-                                                    style={{ color: '#FFF', fontSize: wp(12) }}>›</Text>}
-                                                prevButton={<Text
-                                                    minimumFontScale={wp(12)}
-                                                    allowFontScaling={false}
-                                                    style={{ color: '#FFF', fontSize: wp(12) }}>‹</Text>}
-                                                showsButtons={true}
-                                                scrollEnabled={false}
-                                                loop={false}
-                                                activeDotColor="#FFF">
-
-                                                {/* VIDEO */}
-                                                <View style={{
-                                                    borderTopEndRadius: 10,
-                                                    borderTopStartRadius: 10,
-                                                    overflow: 'hidden',
-                                                    flex: 1
-                                                }}>
-                                                    <Video
-                                                        source={{ uri: item.video.url }}
-                                                        useNativeControls={true}
-                                                        rate={1.0}
-                                                        volume={1.0}
-                                                        isMuted={false}
-                                                        resizeMode="cover"
-                                                        shouldPlay={false}
-                                                        isLooping={false}
-                                                        style={{
-                                                            width: "100%",
-                                                            height: "100%",
-                                                            justifyContent: 'center',
-                                                            alignItems: 'center',
-                                                            borderTopEndRadius: 10,
-                                                            borderTopStartRadius: 10,
-                                                        }}
-                                                    />
-                                                </View>
-
-                                                {/* IMAGEN */}
-                                                <ImageBackground
-                                                    onLoadStart={() => this.setState({ thumbnailLoading: true })}
-                                                    onLoadEnd={() => this.setState({ thumbnailLoading: false })}
-                                                    source={{ uri: item.picture.url }}
-                                                    style={{
-                                                        borderTopLeftRadius: 10,
-                                                        borderTopRightRadius: 10,
-                                                        width: "100%",
-                                                        flex: 1
-                                                    }}>
-                                                </ImageBackground>
-                                            </Swiper>
-                                        </View>
-                                    </Row>
-                                    <Row size={60} style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10, flexDirection: 'column' }}>
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 0.2, alignItems: 'center' }}>
-                                            <Text
-                                                minimumFontScale={wp(9)}
-                                                allowFontScaling={false}
-                                                style={{ fontSize: wp(9), color: "#D82B60" }}>{_.truncate(_.startCase(item.name), { separator: '...', length: 15 })}</Text>
-                                        </View>
-                                        <View style={{ flex: 0.8, top: -10, }}>
-                                            <Text
-                                                minimumFontScale={wp(6)}
-                                                allowFontScaling={false}
-                                                style={{ top: 5, fontSize: wp(6), color: "#D82B60" }}>Description</Text>
-                                            <Text
-                                                minimumFontScale={wp(4)}
-                                                allowFontScaling={false}
-                                                style={{ fontSize: wp(4), top: 10, color: "#3333" }}>{_.truncate(item.description, { length: 200, separator: '...' })}</Text>
-                                        </View>
-                                    </Row>
-                                </Grid>
-                            </View>)}
-                    </Swiper>
+                <View style={{
+                    backgroundColor: colorsPalette.secondaryColor,
+                    borderTopStartRadius: 10,
+                    borderTopEndRadius: 10,
+                    borderColor: 'rgba(0, 0, 0, 0.3)',
+                    flex: 1,
+                    maxHeight: 500,
+                    minHeight: 500,
+                    position: 'absolute',
+                    bottom: 0,
+                    width: '100%'
+                }}>
+                    <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                        <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                            <Left>
+                                <Button
+                                    disabled={indexSwiper === 0 ? true : false}
+                                    transparent onPress={() => this._changeSwiper(-1)}>
+                                    <Text
+                                        allowFontScaling={false}
+                                        minimumFontScale={wp(4)}
+                                        style={{ color: indexSwiper === 0 ? colorsPalette.gradientGray : colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Back</Text>
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Title style={{ top: -10, fontSize: wp(10), color: colorsPalette.darkFont }}>Prizes</Title>
+                            </Body>
+                            <Right>
+                                <Button
+                                    disabled={indexSwiper === 2 ? true : false}
+                                    transparent style={{ top: -10 }} onPress={() => this._changeSwiper(1)}>
+                                    <Text allowFontScaling={false} style={{ color: indexSwiper === 2 ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>Next</Text>
+                                </Button>
+                            </Right>
+                        </Header>
+                        <Swiper
+                            scrollEnabled={false}
+                            ref={(swiper) => this.swiper = swiper}
+                            onIndexChanged={(value) => this.setState({ indexSwiper: value })}
+                            showsPagination={false}
+                            pagingEnabled={true}
+                            // activeDotColor="#D82B60"
+                            loop={false}>
+                            <Grid>
+                                <Row size={60} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                    <PrizeAnimation />
+                                </Row>
+                                <Row size={40} style={{ flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(5), color: colorsPalette.darkFont }}>Hi Yank Carlos!</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont, textAlign: 'center' }}>By participating in this contest you could win the following prizes!</Text>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, textAlign: 'center' }}>(Slide down to close)</Text>
+                                </Row>
+                            </Grid>
+                            <Grid>
+                                <Row size={40} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont, textAlign: 'center', width: "80%" }}>Before continuing, would you like to read the contest instructions?</Text>
+                                </Row>
+                                <Row size={60} style={{ justifyContent: "space-evenly" }}>
+                                    <Button style={{ backgroundColor: colorsPalette.primaryColor, top: 20 }}>
+                                        <Text allowFontScaling={false}>YES</Text>
+                                    </Button>
+                                    <Button style={{ backgroundColor: colorsPalette.gradientGray, top: 20 }} onPress={() => this._changeSwiper(1)}>
+                                        <Text>NO</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
+                            <Swiper
+                                activeDotColor="#D82B60">
+                                {contest.prizes.map((item, key) =>
+                                    <Grid key={key}>
+                                        <Row size={40}>
+                                            <ImageBackground
+                                                onLoadStart={() => this.setState({ thumbnailLoading: true })}
+                                                onLoadEnd={() => this.setState({ thumbnailLoading: false })}
+                                                source={{ uri: item.picture.url }}
+                                                style={{ width: "100%", flex: 1 }}>
+                                            </ImageBackground>
+                                        </Row>
+                                        <Row size={60} style={{ flexDirection: 'column', top: 10 }}>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(7), left: 15 }}>Description <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>(Use two fingers to slide down/left/right)</Text> </Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), left: 15, marginTop: 5, marginBottom: 5 }}>{item.name}</Text>
+                                            <ScrollView contentContainerStyle={{ height: "100%", left: 15, width: "90%" }}>
+                                                <Text allowFontScaling={false} style={{ textAlign: 'left', fontSize: wp(3.5) }}>{item.description}</Text>
+                                            </ScrollView>
+                                        </Row>
+                                    </Grid>)}
+                            </Swiper>
+                        </Swiper>
+                    </Container>
                 </View>
             </Modal>
         )
