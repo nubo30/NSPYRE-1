@@ -19,41 +19,43 @@ export default function Prizes(props) {
     const { _setModalVisiblePrizes, contest } = props
     return (
         <TouchableHighlight style={{ flex: 1, justifyContent: 'center', alignItems: 'center', top: -10 }}
-            onLongPress={() => { _setModalVisiblePrizes(true) }}
+            onPress={() => {
+                setTimeout(() => {
+                    _setModalVisiblePrizes(true)
+                }, 500)
+            }}
             underlayColor="rgba(0,0,0,0.0)">
             <Card style={{ borderRadius: 5, elevation: 5, width: "80%" }}>
                 <CardItem header bordered style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
                     <H1
                         minimumFontScale={wp(4)}
                         allowFontScaling={false}
-                        onLongPress={() => { _setModalVisiblePrizes(true) }} style={{ color: "#D82B60", fontSize: wp(5) }}>Prizes</H1>
+                        style={{ color: "#D82B60", fontSize: wp(5) }}>Prizes</H1>
                     <Badge style={{ backgroundColor: '#D82B60', width: 20, height: 20, justifyContent: 'center', alignItems: 'center' }}>
                         <Text
                             minimumFontScale={wp(3)}
                             allowFontScaling={false}
-                            onLongPress={() => { _setModalVisiblePrizes(true) }} style={{ fontSize: wp(3), right: 2, top: -2 }}>{contest.prizes.length}</Text>
+                            style={{ fontSize: wp(3), right: 2, top: -2 }}>{contest.prizes.length}</Text>
                     </Badge>
                 </CardItem>
                 <CardItem
-                    onLongPress={() => { _setModalVisiblePrizes(true) }}
                     style={{ borderBottomLeftRadius: 5, borderBottomEndRadius: 5 }}>
                     <List style={{ width: "100%" }}>
-                        <ListItem avatar>
+                        <ListItem avatar onPress={() => setTimeout(() => {
+                            _setModalVisiblePrizes(true)
+                        }, 500)}>
                             <Left>
                                 <Thumbnail
-                                    onLongPress={() => { _setModalVisiblePrizes(true) }}
                                     style={{ bottom: 5 }} source={{ uri: "https://livra.com/Portals/0/new_skin/FRANK/assets/img/prototype/content/prize-bundle.png" }} />
                             </Left>
                             <Body style={{ borderBottomColor: "#fff" }}>
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    onLongPress={() => { _setModalVisiblePrizes(true) }}
                                     style={{ color: "#BDBDBD", fontSize: wp(4) }}>{`This contest has ${contest.prizes.length} prize, touch to see!`}</Text>
                                 <Text
                                     minimumFontScale={wp(3)}
                                     allowFontScaling={false}
-                                    onPress={() => { _setModalVisiblePrizes(true) }}
                                     style={{ color: "#D82B60", textDecorationLine: "underline", top: 3, fontSize: wp(3) }}>See the prizes</Text>
                             </Body>
                         </ListItem>

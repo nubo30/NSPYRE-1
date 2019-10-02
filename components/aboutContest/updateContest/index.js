@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Modal, ImageBackground, KeyboardAvoidingView, Alert, Platform, Image, Keyboard } from 'react-native';
+import { Modal, ImageBackground, Alert, Platform, Image, Keyboard } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import { Header, Left, Button, Icon, Text, Title, View, Right, ListItem, Body, Switch, Item, Input, List, Spinner, Toast, Root, Container, Content } from 'native-base'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from 'moment'
@@ -308,7 +308,7 @@ class UpdateContest extends Component {
         const input = contest
 
         try {
-            await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${pictureOfPrize.name}`, blobPicture, { contentType: pictureOfPrize.type })        
+            await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${pictureOfPrize.name}`, blobPicture, { contentType: pictureOfPrize.type })
             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             this._changeSecondSwiper(-1)
@@ -443,34 +443,7 @@ class UpdateContest extends Component {
                                 ref={(secondSwiper) => this.secondSwiper = secondSwiper}
                                 showsPagination={false} loop={false} scrollEnabled={false}>
                                 <View style={{ flex: 1 }}>
-                                    {/* TIMER */}
-                                    <ListItem icon>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoadingUploadImagenToAWS ? "#BDBDBD" : "#FF9501" }}>
-                                                <Ionicons active name="md-timer" style={{ fontSize: wp(6), color: "#FFF", top: 1.5 }} />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            {contest.timer === null
-                                                ? <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
-                                                : <Text allowFontScaling={false} style={{ color: !isLoadingUploadImagenToAWS ? null : "#BDBDBD", fontSize: wp(4) }}>{contest.timer && contest.timer.end === null ? contest.timer.end : moment(dateChoose ? dateChoose : contest.timer.end).format('LLLL')}</Text>}
-                                        </Body>
-                                        <Right>
-                                            <Switch
-                                                value={timerSwitch || contest.timer !== null}
-                                                onValueChange={() => { this.setState({ timerSwitch: !timerSwitch }); this._dateTimePicker() }}
-                                                disabled={isLoadingUploadImagenToAWS || contest.timer !== null} />
-                                        </Right>
-                                        <DateTimePicker
-                                            mode="datetime"
-                                            titleIOS="When you choose the termination date it cannot be updated again. If in any case you want to update it please contact support@nspyre.com"
-                                            isVisible={isDateTimePickerVisible}
-                                            onConfirm={this.handleDatePicked}
-                                            onCancel={this.hideDateTimePicker}
-                                            maximumDate={new Date(new Date().setDate(new Date().getDate() + 15))}
-                                            minimumDate={new Date()} />
-                                    </ListItem>
-
+                                
                                     {/* NAME OF CONTEST */}
                                     <ListItem icon>
                                         <Left>

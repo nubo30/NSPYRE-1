@@ -11,6 +11,7 @@ import _ from 'lodash'
 import { normalizeEmail } from 'validator'
 import Swiper from 'react-native-swiper'
 import AWS from 'aws-sdk'
+import moment from 'moment'
 
 import { securityCredentials } from '../../../global/aws/credentials'
 
@@ -306,6 +307,21 @@ class Summary extends Component {
                                             </Right>
                                         </ListItem>
 
+                                        {/* TIMER */}
+                                        <ListItem icon>
+                                            <Left>
+                                                <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FF9501" }}>
+                                                    <Ionicons active name="md-timer" style={{ fontSize: wp(6), color: "#FFF", top: 1.5 }} />
+                                                </Button>
+                                            </Left>
+                                            <Body>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Timer</Text>
+                                            </Body>
+                                            <Right>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{(contest && contest.timer && moment(contest.timer.end).format('LLLL'))}</Text>
+                                            </Right>
+                                        </ListItem>
+
                                         {/* IMAGEN */}
                                         <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                             <Left>
@@ -344,6 +360,7 @@ class Summary extends Component {
                                             <Text allowFontScaling={false} style={{ right: 15 }}>{prizes === undefined ? 0 : prizes.length} Prizes Created</Text>
                                         </Separator>
 
+                                        {/* PRIZES */}
                                         <Swiper
                                             style={{ height: 350 }}
                                             loop={false}

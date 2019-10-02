@@ -3,11 +3,13 @@ import { Dimensions, Modal, Platform, Image, Keyboard, Alert } from 'react-nativ
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner, Switch } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from 'moment'
 
 import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
@@ -34,6 +36,10 @@ export default class AboutTheContest extends Component {
         instructions: "",
         picture: { name: "", type: "", localUrl: "" },
         video: { name: "", type: "", localUrl: "" },
+        dateChoose: "",
+
+        timerSwitch: false,
+        isDateTimePickerVisible: false,
 
         // Modal
         visibleModalNameOfContest: false,
@@ -43,12 +49,17 @@ export default class AboutTheContest extends Component {
         visibleModalVideo: false
     }
 
+    _dateTimePicker = () => {
+        const { timerSwitch } = this.state
+        !timerSwitch ? this.showDateTimePicker() : this.setState({ dateChoose: "" })
+    }
+
     // Picker
     onValueChangeCategory = (value) => { this.setState({ category: value }) }
 
     // Validar formulario
     _validateForm = () => {
-        const { category, nameOfContest, description, instructions, picture, video } = this.state
+        const { category, nameOfContest, description, instructions, picture, video, dateChoose } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             category !== 'Not specified'
@@ -57,7 +68,9 @@ export default class AboutTheContest extends Component {
                         ? instructions
                             ? picture.name
                                 ? video.name
-                                    ? this._submit()
+                                    ? dateChoose
+                                        ? this._submit()
+                                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid timer" } } })
                                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
                                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
                             : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
@@ -67,13 +80,21 @@ export default class AboutTheContest extends Component {
         }, 500);
     }
 
+    showDateTimePicker = () => { this.setState({ isDateTimePickerVisible: true }) }
+
+    hideDateTimePicker = (action) => { this.setState({ isDateTimePickerVisible: false, timerSwitch: action ? true : false }) };
+
+    // Confirmar la fecha selccionada
+    handleDatePicked = date => {
+        this.setState({ dateChoose: date })
+        this.hideDateTimePicker(true);
+    };
 
     // Preguntar al usuario por los permisos para abrir la libreria de imagenes y videos
     askPermissionsAsync = async () => {
         await Permissions.askAsync(Permissions.CAMERA_ROLL);
         await Permissions.askAsync(Permissions.CAMERA);
     }
-
 
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
@@ -143,8 +164,12 @@ export default class AboutTheContest extends Component {
 
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { category, nameOfContest, description, instructions, picture, video } = this.state
-        const data = { category, general: { nameOfContest, description, instructions, picture, video } }
+        const { category, nameOfContest, description, instructions, picture, video, dateChoose } = this.state
+        const data = {
+            category,
+            general: { nameOfContest, description, instructions, picture, video },
+            timer: { end: dateChoose, start: moment().toISOString() }
+        }
         try {
             await _dataFromForms(data)
             await _indexChangeSwiper(1)
@@ -154,7 +179,6 @@ export default class AboutTheContest extends Component {
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
         }
     }
-
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.wantSuggestedFields) {
@@ -175,10 +199,14 @@ export default class AboutTheContest extends Component {
             instructions,
             picture,
             video,
+            dateChoose,
 
+            // Actions
             isvalidFormAnimation,
             isLoading,
             messageFlash,
+            isDateTimePickerVisible,
+            timerSwitch,
 
             // Modal
             visibleModalNameOfContest,
@@ -302,6 +330,32 @@ export default class AboutTheContest extends Component {
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
+                                    </ListItem>
+
+                                    {/* TIMER */}
+                                    <ListItem icon>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FF9501" }}>
+                                                <Ionicons active name="md-timer" style={{ fontSize: wp(6), color: "#FFF", top: 1.5 }} />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text allowFontScaling={false} style={{ color: !isLoading ? null : colorsPalette.opaqueWhite, fontSize: wp(4) }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
+                                        </Body>
+                                        <Right>
+                                            <Switch
+                                                value={timerSwitch}
+                                                onValueChange={() => { this.setState({ timerSwitch: !timerSwitch }); this._dateTimePicker() }}
+                                                disabled={isLoading} />
+                                        </Right>
+                                        <DateTimePicker
+                                            mode="datetime"
+                                            titleIOS="When you choose the termination date it cannot be updated again. If in any case you want to update it please contact support@nspyre.com"
+                                            isVisible={isDateTimePickerVisible}
+                                            onConfirm={this.handleDatePicked}
+                                            onCancel={this.hideDateTimePicker}
+                                            maximumDate={new Date(new Date().setDate(new Date().getDate() + 15))}
+                                            minimumDate={new Date()} />
                                     </ListItem>
 
                                     {/* PICTURE */}

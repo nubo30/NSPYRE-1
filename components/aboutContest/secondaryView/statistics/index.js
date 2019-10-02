@@ -191,7 +191,9 @@ class Staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* VIDEO */}
-                        <ListItem last icon onPress={() => { this._usersViewsVideoModal(true) }}>
+                        <ListItem
+                            disabled={contest.viewsVideo && contest.viewsVideo.items.length ? false : true}
+                            last icon onPress={() => { this._usersViewsVideoModal(true) }}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E65100" }}>
                                     <Icon type="FontAwesome" name="video-camera" />
