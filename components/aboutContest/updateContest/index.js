@@ -43,7 +43,6 @@ class UpdateContest extends Component {
         nameOfPrize: "",
         descriptionOfPrize: "",
         pictureOfPrize: { name: "", type: "", localUrl: "", url: "" },
-        videoOfPrize: { name: "", type: "", localUrl: "", url: "" },
 
         // List
         prizesList: [],
@@ -65,7 +64,7 @@ class UpdateContest extends Component {
         openModalDescription: false,
         openModalInstructions: false,
         visibleModalNameOfPrize: false,
-        visibleModalDescriptionPrize: false,
+        visibleModalDescription: false,
         VisibleModalPicturePrize: false,
         visibleModalVideoPrize: false,
 
@@ -121,20 +120,7 @@ class UpdateContest extends Component {
     _useLibraryHandlerPrizes = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (Math.round(result.duration) <= 60000) {
-            if (!result.cancelled) {
-                action === 'Images'
-                    ? this._getNameOfLocalUrlImagePrizes(result.uri)
-                    : this._getNameOfLocalUrlVideoPrizes(result.uri)
-            }
-        } else if (Math.round(result.duration) > 61000) {
-            Alert.alert(
-                '',
-                'You cannot choose a video that exceeds one minute.',
-                [{ text: 'OK', onPress: () => { } }],
-                { cancelable: false },
-            );
-        }
+        this._getNameOfLocalUrlImagePrizes(result.uri)
     }
 
 
@@ -257,14 +243,12 @@ class UpdateContest extends Component {
     // Validar formulario
     _validateFormPrize = () => {
         this.setState({ isLoading: true })
-        const { nameOfPrize, descriptionOfPrize, pictureOfPrize, videoOfPrize } = this.state
+        const { nameOfPrize, descriptionOfPrize, pictureOfPrize } = this.state
         isAscii(nameOfPrize)
             ? descriptionOfPrize
                 ? pictureOfPrize.name
-                    ? videoOfPrize.name
-                        ? this._createPrize()
-                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
+                    ? this._createPrize()
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
             : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
     }
@@ -292,40 +276,17 @@ class UpdateContest extends Component {
         })
     }
 
-    _getNameOfLocalUrlVideoPrizes = async (fileUri, access = "public") => {
-        const { contest } = this.props
-        const blob = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () { resolve(xhr.response) };
-            xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-            xhr.responseType = "blob";
-            xhr.open("GET", fileUri, true);
-            xhr.send(null);
-        });
-        const { name, type } = blob._data;
-        this.setState({
-            videoOfPrize: {
-                ...this.state.picture,
-                localUrl: fileUri,
-                name,
-                type,
-                blob,
-                url: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${contest.user.email}/contest/prizes/videos/owner/${name}`
-            }
-        })
-    }
 
     _createPrize = async () => {
         const { contest } = this.props
-        const { nameOfPrize, descriptionOfPrize, price, pictureOfPrize, videoOfPrize } = this.state
+        const { nameOfPrize, descriptionOfPrize, price, pictureOfPrize } = this.state
         const userData = { id: this.props.userData.id, email: this.props.userData.email }
-        omitDeep(contest, ['user', '__typename'])
+        omitDeep(contest, ['user', '__typename', 'audience', 'participants', 'usersSharing', 'usersLikes', 'viewsVideo'])
         contest.prizes.push({
             name: nameOfPrize,
             description: descriptionOfPrize,
             price,
             picture: pictureOfPrize,
-            video: videoOfPrize,
             prizeId: '_' + Math.random().toString(36).substr(2, 9)
         })
         AWS.config.update({
@@ -344,33 +305,21 @@ class UpdateContest extends Component {
             xhr.send(null);
         });
 
-        // VIDEO OF THE CONTEST
-        const blobVideo = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () { resolve(xhr.response) };
-            xhr.onerror = function () { reject(new TypeError("Network request failed")) };
-            xhr.responseType = "blob";
-            xhr.open("GET", videoOfPrize.localUrl, true);
-            xhr.send(null);
-        });
         const input = contest
 
         try {
-            await Storage.put(`users/${userData.email}/contest/pictures/owner/${pictureOfPrize.name}`, blobPicture, { contentType: pictureOfPrize.type })
-            await Storage.put(`users/${userData.email}/contest/videos/owner/${videoOfPrize.name}`, blobVideo, { contentType: videoOfPrize.type })
+            await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${pictureOfPrize.name}`, blobPicture, { contentType: pictureOfPrize.type })        
             await API.graphql(graphqlOperation(mutations.updateCreateContest, { input }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             this._changeSecondSwiper(-1)
         } catch (error) {
+            console.log(error)
             Toast.show({
                 text: "Oops! An error has occurred",
                 buttonText: "Okay",
                 type: "danger",
+                position: 'top',
                 duration: 3000
-            })
-        } finally {
-            this.setState({
-                isLoading: false
             })
         }
     }
@@ -404,15 +353,13 @@ class UpdateContest extends Component {
             nameOfPrize,
             descriptionOfPrize,
             pictureOfPrize,
-            videoOfPrize,
 
             // Modals
             openModalDescription,
             openModalInstructions,
             visibleModalNameOfPrize,
-            visibleModalDescriptionPrize,
+            visibleModalDescription,
             VisibleModalPicturePrize,
-            visibleModalVideoPrize,
 
             // Actions
             isLoadingUploadImagenToAWS,
@@ -623,16 +570,12 @@ class UpdateContest extends Component {
                                 {/* ADD PRIZES */}
                                 <View style={{ flex: 1 }}>
                                     <Grid>
-                                        <Row size={20} style={{ padding: 15, flexDirection: 'column' }}>
+                                        <Row size={10} style={{ padding: 15, flexDirection: 'column' }}>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(9), color: isLoading ? "#BDBDBD" : "#D81B60" }}>
                                                 Adding New Prize
                                             </Text>
-                                            <Text
-                                                allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : "#333", fontSize: wp(3) }}>
-                                                Lorem Ipsum es un texto de marcador de posición comúnmente utilizado en las industrias gráficas, gráficas y editoriales para previsualizar diseños y maquetas visuales.
-                                            </Text>
                                         </Row>
-                                        <Row size={60}>
+                                        <Row size={70}>
                                             <List style={{ width: "100%" }}>
                                                 {/* NAME PRIZE */}
                                                 <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalNameOfPrize: true })}>
@@ -651,7 +594,7 @@ class UpdateContest extends Component {
                                                 </ListItem>
 
                                                 {/* DESCRIPTION */}
-                                                <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalDescriptionPrize: true })}>
+                                                <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalDescription: true })}>
                                                     <Left>
                                                         <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#F4511E" }}>
                                                             <MaterialIcons style={{ fontSize: wp(5.6), color: '#FFF' }} active name="description" />
@@ -679,22 +622,6 @@ class UpdateContest extends Component {
                                                     </Body>
                                                     <Right>
                                                         <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{pictureOfPrize.name ? "Already selected" : "No select"}</Text>
-                                                        <Icon active name="arrow-forward" />
-                                                    </Right>
-                                                </ListItem>
-
-                                                {/* VIDEO */}
-                                                <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideoPrize: true })}>
-                                                    <Left>
-                                                        <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FBC02D" }}>
-                                                            <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
-                                                        </Button>
-                                                    </Left>
-                                                    <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Video</Text>
-                                                    </Body>
-                                                    <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{videoOfPrize.name ? "Already selected" : "No select"}</Text>
                                                         <Icon active name="arrow-forward" />
                                                     </Right>
                                                 </ListItem>
@@ -836,127 +763,107 @@ class UpdateContest extends Component {
 
                 {/* NAME PRIZE MODAL */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
+                    transparent={false}
                     visible={visibleModalNameOfPrize}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Name Of Prize</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Name of prize</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    nameOfPrize
+                                        ? this.setState({ visibleModalNameOfPrize: false })
+                                        : this.setState({ nameOfPrize: "", visibleModalNameOfPrize: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: nameOfPrize ? "#E91E63" : "#3333"
+                                    }}>{
+                                            nameOfPrize ? "Done" : "Cancel"
+                                        }</Text>
+                                </Button>
+                            </Right>
                         </Header>
-
-                        {/* NAME OF PRIZE */}
-                        <Item
-                            error={isAscii(nameOfPrize) ? false : true}
-                            success={isAscii(nameOfPrize) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                placeholder="Name of prize"
-                                placeholderTextColor="#EEEE"
-                                maxLength={20}
-                                autoFocus={true}
-                                value={nameOfPrize}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7) }}
-                                onChangeText={(value) => this.setState({ nameOfPrize: value })} />
-                        </Item>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalNameOfPrize: false, name: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={nameOfPrize ? () => this.setState({ visibleModalNameOfPrize: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: isAscii(nameOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* COMPANY NAMEY */}
+                            <ListItem icon>
+                                <Left>
+                                    <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#009688" }}>
+                                        <Entypo style={{ fontSize: wp(5), color: '#FFF' }} active name="star" />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Input
+                                        onSubmitEditing={() => nameOfPrize ? this.setState({ visibleModalNameOfPrize: false }) : Keyboard.dismiss()}
+                                        returnKeyType='done'
+                                        allowFontScaling={false}
+                                        placeholder="Company Name"
+                                        placeholderTextColor="#EEEE"
+                                        maxLength={20}
+                                        autoFocus={true}
+                                        value={nameOfPrize}
+                                        keyboardType="ascii-capable"
+                                        selectionColor="#E91E63"
+                                        onChangeText={(value) => this.setState({ nameOfPrize: value })} />
+                                </Body>
+                                <Right />
+                            </ListItem>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* DESCRIPTION OF PRIZE */}
                 <Modal
-                    transparent={false}
                     hardwareAccelerated={true}
-                    visible={visibleModalDescriptionPrize}
+                    transparent={false}
+                    visible={visibleModalDescription}
                     animationType="fade"
                     presentationStyle="fullScreen"
                     onRequestClose={() => null}>
-                    <KeyboardAvoidingView
-                        keyboardShouldPersistTaps={'always'}
-                        enabled
-                        behavior={Platform.OS === 'ios' ? "padding" : null}
-                        style={{ flex: 1 }}>
-                        <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7), top: 5, alignSelf: 'flex-start' }}>Description</Title>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Description</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    descriptionOfPrize
+                                        ? this.setState({ visibleModalDescription: false })
+                                        : this.setState({ descriptionOfPrize: "", visibleModalDescription: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: descriptionOfPrize ? "#E91E63" : "#3333"
+                                    }}>{descriptionOfPrize ? "Done" : "Cancel"}</Text>
+                                </Button>
+                            </Right>
                         </Header>
-
-                        {/* NAME OF PRIZE */}
-                        <Item
-                            error={isAscii(descriptionOfPrize) ? false : true}
-                            success={isAscii(descriptionOfPrize) ? true : false}
-                            style={{ width: "90%", top: 15, alignSelf: "center" }}>
-                            <Input
-                                allowFontScaling={false}
-                                multiline
-                                numberOfLines={4}
-                                placeholder="Description of Prize"
-                                placeholderTextColor="#EEEE"
-                                autoFocus={true}
-                                value={descriptionOfPrize}
-                                keyboardType="ascii-capable"
-                                selectionColor="#E91E63"
-                                style={{ fontSize: wp(7), padding: 10, maxHeight: 200 }}
-                                onChangeText={(value) => this.setState({ descriptionOfPrize: value })} />
-                        </Item>
-
-                        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={() => { this.setState({ visibleModalDescriptionPrize: false, descriptionOfPrize: '' }) }}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: "#333" }}>CANCEL</Text>
-                                </Button>
-                            </Col>
-                            <Col size={50} style={{ backgroundColor: "rgba(0,0,0,0.0)" }}>
-                                <Button
-                                    bordered
-                                    onPress={descriptionOfPrize ? () => this.setState({ visibleModalDescriptionPrize: false }) : null}
-                                    style={{
-                                        borderRadius: 0, borderColor: "#E0E0E0", width: "100%",
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: isAscii(descriptionOfPrize) ? "#333" : "#E0E0E0" }}>ACCEPT</Text>
-                                </Button>
-                            </Col>
-                        </Grid>
-                    </KeyboardAvoidingView>
+                        <Content scrollEnabled={false}>
+                            {/* DESCRIPTION */}
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholder="Description"
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={descriptionOfPrize}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 220 }}
+                                    onChangeText={(value) => this.setState({ descriptionOfPrize: value })} />
+                            </Item>
+                        </Content>
+                    </Container>
                 </Modal>
 
                 {/* PICTURE OF PRIZE */}
@@ -1001,59 +908,6 @@ class UpdateContest extends Component {
                         </Row>
                     </Grid>
                 </Modal>
-
-                {/* VIDEO OF PRIZE*/}
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={visibleModalVideoPrize}>
-                    <Header style={{ height: Platform.OS === 'ios' ? 70 : 50, backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)" }}>
-                        <Left style={{ flexDirection: 'row' }}>
-                            <Button transparent
-                                onPress={() => { this.setState({ visibleModalVideoPrize: false, video: { name: "", type: "", localUrl: "" } }) }}>
-                                <Icon name='arrow-back' style={{ color: "#D81B60" }} />
-                                <Text allowFontScaling={false} style={{ left: 5, color: "#D81B60" }}>{videoOfPrize.name ? "DELETE" : "BACK"}</Text>
-                            </Button>
-                        </Left>
-                        <Right>
-                            <Button
-                                disabled={videoOfPrize.name ? false : true}
-                                transparent
-                                onPress={() => { this.setState({ visibleModalVideoPrize: false }) }}>
-                                <Text allowFontScaling={false} style={{ color: videoOfPrize.name ? "#D81B60" : "#BDBDBD", fontSize: wp(5) }}>OK</Text>
-                            </Button>
-                        </Right>
-                    </Header>
-                    <Grid>
-                        <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            {videoOfPrize.name
-                                ? <Video
-                                    source={{ uri: videoOfPrize.localUrl }}
-                                    useNativeControls
-                                    rate={1.0}
-                                    volume={1.0}
-                                    isMuted={false}
-                                    resizeMode="cover"
-                                    shouldPlay
-                                    isLooping={false}
-                                    style={{ width: "100%", height: "100%" }} />
-                                : <Ionicons name="ios-videocam" style={{ fontSize: wp(50), color: "#BDBDBD" }} />}
-                        </Row>
-                        <Row size={30} style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                            <Button
-                                onPress={() => this._useLibraryHandlerPrizes('Videos')}
-                                transparent
-                                style={{
-                                    backgroundColor: colorsPalette.primaryColor,
-                                    borderRadius: 10, width: "80%", alignSelf: 'center', justifyContent: 'center'
-                                }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
-                            </Button>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
-                        </Row>
-                    </Grid>
-                </Modal>
-
             </Modal>
         );
     }

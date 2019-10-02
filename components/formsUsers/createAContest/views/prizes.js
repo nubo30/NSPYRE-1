@@ -13,7 +13,7 @@ import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
-import { Ionicons, Entypo, FontAwesome, MaterialIcons, Feather } from '@expo/vector-icons'
+import { Ionicons, Entypo, FontAwesome, MaterialIcons } from '@expo/vector-icons'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
@@ -154,7 +154,6 @@ export default class Prizes extends Component {
             visibleModalName,
             visibleModalDescription,
             VisibleModalPicture,
-            visibleModalVideo
         } = this.state
         const { _indexChangeSwiper } = this.props
         return (

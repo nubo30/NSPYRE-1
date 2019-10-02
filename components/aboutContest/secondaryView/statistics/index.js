@@ -94,7 +94,6 @@ class Staticstics extends Component {
             _modalVisibleShowStatistics
         } = this.props
         const sharedCount = contest.usersSharing === null ? [] : contest.usersSharing.items.map(item => item.whereItHasBeenShared)
-        console.log(sharedCount)
         return (
             <Container>
                 <Header>
@@ -165,27 +164,6 @@ class Staticstics extends Component {
                             </Body>
                             <Right>
                                 <Text>{flatten(values(sharedCount)).length}</Text>
-                                <Icon active name="arrow-forward" />
-                            </Right>
-                        </ListItem>
-
-                        {/* CANTIDAD DE COMENTARIOS */}
-                        <ListItem last icon onPress={() => this.setState({ usersCommentsModal: true })}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#1976D2" }}>
-                                    <Icon type="FontAwesome" name="comment" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text
-                                    allowFontScaling={false}
-                                    style={{ fontSize: wp(4) }}
-                                    allowFontScaling={false}
-                                    minimumFontScale={wp(3)}
-                                >Comments</Text>
-                            </Body>
-                            <Right>
-                                <Text>30</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>

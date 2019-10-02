@@ -107,6 +107,7 @@ export default class Prizes extends Component {
                                 </Row>
                             </Grid>
                             <Swiper
+                                loop={false}
                                 activeDotColor="#D82B60">
                                 {contest.prizes.map((item, key) =>
                                     <Grid key={key}>
