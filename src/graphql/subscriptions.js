@@ -221,12 +221,6 @@ export const onCreateUser = `subscription OnCreateUser {
             msg
             typeContentInstructionsValue
           }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
           picture {
             localUrl
             url
@@ -542,12 +536,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
             msg
             typeContentInstructionsValue
           }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
           picture {
             localUrl
             url
@@ -862,12 +850,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
           instructions {
             msg
             typeContentInstructionsValue
-          }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
           }
           picture {
             localUrl
@@ -10527,12 +10509,6 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
         msg
         typeContentInstructionsValue
       }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
       picture {
         localUrl
         url
@@ -10742,12 +10718,6 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
         msg
         typeContentInstructionsValue
       }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
       picture {
         localUrl
         url
@@ -10956,12 +10926,6 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       instructions {
         msg
         typeContentInstructionsValue
-      }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
       }
       picture {
         localUrl

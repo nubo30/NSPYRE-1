@@ -41,12 +41,6 @@ export default class AboutTheContest extends Component {
         nameOfPrize: "",
         description: "",
         instructions: "",
-        socialMediaHandle: {
-            facebook: "",
-            twitter: "",
-            instagram: "",
-            snapchat: ""
-        },
         picture: { name: "", type: "", localUrl: "" },
         video: { name: "", type: "", localUrl: "" },
 
@@ -68,20 +62,18 @@ export default class AboutTheContest extends Component {
 
     // Validar formulario
     _validateForm = () => {
-        const { category, nameOfPrize, description, instructions, socialMediaHandle, picture, video } = this.state
+        const { category, nameOfPrize, description, instructions, picture, video } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             category !== 'Not specified'
                 ? isAscii(nameOfPrize)
                     ? description
                         ? instructions
-                            ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.twitter || socialMediaHandle.snapchat
-                                ? picture.name
-                                    ? video.name
-                                        ? this._submit()
-                                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
-                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid socials medias" } } })
+                            ? picture.name
+                                ? video.name
+                                    ? this._submit()
+                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
                             : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
                         : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
@@ -92,17 +84,22 @@ export default class AboutTheContest extends Component {
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
-        if (Math.round(result.duration) <= 60000) {
-            if (!result.cancelled) { action !== 'Videos' ? this._getNameOfLocalUrlImage(result.uri) : this._getNameOfLocalUrlVideo(result.uri) }
-        } else if (Math.round(result.duration) > 61000) {
-            Alert.alert(
-                '',
-                'You cannot choose a video that exceeds one minute.',
-                [{ text: 'OK', onPress: () => { } }],
-                { cancelable: false },
-            );
+        if (result.type === 'image') {
+            if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
+        } else {
+            if (Math.round(result.duration) <= 60000) {
+                if (!result.cancelled) { this._getNameOfLocalUrlVideo(result.uri) }
+            } else if (Math.round(result.duration) > 61000) {
+                Alert.alert(
+                    '',
+                    'You cannot choose a video that exceeds one minute.',
+                    [{ text: 'OK', onPress: () => { } }],
+                    { cancelable: false },
+                );
+            }
         }
     }
+
 
     _getNameOfLocalUrlImage = async (fileUri, access = "public") => {
         const { userData } = this.props
@@ -158,8 +155,8 @@ export default class AboutTheContest extends Component {
 
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { category, nameOfPrize, price, description, instructions, socialMediaHandle, picture, video, typeContentInstructionsValue } = this.state
-        const data = { category, general: { nameOfPrize, price, description, instructions: { typeContentInstructionsValue, msg: instructions }, socialMediaHandle, picture, video } }
+        const { category, nameOfPrize, price, description, instructions,  picture, video, typeContentInstructionsValue } = this.state
+        const data = { category, general: { nameOfPrize, price, description, instructions: { typeContentInstructionsValue, msg: instructions }, picture, video } }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false })
@@ -206,12 +203,6 @@ export default class AboutTheContest extends Component {
                 description: dataFromThePreviousSubmitPrize.general.description,
                 typeContentInstructionsValue: dataFromThePreviousSubmitPrize.general.instructions.typeContentInstructionsValue,
                 instructions: dataFromThePreviousSubmitPrize.general.instructions.msg,
-                socialMediaHandle: {
-                    facebook: dataFromThePreviousSubmitPrize.general.socialMediaHandle.facebook,
-                    twitter: dataFromThePreviousSubmitPrize.general.socialMediaHandle.twitter,
-                    instagram: dataFromThePreviousSubmitPrize.general.socialMediaHandle.instagram,
-                    snapchat: dataFromThePreviousSubmitPrize.general.socialMediaHandle.snapchat
-                },
             })
         }
     }
@@ -225,7 +216,6 @@ export default class AboutTheContest extends Component {
             instructions,
             picture,
             video,
-            socialMediaHandle,
             price,
 
             // Actions
@@ -266,8 +256,8 @@ export default class AboutTheContest extends Component {
                 </Header>
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? "#EEEEEE" : "#FFF", fontWeight: '100' }}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#EEEEEE" : "#FFF" }}>Great! {'\n'}</Text> Now tell us about the prize you want to build!
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? "#EEEEEE" : "#FFF", fontWeight: 'normal' }}>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? "#EEEEEE" : "#FFF" }}>Great! {'\n'}</Text>Now tell us about the prize you want to build!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center' }}>
@@ -377,22 +367,6 @@ export default class AboutTheContest extends Component {
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
-                                    </ListItem>
-
-                                    {/* USER SOCIAL MEDIA HANDLE */}
-                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalSocialMediaHandle(true)}>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
-                                                <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Socials medias</Text>
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -595,20 +569,17 @@ export default class AboutTheContest extends Component {
                         <Content scrollEnabled={false}>
                             {/* DESCRIPTION */}
                             <Item
-                                style={{ width: "90%", top: 15, alignSelf: "center" }}>
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
                                 <Input
                                     allowFontScaling={false}
-                                    onSubmitEditing={() => description ? this.setState({ visibleModalDescription: false }) : Keyboard.dismiss()}
-                                    returnKeyType='done'
                                     multiline
                                     numberOfLines={3}
-                                    placeholder="Description"
                                     placeholderTextColor="#EEEE"
                                     autoFocus={true}
                                     value={description}
                                     keyboardType="ascii-capable"
                                     selectionColor="#E91E63"
-                                    style={{ padding: 5, maxHeight: 170 }}
+                                    style={{ padding: 5, maxHeight: 220 }}
                                     onChangeText={(value) => this.setState({ description: value })} />
                             </Item>
                         </Content>
@@ -710,164 +681,23 @@ export default class AboutTheContest extends Component {
                                 Target the content you want your participants to share, for example: "Share a video, the best video will be the winner of the prize!"
                                </Text>
                             <Item
-                                error={instructions ? false : true}
-                                success={instructions ? true : false}
-                                style={{ width: "90%", alignSelf: "center" }}>
+                                style={{ width: "100%", alignSelf: "center", borderBottomColor: colorsPalette.transparent, padding: 10 }}>
                                 <Input
-                                    onSubmitEditing={() => instructions ? this.setState({ visibleModalInstructions: false }) : Keyboard.dismiss()}
-                                    returnKeyType='done'
                                     multiline
                                     autoCorrect={false}
-                                    numberOfLines={3}
-                                    placeholder="Instructions"
-                                    placeholderTextColor="#EEEE"
+                                    numberOfLines={5}
+                                    placeholderTextColor={colorsPalette.gradientGray}
                                     value={instructions}
                                     keyboardType="ascii-capable"
                                     selectionColor="#E91E63"
-                                    style={{ padding: 5, maxHeight: 200 }}
+                                    autoFocus={true}
+                                    placeholder="Write here"
+                                    allowFontScaling={false}
+                                    style={{ maxHeight: 220, fontSize: wp(4) }}
                                     onChangeText={(value) => this.setState({ instructions: value })} />
                             </Item>
                         </View>
                     </Swiper>
-                </Modal>
-
-                {/* COMPANY SOCIAL MEDIA HANDLE */}
-                <Modal
-                    transparent={false}
-                    hardwareAccelerated={true}
-                    visible={visibleModalSocialMediaHandle}
-                    animationType="fade"
-                    presentationStyle="fullScreen"
-                    onRequestClose={() => null}>
-                    <Container>
-                        <Header transparent>
-                            <Left>
-                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Social Media Handle</Title>
-                            </Left>
-                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
-                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
-                                    socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                        ? this.setState({ visibleModalSocialMediaHandle: false })
-                                        : this.setState({ companyName: "", visibleModalSocialMediaHandle: false })
-                                }>
-                                    <Text allowFontScaling={false} style={{
-                                        fontSize: wp(4),
-                                        letterSpacing: 1,
-                                        color:
-                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                                ? "#E91E63" : "#3333"
-                                    }}>{
-                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                                ? "Done" : "Cancel"
-                                        }</Text>
-                                </Button>
-                            </Right>
-                        </Header>
-                        <Content scrollEnabled={false}>
-
-                            {/* FACEBOOK */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#3b5998" }}>
-                                        <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            autoFocus={true}
-                                            placeholder="Facebook"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.facebook}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* TWITTER */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#00acee" }}>
-                                        <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Twitter"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.twitter}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* INSTAGRAM */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#E1306C" }}>
-                                        <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Instagram"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.instagram}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* SNACPCHAT */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#FFEA00" }}>
-                                        <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Snapchat"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.snapchat}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                        </Content>
-                    </Container>
                 </Modal>
 
                 {/* PICTURE */}

@@ -292,7 +292,6 @@ type GeneralPrize {
   nameOfPrize: String
   description: String
   instructions: Instructions
-  socialMediaHandle: SocialMediaHandle
   picture: Picture
   video: Video
 }

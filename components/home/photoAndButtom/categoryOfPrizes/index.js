@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, ImageBackground } from 'react-native';
 import { withNavigation } from 'react-navigation'
-import { Container, View, Text, Spinner, Tab, Tabs, Button, Content, TabHeading } from "native-base"
+import { Container, View, Text, Spinner, Tab, Tabs, Button, Content, TabHeading, Header, Item, Icon, Input } from "native-base"
 import lowerFirst from "lodash/lowerFirst"
 import * as Animatable from 'react-native-animatable';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
+import lowerCase from 'lodash/lowerCase'
 
 // Component Child
-import Header from './header'
+import PrimaryHeader from './header'
+import { DataNotFound } from '../../../global/emojis/index'
 
 // Colors
+import { MyStatusBar } from '../../../global/statusBar/'
 import { colorsPalette } from '../../../global/static/colors'
 
 class ListGeneralPrizes extends Component {
@@ -18,7 +21,8 @@ class ListGeneralPrizes extends Component {
         loadingImgYours: false,
         loadingImgCategory: false,
         openModalMyPrizes: false,
-        valueKey: null
+        valueKey: null,
+        inputfilter: ""
     }
 
     setModalVisible = (action) => { this.setState({ openModalMyPrizes: action }) }
@@ -28,13 +32,29 @@ class ListGeneralPrizes extends Component {
     }
 
     render() {
-        const { valueKey, loadingImgYours, loadingImgCategory } = this.state
+        const { valueKey, loadingImgYours, loadingImgCategory, inputfilter } = this.state
         const { userData, _setModalVisibleRedeemPoints, prizeCategory, navigation } = this.props
+        const filterprizeCategory = prizeCategory && prizeCategory.filter(item => { return item.name.toLowerCase().indexOf(lowerCase(inputfilter)) !== -1 })
         return (
             <Container style={{ backgroundColor: colorsPalette.primaryColor }}>
-                <Header _setModalVisibleRedeemPoints={_setModalVisibleRedeemPoints} />
+                <PrimaryHeader _setModalVisibleRedeemPoints={_setModalVisibleRedeemPoints} />
+                <Header searchBar rounded transparent style={{ height: 50, width: 300 }}>
+                    <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+                    <Item style={{ top: -10, backgroundColor: colorsPalette.primaryColor }}>
+                        <Icon name="ios-search" style={{ color: colorsPalette.secondaryColor }} />
+                        <Input
+                            minimumFontScale={wp(4)}
+                            allowFontScaling={false}
+                            selectionColor={colorsPalette.secondaryColor}
+                            style={{ color: colorsPalette.secondaryColor }}
+                            value={inputfilter}
+                            onChangeText={(inputfilter) => this.setState({ inputfilter })}
+                            placeholderTextColor={colorsPalette.secondaryColor}
+                            placeholder="Search by name category" />
+                    </Item>
+                </Header>
                 <Tabs
-                    initialPage={2}
+                    onChangeTab={() => this.setState({ inputfilter: "" })}
                     style={{ backgroundColor: colorsPalette.secondaryColor }}
                     tabBarUnderlineStyle={{ backgroundColor: colorsPalette.secondaryColor }}>
                     <Tab
@@ -51,53 +71,55 @@ class ListGeneralPrizes extends Component {
                         tabStyle={{ backgroundColor: colorsPalette.primaryColor }}
                         activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
                         <Content>
-                            {prizeCategory.map((item, key) => (
-                                <TouchableHighlight
-                                    key={key}
-                                    underlayColor="rgba(0,0,0,0.0)"
-                                    style={{
-                                        padding: 10,
-                                        shadowColor: 'rgba(0,0,0,0.3)',
-                                        shadowOffset: { width: 0 },
-                                        shadowOpacity: 1,
-                                        width: "95%",
-                                        alignSelf: 'center'
-                                    }}
-                                    onPress={() => this._animation(key)}>
-                                    <Animatable.View
-                                        onAnimationEnd={() => {
-                                            this.setState({ valueKey: null });
-                                            _setModalVisibleRedeemPoints(false);
-                                            navigation.navigate('Prizes', { categoryPrizes: item, userData })
+                            {filterprizeCategory.length
+                                ? filterprizeCategory.map((item, key) => (
+                                    <TouchableHighlight
+                                        key={key}
+                                        underlayColor="rgba(0,0,0,0.0)"
+                                        style={{
+                                            padding: 10,
+                                            shadowColor: 'rgba(0,0,0,0.3)',
+                                            shadowOffset: { width: 0 },
+                                            shadowOpacity: 1,
+                                            width: "95%",
+                                            alignSelf: 'center'
                                         }}
-                                        duration={200}
-                                        animation={valueKey === key ? "pulse" : undefined}>
-                                        <ImageBackground
-                                            onLoadStart={() => this.setState({ loadingImgCategory: true })}
-                                            onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
-                                            borderRadius={5}
-                                            source={{ uri: item.picture }}
-                                            style={{ height: 125, width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
-                                            <Spinner color={colorsPalette.secondaryColor} animating={loadingImgCategory} style={{ position: 'absolute', alignSelf: 'center' }} />
-                                            <View style={{
-                                                backgroundColor: 'rgba(0,0,0,0.2)',
-                                                width: "100%",
-                                                height: "100%",
-                                                borderRadius: 5
-                                            }}>
-                                                <Text
-                                                    minimumFontScale={wp(7)}
-                                                    allowFontScaling={false}
-                                                    style={{ color: "#FFF", fontSize: wp(7), position: "absolute", bottom: 0, padding: 10 }}>
-                                                    {item.name}
-                                                </Text>
-                                            </View>
-                                        </ImageBackground>
-                                    </Animatable.View>
-                                </TouchableHighlight>
-                            ))}
+                                        onPress={() => this._animation(key)}>
+                                        <Animatable.View
+                                            onAnimationEnd={() => {
+                                                this.setState({ valueKey: null });
+                                                _setModalVisibleRedeemPoints(false);
+                                                navigation.navigate('Prizes', { categoryPrizes: item, userData })
+                                            }}
+                                            duration={200}
+                                            animation={valueKey === key ? "pulse" : undefined}>
+                                            <ImageBackground
+                                                onLoadStart={() => this.setState({ loadingImgCategory: true })}
+                                                onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
+                                                borderRadius={5}
+                                                source={{ uri: item.picture }}
+                                                style={{ height: 125, width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
+                                                <Spinner color={colorsPalette.secondaryColor} animating={loadingImgCategory} style={{ position: 'absolute', alignSelf: 'center' }} />
+                                                <View style={{
+                                                    backgroundColor: 'rgba(0,0,0,0.2)',
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    borderRadius: 5
+                                                }}>
+                                                    <Text
+                                                        minimumFontScale={wp(7)}
+                                                        allowFontScaling={false}
+                                                        style={{ color: "#FFF", fontSize: wp(7), position: "absolute", bottom: 0, padding: 10 }}>
+                                                        {item.name}
+                                                    </Text>
+                                                </View>
+                                            </ImageBackground>
+                                        </Animatable.View>
+                                    </TouchableHighlight>
+                                )) : <DataNotFound inputText={inputfilter} />}
                         </Content>
                     </Tab>
+
                     <Tab
                         heading={
                             <TabHeading style={{ backgroundColor: colorsPalette.primaryColor }}>

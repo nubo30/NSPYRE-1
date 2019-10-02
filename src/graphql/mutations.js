@@ -221,12 +221,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             msg
             typeContentInstructionsValue
           }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
           picture {
             localUrl
             url
@@ -542,12 +536,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             msg
             typeContentInstructionsValue
           }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
           picture {
             localUrl
             url
@@ -862,12 +850,6 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           instructions {
             msg
             typeContentInstructionsValue
-          }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
           }
           picture {
             localUrl
@@ -10533,12 +10515,6 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
         msg
         typeContentInstructionsValue
       }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
       picture {
         localUrl
         url
@@ -10748,12 +10724,6 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
         msg
         typeContentInstructionsValue
       }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
       picture {
         localUrl
         url
@@ -10962,12 +10932,6 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
       instructions {
         msg
         typeContentInstructionsValue
-      }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
       }
       picture {
         localUrl

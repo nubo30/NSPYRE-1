@@ -233,12 +233,6 @@ export const getUser = `query GetUser($id: ID!) {
             msg
             typeContentInstructionsValue
           }
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
           picture {
             localUrl
             url
@@ -5645,12 +5639,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
         msg
         typeContentInstructionsValue
       }
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
       picture {
         localUrl
         url
@@ -5745,12 +5733,6 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         instructions {
           msg
           typeContentInstructionsValue
-        }
-        socialMediaHandle {
-          facebook
-          twitter
-          instagram
-          snapchat
         }
         picture {
           localUrl

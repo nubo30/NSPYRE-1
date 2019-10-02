@@ -161,7 +161,7 @@ class ShowPrizes extends Component {
                                                     minimumFontScale={wp(2.5)}
                                                     allowFontScaling={false}
                                                     style={{ color: colorsPalette.secondaryColor, fontSize: wp(3.5), position: "absolute", bottom: 0, padding: 10, right: 0, fontStyle: 'italic' }}>
-                                                    Published by {startCase(item.user.name)}, at {lowerFirst(`${moment(item.createdAt).format('LL')}`)}.
+                                                    Published by {startCase(item.aboutTheCompany.companyName)}, at {lowerFirst(`${moment(item.createdAt).format('LL')}`)}.
                                                 </Text>
                                             </View>
                                         </ImageBackground>

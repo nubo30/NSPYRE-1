@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, KeyboardAvoidingView, Platform } from 'react-native'
+import { Dimensions, Modal, Keyboard } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Separator, Picker } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Grid, Row, Col } from 'react-native-easy-grid'
+import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { isAscii, normalizeEmail } from 'validator'
 import moment from 'moment'
@@ -15,6 +15,7 @@ import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
 import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'
+import { colorsPalette } from '../../../global/static/colors';
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -205,7 +206,7 @@ class AboutYou extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: 'normal' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little more!
                         </Text>
                     </Row>
@@ -255,7 +256,7 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number Phone</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number phone</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
@@ -285,7 +286,7 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Business businessLocation</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Location</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{businessLocation.street && businessLocation.city && businessLocation.country && businessLocation.state ? "Specified" : "Not specified"}</Text>
@@ -301,7 +302,7 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company name</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? "Specified" : "Not specified"}</Text>
@@ -309,7 +310,7 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* COMPANY SOCIAL MEDIA HANDLE */}
+                                    {/* SOCIAL MEDIA HANDLE */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalSocialMediaHandle(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
@@ -317,27 +318,14 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company social media handles</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Social media handles</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? "Specified" : "Not specified"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
-
-                                    <Button iconRight small transparent style={{ alignSelf: 'center', top: 10 }}
-                                        onPress={() => Alert.alert(
-                                            'Why we need this?',
-                                            'We need this information to be able to get other users to find your contest!',
-                                            [
-                                                { text: 'OK', onPress: () => null },
-                                            ],
-                                        )}>
-                                        <Text allowFontScaling={false} style={{ left: 5, color: "#E0E0E0" }}>Why we need this?</Text>
-                                        <Icon name="alert" style={{ right: 5, color: "#E0E0E0" }} />
-                                    </Button>
                                 </List>
-
                             </Content>
                         </View>
                         <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
@@ -541,6 +529,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{businessLocation.city !== "Not specified" ? businessLocation.city : 'Not specified'}</Text>
                                 </Right>
                             </ListItem>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textAlign: 'center', top: 15 }}>Provide the location of your company or your own location</Text>
                             <Picker
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
@@ -573,9 +562,7 @@ class AboutYou extends Component {
                                     ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
                                     : null}
                             </Picker>
-
                         </Content>
-
                     </Container>
                 </Modal>
 
@@ -621,7 +608,7 @@ class AboutYou extends Component {
                                         onSubmitEditing={() => companyName ? this.setState({ visibleModalCompanyname: false }) : Keyboard.dismiss()}
                                         returnKeyType='done'
                                         allowFontScaling={false}
-                                        placeholder="Company Name"
+                                        placeholder="Company name"
                                         placeholderTextColor="#EEEE"
                                         maxLength={20}
                                         autoFocus={true}
@@ -632,11 +619,12 @@ class AboutYou extends Component {
                                 </Body>
                                 <Right />
                             </ListItem>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textAlign: 'center', top: 15, width: "90%", alignSelf: 'center' }}>If this information is not provided your profile name will be displayed (optional)</Text>
                         </Content>
                     </Container>
                 </Modal>
 
-                {/* COMPANY SOCIAL MEDIA HANDLE */}
+                {/*  SOCIAL MEDIA HANDLE */}
                 <Modal
                     transparent={false}
                     hardwareAccelerated={true}
@@ -652,8 +640,8 @@ class AboutYou extends Component {
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
                                     socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                        ? this.setState({ visibleModalCompanyname: false })
-                                        : this.setState({ companyName: "", visibleModalCompanyname: false })
+                                        ? this.setState({ visibleModalSocialMediaHandle: false })
+                                        : {}
                                 }>
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
@@ -770,7 +758,7 @@ class AboutYou extends Component {
                                 </Body>
                                 <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
                             </ListItem>
-
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', top: 30 }}>Provide your social media links for redirects</Text>
                         </Content>
                     </Container>
                 </Modal>

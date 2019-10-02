@@ -99,7 +99,7 @@ class Summary extends Component {
                 {/* Forms */}
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left', fontWeight: 'normal' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please, check all the prize that you have chosen, if there is something that you do not think you can go back and edit it</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>
@@ -292,22 +292,6 @@ class Summary extends Component {
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.general && prize.general.instructions.msg}`, { separator: '...', length: 20 })}</Text>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* USER SOCIAL MEDIA HANDLES */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
-                                                    <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Socials medias handles (user)</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.general && prize.general.socialMediaHandle && prize.general.socialMediaHandle.facebook}, ${prize.general && prize.general.socialMediaHandle && prize.general.socialMediaHandle.twitter}, ${prize.general && prize.general.socialMediaHandle && prize.general.socialMediaHandle.instagram}, ${prize.general && prize.general.socialMediaHandle && prize.general.socialMediaHandle.snapchat}`,
-                                                    { length: 25, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
