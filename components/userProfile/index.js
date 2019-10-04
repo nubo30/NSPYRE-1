@@ -9,6 +9,7 @@ import flatten from 'lodash/flatten'
 import startCase from 'lodash/startCase'
 import lowerCase from 'lodash/lowerCase'
 import values from 'lodash/values'
+import omitDeep from 'omit-deep'
 
 // GRAPFQL
 import * as queries from '../../src/graphql/queries'
@@ -31,9 +32,7 @@ class UserProfile extends Component {
         const userId = navigation.getParam('userId')
         try {
             const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: userId }))
-            delete data.getUser.engage.items[0].interests.political
-            delete data.getUser.engage.items[0].interests.vote
-            await this.setState({ userData: data.getUser })
+            this.setState({ userData: data.getUser })
         } catch (error) {
             console.log(error)
         }
@@ -42,7 +41,6 @@ class UserProfile extends Component {
     render() {
         const { userData } = this.state
         const { navigation } = this.props
-
         return userData !== null ? (
             <Container>
                 <Header transparent style={{ backgroundColor: '#E91E63' }}>
@@ -65,10 +63,10 @@ class UserProfile extends Component {
                                 : <UserAvatar size="105" name={userData.name} />}
                         </Row>
                         <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>{userData.engage.items[0].aboutTheOccupations.occupation}</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>{userData && userData.engage.items.length ? userData.engage.items[0].aboutTheOccupations.occupation : "..."}</Text>
                         </Row>
                         <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F48FB1', fontWeight: 'bold' }}>{`${userData.engage.items[0].aboutThePersonality.location.city}, ${userData.engage.items[0].aboutThePersonality.location.country}`}</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F48FB1', fontWeight: 'bold' }}>{userData && userData.engage.items.length ? `${userData.engage.items[0].aboutThePersonality.location.city}, ${userData.engage.items[0].aboutThePersonality.location.country}` : "..."}</Text>
                         </Row>
 
                         <Row size={10} style={{ backgroundColor: '#E91E63', justifyContent: 'center' }}>
@@ -79,10 +77,10 @@ class UserProfile extends Component {
                             <Content padder showsVerticalScrollIndicator={false}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>Hobbies and preferences</Text>
                                 <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap', width: '100%' }}>
-                                    {[...new Set(flatten(values(userData.engage.items[0].interests)))].map((item, key) =>
+                                    {userData && userData.engage.items.length ? [...new Set(flatten(values(userData.engage.items[0].interests)))].map((item, key) =>
                                         <View key={key} style={{ backgroundColor: '#E0E0E0', padding: 5, borderRadius: 5, margin: 5, height: 30 }}>
                                             <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333' }}>{item}</Text>
-                                        </View>)}
+                                        </View>) : <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333', right: -15 }}>...</Text>}
                                 </View>
                             </Content>
                         </Row>

@@ -123,7 +123,6 @@ class Login extends Component {
     render() {
         const { numberPhoneState, password, eyeAction, messageFlash, isLoading, isLoadingFb, wrongLoginAnimation } = this.state
         const { numberPhone } = this.props
-
         return (
             <View style={{
                 flex: 1,
@@ -219,7 +218,7 @@ class Login extends Component {
                                     shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button
-                                    disable={isLoading}
+                                    disabled={isLoading || numberPhoneState && password ? false : true}
                                     onPress={() => isLoadingFb ? {} : this._submit()}
                                     iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: colorsPalette.primaryColor }}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
@@ -241,7 +240,7 @@ class Login extends Component {
                         </Row>
                         <Row size={20} style={{ alignSelf: 'center', flexDirection: 'column' }}>
                             <CodeInput
-                                disable={false}
+                                disabled={false}
                                 keyboardType="numeric"
                                 codeLength={6}
                                 activeColor={colorsPalette.primaryColor}

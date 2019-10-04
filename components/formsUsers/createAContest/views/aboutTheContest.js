@@ -168,7 +168,10 @@ export default class AboutTheContest extends Component {
         const data = {
             category,
             general: { nameOfContest, description, instructions, picture, video },
-            timer: { end: dateChoose, start: moment().toISOString() }
+            timer: {
+                end: moment(new Date(dateChoose).setDate(new Date(dateChoose).getDate() - 1)).toISOString(),
+                start: moment(new Date().setDate(new Date().getDate() - 1)).toISOString()
+            }
         }
         try {
             await _dataFromForms(data)
@@ -216,7 +219,6 @@ export default class AboutTheContest extends Component {
             visibleModalVideo
         } = this.state
         const { _indexChangeSwiper } = this.props
-
         return (
             <Container>
                 <GadrientsAuth />

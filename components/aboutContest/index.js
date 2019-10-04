@@ -98,7 +98,7 @@ class ShowContest extends Component {
         try {
             const data = await Auth.currentAuthenticatedUser()
             const dataContest = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
-            this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id ? true : false })
+            this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id || data.attributes && data.attributes.sub === contest.user.id ? true : false })
         } catch (error) {
             console.log(error);
         }
@@ -184,6 +184,7 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
+        console.log(userLogin)
         return (
             contest !== null
                 ? <Swiper

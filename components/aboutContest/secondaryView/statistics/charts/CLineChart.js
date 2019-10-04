@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView } from 'react-native'
-import { Text, View } from 'native-base';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {  View } from 'native-base';
 import _ from 'lodash'
 import { BarChart } from 'react-native-chart-kit'
 
-import { colorsPalette } from '../../../../global/static/colors'
-
-
 const screenWidth = Dimensions.get('screen').width
 
-const chartConfig = {
-    backgroundGradientFrom: colorsPalette.secondaryColor,
-    backgroundGradientTo: colorsPalette.secondaryColor,
-    color: () => colorsPalette.primaryColor,
-    strokeWidth: 1 // optional, default 3
-}
 
 export default class ChartLineChart extends Component {
     state = { heightView: 0, data: [] }
 
     componentDidMount() {
         const { contest } = this.props
-        const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
         let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
         let weekdays = [] // Días de la semana
@@ -30,7 +20,7 @@ export default class ChartLineChart extends Component {
         while (startDay <= endDay) {
             weekdays.push(DAYS[startDay.getDay()])
             startDay = new Date(startDay.getTime() + (24 * 60 * 60 * 1000)); // Días en formato date
-            arrayNumberdays.push(startDay.getDate() - 1); // Días en formato date        
+            arrayNumberdays.push(startDay.getDate()); // Días en formato date        
         }
 
         const map = contest.usersLikes && contest.usersLikes.items
@@ -65,14 +55,6 @@ export default class ChartLineChart extends Component {
 
     render() {
         const { heightView, data } = this.state
-        /*
-        
-            Se obtienen los días de la semana entre el intervalo de la fecha inicial
-            y la fecha final del concurso (Contador).
-
-        */
-
-
         return (
             <View
                 style={{ alignItems: 'center', justifyContent: 'center', right: 10, flex: 1 }}

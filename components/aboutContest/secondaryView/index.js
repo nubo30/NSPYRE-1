@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, FlatList, Modal } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Header, Title, Content, Button, Left, Icon, Text, View, ListItem, Separator, Right, Toast, Spinner, List, Body, Switch } from 'native-base';
+import { Container, Header, Title, Content, Button, Left, Icon, Text, View, ListItem, Separator, Right, Toast, Spinner, List, Body } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import moment from 'moment'
@@ -57,7 +57,6 @@ export default class ContestDataStatistics extends Component {
             contest,
             userData,
 
-            swiperIndex,
             _changeSwiperRoot,
             _setModalVisibleAudience,
 
