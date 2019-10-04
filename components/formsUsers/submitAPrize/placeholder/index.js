@@ -39,7 +39,7 @@ class AboutYouPlaceholder extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#FFF', fontWeight: '100' }}>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#FFF', fontWeight: 'normal' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little more!
                         </Text>
                     </Row>
@@ -110,15 +110,15 @@ class AboutYouPlaceholder extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* BUSINESS ADDRESS */}
+                                    {/* GENERAL INFORMATION */}
                                     <ListItem icon>
                                         <Left>
-                                            <Button style={{ backgroundColor: "#FBC02D" }}>
-                                                <Icon type="Entypo" name="location-pin" />
+                                            <Button style={{ backgroundColor: "#757575" }}>
+                                                <Icon type="Ionicons" active name="ios-information-circle" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: null, fontSize: wp(4) }}>Business businessLocation</Text>
+                                            <Text allowFontScaling={false} style={{ color: null, fontSize: wp(4) }}>General information</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>...</Text>

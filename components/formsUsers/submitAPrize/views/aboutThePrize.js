@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, Toast, Platform, Image, Keyboard, Alert } from 'react-native'
+import { Dimensions, Modal, Platform, Image, Keyboard, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner, CheckBox } from 'native-base';
+import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Picker, Item, Input, Spinner, Toast } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
 import { isAscii } from 'validator'
-import Swiper from 'react-native-swiper'
 import numeraljs from 'numeraljs';
 
 // Gradients
@@ -40,7 +39,6 @@ export default class AboutTheContest extends Component {
         price: 0,
         nameOfPrize: "",
         description: "",
-        instructions: "",
         picture: { name: "", type: "", localUrl: "" },
         video: { name: "", type: "", localUrl: "" },
 
@@ -48,7 +46,6 @@ export default class AboutTheContest extends Component {
         visibleModalPrice: false,
         visibleModalNameOfPrize: false,
         visibleModalDescription: false,
-        visibleModalInstructions: false,
         visibleModalSocialMediaHandle: false,
         VisibleModalPicture: false,
         visibleModalVideo: false
@@ -62,21 +59,19 @@ export default class AboutTheContest extends Component {
 
     // Validar formulario
     _validateForm = () => {
-        const { category, nameOfPrize, description, instructions, picture, video } = this.state
+        const { category, nameOfPrize, description, picture, video } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             category !== 'Not specified'
                 ? isAscii(nameOfPrize)
                     ? description
-                        ? instructions
-                            ? picture.name
-                                ? video.name
-                                    ? this._submit()
-                                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
-                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
-                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid instruction" } } })
+                        ? picture.name
+                            ? video.name
+                                ? this._submit()
+                                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong video" } } })
+                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Wrong picture" } } })
                         : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid description" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name contest" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid name prize" } } })
                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Choose a category" } } })
         }, 500);
     }
@@ -155,8 +150,8 @@ export default class AboutTheContest extends Component {
 
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms } = this.props
-        const { category, nameOfPrize, price, description, instructions,  picture, video, typeContentInstructionsValue } = this.state
-        const data = { category, general: { nameOfPrize, price, description, instructions: { typeContentInstructionsValue, msg: instructions }, picture, video } }
+        const { category, nameOfPrize, price, description, picture, video } = this.state
+        const data = { category, general: { nameOfPrize, price, description, picture, video } }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false })
@@ -201,8 +196,6 @@ export default class AboutTheContest extends Component {
             const { dataFromThePreviousSubmitPrize } = nextProps
             this.setState({
                 description: dataFromThePreviousSubmitPrize.general.description,
-                typeContentInstructionsValue: dataFromThePreviousSubmitPrize.general.instructions.typeContentInstructionsValue,
-                instructions: dataFromThePreviousSubmitPrize.general.instructions.msg,
             })
         }
     }
@@ -213,15 +206,9 @@ export default class AboutTheContest extends Component {
             category,
             nameOfPrize,
             description,
-            instructions,
             picture,
             video,
             price,
-
-            // Actions
-            typeContentInstructionsActionVideos,
-            typeContentInstructionsActionMemes,
-            indexSwiperInstructions,
 
             isvalidFormAnimation,
             isLoading,
@@ -231,8 +218,6 @@ export default class AboutTheContest extends Component {
             visibleModalPrice,
             visibleModalNameOfPrize,
             visibleModalDescription,
-            visibleModalInstructions,
-            visibleModalSocialMediaHandle,
             VisibleModalPicture,
             visibleModalVideo
         } = this.state
@@ -351,22 +336,6 @@ export default class AboutTheContest extends Component {
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(description ? description : "Not specified", { separator: '...', length: 20 })}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
-                                    </ListItem>
-
-                                    {/* INSTRUCTION */}
-                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalInstructions: true })}>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="warning" />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Instructions</Text>
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -584,120 +553,6 @@ export default class AboutTheContest extends Component {
                             </Item>
                         </Content>
                     </Container>
-                </Modal>
-
-                {/* INSTRUCTIONS */}
-                <Modal
-                    transparent={false}
-                    hardwareAccelerated={true}
-                    visible={visibleModalInstructions}
-                    animationType="fade"
-                    presentationStyle="fullScreen"
-                    onRequestClose={() => null}>
-                    <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", }}>
-                        <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Button
-                                onPress={() => indexSwiperInstructions ? this._swiperInstructions(null) : this.setState({ visibleModalInstructions: false, typeContentInstructionsActionVideos: false, typeContentInstructionsActionMemes: false, typeContentInstructionsValue: '' })}
-                                transparent>
-                                <Icon name='arrow-back' style={{ color: "#E91E63" }} />
-                                <Text allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(4) }}>Back</Text>
-                            </Button>
-                            <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(5) }}>Instructions</Title>
-                        </Left>
-                        <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
-                            <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
-                                instructions
-                                    ? this.setState({ visibleModalInstructions: false })
-                                    : this.setState({ instructions: "", visibleModalInstructions: false })
-                            }>
-                                <Text allowFontScaling={false} style={{
-                                    fontSize: wp(4),
-                                    letterSpacing: 1,
-                                    color: instructions ? "#E91E63" : "#3333"
-                                }}>{instructions ? "Done" : "Cancel"}</Text>
-                            </Button>
-                        </Right>
-                    </Header>
-                    <Swiper
-                        scrollEnabled={false}
-                        onIndexChanged={(index) => this.setState({ indexSwiperInstructions: index })}
-                        ref={(swiperInstructions) => this.swiperInstructions = swiperInstructions}
-                        loop={false} showsButtons={false} showsPagination={false}>
-                        <View style={{ flex: 1 }}>
-                            <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(5), color: '#333' }}>
-                                To continue you must choose between these two options, what do you want your participants to do?
-                                </Text>
-                            <ListItem style={{ height: 70 }}
-                                onPress={() => {
-                                    this._swiperInstructions('videos');
-                                    this.setState({
-                                        typeContentInstructionsActionVideos: !typeContentInstructionsActionVideos,
-                                        typeContentInstructionsActionMemes: false,
-                                        typeContentInstructionsValue: 'videos'
-                                    })
-                                }}>
-                                <CheckBox
-                                    checked={typeContentInstructionsActionVideos}
-                                    onPress={() => {
-                                        this._swiperInstructions('videos')
-                                        this.setState({
-                                            typeContentInstructionsActionVideos: !typeContentInstructionsActionVideos,
-                                            typeContentInstructionsActionMemes: false,
-                                            typeContentInstructionsValue: 'videos'
-                                        })
-                                    }}
-                                    color="#E91E63" />
-                                <Body>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(6), color: '#3333' }}>Upload videos</Text>
-                                </Body>
-                            </ListItem>
-                            <ListItem style={{ height: 70 }} onPress={() => {
-                                this._swiperInstructions('memes');
-                                this.setState({
-                                    typeContentInstructionsActionVideos: false,
-                                    typeContentInstructionsActionMemes: !typeContentInstructionsActionMemes,
-                                    typeContentInstructionsValue: 'memes'
-                                })
-                            }}>
-                                <CheckBox
-                                    checked={typeContentInstructionsActionMemes}
-                                    onPress={() => {
-                                        this._swiperInstructions('memes');
-                                        this.setState({
-                                            typeContentInstructionsActionVideos: false,
-                                            typeContentInstructionsActionMemes: !typeContentInstructionsActionMemes,
-                                            typeContentInstructionsValue: 'memes'
-                                        })
-                                    }}
-                                    color="#E91E63" />
-                                <Body>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(6), color: '#3333' }}>Upload memes</Text>
-                                </Body>
-                            </ListItem>
-                        </View>
-
-                        <View style={{ flex: 1 }}>
-                            <Text allowFontScaling={false} style={{ padding: 10, fontSize: wp(4), color: '#333' }}>
-                                Target the content you want your participants to share, for example: "Share a video, the best video will be the winner of the prize!"
-                               </Text>
-                            <Item
-                                style={{ width: "100%", alignSelf: "center", borderBottomColor: colorsPalette.transparent, padding: 10 }}>
-                                <Input
-                                    multiline
-                                    autoCorrect={false}
-                                    numberOfLines={5}
-                                    placeholderTextColor={colorsPalette.gradientGray}
-                                    value={instructions}
-                                    keyboardType="ascii-capable"
-                                    selectionColor="#E91E63"
-                                    autoFocus={true}
-                                    placeholder="Write here"
-                                    allowFontScaling={false}
-                                    style={{ maxHeight: 220, fontSize: wp(4) }}
-                                    onChangeText={(value) => this.setState({ instructions: value })} />
-                            </Item>
-                        </View>
-                    </Swiper>
                 </Modal>
 
                 {/* PICTURE */}

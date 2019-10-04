@@ -9,7 +9,7 @@ import { View } from 'react-native'
 // Child Component
 import AboutYou from './views/aboutYou'
 import AboutThePrize from './views/aboutThePrize'
-import Mentions from './views/mentions'
+import Sharing from './views/sharing'
 import Summary from './views/summary'
 import AboutYouPlaceholder from './placeholder/index'
 
@@ -78,8 +78,8 @@ export default class SubmitPrize extends Component {
                         _dataFromForms={this._dataFromForms}
                         _indexChangeSwiper={this._indexChangeSwiper} />
 
-                    {/* MENTIONS */}
-                    <Mentions
+                    {/* Sharing */}
+                    <Sharing
                         userData={userData}
                         prize={prize}
                         dataFromThePreviousSubmitPrize={dataFromThePreviousSubmitPrize}

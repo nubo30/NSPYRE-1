@@ -217,22 +217,13 @@ export const getUser = `query GetUser($id: ID!) {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -249,10 +240,11 @@ export const getUser = `query GetUser($id: ID!) {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -422,6 +414,7 @@ export const listUsers = `query ListUsers(
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -430,10 +423,11 @@ export const listUsers = `query ListUsers(
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -587,6 +581,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -595,10 +590,11 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -5545,6 +5541,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -5553,10 +5550,11 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -5623,22 +5621,13 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -5655,10 +5644,11 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -5718,22 +5708,13 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
           street
         }
         companyName
-        socialMediaHandle {
-          facebook
-          twitter
-          instagram
-          snapchat
-        }
+        generalInformation
       }
       category
       general {
         price
         nameOfPrize
         description
-        instructions {
-          msg
-          typeContentInstructionsValue
-        }
         picture {
           localUrl
           url
@@ -5750,10 +5731,11 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
         }
       }
       createdAt
-      delivery {
-        description
-        socialMediaSelected
-        typeOfSocialNetwork
+      share {
+        contentUserShare
+        footerContent
+        socialMediaHandle
+        whatUserDo
       }
     }
     nextToken
@@ -5852,6 +5834,7 @@ export const getEngage = `query GetEngage($id: ID!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -5860,10 +5843,11 @@ export const getEngage = `query GetEngage($id: ID!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken

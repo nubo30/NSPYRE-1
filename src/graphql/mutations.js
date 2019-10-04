@@ -205,22 +205,13 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -237,10 +228,11 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -520,22 +512,13 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -552,10 +535,11 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -835,22 +819,13 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -867,10 +842,11 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -1037,6 +1013,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -1045,10 +1022,11 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -1655,6 +1633,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -1663,10 +1642,11 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -2273,6 +2253,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -2281,10 +2262,11 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10421,6 +10403,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10429,10 +10412,11 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10499,22 +10483,13 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10531,10 +10506,11 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -10630,6 +10606,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10638,10 +10615,11 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10708,22 +10686,13 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10740,10 +10709,11 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -10839,6 +10809,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10847,10 +10818,11 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10917,22 +10889,13 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10949,10 +10912,11 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -11049,6 +11013,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11057,10 +11022,11 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -11249,6 +11215,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11257,10 +11224,11 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -11449,6 +11417,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11457,10 +11426,11 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken

@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import { Image, Dimensions } from 'react-native'
+import { Image, ScrollView } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text, Thumbnail, View, Spinner, Footer } from 'native-base';
+import { Container, Header, Title, Button, Left, Right, Icon, Text, Thumbnail, View, Body } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import upperFirst from 'lodash/upperFirst'
 import lowerCase from 'lodash/lowerCase'
 import startCase from 'lodash/startCase'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
+import { Grid, Row, Col } from 'react-native-easy-grid'
+import truncate from "lodash/truncate";
 
 // Colors
 import { colorsPalette } from '../../../../../global/static/colors'
+import { MyStatusBar } from '../../../../../global/statusBar'
 
 // Child Components
 import ModalRedeemPrize from './redeemPrize'
 
-const screenHeight = Dimensions.get('window').height
 
 class AboutPrize extends Component {
     state = { pictureLoading: false, modalRedeemPrizeAction: false }
@@ -32,126 +34,138 @@ class AboutPrize extends Component {
         const prize = navigation.getParam('prize')
         const userData = navigation.getParam('userData')
         const fromWhere = navigation.getParam('fromWhere')
-
         return (
-            <Container style={{ backgroundColor: '#F5F5F5' }}>
-                <View style={{ backgroundColor: '#FFF', height: screenHeight, position: 'absolute', width: '100%', top: 0 }} />
-                <Header style={{ backgroundColor: '#F5F5F5', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+            <Container>
+                <Header style={{ backgroundColor: colorsPalette.primaryColor }}>
                     <Left>
                         <Button transparent onPress={() => { fromWhere === 'fromSubmitPrize' ? navigation.navigate('Home') : navigation.goBack() }}>
-                            <Icon name='arrow-back' style={{ color: "#D81B60" }} />
+                            <Icon name='arrow-back' style={{ color: colorsPalette.secondaryColor }} />
                             <Text
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
-                                style={{ left: 5, color: "#D81B60", fontSize: wp(4) }}>{upperFirst(lowerCase(prize.category))}</Text>
+                                style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>{upperFirst(lowerCase(prize.category))}</Text>
                         </Button>
                     </Left>
                     <Body>
                         <Title
                             minimumFontScale={wp(7)}
                             allowFontScaling={false}
-                            style={{ fontSize: wp(7), color: '#D81B60' }}>{startCase(prize.general.nameOfPrize)}</Title>
+                            style={{ fontSize: wp(7), color: colorsPalette.secondaryColor }}>{startCase(prize.general.nameOfPrize)}</Title>
                     </Body>
                     <Right>
-                        <Thumbnail small source={{ uri: prize.user.avatar }} />
+                        <View style={{ padding: 2, backgroundColor: colorsPalette.secondaryColor, borderRadius: "50%" }}>
+                            <Thumbnail small source={{ uri: prize.user.avatar }} />
+                        </View>
                         <Button transparent onPress={() => this.props.navigation.navigate('UserProfile', { userId: prize.user.id })} style={{ position: 'absolute', width: 45, height: 45 }} />
                     </Right>
                 </Header>
-                <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: 5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text
-                            minimumFontScale={wp(9)}
-                            allowFontScaling={false}
-                            style={{ fontSize: wp(9), color: '#D81B60', fontWeight: '400' }}>About the prize</Text>
-                        <Text
-                            minimumFontScale={wp(3)}
-                            allowFontScaling={false}
-                            style={{ fontSize: wp(3), color: '#F44336', top: 15 }}>
-                            {prize.general.price} Points
-                    </Text>
-                    </View>
-                    <Text
-                        minimumFontScale={wp(3.5)}
-                        allowFontScaling={false}
-                        style={{ color: '#3333', fontSize: wp(3.5), fontWeight: '100' }}>
-                        This prize was published at <Text style={{ color: '#3333', fontWeight: 'bold' }}>{moment(prize.createdAt).fromNow()}</Text>, by user <Text style={{ color: '#3333', fontWeight: 'bold' }}>{prize.user.name}</Text>.
-                    </Text>
-                </View>
-                <Content contentContainerStyle={{ backgroundColor: '#FFF', top: 10 }}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', padding: 30 }}>
-                        <Icon type="Entypo" name="bookmark" style={{ fontSize: wp(10), color: '#D81B60' }} />
-                        <Text
-                            minimumFontScale={wp(3.5)}
-                            allowFontScaling={false}
-                            style={{ color: '#333', fontSize: wp(3.5), fontWeight: '100', textAlign: 'center' }}>
-                            {prize.general.description}
-                        </Text>
-                    </View>
-                    <Swiper style={{ height: 250 }} loop={false} activeDotColor="#D81B60">
-                        <View style={{ height: 200, justifyContent: 'center', alignItems: 'center' }}>
-                            <Spinner color="#333" size="large" animating={pictureLoading} hidesWhenStopped={pictureLoading} style={{ position: 'absolute' }} />
-                            <Image
-                                onLoadStart={() => this.setState({ pictureLoading: true })}
-                                onLoadEnd={() => this.setState({ pictureLoading: false })}
-                                style={{ width: "100%", height: '100%' }}
-                                source={{ uri: prize.general.picture.url }} />
-                        </View>
-                        <View style={{ height: 200 }}>
-                            <Video
-                                source={{ uri: prize.general.video.url }}
-                                useNativeControls
-                                rate={1.0}
-                                volume={1.0}
-                                isMuted={false}
-                                resizeMode="cover"
-                                shouldPlay={false}
-                                isLooping={false}
-                                style={{ width: "100%", height: "100%" }} />
-                        </View>
-                    </Swiper>
-
-                    <View style={{ padding: 15, shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { height: -5 }, shadowOpacity: 1, backgroundColor: '#F5F5F5', }}>
-                        <Text
-                            minimumFontScale={wp(9)}
-                            allowFontScaling={false}
-                            style={{ fontSize: wp(9), color: '#D81B60', fontWeight: '400' }}>Instructions</Text>
-                        <View style={{ padding: 15, justifyContent: 'center' }}>
-                            <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
-                                <Text
-                                    minimumFontScale={wp(2.5)}
-                                    allowFontScaling={false}
-                                    style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.general.instructions.typeContentInstructionsValue)}</Text>
+                <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
+                <Swiper loop={false}
+                    activeDotColor={colorsPalette.primaryColor}
+                    dotColor={colorsPalette.gradientGray}>
+                    <Grid style={{ padding: 10 }}>
+                        <Row size={35}>
+                            <View style={{ flex: 1, shadowOpacity: 1, shadowOffset: { width: 1 }, shadowColor: colorsPalette.primaryShadowColor }}>
+                                <View style={{ flex: 1, position: 'absolute', height: "100%", width: "100%", backgroundColor: '#3333' }} />
+                                <Video
+                                    source={{ uri: prize.general.video.url }}
+                                    useNativeControls
+                                    rate={1.0}
+                                    volume={1.0}
+                                    isMuted={false}
+                                    resizeMode="cover"
+                                    shouldPlay={false}
+                                    isLooping={false}
+                                    style={{ width: "100%", height: "100%" }} />
                             </View>
-                        </View>
-                        <Text
-                            minimumFontScale={wp(3.5)}
-                            allowFontScaling={false}
-                            style={{ color: '#333', fontSize: wp(3.5), fontWeight: '100' }}>
-                            {prize.general.instructions.msg}
-                        </Text>
-                    </View>
-                    <View style={{ backgroundColor: '#F5F5F5', height: screenHeight, position: 'absolute', width: '100%', bottom: -screenHeight }} />
-                </Content>
-                <Footer style={{ backgroundColor: '#F5F5F5', borderTopColor: 'rgba(0,0,0,0.0)', justifyContent: 'center', alignItems: 'center' }}>
-                    <Button
-                        onPress={() => this._modalRedeemPrizeAction()}
-                        style={{ backgroundColor: '#D81B60', width: '60%', alignSelf: 'center', height: '70%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text
-                            minimumFontScale={wp(4)}
-                            allowFontScaling={false}
-                            style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>Redeem Prize</Text>
-                    </Button>
-                </Footer>
-                <ModalRedeemPrize
-                    // Data
-                    userData={userData}
-                    prize={prize}
+                        </Row>
+                        <Row size={5}>
+                            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                                <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
+                                <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${prize.aboutTheCompany.businessLocation.city}, ${prize.aboutTheCompany.businessLocation.country}.`, { length: 23, separator: "..." })}</Text>
+                            </View>
+                            <View style={{ flex: 0.5, justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row' }}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray, right: 5 }}>Published {moment(prize.createdAt).fromNow()}</Text>
+                            </View>
+                        </Row>
+                        <Row size={60} style={{ flexDirection: 'column' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont }}>General information</Text>
+                                {prize.share === null ? null
+                                    : <View style={{ padding: 15, justifyContent: 'center', left: 10 }}>
+                                        <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
+                                            <Text
+                                                minimumFontScale={wp(2.5)}
+                                                allowFontScaling={false}
+                                                style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.share && prize.share.contentUserShare)}</Text>
+                                        </View>
+                                    </View>}
+                            </View>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont }}>{prize.aboutTheCompany.generalInformation}</Text>
+                        </Row>
+                    </Grid>
+                    <Grid style={{ padding: 10 }}>
+                        <Row size={35}>
+                            <View style={{ flex: 1, shadowOpacity: 1, shadowOffset: { width: 1 }, shadowColor: colorsPalette.primaryShadowColor }}>
+                                <Image
+                                    onLoadStart={() => this.setState({ pictureLoading: true })}
+                                    onLoadEnd={() => this.setState({ pictureLoading: false })}
+                                    style={{ width: "100%", height: '100%' }}
+                                    source={{ uri: prize.general.picture.url }} />
+                            </View>
+                        </Row>
+                        <Row size={5}>
+                            <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(5), color: colorsPalette.errColor }}>Price: {prize.general.price}</Text>
+                            </View>
+                        </Row>
+                        <Row size={40} style={{ flexDirection: 'column' }}>
+                            {prize.share === null
+                                ? <Grid>
+                                    <Col>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>Description</Text>
+                                        <ScrollView>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.general.description}</Text>
+                                        </ScrollView>
+                                    </Col>
+                                </Grid>
+                                : <Grid>
+                                    <Col style={{ padding: 2 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>Description</Text>
+                                        <ScrollView>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.general.description}</Text>
+                                        </ScrollView>
+                                    </Col>
+                                    <Col style={{ padding: 2 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>What to do</Text>
+                                        <ScrollView>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.share.whatUserDo}</Text>
+                                        </ScrollView>
+                                    </Col>
+                                </Grid>}
+                        </Row>
+                        <Row size={20} style={{ justifyContent: 'center' }}>
+                            <Button
+                                onPress={() => this._modalRedeemPrizeAction()}
+                                style={{ backgroundColor: '#D81B60', width: '80%', justifyContent: 'center', top: 10 }}>
+                                <Text
+                                    minimumFontScale={wp(4)}
+                                    allowFontScaling={false}
+                                    style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>Redeem Prize</Text>
+                            </Button>
+                        </Row>
+                        <ModalRedeemPrize
+                            // Data
+                            userData={userData}
+                            prize={prize}
 
-                    // Actions
-                    modalRedeemPrizeAction={modalRedeemPrizeAction}
+                            // Actions
+                            modalRedeemPrizeAction={modalRedeemPrizeAction}
 
-                    // Functions
-                    _modalRedeemPrizeAction={this._modalRedeemPrizeAction} />
+                            // Functions
+                            _modalRedeemPrizeAction={this._modalRedeemPrizeAction} />
+                    </Grid>
+                </Swiper>
             </Container>
         );
     }

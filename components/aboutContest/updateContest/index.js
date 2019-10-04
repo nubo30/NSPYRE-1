@@ -8,7 +8,6 @@ import { Storage, API, graphqlOperation } from 'aws-amplify'
 import { Header, Left, Button, Icon, Text, Title, View, Right, ListItem, Body, Switch, Item, Input, List, Spinner, Toast, Root, Container, Content } from 'native-base'
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from 'moment'
 import _ from 'lodash'
 import Swiper from 'react-native-swiper'

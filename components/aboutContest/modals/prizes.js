@@ -95,7 +95,7 @@ export default class Prizes extends Component {
                                             'Contest Instructions',
                                             `${contest.general.instructions}`,
                                             [
-                                                { text: 'OK', onPress: () => {} },
+                                                { text: 'OK', onPress: () => { } },
                                             ],
                                             { cancelable: false },
                                         )}>
@@ -107,6 +107,7 @@ export default class Prizes extends Component {
                                 </Row>
                             </Grid>
                             <Swiper
+                                loadMinimal={true}
                                 loop={false}
                                 activeDotColor="#D82B60">
                                 {contest.prizes.map((item, key) =>

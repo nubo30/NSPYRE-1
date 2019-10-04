@@ -78,6 +78,7 @@ class Summary extends Component {
     render() {
         const { isLoading, errSubmitdata } = this.state
         const { _indexChangeSwiper, userData, prize } = this.props
+        console.log(prize)
         return (
             <Container>
                 <GadrientsAuth />
@@ -172,6 +173,21 @@ class Summary extends Component {
                                             </Right>
                                         </ListItem>
 
+                                        {/* GENERAL INFORMATION */}
+                                        <ListItem disabled={isLoading} icon>
+                                            <Left>
+                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#757575" }}>
+                                                    <Icon type="Ionicons" active name="ios-information-circle" />
+                                                </Button>
+                                            </Left>
+                                            <Body>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>General information</Text>
+                                            </Body>
+                                            <Right>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.generalInformation}`, { separator: '...', length: 15 })}</Text>
+                                            </Right>
+                                        </ListItem>
+
                                         {/* BUSINESS LOCATION */}
                                         <ListItem icon>
                                             <Left>
@@ -199,21 +215,6 @@ class Summary extends Component {
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.companyName}`, { separator: '...', length: 15 })}</Text>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* COMPANY SOCIAL MEDIA HANDLES */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
-                                                    <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Socials medias handles</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.socialMediaHandle.facebook}, ${prize.aboutTheCompany.socialMediaHandle.twitter}, ${prize.aboutTheCompany.socialMediaHandle.instagram}, ${prize.aboutTheCompany.socialMediaHandle.snapchat}`, { length: 29, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -280,21 +281,6 @@ class Summary extends Component {
                                             </Right>
                                         </ListItem>
 
-                                        {/* INSTRUCTION */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                    <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="warning" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Instructions</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.general && prize.general.instructions.msg}`, { separator: '...', length: 20 })}</Text>
-                                            </Right>
-                                        </ListItem>
-
                                         {/* IMAGEN */}
                                         <ListItem icon style={{ justifyContent: 'space-between', height: 110, padding: 10 }}>
                                             <Left>
@@ -327,6 +313,68 @@ class Summary extends Component {
                                                 isLooping={false}
                                                 style={{ width: "60%", height: "100%" }} />
                                         </ListItem>
+                                        {prize.share === null || prize.share === undefined ? null :
+                                            <View>
+                                                <Separator bordered style={{ backgroundColor: '#F5F5F5', borderTopColor: '#F5F5F5' }}>
+                                                    <Text allowFontScaling={false}>SHARE</Text>
+                                                </Separator>
+
+                                                <ListItem icon>
+                                                    <Left>
+                                                        <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#607D8B" }}>
+                                                            <Icon type="MaterialCommunityIcons" name="page-layout-footer" active />
+                                                        </Button>
+                                                    </Left>
+                                                    <Body>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Footer content</Text>
+                                                    </Body>
+                                                    <Right>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.footerContent}`, { separator: '...', length: 20 })}</Text>
+                                                    </Right>
+                                                </ListItem>
+
+                                                <ListItem icon>
+                                                    <Left>
+                                                        <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF3D00" }}>
+                                                            <Icon type="FontAwesome" name="slideshare" active />
+                                                        </Button>
+                                                    </Left>
+                                                    <Body>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Content user share</Text>
+                                                    </Body>
+                                                    <Right>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.contentUserShare}`, { separator: '...', length: 20 })}</Text>
+                                                    </Right>
+                                                </ListItem>
+
+                                                <ListItem icon>
+                                                    <Left>
+                                                        <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#2962FF" }}>
+                                                            <Icon type="Entypo" name="user" active />
+                                                        </Button>
+                                                    </Left>
+                                                    <Body>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What user do</Text>
+                                                    </Body>
+                                                    <Right>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.whatUserDo}`, { separator: '...', length: 20 })}</Text>
+                                                    </Right>
+                                                </ListItem>
+
+                                                <ListItem icon>
+                                                    <Left>
+                                                        <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#E65100" }}>
+                                                            <Icon type="MaterialCommunityIcons" name="earth" active />
+                                                        </Button>
+                                                    </Left>
+                                                    <Body>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Social media</Text>
+                                                    </Body>
+                                                    <Right>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{Object.keys(JSON.parse(prize.share.socialMediaHandle))}</Text>
+                                                    </Right>
+                                                </ListItem>
+                                            </View>}
                                     </List>
                                 </Content> : null}
                         </View>

@@ -205,22 +205,13 @@ export const onCreateUser = `subscription OnCreateUser {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -237,10 +228,11 @@ export const onCreateUser = `subscription OnCreateUser {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -520,22 +512,13 @@ export const onUpdateUser = `subscription OnUpdateUser {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -552,10 +535,11 @@ export const onUpdateUser = `subscription OnUpdateUser {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -835,22 +819,13 @@ export const onDeleteUser = `subscription OnDeleteUser {
             street
           }
           companyName
-          socialMediaHandle {
-            facebook
-            twitter
-            instagram
-            snapchat
-          }
+          generalInformation
         }
         category
         general {
           price
           nameOfPrize
           description
-          instructions {
-            msg
-            typeContentInstructionsValue
-          }
           picture {
             localUrl
             url
@@ -867,10 +842,11 @@ export const onDeleteUser = `subscription OnDeleteUser {
           }
         }
         createdAt
-        delivery {
-          description
-          socialMediaSelected
-          typeOfSocialNetwork
+        share {
+          contentUserShare
+          footerContent
+          socialMediaHandle
+          whatUserDo
         }
       }
       nextToken
@@ -1037,6 +1013,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -1045,10 +1022,11 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -1655,6 +1633,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -1663,10 +1642,11 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -2273,6 +2253,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -2281,10 +2262,11 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10415,6 +10397,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10423,10 +10406,11 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10493,22 +10477,13 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10525,10 +10500,11 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -10624,6 +10600,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10632,10 +10609,11 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10702,22 +10680,13 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10734,10 +10703,11 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -10833,6 +10803,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -10841,10 +10812,11 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -10911,22 +10883,13 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
         street
       }
       companyName
-      socialMediaHandle {
-        facebook
-        twitter
-        instagram
-        snapchat
-      }
+      generalInformation
     }
     category
     general {
       price
       nameOfPrize
       description
-      instructions {
-        msg
-        typeContentInstructionsValue
-      }
       picture {
         localUrl
         url
@@ -10943,10 +10906,11 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
       }
     }
     createdAt
-    delivery {
-      description
-      socialMediaSelected
-      typeOfSocialNetwork
+    share {
+      contentUserShare
+      footerContent
+      socialMediaHandle
+      whatUserDo
     }
   }
 }
@@ -11043,6 +11007,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11051,10 +11016,11 @@ export const onCreateEngage = `subscription OnCreateEngage {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -11243,6 +11209,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11251,10 +11218,11 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken
@@ -11443,6 +11411,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
           }
           aboutTheCompany {
             companyName
+            generalInformation
           }
           category
           general {
@@ -11451,10 +11420,11 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             description
           }
           createdAt
-          delivery {
-            description
-            socialMediaSelected
-            typeOfSocialNetwork
+          share {
+            contentUserShare
+            footerContent
+            socialMediaHandle
+            whatUserDo
           }
         }
         nextToken

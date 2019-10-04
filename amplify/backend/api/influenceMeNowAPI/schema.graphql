@@ -271,47 +271,29 @@ type SubmitPrize @model {
   category: PrizeCategory!
   general: GeneralPrize!
   createdAt: AWSDateTime!
-  delivery: Delivery
+  share: Share
 }
 
 type AboutTheCompany {
   businessLocation: Location
   companyName: String
-  socialMediaHandle: SocialMediaHandle  
-}
-
-type SocialMediaHandle {
-  facebook: String
-  twitter: String
-  instagram: String
-  snapchat: String
+  generalInformation: String
 }
 
 type GeneralPrize {
   price: String
   nameOfPrize: String
   description: String
-  instructions: Instructions
   picture: Picture
   video: Video
 }
 
-type Instructions {
-  msg: String
-  typeContentInstructionsValue: String
-}
+type Share {
+    contentUserShare: String,
+    footerContent: String,
+    socialMediaHandle: String
+    whatUserDo: String
 
-type Delivery {
-  description: String
-  socialMediaSelected: String
-  typeOfSocialNetwork: TypeOfSocialNetwork 
-}
-
-enum TypeOfSocialNetwork {
-  fb
-  tt
-  ig
-  sc
 }
 
 ##################################################################### ENGAGE #####################################################################

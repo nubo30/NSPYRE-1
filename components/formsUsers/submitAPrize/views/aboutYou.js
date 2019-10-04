@@ -29,12 +29,8 @@ class AboutYou extends Component {
             city: "Not specified",
             country: "Not specified"
         },
-        socialMediaHandle: {
-            facebook: "",
-            twitter: "",
-            instagram: "",
-            snapchat: ""
-        },
+        generalInformation: "",
+
         companyName: "",
 
         isvalidFormAnimation: false,
@@ -46,6 +42,7 @@ class AboutYou extends Component {
         inputTextCities: "",
 
         // Modal
+        visibleModalGeneralInformation: false,
         visibleModalBusinessLocation: false,
         visibleModalCompanyname: false,
         visibleModalSocialMediaHandle: false,
@@ -108,8 +105,8 @@ class AboutYou extends Component {
     // Send Data to AWS
     _submit = async () => {
         const { _indexChangeSwiper, _dataFromForms, userData } = this.props
-        const { businessLocation, companyName, socialMediaHandle } = this.state
-        const data = { aboutTheCompany: { businessLocation, companyName, socialMediaHandle }, submitPrizeUserId: userData.id, createdAt: moment().toISOString() }
+        const { businessLocation, companyName, generalInformation } = this.state
+        const data = { aboutTheCompany: { businessLocation, companyName, generalInformation }, submitPrizeUserId: userData.id, createdAt: moment().toISOString() }
         try {
             await _dataFromForms(data)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
@@ -121,16 +118,16 @@ class AboutYou extends Component {
     }
 
     _validateForm = () => {
-        const { businessLocation, companyName, socialMediaHandle } = this.state
+        const { generalInformation, businessLocation, companyName } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country
-                ? isAscii(companyName)
-                    ? socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
+            generalInformation ?
+                businessLocation.street && businessLocation.city && businessLocation.state && businessLocation.country
+                    ? companyName
                         ? this._submit()
-                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid comapany social media handles" } } })
-                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
-                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid business location" } } })
+                        : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid title company" } } })
+                    : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid business location" } } })
+                : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid general information" } } })
         }, 500);
     }
 
@@ -138,17 +135,12 @@ class AboutYou extends Component {
         if (nextProps.wantSuggestedFields) {
             const { dataFromThePreviousSubmitPrize } = nextProps
             this.setState({
+                generalInformation: dataFromThePreviousSubmitPrize.aboutTheCompany.generalInformation,
                 businessLocation: {
                     street: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.street,
                     state: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.state,
                     city: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.city,
                     country: dataFromThePreviousSubmitPrize.aboutTheCompany.businessLocation.country
-                },
-                socialMediaHandle: {
-                    facebook: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.facebook,
-                    twitter: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.twitter,
-                    instagram: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.instagram,
-                    snapchat: dataFromThePreviousSubmitPrize.aboutTheCompany.socialMediaHandle.snapchat
                 },
                 companyName: dataFromThePreviousSubmitPrize.aboutTheCompany.companyName,
             })
@@ -163,18 +155,18 @@ class AboutYou extends Component {
             messageFlash,
 
             // Input
+            generalInformation,
             businessLocation,
             companyName,
-            socialMediaHandle,
 
             inputTextRegions,
             inputTextCountry,
             inputTextCities,
 
             // modal
+            visibleModalGeneralInformation,
             visibleModalBusinessLocation,
             visibleModalCompanyname,
-            visibleModalSocialMediaHandle,
 
             // Data API
             listCountries,
@@ -278,7 +270,23 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* BUSINESS ADDRESS */}
+                                    {/* GENERAL INFORMATION */}
+                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalGeneralInformation: true })}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#757575" }}>
+                                                <Icon type="Ionicons" active name="ios-information-circle" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>General information</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{generalInformation ? "Specified" : "Not specified"}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                    </ListItem>
+
+                                    {/* LOCATION */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalBusinessLocation(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D" }} onPress={() => this._visibleModalBusinessLocation(true)}>
@@ -298,7 +306,7 @@ class AboutYou extends Component {
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalCompanyname(true)}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#EC407A" }}>
-                                                <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 2 }} active name="building" />
+                                                <Icon type="FontAwesome" style={{ left: 1, fontSize: wp(5) }} active name="building" />
                                             </Button>
                                         </Left>
                                         <Body>
@@ -310,21 +318,6 @@ class AboutYou extends Component {
                                         </Right>
                                     </ListItem>
 
-                                    {/* SOCIAL MEDIA HANDLE */}
-                                    <ListItem icon disabled={isLoading} onPress={() => this._visibleModalSocialMediaHandle(true)}>
-                                        <Left>
-                                            <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FF9800" }}>
-                                                <Entypo style={{ fontSize: wp(6), color: '#FFF', left: 1, top: 1 }} active name="network" />
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Social media handles</Text>
-                                        </Body>
-                                        <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? "Specified" : "Not specified"}</Text>
-                                            <Icon active name="arrow-forward" />
-                                        </Right>
-                                    </ListItem>
                                 </List>
                             </Content>
                         </View>
@@ -359,6 +352,54 @@ class AboutYou extends Component {
                         </Button>
                     </Animatable.View>
                 </Footer>
+
+                {/* GENERAL INFORMATION */}
+                <Modal
+                    hardwareAccelerated={true}
+                    transparent={false}
+                    visible={visibleModalGeneralInformation}
+                    animationType="fade"
+                    presentationStyle="fullScreen"
+                    onRequestClose={() => { }}>
+                    <Container>
+                        <Header transparent>
+                            <Left>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>General information</Title>
+                            </Left>
+                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
+                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
+                                    generalInformation
+                                        ? this.setState({ visibleModalGeneralInformation: false })
+                                        : this.setState({ generalInformation: "", visibleModalGeneralInformation: false })
+                                }>
+                                    <Text allowFontScaling={false} style={{
+                                        fontSize: wp(4),
+                                        letterSpacing: 1,
+                                        color: generalInformation ? "#E91E63" : "#3333"
+                                    }}>{generalInformation ? "Done" : "Cancel"}</Text>
+                                </Button>
+                            </Right>
+                        </Header>
+                        <Content scrollEnabled={false}>
+                            {/* generalInformation */}
+                            <Item
+                                style={{ width: "90%", top: 15, alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
+                                <Input
+                                    allowFontScaling={false}
+                                    multiline
+                                    numberOfLines={3}
+                                    placeholderTextColor="#EEEE"
+                                    autoFocus={true}
+                                    value={generalInformation}
+                                    keyboardType="ascii-capable"
+                                    selectionColor="#E91E63"
+                                    style={{ padding: 5, maxHeight: 220 }}
+                                    onChangeText={(value) => this.setState({ generalInformation: value })} />
+                            </Item>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', textAlign: 'center', top: 20 }}>Please, write something about yourself or your company, this information will appear in the prize profile (first screen), the more detail the better.</Text>
+                        </Content>
+                    </Container>
+                </Modal>
 
                 {/* BUSSINES LOCATION MODAL */}
                 <Modal
@@ -620,145 +661,6 @@ class AboutYou extends Component {
                                 <Right />
                             </ListItem>
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5), textAlign: 'center', top: 15, width: "90%", alignSelf: 'center' }}>If this information is not provided your profile name will be displayed (optional)</Text>
-                        </Content>
-                    </Container>
-                </Modal>
-
-                {/*  SOCIAL MEDIA HANDLE */}
-                <Modal
-                    transparent={false}
-                    hardwareAccelerated={true}
-                    visible={visibleModalSocialMediaHandle}
-                    animationType="fade"
-                    presentationStyle="fullScreen"
-                    onRequestClose={() => null}>
-                    <Container>
-                        <Header transparent>
-                            <Left>
-                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Social Media Handle</Title>
-                            </Left>
-                            <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
-                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() =>
-                                    socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                        ? this.setState({ visibleModalSocialMediaHandle: false })
-                                        : {}
-                                }>
-                                    <Text allowFontScaling={false} style={{
-                                        fontSize: wp(4),
-                                        letterSpacing: 1,
-                                        color:
-                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                                ? "#E91E63" : "#3333"
-                                    }}>{
-                                            socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat
-                                                ? "Done" : "Cancel"
-                                        }</Text>
-                                </Button>
-                            </Right>
-                        </Header>
-                        <Content scrollEnabled={false}>
-
-                            {/* FACEBOOK */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#3b5998" }}>
-                                        <Feather active name="facebook" style={{ color: '#FFF', fontSize: wp(5.5) }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            autoFocus={true}
-                                            placeholder="Facebook"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.facebook}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, facebook: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* TWITTER */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 5 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#00acee" }}>
-                                        <Entypo active name="twitter" style={{ color: '#FFF', fontSize: wp(5.5), top: 2 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Twitter"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.twitter}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, twitter: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* INSTAGRAM */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 10 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#E1306C" }}>
-                                        <AntDesign active name="instagram" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Instagram"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.instagram}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, instagram: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-
-                            {/* SNACPCHAT */}
-                            <ListItem icon style={{ borderBottomColor: 'rgba(0,0,0,0.0)', top: 15 }}>
-                                <Left>
-                                    <Button style={{ backgroundColor: "#FFEA00" }}>
-                                        <Ionicons active name="logo-snapchat" style={{ color: '#FFF', fontSize: wp(5.5), top: 1, left: 0.5 }} />
-                                    </Button>
-                                </Left>
-                                <Body style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }}>
-                                    <Item>
-                                        <Input
-                                            onSubmitEditing={() => socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram || socialMediaHandle.snapchat ? this.setState({ visibleModalSocialMediaHandle: false }) : Keyboard.dismiss()}
-                                            returnKeyType='done'
-                                            placeholder="Snapchat"
-                                            placeholderTextColor="#EEEE"
-                                            maxLength={512}
-                                            value={socialMediaHandle.snapchat}
-                                            keyboardType="ascii-capable"
-                                            selectionColor="#E91E63"
-                                            onChangeText={(value) => this.setState({ socialMediaHandle: { ...socialMediaHandle, snapchat: value } })}
-                                        />
-                                    </Item>
-                                </Body>
-                                <Right style={{ borderBottomColor: 'rgba(0,0,0,0.0)' }} />
-                            </ListItem>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', top: 30 }}>Provide your social media links for redirects</Text>
                         </Content>
                     </Container>
                 </Modal>

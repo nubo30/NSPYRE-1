@@ -14,6 +14,7 @@ import * as queries from '../../../src/graphql/queries'
 
 import { colorsPalette } from "../../global/static/colors"
 import { DataNotFound } from "../../global/emojis/index"
+import { MyStatusBar } from '../../global/statusBar/index'
 
 class ListContest extends Component {
   state = {
@@ -25,7 +26,7 @@ class ListContest extends Component {
     categories: null,
     isScreenChange: false,
     modalAction: false,
-    categoryName: ""
+    categoryName: "Music"
   }
 
   async componentDidMount() {
@@ -76,6 +77,7 @@ class ListContest extends Component {
             <Input placeholder="Search category" />
           </Item>
         </Header>
+        <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
         <Button transparent style={{ position: 'absolute', top: 0, width: "100%", }} onPress={() => this.setState({ modalAction: true })} />
         <FlatList
           style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4, top: -20 }}
@@ -129,7 +131,7 @@ class ListContest extends Component {
           keyExtractor={(item) => item.id} />
         <Modal
           isVisible={modalAction}
-          onSwipeComplete={() => this.setState({ modalAction: false })}
+          onSwipeComplete={() => this.setState({ modalAction: false, categoryName: "Music" })}
           swipeDirection={['down']}
           style={{ justifyContent: 'flex-end', margin: 0 }}>
           <View style={{
@@ -159,6 +161,7 @@ class ListContest extends Component {
                     value={categoryName} placeholder="Search category" />
                 </Item>
               </Header>
+              <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
               {filterCategories.length ?
                 <FlatList
                   style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4, top: 20 }}
