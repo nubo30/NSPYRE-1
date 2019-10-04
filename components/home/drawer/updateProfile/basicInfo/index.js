@@ -9,10 +9,19 @@ import _ from 'lodash'
 
 // GraphQL
 import * as mutations from '../../../../../src/graphql/mutations'
+import * as queries from '../../../../../src/graphql/queries'
+
+import { colorsPalette } from '../../../../global/static/colors'
 
 export default class BasicInfo extends Component {
 
-    state = { modalVisiblePhone: false, numberPhone: "", isValidNumherPhone: false }
+    state = {
+        modalVisiblePhone: false,
+        numberPhone: "",
+        isValidNumherPhone: false,
+        isLoading: false,
+        messageFlash: { cognito: null }
+    }
 
     _getNumberPhone = () => {
         const numberPhoneClear = _.replace(_.replace(this.phone.getValue(), new RegExp(" ", "g"), ""), new RegExp("-", "g"), "").replace(/[()]/g, '')
@@ -33,13 +42,32 @@ export default class BasicInfo extends Component {
         }
     }
 
+    // Verifica si el número telefonico ya existe
+    _verifyNumberPhone = async () => {
+        const { numberPhone } = this.state
+        const { _isLoading } = this.props
+        _isLoading(true)
+        this.setState({ messageFlash: { cognito: { message: "" } } })
+        try {
+            const response = await API.graphql(graphqlOperation(queries.listUsers, { filter: { phone: { eq: numberPhone } } }))
+            await response.data.listUsers.items.length
+                ? this.setState({ messageFlash: { cognito: { message: "This phone number is already being used, try another one please." } } })
+                : this._updateNumberPhoneAWS()
+            _isLoading(false)
+        } catch (error) {
+            console.log(error)
+            _isLoading(false)
+        }
+    }
+
+
 
     render() {
-        const { numberPhone, modalVisiblePhone, isValidNumherPhone } = this.state
+        const { numberPhone, modalVisiblePhone, isValidNumherPhone, messageFlash } = this.state
         const { userData, isLoading } = this.props
         return (
             <Container>
-                <Content scrollEnabled={false} contentContainerStyle={{ backgroundColor: '#F5F5F5', flex: 1 }}>
+                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
                     <List style={{ width: '100%', backgroundColor: '#FFF' }}>
                         {/* EMAIL */}
                         <ListItem icon style={{ backgroundColor: '#FFF' }}>
@@ -110,19 +138,19 @@ export default class BasicInfo extends Component {
                                     <Button
                                         disabled={isLoading}
                                         iconLeft transparent onPress={() => this.setState({ modalVisiblePhone: false, numberPhone: "" })}>
-                                        <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#E91E63" }} />
-                                        <Text style={{ color: isLoading ? "#EEEEEE" : "#E91E63" }}>Back</Text>
+                                        <Icon name='arrow-back' style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.primaryColor }} />
+                                        <Text style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.primaryColor }}>Back</Text>
                                     </Button>
                                 </Left>
                                 <Body>
-                                    <Title style={{ color: isLoading ? '#EEEEEE' : '#333' }}>Edit your number phone</Title>
+                                    <Title style={{ color: isLoading ? colorsPalette.opaqueWhite : '#333', fontSize: wp(7) }}>Number phone</Title>
                                 </Body>
                                 <Right>
                                     <Button
                                         disabled={!isValidNumherPhone ? true : false}
                                         transparent
-                                        onPress={() => this._updateNumberPhoneAWS()}>
-                                        {isLoading ? <Spinner size="small" color="#BDBDBD" /> : <Text style={{ color: isValidNumherPhone ? "#E91E63" : "#3333" }}>Accept</Text>}
+                                        onPress={() => this._verifyNumberPhone()}>
+                                        {isLoading ? <Spinner size="small" color={colorsPalette.opaqueWhite} /> : <Text style={{ color: !isValidNumherPhone ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>OK</Text>}
                                     </Button>
                                 </Right>
                             </Header>
@@ -134,21 +162,22 @@ export default class BasicInfo extends Component {
                                         onChangePhoneNumber={() => { this._getNumberPhone() }}
                                         autoFormat={true}
                                         autoFocus={true}
-                                        buttonTextStyle={{ backgroundColor: 'red' }}
                                         confirmText="OK"
                                         cancelText="CANCEL"
-                                        pickerButtonColor="#E91E63"
+                                        pickerButtonColor={colorsPalette.primaryColor}
                                         pickerItemStyle={{ fontSize: 18 }}
                                         value={numberPhone}
                                         style={{ height: "100%", width: "100%" }}
                                         flagStyle={{ height: 30, width: 40 }}
-                                        textStyle={{ fontSize: wp(6), color: '#333' }}
+                                        textStyle={{ fontSize: wp(6), color: '#000' }}
                                         textProps={{ placeholder: "Your Phone Number" }}
                                         initialCountry="us" />
                                 </ListItem>
                             </List>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3.5), width: "80%", alignSelf: 'center', textAlign: 'center', top: 20 }}>
+                                {messageFlash.cognito && messageFlash.cognito.message}
+                            </Text>
                         </Container>
-
                     </Root>
                 </Modal>
             </Container>

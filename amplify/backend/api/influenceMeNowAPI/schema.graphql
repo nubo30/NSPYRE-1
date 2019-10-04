@@ -37,6 +37,7 @@ type CreateContest @model {
   prizes: [Prizes]
   createdAt: AWSDateTime!
   timer: Timer
+  isFinished: Boolean
   audience: [Audience] @connection(name:"CreateContestAudience")
   participants: [Participants] @connection(name:"CreateContestParticipants")
   usersSharing: [UsersSharing] @connection(name:"CreateContestUsersSharing")

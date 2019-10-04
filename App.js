@@ -65,6 +65,7 @@ import AboutContest from "./components/aboutContest"
 import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
 import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize"
 import UserProfile from "./components/userProfile/index"
+import Trending from "./components/home/listContest/trending/index"
 
 class InfluencemeNow extends Component {
     state = { isReady: false }
@@ -99,7 +100,8 @@ const RootStack = createStackNavigator(
         'AboutContest': { screen: AboutContest, navigationOptions },
         'Prizes': { screen: Prizes, navigationOptions },
         'AboutThePrize': { screen: AboutThePrize, navigationOptions },
-        'UserProfile': { screen: UserProfile, navigationOptions: { header: null } }
+        'UserProfile': { screen: UserProfile, navigationOptions: { header: null } },
+        'Trending': { screen: Trending, navigationOptions: { header: null } }
     }
 )
 
@@ -113,15 +115,15 @@ const AppContainer = createAppContainer(createAnimatedSwitchNavigator({
     App: RootStack,
     Auth: AuthStack
 }, {
-        initialRouteName: "AuthLoading",
-        // transitionConfig: (nav) => handleCustomTransition(nav)
-        transition: (
-            <Transition.Together>
-                <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeIn" />
-                <Transition.In type="fade" durationMs={100} />
-            </Transition.Together>
-        ),
-    }
+    initialRouteName: "AuthLoading",
+    // transitionConfig: (nav) => handleCustomTransition(nav)
+    transition: (
+        <Transition.Together>
+            <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeIn" />
+            <Transition.In type="fade" durationMs={100} />
+        </Transition.Together>
+    ),
+}
 ));
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)))

@@ -76,7 +76,6 @@ class UserInfo extends Component {
                     transparent={false}
                     visible={modalVisibleRedeemPoints}>
                     <CategoryOfPrizes
-
                         _setModalVisibleRedeemPoints={this._setModalVisibleRedeemPoints}
 
                         prizeCategory={prizeCategory}
@@ -91,11 +90,24 @@ class UserInfo extends Component {
                 </Modal>
 
                 <ModalAnimation
-                    animationIn="zoomInDown"
-                    animationOut="zoomOutUp"
                     onModalHide={() => fromWhere === 'prize' ? this._setModalVisibleRedeemPoints(true) : null}
-                    isVisible={redeemPointsDecision}>
-                    <View style={{ width: widthScreen - 80, maxHeight: heightScreen / 2, alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor, borderRadius: 15, flex: 1, padding: 10 }}>
+                    onSwipeComplete={() => { this.setState({ redeemPointsDecision: false }) }}
+                    isVisible={redeemPointsDecision}
+                    swipeDirection={['down']}
+                    style={{ justifyContent: 'flex-end', margin: 0 }}>
+                    <View style={{
+                        backgroundColor: colorsPalette.secondaryColor,
+                        padding: 15,
+                        justifyContent: 'center',
+                        borderTopStartRadius: 10,
+                        borderTopEndRadius: 10,
+                        borderColor: 'rgba(0, 0, 0, 0.3)',
+                        flex: 1,
+                        maxHeight: 600,
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100%'
+                    }}>
                         <Grid>
                             <Row size={40} style={{ flexDirection: 'row', padding: 5 }}>
                                 <Text
@@ -125,14 +137,14 @@ class UserInfo extends Component {
                                 <Text
                                     minimumFontScale={wp(3)}
                                     allowFontScaling={false}
-                                    style={{ color: colorsPalette.gradientGray, fontSize: wp(3), flex: 1, flexWrap: 'wrap', fontWeight: '100' }}>With <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Prize</Text> you will be going to the list of prizes we have!</Text>
+                                    style={{ color: colorsPalette.gradientGray, fontSize: wp(3), flex: 1, flexWrap: 'wrap' }}>With <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Glyff</Text> you can change your points in cryptocurrencies, by pressing <Text style={{ fontWeight: 'bold', color: colorsPalette.gradientGray }}>Prize</Text> you will be going to the list of prizes we have!</Text>
                             </Row>
                             <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Button transparent small onPress={() => this._redeemPointsDecision(false)} style={{ alignSelf: 'flex-end' }}>
                                     <Text
                                         minimumFontScale={wp(3)}
                                         allowFontScaling={false}
-                                        style={{ color: colorsPalette.gradientGray, fontWeight: '100', fontSize: wp(3) }}>No, thanks</Text>
+                                        style={{ color: colorsPalette.darkFont, fontSize: wp(3) }}>No, thanks</Text>
                                 </Button>
                             </Row>
                         </Grid>

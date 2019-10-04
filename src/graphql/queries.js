@@ -100,6 +100,7 @@ export const getUser = `query GetUser($id: ID!) {
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -376,6 +377,7 @@ export const listUsers = `query ListUsers(
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -543,6 +545,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -700,6 +703,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       start
       end
     }
+    isFinished
     audience {
       items {
         JSONdata
@@ -740,6 +744,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -843,6 +848,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -951,6 +957,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -1015,6 +1022,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -1078,6 +1086,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -1135,6 +1144,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -1204,6 +1214,7 @@ export const listCreateContests = `query ListCreateContests(
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -1211,6 +1222,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -1266,6 +1278,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -1289,6 +1302,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1305,6 +1319,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1320,6 +1335,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1360,6 +1376,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -1429,6 +1446,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -1436,6 +1454,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -1491,6 +1510,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -1514,6 +1534,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1530,6 +1551,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1545,6 +1567,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1653,6 +1676,7 @@ export const listViewsVideos = `query ListViewsVideos(
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -1769,6 +1793,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -1838,6 +1863,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -1845,6 +1871,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -1900,6 +1927,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -1923,6 +1951,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1939,6 +1968,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -1954,6 +1984,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2058,6 +2089,7 @@ export const listUsersSharings = `query ListUsersSharings(
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -2170,6 +2202,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -2239,6 +2272,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -2246,6 +2280,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -2301,6 +2336,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -2324,6 +2360,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2340,6 +2377,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2355,6 +2393,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2458,6 +2497,7 @@ export const listUsersLikess = `query ListUsersLikess(
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -2570,6 +2610,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -2639,6 +2680,7 @@ export const getAudience = `query GetAudience($id: ID!) {
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -2646,6 +2688,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -2701,6 +2744,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -2724,6 +2768,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2740,6 +2785,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2755,6 +2801,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -2879,6 +2926,7 @@ export const listAudiences = `query ListAudiences(
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -3030,6 +3078,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -3099,6 +3148,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         start
         end
       }
+      isFinished
       audience {
         items {
           JSONdata
@@ -3106,6 +3156,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           genders
@@ -3161,6 +3212,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -3184,6 +3236,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -3200,6 +3253,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -3215,6 +3269,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           id
           name
@@ -3258,6 +3313,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -3308,6 +3364,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -3360,6 +3417,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -3411,6 +3469,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
+            isFinished
           }
           createdAt
           likesToParticipants {
@@ -3543,6 +3602,7 @@ export const listParticipantss = `query ListParticipantss(
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -3810,6 +3870,7 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -4060,6 +4121,7 @@ export const listViewsParticipantss = `query ListViewsParticipantss(
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -4239,6 +4301,7 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -4484,6 +4547,7 @@ export const listShareParticipantss = `query ListShareParticipantss(
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -4658,6 +4722,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -4902,6 +4967,7 @@ export const listLikesToParticipantss = `query ListLikesToParticipantss(
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -5075,6 +5141,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
           start
           end
         }
+        isFinished
         audience {
           items {
             JSONdata
@@ -5321,6 +5388,7 @@ export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -5503,6 +5571,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -5678,6 +5747,7 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }
@@ -5796,6 +5866,7 @@ export const getEngage = `query GetEngage($id: ID!) {
             start
             end
           }
+          isFinished
           audience {
             nextToken
           }
@@ -5970,6 +6041,7 @@ export const listEngages = `query ListEngages(
             id
             category
             createdAt
+            isFinished
           }
           nextToken
         }

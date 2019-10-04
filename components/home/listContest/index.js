@@ -67,18 +67,22 @@ class ListContest extends Component {
 
   render() {
     const { categories, isReady, isScreenChange, modalAction, categoryName } = this.state
-    const { offLine, userData } = this.props
+    const { offLine, userData, navigation } = this.props
     const filterCategories = categories && categories.filter(item => { return item.name.indexOf(categoryName) !== -1 })
     return isReady && Object.keys(userData).length !== 0 ? (
       <View>
-        <Header searchBar rounded transparent style={{ justifyContent: 'center', alignItems: 'center', top: -20 }}>
-          <Item>
+        <Header searchBar rounded transparent style={{ justifyContent: 'space-between', alignItems: 'center', top: -20 }}>
+          <Item bordered style={{ backgroundColor: colorsPalette.gradientGray, maxWidth: "60%" }}>
             <Icon name="ios-search" />
             <Input placeholder="Search category" />
           </Item>
+          <Button bordered small iconLeft style={{ borderColor: colorsPalette.primaryColor }} onPress={() => navigation.navigate('Trending')}>
+            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Trending</Text>
+            <Icon type="Feather" name="trending-up" style={{ color: colorsPalette.primaryColor }} />
+          </Button>
         </Header>
         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-        <Button transparent style={{ position: 'absolute', top: 0, width: "100%", }} onPress={() => this.setState({ modalAction: true })} />
+        <Button transparent style={{ position: 'absolute', top: 0, width: "60%" }} onPress={() => this.setState({ modalAction: true })} />
         <FlatList
           style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4, top: -20 }}
           showsVerticalScrollIndicator={false}
