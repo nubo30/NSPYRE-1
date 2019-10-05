@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Card, CardItem, Left, Body } from 'native-base';
-import { PlaceholderMedia, PlaceholderLine } from 'rn-placeholder'
+import { View, Card, CardItem } from 'native-base';
+import { PlaceholderMedia } from 'rn-placeholder'
 
 const timesRepeat = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
@@ -16,15 +16,6 @@ export default class PlaceholderAll extends Component {
                     alignSelf: "center",
                     marginTop: 20
                 }}>
-                    <CardItem style={{ borderTopEndRadius: 5, borderTopStartRadius: 5 }}>
-                        <Left>
-                            <PlaceholderMedia animate="fade" size={50} style={{ borderRadius: "50%" }} />
-                            <Body>
-                                <PlaceholderLine animate="fade" width="61%" textSize={14} style={{ top: 5 }} />
-                                <PlaceholderLine animate="fade" width="47%" textSize={14} style={{ top: 5 }} />
-                            </Body>
-                        </Left>
-                    </CardItem>
                     <CardItem cardBody style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                         <View style={{
                             borderBottomLeftRadius: 5,

@@ -184,7 +184,6 @@ class ShowContest extends Component {
             modalVisibleAudience,
             modalVisibleJoinToTheContest
         } = this.state
-        console.log(userLogin)
         return (
             contest !== null
                 ? <Swiper

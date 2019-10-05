@@ -364,4 +364,5 @@ type Query {
   showParticipationByUser(userId: String!): String @function(name: "showParticipationByUser")
   filterAudienceForContest(preferences: String!): String @function(name: "filterAudienceForContest")
   sendNotification(notificationId: String!): String @function(name: "notifications")
+  trending(params: String): String @function(name: "trendingInfluenceMeNow")
 }

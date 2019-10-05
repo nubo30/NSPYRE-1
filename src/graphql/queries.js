@@ -13,6 +13,10 @@ export const sendNotification = `query SendNotification($notificationId: String!
   sendNotification(notificationId: $notificationId)
 }
 `;
+export const trending = `query Trending($params: String) {
+  trending(params: $params)
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     tokenfb

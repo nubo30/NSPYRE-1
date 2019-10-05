@@ -76,7 +76,7 @@ class ListContest extends Component {
             <Icon name="ios-search" />
             <Input placeholder="Search category" />
           </Item>
-          <Button bordered small iconLeft style={{ borderColor: colorsPalette.primaryColor }} onPress={() => navigation.navigate('Trending')}>
+          <Button bordered small iconLeft style={{ borderColor: colorsPalette.primaryColor }} onPress={() => navigation.navigate('Trending', { userData })}>
             <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Trending</Text>
             <Icon type="Feather" name="trending-up" style={{ color: colorsPalette.primaryColor }} />
           </Button>

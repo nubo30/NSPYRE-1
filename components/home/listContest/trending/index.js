@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, ImageBackground } from 'react-native';
+import { FlatList, RefreshControl, ImageBackground, TouchableHighlight, Platform } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import {
@@ -12,43 +12,59 @@ import {
     Input,
     Button,
     Title,
-    Card, CardItem, Thumbnail, Right
+    View
 } from "native-base"
-import truncate from 'lodash/truncate'
-import startCase from 'lodash/startCase'
-import lowerCase from 'lodash/lowerCase'
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import CountDown from 'react-native-countdown-component';
 import moment from 'moment'
 import _ from 'lodash'
-import UserAvatar from "react-native-user-avatar"
 import * as Animatable from 'react-native-animatable';
 
+import { colorsPalette } from '../../../global/static/colors'
 import { MyStatusBar } from '../../../global/statusBar'
 import { DataNotFound } from "../../../global/emojis/index"
+
+// Child components
+import PlaceholderAll from '../showContests/placeholderAll'
+
+import * as queries from '../../../../src/graphql/queries'
 
 class Trending extends Component {
     state = {
         isReady: false,
         input: "",
         refreshing: false,
-        activeAnimation: false,
-        trendingContests: [],
+        animation: false,
+        trendingContests: null,
         isFinishedContest: false
     }
 
 
     _onRefresh = () => {
         this.setState({ refreshing: true });
-        this.getContest().then(() => {
+        this._getTrendingContest().then(() => {
             this.setState({ refreshing: false });
         });
     }
 
+    componentDidMount() {
+        this._getTrendingContest()
+    }
+
+    _getTrendingContest = async () => {
+        try {
+            const response = await API.graphql(graphqlOperation(queries.trending, { params: "" }))
+            this.setState({ trendingContests: JSON.parse(response.data.trending) })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render() {
-        const { input, trendingContests, activeAnimation, isFinishedContest } = this.state
-        let filterTrendingContest = []
+        const userData = this.props.navigation.getParam('userData')
+        const { input, trendingContests, animation, isFinishedContest } = this.state
+        let filterTrendingContest = trendingContests && trendingContests.filter(item => item.general.nameOfContest.indexOf(input) !== -1)
         return (
             <Container>
                 <Header span style={{ backgroundColor: "#D82B60", borderBottomColor: "rgba(0,0,0,0.0)", height: 110 }}>
@@ -88,145 +104,107 @@ class Trending extends Component {
                     ? filterTrendingContest.length
                         ? <FlatList
                             data={filterTrendingContest}
-                            refreshControl={
-                                <RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
-                            }
+                            refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
-                            renderItem={({ item, index }) =>
-                                <TouchableHighlight
-                                    onPress={() => { this.setState({ activeAnimation: true }); }}
-                                    underlayColor="rgba(0,0,0,0.0)">
-                                    <Animatable.View
-                                        duration={200}
-                                        animation={this.state.activeAnimation ? 'pulse' : undefined}
-                                        onAnimationEnd={() => {
-                                            this.setState({ activeAnimation: false });
-                                            //   this.props.navigation.navigate("AboutContest", { contest: item, fromWhere: 'categoryContest', userData })
-                                        }}>
-                                        <Card style={{
-                                            flex: 0,
-                                            borderRadius: 7,
-                                            marginBottom: 10,
-                                            width: "95%",
-                                            alignSelf: "center",
-                                            marginTop: 20,
-                                            shadowColor: 'rgba(0,0,0,0.3)',
-                                            shadowOffset: { width: 0 },
-                                            shadowOpacity: 1
-                                        }}>
-                                            <CardItem style={{ borderTopEndRadius: 7, borderTopStartRadius: 7 }}>
-                                                <Left>
-                                                    <Animatable.View animation="fadeIn">
-                                                        {/* {item && item.user.avatar === null
-                                                            ? <UserAvatar size="40" name={item.user.name} />
-                                                            : <Thumbnail source={{ uri: item.user.avatar }} style={{ width: 40, height: 40, borderRadius: 20 }} />} */}
-                                                        <Thumbnail source={{ uri: "item.user.avatar" }} style={{ width: 40, height: 40, borderRadius: 20 }} />
-                                                    </Animatable.View>
-                                                    <Body>
-                                                        <Text
-                                                            //onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
-                                                            minimumFontScale={wp(4)}
-                                                            allowFontScaling={false}
-                                                            style={{ fontSize: wp(4) }}>
-                                                            Yank Carlos
-                                                            {/* {userData.id === item.user.id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.aboutTheUser.companyName === null ? item.user.name : item.aboutTheUser.companyName)), { length: 20, separator: '...' })} */}
-                                                        </Text>
-                                                        <Text
-                                                            //onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
-                                                            minimumFontScale={wp(3)}
-                                                            allowFontScaling={false}
-                                                            note
-                                                            style={{ fontSize: wp(3) }}>
-                                                            Publicado hoy
-                                                            {/* Published {moment(item.createdAt).fromNow()} */}
-                                                        </Text>
-                                                    </Body>
-                                                </Left>
-                                                <Right>
-                                                    {isFinishedContest ? <View style={{
-                                                        borderRadius: "50%",
-                                                        backgroundColor: '#E53935',
-                                                        justifyContent: 'center',
-                                                        alignItems: 'center',
-                                                        shadowColor: 'rgba(0,0,0,0.3)',
-                                                        shadowOffset: { width: 0 },
-                                                        shadowOpacity: 1,
-                                                    }}>
-                                                        <View style={{ padding: 10 }}>
-                                                            <Text
-                                                                minimumFontScale={wp(3)}
-                                                                allowFontScaling={false}
-                                                                style={{ fontSize: wp(3), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
-                                                        </View>
-                                                    </View> :
-                                                        item.timer === null
-                                                            ? null
-                                                            : new Date(item.timer.end) < new Date()
-                                                                ? <View style={{
-                                                                    borderRadius: "5%",
-                                                                    backgroundColor: '#E53935',
-                                                                    justifyContent: 'center',
-                                                                    alignItems: 'center',
-                                                                    shadowColor: 'rgba(0,0,0,0.3)',
+                            renderItem={({ item }) =>
+                                <View>
+                                    <TouchableHighlight
+                                        underlayColor={colorsPalette.transparent}
+                                        onPress={() => this.setState({ animation: true })}>
+                                        <Animatable.View
+                                            onAnimationEnd={() => {
+                                                this.setState({ animation: false })
+                                                this.props.navigation.navigate("AboutContest", { contest: Object.assign(item, { user: { avatar: "lorem", id: "lorem" }, usersLikes: { items: [] } }), fromWhere: 'trending', userData })
+                                            }}
+                                            animation={animation ? "pulse" : undefined}
+                                            duration={200}
+                                            style={{
+                                                flex: 0,
+                                                borderRadius: 5,
+                                                elevation: Platform.OS === 'ios' ? 10 : 5,
+                                                marginBottom: 10,
+                                                width: "90%", height: 100,
+                                                alignSelf: "center",
+                                                marginTop: 30,
+                                            }}>
+                                            <View style={{
+                                                borderRadius: 5,
+                                                shadowColor: colorsPalette.primaryShadowColor,
+                                                shadowOffset: { width: 0 }, shadowOpacity: 1
+                                            }}>
+                                                <ImageBackground
+                                                    borderRadius={5}
+                                                    source={{ uri: item.general.picture.url }}
+                                                    style={{ height: 100, width: "100%" }}>
+                                                    <View style={{ backgroundColor: colorsPalette.primaryShadowColor, width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                                        {isFinishedContest
+                                                            ? <View style={{
+                                                                position: 'absolute',
+                                                                right: 0,
+                                                                top: 0,
+                                                                padding: 5
+                                                            }}>
+                                                                <View style={{
+                                                                    borderRadius: 5,
+                                                                    padding: 10, backgroundColor: colorsPalette.errColor,
+                                                                    shadowColor: colorsPalette.primaryShadowColor,
                                                                     shadowOffset: { width: 0 },
                                                                     shadowOpacity: 1,
                                                                 }}>
-                                                                    <View style={{ padding: 10 }}>
-                                                                        <Text style={{ fontSize: wp(4), color: '#FFF', fontWeight: 'bold' }}>Completed</Text>
-                                                                    </View>
-                                                                </View> : <CountDown
-                                                                    style={{ alignSelf: 'flex-end', top: -4 }}
-                                                                    digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
-                                                                    digitTxtStyle={{ color: '#000' }}
-                                                                    timeLabelStyle={{ color: '#333' }}
-                                                                    until={moment(item.timer.end).diff(moment(new Date()), 'seconds')}
-                                                                    onFinish={() => this.setState({ isFinishedContest: true })}
-                                                                    onPress={() => { }}
-                                                                    size={10}
-                                                                />}
-                                                </Right>
-                                            </CardItem>
-                                            <CardItem cardBody style={{ borderBottomLeftRadius: 7, borderBottomRightRadius: 7 }}>
-                                                <View style={{
-                                                    borderBottomLeftRadius: 7,
-                                                    borderBottomRightRadius: 7,
-                                                    overflow: 'hidden', flex: 1
-                                                }}>
-                                                    <Animatable.View animation="fadeIn">
-                                                        <ImageBackground
-                                                            source={{ uri: "item.general.picture.url" }}
-                                                            style={{ height: 125, width: "100%", flex: 1 }}>
-                                                            <View style={{
-                                                                backgroundColor: 'rgba(0,0,0,0.2)',
-                                                                width: "100%", height: "100%",
-                                                                borderBottomLeftRadius: 7, borderLeftColor: 7,
-                                                            }}>
-                                                                <Text
-                                                                    minimumFontScale={wp(7)}
-                                                                    allowFontScaling={false}
-                                                                    style={{ color: "#FFF", fontSize: wp(7), position: "absolute", bottom: 0, padding: 10 }}>
-                                                                    {/* {_.truncate(_.upperFirst(_.lowerCase(item.general.nameOfContest)), { length: 20, separator: '...' })} */}
-                                                                    Periodico de ayer
-                                                                </Text>
-                                                                <View style={{ flexDirection: 'row', bottom: 0, right: 0, position: 'absolute', padding: 7 }}>
                                                                     <Text
                                                                         minimumFontScale={wp(3)}
                                                                         allowFontScaling={false}
-                                                                        style={{ color: "#FFF", left: -7, fontSize: wp(4) }}>🏆 {"item.prizes.length"}</Text>
-                                                                    <Text
-                                                                        minimumFontScale={wp(4)}
-                                                                        allowFontScaling={false}
-                                                                        style={{ color: "#FFF", left: -5, fontSize: wp(4) }}>👥 {"item.participants.items.length"}</Text>
+                                                                        style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
                                                                 </View>
-                                                            </View>
-                                                        </ImageBackground>
-                                                    </Animatable.View>
-                                                </View>
-                                            </CardItem>
-                                        </Card>
-                                    </Animatable.View>
-                                </TouchableHighlight>
+                                                            </View> :
+                                                            item.timer === null
+                                                                ? null
+                                                                : new Date(item.timer.end) < new Date()
+                                                                    ? <View style={{
+                                                                        position: 'absolute',
+                                                                        right: 0,
+                                                                        top: 0,
+                                                                        padding: 5
+                                                                    }}>
+                                                                        <View style={{
+                                                                            borderRadius: 5,
+                                                                            padding: 10, backgroundColor: colorsPalette.errColor,
+                                                                            shadowColor: colorsPalette.primaryShadowColor,
+                                                                            shadowOffset: { width: 0 },
+                                                                            shadowOpacity: 1,
+                                                                        }}>
+                                                                            <Text
+                                                                                minimumFontScale={wp(3)}
+                                                                                allowFontScaling={false}
+                                                                                style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
+                                                                        </View>
+                                                                    </View> : <CountDown
+                                                                        digitStyle={{ backgroundColor: colorsPalette.transparent }}
+                                                                        digitTxtStyle={{ color: colorsPalette.secondaryColor }}
+                                                                        timeLabelStyle={{ color: colorsPalette.secondaryColor }}
+                                                                        until={moment(item.timer.end).diff(moment(new Date()), 'seconds')}
+                                                                        onFinish={() => this.setState({ isFinishedContest: true })}
+                                                                        onPress={() => { }}
+                                                                        size={20}
+                                                                    />}
+                                                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+                                                            <Text
+                                                                minimumFontScale={wp(4)}
+                                                                allowFontScaling={false}
+                                                                style={{ color: colorsPalette.secondaryColor, left: -10, fontSize: wp(4) }}>Participants: {item.participants}</Text>
+                                                        </View>
+                                                    </View>
+                                                </ImageBackground>
+                                            </View>
+                                        </Animatable.View>
+                                    </TouchableHighlight>
+                                    <View>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(5), left: 20, color: colorsPalette.darkFont }}>
+                                            {item.general.nameOfContest}
+                                        </Text>
+                                    </View>
+                                </View>
                             } /> : <DataNotFound inputText={input} />
                     : <PlaceholderAll />}
             </Container>

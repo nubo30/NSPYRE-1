@@ -71,7 +71,7 @@ class AbouttheirOccupations extends PureComponent {
 
     _getUniversity = async () => {
         try {
-            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
+            const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/universities.json')
             response.json().then(json => this.setState({ universityList: json.map(item => item.name).sort() }))
         } catch (error) {
             console.log(error)
@@ -179,7 +179,6 @@ class AbouttheirOccupations extends PureComponent {
         let filterSchoolsList = schoolsList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextSchools)) !== -1 })
         let filterUniversityList = universityList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextUniversity)) !== -1 })
         let filterOcuppationList = occupationList.filter((item) => { return item.toLowerCase().indexOf(_.lowerCase(inputTextOcuppation)) !== -1 })
-
         return (
             <Container>
                 <GadrientsAuth />
