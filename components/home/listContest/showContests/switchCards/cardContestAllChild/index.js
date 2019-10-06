@@ -15,7 +15,7 @@ class CardContent extends Component {
     render() {
         const { isFinishedContest } = this.state
         const { item, userData } = this.props
-        return item.user && (
+        return (
             <Card style={{
                 flex: 0,
                 borderRadius: 7,
@@ -30,20 +30,20 @@ class CardContent extends Component {
                 <CardItem style={{ borderTopEndRadius: 7, borderTopStartRadius: 7 }}>
                     <Left>
                         <Animatable.View animation="fadeIn">
-                            {item && item.user.avatar === null
-                                ? <UserAvatar size="40" name={item.user.name} />
-                                : <Thumbnail source={{ uri: item.user.avatar }} style={{ width: 40, height: 40, borderRadius: 20 }} />}
+                            {item.user.Items[0].avatar === null
+                                ? <UserAvatar size="40" name={item.user.Items[0].name} />
+                                : <Thumbnail source={{ uri: item.user.Items[0].avatar }} style={{ width: 40, height: 40, borderRadius: 20 }} />}
                         </Animatable.View>
                         <Body>
                             <Text
-                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
+                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.Items[0].id })}
                                 minimumFontScale={wp(4)}
                                 allowFontScaling={false}
                                 style={{ fontSize: wp(4) }}>
-                                {userData.id === item.user.id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.aboutTheUser.companyName === null ? item.user.name : item.aboutTheUser.companyName)), { length: 20, separator: '...' })}
+                                {userData.id === item.user.Items[0].id ? "You" : _.truncate(_.upperFirst(_.lowerCase(item.aboutTheUser.companyName === null ? item.user.Items[0].name : item.aboutTheUser.companyName)), { length: 20, separator: '...' })}
                             </Text>
                             <Text
-                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.id })}
+                                onPress={() => this.props.navigation.navigate('UserProfile', { userId: item.user.Items[0].id })}
                                 minimumFontScale={wp(3)}
                                 allowFontScaling={false}
                                 note style={{ fontSize: wp(3) }}>Published {moment(item.createdAt).fromNow()}</Text>
@@ -119,10 +119,6 @@ class CardContent extends Component {
                                             minimumFontScale={wp(3)}
                                             allowFontScaling={false}
                                             style={{ color: "#FFF", left: -7, fontSize: wp(4) }}>🏆 {item.prizes.length}</Text>
-                                        <Text
-                                            minimumFontScale={wp(4)}
-                                            allowFontScaling={false}
-                                            style={{ color: "#FFF", left: -5, fontSize: wp(4) }}>👥 {item.participants.items.length}</Text>
                                     </View>
                                 </View>
                             </ImageBackground>

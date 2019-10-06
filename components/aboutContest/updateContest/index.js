@@ -192,7 +192,6 @@ class UpdateContest extends Component {
         }
         // VIDEO OF THE CONTEST
         if (video.localUrl) {
-            // VIDEO OF THE CONTEST
             blobVideo = await new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.onload = function () { resolve(xhr.response) };

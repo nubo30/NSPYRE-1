@@ -12,16 +12,14 @@ class cardContestAll extends Component {
         const { item, userData } = this.props
         return (
             <TouchableHighlight
-                onPress={() => {
-                    this.setState({ activeAnimation: true });
-                }}
+                onPress={() => { this.setState({ activeAnimation: true }) }}
                 underlayColor="rgba(0,0,0,0.0)">
                 <Animatable.View
                     duration={200}
                     animation={this.state.activeAnimation ? 'pulse' : undefined}
                     onAnimationEnd={() => {
                         this.setState({ activeAnimation: false });
-                        this.props.navigation.navigate("AboutContest", { contest: item, fromWhere: 'categoryContest', userData })
+                        this.props.navigation.navigate("AboutContest", { contest: Object.assign(item, { usersLikes: { items: [] } }), fromWhere: 'categoryContest', userData })
                     }}>
                     <CardContent userData={userData} item={item} />
                 </Animatable.View>

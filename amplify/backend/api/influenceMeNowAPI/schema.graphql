@@ -365,4 +365,5 @@ type Query {
   filterAudienceForContest(preferences: String!): String @function(name: "filterAudienceForContest")
   sendNotification(notificationId: String!): String @function(name: "notifications")
   trending(params: String): String @function(name: "trendingInfluenceMeNow")
+  listContest(category: String): String @function(name: "listContest")
 }

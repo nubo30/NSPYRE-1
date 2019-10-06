@@ -35,7 +35,7 @@ class ShowContest extends Component {
         userData: null,
         input: "",
         contests: null,
-        refreshing: false
+        refreshing: false,
     }
 
     componentDidMount() {
@@ -46,8 +46,8 @@ class ShowContest extends Component {
     getContest = async () => {
         const categoryContest = this.props.navigation.getParam('categoryContest');
         try {
-            const contests = await API.graphql(graphqlOperation(queries.listCreateContests, { filter: { category: { eq: categoryContest.category } } }))
-            this.setState({ contests: contests.data.listCreateContests.items })
+            const listContest = await API.graphql(graphqlOperation(queries.listContest, { category: categoryContest.category }))
+            this.setState({ contests: JSON.parse(listContest.data.listContest) })
         } catch (error) {
             console.log(error);
         }
@@ -104,14 +104,11 @@ class ShowContest extends Component {
                     ? filterContest.length
                         ? <FlatList
                             data={filterContest}
-                            refreshControl={
-                                <RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
-                            }
+                            refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
-                            renderItem={({ item, index }) =>
-                                <CardContestAll userData={userData} index={index} item={item} />
-                            } /> : <DataNotFound inputText={input} />
+                            renderItem={({ item, index }) => <CardContestAll userData={userData} index={index} item={item} />} />
+                        : <DataNotFound inputText={input} />
                     : <PlaceholderAll />}
             </Container>
         )

@@ -8,6 +8,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import _ from 'lodash'
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
+import UserAvatar from "react-native-user-avatar"
 
 const screenWidth = Dimensions.get('screen').width
 
@@ -110,7 +111,9 @@ class Likes extends Component {
                                                     <ListItem avatar>
                                                         <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { _modalAction(false); this.props.navigation.navigate('UserProfile', { userId: item.users.idUserLike }) }} />
                                                         <Left>
-                                                            <Thumbnail small source={{ uri: item.users.avatar }} />
+                                                            {item.users.avatar !== null
+                                                                ? <Thumbnail small source={{ uri: item.users.avatar }} />
+                                                                : <UserAvatar size="35" name={item.users.name} />}
                                                         </Left>
                                                         <Body style={{ top: 5 }}>
                                                             <Text allowFontScaling={false}>{userData.id === item.users.idUserLike ? "You" : item.users.name}</Text>

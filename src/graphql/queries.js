@@ -17,6 +17,10 @@ export const trending = `query Trending($params: String) {
   trending(params: $params)
 }
 `;
+export const listContest = `query ListContest($category: String) {
+  listContest(category: $category)
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     tokenfb

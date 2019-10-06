@@ -210,7 +210,7 @@ class ListGeneralPrizes extends Component {
                                 ? <View style={{ minHeight: 50, justifyContent: 'center', alignItems: 'center' }}>
                                     <Button
                                         onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor }}>
+                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.primaryColor }}>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}

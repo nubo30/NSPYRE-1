@@ -44,7 +44,6 @@ class Summary extends Component {
             this.setState({ isLoading: false })
             navigation.navigate("Home")
         } catch (error) {
-            console.log(error)
             this.setState({ isLoading: false, errSubmitdata: true })
         }
     }

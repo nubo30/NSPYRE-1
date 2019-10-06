@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, ScrollView } from 'react-native'
+import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
 import { Container, Header, Title, Button, Left, Right, Icon, Text, Thumbnail, View, Body } from 'native-base';
@@ -12,26 +13,48 @@ import moment from 'moment'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import truncate from "lodash/truncate";
 
+// AWS
+import * as queries from '../../../../../../src/graphql/queries'
+
 // Colors
 import { colorsPalette } from '../../../../../global/static/colors'
 import { MyStatusBar } from '../../../../../global/statusBar'
 
 // Child Components
 import ModalRedeemPrize from './redeemPrize'
+import UpdatePrize from './updatePrize'
 
 
 class AboutPrize extends Component {
-    state = { pictureLoading: false, modalRedeemPrizeAction: false }
+    state = {
+        pictureLoading: false,
+        modalRedeemPrizeAction: false,
+        prize: this.props.navigation.getParam('prize')
+    }
 
     // Modal redeem prizes
     _modalRedeemPrizeAction = () => {
         this.setState({ modalRedeemPrizeAction: !this.state.modalRedeemPrizeAction })
     }
 
-    render() {
-        const { pictureLoading, modalRedeemPrizeAction } = this.state
+    componentDidMount() {
+        this._getPrize()
+    }
+
+    _getPrize = async () => {
         const { navigation } = this.props
         const prize = navigation.getParam('prize')
+        try {
+            const { data } = await API.graphql(graphqlOperation(queries.getSubmitPrize, { id: prize.id }))
+            this.setState({ prize: data.getSubmitPrize })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    render() {
+        const { prize, modalRedeemPrizeAction } = this.state
+        const { navigation } = this.props
         const userData = navigation.getParam('userData')
         const fromWhere = navigation.getParam('fromWhere')
         return (
@@ -100,6 +123,9 @@ class AboutPrize extends Component {
                                                 style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.share && prize.share.contentUserShare)}</Text>
                                         </View>
                                     </View>}
+                                <View style={{ alignItems: 'flex-end', flex: 1 }}>
+                                    <UpdatePrize prize={prize} _getPrize={this._getPrize} userData={userData} />
+                                </View>
                             </View>
                             <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont }}>{prize.aboutTheCompany.generalInformation}</Text>
                         </Row>

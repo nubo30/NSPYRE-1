@@ -101,112 +101,115 @@ class Trending extends Component {
                 </Header>
                 <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
                 {trendingContests !== null
-                    ? filterTrendingContest.length
-                        ? <FlatList
-                            data={filterTrendingContest}
-                            refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
-                            keyExtractor={item => item.id}
-                            initialNumToRender={2}
-                            renderItem={({ item }) =>
-                                <View>
-                                    <TouchableHighlight
-                                        underlayColor={colorsPalette.transparent}
-                                        onPress={() => this.setState({ animation: true })}>
-                                        <Animatable.View
-                                            onAnimationEnd={() => {
-                                                this.setState({ animation: false })
-                                                this.props.navigation.navigate("AboutContest", { contest: Object.assign(item, { user: { avatar: "lorem", id: "lorem" }, usersLikes: { items: [] } }), fromWhere: 'trending', userData })
-                                            }}
-                                            animation={animation ? "pulse" : undefined}
-                                            duration={200}
-                                            style={{
-                                                flex: 0,
-                                                borderRadius: 5,
-                                                elevation: Platform.OS === 'ios' ? 10 : 5,
-                                                marginBottom: 10,
-                                                width: "90%", height: 100,
-                                                alignSelf: "center",
-                                                marginTop: 30,
-                                            }}>
-                                            <View style={{
-                                                borderRadius: 5,
-                                                shadowColor: colorsPalette.primaryShadowColor,
-                                                shadowOffset: { width: 0 }, shadowOpacity: 1
-                                            }}>
-                                                <ImageBackground
-                                                    borderRadius={5}
-                                                    source={{ uri: item.general.picture.url }}
-                                                    style={{ height: 100, width: "100%" }}>
-                                                    <View style={{ backgroundColor: colorsPalette.primaryShadowColor, width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
-                                                        {isFinishedContest
-                                                            ? <View style={{
-                                                                position: 'absolute',
-                                                                right: 0,
-                                                                top: 0,
-                                                                padding: 5
-                                                            }}>
-                                                                <View style={{
-                                                                    borderRadius: 5,
-                                                                    padding: 10, backgroundColor: colorsPalette.errColor,
-                                                                    shadowColor: colorsPalette.primaryShadowColor,
-                                                                    shadowOffset: { width: 0 },
-                                                                    shadowOpacity: 1,
-                                                                }}>
-                                                                    <Text
-                                                                        minimumFontScale={wp(3)}
-                                                                        allowFontScaling={false}
-                                                                        style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
-                                                                </View>
-                                                            </View> :
-                                                            item.timer === null
-                                                                ? null
-                                                                : new Date(item.timer.end) < new Date()
-                                                                    ? <View style={{
-                                                                        position: 'absolute',
-                                                                        right: 0,
-                                                                        top: 0,
-                                                                        padding: 5
-                                                                    }}>
-                                                                        <View style={{
-                                                                            borderRadius: 5,
-                                                                            padding: 10, backgroundColor: colorsPalette.errColor,
-                                                                            shadowColor: colorsPalette.primaryShadowColor,
-                                                                            shadowOffset: { width: 0 },
-                                                                            shadowOpacity: 1,
-                                                                        }}>
-                                                                            <Text
-                                                                                minimumFontScale={wp(3)}
-                                                                                allowFontScaling={false}
-                                                                                style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
-                                                                        </View>
-                                                                    </View> : <CountDown
-                                                                        digitStyle={{ backgroundColor: colorsPalette.transparent }}
-                                                                        digitTxtStyle={{ color: colorsPalette.secondaryColor }}
-                                                                        timeLabelStyle={{ color: colorsPalette.secondaryColor }}
-                                                                        until={moment(item.timer.end).diff(moment(new Date()), 'seconds')}
-                                                                        onFinish={() => this.setState({ isFinishedContest: true })}
-                                                                        onPress={() => { }}
-                                                                        size={20}
-                                                                    />}
-                                                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-                                                            <Text
-                                                                minimumFontScale={wp(4)}
-                                                                allowFontScaling={false}
-                                                                style={{ color: colorsPalette.secondaryColor, left: -10, fontSize: wp(4) }}>Participants: {item.participants}</Text>
-                                                        </View>
-                                                    </View>
-                                                </ImageBackground>
-                                            </View>
-                                        </Animatable.View>
-                                    </TouchableHighlight>
+                    ? trendingContests.length ?
+                        filterTrendingContest.length
+                            ? <FlatList
+                                data={filterTrendingContest}
+                                refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
+                                keyExtractor={item => item.id}
+                                initialNumToRender={2}
+                                renderItem={({ item }) =>
                                     <View>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(5), left: 20, color: colorsPalette.darkFont }}>
-                                            {item.general.nameOfContest}
-                                        </Text>
+                                        <TouchableHighlight
+                                            underlayColor={colorsPalette.transparent}
+                                            onPress={() => this.setState({ animation: true })}>
+                                            <Animatable.View
+                                                onAnimationEnd={() => {
+                                                    this.setState({ animation: false })
+                                                    this.props.navigation.navigate("AboutContest", { contest: Object.assign(item, { user: { avatar: "lorem", id: "lorem" }, usersLikes: { items: [] } }), fromWhere: 'trending', userData })
+                                                }}
+                                                animation={animation ? "pulse" : undefined}
+                                                duration={200}
+                                                style={{
+                                                    flex: 0,
+                                                    borderRadius: 5,
+                                                    elevation: Platform.OS === 'ios' ? 10 : 5,
+                                                    marginBottom: 10,
+                                                    width: "90%", height: 100,
+                                                    alignSelf: "center",
+                                                    marginTop: 30,
+                                                }}>
+                                                <View style={{
+                                                    borderRadius: 5,
+                                                    shadowColor: colorsPalette.primaryShadowColor,
+                                                    shadowOffset: { width: 0 }, shadowOpacity: 1
+                                                }}>
+                                                    <ImageBackground
+                                                        borderRadius={5}
+                                                        source={{ uri: item.general.picture.url }}
+                                                        style={{ height: 100, width: "100%" }}>
+                                                        <View style={{ backgroundColor: colorsPalette.primaryShadowColor, width: "100%", height: "100%", borderRadius: 5, alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                                            {isFinishedContest
+                                                                ? <View style={{
+                                                                    position: 'absolute',
+                                                                    right: 0,
+                                                                    top: 0,
+                                                                    padding: 5
+                                                                }}>
+                                                                    <View style={{
+                                                                        borderRadius: 5,
+                                                                        padding: 10, backgroundColor: colorsPalette.errColor,
+                                                                        shadowColor: colorsPalette.primaryShadowColor,
+                                                                        shadowOffset: { width: 0 },
+                                                                        shadowOpacity: 1,
+                                                                    }}>
+                                                                        <Text
+                                                                            minimumFontScale={wp(3)}
+                                                                            allowFontScaling={false}
+                                                                            style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
+                                                                    </View>
+                                                                </View> :
+                                                                item.timer === null
+                                                                    ? null
+                                                                    : new Date(item.timer.end) < new Date()
+                                                                        ? <View style={{
+                                                                            position: 'absolute',
+                                                                            right: 0,
+                                                                            top: 0,
+                                                                            padding: 5
+                                                                        }}>
+                                                                            <View style={{
+                                                                                borderRadius: 5,
+                                                                                padding: 10, backgroundColor: colorsPalette.errColor,
+                                                                                shadowColor: colorsPalette.primaryShadowColor,
+                                                                                shadowOffset: { width: 0 },
+                                                                                shadowOpacity: 1,
+                                                                            }}>
+                                                                                <Text
+                                                                                    minimumFontScale={wp(3)}
+                                                                                    allowFontScaling={false}
+                                                                                    style={{ fontSize: wp(3), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Completed</Text>
+                                                                            </View>
+                                                                        </View> : <CountDown
+                                                                            digitStyle={{ backgroundColor: colorsPalette.transparent }}
+                                                                            digitTxtStyle={{ color: colorsPalette.secondaryColor }}
+                                                                            timeLabelStyle={{ color: colorsPalette.secondaryColor }}
+                                                                            until={moment(item.timer.end).diff(moment(new Date()), 'seconds')}
+                                                                            onFinish={() => this.setState({ isFinishedContest: true })}
+                                                                            onPress={() => { }}
+                                                                            size={20}
+                                                                        />}
+                                                            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+                                                                <Text
+                                                                    minimumFontScale={wp(4)}
+                                                                    allowFontScaling={false}
+                                                                    style={{ color: colorsPalette.secondaryColor, left: -10, fontSize: wp(4) }}>Participants: {item.participants}</Text>
+                                                            </View>
+                                                        </View>
+                                                    </ImageBackground>
+                                                </View>
+                                            </Animatable.View>
+                                        </TouchableHighlight>
+                                        <View>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(5), left: 20, color: colorsPalette.darkFont }}>
+                                                {item.general.nameOfContest}
+                                            </Text>
+                                        </View>
                                     </View>
-                                </View>
-                            } /> : <DataNotFound inputText={input} />
-                    : <PlaceholderAll />}
+                                } /> : <DataNotFound inputText={input} />
+                        : <View style={{ flex: 1, alignItems: 'center' }}><Text allowFontScaling={false} style={{ top: 30, alignSelf: 'center', textAlign: 'center', width: "90%", fontSize: wp(6), color: colorsPalette.gradientGray }}>Ooh! Apparently there are no trends, but this will not last long, some will appear!</Text></View>
+                    : <PlaceholderAll />
+                }
             </Container>
         );
     }

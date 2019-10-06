@@ -10,6 +10,7 @@ import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 import moment from 'moment';
 import ModalAnimated from 'react-native-modal'
+import UserAvatar from "react-native-user-avatar"
 
 const screenWidth = Dimensions.get('screen').width
 
@@ -315,7 +316,9 @@ class ViewsVideos extends Component {
                                         <List>
                                             <ListItem avatar onPress={() => { this.setState({ modalUsers: true }); this._showDataPerUser(item) }}>
                                                 <Left>
-                                                    <Thumbnail small source={{ uri: item.users.avatar }} />
+                                                    {item.users.avatar !== null
+                                                        ? <Thumbnail small source={{ uri: item.users.avatar }} />
+                                                        : <UserAvatar size="35" name={item.users.name} />}
                                                 </Left>
                                                 <Body style={{ top: 5 }}>
                                                     <Text allowFontScaling={false}>{userData.id === item.users.idUserComments ? "You" : item.users.name}</Text>
