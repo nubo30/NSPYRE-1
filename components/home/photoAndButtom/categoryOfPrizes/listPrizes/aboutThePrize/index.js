@@ -124,7 +124,7 @@ class AboutPrize extends Component {
                                         </View>
                                     </View>}
                                 <View style={{ alignItems: 'flex-end', flex: 1 }}>
-                                    <UpdatePrize prize={prize} _getPrize={this._getPrize} userData={userData} />
+                                    {prize.user.id === userData.id && <UpdatePrize prize={prize} _getPrize={this._getPrize} userData={userData} />}
                                 </View>
                             </View>
                             <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont }}>{prize.aboutTheCompany.generalInformation}</Text>

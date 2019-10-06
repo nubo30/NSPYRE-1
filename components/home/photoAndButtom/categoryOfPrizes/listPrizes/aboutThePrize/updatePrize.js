@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Image, Alert } from 'react-native'
+import { Modal, Image, Alert, ScrollView } from 'react-native'
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { API, graphqlOperation, Storage } from 'aws-amplify'
@@ -28,10 +28,12 @@ export default class updatePrize extends Component {
     state = {
         isVisible: false,
         modalGeneralInformation: false,
+        modalDescription: false,
         isLoading: false,
         generalInformation: "",
-        video: { name: "", type: "", localUrl: "", url: "" },
-        picture: { name: null, type: null, localUrl: null, url: null, blob: {} },
+        description: "",
+        video: { name: "", type: "", localUrl: "", url: "", blob: {} },
+        picture: { name: "", type: "", localUrl: "", url: "", blob: {} },
     }
 
 
@@ -39,16 +41,28 @@ export default class updatePrize extends Component {
         const { prize } = nextProps
         this.setState({
             generalInformation: prize.aboutTheCompany.generalInformation,
-            // video: prize.general.video
+            description: prize.general.description
         })
     }
 
     _updatePrize = async () => {
         this.setState({ isLoading: true })
-        const { generalInformation, video } = this.state
+        const { generalInformation, video, description, picture } = this.state
         const { prize, _getPrize, userData } = this.props
         let blobPicture; let blobVideo
         AWS.config.update({ accessKeyId: securityCredentials.accessKeyId, secretAccessKey: securityCredentials.secretAccessKey, region: securityCredentials.region })
+
+        // PICTURE OF THE CONTEST
+        if (picture.name) {
+            blobPicture = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () { resolve(xhr.response) };
+                xhr.onerror = function () { reject(new TypeError("Network request failed")) };
+                xhr.responseType = "blob";
+                xhr.open("GET", picture.name ? picture.localUrl : prize.general.picture.localUrl, true);
+                xhr.send(null);
+            });
+        }
 
         // VIDEO OF THE CONTEST
         if (video.name) {
@@ -63,15 +77,16 @@ export default class updatePrize extends Component {
         }
         Object.assign(prize, {
             aboutTheCompany: { ...prize.aboutTheCompany, generalInformation: generalInformation },
-            general: { ...prize.general, video: video.name ? video : prize.general.video }
+            general: { ...prize.general, video: video.name ? video : prize.general.video, picture: picture.name ? picture : prize.general.picture, description }
         })
         omitDeep(prize, ['user'])
         try {
+            picture.name && await Storage.put(`users/${userData.email}/prize/pictures/owner/${picture.name}`, blobPicture, { contentType: picture.type })
             video.name && await Storage.put(`users/${userData.email}/prize/videos/owner/${video.name}`, blobVideo, { contentType: video.type })
             await API.graphql(graphqlOperation(mutations.updateSubmitPrize, { input: prize }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             _getPrize()
-            this.setState({ isLoading: false, modalGeneralInformation: false, video: { name: "", type: "", localUrl: video.localUrl, url: "" } })
+            this.setState({ isLoading: false, modalGeneralInformation: false, modalDescription: false, video: { name: "", type: "", localUrl: video.localUrl, url: "" }, picture: { name: "", type: "", localUrl: picture.localUrl, url: "", blob: {} } })
         } catch (error) {
             console.log(error)
             this.setState({ isLoading: false })
@@ -125,7 +140,7 @@ export default class updatePrize extends Component {
                 name,
                 type,
                 blob,
-                url: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${prize.user.email}/prize/videos/owner/${name}`
+                url: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${prize.user.email}/prize/pictures/owner/${name}`
             }
         })
     }
@@ -153,9 +168,12 @@ export default class updatePrize extends Component {
         })
     }
 
+    _chageSwiper = (i) => {
+        this.swiper.scrollBy(i)
+    }
 
     render() {
-        const { isVisible, generalInformation, modalGeneralInformation, isLoading, video } = this.state
+        const { isVisible, generalInformation, description, modalGeneralInformation, modalDescription, isLoading, video, picture } = this.state
         const { prize } = this.props
         return (
             <View>
@@ -183,7 +201,7 @@ export default class updatePrize extends Component {
                                     style={{ fontSize: wp(7), color: colorsPalette.secondaryColor }}>UPDATE</Title>
                             </Body>
                             <Right>
-                                <Button small transparent disabled={isLoading || video.name ? false : true} onPress={() => this._updatePrize()}>
+                                <Button small transparent disabled={isLoading || picture.name || video.name ? false : true} onPress={() => this._updatePrize()}>
                                     {isLoading
                                         ? <Spinner color={colorsPalette.secondaryColor} size="small" />
                                         : <Text
@@ -194,132 +212,262 @@ export default class updatePrize extends Component {
                             </Right>
                         </Header>
                         <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
-                        <Grid style={{ padding: 10 }}>
-                            <Row size={35}>
-                                <View style={{ flex: 1, shadowOpacity: 1, shadowOffset: { width: 1 }, shadowColor: colorsPalette.primaryShadowColor }}>
-                                    <View style={{ flex: 1, position: 'absolute', height: "100%", width: "100%", backgroundColor: '#3333' }} />
-                                    <Video
-                                        source={{ uri: video.name ? video.localUrl : prize.general.video.url }}
-                                        useNativeControls
-                                        rate={1.0}
-                                        volume={1.0}
-                                        isMuted={false}
-                                        resizeMode="cover"
-                                        shouldPlay={false}
-                                        isLooping={false}
-                                        style={{ width: "100%", height: "100%" }} />
-                                    <Button bordered style={{ position: 'absolute', right: 0, bottom: 0, margin: 5, borderColor: colorsPalette.secondaryColor }} onPress={() => this._useLibraryHandler('Videos')}>
-                                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor }}>UPDATE VIDEO</Text>
-                                    </Button>
-                                </View>
-                            </Row>
-                            <Row size={5}>
-                                <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                                    <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${prize.aboutTheCompany.businessLocation.city}, ${prize.aboutTheCompany.businessLocation.country}.`, { length: 23, separator: "..." })}</Text>
-                                </View>
-                                <View style={{ flex: 0.5, justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray, right: 5 }}>Published {moment(prize.createdAt).fromNow()}</Text>
-                                </View>
-                            </Row>
-                            <Row size={60} style={{ flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont }}>General information</Text>
-                                    {prize.share === null ? null
-                                        : <View style={{ padding: 15, justifyContent: 'center', left: 10 }}>
-                                            <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
-                                                <Text
-                                                    minimumFontScale={wp(2.5)}
-                                                    allowFontScaling={false}
-                                                    style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.share && prize.share.contentUserShare)}</Text>
-                                            </View>
-                                        </View>}
-                                </View>
-                                <Item
-                                    style={{ width: "100%", alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
-                                    <Input
-                                        allowFontScaling={false}
-                                        multiline
-                                        numberOfLines={5}
-                                        placeholderTextColor={colorsPalette.gradientGray}
-                                        value={generalInformation}
-                                        keyboardType="ascii-capable"
-                                        selectionColor={colorsPalette.primaryColor}
-                                        style={{ fontSize: wp(3.5), top: -5, left: -6 }}
-                                        onChangeText={(generalInformation) => this.setState({ generalInformation })} />
-                                </Item>
-                                <Button transparent style={{ height: "90%", width: "100%", position: 'absolute', top: 30 }} onPress={() => this.setState({ modalGeneralInformation: true })} />
-                            </Row>
-                        </Grid>
-
-
-                        <ModalAnimated
-                            style={{ justifyContent: 'flex-end', margin: 0 }}
-                            isVisible={modalGeneralInformation}
-                            onSwipeComplete={() => { this.setState({ modalGeneralInformation: false, generalInformation: prize.aboutTheCompany.generalInformation }) }}
-                            swipeDirection={['down']}>
-                            <View style={{
-                                backgroundColor: colorsPalette.secondaryColor,
-                                justifyContent: 'center',
-                                borderTopStartRadius: 10,
-                                borderTopEndRadius: 10,
-                                borderColor: 'rgba(0, 0, 0, 0.3)',
-                                flex: 1,
-                                minHeight: 600,
-                                maxHeight: 600,
-                                position: 'absolute',
-                                bottom: 0,
-                                width: '100%'
-                            }}>
-                                <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
-                                    <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
-                                        <Left>
-                                            <Button transparent onPress={() => this.setState({ modalGeneralInformation: false, generalInformation: prize.aboutTheCompany.generalInformation })}>
-                                                <Text
-                                                    allowFontScaling={false}
-                                                    minimumFontScale={wp(4)}
-                                                    style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
-                                            </Button>
-                                        </Left>
-                                        <Body>
-                                            <Title style={{ top: -10, fontSize: wp(5) }}>General information</Title>
-                                        </Body>
-                                        <Right>
-                                            <Button
-                                                style={{ top: -10 }}
-                                                disabled={generalInformation.length > 10 ? false : true}
-                                                onPress={() => this._updatePrize()}
-                                                transparent>
-                                                {isLoading
-                                                    ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5, top: -5 }} />
-                                                    : <Text
+                        <Swiper
+                            activeDotColor={colorsPalette.primaryColor}
+                            dotColor={colorsPalette.gradientGray}
+                            ref={r => this.swiper = r}
+                            loop={false}>
+                            <Grid style={{ padding: 10 }}>
+                                <Row size={35}>
+                                    <View style={{ flex: 1, shadowOpacity: 1, shadowOffset: { width: 1 }, shadowColor: colorsPalette.primaryShadowColor }}>
+                                        <View style={{ flex: 1, position: 'absolute', height: "100%", width: "100%", backgroundColor: '#3333' }} />
+                                        <Video
+                                            source={{ uri: video.name ? video.localUrl : prize.general.video.url }}
+                                            useNativeControls
+                                            rate={1.0}
+                                            volume={1.0}
+                                            isMuted={false}
+                                            resizeMode="cover"
+                                            shouldPlay={false}
+                                            isLooping={false}
+                                            style={{ width: "100%", height: "100%" }} />
+                                        <Button bordered style={{ position: 'absolute', right: 0, bottom: 0, margin: 5, borderColor: colorsPalette.secondaryColor }} onPress={() => this._useLibraryHandler('Videos')}>
+                                            <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor }}>UPDATE VIDEO</Text>
+                                        </Button>
+                                    </View>
+                                </Row>
+                                <Row size={5}>
+                                    <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                                        <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${prize.aboutTheCompany.businessLocation.city}, ${prize.aboutTheCompany.businessLocation.country}.`, { length: 23, separator: "..." })}</Text>
+                                    </View>
+                                    <View style={{ flex: 0.5, justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray, right: 5 }}>Published {moment(prize.createdAt).fromNow()}</Text>
+                                    </View>
+                                </Row>
+                                <Row size={60} style={{ flexDirection: 'column' }}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont }}>General information</Text>
+                                        {prize.share === null ? null
+                                            : <View style={{ padding: 15, justifyContent: 'center', left: 10 }}>
+                                                <View style={{ backgroundColor: '#E53935', position: 'absolute', borderRadius: "50%", padding: 6.5 }}>
+                                                    <Text
+                                                        minimumFontScale={wp(2.5)}
                                                         allowFontScaling={false}
-                                                        minimumFontScale={wp(4)}
-                                                        style={{ color: generalInformation.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4), top: -5 }}>DONE</Text>}
-                                            </Button>
-                                        </Right>
-                                    </Header>
-                                    <Content>
-                                        <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
-                                            <Text>PLEASE, UPDATE GENERAL INFORMATION:</Text>
-                                        </ListItem>
-                                        <Form style={{ padding: 10 }}>
-                                            <Textarea
-                                                maxLength={1024}
-                                                autoFocus={true}
-                                                value={generalInformation}
-                                                onChangeText={(generalInformation) => this.setState({ generalInformation })}
-                                                allowFontScaling={false}
-                                                style={{ borderColor: colorsPalette.transparent }}
-                                                rowSpan={10}
-                                                selectionColor={colorsPalette.primaryColor}
-                                            />
-                                        </Form>
-                                    </Content>
-                                </Container>
-                            </View>
+                                                        style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(2.5) }}>{startCase(prize.share && prize.share.contentUserShare)}</Text>
+                                                </View>
+                                            </View>}
+                                    </View>
+                                    <Item
+                                        style={{ width: "100%", alignSelf: "center", borderBottomColor: colorsPalette.transparent }}>
+                                        <Input
+                                            allowFontScaling={false}
+                                            multiline
+                                            numberOfLines={5}
+                                            placeholderTextColor={colorsPalette.gradientGray}
+                                            value={generalInformation}
+                                            keyboardType="ascii-capable"
+                                            selectionColor={colorsPalette.primaryColor}
+                                            style={{ fontSize: wp(3.5), top: -5, left: -6 }}
+                                            onChangeText={(generalInformation) => this.setState({ generalInformation })} />
+                                    </Item>
+                                    <Button transparent style={{ height: "90%", width: "100%", position: 'absolute', top: 30 }} onPress={() => this.setState({ modalGeneralInformation: true })} />
+                                </Row>
 
-                        </ModalAnimated>
+                                <ModalAnimated
+                                    style={{ justifyContent: 'flex-end', margin: 0 }}
+                                    isVisible={modalGeneralInformation}
+                                    onSwipeComplete={() => { this.setState({ modalGeneralInformation: false, generalInformation: prize.aboutTheCompany.generalInformation }) }}
+                                    swipeDirection={['down']}>
+                                    <View style={{
+                                        backgroundColor: colorsPalette.secondaryColor,
+                                        justifyContent: 'center',
+                                        borderTopStartRadius: 10,
+                                        borderTopEndRadius: 10,
+                                        borderColor: 'rgba(0, 0, 0, 0.3)',
+                                        flex: 1,
+                                        minHeight: 600,
+                                        maxHeight: 600,
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        width: '100%'
+                                    }}>
+                                        <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                                            <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                                                <Left>
+                                                    <Button transparent onPress={() => this.setState({ modalGeneralInformation: false, generalInformation: prize.aboutTheCompany.generalInformation })}>
+                                                        <Text
+                                                            allowFontScaling={false}
+                                                            minimumFontScale={wp(4)}
+                                                            style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
+                                                    </Button>
+                                                </Left>
+                                                <Body>
+                                                    <Title style={{ top: -10, fontSize: wp(5) }}>General information</Title>
+                                                </Body>
+                                                <Right>
+                                                    <Button
+                                                        style={{ top: -10 }}
+                                                        disabled={generalInformation.length > 10 ? false : true}
+                                                        onPress={() => this._updatePrize()}
+                                                        transparent>
+                                                        {isLoading
+                                                            ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5, top: -5 }} />
+                                                            : <Text
+                                                                allowFontScaling={false}
+                                                                minimumFontScale={wp(4)}
+                                                                style={{ color: generalInformation.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4), top: -5 }}>DONE</Text>}
+                                                    </Button>
+                                                </Right>
+                                            </Header>
+                                            <Content>
+                                                <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
+                                                    <Text>PLEASE, UPDATE GENERAL INFORMATION:</Text>
+                                                </ListItem>
+                                                <Form style={{ padding: 10 }}>
+                                                    <Textarea
+                                                        maxLength={1024}
+                                                        autoFocus={true}
+                                                        value={generalInformation}
+                                                        onChangeText={(generalInformation) => this.setState({ generalInformation })}
+                                                        allowFontScaling={false}
+                                                        style={{ borderColor: colorsPalette.transparent }}
+                                                        rowSpan={10}
+                                                        selectionColor={colorsPalette.primaryColor}
+                                                    />
+                                                </Form>
+                                            </Content>
+                                        </Container>
+                                    </View>
+
+                                </ModalAnimated>
+
+                            </Grid>
+                            <Grid style={{ padding: 10 }}>
+                                <Row size={35}>
+                                    <View style={{ flex: 1, shadowOpacity: 1, shadowOffset: { width: 1 }, shadowColor: colorsPalette.primaryShadowColor }}>
+                                        <Image
+                                            onLoadStart={() => this.setState({ pictureLoading: true })}
+                                            onLoadEnd={() => this.setState({ pictureLoading: false })}
+                                            style={{ width: "100%", height: '100%' }}
+                                            source={{ uri: picture.name ? picture.localUrl : prize.general.picture.url }} />
+                                    </View>
+                                    <Button bordered style={{ position: 'absolute', bottom: 0, right: 0, margin: 5, borderColor: colorsPalette.secondaryColor }} onPress={() => this._useLibraryHandler('Images')}>
+                                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor }}>Change picture</Text>
+                                    </Button>
+                                </Row>
+                                <Row size={5}>
+                                    <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(5), color: colorsPalette.errColor }}>Price: {prize.general.price}</Text>
+                                    </View>
+                                </Row>
+                                <Row size={40} style={{ flexDirection: 'column' }}>
+                                    {prize.share === null
+                                        ? <Grid>
+                                            <Col>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>Description</Text>
+                                                <ScrollView>
+                                                    <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.general.description}</Text>
+                                                </ScrollView>
+                                                <Button transparent style={{ position: 'absolute', width: "100%", height: "100%" }} onPress={() => this.setState({ modalDescription: true })} />
+                                            </Col>
+                                        </Grid>
+                                        : <Grid>
+                                            <Col style={{ padding: 2 }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>Description</Text>
+                                                <ScrollView>
+                                                    <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.general.description}</Text>
+                                                </ScrollView>
+                                                <Button transparent style={{ position: 'absolute', width: "100%", height: "100%" }} onPress={() => this.setState({ modalDescription: true })} />
+                                            </Col>
+                                            <Col style={{ padding: 2 }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'center' }}>What to do</Text>
+                                                <ScrollView>
+                                                    <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, textAlign: 'center' }}>{prize.share.whatUserDo}</Text>
+                                                </ScrollView>
+                                            </Col>
+                                        </Grid>}
+                                </Row>
+                                <Row size={20} style={{ justifyContent: 'center' }}>
+                                    <Button
+                                        disabled={true}
+                                        onPress={() => this._modalRedeemPrizeAction()}
+                                        style={{ backgroundColor: colorsPalette.gradientGray, width: '80%', justifyContent: 'center', top: 10 }}>
+                                        <Text
+                                            minimumFontScale={wp(4)}
+                                            allowFontScaling={false}
+                                            style={{ letterSpacing: 2, fontWeight: 'bold', fontSize: wp(4) }}>Redeem Prize</Text>
+                                    </Button>
+                                </Row>
+
+                                <ModalAnimated
+                                    style={{ justifyContent: 'flex-end', margin: 0 }}
+                                    isVisible={modalDescription}
+                                    onSwipeComplete={() => { this.setState({ modalDescription: false, generalInformation: prize.aboutTheCompany.generalInformation }) }}
+                                    swipeDirection={['down']}>
+                                    <View style={{
+                                        backgroundColor: colorsPalette.secondaryColor,
+                                        justifyContent: 'center',
+                                        borderTopStartRadius: 10,
+                                        borderTopEndRadius: 10,
+                                        borderColor: 'rgba(0, 0, 0, 0.3)',
+                                        flex: 1,
+                                        minHeight: 600,
+                                        maxHeight: 600,
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        width: '100%'
+                                    }}>
+                                        <Container style={{ borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
+                                            <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+                                                <Left>
+                                                    <Button transparent onPress={() => this.setState({ modalDescription: false, description: prize.general.description })}>
+                                                        <Text
+                                                            allowFontScaling={false}
+                                                            minimumFontScale={wp(4)}
+                                                            style={{ color: colorsPalette.primaryColor, fontSize: wp(4), top: -10 }}>Close</Text>
+                                                    </Button>
+                                                </Left>
+                                                <Body>
+                                                    <Title style={{ top: -10, fontSize: wp(5) }}>Description</Title>
+                                                </Body>
+                                                <Right>
+                                                    <Button
+                                                        style={{ top: -10 }}
+                                                        disabled={description.length > 10 ? false : true}
+                                                        onPress={() => this._updatePrize()}
+                                                        transparent>
+                                                        {isLoading
+                                                            ? <Spinner color={colorsPalette.primaryColor} size="small" style={{ right: 5, top: -5 }} />
+                                                            : <Text
+                                                                allowFontScaling={false}
+                                                                minimumFontScale={wp(4)}
+                                                                style={{ color: description.length > 10 ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(4), top: -5 }}>DONE</Text>}
+                                                    </Button>
+                                                </Right>
+                                            </Header>
+                                            <Content>
+                                                <ListItem itemDivider style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5 }}>
+                                                    <Text>PLEASE, UPDATE THE DESCRPTION:</Text>
+                                                </ListItem>
+                                                <Form style={{ padding: 10 }}>
+                                                    <Textarea
+                                                        maxLength={1024}
+                                                        autoFocus={true}
+                                                        value={description}
+                                                        onChangeText={(description) => this.setState({ description })}
+                                                        allowFontScaling={false}
+                                                        style={{ borderColor: colorsPalette.transparent }}
+                                                        rowSpan={10}
+                                                        selectionColor={colorsPalette.primaryColor}
+                                                    />
+                                                </Form>
+                                            </Content>
+                                        </Container>
+                                    </View>
+                                </ModalAnimated>
+                            </Grid>
+                        </Swiper>
                     </Container>
                 </Modal>
             </View>
