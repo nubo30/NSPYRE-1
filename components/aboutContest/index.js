@@ -32,6 +32,7 @@ import { GadrientsAboutContest } from "../global/gradients"
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
 import { colorsPalette } from '../global/static/colors';
+import { MyStatusBar } from '../global/statusBar'
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = 110;
@@ -192,7 +193,7 @@ class ShowContest extends Component {
                     onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
                     loop={false}
                     showsPagination={false}>
-                    <View style={{ flex: 1, shadowOffset: { width: 0 }, shadowColor: 'red', shadowOpacity: 1, }}>
+                    <View style={{ flex: 1 }}>
                         <GadrientsAboutContest />
 
                         {/* Slider / Submit a video / submit a meme */}
@@ -316,7 +317,9 @@ class ShowContest extends Component {
                         {/* Header Contests */}
                         <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
                             <HeaderContest fromWhere={fromWhere} contest={contest} />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                         </Animated.View>
+                        <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
 
                         {/* Modals */}
                         <PrizeModal

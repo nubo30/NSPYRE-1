@@ -56,13 +56,12 @@ export default class ContestDataStatistics extends Component {
             // Data
             contest,
             userData,
-
+            swiperIndex,
             _changeSwiperRoot,
             _setModalVisibleAudience,
 
         } = this.props
         let audience = contest.audience.items.map(item => { delete item.audience; delete item.createContest; return item })
-
         return (
             <Container style={{ backgroundColor: colorsPalette.opaqueWhite2 }}>
                 <Header style={{ backgroundColor: colorsPalette.secondaryColor }}>
@@ -89,6 +88,7 @@ export default class ContestDataStatistics extends Component {
                                 style={{ fontSize: wp(3), color: colorsPalette.darkFont, fontWeight: 'bold' }}>{contest.participants.items.length}</Text></Text>
                     </Right>
                 </Header>
+                {swiperIndex === 1 && <MyStatusBar backgroundColor={colorsPalette.darckSB} barStyle="dark-content" />}
                 <Content>
                     <List style={{ backgroundColor: colorsPalette.secondaryColor }}>
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: colorsPalette.opaqueWhite2 }}>

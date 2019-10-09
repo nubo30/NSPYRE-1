@@ -3,10 +3,10 @@ type User @model{
   tokenfb: String
   id: ID!
   userId: ID!
-  name: String!
-  username: String!
+  name: String
+  username: String
   lastname: String
-  email: AWSEmail!
+  email: AWSEmail
   avatar: AWSURL
   phone: AWSPhone
   datetime: AWSDateTime!
@@ -37,7 +37,7 @@ type CreateContest @model {
   prizes: [Prizes]
   createdAt: AWSDateTime!
   timer: Timer
-  isFinished: Boolean
+  showInCaseOfSuccess: Boolean
   audience: [Audience] @connection(name:"CreateContestAudience")
   participants: [Participants] @connection(name:"CreateContestParticipants")
   usersSharing: [UsersSharing] @connection(name:"CreateContestUsersSharing")
@@ -366,4 +366,5 @@ type Query {
   sendNotification(notificationId: String!): String @function(name: "notifications")
   trending(params: String): String @function(name: "trendingInfluenceMeNow")
   listContest(category: String): String @function(name: "listContest")
+  listCaseOfSuccess(params: String): String @function(name: "caseOfSuccess")
 }

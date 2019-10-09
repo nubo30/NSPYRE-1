@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
 import { Modal, Alert } from 'react-native'
 import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Button, Icon, Separator, Switch } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -13,9 +14,12 @@ import Share from './share'
 import Likes from './likes'
 import ViewsVideo from './viewsVideo'
 
+// AWS
+import * as mutations from '../../../../src/graphql/mutations'
+
 class Staticstics extends Component {
     state = {
-        publicStatistics: false,
+        showInCaseOfSuccess: false,
         usersSharedModal: false,
         modalAnimated: false,
         usersLikesModal: false,
@@ -76,11 +80,33 @@ class Staticstics extends Component {
         }
     }
 
+    _showInCaseOfSuccess = async (value) => {
+        const { contest } = this.props
+        try {
+            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id, showInCaseOfSuccess: value } }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    componentWillMount() {
+        const { contest } = this.props
+        this.setState({
+            showInCaseOfSuccess: contest.showInCaseOfSuccess
+        })
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.showInCaseOfSuccess !== this.state.showInCaseOfSuccess) {
+            this._showInCaseOfSuccess(nextState.showInCaseOfSuccess)
+        }
+    }
+
     render() {
         const {
 
             // Actions
-            publicStatistics,
+            showInCaseOfSuccess,
             usersSharedModal,
             usersLikesModal,
             usersViewsVideoModal
@@ -121,8 +147,8 @@ class Staticstics extends Component {
                             </Body>
                             <Right>
                                 <Switch
-                                    value={publicStatistics}
-                                    onChange={() => this.setState({ publicStatistics: !publicStatistics })} />
+                                    value={showInCaseOfSuccess}
+                                    onChange={() => { this.setState({ showInCaseOfSuccess: !showInCaseOfSuccess }) }} />
                             </Right>
                         </ListItem>
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderBottomColor: colorsPalette.opaqueWhite2, height: 50 }}>

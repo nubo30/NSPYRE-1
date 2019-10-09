@@ -141,8 +141,9 @@ class Login extends Component {
                     loop={false}
                     scrollEnabled={false}>
                     <Grid>
-                        <Row size={70} style={{ padding: 15, marginTop: 10, flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <Row size={65} style={{ padding: 15, marginTop: 10, flexDirection: 'column', justifyContent: 'space-between' }}>
                             <List style={{ width: "100%", justifyContent: 'space-between' }}>
+                                <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.darkFont, alignSelf: 'center', top: -5 }}>LOGIN WITH YOUR</Text>
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <PhoneInput
                                         editable={false}
@@ -158,8 +159,8 @@ class Login extends Component {
                                         value={numberPhoneState ? numberPhoneState : numberPhone}
                                         style={{ height: "100%", width: "100%" }}
                                         flagStyle={{ height: 30, width: 40 }}
-                                        textStyle={{ fontSize: wp(6), color: colorsPalette.darkFont }}
-                                        textProps={{ placeholder: "Your Phone Number" }}
+                                        textStyle={{ fontSize: wp(5), color: colorsPalette.darkFont }}
+                                        textProps={{ placeholder: "Phone Number" }}
                                         initialCountry="us" />
                                 </ListItem>
                                 <ListItem itemDivider style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', alignItems: 'center', top: 10 }}>
@@ -172,7 +173,7 @@ class Login extends Component {
                                         allowFontScaling={false}
                                         autoCorrect={false}
                                         textContentType="password"
-                                        style={{ fontSize: wp(6), color: colorsPalette.darkFont }}
+                                        style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
                                         selectionColor={colorsPalette.primaryColor}
                                         value={password}
                                         secureTextEntry={!eyeAction}
@@ -191,12 +192,30 @@ class Login extends Component {
                                 <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             </View>
                         </Row>
-                        <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
+                        <Row size={35} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
+                            <Animatable.View
+                                animation={wrongLoginAnimation ? "shake" : undefined}
+                                onAnimationEnd={() => this.setState({ wrongLoginAnimation: false })}
+                                duration={1000}
+                                style={{
+                                    top: -10,
+                                    width: "100%",
+                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                }}>
+                                <Button
+                                    disabled={isLoading || numberPhoneState && password ? false : true}
+                                    onPress={() => isLoadingFb ? {} : this._submit()}
+                                    iconRight
+                                    style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: colorsPalette.primaryColor }}>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
+                                    {isLoading ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
+                                </Button>
+                            </Animatable.View>
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: -4 }}>OR</Text>
                             <Button
                                 disabled={isLoadingFb}
                                 onPress={() => this._openBroweserForLoginWithFacebook()}
                                 iconRight style={{
-                                    top: -10,
                                     width: "100%",
                                     alignSelf: 'flex-end',
                                     backgroundColor: colorsPalette.fbColor,
@@ -208,23 +227,6 @@ class Login extends Component {
                                 </View>
                                 {isLoadingFb ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
                             </Button>
-
-                            <Animatable.View
-                                animation={wrongLoginAnimation ? "shake" : undefined}
-                                onAnimationEnd={() => this.setState({ wrongLoginAnimation: false })}
-                                duration={1000}
-                                style={{
-                                    width: "100%",
-                                    shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
-                                }}>
-                                <Button
-                                    disabled={isLoading || numberPhoneState && password ? false : true}
-                                    onPress={() => isLoadingFb ? {} : this._submit()}
-                                    iconRight style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: colorsPalette.primaryColor }}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
-                                    {isLoading ? <Spinner color={colorsPalette.secondaryColor} size="small" style={{ left: -10 }} /> : <Icon name='arrow-forward' />}
-                                </Button>
-                            </Animatable.View>
                         </Row>
                     </Grid>
 

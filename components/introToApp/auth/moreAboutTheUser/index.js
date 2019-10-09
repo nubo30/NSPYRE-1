@@ -7,18 +7,18 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import _ from 'lodash'
 import { isEmail, isAlphanumeric } from 'validator'
 import * as Animatable from 'react-native-animatable';
-import moment from 'moment'
 import AnimateNumber from 'react-native-animate-number'
+import moment from 'moment'
 
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
 
 // GRAPHQL
-import * as mutations from '../../../src/graphql/mutations'
+import * as mutations from '../../../../src/graphql/mutations'
 
 // Colors
-import { colorsPalette } from '../../global/static/colors'
+import { colorsPalette } from '../../../global/static/colors'
 
 export default class MoreAboutTheUser extends Component {
     state = {
@@ -39,14 +39,13 @@ export default class MoreAboutTheUser extends Component {
 
     }
 
-
     _submitInformationAboutTheUser = async () => {
         const { avatar, name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
-        const { _changeSwiperRoot, _moreUserData, moreUserData } = this.props
-        const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
+        const { _changeSwiper } = this.props
+        const input = { name, lastname, email, username: username, avatar: avatar ? avatar : null }
         try {
             const user = await Auth.currentAuthenticatedUser();
-            if (avatar === null || avatar === undefined) {
+            if (user.id === null || user.id === undefined) {
                 await Auth.updateUserAttributes(user, { email, name, middle_name: lastname, nickname: username, phone_number: user.attributes.phone_number });
                 Object.assign(input, {
                     tokenfb: null,
@@ -55,20 +54,18 @@ export default class MoreAboutTheUser extends Component {
                     phone: user.attributes.phone_number,
                     coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
                 })
-                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC COGNITO
-                _moreUserData(input)
-                _changeSwiperRoot(1)
-            } else {
+                await API.graphql(graphqlOperation(mutations.updateUser, { input })) // Actualiza un usuario en la API de APPASYNC COGNITO
+                _changeSwiper(1)
+            } else if (user.id !== null) {
                 Object.assign(input, {
-                    tokenfb: moreUserData.tokenfb,
+                    tokenfb: null,
                     id: user.id,
                     userId: user.id,
-                    phone: null,
-                    coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail])
+                    coins: _.sum([pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail]),
+                    datetime: moment().toISOString()
                 })
-                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC FB
-                _moreUserData(input)
-                _changeSwiperRoot(1)
+                await API.graphql(graphqlOperation(mutations.createUser, { input })) // Crea un usuario en la API de APPASYNC COGNITO
+                _changeSwiper(1)
             }
         } catch (e) {
             console.log(e)
@@ -108,17 +105,18 @@ export default class MoreAboutTheUser extends Component {
             })
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { moreUserData } = nextProps
-        this.setState({
-            name: moreUserData.name,
-            lastname: moreUserData.last_name,
-            email: moreUserData.email,
-            avatar: moreUserData.avatar,
-            pointsForTheName: 50,
-            pointsForTheLastName: 50,
-            pointsForTheEmail: 60,
-        })
+    componentWillReceiveProps(prevProps) {
+        if (prevProps.userData) {
+            this.setState({
+                name: prevProps.userData.name,
+                lastname: prevProps.userData.last_name,
+                email: prevProps.userData.email,
+                avatar: prevProps.userData.avatar,
+                pointsForTheName: 50,
+                pointsForTheLastName: 50,
+                pointsForTheEmail: 60,
+            })
+        }
     }
 
     render() {
@@ -129,8 +127,10 @@ export default class MoreAboutTheUser extends Component {
             pointsForTheUsername,
             pointsForTheEmail
         } = this.state
+        // userData
         return (
-            <Grid>
+            <Grid style={{ backgroundColor: colorsPalette.primaryColor }}>
+                <View style={{ backgroundColor: colorsPalette.secondaryColor, position: 'absolute', height: screenHeight / 2, width: "100%", bottom: 0, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }} />
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                     <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(5), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
                         Let's get you registered!
@@ -144,9 +144,7 @@ export default class MoreAboutTheUser extends Component {
                             pointsForTheEmail])}
                         interval={10}
                         countBy={5}
-                        formatter={(val) => {
-                            return 'Coins earned ' + parseFloat(val).toFixed(0)
-                        }} />
+                        formatter={(val) => { return 'Coins earned ' + parseFloat(val).toFixed(0) }} />
                 </Row>
                 <Row size={80} style={{ alignSelf: 'center' }}>
                     <Grid style={{
@@ -159,7 +157,7 @@ export default class MoreAboutTheUser extends Component {
                         maxHeight: screenHeight / 2 + 85,
                         top: -13
                     }}>
-                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderRadius: 5 }}>
+                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderTopStartRadius: 5, borderTopEndRadius: 5 }}>
                             <Content>
                                 <List style={{ width: "100%", padding: 10 }}>
                                     {/* Name */}
@@ -288,7 +286,6 @@ export default class MoreAboutTheUser extends Component {
                     </Grid>
                 </Row>
             </Grid>
-     
-     );
+        );
     }
 }

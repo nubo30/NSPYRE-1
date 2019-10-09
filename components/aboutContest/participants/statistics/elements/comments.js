@@ -111,7 +111,9 @@ class Likes extends Component {
                                                     <ListItem avatar>
                                                         <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { _modalAction(false); this.props.navigation.navigate('UserProfile', { userId: item.users.idUserComments }) }} />
                                                         <Left>
-                                                            <Thumbnail small source={{ uri: item.users.avatar }} />
+                                                            {item.avatar !== null
+                                                                ? <Thumbnail small source={{ uri: item.avatar }} />
+                                                                : <UserAvatar size="35" name={item.name} />}
                                                         </Left>
                                                         <Body style={{ top: 5 }}>
                                                             <Text allowFontScaling={false}>{userData.id === item.users.idUserComments ? "You" : item.users.name} <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: "#3333", fontWeight: 'normal' }}>{moment(item.users.createdAt).fromNow()}</Text> </Text>

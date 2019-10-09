@@ -88,7 +88,7 @@ export const onCreateUser = `subscription OnCreateUser {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -396,7 +396,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -704,7 +704,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -978,7 +978,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1136,7 +1136,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -1177,7 +1177,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1281,7 +1281,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1390,7 +1390,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1455,7 +1455,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1519,7 +1519,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1605,7 +1605,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1763,7 +1763,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -1804,7 +1804,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1908,7 +1908,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2017,7 +2017,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2082,7 +2082,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2146,7 +2146,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2232,7 +2232,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2390,7 +2390,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -2431,7 +2431,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2535,7 +2535,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2644,7 +2644,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2709,7 +2709,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2773,7 +2773,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2827,7 +2827,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -2897,7 +2897,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -2905,7 +2905,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -2961,7 +2961,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -2985,7 +2985,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3002,7 +3002,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3018,7 +3018,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3068,7 +3068,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3138,7 +3138,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3146,7 +3146,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3202,7 +3202,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3226,7 +3226,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3243,7 +3243,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3259,7 +3259,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3309,7 +3309,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3379,7 +3379,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3387,7 +3387,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3443,7 +3443,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3467,7 +3467,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3484,7 +3484,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3500,7 +3500,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3550,7 +3550,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3620,7 +3620,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3628,7 +3628,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3684,7 +3684,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3708,7 +3708,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3725,7 +3725,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3741,7 +3741,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3787,7 +3787,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3857,7 +3857,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3865,7 +3865,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3921,7 +3921,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3945,7 +3945,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3962,7 +3962,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3978,7 +3978,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4024,7 +4024,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4094,7 +4094,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4102,7 +4102,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4158,7 +4158,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4182,7 +4182,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4199,7 +4199,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4215,7 +4215,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4261,7 +4261,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4331,7 +4331,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4339,7 +4339,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4395,7 +4395,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4419,7 +4419,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4436,7 +4436,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4452,7 +4452,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4497,7 +4497,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4567,7 +4567,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4575,7 +4575,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4631,7 +4631,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4655,7 +4655,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4672,7 +4672,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4688,7 +4688,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4733,7 +4733,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4803,7 +4803,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4811,7 +4811,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4867,7 +4867,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4891,7 +4891,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4908,7 +4908,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4924,7 +4924,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4970,7 +4970,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5040,7 +5040,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5048,7 +5048,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5104,7 +5104,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5128,7 +5128,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5145,7 +5145,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5161,7 +5161,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5227,7 +5227,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5297,7 +5297,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5305,7 +5305,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5361,7 +5361,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5385,7 +5385,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5402,7 +5402,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5418,7 +5418,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5484,7 +5484,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5554,7 +5554,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5562,7 +5562,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5618,7 +5618,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5642,7 +5642,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5659,7 +5659,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5675,7 +5675,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5760,7 +5760,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5830,7 +5830,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5838,7 +5838,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5894,7 +5894,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5918,7 +5918,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5935,7 +5935,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5951,7 +5951,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5995,7 +5995,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6046,7 +6046,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6099,7 +6099,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6151,7 +6151,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6225,7 +6225,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -6295,7 +6295,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -6303,7 +6303,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -6359,7 +6359,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6383,7 +6383,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6400,7 +6400,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6416,7 +6416,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6460,7 +6460,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6511,7 +6511,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6564,7 +6564,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6616,7 +6616,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6690,7 +6690,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -6760,7 +6760,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -6768,7 +6768,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -6824,7 +6824,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6848,7 +6848,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6865,7 +6865,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6881,7 +6881,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6925,7 +6925,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6976,7 +6976,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7029,7 +7029,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7081,7 +7081,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7210,7 +7210,7 @@ export const onCreateViewsParticipants = `subscription OnCreateViewsParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -7488,7 +7488,7 @@ export const onUpdateViewsParticipants = `subscription OnUpdateViewsParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -7766,7 +7766,7 @@ export const onDeleteViewsParticipants = `subscription OnDeleteViewsParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8044,7 +8044,7 @@ export const onCreateShareParticipants = `subscription OnCreateShareParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8317,7 +8317,7 @@ export const onUpdateShareParticipants = `subscription OnUpdateShareParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8590,7 +8590,7 @@ export const onDeleteShareParticipants = `subscription OnDeleteShareParticipants
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8863,7 +8863,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9135,7 +9135,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9407,7 +9407,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9679,7 +9679,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9953,7 +9953,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -10227,7 +10227,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -10512,7 +10512,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -10716,7 +10716,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -10920,7 +10920,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11125,7 +11125,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11328,7 +11328,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11531,7 +11531,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }

@@ -219,11 +219,13 @@ class Home extends Component {
                                     offLine={!online} />
                                 <Button
                                     disabled={!online}
-                                    rounded transparent style={{ alignSelf: "center", top: -10 }}
+                                    bordered
+                                    small
+                                    transparent style={{ alignSelf: "center", top: -10, borderColor: colorsPalette.transparent }}
                                     onPress={() => this.showActionSheet()}>
                                     <Text
                                         allowFontScaling={false}
-                                        style={{ color: !online ? colorsPalette.thirdColor : colorsPalette.primaryColor, textAlign: "center", fontSize: wp(4) }}>{`Create a contest or Submit a prize`}</Text>
+                                        style={{ color: !online ? colorsPalette.thirdColor : colorsPalette.primaryColor, textAlign: "center", fontSize: wp(4) }}>CREATE A CONTEST <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.primaryColor }}>OR</Text> SUBMIT A PRIZE</Text>
                                 </Button>
                                 <ActionSheet ref={(c) => { this.actionSheet = c; }} />
                                 <Text

@@ -37,6 +37,9 @@ class IntroToApp extends Component {
 
     componentDidMount() {
         this._getVideos()
+        this.refreshIntervalId = setInterval(() => {
+            this.state.isReady && this.fisrtSwiperChild && this.fisrtSwiperChild.scrollBy(1)
+        }, 7000);
     }
 
     _getVideos = async () => {
@@ -59,6 +62,12 @@ class IntroToApp extends Component {
         }
     }
 
+    _changeRootSwiperEvent = () => {
+        clearInterval(this.refreshIntervalId);
+    }
+
+
+
     render() {
         const { gamingVideo, musicVideo, foodVideo, sportVideo, electronicsVideo, isReady } = this.state
         const gamingVideoRandom = gamingVideo[Math.floor(Math.random() * gamingVideo.length)];
@@ -69,182 +78,159 @@ class IntroToApp extends Component {
 
         return isReady ? (
             <Swiper
+                onIndexChanged={() => this._changeRootSwiperEvent()}
                 ref={rootSwiper => this.rootSwiper = rootSwiper}
                 showsPagination={false}
                 loop={false}
                 scrollEnabled={false}>
 
-                <Swiper
-                    showsPagination={false}
-                    loop={false}
-                    pagingEnabled={false}
-                    scrollEnabled={true}>
-                    <View style={{ flex: 1 }}>
-                        <Video
-                            source={{ uri: gamingVideoRandom && gamingVideoRandom.general.video.url }}
-                            rate={1.0}
-                            volume={1.0}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay
-                            isLooping
-                            style={{ width: "100%", height: "100%", position: 'absolute' }}
-                        />
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Gaming</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '75%' }} />
-                                    <View style={{ width: '75%', alignItems: 'flex-end' }}>
-                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), right: 5 }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(7), fontWeight: '700', color: '#FFF' }}>Swipe left for more</Text>
-                                </Row>
-                            </Grid>
+                <View style={{ flex: 1 }}>
+                    <Swiper
+                        ref={swiper => this.fisrtSwiperChild = swiper}
+                        showsPagination={false}
+                        loop={false}
+                        pagingEnabled={false}
+                        scrollEnabled={true}>
+                        <View style={{ flex: 1 }}>
+                            <Video
+                                source={{ uri: gamingVideoRandom && gamingVideoRandom.general.video.url }}
+                                rate={1.0}
+                                volume={1.0}
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                isLooping
+                                style={{ width: "100%", height: "100%", position: 'absolute' }}
+                            />
+                            <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
+                                <Grid>
+                                    <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Gaming</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '75%' }} />
+                                        <View style={{ width: '75%', alignItems: 'flex-end' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), right: 5 }}>Contest videos</Text>
+                                        </View>
+                                    </Row>
+                                    <Row size={70} />
+                                </Grid>
+                            </View>
                         </View>
+
+                        <View style={{ flex: 1 }}>
+                            <Video
+                                source={{ uri: musicVideoRandom && musicVideoRandom.general.video.url }}
+                                rate={1.0}
+                                volume={1.0}
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                isLooping
+                                style={{ width: "100%", height: "100%", position: 'absolute' }}
+                            />
+                            <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
+                                <Grid>
+                                    <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Music</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
+                                        <View style={{ width: '60%', alignItems: 'flex-end' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
+                                        </View>
+                                    </Row>
+                                    <Row size={60} />
+                                    <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
+                                    </Row>
+                                </Grid>
+                            </View>
+                        </View>
+
+                        <View style={{ flex: 1 }}>
+                            <Video
+                                source={{ uri: foodVideoRandom && foodVideoRandom.general.video.url }}
+                                rate={1.0}
+                                volume={1.0}
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                isLooping
+                                style={{ width: "100%", height: "100%", position: 'absolute' }}
+                            />
+                            <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
+                                <Grid>
+                                    <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Food</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
+                                        <View style={{ width: '60%', alignItems: 'flex-end' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
+                                        </View>
+                                    </Row>
+                                    <Row size={60} />
+                                    <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
+                                    </Row>
+                                </Grid>
+                            </View>
+                        </View>
+
+                        <View style={{ flex: 1 }}>
+                            <Video
+                                source={{ uri: sportVideoRandom && sportVideoRandom.general.video.url }}
+                                rate={1.0}
+                                volume={1.0}
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                isLooping
+                                style={{ width: "100%", height: "100%", position: 'absolute' }}
+                            />
+                            <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
+                                <Grid>
+                                    <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Sport</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '55%' }} />
+                                        <View style={{ width: '55%', alignItems: 'flex-end' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(7), right: 7 }}>Contest videos</Text>
+                                        </View>
+                                    </Row>
+                                    <Row size={60} />
+                                    <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
+                                    </Row>
+                                </Grid>
+                            </View>
+                        </View>
+
+                        <View style={{ flex: 1 }}>
+                            <Video
+                                source={{ uri: electronicsVideoRandom && electronicsVideoRandom.general.video.url }}
+                                rate={1.0}
+                                volume={1.0}
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                isLooping
+                                style={{ width: "100%", height: "100%", position: 'absolute' }}
+                            />
+                            <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
+                                <Grid>
+                                    <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
+                                        <Text style={{ color: '#FFF', fontSize: wp(23) }}>Electronics</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '100%' }} />
+                                        <View style={{ width: '100%', alignItems: 'flex-end' }}>
+                                            <Text style={{ color: '#FFF', fontSize: wp(10), right: 10 }}>Contest videos</Text>
+                                        </View>
+                                    </Row>
+                                    <Row size={70} />
+                                </Grid>
+                            </View>
+                        </View>
+                    </Swiper>
+                    <View style={{ position: 'absolute', flex: 1, justifyContent: 'flex-end', alignItems: 'center', width: '100%', height: "10%", bottom: 0 }}>
+                        <Button transparent onPress={() => this._changeRootSwiper(1)}>
+                            <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}>Press to continue</Text>
+                        </Button>
                     </View>
-
-                    <View style={{ flex: 1 }}>
-                        <Video
-                            source={{ uri: musicVideoRandom && musicVideoRandom.general.video.url }}
-                            rate={1.0}
-                            volume={1.0}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay
-                            isLooping
-                            style={{ width: "100%", height: "100%", position: 'absolute' }}
-                        />
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Music</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
-                                    <View style={{ width: '60%', alignItems: 'flex-end' }}>
-                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
-                                </Row>
-                            </Grid>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1 }}>
-                        <Video
-                            source={{ uri: foodVideoRandom && foodVideoRandom.general.video.url }}
-                            rate={1.0}
-                            volume={1.0}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay
-                            isLooping
-                            style={{ width: "100%", height: "100%", position: 'absolute' }}
-                        />
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Food</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
-                                    <View style={{ width: '60%', alignItems: 'flex-end' }}>
-                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
-                                </Row>
-                            </Grid>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1 }}>
-                        <Video
-                            source={{ uri: sportVideoRandom && sportVideoRandom.general.video.url }}
-                            rate={1.0}
-                            volume={1.0}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay
-                            isLooping
-                            style={{ width: "100%", height: "100%", position: 'absolute' }}
-                        />
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Sport</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '55%' }} />
-                                    <View style={{ width: '55%', alignItems: 'flex-end' }}>
-                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(7), right: 7 }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}></Text>
-                                </Row>
-                            </Grid>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1 }}>
-                        <Video
-                            source={{ uri: electronicsVideoRandom && electronicsVideoRandom.general.video.url }}
-                            rate={1.0}
-                            volume={1.0}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay
-                            isLooping
-                            style={{ width: "100%", height: "100%", position: 'absolute' }}
-                        />
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text style={{ color: '#FFF', fontSize: wp(23) }}>Electronics</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '100%' }} />
-                                    <View style={{ width: '100%', alignItems: 'flex-end' }}>
-                                        <Text style={{ color: '#FFF', fontSize: wp(10), right: 10 }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Button transparent style={{ top: 5 }} onPress={() => this._changeRootSwiper(1)}>
-                                        <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}>Press to continue</Text>
-                                    </Button>
-                                </Row>
-                            </Grid>
-                        </View>
-                    </View>
-
-
-
-
-                    {/* <ImageBackground
-                        source={{ uri: "https://images.unsplash.com/photo-1513829596324-4bb2800c5efb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" }}
-                        style={{ flex: 1 }}>
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
-                            <Grid>
-                                <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                    <Text style={{ color: '#FFF', fontSize: wp(25) }}>Music</Text>
-                                    <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
-                                    <View style={{ width: '60%', alignItems: 'flex-end' }}>
-                                        <Text style={{ color: '#FFF', fontSize: wp(10), }}>Contest videos</Text>
-                                    </View>
-                                </Row>
-                                <Row size={60} />
-                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}>Swipe left for more</Text>
-                                </Row>
-                            </Grid>
-                        </View>
-                    </ImageBackground> */}
-
-                </Swiper>
+                </View>
 
                 <Swiper
                     ref={swiper => this.swiper = swiper}
@@ -345,7 +331,7 @@ class IntroToApp extends Component {
                             borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
                         }}>
                             <Button
-                                onPress={() => this.props.navigation.navigate('Auth')}
+                                onPress={() => this.props.navigation.navigate('FirstAuth')}
                                 style={{
                                     flex: 1, height: '100%', justifyContent: 'center', alignItems: 'center',
                                     shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { height: -1 }, shadowOpacity: 1,

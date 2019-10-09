@@ -188,7 +188,7 @@ export default class PhoneRegister extends Component {
                         </Row>
                         <Row size={40} style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), top: 25, left: "10%" }}>We will send you a one time sms {'\n'} message.</Text>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3), alignSelf: 'center', textAlign: 'center', fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3), alignSelf: 'center', textAlign: 'center' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                         </Row>
                         <Row size={20} style={{
                             justifyContent: 'flex-end',
@@ -260,7 +260,7 @@ export default class PhoneRegister extends Component {
                                 alignItems: 'center',
                                 flexDirection: 'column',
                             }}>
-                                <Text allowFontScaling={false} style={{ top: "20%", color: colorsPalette.errColor, fontSize: wp(3), fontWeight: '100' }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                <Text allowFontScaling={false} style={{ top: "20%", color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                                 <Animatable.View
                                     animation={passwordsDoNotMatchAnimation ? "shake" : undefined}
                                     onAnimationEnd={() => this.setState({ passwordsDoNotMatchAnimation: false })}

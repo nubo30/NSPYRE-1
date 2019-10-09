@@ -21,6 +21,10 @@ export const listContest = `query ListContest($category: String) {
   listContest(category: $category)
 }
 `;
+export const listCaseOfSuccess = `query ListCaseOfSuccess($params: String) {
+  listCaseOfSuccess(params: $params)
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     tokenfb
@@ -108,7 +112,7 @@ export const getUser = `query GetUser($id: ID!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -385,7 +389,7 @@ export const listUsers = `query ListUsers(
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -553,7 +557,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -711,7 +715,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -752,7 +756,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -856,7 +860,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -965,7 +969,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1030,7 +1034,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1094,7 +1098,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1152,7 +1156,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -1222,7 +1226,7 @@ export const listCreateContests = `query ListCreateContests(
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -1230,7 +1234,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -1286,7 +1290,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -1310,7 +1314,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1327,7 +1331,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1343,7 +1347,7 @@ export const listCreateContests = `query ListCreateContests(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1384,7 +1388,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -1454,7 +1458,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -1462,7 +1466,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -1518,7 +1522,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -1542,7 +1546,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1559,7 +1563,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1575,7 +1579,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1684,7 +1688,7 @@ export const listViewsVideos = `query ListViewsVideos(
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -1801,7 +1805,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -1871,7 +1875,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -1879,7 +1883,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -1935,7 +1939,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -1959,7 +1963,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1976,7 +1980,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -1992,7 +1996,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2097,7 +2101,7 @@ export const listUsersSharings = `query ListUsersSharings(
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -2210,7 +2214,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -2280,7 +2284,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -2288,7 +2292,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -2344,7 +2348,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -2368,7 +2372,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2385,7 +2389,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2401,7 +2405,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2505,7 +2509,7 @@ export const listUsersLikess = `query ListUsersLikess(
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -2618,7 +2622,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -2688,7 +2692,7 @@ export const getAudience = `query GetAudience($id: ID!) {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -2696,7 +2700,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -2752,7 +2756,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -2776,7 +2780,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2793,7 +2797,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2809,7 +2813,7 @@ export const getAudience = `query GetAudience($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -2934,7 +2938,7 @@ export const listAudiences = `query ListAudiences(
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -3086,7 +3090,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3156,7 +3160,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3164,7 +3168,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3220,7 +3224,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3244,7 +3248,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3261,7 +3265,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3277,7 +3281,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3321,7 +3325,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3372,7 +3376,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3425,7 +3429,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3477,7 +3481,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3610,7 +3614,7 @@ export const listParticipantss = `query ListParticipantss(
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -3878,7 +3882,7 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -4129,7 +4133,7 @@ export const listViewsParticipantss = `query ListViewsParticipantss(
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -4309,7 +4313,7 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -4555,7 +4559,7 @@ export const listShareParticipantss = `query ListShareParticipantss(
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -4730,7 +4734,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -4975,7 +4979,7 @@ export const listLikesToParticipantss = `query ListLikesToParticipantss(
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -5149,7 +5153,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -5396,7 +5400,7 @@ export const listCommentsToParticipantss = `query ListCommentsToParticipantss(
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -5579,7 +5583,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -5755,7 +5759,7 @@ export const listSubmitPrizes = `query ListSubmitPrizes(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5874,7 +5878,7 @@ export const getEngage = `query GetEngage($id: ID!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -6049,7 +6053,7 @@ export const listEngages = `query ListEngages(
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }

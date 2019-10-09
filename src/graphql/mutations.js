@@ -88,7 +88,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -396,7 +396,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -704,7 +704,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -978,7 +978,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1136,7 +1136,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -1177,7 +1177,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1281,7 +1281,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1390,7 +1390,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1455,7 +1455,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1519,7 +1519,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1605,7 +1605,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1763,7 +1763,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -1804,7 +1804,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -1908,7 +1908,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2017,7 +2017,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2082,7 +2082,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2146,7 +2146,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2232,7 +2232,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2390,7 +2390,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
       start
       end
     }
-    isFinished
+    showInCaseOfSuccess
     audience {
       items {
         JSONdata
@@ -2431,7 +2431,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2535,7 +2535,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2644,7 +2644,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2709,7 +2709,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2773,7 +2773,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -2827,7 +2827,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -2897,7 +2897,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -2905,7 +2905,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -2961,7 +2961,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -2985,7 +2985,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3002,7 +3002,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3018,7 +3018,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3068,7 +3068,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3138,7 +3138,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3146,7 +3146,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3202,7 +3202,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3226,7 +3226,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3243,7 +3243,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3259,7 +3259,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3309,7 +3309,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3379,7 +3379,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3387,7 +3387,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3443,7 +3443,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3467,7 +3467,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3484,7 +3484,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3500,7 +3500,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3550,7 +3550,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3620,7 +3620,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3628,7 +3628,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3684,7 +3684,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3708,7 +3708,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3725,7 +3725,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3741,7 +3741,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3787,7 +3787,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -3857,7 +3857,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -3865,7 +3865,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -3921,7 +3921,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -3945,7 +3945,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3962,7 +3962,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -3978,7 +3978,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4024,7 +4024,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4094,7 +4094,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4102,7 +4102,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4158,7 +4158,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4182,7 +4182,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4199,7 +4199,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4215,7 +4215,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4261,7 +4261,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4331,7 +4331,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4339,7 +4339,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4395,7 +4395,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4419,7 +4419,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4436,7 +4436,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4452,7 +4452,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4497,7 +4497,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4567,7 +4567,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4575,7 +4575,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4631,7 +4631,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4655,7 +4655,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4672,7 +4672,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4688,7 +4688,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4733,7 +4733,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -4803,7 +4803,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -4811,7 +4811,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -4867,7 +4867,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -4891,7 +4891,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4908,7 +4908,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4924,7 +4924,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -4970,7 +4970,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5040,7 +5040,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5048,7 +5048,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5104,7 +5104,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5128,7 +5128,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5145,7 +5145,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5161,7 +5161,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5227,7 +5227,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5297,7 +5297,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5305,7 +5305,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5361,7 +5361,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5385,7 +5385,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5402,7 +5402,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5418,7 +5418,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5484,7 +5484,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5554,7 +5554,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5562,7 +5562,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5618,7 +5618,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5642,7 +5642,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5659,7 +5659,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5675,7 +5675,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5760,7 +5760,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -5830,7 +5830,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -5838,7 +5838,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -5894,7 +5894,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -5918,7 +5918,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5935,7 +5935,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5951,7 +5951,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -5995,7 +5995,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6046,7 +6046,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6099,7 +6099,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6151,7 +6151,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6225,7 +6225,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -6295,7 +6295,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -6303,7 +6303,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -6359,7 +6359,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6383,7 +6383,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6400,7 +6400,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6416,7 +6416,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6460,7 +6460,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6511,7 +6511,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6564,7 +6564,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6616,7 +6616,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6690,7 +6690,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           nextToken
         }
@@ -6760,7 +6760,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
         start
         end
       }
-      isFinished
+      showInCaseOfSuccess
       audience {
         items {
           JSONdata
@@ -6768,7 +6768,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           genders
@@ -6824,7 +6824,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6848,7 +6848,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6865,7 +6865,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6881,7 +6881,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           id
           name
@@ -6925,7 +6925,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -6976,7 +6976,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7029,7 +7029,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7081,7 +7081,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             id
             category
             createdAt
-            isFinished
+            showInCaseOfSuccess
           }
           createdAt
           likesToParticipants {
@@ -7210,7 +7210,7 @@ export const createViewsParticipants = `mutation CreateViewsParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -7488,7 +7488,7 @@ export const updateViewsParticipants = `mutation UpdateViewsParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -7766,7 +7766,7 @@ export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8044,7 +8044,7 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8317,7 +8317,7 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8590,7 +8590,7 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -8863,7 +8863,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9135,7 +9135,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9407,7 +9407,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9681,7 +9681,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -9957,7 +9957,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -10233,7 +10233,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
           start
           end
         }
-        isFinished
+        showInCaseOfSuccess
         audience {
           items {
             JSONdata
@@ -10518,7 +10518,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -10722,7 +10722,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -10926,7 +10926,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11131,7 +11131,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11334,7 +11334,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }
@@ -11537,7 +11537,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             start
             end
           }
-          isFinished
+          showInCaseOfSuccess
           audience {
             nextToken
           }

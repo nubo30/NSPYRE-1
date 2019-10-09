@@ -51,6 +51,7 @@ import { networkStatusOnline, networkStatusOffline } from './store/network/actio
 
 // Child Components
 import AuthLoadingScreen from "./components/authLoadingScreen"
+import FirstAuth from "./components/introToApp/auth"
 import IntroToApp from "./components/introToApp"
 import SignInOrSingUp from "./components/auth"
 import Welcome from "./components/welcome"
@@ -65,7 +66,9 @@ import AboutContest from "./components/aboutContest"
 import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
 import AboutThePrize from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes/aboutThePrize"
 import UserProfile from "./components/userProfile/index"
-import Trending from "./components/home/listContest/trending/index"
+import Trending from "./components/home/listContest/trending"
+import CaseOfSuccess from './components/home/listContest/caseOfSuccess'
+import AboutContestSuccess from './components/home/listContest/caseOfSuccess/aboutTheContest'
 
 class InfluencemeNow extends Component {
     state = { isReady: false }
@@ -101,13 +104,16 @@ const RootStack = createStackNavigator(
         'Prizes': { screen: Prizes, navigationOptions },
         'AboutThePrize': { screen: AboutThePrize, navigationOptions },
         'UserProfile': { screen: UserProfile, navigationOptions: { header: null } },
-        'Trending': { screen: Trending, navigationOptions: { header: null } }
+        'Trending': { screen: Trending, navigationOptions: { header: null } },
+        'CaseOfSuccess': { screen: CaseOfSuccess, navigationOptions: { header: null } },
+        'AboutContestSuccess': { screen: AboutContestSuccess, navigationOptions: { header: null } }
     }
 )
 
 const AuthStack = createStackNavigator({
     Auth: { screen: InfluencemeNow, navigationOptions },
-    IntroToApp: { screen: IntroToApp, navigationOptions }
+    IntroToApp: { screen: IntroToApp, navigationOptions },
+    FirstAuth: { screen: FirstAuth,  navigationOptions: { header: null } }
 })
 
 const AppContainer = createAppContainer(createAnimatedSwitchNavigator({

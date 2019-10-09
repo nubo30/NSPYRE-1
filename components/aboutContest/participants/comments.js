@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Modal, Alert } from 'react-native'
+import { FlatList, Alert } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Content, ListItem, Text, Left, Body, Button, Icon, Thumbnail, View, Title, Right, Form, Textarea, Spinner, Toast, Root } from 'native-base';

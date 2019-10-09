@@ -134,6 +134,11 @@ class Auth extends Component {
                                     _moreUserData={this._moreUserData}
                                     _changeSwiperRoot={this._changeSwiperRoot}
                                     _activateNumberPhone={this._activateNumberPhone} />
+                                <View style={{ position: 'absolute', bottom: -40, right: 30 }}>
+                                    <Button transparent onPress={() => this._changeSwiper(1)}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>If you don't have an account, <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.primaryColor, fontSize: wp(4) }}>sign up!</Text></Text>
+                                    </Button>
+                                </View>
                             </View>
 
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', top: -70 }}>

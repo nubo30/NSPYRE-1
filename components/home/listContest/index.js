@@ -72,14 +72,18 @@ class ListContest extends Component {
     return isReady && Object.keys(userData).length !== 0 ? (
       <View>
         <Header searchBar rounded transparent style={{ justifyContent: 'space-between', alignItems: 'center', top: -20 }}>
-          <Item bordered style={{ backgroundColor: colorsPalette.gradientGray, maxWidth: "60%" }}>
+          <Item bordered style={{ backgroundColor: colorsPalette.gradientGray, maxWidth: "75%" }}>
             <Icon name="ios-search" />
             <Input placeholder="Search category" />
           </Item>
-          <Button bordered small iconLeft style={{ borderColor: colorsPalette.primaryColor }} onPress={() => navigation.navigate('Trending', { userData })}>
-            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Trending</Text>
-            <Icon type="Feather" name="trending-up" style={{ color: colorsPalette.primaryColor }} />
-          </Button>
+          <View style={{ flexDirection: 'row', flex: 0.3, justifyContent: 'flex-end' }}>
+            <Button rounded bordered small icon style={{ borderColor: colorsPalette.primaryColor, maxWidth: 30, right: 15 }} onPress={() => navigation.navigate('CaseOfSuccess', { userData })}>
+              <Icon type="AntDesign" name="barschart" style={{ color: colorsPalette.primaryColor, position: 'absolute' }} />
+            </Button>
+            <Button rounded bordered small icon style={{ borderColor: colorsPalette.primaryColor, maxWidth: 30, right: 5 }} onPress={() => navigation.navigate('Trending', { userData })}>
+              <Icon type="Feather" name="trending-up" style={{ color: colorsPalette.primaryColor, position: 'absolute' }} />
+            </Button>
+          </View>
         </Header>
         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
         <Button transparent style={{ position: 'absolute', top: 0, width: "60%" }} onPress={() => this.setState({ modalAction: true })} />

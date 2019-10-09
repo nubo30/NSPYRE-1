@@ -147,13 +147,13 @@ class CardContent extends Component {
                         <Text
                             minimumFontScale={wp(4)}
                             allowFontScaling={false}
-                            style={{ color: colorsPalette.darkFont, fontSize: wp(4), top: -10, color: colorsPalette.underlinesColor, fontWeight: '100' }}>
+                            style={{ color: colorsPalette.darkFont, fontSize: wp(4), top: -10, color: colorsPalette.underlinesColor }}>
                             The category is <Text style={{ color: colorsPalette.darkFont, fontSize: wp(4), top: -10, color: colorsPalette.underlinesColor, fontWeight: 'bold' }}>{lowerCase(item.category)}</Text>
                         </Text>
                         <Text
                             minimumFontScale={wp(3)}
                             allowFontScaling={false}
-                            style={{ color: colorsPalette.darkFont, fontSize: wp(3), top: -10, color: colorsPalette.underlinesColor, fontWeight: '100', fontStyle: 'italic' }}>
+                            style={{ color: colorsPalette.darkFont, fontSize: wp(3), top: -10, color: colorsPalette.underlinesColor, fontStyle: 'italic' }}>
                             {`Published ${moment(item.createdAt).fromNow()}`}
                         </Text>
                     </View>

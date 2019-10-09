@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { FlatList, Image } from 'react-native'
-import { Container, Header, Content, Tab, Tabs, Text, Left, Body, Title, View, Button, Thumbnail, TabHeading, Card, CardItem, Right } from 'native-base';
+import { Container, Header, Tab, Tabs, Text, Left, Body, Title, View, Button, Thumbnail, TabHeading, Card, CardItem, Right } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
@@ -25,6 +25,7 @@ import * as queries from '../../../src/graphql/customQueries'
 import * as subscriptions from '../../../src/graphql/subscriptions'
 import * as mutations from '../../../src/graphql/mutations'
 
+import { colorsPalette } from '../../global/static/colors';
 let fullscreenVideo = 0
 
 class Participants extends Component {
@@ -251,17 +252,18 @@ class Participants extends Component {
                                         >Would you like to create an audience?</Text>
                                     </Button>
                                 </View>
-                                : <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center', top: 5 }}>
-                                    <Text
-                                        minimumFontScale={wp(4.5)}
-                                        allowFontScaling={false}
-                                        style={{ color: "#333", fontSize: wp(4.5) }}>Be the first to join!</Text>
-                                    <Button
-                                        onPress={() => _setModalVisibleJoinToTheContest(true)}
-                                        style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ letterSpacing: 2 }}>PARTICIPATE NOW</Text>
-                                    </Button>
-                                </View>
+                                : new Date(contest.timer.end) > new Date()
+                                    ? <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center', top: 5 }}>
+                                        <Text
+                                            minimumFontScale={wp(4.5)}
+                                            allowFontScaling={false}
+                                            style={{ color: "#333", fontSize: wp(4.5) }}>Be the first to join!</Text>
+                                        <Button
+                                            onPress={() => _setModalVisibleJoinToTheContest(true)}
+                                            style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ letterSpacing: 2 }}>PARTICIPATE NOW</Text>
+                                        </Button>
+                                    </View> : <View style={{ flex: 1, top: 30 }}><Text allowFontScaling={false} style={{ fontSize: wp(5), textAlign: 'center', color: colorsPalette.gradientGray, width: "80%", alignSelf: 'center' }}>This contest is over, but you can go see the others!</Text></View>
                             : <ParticipationsPlaceHolder />}
                     </Tab>
                     {userData.id === contest.user.id || disableParticipants == true
@@ -331,7 +333,7 @@ class Participants extends Component {
                                             </Animatable.View>
                                         )}
                                         keyExtractor={item => item.createdAt} />
-                                    : <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
+                                    : new Date(contest.timer.end) > new Date() ? <View style={{ height: 150, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text
                                             minimumFontScale={wp(4.5)}
                                             allowFontScaling={false}
@@ -344,7 +346,7 @@ class Participants extends Component {
                                                 allowFontScaling={false}
                                                 style={{ letterSpacing: 2, fontSize: wp(4) }}>PARTICIPATE NOW</Text>
                                         </Button>
-                                    </View>
+                                    </View> : <View style={{ flex: 1, top: 30 }}><Text allowFontScaling={false} style={{ fontSize: wp(5), textAlign: 'center', color: colorsPalette.gradientGray, width: "80%", alignSelf: 'center' }}>This contest is over, but you can go see the others!</Text></View>
                                 : <ParticipationsPlaceHolder />}
                         </Tab>
                     }

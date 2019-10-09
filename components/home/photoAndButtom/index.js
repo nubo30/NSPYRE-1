@@ -12,9 +12,6 @@ import { Grid, Row } from 'react-native-easy-grid'
 import YourContest from "./YourContest";
 import CategoryOfPrizes from "./categoryOfPrizes";
 
-const widthScreen = Dimensions.get('screen').width
-const heightScreen = Dimensions.get('screen').height
-
 // Colors
 import { colorsPalette } from '../../global/static/colors'
 
@@ -41,13 +38,14 @@ class UserInfo extends Component {
             modalVisibleRedeemPoints,
         } = this.state
         const { userData, isReady, prizeCategory, offLine, contestList } = this.props
+
         return (
             <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent: 'space-around', left: '1.5%' }}>
                 <Button
                     allowFontScaling={false}
                     bordered small disabled={!isReady || offLine}
                     onPress={() => this._setModalVisibleYourContest(true)}
-                    style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center' }}>
+                    style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center', top: -5 }}>
                     <Text
                         allowFontScaling={false}
                         style={{ color: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, fontSize: wp(3) }}>Your Contests</Text>
@@ -63,10 +61,11 @@ class UserInfo extends Component {
                                 : <UserAvatar size="105" name={userData.name} />
                             : <PlaceholderMedia animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
                     }
+                    <Text allowFontScaling={false} style={{ textAlign: 'center', alignSelf: 'center', top: 5, color: colorsPalette.primaryColor, fontWeight: 'bold' }}>{userData && userData.coins} <Text allowFontScaling={false} style={{ fontWeight: 'normal', color: colorsPalette.primaryColor }}>Points</Text></Text>
                 </View>
 
                 <Button disabled={!isReady || offLine} onPress={() => { this._redeemPointsDecision(true) }}
-                    bordered small style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center' }}>
+                    bordered small style={{ borderColor: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, alignSelf: 'center', top: -5 }}>
                     <Text
                         allowFontScaling={false}
                         style={{ color: offLine ? colorsPalette.thirdColor : colorsPalette.primaryColor, fontSize: wp(3) }}>Redeem Points</Text>

@@ -142,7 +142,7 @@ class DrawerRight extends Component {
                                     allowFontScaling={false}
                                     minimumFontScale={wp(3)}
                                     style={{ fontSize: wp(3), fontWeight: '500' }}
-                                    note numberOfLines={1}>Coins {userData.coins}</Text>
+                                    note numberOfLines={1}>{userData.coins} Points</Text>
                             </Body>
                         </ListItem>
 

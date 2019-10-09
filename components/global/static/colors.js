@@ -20,6 +20,7 @@ export const colorsPalette = {
 
     // Fonts
     gradientGray: "#E0E0E0",
+    gradientGrayDark: "#BDBDBD",
     darkFont: "#333",
 
     // Apps color
