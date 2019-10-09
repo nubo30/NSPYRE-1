@@ -86,7 +86,7 @@ class Scope extends Component {
                     }}>
                         <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center', flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>What do you want to do now?</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>Which user type would you like to set up?</Text>
                             <List style={{ width: "100%", padding: 10 }}>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "engage" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("engage")} />

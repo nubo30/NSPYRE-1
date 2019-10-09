@@ -6,7 +6,10 @@ import { Container, Content, Footer, Text, Button, View } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Video } from 'expo-av';
-
+import {
+    Image,
+    Dimensions
+} from 'react-native'
 // Animaciones
 import IntroToApp1 from '../global/lottieJs/introApp1'
 
@@ -16,6 +19,9 @@ import * as queries from '../../src/graphql/queries'
 // Child Component
 import IntroToAppPlaceholder from './introToAppPlaceholder'
 
+const { width } = Dimensions.get('window')
+
+
 class IntroToApp extends Component {
 
     state = {
@@ -24,7 +30,8 @@ class IntroToApp extends Component {
         foodVideo: [],
         sportVideo: [],
         electronicsVideo: [],
-        isReady: false
+        isReady: false,
+        actionSwiperRoot: true
     }
 
     _changeSwiper = (i) => {
@@ -37,9 +44,7 @@ class IntroToApp extends Component {
 
     componentDidMount() {
         this._getVideos()
-        this.refreshIntervalId = setInterval(() => {
-            this.state.isReady && this.fisrtSwiperChild && this.fisrtSwiperChild.scrollBy(1)
-        }, 7000);
+        this._startSetInterval()
     }
 
     _getVideos = async () => {
@@ -63,33 +68,42 @@ class IntroToApp extends Component {
     }
 
     _changeRootSwiperEvent = () => {
+        this.setState({ actionSwiperRoot: false })
         clearInterval(this.refreshIntervalId);
     }
 
+    _stopSetInterval = () => {
+        clearInterval(this.refreshIntervalId);
+    }
 
+    _startSetInterval = () => {
+        this.refreshIntervalId = setInterval(() => {
+            this.state.isReady && this.fisrtSwiperChild && this.fisrtSwiperChild.scrollBy(1)
+        }, 3000);
+    }
 
     render() {
-        const { gamingVideo, musicVideo, foodVideo, sportVideo, electronicsVideo, isReady } = this.state
+        const { gamingVideo, musicVideo, foodVideo, sportVideo, electronicsVideo, isReady, actionSwiperRoot } = this.state
         const gamingVideoRandom = gamingVideo[Math.floor(Math.random() * gamingVideo.length)];
         const musicVideoRandom = musicVideo[Math.floor(Math.random() * musicVideo.length)];
         const foodVideoRandom = foodVideo[Math.floor(Math.random() * foodVideo.length)];
         const sportVideoRandom = sportVideo[Math.floor(Math.random() * sportVideo.length)];
         const electronicsVideoRandom = electronicsVideo[Math.floor(Math.random() * electronicsVideo.length)];
-
         return isReady ? (
             <Swiper
                 onIndexChanged={() => this._changeRootSwiperEvent()}
                 ref={rootSwiper => this.rootSwiper = rootSwiper}
                 showsPagination={false}
                 loop={false}
-                scrollEnabled={false}>
-
+                scrollEnabled={actionSwiperRoot}
+                horizontal={false}>
                 <View style={{ flex: 1 }}>
                     <Swiper
+                        onTouchStartCapture={() => this._stopSetInterval()}
+                        onTouchEnd={() => this._startSetInterval()}
                         ref={swiper => this.fisrtSwiperChild = swiper}
                         showsPagination={false}
-                        loop={false}
-                        pagingEnabled={false}
+                        loop={true}
                         scrollEnabled={true}>
                         <View style={{ flex: 1 }}>
                             <Video
@@ -106,9 +120,9 @@ class IntroToApp extends Component {
                                 <Grid>
                                     <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
                                         <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Gaming</Text>
-                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '75%' }} />
-                                        <View style={{ width: '75%', alignItems: 'flex-end' }}>
-                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), right: 5 }}>Contest videos</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '90%' }} />
+                                        <View style={{ width: '90%' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8) }}>Contest videos</Text>
                                         </View>
                                     </Row>
                                     <Row size={70} />
@@ -131,9 +145,9 @@ class IntroToApp extends Component {
                                 <Grid>
                                     <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
                                         <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Music</Text>
-                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
-                                        <View style={{ width: '60%', alignItems: 'flex-end' }}>
-                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '90%' }} />
+                                        <View style={{ width: '90%' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8) }}>Contest videos</Text>
                                         </View>
                                     </Row>
                                     <Row size={60} />
@@ -159,9 +173,9 @@ class IntroToApp extends Component {
                                 <Grid>
                                     <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
                                         <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Food</Text>
-                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '60%' }} />
-                                        <View style={{ width: '60%', alignItems: 'flex-end' }}>
-                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8), }}>Contest videos</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '90%' }} />
+                                        <View style={{ width: '90%' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8) }}>Contest videos</Text>
                                         </View>
                                     </Row>
                                     <Row size={60} />
@@ -187,9 +201,9 @@ class IntroToApp extends Component {
                                 <Grid>
                                     <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
                                         <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(20) }}>Sport</Text>
-                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '55%' }} />
-                                        <View style={{ width: '55%', alignItems: 'flex-end' }}>
-                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(7), right: 7 }}>Contest videos</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '90%' }} />
+                                        <View style={{ width: '90%' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8) }}>Contest videos</Text>
                                         </View>
                                     </Row>
                                     <Row size={60} />
@@ -214,10 +228,10 @@ class IntroToApp extends Component {
                             <View style={{ backgroundColor: 'rgba(0,0,0,0.4)', flex: 1 }}>
                                 <Grid>
                                     <Row size={30} style={{ padding: 20, flexDirection: "column", justifyContent: 'center' }}>
-                                        <Text style={{ color: '#FFF', fontSize: wp(23) }}>Electronics</Text>
-                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '100%' }} />
-                                        <View style={{ width: '100%', alignItems: 'flex-end' }}>
-                                            <Text style={{ color: '#FFF', fontSize: wp(10), right: 10 }}>Contest videos</Text>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(17) }}>Electronics</Text>
+                                        <View style={{ borderWidth: 1, borderColor: '#FFF', width: '90%' }} />
+                                        <View style={{ width: '90%' }}>
+                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontSize: wp(8) }}>Contest videos</Text>
                                         </View>
                                     </Row>
                                     <Row size={70} />
@@ -227,123 +241,88 @@ class IntroToApp extends Component {
                     </Swiper>
                     <View style={{ position: 'absolute', flex: 1, justifyContent: 'flex-end', alignItems: 'center', width: '100%', height: "10%", bottom: 0 }}>
                         <Button transparent onPress={() => this._changeRootSwiper(1)}>
-                            <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}>Press to continue</Text>
+                            <Text style={{ fontSize: wp(8), fontWeight: '700', color: '#FFF' }}>Swipe up to start!</Text>
                         </Button>
                     </View>
                 </View>
 
-                <Swiper
-                    ref={swiper => this.swiper = swiper}
-                    dotStyle={{ borderColor: '#FFF', borderWidth: 1, backgroundColor: '#D81B60' }}
-                    activeDotColor="#FFF"
-                    paginationStyle={{ bottom: 130 }}
-                    scrollEnabled={false}
-                    loop={false}>
-                    <Container style={{ backgroundColor: '#D81B60' }}>
-                        <Content
-                            contentContainerStyle={{ flex: 1 }}
-                            scrollEnabled={false}>
-                            <Grid>
-                                <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
-                                </Row>
-                                <Row size={40}>
-                                    <IntroToApp1 />
-                                </Row>
-                                <Row size={30} style={{ justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
-                                </Row>
-                            </Grid>
-                        </Content>
-                        <Footer style={{
-                            backgroundColor: '#FFF', borderTopColor: 'rgba(0,0,0,0.0)', borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                            borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                        }}>
-                            <Button
-                                onPress={() => this._changeSwiper(1)}
-                                style={{
-                                    flex: 1, height: '100%', justifyContent: 'center', alignItems: 'center',
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { height: -1 }, shadowOpacity: 1,
-                                    borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                                    borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                                    backgroundColor: '#FFF'
-                                }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold', color: '#D81B60' }}>Next</Text>
-                            </Button>
-                        </Footer>
-                    </Container>
+                <View style={{ flex: 1 }}>
+                    <Swiper
+                        ref={swiper => this.swiper = swiper}
+                        dotStyle={{ borderColor: '#FFF', borderWidth: 1, backgroundColor: '#D81B60' }}
+                        activeDotColor="#FFF"
+                        scrollEnabled={true}
+                        loop={false}>
+                        <Container style={{ backgroundColor: '#D81B60' }}>
+                            <Content
+                                contentContainerStyle={{ flex: 1 }}
+                                scrollEnabled={false}>
+                                <Grid>
+                                    <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
+                                    </Row>
+                                    <Row size={40}>
+                                        <IntroToApp1 />
+                                    </Row>
+                                    <Row size={30} style={{ justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
+                                    </Row>
+                                </Grid>
+                            </Content>
+                            <View style={{ position: 'absolute', height: '10%', width: "50%", bottom: 0, left: 0, justifyContent: "center" }}>
+                                <Button transparent style={{ top: 5 }}
+                                    onPress={() => this.props.navigation.navigate('FirstAuth')}>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>OMMIT</Text>
+                                </Button>
+                            </View>
+                        </Container>
 
-                    <Container style={{ backgroundColor: '#D81B60' }}>
-                        <Content
-                            contentContainerStyle={{ flex: 1 }}
-                            scrollEnabled={false}>
-                            <Grid>
-                                <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
-                                </Row>
-                                <Row size={40}>
-                                    <IntroToApp1 />
-                                </Row>
-                                <Row size={30} style={{ justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
-                                </Row>
-                            </Grid>
-                        </Content>
-                        <Footer style={{
-                            backgroundColor: '#FFF', borderTopColor: 'rgba(0,0,0,0.0)', borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                            borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                        }}>
-                            <Button
-                                onPress={() => this._changeSwiper(1)}
-                                style={{
-                                    flex: 1, height: '100%', justifyContent: 'center', alignItems: 'center',
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { height: -1 }, shadowOpacity: 1,
-                                    borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                                    borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                                    backgroundColor: '#FFF'
-                                }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold', color: '#D81B60' }}>Next</Text>
-                            </Button>
-                        </Footer>
-                    </Container>
+                        <Container style={{ backgroundColor: '#D81B60' }}>
+                            <Content
+                                contentContainerStyle={{ flex: 1 }}
+                                scrollEnabled={false}>
+                                <Grid>
+                                    <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
+                                    </Row>
+                                    <Row size={40}>
+                                        <IntroToApp1 />
+                                    </Row>
+                                    <Row size={30} style={{ justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
+                                    </Row>
+                                </Grid>
+                            </Content>
+                        </Container>
 
-                    <Container style={{ backgroundColor: '#D81B60' }}>
-                        <Content
-                            contentContainerStyle={{ flex: 1 }}
-                            scrollEnabled={false}>
-                            <Grid>
-                                <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
-                                </Row>
-                                <Row size={40}>
-                                    <IntroToApp1 />
-                                </Row>
-                                <Row size={30} style={{ justifyContent: 'center' }}>
-                                    <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
-                                </Row>
-                            </Grid>
-                        </Content>
-                        <Footer style={{
-                            backgroundColor: '#FFF', borderTopColor: 'rgba(0,0,0,0.0)', borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                            borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                        }}>
-                            <Button
-                                onPress={() => this.props.navigation.navigate('FirstAuth')}
-                                style={{
-                                    flex: 1, height: '100%', justifyContent: 'center', alignItems: 'center',
-                                    shadowColor: "rgba(0,0,0,0.2)", shadowOffset: { height: -1 }, shadowOpacity: 1,
-                                    borderTopRightRadius: 10, borderTopLeftRadius: 10,
-                                    borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-                                    backgroundColor: '#FFF'
-                                }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontWeight: 'bold', color: '#D81B60' }}>Done</Text>
-                            </Button>
-                        </Footer>
-                    </Container>
-                </Swiper>
+                        <Container style={{ backgroundColor: '#D81B60' }}>
+                            <Content
+                                contentContainerStyle={{ flex: 1 }}
+                                scrollEnabled={false}>
+                                <Grid>
+                                    <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
+                                    </Row>
+                                    <Row size={40}>
+                                        <IntroToApp1 />
+                                    </Row>
+                                    <Row size={30} style={{ justifyContent: 'center' }}>
+                                        <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
+                                    </Row>
+                                </Grid>
+                            </Content>
+                            <View style={{ position: 'absolute', height: '10%', width: "50%", bottom: 0, right: 0, justifyContent: "center" }}>
+                                <Button transparent style={{ top: 5, alignSelf: 'flex-end' }}
+                                    onPress={() => this.props.navigation.navigate('FirstAuth')}>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>CONTINUE</Text>
+                                </Button>
+                            </View>
+                        </Container>
+                    </Swiper>
+                </View>
             </Swiper>
         ) : <IntroToAppPlaceholder />
     }
