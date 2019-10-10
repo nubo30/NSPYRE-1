@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { withNavigation } from "react-navigation"
 import { API, graphqlOperation } from 'aws-amplify'
 import Swiper from 'react-native-swiper';
-import { Container, Content, Footer, Text, Button, View } from 'native-base';
+import { Container, Content, Text, Button, View } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Video } from 'expo-av';
-import {
-    Image,
-    Dimensions
-} from 'react-native'
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+
 // Animaciones
 import IntroToApp1 from '../global/lottieJs/introApp1'
 
@@ -19,19 +17,24 @@ import * as queries from '../../src/graphql/queries'
 // Child Component
 import IntroToAppPlaceholder from './introToAppPlaceholder'
 
-const { width } = Dimensions.get('window')
-
 
 class IntroToApp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            gestureName: 'none',
+            gamingVideo: [],
+            musicVideo: [],
+            foodVideo: [],
+            sportVideo: [],
+            electronicsVideo: [],
+            isReady: false,
+            actionSwiperRoot: true
+        };
+    }
 
-    state = {
-        gamingVideo: [],
-        musicVideo: [],
-        foodVideo: [],
-        sportVideo: [],
-        electronicsVideo: [],
-        isReady: false,
-        actionSwiperRoot: true
+    onSwipeLeft = () => {
+        this.props.navigation.navigate('FirstAuth')
     }
 
     _changeSwiper = (i) => {
@@ -89,6 +92,7 @@ class IntroToApp extends Component {
         const foodVideoRandom = foodVideo[Math.floor(Math.random() * foodVideo.length)];
         const sportVideoRandom = sportVideo[Math.floor(Math.random() * sportVideo.length)];
         const electronicsVideoRandom = electronicsVideo[Math.floor(Math.random() * electronicsVideo.length)];
+
         return isReady ? (
             <Swiper
                 onIndexChanged={() => this._changeRootSwiperEvent()}
@@ -99,6 +103,7 @@ class IntroToApp extends Component {
                 horizontal={false}>
                 <View style={{ flex: 1 }}>
                     <Swiper
+                        removeClippedSubviews={true}
                         onTouchStartCapture={() => this._stopSetInterval()}
                         onTouchEnd={() => this._startSetInterval()}
                         ref={swiper => this.fisrtSwiperChild = swiper}
@@ -270,12 +275,6 @@ class IntroToApp extends Component {
                                     </Row>
                                 </Grid>
                             </Content>
-                            <View style={{ position: 'absolute', height: '10%', width: "50%", bottom: 0, left: 0, justifyContent: "center" }}>
-                                <Button transparent style={{ top: 5 }}
-                                    onPress={() => this.props.navigation.navigate('FirstAuth')}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>OMMIT</Text>
-                                </Button>
-                            </View>
                         </Container>
 
                         <Container style={{ backgroundColor: '#D81B60' }}>
@@ -297,30 +296,29 @@ class IntroToApp extends Component {
                             </Content>
                         </Container>
 
-                        <Container style={{ backgroundColor: '#D81B60' }}>
-                            <Content
-                                contentContainerStyle={{ flex: 1 }}
-                                scrollEnabled={false}>
-                                <Grid>
-                                    <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
-                                    </Row>
-                                    <Row size={40}>
-                                        <IntroToApp1 />
-                                    </Row>
-                                    <Row size={30} style={{ justifyContent: 'center' }}>
-                                        <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
-                                    </Row>
-                                </Grid>
-                            </Content>
-                            <View style={{ position: 'absolute', height: '10%', width: "50%", bottom: 0, right: 0, justifyContent: "center" }}>
-                                <Button transparent style={{ top: 5, alignSelf: 'flex-end' }}
-                                    onPress={() => this.props.navigation.navigate('FirstAuth')}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: '#FFF', fontSize: wp(3.5) }}>CONTINUE</Text>
-                                </Button>
-                            </View>
-                        </Container>
+                        <GestureRecognizer
+                            onSwipeLeft={() => this.onSwipeLeft()}
+                            config={{ velocityThreshold: 0.3, directionalOffsetThreshold: 80 }}
+                            style={{ flex: 1, backgroundColor: this.state.backgroundColor }}>
+                            <Container style={{ backgroundColor: '#D81B60' }}>
+                                <Content
+                                    contentContainerStyle={{ flex: 1 }}
+                                    scrollEnabled={false}>
+                                    <Grid>
+                                        <Row size={30} style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(12), fontWeight: 'bold', letterSpacing: 1, color: '#FFF' }}>Lorem Ipsum</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Sed ut perspiciatis</Text>
+                                        </Row>
+                                        <Row size={40}>
+                                            <IntroToApp1 />
+                                        </Row>
+                                        <Row size={30} style={{ justifyContent: 'center' }}>
+                                            <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(4), width: '80%', color: "#FFF" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</Text>
+                                        </Row>
+                                    </Grid>
+                                </Content>
+                            </Container>
+                        </GestureRecognizer>
                     </Swiper>
                 </View>
             </Swiper>

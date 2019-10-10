@@ -161,7 +161,7 @@ class Login extends Component {
                                 value={numberPhoneState}
                                 style={{ height: "100%", width: "81%" }}
                                 flagStyle={{ height: 30, width: 40 }}
-                                textStyle={{ fontSize: wp(8) }}
+                                textStyle={{ fontSize: wp(5) }}
                                 textProps={{ placeholder: "Phone Number" }}
                                 initialCountry="us" />
                             <Button transparent disabled>
@@ -182,7 +182,7 @@ class Login extends Component {
                                 textContentType="password"
                                 placeholder="Password"
                                 placeholderTextColor={colorsPalette.gradientGrayDark}
-                                style={{ fontSize: wp(7.5) }} />
+                                style={{ fontSize: wp(5) }} />
                             <Button transparent onPress={() => this.setState({ hiddenPasswords: !hiddenPasswords })}>
                                 <Icon type="Ionicons" name={hiddenPasswords ? 'md-eye-off' : 'md-eye'} style={{ color: colorsPalette.gradientGray }} />
                             </Button>

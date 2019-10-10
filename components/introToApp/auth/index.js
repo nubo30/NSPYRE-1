@@ -68,7 +68,7 @@ export default class Auth extends Component {
                 ref={r => this.swiper = r}
                 showsPagination={false}
                 pagingEnabled={false}
-                scrollEnabled={false}
+                scrollEnabled={true}
                 loop={false}>
                 <Container>
                     <Header transparent style={{ backgroundColor: colorsPalette.primaryColor }} />
@@ -86,7 +86,7 @@ export default class Auth extends Component {
                                 borderTopStartRadius: 5,
                                 borderTopEndRadius: 5,
                                 shadowOffset: { width: 0, height: -5 },
-                                shadowColor: colorsPalette.primaryShadowColor,
+                                shadowColor: 'rgba(0,0,0,0.1)',
                                 shadowOpacity: 1,
                             }}>
                                 {loginOrSignUp
@@ -134,11 +134,11 @@ export default class Auth extends Component {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         width: "100%",
-                                        shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                        shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { width: 1 }, shadowOpacity: 1,
                                     }}>
                                     <Button
                                         disabled={isLoading}
-                                        onPress={() => { this.childSignUp._validateData(); this._isLoading(true) }}
+                                        onPress={() => { this.childSignUp._validateData(); }}
                                         style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: colorsPalette.primaryColor }}>
                                         {isLoading ? <Spinner size="small" color={colorsPalette.secondaryColor} /> :
                                             <Text allowFontScaling={false} style={{ alignSelf: 'center', color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Sign Up</Text>}
@@ -153,11 +153,11 @@ export default class Auth extends Component {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         width: "100%",
-                                        shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                        shadowColor: 'rgba(0,0,0,0.1)', shadowOffset: { width: 1 }, shadowOpacity: 1,
                                     }}>
                                     <Button
                                         disabled={isLoading}
-                                        onPress={() => { this.childLogin._validateData(); this._isLoading(true) }}
+                                        onPress={() => { this.childLogin._validateData(); }}
                                         style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: colorsPalette.primaryColor }}>
                                         {isLoading ? <Spinner size="small" color={colorsPalette.secondaryColor} /> :
                                             <Text allowFontScaling={false} style={{ alignSelf: 'center', color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Login</Text>}
@@ -177,6 +177,7 @@ export default class Auth extends Component {
                                 </View>}
                         </Row>
                     </Grid>
+                    <Text allowFontScaling={false} style={{ alignSelf: 'center', fontSize: wp(3) }}>Version 1.0.1</Text>
                 </Container>
                 <MoreAboutTheUser _changeSwiper={this._changeSwiper} _changeSwiper={this._changeSwiper} userData={userData} />
                 <Scope userData={userData} />

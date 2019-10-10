@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Auth, API, graphqlOperation, JS } from 'aws-amplify'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { Dimensions, Keyboard } from 'react-native'
 import { Form, Item, Input, Icon, Button, Text, View, Header, Body, Title, Toast } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -37,8 +37,6 @@ export default class SignUp extends Component {
 
     _validateData = () => {
         const { passowrd, repeatPassword } = this.state
-        const { _isLoading, _errAnimation } = this.props
-        _isLoading(true)
         this.phone.isValidNumber()
             ? passowrd
                 ? passowrd === repeatPassword
@@ -46,10 +44,6 @@ export default class SignUp extends Component {
                     : this.setState({ messageFlash: { cognito: { message: "Password does not match" } } })
                 : this.setState({ messageFlash: { cognito: { message: "Please introduce a valid password" } } })
             : this.setState({ messageFlash: { cognito: { message: "Invalid number phone" } } });
-        setTimeout(() => {
-            _isLoading(false);
-            _errAnimation(true)
-        }, 500);
     }
 
     _submit = async () => {
@@ -75,13 +69,14 @@ export default class SignUp extends Component {
         const { _isLoading, _loginOrSignUp, _confirmAccount, _numberPhone } = this.props
         try {
             await Auth.confirmSignUp(this.phone.getValue(), code, { forceAliasCreation: true })
-            _numberPhone(this.phone.getValue())
-            _loginOrSignUp(false)
-            _confirmAccount(true)
+            this.setState({ openModalForValidatePhoneWithSMS: false })
             setTimeout(() => {
-                this.setState({ openModalForValidatePhoneWithSMS: false, activateOptionsConfirn: false })
-            }, 500);
-            _isLoading(false)
+                this.setState({ activateOptionsConfirn: false, activateOptionsConfirn: false })
+                _loginOrSignUp(false)
+                _confirmAccount(true)
+                _isLoading(false)
+            }, 1000);
+            _numberPhone(this.phone.getValue())
         } catch (error) {
             this._messageFlashErr(error)
         }
@@ -172,7 +167,7 @@ export default class SignUp extends Component {
                                 value={numberPhoneState}
                                 style={{ height: "100%", width: "81%" }}
                                 flagStyle={{ height: 30, width: 40 }}
-                                textStyle={{ fontSize: wp(8) }}
+                                textStyle={{ fontSize: wp(5) }}
                                 textProps={{ placeholder: "Phone Number" }}
                                 initialCountry="us" />
                             <Button transparent disabled>
@@ -193,7 +188,7 @@ export default class SignUp extends Component {
                                 textContentType="password"
                                 placeholderTextColor={colorsPalette.gradientGrayDark}
                                 placeholder="Password"
-                                style={{ fontSize: wp(7.5) }} />
+                                style={{ fontSize: wp(5) }} />
                             <Button transparent onPress={() => this.setState({ hiddenPasswords: !hiddenPasswords })}>
                                 <Icon type="Ionicons" name={hiddenPasswords ? 'md-eye-off' : 'md-eye'} style={{ color: colorsPalette.gradientGray }} />
                             </Button>
@@ -212,7 +207,7 @@ export default class SignUp extends Component {
                                 textContentType="password"
                                 placeholder="Repeat password"
                                 placeholderTextColor={colorsPalette.gradientGrayDark}
-                                style={{ fontSize: wp(7.5) }} />
+                                style={{ fontSize: wp(5) }} />
                             <Button transparent onPress={() => this.setState({ hiddenPasswords: !hiddenPasswords })}>
                                 <Icon type="Ionicons" name={hiddenPasswords ? 'md-eye-off' : 'md-eye'} style={{ color: colorsPalette.gradientGray }} />
                             </Button>
