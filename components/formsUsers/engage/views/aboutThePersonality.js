@@ -412,7 +412,7 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What region do you identify with?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Which identity do you most strongly associate with?</Text>
                                         </Body>
                                         <Right>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{regionalIdentity === 'Not specified' ? 'Not specified' : truncate(regionalIdentity, { length: 20, separate: '...' })}</Text>
@@ -794,6 +794,9 @@ class AboutThePersonality extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: '#FFF' }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCountry()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
@@ -840,6 +843,9 @@ class AboutThePersonality extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: '#FFF' }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getRegions()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 iosHeader="SELECT REGION"
@@ -888,6 +894,9 @@ class AboutThePersonality extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: '#FFF' }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCities()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}

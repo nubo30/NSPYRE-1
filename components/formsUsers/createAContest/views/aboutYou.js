@@ -484,6 +484,9 @@ class AboutYou extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCountry()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 headerBackButtonTextStyle={{ color: colorsPalette.primaryColor, fontSize: wp(5) }}
@@ -530,6 +533,9 @@ class AboutYou extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getRegions()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 iosHeader="SELECT REGION"
@@ -578,6 +584,9 @@ class AboutYou extends Component {
                                             </Item>
                                             : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
+                                                <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCities()}>
+                                                    <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
+                                                </Button>
                                             </Item>}
                                     </Header>}
                                 headerBackButtonTextStyle={{ color: colorsPalette.primaryColor, fontSize: wp(5) }}
