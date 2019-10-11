@@ -9,12 +9,14 @@ import { AppLoading } from "expo";
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
+import * as Sentry from 'sentry-expo';
 // import awsconfig from './aws-exports'
-// import Sentry from 'sentry-expo';
-
 // Sentry config
-// Sentry.enableInExpoDevelopment = false;
-// Sentry.config('https://850709ab67944debb49e9305541df7dc@sentry.io/1458405').install();
+Sentry.init({
+    dsn: 'https://850709ab67944debb49e9305541df7dc@sentry.io/1458405',
+    enableInExpoDevelopment: true,
+    debug: true
+  });
 
 // Amplify config
 Amplify.configure({
