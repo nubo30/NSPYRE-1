@@ -8,7 +8,7 @@ import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import truncate from 'lodash/truncate'
+// import truncate from 'lodash/truncate'
 
 // Child Components
 import HeaderContest from "./header"
@@ -22,8 +22,8 @@ import Participants from './participants'
 import SecondaryView from './secondaryView'
 import JoinToTheContest from './participants/joinToTheContest'
 import VideoPageOne from './video'
-import Shares from './buttons/share'
-import Likes from './buttons/like'
+// import Shares from './buttons/share'
+// import Likes from './buttons/like'
 
 // Gradients
 import { GadrientsAboutContest } from "../global/gradients"
@@ -214,7 +214,7 @@ class ShowContest extends Component {
 
                                 {/* Botton social network */}
                                 <Row size={15}>
-                                    <View style={{ flexDirection: 'row', flex: 0.3 }}>
+                                    {/* <View style={{ flexDirection: 'row', flex: 0.3 }}>
                                         <View>
                                             <Shares userData={userData} contest={contest} />
                                         </View>
@@ -225,8 +225,8 @@ class ShowContest extends Component {
                                     <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                                         <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
                                         <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${contest.aboutTheUser.location.city}, ${contest.aboutTheUser.location.country}.`, { length: 30, separator: "..." })}</Text>
-                                    </View>
-                                    <View style={{ flex: 0.2, justifyContent: 'flex-end' }}>
+                                    </View> */}
+                                    <View style={{ justifyContent: 'flex-end', width: "100%" }}>
                                         {userLogin ?
                                             <Button
                                                 style={{ alignSelf: 'flex-end' }}

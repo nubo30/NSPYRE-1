@@ -187,7 +187,7 @@ export default class ForgotPassword extends Component {
                                         inputPosition='center'
                                         size={25}
                                         onFulfill={(code) => this._recoveryPasswordAfterGetPinOfNumberPhone(code)} />
-                                    {this.state.newPassword === "" && <Button style={{ width: "100%", position: 'absolute' }} onPress={() => this.setState({ messageFlash: { cognito: { message: "Please enter a password first" } } })} />}
+                                    {this.state.newPassword === "" && <Button transparent style={{ width: "100%", position: 'absolute' }} onPress={() => this.setState({ messageFlash: { cognito: { message: "Please enter a password first" } } })} />}
                                 </Item>
                                 <Text allowFontScaling={false} style={{ top: 20, fontSize: wp(3), color: colorsPalette.darkFont, textAlign: 'center' }}>
                                     We have sent you a SMS to the number phone {<Text style={{ fontWeight: "bold", color: colorsPalette.darkFont }}>{this.state.numberPhoneState}</Text>}, use this CODE to fill in the following

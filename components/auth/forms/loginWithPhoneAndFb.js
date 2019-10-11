@@ -22,7 +22,7 @@ import { fBCredentials } from "../../global/socialNetWorksCredentials"
 import { colorsPalette } from '../../global/static/colors'
 
 // ChildComponent
-import ForgottenPassword from '../passwordForget'
+import ForgottenPassword from '../../introToApp/auth/forgotPassword'
 
 // GRPAHQL
 import * as queries from '../../../src/graphql/queries'
@@ -184,9 +184,9 @@ class Login extends Component {
                                         onPress={() => this.setState({ eyeAction: !eyeAction })}
                                         active name={eyeAction ? "eye" : "eye-off"} style={{ color: colorsPalette.gradientGray }} />
                                 </ListItem>
-                                <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() => this._forgetPasswordModal(true)}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.thirdColor, fontSize: wp(3) }}>Forgot your password?</Text>
-                                </Button>
+                                <View style={{ alignSelf: 'flex-end' }}>
+                                    <ForgottenPassword />
+                                </View>
                             </List>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
@@ -260,7 +260,7 @@ class Login extends Component {
                         </Row>
                     </Grid>
                 </Swiper>
-                <ForgottenPassword forgetPasswordModal={this.state.forgetPasswordModal} _forgetPasswordModal={this._forgetPasswordModal} />
+                {/* <ForgottenPassword forgetPasswordModal={this.state.forgetPasswordModal} _forgetPasswordModal={this._forgetPasswordModal} /> */}
             </View>
         );
     }

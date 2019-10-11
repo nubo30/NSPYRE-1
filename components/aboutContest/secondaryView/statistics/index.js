@@ -174,7 +174,7 @@ class Staticstics extends Component {
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
                         {/* CANTIDAD DE LAS VECES QUE SE HA COMPARTIDO EL CONCURSO */}
-                        <ListItem disabled={sharedCount.length ? false : true} last icon onPress={() => this._usersSharedModal(true)}>
+                        {/* <ListItem disabled={sharedCount.length ? false : true} last icon onPress={() => this._usersSharedModal(true)}>
                             <Left>
                                 <Button style={{ backgroundColor: "#F44336" }}>
                                     <Icon type="FontAwesome" name="share-square-o" />
@@ -192,10 +192,10 @@ class Staticstics extends Component {
                                 <Text>{flatten(values(sharedCount)).length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
-                        </ListItem>
+                        </ListItem> */}
 
                         {/* CANTIDAD DE LIKES */}
-                        <ListItem last icon disabled={contest.statistics === null ? true : contest.usersLikes === null ? true : contest.usersLikes.items.length ? false : true} onPress={() => this._ifTimerDifNull()}>
+                        {/* <ListItem last icon disabled={contest.statistics === null ? true : contest.usersLikes === null ? true : contest.usersLikes.items.length ? false : true} onPress={() => this._ifTimerDifNull()}>
                             <Left>
                                 <Button style={{ backgroundColor: "#E91E63" }}>
                                     <Icon type="AntDesign" name="heart" />
@@ -214,7 +214,7 @@ class Staticstics extends Component {
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
-                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
+                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} /> */}
 
                         {/* VIDEO */}
                         <ListItem
