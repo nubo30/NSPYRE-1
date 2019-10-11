@@ -35,14 +35,11 @@ class Login extends Component {
 
     _validateData = () => {
         const { password } = this.state
-        const { _isLoading, _errAnimation } = this.props
-        _isLoading(true)
         this.phone.isValidNumber()
             ? password
                 ? this._submit()
                 : this.setState({ messageFlash: { cognito: { message: "Left password" } } })
             : this.setState({ messageFlash: { cognito: { message: "Invalid number phone" } } });
-        setTimeout(() => { _isLoading(false), _errAnimation(true) }, 500);
     }
 
     _submit = async () => {
