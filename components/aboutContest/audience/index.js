@@ -13,6 +13,7 @@ import AudiencePlaceholder from './placeholder/index'
 
 // Icons
 import { Ionicons } from '@expo/vector-icons'
+import { colorsPalette } from '../../global/static/colors'
 
 // GraphQL
 import * as queries from '../../../src/graphql/queries'
@@ -76,14 +77,26 @@ export default class Audience extends Component {
         const { _setModalVisibleAudience, contest, hideCongrastSectionAudience } = this.props
 
         return (
-            <Container style={{ backgroundColor: '#FFF', width: "85%", borderRadius: 20, maxHeight: "50%", padding: 2 }}>
+            <Container style={{
+                backgroundColor: colorsPalette.secondaryColor,
+                justifyContent: 'center',
+                borderTopStartRadius: 10,
+                borderTopEndRadius: 10,
+                borderColor: 'rgba(0, 0, 0, 0.3)',
+                flex: 1,
+                minHeight: 350,
+                maxHeight: 350,
+                position: 'absolute',
+                bottom: 0,
+                width: '100%'
+            }}>
                 <Header span style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.0)', borderBottomColor: 'rgba(0,0,0,0.0)', flexDirection: 'column' }}>
                     <Text allowFontScaling={false} style={{ fontSize: wp(14), letterSpacing: 3 }}>{hideCongrastSectionAudience ? '🎉' : '👍'}</Text>
                     <Text allowFontScaling={false} style={{ fontSize: wp(7), letterSpacing: 3 }}>{hideCongrastSectionAudience ? 'Congrats!' : 'Very good!'}</Text>
                     <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5), top: 10, letterSpacing: 2 }}>{contest.user.name}</Text>
                 </Header>
                 <Content contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', padding: 15 }}>
-                    <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(4), fontWeight: '100' }}>
+                    <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(4) }}>
                         Do you want to share your contest with our community or yours only?
                     </Text>
                 </Content>
@@ -103,7 +116,7 @@ export default class Audience extends Component {
                         </Row>
                         <Row size={30} style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
                             <Button transparent style={{ justifyContent: 'center', top: -13 }} onPress={() => _setModalVisibleAudience(false)}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, color: "#E0E0E0", fontSize: wp(3) }}>No, Thanks</Text>
+                                <Text allowFontScaling={false} style={{ letterSpacing: 2, color: colorsPalette.darkFont, fontSize: wp(3) }}>No, Thanks</Text>
                             </Button>
                         </Row>
                     </Grid>

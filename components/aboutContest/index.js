@@ -359,9 +359,7 @@ class ShowContest extends Component {
                             onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
                             onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
                             swipeDirection={modalVisibleAudience ? null : ['down']}
-                            animationInTiming={900}
-                            animationIn="slideInUp"
-                            backdropOpacity={0.40}>
+                            style={{ justifyContent: 'flex-end', margin: 0 }}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
                                 <Audience
                                     // DATA
