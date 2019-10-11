@@ -20,6 +20,7 @@ import { sexualityList, maritalStatusList, regionalIdentityList, nacionality as 
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
+import { colorsPalette } from '../../../global/static/colors'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

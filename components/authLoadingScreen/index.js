@@ -29,13 +29,13 @@ class AuthLoadingScreen extends Component {
                     const session = await Auth.currentAuthenticatedUser({ bypassCache: false })
                     const { data } = await API.graphql(graphqlOperation(queries.getUser, { id: session.id || session.attributes.sub }))
                     if (data.getUser !== null) {
-                        this.props.navigation.navigate('Home');
+                        this.props.navigation.navigate('IntroToApp');
                     } else if (data.getUser === null) {
                         isNotExistUserInTheAPI(2)
-                        this.props.navigation.navigate('Auth');
+                        this.props.navigation.navigate('IntroToApp');
                     }
                 } catch (error) {
-                    this.props.navigation.navigate('Auth');
+                    this.props.navigation.navigate('IntroToApp');
                 }
             }
         });
