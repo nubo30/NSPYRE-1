@@ -394,31 +394,74 @@ class AboutYou extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(7) }}>Location</Title>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Location</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ position: 'absolute', right: 0 }} onPress={() =>
-                                    location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified'
-                                        ? this.setState({ visibleModalLocation: false })
+                                    location.street && location.country !== "Not specified"
+                                        ? filterRegionList.length
+                                            ? location.state !== "Not specified"
+                                                ? filterCitiesList && filterCitiesList.length
+                                                    ? location.city !== "Not specified"
+                                                        ? this.setState({ visibleModalLocation: false })
+                                                        : this.setState({
+                                                            visibleModalLocation: false,
+                                                            listRegions: [],
+                                                            location: {
+                                                                street: "",
+                                                                country: "Not specified",
+                                                                state: "Not specified",
+                                                                city: "Not specified",
+                                                            }
+                                                        })
+                                                    : this.setState({ visibleModalLocation: false })
+                                                : this.setState({
+                                                    visibleModalLocation: false,
+                                                    listRegions: [],
+                                                    location: {
+                                                        street: "",
+                                                        country: "Not specified",
+                                                        state: "Not specified",
+                                                        city: "Not specified",
+                                                    }
+                                                })
+                                            : this.setState({ visibleModalLocation: false })
                                         : this.setState({
                                             visibleModalLocation: false,
+                                            listRegions: [],
                                             location: {
                                                 street: "",
                                                 country: "Not specified",
                                                 state: "Not specified",
                                                 city: "Not specified",
                                             }
-                                        })
-
-                                }>
+                                        })}>
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
                                         top: 5,
                                         letterSpacing: 1,
-                                        color: location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? colorsPalette.primaryColor : colorsPalette.thirdColor
-                                    }}>{
-                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "DONE" : "CANCEL"
-                                        }</Text>
+                                        color: location.street && location.country !== "Not specified"
+                                            ? filterRegionList.length
+                                                ? location.state !== "Not specified"
+                                                    ? filterCitiesList && filterCitiesList.length
+                                                        ? location.city !== "Not specified"
+                                                            ? colorsPalette.primaryColor
+                                                            : colorsPalette.gradientGray
+                                                        : colorsPalette.gradientGray
+                                                    : colorsPalette.gradientGray
+                                                : colorsPalette.primaryColor
+                                            : colorsPalette.gradientGray
+                                    }}>{location.street && location.country !== "Not specified"
+                                        ? filterRegionList.length
+                                            ? location.state !== "Not specified"
+                                                ? filterCitiesList && filterCitiesList.length
+                                                    ? location.city !== "Not specified"
+                                                        ? "DONE"
+                                                        : "CANCEL"
+                                                    : "DONE"
+                                                : "CANCEL"
+                                            : "DONE"
+                                        : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -436,12 +479,12 @@ class AboutYou extends Component {
                                         returnKeyType='done'
                                         allowFontScaling={false}
                                         placeholder="Your street"
-                                        placeholderTextColor={colorsPalette.gradientGray}
+                                        placeholderTextColor="#EEEE"
                                         autoFocus={true}
                                         maxLength={512}
                                         value={location.street}
                                         keyboardType="ascii-capable"
-                                        selectionColor={colorsPalette.primaryColor}
+                                        selectionColor="#E91E63"
                                         onChangeText={(value) => this.setState({ location: { ...location, street: value } })} />
                                 </Body>
                                 <Right />
@@ -457,7 +500,7 @@ class AboutYou extends Component {
                                     </Button>
                                 </Left>
                                 <Body>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont }}>Country</Text>
+                                    <Text allowFontScaling={false} style={{ color: '#333' }}>Country</Text>
                                 </Body>
                                 <Right>
                                     <Text allowFontScaling={false}>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
@@ -465,15 +508,15 @@ class AboutYou extends Component {
                             </ListItem>
                             <Picker
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
-                                textStyle={{ color: colorsPalette.transparent }}
+                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                 mode="dropdown"
                                 renderHeader={backAction =>
                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                         <Button transparent small onPress={backAction}>
-                                            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                         </Button>
                                         {listCountries.length
-                                            ? <Item style={{ backgroundColor: colorsPalette.gradientGray }}>
+                                            ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                 <Icon name="ios-search" />
                                                 <Input
                                                     allowFontScaling={false}
@@ -482,47 +525,47 @@ class AboutYou extends Component {
                                                     onChangeText={(value) => this.setState({ inputTextCountry: value })} />
                                                 <Icon type="MaterialCommunityIcons" name="earth" style={{ fontSize: wp(4) }} />
                                             </Item>
-                                            : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                                            : <Item style={{ backgroundColor: '#FFF' }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Countries not available</Text>
                                                 <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCountry()}>
                                                     <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
                                                 </Button>
                                             </Item>}
                                     </Header>}
-                                headerBackButtonTextStyle={{ color: colorsPalette.primaryColor, fontSize: wp(5) }}
-                                headerTitleStyle={{ color: colorsPalette.primaryColor }}
-                                headerStyle={{ backgroundColor: colorsPalette.secondaryColor, borderBottomColor: colorsPalette.secondaryColor }}
+                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                headerTitleStyle={{ color: "#D81B60" }}
+                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={location.country}
-                                onValueChange={(value) => this.setState({ location: { ...location, country: value } })}>
+                                onValueChange={(value) => this.setState({ location: { ...location, country: value, state: "Not specified", city: "Not specified" } })}>
                                 {filterCounttriesList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                             </Picker>
-
 
                             {/* STATES */}
                             <ListItem icon>
                                 <Left>
-                                    <Button style={{ backgroundColor: "#27ae60" }}>
+                                    <Button style={{ backgroundColor: listRegions.length ? "#27ae60" : colorsPalette.gradientGray }}>
                                         <Icon type="Foundation" name="map" />
                                     </Button>
                                 </Left>
                                 <Body>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont }}>State</Text>
+                                    <Text allowFontScaling={false} style={{ color: listRegions.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>State</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
+                                enabled={filterRegionList.length ? true : false}
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
-                                textStyle={{ color: colorsPalette.transparent }}
+                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                 mode="dropdown"
                                 renderHeader={backAction =>
                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                         <Button transparent small onPress={backAction}>
-                                            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                         </Button>
-                                        {listRegions.length
-                                            ? <Item style={{ backgroundColor: colorsPalette.gradientGray }}>
+                                        {filterRegionList.length
+                                            ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                 <Icon name="ios-search" />
                                                 <Input
                                                     allowFontScaling={false}
@@ -531,19 +574,19 @@ class AboutYou extends Component {
                                                     onChangeText={(value) => this.setState({ inputTextRegions: value })} />
                                                 <Icon type="Foundation" name="map" style={{ fontSize: wp(4) }} />
                                             </Item>
-                                            : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                                                <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                            : <Item style={{ backgroundColor: '#FFF' }}>
+                                                <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>States not available</Text>
                                                 <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getRegions()}>
                                                     <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
                                                 </Button>
                                             </Item>}
                                     </Header>}
                                 iosHeader="SELECT REGION"
-                                headerBackButtonTextStyle={{ color: colorsPalette.primaryColor, fontSize: wp(5) }}
-                                headerTitleStyle={{ color: colorsPalette.primaryColor }}
-                                headerStyle={{ backgroundColor: colorsPalette.secondaryColor, borderBottomColor: colorsPalette.secondaryColor }}
+                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                headerTitleStyle={{ color: "#D81B60" }}
+                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={location.state}
-                                onValueChange={(value) => this.setState({ location: { ...location, state: value } })}>
+                                onValueChange={(value) => this.setState({ location: { ...location, state: value, city: "Not specified" } })}>
                                 {filterRegionList.length
                                     ? filterRegionList.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)
                                     : null}
@@ -552,28 +595,29 @@ class AboutYou extends Component {
                             {/* CITIES */}
                             <ListItem icon>
                                 <Left>
-                                    <Button style={{ backgroundColor: "#0277BD" }}>
+                                    <Button style={{ backgroundColor: filterCitiesList && filterCitiesList.length && filterRegionList.length ? "#0277BD" : colorsPalette.gradientGray }}>
                                         <Icon type="MaterialIcons" name="location-city" />
                                     </Button>
                                 </Left>
                                 <Body style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont }}>City</Text>
+                                    <Text allowFontScaling={false} style={{ color: filterCitiesList && filterCitiesList.length && filterRegionList.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>City</Text>
                                 </Body>
                                 <Right style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
+                                enabled={filterCitiesList && filterCitiesList.length && filterRegionList.length ? true : false}
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
-                                textStyle={{ color: colorsPalette.transparent }}
+                                textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                 mode="dropdown"
                                 renderHeader={backAction =>
                                     <Header searchBar transparent rounded style={{ left: -20 }}>
                                         <Button transparent small onPress={backAction}>
-                                            <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(5), fontWeight: '400' }}>Back</Text>
+                                            <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                         </Button>
                                         {listCities && listCities.length
-                                            ? <Item style={{ backgroundColor: colorsPalette.gradientGray }}>
+                                            ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                 <Icon name="ios-search" />
                                                 <Input
                                                     allowFontScaling={false}
@@ -582,23 +626,23 @@ class AboutYou extends Component {
                                                     onChangeText={(value) => this.setState({ inputTextCities: value })} />
                                                 <Icon type="MaterialIcons" name="location-city" style={{ fontSize: wp(4) }} />
                                             </Item>
-                                            : <Item style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                                            : <Item style={{ backgroundColor: '#FFF' }}>
                                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Cities not available</Text>
                                                 <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getCities()}>
                                                     <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
                                                 </Button>
                                             </Item>}
                                     </Header>}
-                                headerBackButtonTextStyle={{ color: colorsPalette.primaryColor, fontSize: wp(5) }}
-                                headerTitleStyle={{ color: colorsPalette.primaryColor }}
-                                headerStyle={{ backgroundColor: colorsPalette.secondaryColor, borderBottomColor: colorsPalette.secondaryColor }}
+                                headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                headerTitleStyle={{ color: "#D81B60" }}
+                                headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={location.city}
                                 onValueChange={(value) => this.setState({ location: { ...location, city: value } })}>
                                 {filterCitiesList && filterCitiesList.length
                                     ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
                                     : null}
                             </Picker>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(2), textAlign: 'center', alignSelf: 'center', width: "90%", top: 20, color: colorsPalette.darkFont }}>The location where the contest was created for the participants will be displayed (Optional)</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', textAlign: 'center', width: "90%" }}>You must specify the country, then the state and finally the city. The list will not be enabled if it is empty.</Text>
                         </Content>
                     </Container>
                 </Modal>

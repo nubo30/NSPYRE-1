@@ -214,18 +214,6 @@ class ShowContest extends Component {
 
                                 {/* Botton social network */}
                                 <Row size={15}>
-                                    {/* <View style={{ flexDirection: 'row', flex: 0.3 }}>
-                                        <View>
-                                            <Shares userData={userData} contest={contest} />
-                                        </View>
-                                        <View style={{ right: 15 }}>
-                                            <Likes userData={userData} contest={contest} />
-                                        </View>
-                                    </View>
-                                    <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                                        <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${contest.aboutTheUser.location.city}, ${contest.aboutTheUser.location.country}.`, { length: 30, separator: "..." })}</Text>
-                                    </View> */}
                                     <View style={{ justifyContent: 'flex-end', width: "100%" }}>
                                         {userLogin ?
                                             <Button
@@ -246,11 +234,11 @@ class ShowContest extends Component {
                                         activeDotColor="#D82B60"
                                         dotColor="#BDBDBD"
                                         showsButtons={false}>
-                                        <SwiperPrizes
-                                            _setModalVisiblePrizes={this._setModalVisiblePrizes}
-                                            contest={contest} />
                                         <SwiperAboutTheContest
                                             _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest}
+                                            contest={contest} />
+                                        <SwiperPrizes
+                                            _setModalVisiblePrizes={this._setModalVisiblePrizes}
                                             contest={contest} />
                                     </Swiper>
                                 </Row>

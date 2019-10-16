@@ -76,7 +76,7 @@ export default class Auth extends Component {
                     <Grid style={{ backgroundColor: colorsPalette.primaryColor }}>
                         <Row size={20} style={{ flexDirection: 'column', alignItems: 'center' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(10), color: colorsPalette.secondaryColor, fontWeight: 'bold' }}>Nspyre</Text>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.secondaryColor, textAlign: 'center' }}>Welcome! {`\n`} To continue please create an account.</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.secondaryColor, textAlign: 'center' }}>Welcome! {`\n`} {confirmAccount ?"Your registered! Login to confirm your account and complete your profile!" : "To continue please create an account."}</Text>
                         </Row>
                         <Row size={48}>
                             <View style={{

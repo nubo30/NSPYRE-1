@@ -304,7 +304,6 @@ type Engage @model{
   user: User @connection(name: "UserEngage")
   aboutThePersonality: AboutThePersonality!
   aboutTheOccupations: AboutTheOccupations! 
-  interests: Interests!
   createdAt: AWSDateTime!
 }
 
@@ -316,6 +315,7 @@ type AboutTheOccupations {
   schools: String
   university: String
   socioeconomicLevel: String
+  vote: String
 }
 
 type AboutThePersonality {
@@ -329,16 +329,6 @@ type AboutThePersonality {
   parentalCondition: String
   regionalIdentity: String
   sexuality: String
-}
-
-
-type Interests {
-  categoryContest: [String]
-  categoryPrize: [String]
-  musicalGenre: [String]
-  sports: [String]
-  political: String
-  vote: String
 }
 
 ##################################################################### NOTIFICACTIONS #####################################################################

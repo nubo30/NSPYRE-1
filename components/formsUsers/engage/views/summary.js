@@ -7,6 +7,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import * as Animatable from 'react-native-animatable'
 import _ from 'lodash'
+import truncate from 'lodash/truncate'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
 
@@ -18,10 +19,11 @@ import { MyStatusBar } from '../../../global/statusBar/index'
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
-import { randomColors } from '../../../global/static/colors'
+// import { randomColors } from '../../../global/static/colors'
 
 // GraphQL
 import * as mutations from '../../../../src/graphql/mutations'
+import { colorsPalette } from '../../../global/static/colors';
 
 class Summary extends Component {
     state = {
@@ -63,12 +65,12 @@ class Summary extends Component {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
-                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Interest</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>More ab...</Text>
                         </Button>
                         <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Summary</Title>
                     </Left>
                     <Right>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#FFF' }}>Total coins earned {_.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins])}</Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont, color: '#FFF' }}>Total points: {_.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins])}</Text>
                     </Right>
                 </Header>
 
@@ -76,7 +78,7 @@ class Summary extends Component {
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
                         <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#EEEEEE" : "#FFF", textAlign: 'left' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please verify all your information and confirm that everything is fine!</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>We done!</Text> {'\n'}Please confirm all information is correct!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -20 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -96,10 +98,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.name}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{truncate(userData.name, { separator: "...", length: 15 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -111,10 +113,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Last name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.lastname}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{truncate(userData.lastname, { separator: "...", length: 15 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -126,10 +128,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number phone</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Number phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.phone === null ? 'Not Specified' : userData.phone}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData.phone === null ? '-' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -141,10 +143,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Email</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData.email === undefined ? null : truncate(normalizeEmail(userData.email), { separator: "...", length: 15 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -156,10 +158,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Birthdate</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Birthdate</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{moment(new Date(engage.aboutThePersonality.birthDate)).calendar()}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{moment(new Date(engage.aboutThePersonality.birthDate)).calendar()}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -175,10 +177,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your location</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Location</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${engage.aboutThePersonality.location.country}, ${engage.aboutThePersonality.location.state}`, { length: 30, separator: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${engage.aboutThePersonality.location.country}, ${engage.aboutThePersonality.location.state}`, { length: 15, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -190,10 +192,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Region identity</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Identity do you associated with?</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.regionalIdentity, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.regionalIdentity, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -205,10 +207,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Cacionality</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Nacionality do you identify with?</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.nacionality, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.nacionality, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -224,10 +226,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>gender</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Gender do you identify with?</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.gender, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.gender, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -239,10 +241,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Sexual preference</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Sexual preference</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.sexuality, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.sexuality, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -254,10 +256,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Marital status</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>What is your marital status?</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.maritalStatus, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.maritalStatus, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -273,10 +275,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Parent's conditional</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Parental status</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.parentalCondition, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.parentalCondition, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -288,10 +290,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Amount of simblings</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Amount of simblings</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.amountOfSimblings, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.amountOfSimblings, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -303,10 +305,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Amount of childrens</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4), fontWeight: 'bold' }}>Amount of children</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutThePersonality.amountOfChildren, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutThePersonality.amountOfChildren, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -322,10 +324,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>school name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Hight school name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.schools, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.schools, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -337,10 +339,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>university name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>University name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.university, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.university, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -352,10 +354,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Level achivied reached</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Academic level achieved</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.levelAchivied, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.levelAchivied, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -371,10 +373,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your occupation</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Your occupation</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.occupation, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.occupation, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -386,10 +388,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Your socialeconomic level</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Your socialeconomic level</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.socioeconomicLevel, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.socioeconomicLevel, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -401,151 +403,28 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Car</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Method of transportation</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnCar, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnCar, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                         {/* RENT HOUSE OR OWN */}
-                                        <ListItem last icon>
+                                        <ListItem icon>
                                             <Left>
                                                 <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FB8C00" }}>
                                                     <Icon type="FontAwesome" name="home" />
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>House</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Living arrangements</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnHouse, { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && engage.aboutTheOccupations.rentOrOwnHouse, { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
-
-                                        <Separator bordered style={{ backgroundColor: '#F5F5F5' }}>
-                                            <Text allowFontScaling={false}>INTERESTS</Text>
-                                        </Separator>
-
-                                        {/* GENRE MUSICALS */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#FFD600" }}>
-                                                    <Icon type="Feather" name="music" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Musical genre</Text>
-                                            </Body>
-                                            <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
-                                                <Content showsHorizontalScrollIndicator={false} horizontal>
-                                                    {engage.interests && engage.interests.musicalGenre.map((item, key) =>
-                                                        <View key={key} style={{
-                                                            backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
-                                                            margin: 3, padding: 5, borderRadius: '50%', flex: 1,
-                                                            borderColor: '#3333',
-                                                            borderWidth: 0.5
-                                                        }}>
-                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
-                                                        </View>
-                                                    )}
-                                                </Content>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* SPORT LIKE */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#00C853" }}>
-                                                    <Icon type="FontAwesome" name="soccer-ball-o" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Sports you like</Text>
-                                            </Body>
-                                            <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
-                                                <Content showsHorizontalScrollIndicator={false} horizontal>
-                                                    {engage.interests && engage.interests.sports.map((item, key) =>
-                                                        <View key={key} style={{
-                                                            backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
-                                                            margin: 3, padding: 5, borderRadius: '50%', flex: 1,
-                                                            borderColor: '#3333',
-                                                            borderWidth: 0.5
-                                                        }}>
-                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
-                                                        </View>
-                                                    )}
-                                                </Content>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* CATEGORY PRIZE */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#1E88E5" }}>
-                                                    <Icon type="Feather" name="award" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Categories of your prize</Text>
-                                            </Body>
-                                            <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
-                                                <Content showsHorizontalScrollIndicator={false} horizontal>
-                                                    {engage.interests && engage.interests.categoryPrize.map((item, key) =>
-                                                        <View key={key} style={{
-                                                            backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
-                                                            margin: 3, padding: 5, borderRadius: '50%', flex: 1,
-                                                            borderColor: '#3333',
-                                                            borderWidth: 0.5
-                                                        }}>
-                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
-                                                        </View>
-                                                    )}
-                                                </Content>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* CATEGORY CONTEST */}
-                                        <ListItem icon>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#EF5350" }}>
-                                                    <Icon type="Feather" name="star" style={{ top: -1, left: 1 }} />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Categories of your contest</Text>
-                                            </Body>
-                                            <Right style={{ alignItems: 'center', justifyContent: 'flex-start', flex: 1, flexDirection: 'row', }}>
-                                                <Content showsHorizontalScrollIndicator={false} horizontal>
-                                                    {engage.interests && engage.interests.categoryContest.map((item, key) =>
-                                                        <View key={key} style={{
-                                                            backgroundColor: isLoading ? "#BDBDBD" : `${randomColors[key]}`,
-                                                            margin: 3, padding: 5, borderRadius: '50%', flex: 1,
-                                                            borderColor: '#3333',
-                                                            borderWidth: 0.5
-                                                        }}>
-                                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', fontSize: wp(4) }}>{item}</Text>
-                                                        </View>
-                                                    )}
-                                                </Content>
-                                            </Right>
-                                        </ListItem>
-
-                                        {/* POLITICAL */}
-                                        <ListItem icon style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
-                                            <Left>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#78909C" }}>
-                                                    <Icon type="Entypo" name="news" />
-                                                </Button>
-                                            </Left>
-                                            <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Political</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.political)), { length: 30, separate: '...' })}</Text>
-                                            </Right>
-                                        </ListItem>
-
+                                        {/* 
                                         {/* VOTE */}
                                         <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
                                             <Left>
@@ -554,15 +433,18 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Vote</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4), fontWeight: 'bold' }}>Vote</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(engage.interests && _.startCase(_.lowerCase(engage.interests.vote)), { length: 30, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && _.startCase(_.lowerCase(engage.aboutTheOccupations.vote)), { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
                                     </List>
                                 </Content> : null}
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(3), alignSelf: 'center' }}>
+                                Scroll down to see everything
+                            </Text>
                         </View>
                     </Row>
                 </Grid>

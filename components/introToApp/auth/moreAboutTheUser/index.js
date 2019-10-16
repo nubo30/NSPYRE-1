@@ -182,7 +182,7 @@ export default class MoreAboutTheUser extends Component {
                                             selectionColor={colorsPalette.primaryColor}
                                             style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
                                             placeholderTextColor={colorsPalette.gradientGray}
-                                            placeholder="Name" />
+                                            placeholder="First Name" />
                                     </ListItem>
 
                                     {/* Lastname */}
@@ -207,7 +207,7 @@ export default class MoreAboutTheUser extends Component {
                                             selectionColor={colorsPalette.primaryColor}
                                             style={{ fontSize: wp(5), color: colorsPalette.darkFont }}
                                             placeholderTextColor={colorsPalette.gradientGray}
-                                            placeholder="Lastname" />
+                                            placeholder="Last Name" />
                                     </ListItem>
 
                                     {/* Username */}

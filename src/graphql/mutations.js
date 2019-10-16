@@ -291,13 +291,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -599,13 +592,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -907,13 +893,6 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -1073,13 +1052,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -1700,13 +1672,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -2327,13 +2292,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -10613,13 +10571,6 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -10817,13 +10768,6 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11021,13 +10965,6 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11226,13 +11163,6 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11267,13 +11197,6 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt
@@ -11429,13 +11352,6 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11470,13 +11386,6 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt
@@ -11632,13 +11541,6 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11673,13 +11575,6 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt

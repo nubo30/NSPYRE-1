@@ -291,13 +291,6 @@ export const onCreateUser = `subscription OnCreateUser {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -599,13 +592,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -907,13 +893,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -1073,13 +1052,6 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -1700,13 +1672,6 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -2327,13 +2292,6 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -10607,13 +10565,6 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -10811,13 +10762,6 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11015,13 +10959,6 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11220,13 +11157,6 @@ export const onCreateEngage = `subscription OnCreateEngage {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11261,13 +11191,6 @@ export const onCreateEngage = `subscription OnCreateEngage {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt
@@ -11423,13 +11346,6 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11464,13 +11380,6 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt
@@ -11626,13 +11535,6 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -11667,13 +11569,6 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt

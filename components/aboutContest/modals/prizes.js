@@ -24,7 +24,7 @@ export default class Prizes extends Component {
     }
 
     render() {
-        const { thumbnailLoading, indexSwiper } = this.state
+        const { indexSwiper } = this.state
         const { modalVisiblePrizes, _setModalVisiblePrizes, contest } = this.props
         return (
             <Modal
@@ -60,11 +60,15 @@ export default class Prizes extends Component {
                                 <Title style={{ top: -10, fontSize: wp(10), color: colorsPalette.darkFont }}>Prizes</Title>
                             </Body>
                             <Right>
-                                <Button
-                                    disabled={indexSwiper === 2 ? true : false}
-                                    transparent style={{ top: -10 }} onPress={() => this._changeSwiper(1)}>
-                                    <Text allowFontScaling={false} style={{ color: indexSwiper === 2 ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>Next</Text>
-                                </Button>
+                                {indexSwiper === 2
+                                    ? <Button
+                                        transparent style={{ top: -10 }} onPress={() => { _setModalVisiblePrizes(false); this.setState({ indexSwiper: 0 }) }}>
+                                        <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Done</Text>
+                                    </Button>
+                                    : <Button
+                                        transparent style={{ top: -10 }} onPress={() => this._changeSwiper(1)}>
+                                        <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Next</Text>
+                                    </Button>}
                             </Right>
                         </Header>
                         <Swiper
@@ -132,7 +136,7 @@ export default class Prizes extends Component {
                         </Swiper>
                     </Container>
                 </View>
-            </Modal>
+            </Modal >
         )
     }
 }

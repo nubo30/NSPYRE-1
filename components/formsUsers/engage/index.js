@@ -9,7 +9,6 @@ import { View } from 'react-native'
 // Child Component
 import AboutThePersonality from './views/aboutThePersonality'
 import AbouttheirOccupations from './views/aboutTheirOccupations'
-import Interests from './views/interests'
 import Summary from './views/summary'
 import AboutThePersonalityPlaceholder from './placeholder/aboutThePersonalityPlaceholder'
 
@@ -50,7 +49,10 @@ export default class SubmitPrize extends Component {
                 <Swiper
                     scrollEnabled={false}
                     ref={(swiper) => this.swiper = swiper}
-                    loop={false} showsButtons={false} showsPagination={false}>
+                    loop={false}
+                    showsButtons={false}
+                    showsPagination={false}>
+                    
                     {/* ABOUT THE PERSONALITY*/}
                     <AboutThePersonality
                         userData={userData}
@@ -65,14 +67,7 @@ export default class SubmitPrize extends Component {
                         _dataFromForms={this._dataFromForms}
                         _indexChangeSwiper={this._indexChangeSwiper} />
 
-                    {/* INTEREST */}
-                    <Interests
-                        userData={userData}
-
-                        _dataFromForms={this._dataFromForms}
-                        _indexChangeSwiper={this._indexChangeSwiper} />
-
-                    {/* INTEREST */}
+                    {/* SUMMARY */}
                     <Summary
                         userData={userData}
                         engage={engage}

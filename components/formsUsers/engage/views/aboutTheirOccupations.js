@@ -13,6 +13,7 @@ import { MyStatusBar } from '../../../global/statusBar'
 
 // Data
 import { levelachievedList, occupationList, socioeconomicLevelList, rentOrOwnCarList, rentOrOwnHouseList } from '../../../global/data/global'
+import { colorsPalette } from '../../../global/static/colors';
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -27,8 +28,10 @@ class AbouttheirOccupations extends PureComponent {
         socioeconomicLevel: 'Not specified',
         rentOrOwnCar: 'Not specified',
         rentOrOwnHouse: 'Not specified',
+        vote: 'Not specified',
 
         // Coins
+        coinVote: 0,
         coinSchools: 0,
         coinUniversity: 0,
         coinLevelAchivied: 0,
@@ -94,7 +97,9 @@ class AbouttheirOccupations extends PureComponent {
             coinSocioeconomicLevel,
             coinRentOrOwnCar,
             coinRentOrOwnHouse,
-            schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } = this.state
+            coinVote,
+
+            schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } = this.state
         const dataCoins = {
             coinsOccupations: _.sum([
                 coinSchools,
@@ -103,9 +108,10 @@ class AbouttheirOccupations extends PureComponent {
                 coinOccupation,
                 coinSocioeconomicLevel,
                 coinRentOrOwnCar,
-                coinRentOrOwnHouse])
+                coinRentOrOwnHouse,
+                coinVote])
         }
-        const data = { aboutTheOccupations: { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } }
+        const data = { aboutTheOccupations: { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } }
         try {
             await _dataFromForms(data, dataCoins)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
@@ -117,7 +123,7 @@ class AbouttheirOccupations extends PureComponent {
     }
 
     _validateForm = () => {
-        const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse } = this.state
+        const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             schools !== 'Not specified'
@@ -127,7 +133,9 @@ class AbouttheirOccupations extends PureComponent {
                             ? socioeconomicLevel !== 'Not specified'
                                 ? rentOrOwnCar !== 'Not specified'
                                     ? rentOrOwnHouse !== 'Not specified'
-                                        ? this._submit()
+                                        ? vote !== 'Not specified'
+                                            ? this._submit()
+                                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid vote" } } })
                                         : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid data of house" } } })
                                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid data of car" } } })
                                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid socioeconomic level" } } })
@@ -148,6 +156,7 @@ class AbouttheirOccupations extends PureComponent {
             socioeconomicLevel,
             rentOrOwnCar,
             rentOrOwnHouse,
+            vote,
 
             // Coins
             coinSchools,
@@ -157,6 +166,7 @@ class AbouttheirOccupations extends PureComponent {
             coinSocioeconomicLevel,
             coinRentOrOwnCar,
             coinRentOrOwnHouse,
+            coinVote,
 
             // Input
             inputTextUniversity,
@@ -192,34 +202,32 @@ class AbouttheirOccupations extends PureComponent {
                             transparent
                             onPress={() => _indexChangeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
-                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>About You</Text>
+                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Let's get started</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>Formation</Title>
                     </Left>
                     <Right>
                         <AnimateNumber
                             allowFontScaling={false}
-                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center' }}
                             value={_.sum([coinSchools,
                                 coinUniversity,
                                 coinLevelAchivied,
                                 coinOccupation,
                                 coinSocioeconomicLevel,
                                 coinRentOrOwnCar,
-                                coinRentOrOwnHouse])}
+                                coinRentOrOwnHouse,
+                                coinVote])}
                             interval={10}
                             countBy={5}
                             formatter={(val) => {
-                                return 'Coins earned ' + parseFloat(val).toFixed(0)
+                                return 'Points: ' + parseFloat(val).toFixed(0)
                             }} />
                     </Right>
                 </Header>
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(9), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>{userData.name}</Text> {'\n'}Tell us about your personal training!
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(9), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>More About You</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -236,26 +244,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Choose your school name</Text>
-                                            <Button small transparent style={{ right: 25, paddingRight: 30 }}
-                                                onPress={() => Alert.alert(
-                                                    `${userData.name}`,
-                                                    'If your school does not appear on the list, please let us know.',
-                                                    [
-                                                        {
-                                                            text: 'Send Feedback',
-                                                            onPress: () => { },
-                                                            style: 'cancel',
-                                                        },
-                                                        { text: 'Cancel', onPress: () => { } },
-                                                    ],
-                                                    { cancelable: false },
-                                                )}>
-                                                <Icon type="Feather" name="alert-circle" style={{ fontSize: wp(4.5), color: '#3333' }} />
-                                            </Button>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Select your hight school</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{schools === 'Not specified' ? 'Not specified' : _.truncate(schools, { length: 10, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: schools === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{schools === 'Not specified' ? 'Not completed' : _.truncate(schools, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -296,26 +288,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Choose your university name</Text>
-                                            <Button small transparent style={{ right: 25, paddingRight: 30 }}
-                                                onPress={() => Alert.alert(
-                                                    `${userData.name}`,
-                                                    'If your university does not appear on the list, please let us know.',
-                                                    [
-                                                        {
-                                                            text: 'Send Feedback',
-                                                            onPress: () => { },
-                                                            style: 'cancel',
-                                                        },
-                                                        { text: 'Cancel', onPress: () => { } },
-                                                    ],
-                                                    { cancelable: false },
-                                                )}>
-                                                <Icon type="Feather" name="alert-circle" style={{ fontSize: wp(4.5), color: '#3333' }} />
-                                            </Button>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Select your university</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{university === 'Not specified' ? 'Not specified' : _.truncate(university, { length: 10, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: university === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{university === 'Not specified' ? 'Not completed' : _.truncate(university, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -356,10 +332,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Level achivied reached</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Academic level achieved</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{levelAchivied === 'Not specified' ? 'Not specified' : _.truncate(levelAchivied, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: levelAchivied === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{levelAchivied === 'Not specified' ? 'Not completed' : _.truncate(levelAchivied, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -389,10 +365,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What is your occupation</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>What is your occupation</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{occupation === 'Not specified' ? 'Not specified' : _.truncate(occupation, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: occupation === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{occupation === 'Not specified' ? 'Not completed' : _.truncate(occupation, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -433,10 +409,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What is your socialeconomic level</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Socioeconomic level do you identify?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{socioeconomicLevel === 'Not specified' ? 'Not specified' : _.truncate(socioeconomicLevel, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: socioeconomicLevel === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{socioeconomicLevel === 'Not specified' ? 'Not completed' : _.truncate(socioeconomicLevel, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -464,10 +440,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Rent or own car?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Preferred method of transportation</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{rentOrOwnCar === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnCar, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: rentOrOwnCar === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{rentOrOwnCar === 'Not specified' ? 'Not completed' : _.truncate(rentOrOwnCar, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -495,10 +471,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Rent or own house?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Living arrangements</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{rentOrOwnHouse === 'Not specified' ? 'Not specified' : _.truncate(rentOrOwnHouse, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: rentOrOwnHouse === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{rentOrOwnHouse === 'Not specified' ? 'Not completed' : _.truncate(rentOrOwnHouse, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -518,11 +494,42 @@ class AbouttheirOccupations extends PureComponent {
                                         }
                                     </ListItem>
 
+                                    {/* VOTE */}
+                                    <ListItem icon last style={{ maxHeight: 45, backgroundColor: '#FFF' }}>
+                                        <Left>
+                                            <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#424242" }}>
+                                                <Icon type="MaterialCommunityIcons" name="vote" />
+                                            </Button>
+                                        </Left>
+                                        <Body>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : null, fontWeight: "bold" }}>Are you vote?</Text>
+                                        </Body>
+                                        <Right>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: vote === "Not specified" ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{vote === 'Not specified' ? 'Not completed' : _.startCase(_.lowerCase(vote))}</Text>
+                                            <Icon active name="arrow-forward" />
+                                        </Right>
+                                        {isLoading ? null :
+                                            <View style={{ position: 'absolute', width: "100%" }}>
+                                                <Picker
+                                                    mode="dropdown"
+                                                    iosHeader="SELECT ONE"
+                                                    headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
+                                                    headerTitleStyle={{ color: "#D81B60" }}
+                                                    headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
+                                                    textStyle={{ color: 'rgba(0,0,0,0.0)' }}
+                                                    selectedValue={vote}
+                                                    onValueChange={(value) => this.setState({ vote: value, coinVote: 25 })}>
+                                                    <Picker.Item label="Yes" value="YES" />
+                                                    <Picker.Item label="No" value="NO" />
+                                                </Picker>
+                                            </View>
+                                        }
+                                    </ListItem>
                                 </List>
                             </Content>
                         </View>
-                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(4), top: 10 }}>
-                            {messageFlash.cognito && messageFlash.cognito.message}
+                        <Text allowFontScaling={false} style={{ color: messageFlash.cognito && messageFlash.cognito.message ? colorsPalette.errColor : colorsPalette.darkFont, fontSize: wp(3), top: 10 }}>
+                            {messageFlash.cognito && messageFlash.cognito.message ? messageFlash.cognito.message : "Scroll down to complete all sections"}
                         </Text>
                     </Row>
                 </Grid>

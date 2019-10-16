@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, Keyboard } from 'react-native'
+import { Dimensions, Modal, Keyboard, Alert } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Input, Header, Item, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
@@ -169,7 +169,7 @@ class AboutThePersonality extends Component {
         const { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, amountOfSimblings, parentalCondition, amountOfChildren } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            location.city !== 'Not specified'
+            location.country !== 'Not specified' && location.street
                 ? gender !== 'Not specified'
                     ? birthDate !== 'Not specified'
                         ? sexuality !== 'Not specified'
@@ -256,12 +256,12 @@ class AboutThePersonality extends Component {
                             <Icon name='arrow-back' style={{ color: isLoading ? '#EEEEEE' : '#FFF', }} />
                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>About You</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? '#EEEEEE' : '#FFF', fontSize: wp(6) }}>Let's get started</Title>
                     </Left>
                     <Right>
                         <AnimateNumber
                             allowFontScaling={false}
-                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}
+                            style={{ color: "#FFF", fontSize: wp(4), textAlign: 'center' }}
                             value={sum([coinLocation,
                                 coinGender,
                                 coinBirthDate,
@@ -275,16 +275,13 @@ class AboutThePersonality extends Component {
                             interval={10}
                             countBy={5}
                             formatter={(val) => {
-                                return 'Coins earned ' + parseFloat(val).toFixed(0)
+                                return 'Points: ' + parseFloat(val).toFixed(0)
                             }} />
                     </Right>
                 </Header>
-
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? '#EEEEEE' : '#FFF' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us about yourself and a little more! 🤗
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Tell us a little more about yourself</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -302,10 +299,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData && startCase(lowerCase(userData.name))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && truncate(startCase(lowerCase(userData.name)), { length: 15, separator: "..." })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -317,25 +314,32 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Last name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData && startCase(lowerCase(userData.lastname))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }} >{userData && truncate(startCase(lowerCase(userData.lastname)), { separator: '...', length: 15 })}</Text>
                                         </Right>
                                     </ListItem>
 
                                     {/* PHONE */}
-                                    <ListItem icon>
+                                    <ListItem
+                                        disabled={userData.phone === null ? false : true}
+                                        icon onPress={() => Alert.alert(
+                                            '',
+                                            'Please register your phone number in the "Update profile" part.',
+                                            [{ text: 'OK', onPress: () => { } }],
+                                            { cancelable: false },
+                                        )}>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#F4511E" }}>
                                                 <Icon type="Foundation" name="telephone" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number Phone</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Number phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData && userData.phone === null ? 'Not Specified' : userData.phone}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }} >{userData && truncate(userData.phone === null ? '-' : userData.phone, { separator: '...', length: 15 })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -347,10 +351,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Email</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }} >{userData.email === undefined ? null : truncate(normalizeEmail(userData.email), { separator: '...', length: 15 })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -362,10 +366,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Birthdate</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Birthdate</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{birthDate !== 'Not specified' ? moment(new Date(birthDate)).calendar() : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: birthDate !== 'Not specified' ? colorsPalette.darkFont : colorsPalette.gradientGray }} >{birthDate !== 'Not specified' ? moment(new Date(birthDate)).calendar() : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         <DateTimePicker
@@ -387,7 +391,6 @@ class AboutThePersonality extends Component {
 
                                     <Separator bordered />
 
-
                                     {/* LOCATION */}
                                     <ListItem icon disabled={isLoading} onPress={() => this._visibleModalLocation(true)}>
                                         <Left>
@@ -396,10 +399,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Location</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{location.street && location.city && location.state && location.country ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: location.street && location.country ? colorsPalette.darkFont : colorsPalette.gradientGray }} >{location.street && location.country ? truncate(`${location.street}, ${location.country}`, { separator: '...', length: 15 }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -413,10 +416,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Which identity do you most strongly associate with?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Identity do you associated with?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{regionalIdentity === 'Not specified' ? 'Not specified' : truncate(regionalIdentity, { length: 20, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: regionalIdentity === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{regionalIdentity === 'Not specified' ? 'Not completed' : truncate(regionalIdentity, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -443,10 +446,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What nacionality do you identify with?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Nacionality do you identify with?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{nacionality === 'Not specified' ? 'Not specified' : nacionality}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: nacionality === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{nacionality === 'Not specified' ? 'Not completed' : truncate(nacionality, { length: 15, separator: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -476,10 +479,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What gender do you identify with?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Gender do you identify with?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{gender === 'Not specified' ? 'Not specified' : gender}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: gender === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{gender === 'Not specified' ? 'Not completed' : gender}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -509,10 +512,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Identify according to your sexual preference</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Sexual preference?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{sexuality === 'Not specified' ? 'Not specified' : sexuality}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: sexuality === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{sexuality === 'Not specified' ? 'Not completed' : truncate(sexuality, { length: 15, separator: "..." })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -540,10 +543,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What is your marital status?</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>What is your marital status?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{maritalStatus === 'Not specified' ? 'Not specified' : maritalStatus}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: maritalStatus === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{maritalStatus === 'Not specified' ? 'Not completed' : truncate(maritalStatus, { length: 15, separator: "..." })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -573,10 +576,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Parent's conditional</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Parental status</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{parentalCondition === 'Not specified' ? 'Not specified' : truncate(parentalCondition, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: parentalCondition === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{parentalCondition === 'Not specified' ? 'Not completed' : truncate(parentalCondition, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -604,10 +607,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Amount of simblings</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Amount of siblings</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{amountOfSimblings === 'Not specified' ? 'Not specified' : truncate(amountOfSimblings, { length: 15, separate: '...' })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: amountOfSimblings === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{amountOfSimblings === 'Not specified' ? 'Not completed' : truncate(amountOfSimblings, { length: 15, separate: '...' })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -635,10 +638,10 @@ class AboutThePersonality extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Amount of childrens</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4), fontWeight: 'bold' }}>Amount of children</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{amountOfChildren === 'Not specified' ? 'Not specified' : startCase(lowerCase(amountOfChildren))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: amountOfChildren === 'Not specified' ? colorsPalette.gradientGray : colorsPalette.darkFont }} >{amountOfChildren === 'Not specified' ? 'Not completed' : startCase(lowerCase(amountOfChildren))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -661,8 +664,8 @@ class AboutThePersonality extends Component {
                                 </List>
                             </Content>
                         </View>
-                        <Text allowFontScaling={false} style={{ color: '#F44336', fontSize: wp(3), top: 10 }}>
-                            {messageFlash.cognito && messageFlash.cognito.message}
+                        <Text allowFontScaling={false} style={{ color: messageFlash.cognito && messageFlash.cognito.message ? colorsPalette.errColor : colorsPalette.darkFont, fontSize: wp(3), top: 10 }}>
+                            {messageFlash.cognito && messageFlash.cognito.message ? messageFlash.cognito.message : "Scroll down to complete all sections"}
                         </Text>
                     </Row>
                 </Grid>
@@ -709,27 +712,70 @@ class AboutThePersonality extends Component {
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ position: 'absolute', right: 0 }} onPress={() =>
-                                    location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified'
-                                        ? this.setState({ visibleModalLocation: false })
+                                    location.street && location.country !== "Not specified"
+                                        ? filterRegionList.length
+                                            ? location.state !== "Not specified"
+                                                ? filterCitiesList && filterCitiesList.length
+                                                    ? location.city !== "Not specified"
+                                                        ? this.setState({ visibleModalLocation: false })
+                                                        : this.setState({
+                                                            visibleModalLocation: false,
+                                                            listRegions: [],
+                                                            location: {
+                                                                street: "",
+                                                                country: "Not specified",
+                                                                state: "Not specified",
+                                                                city: "Not specified",
+                                                            }
+                                                        })
+                                                    : this.setState({ visibleModalLocation: false })
+                                                : this.setState({
+                                                    visibleModalLocation: false,
+                                                    listRegions: [],
+                                                    location: {
+                                                        street: "",
+                                                        country: "Not specified",
+                                                        state: "Not specified",
+                                                        city: "Not specified",
+                                                    }
+                                                })
+                                            : this.setState({ visibleModalLocation: false })
                                         : this.setState({
                                             visibleModalLocation: false,
+                                            listRegions: [],
                                             location: {
                                                 street: "",
                                                 country: "Not specified",
                                                 state: "Not specified",
                                                 city: "Not specified",
                                             }
-                                        })
-
-                                }>
+                                        })}>
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
                                         top: 5,
                                         letterSpacing: 1,
-                                        color: location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "#E91E63" : "#3333"
-                                    }}>{
-                                            location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? "DONE" : "CANCEL"
-                                        }</Text>
+                                        color: location.street && location.country !== "Not specified"
+                                            ? filterRegionList.length
+                                                ? location.state !== "Not specified"
+                                                    ? filterCitiesList && filterCitiesList.length
+                                                        ? location.city !== "Not specified"
+                                                            ? colorsPalette.primaryColor
+                                                            : colorsPalette.gradientGray
+                                                        : colorsPalette.gradientGray
+                                                    : colorsPalette.gradientGray
+                                                : colorsPalette.primaryColor
+                                            : colorsPalette.gradientGray
+                                    }}>{location.street && location.country !== "Not specified"
+                                        ? filterRegionList.length
+                                            ? location.state !== "Not specified"
+                                                ? filterCitiesList && filterCitiesList.length
+                                                    ? location.city !== "Not specified"
+                                                        ? "DONE"
+                                                        : "CANCEL"
+                                                    : "DONE"
+                                                : "CANCEL"
+                                            : "DONE"
+                                        : "CANCEL"}</Text>
                                 </Button>
                             </Right>
                         </Header>
@@ -804,26 +850,26 @@ class AboutThePersonality extends Component {
                                 headerTitleStyle={{ color: "#D81B60" }}
                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={location.country}
-                                onValueChange={(value) => this.setState({ location: { ...location, country: value } })}>
+                                onValueChange={(value) => this.setState({ location: { ...location, country: value, state: "Not specified", city: "Not specified" } })}>
                                 {filterCounttriesList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                             </Picker>
-
 
                             {/* STATES */}
                             <ListItem icon>
                                 <Left>
-                                    <Button style={{ backgroundColor: "#27ae60" }}>
+                                    <Button style={{ backgroundColor: listRegions.length ? "#27ae60" : colorsPalette.gradientGray }}>
                                         <Icon type="Foundation" name="map" />
                                     </Button>
                                 </Left>
                                 <Body>
-                                    <Text allowFontScaling={false} style={{ color: '#333' }}>State</Text>
+                                    <Text allowFontScaling={false} style={{ color: listRegions.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>State</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
+                                enabled={filterRegionList.length ? true : false}
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                 mode="dropdown"
@@ -832,7 +878,7 @@ class AboutThePersonality extends Component {
                                         <Button transparent small onPress={backAction}>
                                             <Text allowFontScaling={false} style={{ color: '#D81B60', fontSize: wp(5), fontWeight: '400' }}>Back</Text>
                                         </Button>
-                                        {listRegions.length
+                                        {filterRegionList.length
                                             ? <Item style={{ backgroundColor: '#F5F5F5' }}>
                                                 <Icon name="ios-search" />
                                                 <Input
@@ -843,7 +889,7 @@ class AboutThePersonality extends Component {
                                                 <Icon type="Foundation" name="map" style={{ fontSize: wp(4) }} />
                                             </Item>
                                             : <Item style={{ backgroundColor: '#FFF' }}>
-                                                <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>Regions not available</Text>
+                                                <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: 2 }}>States not available</Text>
                                                 <Button small transparent style={{ alignSelf: 'flex-end', top: 3, right: -50 }} onPress={() => this._getRegions()}>
                                                     <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>Reload</Text>
                                                 </Button>
@@ -854,7 +900,7 @@ class AboutThePersonality extends Component {
                                 headerTitleStyle={{ color: "#D81B60" }}
                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={location.state}
-                                onValueChange={(value) => this.setState({ location: { ...location, state: value } })}>
+                                onValueChange={(value) => this.setState({ location: { ...location, state: value, city: "Not specified" } })}>
                                 {filterRegionList.length
                                     ? filterRegionList.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)
                                     : null}
@@ -863,18 +909,19 @@ class AboutThePersonality extends Component {
                             {/* CITIES */}
                             <ListItem icon>
                                 <Left>
-                                    <Button style={{ backgroundColor: "#0277BD" }}>
+                                    <Button style={{ backgroundColor: filterCitiesList && filterCitiesList.length && filterRegionList.length ? "#0277BD" : colorsPalette.gradientGray }}>
                                         <Icon type="MaterialIcons" name="location-city" />
                                     </Button>
                                 </Left>
                                 <Body style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false} style={{ color: '#333' }}>City</Text>
+                                    <Text allowFontScaling={false} style={{ color: filterCitiesList && filterCitiesList.length && filterRegionList.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>City</Text>
                                 </Body>
                                 <Right style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
+                                enabled={filterCitiesList && filterCitiesList.length && filterRegionList.length ? true : false}
                                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
                                 textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                 mode="dropdown"
@@ -909,12 +956,11 @@ class AboutThePersonality extends Component {
                                     ? filterCitiesList.map((item, key) => <Picker.Item key={key} label={item.city} value={item.city} />)
                                     : null}
                             </Picker>
-
+                            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', textAlign: 'center', width: "90%" }}>You must specify the country, then the state and finally the city. The list will not be enabled if it is empty.</Text>
                         </Content>
                     </Container>
                 </Modal>
-
-            </Container>
+            </Container >
         );
     }
 }

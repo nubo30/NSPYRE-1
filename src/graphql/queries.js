@@ -315,13 +315,6 @@ export const getUser = `query GetUser($id: ID!) {
           schools
           university
           socioeconomicLevel
-        }
-        interests {
-          categoryContest
-          categoryPrize
-          musicalGenre
-          sports
-          political
           vote
         }
         createdAt
@@ -484,13 +477,6 @@ export const listUsers = `query ListUsers(
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -652,13 +638,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -5678,13 +5657,6 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -5973,13 +5945,6 @@ export const getEngage = `query GetEngage($id: ID!) {
             schools
             university
             socioeconomicLevel
-          }
-          interests {
-            categoryContest
-            categoryPrize
-            musicalGenre
-            sports
-            political
             vote
           }
           createdAt
@@ -6014,13 +5979,6 @@ export const getEngage = `query GetEngage($id: ID!) {
       schools
       university
       socioeconomicLevel
-    }
-    interests {
-      categoryContest
-      categoryPrize
-      musicalGenre
-      sports
-      political
       vote
     }
     createdAt
@@ -6101,13 +6059,6 @@ export const listEngages = `query ListEngages(
         schools
         university
         socioeconomicLevel
-      }
-      interests {
-        categoryContest
-        categoryPrize
-        musicalGenre
-        sports
-        political
         vote
       }
       createdAt

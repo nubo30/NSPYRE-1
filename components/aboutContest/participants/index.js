@@ -18,7 +18,7 @@ import ButtonComments from './comments'
 import ButtonStatistics from './statistics/index'
 import UpdateParticipant from './updateParticipant'
 import ButtonShare from './share'
-import ParticipationsPlaceHolder from './placeholders/participations'
+import SubmissionsPlaceHolder from './placeholders/participations'
 
 // AWS
 import * as queries from '../../../src/graphql/customQueries'
@@ -162,7 +162,7 @@ class Participants extends Component {
                         <Title
                             minimumFontScale={wp(9)}
                             allowFontScaling={false}
-                            style={{ fontSize: wp(9), color: "#D82B60" }}>Participations 🔥</Title>
+                            style={{ fontSize: wp(9), color: "#D82B60" }}>Submissions 🔥</Title>
                     </Left>
                 </Header>
                 <Tabs tabBarUnderlineStyle={{ backgroundColor: '#D82B60' }} onChangeTab={() => this._updateDataWithTab()}>
@@ -241,7 +241,7 @@ class Participants extends Component {
                                     <Text
                                         minimumFontScale={wp(4)}
                                         allowFontScaling={false}
-                                        style={{ color: "#333", fontSize: wp(4) }}>You don't have any participants yet 😕</Text>
+                                        style={{ color: "#333", fontSize: wp(4) }}>You still have not submitted 😕</Text>
                                     <Button
                                         onPress={() => _setModalVisibleAudience(true)}
                                         style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
@@ -261,10 +261,10 @@ class Participants extends Component {
                                         <Button
                                             onPress={() => _setModalVisibleJoinToTheContest(true)}
                                             style={{ backgroundColor: '#D82B60', alignSelf: 'center', top: 20, width: '60%', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ letterSpacing: 2 }}>PARTICIPATE NOW</Text>
+                                            <Text style={{ letterSpacing: 2 }}>Submit now</Text>
                                         </Button>
                                     </View> : <View style={{ flex: 1, top: 30 }}><Text allowFontScaling={false} style={{ fontSize: wp(5), textAlign: 'center', color: colorsPalette.gradientGray, width: "80%", alignSelf: 'center' }}>This contest is over, but you can go see the others!</Text></View>
-                            : <ParticipationsPlaceHolder />}
+                            : <SubmissionsPlaceHolder />}
                     </Tab>
                     {userData.id === contest.user.id || disableParticipants == true
                         ? null
@@ -344,10 +344,10 @@ class Participants extends Component {
                                             <Text
                                                 minimumFontScale={wp(4)}
                                                 allowFontScaling={false}
-                                                style={{ letterSpacing: 2, fontSize: wp(4) }}>PARTICIPATE NOW</Text>
+                                                style={{ letterSpacing: 2, fontSize: wp(4) }}>Submit now</Text>
                                         </Button>
                                     </View> : <View style={{ flex: 1, top: 30 }}><Text allowFontScaling={false} style={{ fontSize: wp(5), textAlign: 'center', color: colorsPalette.gradientGray, width: "80%", alignSelf: 'center' }}>This contest is over, but you can go see the others!</Text></View>
-                                : <ParticipationsPlaceHolder />}
+                                : <SubmissionsPlaceHolder />}
                         </Tab>
                     }
                 </Tabs>

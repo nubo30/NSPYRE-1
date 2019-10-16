@@ -70,7 +70,7 @@ class Scope extends Component {
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                     <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(7), textAlign: 'center', paddingLeft: 20, paddingRight: 20 }}>
-                        Hey <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.secondaryColor, fontSize: wp(7) }}>{moreUserData && moreUserData.name}</Text>, how do you want to continue?
+                        What user type would you like to create?
                     </Text>
                 </Row>
                 <Row size={80} style={{ alignSelf: 'center' }}>
@@ -86,24 +86,23 @@ class Scope extends Component {
                     }}>
                         <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center', flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: 'bold' }}>Choose an option</Text>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.darkFont, alignSelf: 'flex-start', left: '10%', fontWeight: '100' }}>Which user type would you like to set up?</Text>
                             <List style={{ width: "100%", padding: 10 }}>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "engage" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("engage")} />
                                     <Body>
-                                        <Text allowFontScaling={false} onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: colorsPalette.gradientGray, }}>Engage</Text>
+                                        <Text allowFontScaling={false} onPress={() => this._scopeSelect("engage")} style={{ fontSize: wp(7), color: colorsPalette.gradientGray, }}>Engage in contest</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "createContest" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("createContest")} />
                                     <Body>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("createContest")}>Create Contest</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("createContest")}>Create contests</Text>
                                     </Body>
                                 </ListItem>
                                 <ListItem style={{ height: 60, width: "90%" }}>
                                     <CheckBox checked={scope === "submitPrize" ? true : false} color={colorsPalette.primaryColor} onPress={() => this._scopeSelect("submitPrize")} />
                                     <Body>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("submitPrize")}>Submit Prize</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: colorsPalette.gradientGray }} onPress={() => this._scopeSelect("submitPrize")}>Submit prizes</Text>
                                     </Body>
                                 </ListItem>
                             </List>
