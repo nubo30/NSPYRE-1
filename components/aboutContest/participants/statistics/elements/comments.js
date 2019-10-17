@@ -94,7 +94,7 @@ class Likes extends Component {
                         </View>
                     </Row>
                     <Row size={50} style={{ flexDirection: 'column' }}>
-                        <Text style={{ alignSelf: 'center', color: "#3333" }}>Press day of the week for more information</Text>
+                        <Text style={{ alignSelf: 'center', color: "#333", fontSize: wp(2.5) }}>Press the day of the week BELOW for more information</Text>
                         <FlatList
                             data={JSON.parse(JSON.stringify(resultUsers))}
                             renderItem={({ item }) => (

@@ -106,7 +106,7 @@ export default class Audience extends Component {
                             <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(0);
                             }}>
-                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontSize: wp(3.5) }}>Your only</Text>
+                                <Text allowFontScaling={false} style={{ letterSpacing: 2, fontSize: wp(3.5) }}>Yours only</Text>
                             </Button>
                             <Button style={{ backgroundColor: '#D81B60', borderRadius: 5, width: "40%", height: "80%", justifyContent: 'center' }} onPress={() => {
                                 this._modalVisibleAudienceSelect(true); this._changeSwiper(1);

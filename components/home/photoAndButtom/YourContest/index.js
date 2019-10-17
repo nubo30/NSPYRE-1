@@ -129,7 +129,7 @@ class UserContest extends Component {
                                         keyExtractor={(item, index) => index.toString()} />
                                     : <DataNotFound inputText={input} />
                                 : <View style={{ flex: 1, alignItems: 'center', top: 50 }}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray }}>You have no contest created!</Text>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray }}>You have no contests created</Text>
                                     <Button style={{ backgroundColor: colorsPalette.primaryColor, alignSelf: 'center', top: 15 }} onPress={() => this._createContest()}>
                                         <Text style={{ fontWeight: 'bold' }}>Create one!</Text>
                                     </Button>
@@ -143,7 +143,7 @@ class UserContest extends Component {
                                 <Text
                                     minimumFontScale={wp(4)}
                                     allowFontScaling={false}
-                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Participated</Text>
+                                    style={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Submitted</Text>
                             </TabHeading>
                         }
                         activeTextStyle={{ color: colorsPalette.secondaryColor }}

@@ -17,7 +17,7 @@ class HeaderContest extends Component {
         const { contest, navigation, fromWhere } = this.props
 
         return (
-            <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: 70 }}>
+            <Header transparent>
                 <Left style={{ flexDirection: 'row' }}>
                     <Button transparent onPress={() => fromWhere === 'categoryContest' ? navigation.goBack() : navigation.navigate('Home')}>
                         <Icon name='arrow-back' style={{ color: "#FFF" }} />
@@ -26,16 +26,16 @@ class HeaderContest extends Component {
                             allowFontScaling={false}
                             style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
                     </Button>
-                    <Title
+                    {/* <Title
                         minimumFontScale={wp(9)}
                         allowFontScaling={false}
                         style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>
                         {_.truncate(contest.general.nameOfContest, { separator: '...', length: 9 })}
-                    </Title>
+                    </Title> */}
                 </Left>
                 <Right>
                     {isFinishedContest
-                        ? <View style={{ left: 15 }}>
+                        ? <View>
                             <View style={{
                                 borderRadius: 10,
                                 padding: 10, backgroundColor: '#E53935',
@@ -52,7 +52,7 @@ class HeaderContest extends Component {
                         contest.timer === null
                             ? null
                             : new Date(contest.timer.end) < new Date()
-                                ? <View style={{ left: 15 }}>
+                                ? <View>
                                     <View style={{
                                         borderRadius: 5,
                                         padding: 10,
@@ -68,7 +68,7 @@ class HeaderContest extends Component {
                                     </View>
                                 </View> : <CountDown
                                     running={isCounterPause}
-                                    style={{ left: 15 }}
+                                
                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
                                     digitTxtStyle={{ color: '#FFF' }}
                                     timeLabelStyle={{ color: '#FFF' }}

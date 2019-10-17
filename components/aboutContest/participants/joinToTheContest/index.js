@@ -4,7 +4,7 @@ import { API, graphqlOperation, Storage } from 'aws-amplify'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
-import { Button, Text, Icon, Form, Textarea, Spinner } from 'native-base'
+import { Button, Text, Icon, Form, Textarea, Spinner, Toast, Root } from 'native-base'
 import Modal from "react-native-modal";
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -12,6 +12,7 @@ import Swiper from 'react-native-swiper';
 import _ from 'lodash'
 import moment from 'moment'
 import AWS from 'aws-sdk'
+import bytes from 'bytes'
 
 import { securityCredentials } from "../../../global/aws/credentials"
 
@@ -22,6 +23,7 @@ import CongratsParticipate from '../../../global/lottieJs/congratsParticipate'
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
+import { colorsPalette } from '../../../global/static/colors'
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
@@ -158,13 +160,35 @@ export default class JoinToTheContest extends Component {
         }
 
         try {
-            if (picture.localUrl !== null) { await Storage.put(`users/${userData.email}/contest/participants/pictures/${picture.name}`, blobPicture, { contentType: picture.type }) }
-            if (video.localUrl !== null) { await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, { contentType: video.type }) }
+            if (picture.localUrl !== null) {
+                await Storage.put(`users/${userData.email}/contest/participants/pictures/${picture.name}`, blobPicture, {
+                    progressCallback(progress) {
+                        Toast.show({
+                            text: `${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                            buttonText: 'Okay',
+                            duration: progress.loaded === progress.total ? 3000 : 10000,
+                            type: progress.loaded === progress.total ? "success" : null,
+                            position: 'top'
+                        })
+                    },
+                }, { contentType: picture.type })
+            }
+            if (video.localUrl !== null) {
+                await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, {
+                    progressCallback(progress) {
+                        Toast.show({
+                            text: `${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                            buttonText: 'Okay',
+                            duration: progress.loaded === progress.total ? 3000 : 10000,
+                            type: progress.loaded === progress.total ? "success" : null,
+                            position: 'top'
+                        })
+                    },
+                }, { contentType: video.type })
+            }
             await API.graphql(graphqlOperation(mutations.createParticipants, { input: participants }))
-            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
-            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             this.setState({ isLoading: false })
-            await this._changeSwiper(1)
+            this._changeSwiper(1)
             this._createNotification()
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
@@ -221,279 +245,297 @@ export default class JoinToTheContest extends Component {
             //Functions
             _setModalVisibleJoinToTheContest } = this.props
         return (
-            <Modal isVisible={modalVisibleJoinToTheContest}>
-                <View style={{ flex: 1, borderRadius: 15, backgroundColor: '#FFF', width: screenWidth - 20, alignSelf: 'center', maxHeight: screenHeight / 2 + 100 }}>
-                    <Swiper
-                        scrollEnabled={false}
-                        onIndexChanged={(index) => this.setState({ swiperIndex: index })}
-                        ref={(swiper) => this.swiper = swiper}
-                        showsPagination={false}
-                        loop={false}>
+            <Modal
+                onSwipeComplete={() => _setModalVisibleJoinToTheContest(false)}
+                swipeDirection={['left', 'right', 'down']}
+                style={{ justifyContent: 'flex-end', margin: 0 }}
+                isVisible={modalVisibleJoinToTheContest}>
+                <Root>
+                    <View style={{
+                        backgroundColor: colorsPalette.secondaryColor,
+                        padding: 15,
+                        justifyContent: 'center',
+                        borderTopStartRadius: 10,
+                        borderTopEndRadius: 10,
+                        borderColor: 'rgba(0, 0, 0, 0.3)',
+                        flex: 1,
+                        maxHeight: screenHeight,
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100%'
+                    }}>
+                        <Swiper
+                            scrollEnabled={false}
+                            onIndexChanged={(index) => this.setState({ swiperIndex: index })}
+                            ref={(swiper) => this.swiper = swiper}
+                            showsPagination={false}
+                            loop={false}>
 
-                        {/* INTRO */}
-                        <Grid>
-                            <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 0.3, justifyContent: 'flex-end' }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60' }}>You are about to join the contest!</Text>
-                                </View>
-                                <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
-                                    <AnimationManWihtHearts />
-                                </View>
-                            </Row>
-                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button
-                                    onPress={() => this._changeSwiper(1)}
-                                    iconRight style={{
-                                        backgroundColor: '#D82B60',
-                                        width: '70%',
-                                        shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
-                                    }}>
-                                    <Text
-                                        allowFontScaling={false}
-                                        style={{ color: '#FFF' }}>Next</Text>
-                                    <Icon name='arrow-forward' />
-                                </Button>
-                            </Row>
-                            <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button
-                                    transparent
-                                    onPress={() => {
-                                        this.setState({
-                                            video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
-                                            picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
-                                        });
-                                        _setModalVisibleJoinToTheContest(false)
-                                    }}>
-                                    <Text
-                                        allowFontScaling={false}
-                                        style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                            </Row>
-                        </Grid>
-
-                        {/* INSTRUCTIONS */}
-                        <Grid>
-                            <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 0.4, alignItems: 'center', padding: 5 }}>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
-                                        {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
-                                    </Text>
-                                </View>
-                                <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
-                                    <InstructionsGirlWithPhone />
-                                </View>
-                            </Row>
-                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button
-                                    onPress={() => this._changeSwiper(1)}
-                                    iconRight style={{
-                                        backgroundColor: '#D82B60',
-                                        width: '70%',
-                                        shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
-                                    <Icon name='arrow-forward' />
-                                </Button>
-                            </Row>
-                            <Row size={10} style={{ justifyContent: 'space-between' }}>
-                                <Button
-                                    transparent
-                                    onPress={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
-                                </Button>
-                                <Button
-                                    transparent
-                                    onPress={
-                                        () => {
-                                            _setModalVisibleJoinToTheContest(false);
-                                            this.setState({
-                                                commentText: '',
-                                                video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
-                                                picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
-                                            })
-                                        }}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                            </Row>
-                        </Grid>
-
-                        {/* UPLOAD VIDEO OR MEME */}
-                        <Grid>
-                            <Row size={20} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
-                            </Row>
-                            {video.localUrl !== null
-                                ? <Row size={60} style={{ flexDirection: 'column' }}>
-                                    <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Video
-                                            source={{ uri: video.localUrl }}
-                                            useNativeControls
-                                            rate={1.0}
-                                            volume={1.0}
-                                            isMuted={false}
-                                            resizeMode="cover"
-                                            shouldPlay={false}
-                                            isLooping={false}
-                                            style={{
-                                                shadowColor: "rgba(0,0,0,0.5)", shadowOffset: { width: 1 }, shadowOpacity: 1,
-                                                width: "100%", height: "100%"
-                                            }} />
+                            {/* INTRO */}
+                            <Grid>
+                                <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.3, justifyContent: 'flex-end' }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60' }}>You are about to join the contest!</Text>
                                     </View>
-                                    <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Button
-                                            onPress={() => this._useLibraryHandler('Videos')}
-                                            transparent
-                                            style={{ alignSelf: 'center' }}>
-                                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change video</Text>
-                                        </Button>
+                                    <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
+                                        <AnimationManWihtHearts />
                                     </View>
                                 </Row>
-                                : null}
-
-                            {picture.localUrl !== null
-                                ? <Row size={60} style={{ flexDirection: 'column' }}>
-                                    <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
-                                    </View>
-                                    <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Button
-                                            onPress={() => this._useLibraryHandler('Images')}
-                                            transparent
-                                            style={{ alignSelf: 'center' }}>
-                                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change picture</Text>
-                                        </Button>
-                                    </View>
+                                <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button
+                                        onPress={() => this._changeSwiper(1)}
+                                        iconRight style={{
+                                            backgroundColor: '#D82B60',
+                                            width: '70%',
+                                            shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
+                                        }}>
+                                        <Text
+                                            allowFontScaling={false}
+                                            style={{ color: '#FFF' }}>Next</Text>
+                                        <Icon name='arrow-forward' />
+                                    </Button>
                                 </Row>
-                                : null}
-
-                            {video.localUrl === null && picture.localUrl === null ? <Row size={60} style={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
-                                <Button
-                                    onPress={() => this._useLibraryHandler('Videos')}
-                                    transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
-                                    <Icon type="Ionicons" name="ios-videocam" style={{ fontSize: wp(20), color: "#3333" }} />
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Videos</Text>
-                                </Button>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', color: '#333' }}>OR</Text>
-                                <Button
-                                    onPress={() => this._useLibraryHandler('Images')}
-                                    transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
-                                    <Icon type="Entypo" name="images" style={{ fontSize: wp(20), color: "#3333" }} />
-                                    <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Imagen/Meme</Text>
-                                </Button>
-                            </Row> : null}
-
-                            <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button
-                                    disabled={video.localUrl || picture.localUrl ? false : true}
-                                    onPress={() => this._changeSwiper(1)}
-                                    iconRight style={{
-                                        backgroundColor: video.localUrl || picture.localUrl ? '#D82B60' : '#EC407A',
-                                        width: '70%',
-                                        shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
-                                    }}>
-                                    <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
-                                    <Icon name='arrow-forward' />
-                                </Button>
-                            </Row>
-                            <Row size={10} style={{ justifyContent: 'space-between' }}>
-                                <Button
-                                    transparent
-                                    onPress={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
-                                </Button>
-                                <Button
-                                    transparent
-                                    onPress={
-                                        () => {
-                                            _setModalVisibleJoinToTheContest(false);
+                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button
+                                        transparent
+                                        onPress={() => {
                                             this.setState({
-                                                commentText: '',
                                                 video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
                                                 picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
-                                            })
+                                            });
+                                            _setModalVisibleJoinToTheContest(false)
                                         }}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                            </Row>
-                        </Grid>
+                                        <Text
+                                            allowFontScaling={false}
+                                            style={{ color: '#3333' }}>Close</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
 
-                        {/* COMMENTS */}
-                        <Grid>
-                            <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'flex-start', left: 10 }}>Create a comment</Text>
-                                <Form style={{ padding: 10 }}>
-                                    <Textarea
-                                        editable={isLoading}
-                                        allowFontScaling={false}
-                                        onChangeText={(value) => this.setState({ commentText: value })}
-                                        value={commentText}
-                                        maxLength={1024}
-                                        autoFocus={swiperIndex === 3 ? true : false}
-                                        selectionColor="#D82B60"
-                                        style={{ borderColor: '#FFF', padding: 10, fontSize: wp(4), minWidth: '95%' }}
-                                        rowSpan={8}
-                                        placeholder="Briefly describe any thoughts you want to illustrate in your participation!" />
-                                </Form>
-                            </Row>
-                            <Row size={15} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Button
-                                    disabled={isLoading}
-                                    onPress={() => this._submit()}
-                                    iconRight style={{
-                                        backgroundColor: '#D82B60',
-                                        width: '70%',
-                                        shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1,
-                                        alignSelf: 'center',
-                                        alignItems: 'center', justifyContent: 'center'
-                                    }}>
-                                    {isLoading
-                                        ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text allowFontScaling={false} style={{ color: "#EEEEEE" }}>Please wait...  </Text>
-                                            <Spinner size="small" color="#EEEEEE" />
+                            {/* INSTRUCTIONS */}
+                            <Grid>
+                                <Row size={80} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.4, alignItems: 'center', padding: 5 }}>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60' }}>Instructions</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#3333', textAlign: 'center', top: 5 }}>
+                                            {_.truncate(contest.general.instructions, { separate: '...', length: 170 })}
+                                        </Text>
+                                    </View>
+                                    <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
+                                        <InstructionsGirlWithPhone />
+                                    </View>
+                                </Row>
+                                <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button
+                                        onPress={() => this._changeSwiper(1)}
+                                        iconRight style={{
+                                            backgroundColor: '#D82B60',
+                                            width: '70%',
+                                            shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
+                                        }}>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
+                                        <Icon name='arrow-forward' />
+                                    </Button>
+                                </Row>
+                                <Row size={10} style={{ justifyContent: 'space-between' }}>
+                                    <Button
+                                        transparent
+                                        onPress={() => this._changeSwiper(-1)}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
+                                    </Button>
+                                    <Button
+                                        transparent
+                                        onPress={
+                                            () => {
+                                                _setModalVisibleJoinToTheContest(false);
+                                                this.setState({
+                                                    commentText: '',
+                                                    video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                    picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                                })
+                                            }}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
+
+                            {/* UPLOAD VIDEO OR MEME */}
+                            <Grid>
+                                <Row size={20} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'center' }}>Upload your content</Text>
+                                </Row>
+                                {video.localUrl !== null
+                                    ? <Row size={60} style={{ flexDirection: 'column' }}>
+                                        <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Video
+                                                source={{ uri: video.localUrl }}
+                                                useNativeControls
+                                                rate={1.0}
+                                                volume={1.0}
+                                                isMuted={false}
+                                                resizeMode="cover"
+                                                shouldPlay={false}
+                                                isLooping={false}
+                                                style={{
+                                                    shadowColor: "rgba(0,0,0,0.5)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                                    width: "100%", height: "100%"
+                                                }} />
                                         </View>
-                                        : <Text allowFontScaling={false} style={{ color: '#FFF', letterSpacing: 2 }}>SUBMIT</Text>}
+                                        <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Button
+                                                onPress={() => this._useLibraryHandler('Videos')}
+                                                transparent
+                                                style={{ alignSelf: 'center' }}>
+                                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change video</Text>
+                                            </Button>
+                                        </View>
+                                    </Row>
+                                    : null}
 
-                                </Button>
-                            </Row>
-                            <Row size={10} style={{ justifyContent: 'space-between' }}>
-                                <Button
-                                    transparent
-                                    onPress={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
-                                </Button>
-                                <Button
-                                    transparent
-                                    onPress={
-                                        () => {
-                                            _setModalVisibleJoinToTheContest(false);
-                                            this.setState({
-                                                commentText: '',
-                                                video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
-                                                picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
-                                            })
+                                {picture.localUrl !== null
+                                    ? <Row size={60} style={{ flexDirection: 'column' }}>
+                                        <View style={{ flex: 0.8, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
+                                        </View>
+                                        <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
+                                            <Button
+                                                onPress={() => this._useLibraryHandler('Images')}
+                                                transparent
+                                                style={{ alignSelf: 'center' }}>
+                                                <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(3) }}>Change picture</Text>
+                                            </Button>
+                                        </View>
+                                    </Row>
+                                    : null}
+
+                                {video.localUrl === null && picture.localUrl === null ? <Row size={60} style={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
+                                    <Button
+                                        onPress={() => this._useLibraryHandler('Videos')}
+                                        transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
+                                        <Icon type="Ionicons" name="ios-videocam" style={{ fontSize: wp(20), color: "#3333" }} />
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Videos</Text>
+                                    </Button>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', color: '#333' }}>OR</Text>
+                                    <Button
+                                        onPress={() => this._useLibraryHandler('Images')}
+                                        transparent icon style={{ width: '40%', height: '40%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', top: 5 }}>
+                                        <Icon type="Entypo" name="images" style={{ fontSize: wp(20), color: "#3333" }} />
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: '#3333' }}>Imagen/Meme</Text>
+                                    </Button>
+                                </Row> : null}
+
+                                <Row size={20} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button
+                                        disabled={video.localUrl || picture.localUrl ? false : true}
+                                        onPress={() => this._changeSwiper(1)}
+                                        iconRight style={{
+                                            backgroundColor: video.localUrl || picture.localUrl ? '#D82B60' : '#EC407A',
+                                            width: '70%',
+                                            shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1
                                         }}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                            </Row>
-                        </Grid>
+                                        <Text allowFontScaling={false} style={{ color: '#FFF' }}>Next</Text>
+                                        <Icon name='arrow-forward' />
+                                    </Button>
+                                </Row>
+                                <Row size={10} style={{ justifyContent: 'space-between' }}>
+                                    <Button
+                                        transparent
+                                        onPress={() => this._changeSwiper(-1)}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
+                                    </Button>
+                                    <Button
+                                        transparent
+                                        onPress={
+                                            () => {
+                                                _setModalVisibleJoinToTheContest(false);
+                                                this.setState({
+                                                    commentText: '',
+                                                    video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                    picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                                })
+                                            }}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
 
-                        {/* CONGRATS */}
-                        <Grid>
-                            <Row size={90} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
-                                    <CongratsParticipate swiperIndex={swiperIndex} />
-                                </View>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60', alignSelf: 'center' }}>You are inside!</Text>
-                            </Row>
-                            <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Button transparent onPress={() => _setModalVisibleJoinToTheContest(false)}>
-                                    <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
-                                </Button>
-                            </Row>
-                        </Grid>
-                    </Swiper>
-                </View>
+                            {/* COMMENTS */}
+                            <Grid>
+                                <Row size={75} style={{ flexDirection: 'column', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(8), color: '#D82B60', alignSelf: 'flex-start', left: 10 }}>Create a comment</Text>
+                                    <Form style={{ padding: 10 }}>
+                                        <Textarea
+                                            editable={isLoading}
+                                            allowFontScaling={false}
+                                            onChangeText={(value) => this.setState({ commentText: value })}
+                                            value={commentText}
+                                            maxLength={1024}
+                                            autoFocus={swiperIndex === 3 ? true : false}
+                                            selectionColor="#D82B60"
+                                            style={{ borderColor: '#FFF', padding: 10, fontSize: wp(4), minWidth: '95%' }}
+                                            rowSpan={8}
+                                            placeholder="Briefly describe any thoughts you want to illustrate in your participation!" />
+                                    </Form>
+                                </Row>
+                                <Row size={15} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button
+                                        disabled={isLoading}
+                                        onPress={() => this._submit()}
+                                        iconRight style={{
+                                            backgroundColor: '#D82B60',
+                                            width: '70%',
+                                            shadowColor: "rgba(0,0,0,0.3)", shadowOffset: { width: 1 }, shadowOpacity: 1,
+                                            alignSelf: 'center',
+                                            alignItems: 'center', justifyContent: 'center'
+                                        }}>
+                                        {isLoading
+                                            ? <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                <Text allowFontScaling={false} style={{ color: "#EEEEEE" }}>Please wait...  </Text>
+                                                <Spinner size="small" color="#EEEEEE" />
+                                            </View>
+                                            : <Text allowFontScaling={false} style={{ color: '#FFF', letterSpacing: 2 }}>SUBMIT</Text>}
+
+                                    </Button>
+                                </Row>
+                                <Row size={10} style={{ justifyContent: 'space-between' }}>
+                                    <Button
+                                        transparent
+                                        onPress={() => this._changeSwiper(-1)}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Back</Text>
+                                    </Button>
+                                    <Button
+                                        transparent
+                                        onPress={
+                                            () => {
+                                                _setModalVisibleJoinToTheContest(false);
+                                                this.setState({
+                                                    commentText: '',
+                                                    video: { ...video, localUrl: null, name: null, url: null, type: null, blob: {} },
+                                                    picture: { ...picture, localUrl: null, name: null, url: null, type: null, blob: {} }
+                                                })
+                                            }}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
+
+                            {/* CONGRATS */}
+                            <Grid>
+                                <Row size={90} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.6, alignItems: 'center', justifyContent: 'center' }}>
+                                        <CongratsParticipate swiperIndex={swiperIndex} />
+                                    </View>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(7), color: '#D82B60', alignSelf: 'center' }}>You are inside!</Text>
+                                </Row>
+                                <Row size={10} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Button transparent onPress={() => _setModalVisibleJoinToTheContest(false)}>
+                                        <Text allowFontScaling={false} style={{ color: '#3333' }}>Close</Text>
+                                    </Button>
+                                </Row>
+                            </Grid>
+                        </Swiper>
+                    </View>
+                </Root>
             </Modal>
         );
     }

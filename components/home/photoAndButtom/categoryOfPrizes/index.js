@@ -196,7 +196,7 @@ class ListGeneralPrizes extends Component {
                                         style={{ color: '#BDBDBD', fontSize: wp(5.5), alignSelf: 'center', textAlign: 'center' }}>You don't have prizes created yet</Text>
                                     <Button
                                         onPress={() => { _setModalVisibleRedeemPoints(false); navigation.navigate('SubmitPrize') }}
-                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.secondaryColor, top: 10 }}>
+                                        style={{ alignSelf: 'center', backgroundColor: colorsPalette.primaryColor, top: 10 }}>
                                         <Text
                                             minimumFontScale={wp(4)}
                                             allowFontScaling={false}

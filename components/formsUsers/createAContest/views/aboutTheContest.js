@@ -8,6 +8,7 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
+import truncate from 'lodash/truncate'
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from 'moment'
 
@@ -30,7 +31,7 @@ export default class AboutTheContest extends Component {
         messageFlash: { cognito: null },
 
         // Data
-        category: 'Not specified',
+        category: 'Not completed',
         nameOfContest: "",
         description: "",
         instructions: "",
@@ -62,7 +63,7 @@ export default class AboutTheContest extends Component {
         const { category, nameOfContest, description, instructions, picture, video, dateChoose } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
-            category !== 'Not specified'
+            category !== 'Not completed'
                 ? nameOfContest
                     ? description
                         ? instructions
@@ -99,7 +100,7 @@ export default class AboutTheContest extends Component {
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
-        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
+        let result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: action })
         if (result.type === 'image') {
             if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
         } else {
@@ -239,7 +240,7 @@ export default class AboutTheContest extends Component {
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
                         <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>
-                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Great! {'\n'}</Text> Now tell us about the contest you want to build!
+                            <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(11), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Great! {'\n'}</Text>Now tell us about the contest you want to build!
                         </Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center' }}>
@@ -255,10 +256,10 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Category</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Category</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.upperFirst(_.lowerCase(category))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: category !== 'Not completed' ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{truncate(_.upperFirst(_.lowerCase(category)), { length: 15, separator: "..." })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -294,10 +295,10 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name of contest</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Name of contest</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{nameOfContest ? nameOfContest : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: nameOfContest ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{nameOfContest ? truncate(nameOfContest, { length: 15, separator: "..." }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -310,10 +311,10 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Description</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Description</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(description ? description : "Not specified", { separator: '...', length: 20 })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: description ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{_.truncate(description ? description : "Not completed", { separator: '...', length: 15 })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -326,10 +327,10 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Instructions</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Instructions</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(instructions ? instructions : "Not specified", { separator: '...', length: 20 })}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: instructions ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{_.truncate(instructions ? instructions : "Not completed", { separator: '...', length: 15 })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -342,7 +343,7 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: !isLoading ? null : colorsPalette.opaqueWhite, fontSize: wp(4) }}>{dateChoose === "" ? "Add Timer" : moment(dateChoose).format('LLLL')}</Text>
+                                            <Text allowFontScaling={false} style={{ color: !isLoading ? colorsPalette.darkFont : colorsPalette.opaqueWhite, fontSize: wp(4), fontWeight: 'bold' }}>{dateChoose === "" ? "Contest length" : moment(dateChoose).format('LLLL')}</Text>
                                         </Body>
                                         <Right>
                                             <Switch
@@ -368,26 +369,26 @@ export default class AboutTheContest extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Picture</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Picture</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{picture.name ? "Already selected" : "No select"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: picture.name ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{picture.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
                                     {/* VIDEO */}
-                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })}>
+                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ visibleModalVideo: true })} last>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#FBC02D" }}>
                                                 <Feather style={{ fontSize: wp(5), color: colorsPalette.secondaryColor }} active name="video" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Video</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Video</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{video.name ? "Already selected" : "No select"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: video.name ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{video.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -663,7 +664,7 @@ export default class AboutTheContest extends Component {
                                 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(3), textAlign: 'center', width: '85%' }}>Upload here a video telling people about your contest! Please keep your video to 1 min or less!</Text>
                         </Row>
                     </Grid>
                 </Modal>

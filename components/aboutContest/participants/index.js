@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { Video } from 'expo-av';
 import { withNavigation } from 'react-navigation'
 import { FlatList, Image } from 'react-native'
-import { Container, Header, Tab, Tabs, Text, Left, Body, Title, View, Button, Thumbnail, TabHeading, Card, CardItem, Right } from 'native-base';
+import { Container, Header, Tab, Tabs, Text, Left, Body, Title, View, Button, Thumbnail, TabHeading, Card, CardItem, Right, Icon } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import UserAvatar from "react-native-user-avatar"
@@ -26,6 +26,7 @@ import * as subscriptions from '../../../src/graphql/subscriptions'
 import * as mutations from '../../../src/graphql/mutations'
 
 import { colorsPalette } from '../../global/static/colors';
+
 let fullscreenVideo = 0
 
 class Participants extends Component {
@@ -227,6 +228,10 @@ class Participants extends Component {
                                                 <Left style={{ right: 10 }}>
                                                     <ButtonListLikes _getParticipation={this._getParticipation} item={item} contest={contest} />
                                                     <ButtonComments _getParticipation={this._getParticipation} item={item} contest={contest} />
+                                                    <Button iconLeft transparent disabled style={{ right: 30 }}>
+                                                        <Icon name="eye" type="Ionicons" style={{ color: colorsPalette.gradientGray }} />
+                                                        <Text style={{ right: 10, color: colorsPalette.gradientGray }}>{item.viewsParticipants.items.length}</Text>
+                                                    </Button>
                                                 </Left>
                                                 <Right>
                                                     <ButtonShare item={item} contest={contest} />
@@ -296,6 +301,9 @@ class Participants extends Component {
                                                                 <Text note>{upperFirst(moment(item.createdAt).fromNow())}</Text>
                                                             </Body>
                                                         </Left>
+                                                        <Right>
+                                                            <Text>Points: 5,000</Text>
+                                                        </Right>
                                                     </CardItem>
                                                     <CardItem>
                                                         <Body>
@@ -323,6 +331,10 @@ class Participants extends Component {
                                                         <Left style={{ right: 10 }}>
                                                             <ButtonListLikes _getParticipation={this._getParticipation} item={item} />
                                                             <ButtonComments _getParticipation={this._getParticipation} item={item} />
+                                                            <Button iconLeft transparent disabled style={{ right: 30 }}>
+                                                                <Icon name="eye" type="Ionicons" style={{ color: colorsPalette.gradientGray }} />
+                                                                <Text style={{ right: 10, color: colorsPalette.gradientGray }}>{item.viewsParticipants.items.length}</Text>
+                                                            </Button>
                                                         </Left>
                                                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                                                             <UpdateParticipant item={item} contest={contest} />

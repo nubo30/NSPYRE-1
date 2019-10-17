@@ -34,7 +34,7 @@ class AboutYou extends Component {
             city: "Not specified",
         },
         companyName: "",
-        titleInTheCompany: 'Not specified',
+        titleInTheCompany: 'Not completed',
 
         inputTextTitleIntheCompany: "",
         inputTextCountry: "",
@@ -203,9 +203,7 @@ class AboutYou extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor }}>Create your contest</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: colorsPalette.secondaryColor, width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -219,10 +217,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && startCase(lowerCase(userData.name))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && startCase(lowerCase(truncate(userData.name, { length: 15, separator: "..." })))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -234,10 +232,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Lastname</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Last name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && startCase(lowerCase(userData.lastname))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && startCase(lowerCase(truncate(userData.lastname, { length: 15, separator: "..." })))}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -249,10 +247,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Number Phone</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Number phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && userData.phone === null ? 'Not completed' : userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -264,10 +262,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Email</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Email</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: userData.email !== undefined ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{userData.email === undefined ? "-" : truncate(normalizeEmail(userData.email), { length: 15, separator: "..." })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -279,10 +277,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Location</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{location.street && location.city && location.state && location.country ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: location.street && location.country ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{location.street && location.country ? truncate(`${location.street}, ${location.country}`, { length: 15, separator: "..." }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -295,26 +293,26 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Company Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Company Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? truncate(companyName, { separator: '...', length: 15 }) : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: companyName ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{companyName ? truncate(companyName, { separator: '...', length: 15 }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
                                     {/* TITLE IN THE OCMPANY */}
-                                    <ListItem icon>
+                                    <ListItem icon last>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#009688" }}>
                                                 <Icon type="Entypo" name="creative-commons-attribution" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Title in the company</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Title in the company</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{titleInTheCompany}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: titleInTheCompany !== "Not completed" ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{truncate(titleInTheCompany, { length: 15, separator: "..." })}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -475,7 +473,7 @@ class AboutYou extends Component {
                                 </Left>
                                 <Body>
                                     <Input
-                                        onSubmitEditing={() => location.street && location.country !== 'Not specified' && location.state !== "Not specified" && location.city !== 'Not specified' ? this.setState({ visibleModalLocation: false }) : Keyboard.dismiss()}
+                                        onSubmitEditing={() => location.street && location.country !== 'Not completed' && location.state !== "Not specified" && location.city !== 'Not completed' ? this.setState({ visibleModalLocation: false }) : Keyboard.dismiss()}
                                         returnKeyType='done'
                                         allowFontScaling={false}
                                         placeholder="Your street"
@@ -503,7 +501,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: '#333' }}>Country</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false}>{location.country !== "Not specified" ? location.country : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false}>{location.country !== "Not specified" ? location.country : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
@@ -551,7 +549,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: listRegions.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>State</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{location.state !== "Not specified" ? location.state : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{location.state !== "Not specified" ? location.state : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
@@ -603,7 +601,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: filterCitiesList && filterCitiesList.length && filterRegionList.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>City</Text>
                                 </Body>
                                 <Right style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{location.city !== "Not specified" ? location.city : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{location.city !== "Not specified" ? location.city : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker

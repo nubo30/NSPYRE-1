@@ -7,6 +7,7 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
+import truncate from 'lodash/truncate'
 
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
@@ -58,7 +59,7 @@ export default class Prizes extends Component {
     // Abrir la libreria de imagenes
     _useLibraryHandler = async (action) => {
         await this.askPermissionsAsync()
-        let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [4, 3], mediaTypes: action })
+        let result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: action })
         if (!result.cancelled) { this._getNameOfLocalUrlImage(result.uri) }
     }
 
@@ -192,10 +193,10 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Name of prize</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Name of prize</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{name ? name : 'Not specified'}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: name ? colorsPalette.darkFont : colorsPalette.gradientGray }} >{name ? truncate(name, { length: 15, separator: "..." }) : 'Not completed'}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -208,26 +209,26 @@ export default class Prizes extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Terms</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Terms</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: description ? colorsPalette.darkFont : colorsPalette.gradientGray }} >{description ? _.truncate(description, { separator: "...", length: 20 }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
 
                                     {/* PICTURE */}
-                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicture: true })}>
+                                    <ListItem disabled={isLoading} icon onPress={() => this.setState({ VisibleModalPicture: true })} last>
                                         <Left>
                                             <Button style={{ backgroundColor: isLoading ? colorsPalette.opaqueWhite : "#4DB6AC" }}>
                                                 <FontAwesome style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor }} active name="picture-o" />
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4) }}>Picture</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : null, fontSize: wp(4), fontWeight: 'bold' }}>Picture</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }} >{picture.name ? "Already selected" : "No select"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: picture.name ? colorsPalette.darkFont : colorsPalette.gradientGray }} >{picture.name ? "Already selected" : "No select"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>

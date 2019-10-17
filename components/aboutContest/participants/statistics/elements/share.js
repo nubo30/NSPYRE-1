@@ -109,7 +109,6 @@ class Likes extends Component {
                             absolute />
                     </Row>
                     <Row size={50} style={{ flexDirection: 'column' }}>
-                        {/* <Text style={{ alignSelf: 'center', color: "#3333" }}>Press day of the week for more information</Text> */}
                         <FlatList
                             data={dataUser}
                             renderItem={({ item }) => (

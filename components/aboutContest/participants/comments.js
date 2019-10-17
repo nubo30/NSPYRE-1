@@ -32,6 +32,7 @@ class Comments extends Component {
             commentsToParticipantsParticipantsId: item.id,
             comments: this.state.comment
         }
+        console.log(comment, "|||||||||||||||||||||||")
         try {
             await API.graphql(graphqlOperation(mutations.createCommentsToParticipants, { input: comment }))
             this.setState({ isLoading: false, modalComment: false })
@@ -188,54 +189,55 @@ class Comments extends Component {
                                 <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', color: colorsPalette.gradientGray, top: -10 }}>User Comments</Text>
                             </View>
                             <Content contentContainerStyle={{ flex: 1 }}>
-                                {item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.length ? <FlatList
-                                    data={item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })}
-                                    renderItem={({ item }) => (
-                                        <View>
+                                {item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.length
+                                    ? <FlatList
+                                        data={item.commentsToParticipants && item.commentsToParticipants.items && item.commentsToParticipants && item.commentsToParticipants.items.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })}
+                                        renderItem={({ item }) => (
                                             <View>
-                                                <ListItem
-                                                    avatar
-                                                    underlayColor={colorsPalette.secondaryColor}>
-                                                    <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { this.setState({ modalAnimated: false }); this.props.navigation.navigate('UserProfile', { userId: item.idUserComments }) }} />
-                                                    <Left>
-                                                        {item.avatar !== null
-                                                            ? <Thumbnail small source={{ uri: item.avatar }} />
-                                                            : <UserAvatar size="35" name={item.name} />}
-                                                    </Left>
-                                                    <Body style={{ borderBottomColor: colorsPalette.transparent, top: 5 }}>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.id === item.idUserComments ? "You" : item.name}  <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{moment(item.createdAt).fromNow()} (edited)</Text></Text>
-                                                        <ReadMore numberOfLines={3}>
-                                                            <Text allowFontScaling={false} note style={{ fontSize: wp(4), fontWeight: 'normal' }}>{item.comments}</Text>
-                                                        </ReadMore>
-                                                    </Body>
-                                                </ListItem>
-                                            </View>
-                                            {userData.id === item.idUserComments
-                                                ? <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                                    <Button transparent small style={{ left: 10 }} onPress={() => { this._openOrCloseModal(item); this.setState({ itemToUpdate: item }) }}>
-                                                        <Icon type="MaterialIcons" name="mode-edit" style={{ color: colorsPalette.gradientGray }} />
-                                                    </Button>
-                                                    <Button
-                                                        transparent small onPress={() => Alert.alert(
-                                                            '',
-                                                            'You are deleting your comment, do you want to continue?',
-                                                            [
-                                                                {
-                                                                    text: 'Cancel',
-                                                                    onPress: () => { },
-                                                                    style: 'cancel',
-                                                                },
-                                                                { text: 'OK', onPress: () => this._deleteComment(item) },
-                                                            ],
-                                                            { cancelable: false },
-                                                        )}>
-                                                        <Icon type="Ionicons" name="md-trash" style={{ color: colorsPalette.errColor }} />
-                                                    </Button>
+                                                <View>
+                                                    <ListItem
+                                                        avatar
+                                                        underlayColor={colorsPalette.secondaryColor}>
+                                                        <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { this.setState({ modalAnimated: false }); this.props.navigation.navigate('UserProfile', { userId: item.idUserComments }) }} />
+                                                        <Left>
+                                                            {item.avatar !== null
+                                                                ? <Thumbnail small source={{ uri: item.avatar }} />
+                                                                : <UserAvatar size="35" name={item.name} />}
+                                                        </Left>
+                                                        <Body style={{ borderBottomColor: colorsPalette.transparent, top: 5 }}>
+                                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.id === item.idUserComments ? "You" : item.name}  <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{moment(item.createdAt).fromNow()} (edited)</Text></Text>
+                                                            <ReadMore numberOfLines={3}>
+                                                                <Text allowFontScaling={false} note style={{ fontSize: wp(4), fontWeight: 'normal' }}>{item.comments}</Text>
+                                                            </ReadMore>
+                                                        </Body>
+                                                    </ListItem>
+                                                </View>
+                                                {userData.id === item.idUserComments
+                                                    ? <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                                        <Button transparent small style={{ left: 10 }} onPress={() => { this._openOrCloseModal(item); this.setState({ itemToUpdate: item }) }}>
+                                                            <Icon type="MaterialIcons" name="mode-edit" style={{ color: colorsPalette.gradientGray }} />
+                                                        </Button>
+                                                        <Button
+                                                            transparent small onPress={() => Alert.alert(
+                                                                '',
+                                                                'You are deleting your comment, do you want to continue?',
+                                                                [
+                                                                    {
+                                                                        text: 'Cancel',
+                                                                        onPress: () => { },
+                                                                        style: 'cancel',
+                                                                    },
+                                                                    { text: 'OK', onPress: () => this._deleteComment(item) },
+                                                                ],
+                                                                { cancelable: false },
+                                                            )}>
+                                                            <Icon type="Ionicons" name="md-trash" style={{ color: colorsPalette.errColor }} />
+                                                        </Button>
 
-                                                </View> : null}
-                                        </View>
-                                    )}
-                                    keyExtractor={item => item.createdAt} />
+                                                    </View> : null}
+                                            </View>
+                                        )}
+                                        keyExtractor={item => item.createdAt} />
                                     : <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, padding: 20 }}>
                                         <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: wp(5), color: colorsPalette.gradientGray }}>Here are the users who have commented, at the moment nobody has done it, why not you?</Text>
                                     </View>}

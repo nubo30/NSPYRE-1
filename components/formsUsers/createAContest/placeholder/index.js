@@ -38,9 +38,7 @@ class AboutYouPlaceholder extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.secondaryColor }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: colorsPalette.secondaryColor }}>Let's get started!</Text> {'\n'}Tell us a little about yourself!
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(10), fontWeight: 'bold', color: colorsPalette.secondaryColor }}>Create your contest</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: colorsPalette.secondaryColor, width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 0 }, shadowOpacity: 1 }}>

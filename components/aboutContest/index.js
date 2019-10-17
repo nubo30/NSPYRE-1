@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { API, graphqlOperation, Auth } from 'aws-amplify'
-import { withNavigation } from "react-navigation"
-import { Button, Text, Icon } from "native-base"
-import { Grid, Row } from "react-native-easy-grid"
+import { Button, Icon, Text, View } from 'native-base';
+import ParallaxScrollView from 'react-native-parallax-scrollview';
 import Swiper from 'react-native-swiper';
 import Modal from "react-native-modal";
-import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-// import truncate from 'lodash/truncate'
+import truncate from 'lodash/truncate'
 
-// Child Components
+const SCREEN_HEIGHT = Dimensions.get('screen').height
+
+import { colorsPalette } from '../global/static/colors';
+import { MyStatusBar } from '../global/statusBar'
+
+// CHild Component
 import HeaderContest from "./header"
 import PrizeModal from "./modals/prizes"
 import AboutModal from "./modals/about"
@@ -22,31 +25,16 @@ import Participants from './participants'
 import SecondaryView from './secondaryView'
 import JoinToTheContest from './participants/joinToTheContest'
 import VideoPageOne from './video'
-// import Shares from './buttons/share'
-// import Likes from './buttons/like'
 
-// Gradients
-import { GadrientsAboutContest } from "../global/gradients"
-
-// GRAPHQL
+// AWS
 import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
-import { colorsPalette } from '../global/static/colors';
-import { MyStatusBar } from '../global/statusBar'
-
-const HEADER_MAX_HEIGHT = 300;
-const HEADER_MIN_HEIGHT = 110;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 let subscription
-
-class ShowContest extends Component {
+export default class AnatomyExample extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            scrollY: new Animated.Value(
-                Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
-            ),
             activeSections: [],
             userData: {},
             contest: this.props.navigation.getParam('contest'),
@@ -67,7 +55,6 @@ class ShowContest extends Component {
             isReady: null
         };
     }
-
     componentDidMount() {
         const userData = this.props.navigation.getParam('userData');
         const fromWhere = this.props.navigation.getParam('fromWhere');
@@ -97,9 +84,11 @@ class ShowContest extends Component {
         const { navigation } = this.props
         const contest = navigation.getParam('contest');
         try {
-            const data = await Auth.currentAuthenticatedUser()
+            const userData = await Auth.currentAuthenticatedUser()
             const dataContest = await API.graphql(graphqlOperation(queries.getCreateContest, { id: contest.id }))
-            this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: data.id === contest.user.id || data.attributes && data.attributes.sub === contest.user.id ? true : false })
+            Object.keys(userData).length === 1
+                ? this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: userData.id === dataContest.data.getCreateContest.user.userId ? true : false })
+                : this.setState({ isReady: true, contest: dataContest.data.getCreateContest, userLogin: userData.attributes.sub === dataContest.data.getCreateContest.user.userId ? true : false })
         } catch (error) {
             console.log(error);
         }
@@ -137,36 +126,6 @@ class ShowContest extends Component {
     }
 
     render() {
-        const scrollY = Animated.add(
-            this.state.scrollY,
-            Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0,
-        );
-        const headerTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -HEADER_SCROLL_DISTANCE],
-            extrapolate: 'clamp',
-        });
-        const imageOpacity = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0],
-            extrapolate: 'clamp',
-        });
-        const imageTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 100],
-            extrapolate: 'clamp',
-        });
-        const titleScale = scrollY.interpolate({
-            inputRange: [1, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0.9],
-            extrapolate: 'clamp',
-        });
-        const titleTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 0, -8],
-            extrapolate: 'clamp',
-        });
-
         const {
             contest,
             userData,
@@ -193,188 +152,128 @@ class ShowContest extends Component {
                     onIndexChanged={(index) => this.setState({ swiperIndex: index, fromWhere: null })}
                     loop={false}
                     showsPagination={false}>
-                    <View style={{ flex: 1 }}>
-                        <GadrientsAboutContest />
+                    <ParallaxScrollView
+                        windowHeight={SCREEN_HEIGHT}
+                        backgroundSource={{ uri: contest.general.picture.url }}
+                        navBarColor={colorsPalette.primaryColor}
+                        headerView={(
+                            <View style={styles.headerTextView}>
+                                <Text style={styles.headerTextViewTitle}>{contest.general.nameOfContest}</Text>
+                                <Text style={styles.headerTextViewSubtitle}>By {contest.aboutTheUser.companyName}</Text>
+                                <Text style={styles.headerTextViewSeeMore}>Scroll down/left to see more</Text>
+                            </View>
+                        )}
+                        navBarView={
+                            <View style={{ width: '100%' }}>
+                                <HeaderContest fromWhere={fromWhere} contest={contest} />
+                                <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
+                            </View>
+                        }>
+                        <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: "#F5F5F5" }}>
+                            <View style={{ height: 50, flexDirection: 'row' }}>
+                                <View style={{ flex: 0.7, flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+                                    <Icon type="MaterialIcons" name="location-on" style={{ fontSize: wp(5), color: colorsPalette.gradientGray }} />
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>{truncate(`${contest.aboutTheUser.location.city}, ${contest.aboutTheUser.location.country}.`, { length: 40, separator: "..." })}</Text>
+                                </View>
+                                <View style={{ flex: 0.3, justifyContent: 'flex-end' }}>
+                                    {userLogin ? <Button
+                                        style={{ alignSelf: 'flex-end' }}
+                                        onPress={() => this._setModalVisibleUpdate(true)}
+                                        transparent>
+                                        <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
+                                    </Button> : null}
+                                </View>
+                            </View>
+                            <View style={{ height: 240, justifyContent: 'center', alignItems: 'center' }}>
+                                <Swiper
+                                    loop={false}
+                                    activeDotColor="#D82B60"
+                                    dotColor="#BDBDBD"
+                                    showsButtons={false}>
+                                    <SwiperAboutTheContest
+                                        _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest}
+                                        contest={contest} />
+                                    <SwiperPrizes
+                                        _setModalVisiblePrizes={this._setModalVisiblePrizes}
+                                        contest={contest} />
+                                </Swiper>
+                            </View>
+                            <Participants
+                                // Data
+                                userData={userData}
+                                contest={contest}
+                                disableParticipants={this.props.navigation.getParam('disableParticipants')}
 
-                        {/* Slider / Submit a video / submit a meme */}
-                        <Animated.ScrollView
-                            style={{ height: "100%" }}
-                            scrollEventThrottle={1}
-                            onScroll={Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-                                { useNativeDriver: true }
-                            )}
-                            contentInset={{
-                                top: HEADER_MAX_HEIGHT
-                            }}
-                            contentOffset={{
-                                y: -HEADER_MAX_HEIGHT
-                            }}>
-                            <Grid style={styles.scrollViewContent}>
+                                // Functions
+                                _setModalVisibleAudience={this._setModalVisibleAudience}
+                                _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
+                            {/* Modals */}
+                            <PrizeModal
+                                // Data
+                                contest={contest}
 
-                                {/* Botton social network */}
-                                <Row size={15}>
-                                    <View style={{ justifyContent: 'flex-end', width: "100%" }}>
-                                        {userLogin ?
-                                            <Button
-                                                style={{ alignSelf: 'flex-end' }}
-                                                onPress={() => this._setModalVisibleUpdate(true)}
-                                                transparent>
-                                                <Icon type="Ionicons" name="md-create" style={{ color: "#BDBDBD" }} />
-                                            </Button>
-                                            : null}
-                                    </View>
-                                </Row>
+                                // Action
+                                modalVisiblePrizes={modalVisiblePrizes}
+                                // Function
+                                _setModalVisiblePrizes={this._setModalVisiblePrizes} />
 
-                                {/* Slider */}
-                                <Row size={30}>
-                                    <Swiper
-                                        loop={false}
-                                        height={Platform.OS === 'ios' ? 240 : 300}
-                                        activeDotColor="#D82B60"
-                                        dotColor="#BDBDBD"
-                                        showsButtons={false}>
-                                        <SwiperAboutTheContest
-                                            _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest}
-                                            contest={contest} />
-                                        <SwiperPrizes
-                                            _setModalVisiblePrizes={this._setModalVisiblePrizes}
-                                            contest={contest} />
-                                    </Swiper>
-                                </Row>
+                            <AboutModal
+                                // Data
+                                contest={contest}
+                                userData={userData}
+                                disableParticipants={this.props.navigation.getParam('disableParticipants')}
 
-                                {/* Stats/Submit a video or a meme */}
-                                <Row size={65}>
-                                    <Participants
-                                        // Data
-                                        userData={userData}
+                                // Action
+                                modalVisibleAboutTheContest={modalVisibleAboutTheContest}
+                                // Function
+                                _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest}
+                                _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest} />
+
+                            <UpdateContest
+                                // Data
+                                contest={contest}
+                                userData={userData}
+
+                                // Action
+                                openModalUpdateContest={openModalUpdateContest}
+                                // Funtion
+                                _setModalVisibleUpdate={this._setModalVisibleUpdate} />
+
+                            {/* Audience Modals */}
+                            <Modal
+                                isVisible={modalVisibleAudience}
+                                onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
+                                onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
+                                swipeDirection={modalVisibleAudience ? null : ['down']}
+                                style={{ justifyContent: 'flex-end', margin: 0 }}>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
+                                    <Audience
+                                        // DATA
                                         contest={contest}
-                                        disableParticipants={this.props.navigation.getParam('disableParticipants')}
+                                        userData={userData}
+
+                                        // Actions
+                                        hideCongrastSectionAudience={hideCongrastSectionAudience}
 
                                         // Functions
-                                        _setModalVisibleAudience={this._setModalVisibleAudience}
-                                        _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
-                                </Row>
-                            </Grid>
-                        </Animated.ScrollView>
-
-                        {/* Image Background */}
-                        <Animated.View
-                            pointerEvents="none"
-                            style={[
-                                styles.header,
-                                { transform: [{ translateY: headerTranslate }] },
-                            ]}>
-                            <Animated.Image
-                                style={[
-                                    styles.backgroundImage,
-                                    {
-                                        opacity: imageOpacity,
-                                        transform: [{ translateY: imageTranslate }],
-
-                                    },
-                                ]}
-                                source={{ uri: contest.general.picture.url }}
-                            />
-                            {
-                                userLogin && fromWhere === 'createContest' &&
-                                <View style={styles.swiperIndicator}>
-                                    <Animatable.View
-                                        animation="pulse"
-                                        easing="ease-in-out"
-                                        iterationCount="infinite"
-                                        style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}
-                                    >
-                                        <Text
-                                            minimumFontScale={wp(7)}
-                                            allowFontScaling={false}
-                                            style={{ textAlign: 'center', color: 'white', fontSize: wp(7), opacity: 0.8 }}>Swipe</Text>
-                                        <Icon
-                                            name='arrow-long-right'
-                                            type='Entypo'
-                                            style={{ color: 'white', marginTop: '2%', marginLeft: '4%', fontSize: wp(8), opacity: 0.8 }}
-                                        />
-                                    </Animatable.View>
+                                        _setModalVisibleAudience={this._setModalVisibleAudience} />
                                 </View>
-                            }
-                            <View style={{ flex: 1, left: 15 }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(9), color: '#FFF', position: 'absolute', bottom: 0, left: 0 }}>{contest.aboutTheUser.companyName === null ? contest.user.name : contest.aboutTheUser.companyName}</Text>
-                            </View>
-                        </Animated.View>
+                            </Modal>
 
-                        {/* Header Contests */}
-                        <Animated.View style={[styles.bar, { transform: [{ scale: titleScale }, { translateY: titleTranslate }] }]}>
-                            <HeaderContest fromWhere={fromWhere} contest={contest} />
-                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
-                        </Animated.View>
+                            {/* Join to the contest */}
+                            <JoinToTheContest
+                                // Data
+                                contest={contest}
+                                userData={userData}
+
+                                // Actions
+                                modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
+
+                                // Function
+                                _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
+                        </ScrollView>
                         <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
-
-                        {/* Modals */}
-                        <PrizeModal
-                            // Data
-                            contest={contest}
-
-                            // Action
-                            modalVisiblePrizes={modalVisiblePrizes}
-                            // Function
-                            _setModalVisiblePrizes={this._setModalVisiblePrizes} />
-
-                        <AboutModal
-                            // Data
-                            contest={contest}
-                            userData={userData}
-                            disableParticipants={this.props.navigation.getParam('disableParticipants')}
-
-                            // Action
-                            modalVisibleAboutTheContest={modalVisibleAboutTheContest}
-                            // Function
-                            _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest}
-                            _setModalVisibleAboutTheContest={this._setModalVisibleAboutTheContest} />
-
-                        <UpdateContest
-                            // Data
-                            contest={contest}
-                            userData={userData}
-
-                            // Action
-                            openModalUpdateContest={openModalUpdateContest}
-                            // Funtion
-                            _setModalVisibleUpdate={this._setModalVisibleUpdate} />
-
-                        {/* Audience Modals */}
-                        <Modal
-                            isVisible={modalVisibleAudience}
-                            onBackdropPress={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
-                            onSwipeComplete={modalVisibleAudience ? null : () => this._setModalVisibleAudience(false)}
-                            swipeDirection={modalVisibleAudience ? null : ['down']}
-                            style={{ justifyContent: 'flex-end', margin: 0 }}>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
-                                <Audience
-                                    // DATA
-                                    contest={contest}
-                                    userData={userData}
-
-                                    // Actions
-                                    hideCongrastSectionAudience={hideCongrastSectionAudience}
-
-                                    // Functions
-                                    _setModalVisibleAudience={this._setModalVisibleAudience} />
-                            </View>
-                        </Modal>
-
-                        {/* Join to the contest */}
-                        <JoinToTheContest
-                            // Data
-                            contest={contest}
-                            userData={userData}
-
-                            // Actions
-                            modalVisibleJoinToTheContest={modalVisibleJoinToTheContest}
-
-                            // Function
-                            _setModalVisibleJoinToTheContest={this._setModalVisibleJoinToTheContest} />
-
-                    </View>
+                    </ParallaxScrollView>
                     {userLogin
                         ? <View style={{ flex: 1 }}>
                             <SecondaryView
@@ -387,8 +286,8 @@ class ShowContest extends Component {
 
                                 // Function
                                 _setModalVisibleAudience={this._setModalVisibleAudience}
-                                _changeSwiperRoot={this._changeSwiperRoot}
-                            />
+                                _changeSwiperRoot={this._changeSwiperRoot} />
+                            <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />
                         </View>
                         : <VideoPageOne contest={contest} swiperIndex={swiperIndex} />}
                 </Swiper>
@@ -400,52 +299,42 @@ class ShowContest extends Component {
                         <Text>Comeback</Text>
                     </Button>
                 </View>
-        )
+        );
     }
 }
 
 const styles = StyleSheet.create({
-    header: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#D82B60',
-        overflow: 'hidden',
-        height: HEADER_MAX_HEIGHT,
-    },
-    backgroundImage: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        width: null,
-        height: HEADER_MAX_HEIGHT,
-        resizeMode: "cover"
-    },
-    bar: {
-        backgroundColor: 'transparent',
-        marginTop: Platform.OS === 'ios' ? 28 : 38,
-        height: 32,
-        alignItems: 'flex-end',
+    headerTextView: {
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        height: SCREEN_HEIGHT / 2,
+        borderWidth: 5,
+        borderColor: colorsPalette.secondaryColor,
+        width: "90%",
         justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 10,
+        alignItems: 'center',
+        padding: 15,
+        shadowColor: colorsPalette.primaryShadowColor,
+        shadowOffset: { width: 0 },
+        shadowOpacity: 1,
+        borderRadius: 5
     },
-    scrollViewContent: {
-        // iOS uses content inset, which acts like padding.
-        paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
-    },
-    swiperIndicator: {
-        width: '30%',
+    headerTextViewTitle: {
+        fontSize: wp(12),
         color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    headerTextViewSubtitle: {
+        fontSize: wp(5),
+        color: 'white',
+        fontWeight: '300'
+    },
+    headerTextViewSeeMore: {
+        fontSize: wp(2.5),
+        color: 'white',
+        fontWeight: '300',
         position: 'absolute',
-        top: 160,
-        right: 10
+        bottom: 0,
+        padding: 5
     }
 });
-
-
-export default withNavigation(ShowContest)

@@ -62,25 +62,17 @@ class UserProfile extends Component {
                                 ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 52.5 }} source={{ uri: userData.avatar }} />
                                 : <UserAvatar size="105" name={userData.name} />}
                         </Row>
-                        <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
+                        <Row size={10} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(5), color: '#FFF', fontWeight: 'bold' }}>{userData && userData.engage.items.length ? userData.engage.items[0].aboutTheOccupations.occupation : "..."}</Text>
                         </Row>
-                        <Row size={5} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
+                        <Row size={10} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#E91E63' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), color: '#F48FB1', fontWeight: 'bold' }}>{userData && userData.engage.items.length ? `${userData.engage.items[0].aboutThePersonality.location.city}, ${userData.engage.items[0].aboutThePersonality.location.country}` : "..."}</Text>
                         </Row>
-
-                        <Row size={10} style={{ backgroundColor: '#E91E63', justifyContent: 'center' }}>
-                            <Text allowFontScaling={false} style={{ top: 5, color: '#F48FB1', fontSize: wp(3) }}>Contests {userData.createContest.items.length}, Prizes {userData.submitPrize.items.length}</Text>
-                        </Row>
-
                         <Row size={65} style={{ flexDirection: 'column' }}>
                             <Content padder showsVerticalScrollIndicator={false}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>Hobbies and preferences</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(5), fontWeight: 'bold', marginBottom: 20, marginTop: 20 }}>About me</Text>
                                 <View style={{ flexDirection: 'row', right: 5, flexWrap: 'wrap', width: '100%' }}>
-                                    {userData && userData.engage.items.length ? [...new Set(flatten(values(userData.engage.items[0].interests)))].map((item, key) =>
-                                        <View key={key} style={{ backgroundColor: '#E0E0E0', padding: 5, borderRadius: 5, margin: 5, height: 30 }}>
-                                            <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333' }}>{item}</Text>
-                                        </View>) : <Text allowFontScaling={false} style={{ color: '#FFF', fontWeight: 'bold', color: '#333', right: -15 }}>...</Text>}
+                                    <Text>Without descriptions</Text>
                                 </View>
                             </Content>
                         </Row>
