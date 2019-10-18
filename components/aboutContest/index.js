@@ -62,7 +62,7 @@ export default class AnatomyExample extends Component {
         this.getContestFromAWS()
         switch (fromWhere) {
             case 'createContest':
-                this._setModalVisibleAudience(true, true)
+                setTimeout(() => { this._setModalVisibleAudience(true, true) }, 1500);
                 break;
             default:
                 null

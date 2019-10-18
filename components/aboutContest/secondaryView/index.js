@@ -103,11 +103,7 @@ export default class ContestDataStatistics extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text allowFontScaling={false}
-                                    minimumFontScale={wp(4)}
-                                    style={{ fontSize: wp(4) }}
-                                    allowFontScaling={false}
-                                >Look at the statistics of your contest</Text>
+                                <Text allowFontScaling={false} minimumFontScale={wp(4)} style={{ fontSize: wp(4) }} allowFontScaling={false}>Look at the statistics of your contest</Text>
                             </Body>
                             <Right>
                                 <Icon active name="arrow-forward" />

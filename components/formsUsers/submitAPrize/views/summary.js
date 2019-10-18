@@ -9,6 +9,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import * as Animatable from 'react-native-animatable'
 import _ from 'lodash'
+import truncate from 'lodash/truncate'
 import { normalizeEmail } from 'validator'
 
 import { securityCredentials } from '../../../global/aws/credentials'
@@ -25,6 +26,7 @@ const screenHeight = Dimensions.get('window').height
 
 // GraphQL
 import * as mutations from '../../../../src/graphql/mutations'
+import { colorsPalette } from '../../../global/static/colors';
 
 class Summary extends Component {
     state = {
@@ -93,7 +95,7 @@ class Summary extends Component {
                             <Icon name='arrow-back' style={{ color: isLoading ? "#EEEEEE" : "#FFF" }} />
                             <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Summary</Title>
+                        <Title allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : "#FFF", fontSize: wp(6) }}>Check</Title>
                     </Left>
                 </Header>
 
@@ -121,10 +123,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.name}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{truncate(userData.name, { length: 15, separator: "..." })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -136,10 +138,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Last name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.lastname}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{truncate(userData.lastname, { length: 15, separator: "..." })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -151,10 +153,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number phone</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Number phone</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.phone === null ? 'Not specified' : userData.phone}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData.phone === null ? 'Not specified' : userData.phone}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -166,10 +168,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Email</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData.email === undefined ? null : truncate(normalizeEmail(userData.email), { length: 15, separator: "..." })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -181,10 +183,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>General information</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>General information</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.generalInformation}`, { separator: '...', length: 15 })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize.aboutTheCompany.generalInformation}`, { separator: '...', length: 15 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -196,10 +198,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Business location</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Business location</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.businessLocation.country}, ${prize.aboutTheCompany.businessLocation.city}, ${prize.aboutTheCompany.businessLocation.state}, ${prize.aboutTheCompany.businessLocation.street}`, { length: 29, separator: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize.aboutTheCompany.businessLocation.country}, ${prize.aboutTheCompany.businessLocation.city}, ${prize.aboutTheCompany.businessLocation.state}, ${prize.aboutTheCompany.businessLocation.street}`, { length: 29, separator: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -211,10 +213,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company Name</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Company Name</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize.aboutTheCompany.companyName}`, { separator: '...', length: 15 })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize.aboutTheCompany.companyName}`, { separator: '...', length: 15 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -230,10 +232,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Category</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Category</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.startCase(_.lowerCase(prize && prize.category))}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.startCase(_.lowerCase(prize && prize.category))}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -245,10 +247,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Price</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Price</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.startCase(prize && prize.general && prize.general.price)}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.startCase(prize && prize.general && prize.general.price)}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -259,10 +261,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name of prize</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Name of prize</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.startCase(prize && prize.general && prize.general.nameOfPrize)}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.startCase(prize && prize.general && prize.general.nameOfPrize)}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -274,10 +276,10 @@ class Summary extends Component {
                                                 </Button>
                                             </Left>
                                             <Body>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Description</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Description</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.general && prize.general.description}`, { separator: '...', length: 20 })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize && prize.general && prize.general.description}`, { separator: '...', length: 20 })}</Text>
                                             </Right>
                                         </ListItem>
 
@@ -287,7 +289,7 @@ class Summary extends Component {
                                                 <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#4DB6AC", right: 10 }}>
                                                     <FontAwesome style={{ fontSize: wp(4.5), color: '#FFF', left: 1 }} active name="picture-o" />
                                                 </Button>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Picture</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Picture</Text>
                                             </Left>
                                             <Image style={{ height: "100%", width: "60%" }} source={{ uri: prize && prize.general && prize.general.picture.localUrl }} />
                                         </ListItem>
@@ -300,7 +302,7 @@ class Summary extends Component {
                                                 <Button style={{ backgroundColor: isLoading ? "#EEEEEE" : "#FBC02D", right: 10 }}>
                                                     <Feather style={{ fontSize: wp(5), color: '#FFF' }} active name="video" />
                                                 </Button>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Video</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Video</Text>
                                             </Left>
                                             <Video
                                                 source={{ uri: prize && prize.general && prize.general.video.localUrl }}
@@ -326,10 +328,10 @@ class Summary extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Footer content</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Footer content</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.footerContent}`, { separator: '...', length: 20 })}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize && prize.share && prize.share.footerContent}`, { separator: '...', length: 20 })}</Text>
                                                     </Right>
                                                 </ListItem>
 
@@ -340,10 +342,10 @@ class Summary extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Content user share</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Content user share</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.contentUserShare}`, { separator: '...', length: 20 })}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize && prize.share && prize.share.contentUserShare}`, { separator: '...', length: 20 })}</Text>
                                                     </Right>
                                                 </ListItem>
 
@@ -354,10 +356,10 @@ class Summary extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>What user do</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>What user do</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{_.truncate(`${prize && prize.share && prize.share.whatUserDo}`, { separator: '...', length: 20 })}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(`${prize && prize.share && prize.share.whatUserDo}`, { separator: '...', length: 20 })}</Text>
                                                     </Right>
                                                 </ListItem>
 
@@ -368,10 +370,10 @@ class Summary extends Component {
                                                         </Button>
                                                     </Left>
                                                     <Body>
-                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Social media</Text>
+                                                        <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontSize: wp(4), fontWeight: 'bold' }}>Social media</Text>
                                                     </Body>
                                                     <Right>
-                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{Object.keys(JSON.parse(prize.share.socialMediaHandle))}</Text>
+                                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{Object.keys(JSON.parse(prize.share.socialMediaHandle))}</Text>
                                                     </Right>
                                                 </ListItem>
                                             </View>}

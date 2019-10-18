@@ -6,15 +6,16 @@ import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
 import _ from 'lodash'
-import { isAscii, normalizeEmail } from 'validator'
+import { normalizeEmail } from 'validator'
 import moment from 'moment'
+import truncate from 'lodash/truncate'
 
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
 import { MyStatusBar } from '../../../global/statusBar/index'
 
 // Icons
-import { Ionicons, Foundation, Entypo, FontAwesome, Feather, AntDesign } from '@expo/vector-icons'
+import { Ionicons, Foundation } from '@expo/vector-icons'
 import { colorsPalette } from '../../../global/static/colors';
 
 const screenWidth = Dimensions.get('window').width
@@ -25,9 +26,9 @@ class AboutYou extends Component {
         // Inputs
         businessLocation: {
             street: "",
-            state: "Not specified",
-            city: "Not specified",
-            country: "Not specified"
+            state: "Not completed",
+            city: "Not completed",
+            country: "Not completed"
         },
         generalInformation: "",
 
@@ -198,9 +199,7 @@ class AboutYou extends Component {
 
                 <Grid>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: 'normal' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Let's get started!</Text> {'\n'}Tell us a little more!
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Create your prize!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -218,10 +217,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.name))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && truncate(_.startCase(_.lowerCase(userData.name)), { length: 15, separator: "..." })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -233,10 +232,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Lastname</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Last name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && _.startCase(_.lowerCase(userData.lastname))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && truncate(_.startCase(_.lowerCase(userData.lastname)), { length: 25, separator: "..." })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -248,10 +247,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Number phone</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Number phone</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData && userData.phone === null ? 'Not specified' : userData.phone}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData && userData.phone === null ? 'Not completed' : userData.phone}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -263,10 +262,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Email</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Email</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{userData.email === undefined ? null : normalizeEmail(userData.email)}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{userData.email === undefined ? null : truncate(normalizeEmail(userData.email), { length: 15, separator: "..." })}</Text>
                                         </Right>
                                     </ListItem>
 
@@ -278,10 +277,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>General information</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>General information</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{generalInformation ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: generalInformation ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{generalInformation ? truncate(generalInformation, { length: 15, separator: "..." }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -294,10 +293,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Location</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Location</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{businessLocation.street && businessLocation.city && businessLocation.country && businessLocation.state ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: businessLocation.street && businessLocation.country ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{businessLocation.street && businessLocation.country ? truncate(`${businessLocation.street}, ${businessLocation.country}`, { length: 15, separator: "..." }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -310,10 +309,10 @@ class AboutYou extends Component {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : null, fontSize: wp(4) }}>Company name</Text>
+                                            <Text allowFontScaling={false} style={{ color: isLoading ? "#EEEEEE" : colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(4) }}>Company name</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>{companyName ? "Specified" : "Not specified"}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: companyName ? colorsPalette.darkFont : colorsPalette.gradientGray }}>{companyName ? truncate(companyName, { length: 15, separator: "..." }) : "Not completed"}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                     </ListItem>
@@ -416,20 +415,20 @@ class AboutYou extends Component {
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ position: 'absolute', right: 0 }} onPress={() =>
-                                    businessLocation.street && businessLocation.country !== "Not specified"
+                                    businessLocation.street && businessLocation.country !== "Not completed"
                                         ? filterRegionList.length
-                                            ? businessLocation.state !== "Not specified"
+                                            ? businessLocation.state !== "Not completed"
                                                 ? filterCitiesList && filterCitiesList.length
-                                                    ? businessLocation.city !== "Not specified"
+                                                    ? businessLocation.city !== "Not completed"
                                                         ? this.setState({ visibleModalBusinessLocation: false })
                                                         : this.setState({
                                                             visibleModalBusinessLocation: false,
                                                             listRegions: [],
                                                             businessLocation: {
                                                                 street: "",
-                                                                country: "Not specified",
-                                                                state: "Not specified",
-                                                                city: "Not specified",
+                                                                country: "Not completed",
+                                                                state: "Not completed",
+                                                                city: "Not completed",
                                                             }
                                                         })
                                                     : this.setState({ visibleModalBusinessLocation: false })
@@ -438,9 +437,9 @@ class AboutYou extends Component {
                                                     listRegions: [],
                                                     businessLocation: {
                                                         street: "",
-                                                        country: "Not specified",
-                                                        state: "Not specified",
-                                                        city: "Not specified",
+                                                        country: "Not completed",
+                                                        state: "Not completed",
+                                                        city: "Not completed",
                                                     }
                                                 })
                                             : this.setState({ visibleModalBusinessLocation: false })
@@ -449,31 +448,31 @@ class AboutYou extends Component {
                                             listRegions: [],
                                             businessLocation: {
                                                 street: "",
-                                                country: "Not specified",
-                                                state: "Not specified",
-                                                city: "Not specified",
+                                                country: "Not completed",
+                                                state: "Not completed",
+                                                city: "Not completed",
                                             }
                                         })}>
                                     <Text allowFontScaling={false} style={{
                                         fontSize: wp(4),
                                         top: 5,
                                         letterSpacing: 1,
-                                        color: businessLocation.street && businessLocation.country !== "Not specified"
+                                        color: businessLocation.street && businessLocation.country !== "Not completed"
                                             ? filterRegionList.length
-                                                ? businessLocation.state !== "Not specified"
+                                                ? businessLocation.state !== "Not completed"
                                                     ? filterCitiesList && filterCitiesList.length
-                                                        ? businessLocation.city !== "Not specified"
+                                                        ? businessLocation.city !== "Not completed"
                                                             ? colorsPalette.primaryColor
                                                             : colorsPalette.gradientGray
                                                         : colorsPalette.gradientGray
                                                     : colorsPalette.gradientGray
                                                 : colorsPalette.primaryColor
                                             : colorsPalette.gradientGray
-                                    }}>{businessLocation.street && businessLocation.country !== "Not specified"
+                                    }}>{businessLocation.street && businessLocation.country !== "Not completed"
                                         ? filterRegionList.length
-                                            ? businessLocation.state !== "Not specified"
+                                            ? businessLocation.state !== "Not completed"
                                                 ? filterCitiesList && filterCitiesList.length
-                                                    ? businessLocation.city !== "Not specified"
+                                                    ? businessLocation.city !== "Not completed"
                                                         ? "DONE"
                                                         : "CANCEL"
                                                     : "DONE"
@@ -493,7 +492,7 @@ class AboutYou extends Component {
                                 </Left>
                                 <Body>
                                     <Input
-                                        onSubmitEditing={() => businessLocation.street && businessLocation.country !== 'Not specified' && businessLocation.state !== "Not specified" && businessLocation.city !== 'Not specified' ? this.setState({ visibleModalBusinessLocation: false }) : Keyboard.dismiss()}
+                                        onSubmitEditing={() => businessLocation.street && businessLocation.country !== 'Not completed' && businessLocation.state !== "Not completed" && businessLocation.city !== 'Not completed' ? this.setState({ visibleModalBusinessLocation: false }) : Keyboard.dismiss()}
                                         returnKeyType='done'
                                         allowFontScaling={false}
                                         placeholder="Your street"
@@ -521,7 +520,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: '#333' }}>Country</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false}>{businessLocation.country !== "Not specified" ? businessLocation.country : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false}>{businessLocation.country !== "Not completed" ? businessLocation.country : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
@@ -554,7 +553,7 @@ class AboutYou extends Component {
                                 headerTitleStyle={{ color: "#D81B60" }}
                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={businessLocation.country}
-                                onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, country: value, state: "Not specified", city: "Not specified" } })}>
+                                onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, country: value, state: "Not completed", city: "Not completed" } })}>
                                 {filterCounttriesList.map((item, key) => <Picker.Item key={key} label={item} value={item} />)}
                             </Picker>
 
@@ -569,7 +568,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: listRegions.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>State</Text>
                                 </Body>
                                 <Right>
-                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{businessLocation.state !== "Not specified" ? businessLocation.state : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={listRegions.length ? {} : { color: colorsPalette.gradientGray }}>{businessLocation.state !== "Not completed" ? businessLocation.state : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker
@@ -604,7 +603,7 @@ class AboutYou extends Component {
                                 headerTitleStyle={{ color: "#D81B60" }}
                                 headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                 selectedValue={businessLocation.state}
-                                onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, state: value, city: "Not specified" } })}>
+                                onValueChange={(value) => this.setState({ businessLocation: { ...businessLocation, state: value, city: "Not completed" } })}>
                                 {filterRegionList.length
                                     ? filterRegionList.map((item, key) => <Picker.Item key={key} label={item.region} value={item.region} />)
                                     : null}
@@ -621,7 +620,7 @@ class AboutYou extends Component {
                                     <Text allowFontScaling={false} style={{ color: filterCitiesList && filterCitiesList.length && filterRegionList.length ? colorsPalette.darkFont : colorsPalette.gradientGray }}>City</Text>
                                 </Body>
                                 <Right style={{ borderBottomColor: 'transparent' }}>
-                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{businessLocation.city !== "Not specified" ? businessLocation.city : 'Not specified'}</Text>
+                                    <Text allowFontScaling={false} style={filterCitiesList && filterCitiesList.length && filterRegionList.length ? {} : { color: colorsPalette.gradientGray }}>{businessLocation.city !== "Not completed" ? businessLocation.city : 'Not completed'}</Text>
                                 </Right>
                             </ListItem>
                             <Picker

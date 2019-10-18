@@ -143,7 +143,7 @@ class Share extends Component {
                                         </Button>
                                     </Left>
                                     <Body style={{ minHeight: 60 }}>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(4) }}>Do you want the recipient to make a mention of you and your gift on social media?</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold' }}>Do you want the recipient to make a mention of you and your gift on social media?</Text>
                                     </Body>
                                     <Right style={{ minHeight: 60 }}>
                                         <Switch

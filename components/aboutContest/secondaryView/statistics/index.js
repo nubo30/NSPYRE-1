@@ -3,15 +3,12 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Modal, Alert } from 'react-native'
 import { Container, Header, Content, List, ListItem, Text, Left, Body, Right, Button, Icon, Separator, Switch } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import flatten from 'lodash/flatten'
-import values from 'lodash/values'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
 
 // Child Components
-import Share from './share'
-import Likes from './likes'
+import Participants from './participants'
 import ViewsVideo from './viewsVideo'
 
 // AWS
@@ -24,6 +21,7 @@ class Staticstics extends Component {
         modalAnimated: false,
         usersLikesModal: false,
         usersViewsVideoModal: false,
+        participantsModal: false,
         userInfo: {}
     }
 
@@ -64,6 +62,10 @@ class Staticstics extends Component {
 
     _usersViewsVideoModal = (value) => {
         this.setState({ usersViewsVideoModal: value })
+    }
+
+    _participantsModal = (value) => {
+        this.setState({ participantsModal: value })
     }
 
     _ifTimerDifNull = () => {
@@ -107,8 +109,7 @@ class Staticstics extends Component {
 
             // Actions
             showInCaseOfSuccess,
-            usersSharedModal,
-            usersLikesModal,
+            participantsModal,
             usersViewsVideoModal
         } = this.state
         const {
@@ -119,7 +120,6 @@ class Staticstics extends Component {
             // Functions
             _modalVisibleShowStatistics
         } = this.props
-        const sharedCount = contest.usersSharing === null ? [] : contest.usersSharing.items.map(item => item.whereItHasBeenShared)
         return (
             <Container>
                 <Header>
@@ -173,48 +173,23 @@ class Staticstics extends Component {
                         </Separator>
                         <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} />
 
-                        {/* CANTIDAD DE LAS VECES QUE SE HA COMPARTIDO EL CONCURSO */}
-                        {/* <ListItem disabled={sharedCount.length ? false : true} last icon onPress={() => this._usersSharedModal(true)}>
+                        {/* PARTICIPANTS */}
+                        <ListItem
+                            disabled={contest.participants && contest.participants.items.length ? false : true}
+                            last icon onPress={() => { this._participantsModal(true) }}>
                             <Left>
-                                <Button style={{ backgroundColor: "#F44336" }}>
-                                    <Icon type="FontAwesome" name="share-square-o" />
+                                <Button style={{ backgroundColor: "#00897B" }}>
+                                    <Icon type="FontAwesome5" name="users" />
                                 </Button>
                             </Left>
                             <Body>
-                                <Text
-                                    allowFontScaling={false}
-                                    style={{ fontSize: wp(4) }}
-                                    allowFontScaling={false}
-                                    minimumFontScale={wp(3)}
-                                >Shared</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: wp(4) }} allowFontScaling={false} minimumFontScale={wp(3)}>Participants</Text>
                             </Body>
                             <Right>
-                                <Text>{flatten(values(sharedCount)).length}</Text>
-                                <Icon active name="arrow-forward" />
-                            </Right>
-                        </ListItem> */}
-
-                        {/* CANTIDAD DE LIKES */}
-                        {/* <ListItem last icon disabled={contest.statistics === null ? true : contest.usersLikes === null ? true : contest.usersLikes.items.length ? false : true} onPress={() => this._ifTimerDifNull()}>
-                            <Left>
-                                <Button style={{ backgroundColor: "#E91E63" }}>
-                                    <Icon type="AntDesign" name="heart" />
-                                </Button>
-                            </Left>
-                            <Body>
-                                <Text
-                                    allowFontScaling={false}
-                                    style={{ fontSize: wp(4) }}
-                                    allowFontScaling={false}
-                                    minimumFontScale={wp(3)}
-                                >Likes</Text>
-                            </Body>
-                            <Right>
-                                <Text>{contest.usersLikes === null ? 0 : contest.usersLikes.userLikes === null ? 0 : contest.usersLikes.items.length}</Text>
+                                <Text>{contest.participants && contest.participants.items.length}</Text>
                                 <Icon active name="arrow-forward" />
                             </Right>
                         </ListItem>
-                        <Separator bordered style={{ backgroundColor: colorsPalette.opaqueWhite2, borderTopColor: 'rgba(0,0,0,0.0)' }} /> */}
 
                         {/* VIDEO */}
                         <ListItem
@@ -241,22 +216,12 @@ class Staticstics extends Component {
                     </List>
                 </Content>
 
-                {/* USUARIOS QUE HAN COMPARTIDO EL CONCURSO */}
                 <Modal
                     animationType="fade"
                     transparent={false}
-                    visible={usersSharedModal}
+                    visible={participantsModal}
                     onRequestClose={() => { }}>
-                    <Share userData={userData} sharedCount={sharedCount} contest={contest} _usersSharedModal={this._usersSharedModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
-                </Modal>
-
-                {/* USUARIOS QUE HAN DEJADO LIKES EN EL CONCURSO */}
-                <Modal
-                    animationType="fade"
-                    transparent={false}
-                    visible={usersLikesModal}
-                    onRequestClose={() => { }}>
-                    <Likes userData={userData} contest={contest} _usersLikesModal={this._usersLikesModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
+                    <Participants userData={userData} participants={contest.participants && contest.participants.items} _participantsModal={this._participantsModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
                 </Modal>
 
                 {/* USUARIOS QUE HAN VISTO EL VIDEO */}

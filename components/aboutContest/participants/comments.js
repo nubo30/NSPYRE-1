@@ -32,7 +32,6 @@ class Comments extends Component {
             commentsToParticipantsParticipantsId: item.id,
             comments: this.state.comment
         }
-        console.log(comment, "|||||||||||||||||||||||")
         try {
             await API.graphql(graphqlOperation(mutations.createCommentsToParticipants, { input: comment }))
             this.setState({ isLoading: false, modalComment: false })
