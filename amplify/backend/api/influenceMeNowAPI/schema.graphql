@@ -168,6 +168,7 @@ type Participants @model {
   avatar: AWSURL
   contest: CreateContest @connection(name: "CreateContestParticipants")
   createdAt: AWSDateTime!
+  engageData: String
   likesToParticipants: [LikesToParticipants] @connection(name:"ParticipantsLikesToParticipants")
   commentsToParticipants: [CommentsToParticipants] @connection(name:"ParticipantsCommentsToParticipants")
   shareParticipants: [ShareParticipants] @connection(name:"ShareParticipants")

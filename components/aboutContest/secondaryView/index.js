@@ -596,6 +596,7 @@ export default class ContestDataStatistics extends Component {
                         userData={userData}
 
                         // Functions
+                        _getContestFromAWS={this.props._getContestFromAWS}
                         _modalVisibleShowStatistics={this._modalVisibleShowStatistics}
                     />
                 </Modal>

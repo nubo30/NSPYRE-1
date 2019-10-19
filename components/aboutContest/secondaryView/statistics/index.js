@@ -120,6 +120,8 @@ class Staticstics extends Component {
             // Functions
             _modalVisibleShowStatistics
         } = this.props
+
+
         return (
             <Container>
                 <Header>
@@ -221,7 +223,7 @@ class Staticstics extends Component {
                     transparent={false}
                     visible={participantsModal}
                     onRequestClose={() => { }}>
-                    <Participants userData={userData} participants={contest.participants && contest.participants.items} _participantsModal={this._participantsModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
+                    <Participants _getContestFromAWS={this.props._getContestFromAWS} userData={userData} participants={contest.participants && contest.participants.items} _participantsModal={this._participantsModal} _modalVisibleShowStatistics={_modalVisibleShowStatistics} />
                 </Modal>
 
                 {/* USUARIOS QUE HAN VISTO EL VIDEO */}

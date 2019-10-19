@@ -285,6 +285,7 @@ export default class AnatomyExample extends Component {
                                 swiperIndex={swiperIndex}
 
                                 // Function
+                                _getContestFromAWS={this.getContestFromAWS}
                                 _setModalVisibleAudience={this._setModalVisibleAudience}
                                 _changeSwiperRoot={this._changeSwiperRoot} />
                             <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />

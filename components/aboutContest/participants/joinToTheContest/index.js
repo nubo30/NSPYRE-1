@@ -156,7 +156,8 @@ export default class JoinToTheContest extends Component {
             avatar: userData.avatar,
             createdAt: moment().toISOString(),
             participantsContestId: contest.id,
-            contestId: contest.id
+            contestId: contest.id,
+            engageData: JSON.stringify(userData.engage.items[0])
         }
 
         try {
