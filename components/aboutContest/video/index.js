@@ -39,7 +39,8 @@ class VideoExplainTheContest extends Component {
             durationMillis: playbackStatus.durationMillis,
             positionMillis: playbackStatus.positionMillis,
             isPaused: playbackStatus.durationMillis !== playbackStatus.positionMillis ? true : false,
-            viewsVideoCreateContestId: contest.id
+            viewsVideoCreateContestId: contest.id,
+            engageData: JSON.stringify(userData.engage.items[0])
         }
 
         if (!playbackStatus.isLoaded) {
@@ -86,7 +87,8 @@ class VideoExplainTheContest extends Component {
                     durationMillis: playbackStatus.durationMillis,
                     positionMillis: playbackStatus.positionMillis,
                     isPaused: playbackStatus.durationMillis !== playbackStatus.positionMillis ? true : false,
-                    viewsVideoCreateContestId: contest.id
+                    viewsVideoCreateContestId: contest.id,
+                    engageData: JSON.stringify(userData.engage.items[0])
                 }
                 try {
                     await API.graphql(graphqlOperation(mutations.createViewsVideo, { input: views }))

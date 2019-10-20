@@ -57,7 +57,8 @@ class SharesParticipations extends Component {
                 whereItHasBeenShared: result.activityType, // aplicacion donde se ha compartido el concurso
                 createdAt: moment().toISOString(),
                 avatar: userData.avatar,
-                shareParticipantsParticipantsId: item.id
+                shareParticipantsParticipantsId: item.id,
+                engageData: JSON.stringify(userData.engage.items[0])
             }
             if (result.action === Share.sharedAction) {
                 if (this.state.userSharing !== null) {

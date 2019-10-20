@@ -37,7 +37,8 @@ class LikesParticipations extends Component {
             idUserLike: userData.id,
             createdAt: moment().toISOString(),
             avatar: userData.avatar,
-            likesToParticipantsParticipantsId: item.id
+            likesToParticipantsParticipantsId: item.id,
+            engageData: JSON.stringify(userData.engage.items[0])
         }
         try {
             await API.graphql(graphqlOperation(mutations.createLikesToParticipants, { input: like }))

@@ -30,7 +30,8 @@ class Comments extends Component {
             createdAt: moment().toISOString(),
             avatar: userData.avatar,
             commentsToParticipantsParticipantsId: item.id,
-            comments: this.state.comment
+            comments: this.state.comment,
+            engageData: JSON.stringify(userData.engage.items[0])
         }
         try {
             await API.graphql(graphqlOperation(mutations.createCommentsToParticipants, { input: comment }))
@@ -62,7 +63,8 @@ class Comments extends Component {
             createdAt: moment().toISOString(),
             avatar: userData.avatar,
             commentsToParticipantsParticipantsId: itemToUpdate.commentsToParticipantsParticipantsId,
-            comments: this.state.comment
+            comments: this.state.comment,
+            engageData: JSON.stringify(userData.engage.items[0])
         }
         try {
             await API.graphql(graphqlOperation(mutations.updateCommentsToParticipants, { input: comment }))
@@ -147,7 +149,6 @@ class Comments extends Component {
             console.log(error)
         }
     }
-
 
     render() {
         const userData = this.props.navigation.getParam('userData')

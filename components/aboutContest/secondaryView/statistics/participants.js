@@ -16,7 +16,19 @@ import ShowSN from './charts/showSN'
 import ShowRgions from './charts/showRgions'
 import ShowGender from './charts/showGender'
 import ShowSubmissionDay from './charts/showSubmissionDay'
-import BasedLikesGender from './chartsToPay/basedLikesGender'
+import BasedGenderLikes from './chartsToPay/basedGenderLikes'
+import BasedLocationLikes from './chartsToPay/basedLocationLikes'
+import BasedAgeLikes from './chartsToPay/basedAgeLikes'
+import BassedGenderComments from './chartsToPay/basedGenderComments'
+import BassedLocationComments from './chartsToPay/bassedLocationComments'
+import BassedAgeComments from './chartsToPay/bassedAgeComments';
+import BassedGenderShare from './chartsToPay/basedGenderShare'
+import BassedLocationShare from './chartsToPay/bassedLocationShare'
+import BassedAgeShare from './chartsToPay/bassedAgeShare'
+import BassedGenderViews from './chartsToPay/basedGenderViews'
+import BassedLocationViews from './chartsToPay/bassedLocationViews'
+import BassedAgeViews from './chartsToPay/bassedAgeViews'
+
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
@@ -30,7 +42,16 @@ class participants extends Component {
         moreChartsModal: false,
         indexTab: 0,
         refreshing: false,
-        likesMoreFeatures: false
+        likesMoreFeatures: false,
+        commentsMoreFeatures: false,
+        shareMoreFeatures: false,
+        viewsMoreFeatures: false,
+
+        // Show after pay
+        showLikesAfterToPay: false,
+        showCommentsAfterToPay: false,
+        showSharesAfterToPay: false,
+        showViewsAfterToPay: false
     }
 
     _closeAllModalsAndGoToProfileUser = (item) => {
@@ -50,8 +71,18 @@ class participants extends Component {
         });
     }
 
+    _showGraphPay = () => {
+        this.setState({
+            moreChartsModal: false,
+            showLikesAfterToPay: this.state.likesMoreFeatures,
+            showCommentsAfterToPay: this.state.commentsMoreFeatures,
+            showSharesAfterToPay: this.state.shareMoreFeatures,
+            showViewsAfterToPay: this.state.viewsMoreFeatures
+        })
+    }
+
     render() {
-        const { participantsModalList, moreChartsModal, indexTab, likesMoreFeatures } = this.state
+        const { participantsModalList, moreChartsModal, indexTab, likesMoreFeatures, commentsMoreFeatures, shareMoreFeatures, viewsMoreFeatures } = this.state
         const { _participantsModal, participants } = this.props
         return (
             <Container>
@@ -75,8 +106,7 @@ class participants extends Component {
                     </Right>
                 </Header>
 
-                <Content
-                    refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}>
+                <Content refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}>
                     <View style={{ height: 150, padding: 10 }}>
                         <Header transparent style={{ height: 50 }}>
                             <Left>
@@ -160,7 +190,7 @@ class participants extends Component {
                     </View>
                     <View style={{ height: 250 }}>
                         <View style={{ paddingLeft: 15, flex: 0.1 }}>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Regions</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Top Locations</Text>
                         </View>
                         <View style={{ flex: 0.8 }}>
                             <ShowRgions participants={participants} />
@@ -180,11 +210,131 @@ class participants extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>These data are the sum of all data per participant.</Text>
                         </View>
                     </View>
-                    <View style={{ height: 70, justifyContent: 'center', alignItems: 'center' }}>
+                    {this.state.showLikesAfterToPay &&
+                        <View style={{ height: 650 }}>
+                            <View style={{ paddingLeft: 15, flex: 0.1 }}>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Likes <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location)</Text></Text>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View style={{ flex: 1, top: -20 }}>
+                                    <BasedGenderLikes showLikesAfterToPay={this.state.showLikesAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ position: 'absolute', bottom: 0, width: "100%", height: 20 }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Gender</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BasedAgeLikes showLikesAfterToPay={this.state.showLikesAfterToPay} participants={participants} action={likesMoreFeatures} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Age</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BasedLocationLikes showLikesAfterToPay={this.state.showLikesAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Top Location</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    {this.state.showCommentsAfterToPay &&
+                        <View style={{ height: 650 }}>
+                            <View style={{ paddingLeft: 15, flex: 0.1 }}>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Comments <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location)</Text></Text>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View style={{ flex: 1, top: -20 }}>
+                                    <BassedGenderComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ position: 'absolute', bottom: 0, width: "100%", height: 20 }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Gender</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedAgeComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} action={commentsMoreFeatures} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Age</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedLocationComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Top Location</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    {this.state.showSharesAfterToPay &&
+                        <View style={{ height: 650 }}>
+                            <View style={{ paddingLeft: 15, flex: 0.1 }}>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Share <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location)</Text></Text>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View style={{ flex: 1, top: -20 }}>
+                                    <BassedGenderShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ position: 'absolute', bottom: 0, width: "100%", height: 20 }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Gender</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedAgeShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} action={shareMoreFeatures} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Age</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedLocationShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Top Location</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    {this.state.showViewsAfterToPay &&
+                        <View style={{ height: 650 }}>
+                            <View style={{ paddingLeft: 15, flex: 0.1 }}>
+                                <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>View <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location)</Text></Text>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View style={{ flex: 1, top: -20 }}>
+                                    <BassedGenderViews showViewsAfterToPay={this.state.showViewsAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ position: 'absolute', bottom: 0, width: "100%", height: 20 }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Gender</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedAgeViews showViewsAfterToPay={this.state.showViewsAfterToPay} participants={participants} action={viewsMoreFeatures} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Age</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.3 }}>
+                                <View>
+                                    <BassedLocationViews showViewsAfterToPay={this.state.showViewsAfterToPay} participants={participants} />
+                                </View>
+                                <View style={{ flex: 0.1, position: 'absolute', bottom: 0, width: "100%" }}>
+                                    <Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold', alignSelf: 'center' }}>Top Location</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    {this.state.showLikesAfterToPay && this.state.showCommentsAfterToPay && this.state.showSharesAfterToPay && this.state.showViewsAfterToPay ? null : <View style={{ height: 70, justifyContent: 'center', alignItems: 'center' }}>
                         <Button transparent bordered style={{ borderColor: colorsPalette.primaryColor }} onPress={() => this.setState({ moreChartsModal: true })}>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor }}>See more</Text>
                         </Button>
-                    </View>
+                    </View>}
                 </Content>
 
                 {/* LIST OF PARTICIANTS */}
@@ -427,7 +577,7 @@ class participants extends Component {
                     </View>
                 </Modal>
 
-                {/* LIST OF PARTICIANTS */}
+                {/* MORE FEATURES */}
                 <Modal
                     onSwipeComplete={() => this.setState({ moreChartsModal: false })}
                     style={{ justifyContent: 'flex-end', margin: 0 }}
@@ -449,19 +599,39 @@ class participants extends Component {
                                 <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(5), top: -5 }}>More features</Text>
                             </View>
                             <Left style={{ top: -5 }}>
-                                <Button transparent onPress={() => this.setState({ moreChartsModal: false, likesMoreFeatures: false })}>
+                                <Button transparent onPress={() => this.setState({
+                                    moreChartsModal: false,
+                                    likesMoreFeatures: this.state.showLikesAfterToPay,
+                                    commentsMoreFeatures: this.state.showCommentsAfterToPay,
+                                    shareMoreFeatures: this.state.showSharesAfterToPay,
+                                    viewsMoreFeatures: this.state.showViewsAfterToPay,
+                                })}>
                                     <Text allowFontScaling={false} style={{ color: colorsPalette.primaryColor, fontSize: wp(3.5) }}>CLOSE</Text>
                                 </Button>
                             </Left>
                             <Body />
                             <Right style={{ top: -5 }}>
-                                <Button transparent onPress={() => this.setState({ moreChartsModal: false, likesMoreFeatures: false })} disabled={likesMoreFeatures ? false : true}>
-                                    <Text allowFontScaling={false} style={{ color: likesMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray, fontSize: wp(3.5) }}>SUBMIT</Text>
+                                <Button
+                                    transparent
+                                    onPress={() => this._showGraphPay()}
+                                    disabled={
+                                        likesMoreFeatures ||
+                                            commentsMoreFeatures ||
+                                            shareMoreFeatures ||
+                                            viewsMoreFeatures
+                                            ? false : true}>
+                                    <Text allowFontScaling={false} style={{
+                                        color: likesMoreFeatures ||
+                                            commentsMoreFeatures ||
+                                            shareMoreFeatures ||
+                                            viewsMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray,
+                                        fontSize: wp(3.5)
+                                    }}>SUBMIT</Text>
                                 </Button>
                             </Right>
                         </Header>
                         <ScrollView>
-                            <View style={{ height: 300, padding: 10 }}>
+                            {!this.state.showLikesAfterToPay && <View style={{ height: 300, padding: 10 }}>
                                 <View style={{ flex: 0.2 }}>
                                     <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Likes <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location - scroll to left)</Text></Text>
                                 </View>
@@ -474,26 +644,26 @@ class participants extends Component {
                                         loop={false}>
                                         <View style={{ flex: 1 }}>
                                             <View style={{ flex: 0.9 }}>
-                                                <BasedLikesGender participants={participants} action={likesMoreFeatures} />
+                                                <BasedGenderLikes showLikesAfterToPay={this.state.showLikesAfterToPay} participants={participants} action={likesMoreFeatures} />
                                             </View>
                                             <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10 }}>Gender</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Gender</Text>
                                             </View>
                                         </View>
                                         <View style={{ flex: 1 }}>
                                             <View style={{ flex: 0.9 }}>
-                                                <ShowRgions participants={participants} />
+                                                <BasedAgeLikes showLikesAfterToPay={this.state.showLikesAfterToPay} participants={participants} action={likesMoreFeatures} />
                                             </View>
                                             <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10 }}>Location</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Age Range</Text>
                                             </View>
                                         </View>
                                         <View style={{ flex: 1 }}>
                                             <View style={{ flex: 0.9 }}>
-                                                <ShowRgions participants={participants} />
+                                                <BasedLocationLikes participants={participants} action={likesMoreFeatures} />
                                             </View>
                                             <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10 }}>Age</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Top Location</Text>
                                             </View>
                                         </View>
                                     </Swiper>
@@ -502,25 +672,148 @@ class participants extends Component {
                                     <Button onPress={() => this.setState({ likesMoreFeatures: !likesMoreFeatures })} transparent style={{ width: 60, height: 60, position: 'absolute' }} />
                                     <CheckBox onPress={() => this.setState({ likesMoreFeatures: !likesMoreFeatures })} checked={likesMoreFeatures} style={{ alignSelf: 'flex-end', top: 20, right: 30 }} color={likesMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray} />
                                 </View>
-                                <View style={{ height: "100%", width: "20%", position: 'absolute', bottom: 0, left: 0 }}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, top: 20, left: 10 }}>$150</Text>
+                                <View style={{ height: "100%", width: "40%", position: 'absolute', bottom: 0, left: 0 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, top: 20, left: 10, fontSize: wp(4) }}>Points: 150</Text>
                                 </View>
-                            </View>
-                            <View style={{ minHeight: 250, backgroundColor: 'red' }}>
-                                <Text>Hola mundo!</Text>
-                            </View>
-                            <View style={{ minHeight: 250, backgroundColor: 'red' }}>
-                                <Text>Hola mundo!</Text>
-                            </View>
-                            <View style={{ minHeight: 250, backgroundColor: 'red' }}>
-                                <Text>Hola mundo!</Text>
-                            </View>
-                            <View style={{ minHeight: 250, backgroundColor: 'red' }}>
-                                <Text>Hola mundo!</Text>
-                            </View>
-                            <View style={{ minHeight: 250, backgroundColor: 'red' }}>
-                                <Text>Hola mundo!</Text>
-                            </View>
+                            </View>}
+
+                            {!this.state.showCommentsAfterToPay && <View style={{ height: 300, padding: 10 }}>
+                                <View style={{ flex: 0.2 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Comments <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location - scroll to left)</Text></Text>
+                                </View>
+                                <View style={{ flex: 0.8 }}>
+                                    <Swiper
+                                        dotColor={colorsPalette.gradientGray}
+                                        activeDotColor={colorsPalette.primaryColor}
+                                        dotStyle={{ top: 35 }}
+                                        activeDotStyle={{ top: 35 }}
+                                        loop={false}>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedGenderComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} action={commentsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Gender</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedLocationComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} action={commentsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Top Location</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedAgeComments showCommentsAfterToPay={this.state.showCommentsAfterToPay} participants={participants} action={commentsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Age Range</Text>
+                                            </View>
+                                        </View>
+                                    </Swiper>
+                                </View>
+                                <View style={{ height: "100%", width: "20%", position: 'absolute', paddingRight: 30, bottom: 0, right: 0 }}>
+                                    <Button onPress={() => this.setState({ commentsMoreFeatures: !commentsMoreFeatures })} transparent style={{ width: 60, height: 60, position: 'absolute' }} />
+                                    <CheckBox onPress={() => this.setState({ commentsMoreFeatures: !commentsMoreFeatures })} checked={commentsMoreFeatures} style={{ alignSelf: 'flex-end', top: 20, right: 30 }} color={commentsMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray} />
+                                </View>
+                                <View style={{ height: "100%", width: "40%", position: 'absolute', bottom: 0, left: 0 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, top: 20, left: 10, fontSize: wp(4) }}>Points: 150</Text>
+                                </View>
+                            </View>}
+
+                            {!this.state.showSharesAfterToPay && <View style={{ height: 300, padding: 10 }}>
+                                <View style={{ flex: 0.2 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Share <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location - scroll to left)</Text></Text>
+                                </View>
+                                <View style={{ flex: 0.8 }}>
+                                    <Swiper
+                                        dotColor={colorsPalette.gradientGray}
+                                        activeDotColor={colorsPalette.primaryColor}
+                                        dotStyle={{ top: 35 }}
+                                        activeDotStyle={{ top: 35 }}
+                                        loop={false}>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedGenderShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} action={shareMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Gender</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedLocationShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} action={shareMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Top Location</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedAgeShare showSharesAfterToPay={this.state.showSharesAfterToPay} participants={participants} action={shareMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Age Range</Text>
+                                            </View>
+                                        </View>
+                                    </Swiper>
+                                </View>
+                                <View style={{ height: "100%", width: "20%", position: 'absolute', paddingRight: 30, bottom: 0, right: 0 }}>
+                                    <Button onPress={() => this.setState({ shareMoreFeatures: !shareMoreFeatures })} transparent style={{ width: 60, height: 60, position: 'absolute' }} />
+                                    <CheckBox onPress={() => this.setState({ shareMoreFeatures: !shareMoreFeatures })} checked={shareMoreFeatures} style={{ alignSelf: 'flex-end', top: 20, right: 30 }} color={shareMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray} />
+                                </View>
+                                <View style={{ height: "100%", width: "40%", position: 'absolute', bottom: 0, left: 0 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, top: 20, left: 10, fontSize: wp(4) }}>Points: 150</Text>
+                                </View>
+                            </View>}
+
+                            {!this.state.showViewsAfterToPay && <View style={{ height: 300, padding: 10 }}>
+                                <View style={{ flex: 0.2 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>View <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, fontWeight: 'normal' }}>(based on gender, age and location - scroll to left)</Text></Text>
+                                </View>
+                                <View style={{ flex: 0.8 }}>
+                                    <Swiper
+                                        dotColor={colorsPalette.gradientGray}
+                                        activeDotColor={colorsPalette.primaryColor}
+                                        dotStyle={{ top: 35 }}
+                                        activeDotStyle={{ top: 35 }}
+                                        loop={false}>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedGenderViews participants={participants} action={viewsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Gender</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedLocationViews participants={participants} action={viewsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Top Location</Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ flex: 0.9 }}>
+                                                <BassedAgeViews participants={participants} action={viewsMoreFeatures} />
+                                            </View>
+                                            <View style={{ flex: 0.1, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(2.5), top: -10, fontWeight: 'bold' }}>Age Range</Text>
+                                            </View>
+                                        </View>
+                                    </Swiper>
+                                </View>
+                                <View style={{ height: "100%", width: "20%", position: 'absolute', paddingRight: 30, bottom: 0, right: 0 }}>
+                                    <Button onPress={() => this.setState({ viewsMoreFeatures: !viewsMoreFeatures })} transparent style={{ width: 60, height: 60, position: 'absolute' }} />
+                                    <CheckBox onPress={() => this.setState({ viewsMoreFeatures: !viewsMoreFeatures })} checked={viewsMoreFeatures} style={{ alignSelf: 'flex-end', top: 20, right: 30 }} color={viewsMoreFeatures ? colorsPalette.primaryColor : colorsPalette.gradientGray} />
+                                </View>
+                                <View style={{ height: "100%", width: "40%", position: 'absolute', bottom: 0, left: 0 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, top: 20, left: 10, fontSize: wp(4) }}>Points: 150</Text>
+                                </View>
+                            </View>}
                         </ScrollView>
                     </View>
                 </Modal>

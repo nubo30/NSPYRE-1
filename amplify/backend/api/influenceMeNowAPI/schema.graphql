@@ -188,6 +188,7 @@ type ViewsParticipants @model{
   isPaused: Boolean
   createdAt: AWSDateTime
   avatar: AWSURL
+  engageData: String
 }
 
 
@@ -199,6 +200,7 @@ type ShareParticipants @model{
   whereItHasBeenShared: [String]
   createdAt: AWSDateTime
   avatar: AWSURL
+  engageData: String
 }
 
 type LikesToParticipants @model {
@@ -208,6 +210,7 @@ type LikesToParticipants @model {
   idUserLike: String
   createdAt: AWSDateTime
   avatar: AWSURL
+  engageData: String
   }
 
   type CommentsToParticipants @model{
@@ -219,6 +222,7 @@ type LikesToParticipants @model {
   avatar: AWSURL
   comments: String
   edited: String
+  engageData: String
   }
 
 ##################################################################### LISTOFCONTEST #####################################################################
