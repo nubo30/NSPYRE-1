@@ -37,7 +37,8 @@ class CaseOfSuccess extends Component {
         refreshing: false,
         animation: false,
         listCaseOfSucess: null,
-        isFinishedContest: false
+        isFinishedContest: false,
+        contestPress: ""
     }
 
 
@@ -62,7 +63,7 @@ class CaseOfSuccess extends Component {
     }
 
     render() {
-        const { input, listCaseOfSucess, animation, isFinishedContest } = this.state
+        const { input, listCaseOfSucess, animation, isFinishedContest, contestPress } = this.state
         let filterCaseOfSuccess = listCaseOfSucess && listCaseOfSucess.filter(item => item.general.nameOfContest.indexOf(input) !== -1)
         return (
             <Container>
@@ -80,7 +81,7 @@ class CaseOfSuccess extends Component {
                                 <Title
                                     minimumFontScale={wp(9)}
                                     allowFontScaling={false}
-                                    style={{ alignSelf: "center", color: "#FFF", fontSize: wp(9) }}>Case of success</Title>
+                                    style={{ alignSelf: "center", color: "#FFF", fontSize: wp(9) }}>Success Cases</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>
@@ -111,13 +112,13 @@ class CaseOfSuccess extends Component {
                                     <View>
                                         <TouchableHighlight
                                             underlayColor={colorsPalette.transparent}
-                                            onPress={() => this.setState({ animation: true })}>
+                                            onPress={() => { this.setState({ animation: true, contestPress: item.id }) }}>
                                             <Animatable.View
                                                 onAnimationEnd={() => {
                                                     this.setState({ animation: false })
                                                     this.props.navigation.navigate("AboutContestSuccess", { contest: Object.assign(item, { usersSharing: { items: [] } }) })
                                                 }}
-                                                animation={animation ? "pulse" : undefined}
+                                                animation={contestPress === item.id && animation ? "pulse" : undefined}
                                                 duration={200}
                                                 style={{
                                                     flex: 0,

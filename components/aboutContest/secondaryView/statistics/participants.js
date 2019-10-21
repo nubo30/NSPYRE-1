@@ -188,6 +188,8 @@ class participants extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>These data are the sum of all data per participant.</Text>
                         </View>
                     </View>
+                    
+                    
                     <View style={{ height: 250 }}>
                         <View style={{ paddingLeft: 15, flex: 0.1 }}>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Top Locations</Text>
@@ -199,6 +201,8 @@ class participants extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>These data are the sum of all data per participant.</Text>
                         </View>
                     </View>
+                    
+                    
                     <View style={{ height: 250 }}>
                         <View style={{ paddingLeft: 15, flex: 0.1 }}>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>Gender</Text>
@@ -210,6 +214,7 @@ class participants extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>These data are the sum of all data per participant.</Text>
                         </View>
                     </View>
+                    
                     {this.state.showLikesAfterToPay &&
                         <View style={{ height: 650 }}>
                             <View style={{ paddingLeft: 15, flex: 0.1 }}>

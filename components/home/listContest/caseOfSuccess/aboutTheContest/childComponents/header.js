@@ -14,12 +14,12 @@ class HeaderContest extends Component {
 
     render() {
         const { isFinishedContest, isCounterPause } = this.state
-        const { contest, navigation, fromWhere } = this.props
+        const { contest, navigation } = this.props
 
         return (
             <Header transparent>
                 <Left style={{ flexDirection: 'row' }}>
-                    <Button transparent onPress={() => fromWhere === 'categoryContest' ? navigation.goBack() : navigation.navigate('Home')}>
+                    <Button transparent onPress={() => navigation.goBack()}>
                         <Icon name='arrow-back' style={{ color: "#FFF" }} />
                         <Text
                             minimumFontScale={wp(4)}
@@ -62,7 +62,7 @@ class HeaderContest extends Component {
                                     </View>
                                 </View> : <CountDown
                                     running={isCounterPause}
-                                
+
                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
                                     digitTxtStyle={{ color: '#FFF' }}
                                     timeLabelStyle={{ color: '#FFF' }}

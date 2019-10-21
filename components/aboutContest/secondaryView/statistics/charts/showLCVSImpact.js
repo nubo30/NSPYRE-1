@@ -15,21 +15,10 @@ export default class ShowLCVSimpact extends Component {
     state = {
         data: [
             {
-                value: 0,
-                label: 'Comments',
-                icon: { name: "comment", type: "MaterialCommunityIcons" }
-            }, {
-                value: 0,
-                label: 'Views',
-                icon: { name: 'eye', type: "Ionicons" }
-            }, {
-                value: 0,
-                label: 'Share',
+                value: 10,
+                label: 'Loading',
+                color: '#FFF',
                 icon: { name: 'share-square-o', type: "FontAwesome" }
-            }, {
-                value: 0,
-                label: 'Like',
-                icon: { name: "heart", type: "Ionicons" }
             }
         ]
     }
@@ -44,15 +33,17 @@ export default class ShowLCVSimpact extends Component {
             {
                 value: flatten(comments).length,
                 label: 'Comments',
-                icon: { name: "comment", type: "MaterialCommunityIcons" }
+                icon: { name: "comment", type: "MaterialCommunityIcons" },
+
             }, {
                 value: flatten(views).length,
                 label: 'Views',
-                icon: { name: 'eye', type: "Ionicons" }
+                icon: { name: 'eye', type: "Ionicons" },
+
             }, {
                 value: flatten(share).length,
                 label: 'Share',
-                icon: { name: 'share-square-o', type: "FontAwesome" }
+                icon: { name: 'share-square-o', type: "FontAwesome" },
             }, {
                 value: flatten(likes).length,
                 label: 'Like',
@@ -69,7 +60,7 @@ export default class ShowLCVSimpact extends Component {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: "100%" }}>
                 <View style={{ flex: 0.7 }}>
-                    <PureChart data={data} type='pie' height={160} />
+                    <PureChart data={data.map(items => ({ color: items.color, label: items.label, value: items.value }))} type='pie' height={160} />
                 </View>
                 <View style={{ flex: 0.3, justifyContent: 'center', alignItems: 'flex-end', flexDirection: 'row', width: "100%" }}>
                     {data.map((item, key) =>

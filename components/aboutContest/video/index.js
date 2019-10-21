@@ -6,10 +6,7 @@ import { Container } from 'native-base';
 import moment from 'moment'
 
 // AWS
-import * as queries from '../../../src/graphql/queries'
 import * as mutations from '../../../src/graphql/mutations'
-
-let durationVideo = 1
 
 class VideoExplainTheContest extends Component {
 

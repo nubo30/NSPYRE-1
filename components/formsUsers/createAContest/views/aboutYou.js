@@ -21,6 +21,9 @@ import { occupationList } from '../../../global/data/global'
 // Color
 import { colorsPalette } from '../../../global/static/colors'
 
+// Child Components
+import CassesSuccess from '../../../home/listContest/caseOfSuccess/index'
+
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
@@ -198,7 +201,13 @@ class AboutYou extends Component {
                         </Button>
                         <Title allowFontScaling={false} style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.secondaryColor, fontSize: wp(6) }}>About You</Title>
                     </Left>
-                    <Right />
+                    <Right>
+                        {/* <CassesSuccess /> */}
+                        <Button transparent iconRight style={{ left: 20 }} onPress={() => navigation.navigate('CaseOfSuccess', { userData })}>
+                            <Text allowFontScaling style={{ color: colorsPalette.secondaryColor, right: 5 }}>Success Cases</Text>
+                            <Icon type="AntDesign" name="barschart" style={{ color: colorsPalette.secondaryColor }} />
+                        </Button>
+                    </Right>
                 </Header>
 
                 <Grid>
