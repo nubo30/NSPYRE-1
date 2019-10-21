@@ -136,7 +136,7 @@ export default class Prizes extends Component {
                         </Swiper>
                     </Container>
                 </View>
-            </Modal >
+            </Modal>
         )
     }
 }

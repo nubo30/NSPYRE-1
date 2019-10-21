@@ -176,7 +176,7 @@ class ViewsVideos extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>Sampling of the estimated time in the video (0% - 100% Video length)</Text>
                         </Row>
                         <Row size={40}>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', height: "100%", left: 15 }}>
+                            <View style={{ width: screenWidth }}>
                                 <PureChart data={durationInVideoData} type="bar" height={150} />
                             </View>
                         </Row>

@@ -53,7 +53,7 @@ class Comments extends Component {
     render() {
         const { dataGraph, dataUsers } = this.state
         const userData = this.props.navigation.getParam('userData')
-        const { item, _modalAction } = this.props
+        const { item } = this.props
         return (
             <Container>
                 <Grid>
@@ -61,7 +61,7 @@ class Comments extends Component {
                         <Text>Total Comments: {item.commentsToParticipants.items && item.commentsToParticipants.items.length}</Text>
                     </Row>
                     <Row size={40}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', height: "100%", width: screenWidth }}>
+                        <View style={{ width: screenWidth }}>
                             <PureChart data={dataGraph} type="line" height={180} />
                         </View>
                     </Row>

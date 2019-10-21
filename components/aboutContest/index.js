@@ -31,7 +31,7 @@ import * as queries from '../../src/graphql/queries'
 import * as subscriptions from '../../src/graphql/subscriptions'
 
 let subscription
-export default class AnatomyExample extends Component {
+export default class AboutContest extends Component {
     constructor(props) {
         super(props);
         this.state = {
