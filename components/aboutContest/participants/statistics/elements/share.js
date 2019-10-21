@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
 import { withNavigation } from 'react-navigation'
-import { Dimensions, FlatList } from 'react-native'
-import { Container, Left, Body, Text, ListItem, Thumbnail, Button } from 'native-base';
+import { FlatList, ScrollView } from 'react-native'
+import { Container, Left, Body, Text, ListItem, Thumbnail, Button, View, Icon } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
-import { PieChart } from 'react-native-chart-kit'
+import PureChart from 'react-native-pure-chart';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import _ from 'lodash'
 import lowerCase from 'lodash/lowerCase'
 import flatten from 'lodash/flatten'
 import ReadMore from 'react-native-read-more-text';
+import UserAvatar from "react-native-user-avatar"
 
-const screenWidth = Dimensions.get('screen').width
 // Colors
 import { colorsPalette } from '../../../../global/static/colors'
 
 class Likes extends Component {
-    state = { heightView: 0, data: [], dataUser: [] }
+    state = {
+        dataGraph: [
+            {
+                value: 0,
+                label: 'Comments',
+                icon: { name: "comment", type: "MaterialCommunityIcons" }
+            }
+        ],
+        dataUsers: []
+    }
 
     _applicationInWhichTheContestHasBeenShared = (value) => {
         if (typeof (value) !== 'string') {
             return value.map(item => {
                 switch (item) {
-                    case "ph.telegra.Telegraph.Share": return ({ appName: "Telegram", color: colorsPalette.tgColor })
-                    case "net.whatsapp.WhatsApp.ShareExtension": return ({ appName: "WhatsApp", color: colorsPalette.waColor })
-                    case "com.google.hangouts.ShareExtension": return ({ appName: "Hangouts", color: colorsPalette.hgColor })
-                    case "com.atebits.Tweetie2.ShareExtension": return ({ appName: "Twitter", color: colorsPalette.ttColor })
-                    case "com.apple.UIKit.activity.PostToFacebook": return ({ appName: "Facebook", color: colorsPalette.fbColor })
-                    case "com.facebook.Messenger.ShareExtension": return ({ appName: "Messenger", color: colorsPalette.mgColor })
-                    case "com.tinyspeck.chatlyio.share": return ({ appName: "Slack", color: colorsPalette.scColor })
-                    case "com.google.Gmail.ShareExtension": return ({ appName: "Gmail", color: colorsPalette.glColor })
-                    case "com.apple.UIKit.activity.Message": return ({ appName: "SMS", color: colorsPalette.smsColor })
-                    case "com.skype.skype.sharingextension": return ({ appName: "Skype", color: colorsPalette.spColor })
+                    case "ph.telegra.Telegraph.Share": return ({ appName: "Telegram", color: colorsPalette.tgColor, icon: { type: "MaterialCommunityIcons", name: "telegram" } })
+                    case "net.whatsapp.WhatsApp.ShareExtension": return ({ appName: "WhatsApp", color: colorsPalette.waColor, icon: { type: "FontAwesome", name: "whatsapp" } })
+                    case "com.google.hangouts.ShareExtension": return ({ appName: "Hangouts", color: colorsPalette.hgColor, icon: { type: "Entypo", name: "google-hangouts" } })
+                    case "com.atebits.Tweetie2.ShareExtension": return ({ appName: "Twitter", color: colorsPalette.ttColor, icon: { type: "AntDesign", name: "twitter" } })
+                    case "com.apple.UIKit.activity.PostToFacebook": return ({ appName: "Facebook", color: colorsPalette.fbColor, icon: { type: "AntDesign", name: "facebook-square" } })
+                    case "com.facebook.Messenger.ShareExtension": return ({ appName: "Messenger", color: colorsPalette.mgColor, icon: { type: "FontAwesome5", name: "facebook-messenger" } })
+                    case "com.tinyspeck.chatlyio.share": return ({ appName: "Slack", color: colorsPalette.scColor, icon: { type: "AntDesign", name: "slack" } })
+                    case "com.google.Gmail.ShareExtension": return ({ appName: "Gmail", color: colorsPalette.glColor, icon: { type: "MaterialCommunityIcons", name: "gmail" } })
+                    case "com.apple.UIKit.activity.Message": return ({ appName: "SMS", color: colorsPalette.smsColor, icon: { type: "AntDesign", name: "message1" } })
+                    case "com.skype.skype.sharingextension": return ({ appName: "Skype", color: colorsPalette.spColor, icon: { type: "AntDesign", name: "skype" } })
                     default: break;
                 }
             })
@@ -58,14 +67,6 @@ class Likes extends Component {
             y la fecha final del concurso (Contador).
         */
         const { item } = this.props
-        const whereItHasBeenShared = this._applicationInWhichTheContestHasBeenShared(flatten(item.shareParticipants.items.map(item => item.whereItHasBeenShared)))
-        const map = whereItHasBeenShared
-            .map(item => JSON.stringify(item))
-            .reduce((prev, cur) => { prev[cur] = (prev[cur] || 0) + 1; return prev; }, {});
-        const arrayOfObj = Object.entries(map).map((e) => ({ [e[0]]: e[1] }));
-        const data = arrayOfObj.map(item => ({ name: `${JSON.parse(Object.keys(item)).appName}`, color: JSON.parse(Object.keys(item)).color, legendFontColor: '#7F7F7F', legendFontSize: 15, population: Object.values(item)[0] }))
-
-        // USER
         const result = _(item.shareParticipants.items.map(item => ({
             avatar: item.avatar,
             createdAt: item.createdAt,
@@ -76,15 +77,20 @@ class Likes extends Component {
         }))).groupBy('idUserSharing').values().map(
             (group) => ({ ...group[0], repeat: group.length, group })
         );
-        const dataUser = JSON.parse(JSON.stringify(result)).map(item => ({ name: item.name, whereItHasBeenShared: item.group, createdAt: item.createdAt, id: item.id, idUserSharing: item.idUserSharing, avatar: item.avatar }))
+        const dataUsers = JSON.parse(JSON.stringify(result)).map(item => ({ name: item.name, whereItHasBeenShared: item.group, createdAt: item.createdAt, id: item.id, idUserSharing: item.idUserSharing, avatar: item.avatar }))
 
-        this.setState({ data, dataUser })
+        const shareSN = item.shareParticipants.items.map(item => item.whereItHasBeenShared)
+        const dataGraph = _(this._applicationInWhichTheContestHasBeenShared(flatten(flatten(shareSN))).map(item => ({ label: item.appName, color: item.color, icon: item.icon })))
+            .groupBy('label').values().map((group) => ({ ...group[0], value: group.length }));
+
+        this.setState({ dataGraph: JSON.parse(JSON.stringify(dataGraph)), dataUsers })
     }
 
     render() {
         const userData = this.props.navigation.getParam('userData')
-        const { dataUser, data } = this.state
-        const { item, _modalAction } = this.props
+        const { dataUsers, dataGraph } = this.state
+        const { item } = this.props
+
         return (
             <Container>
                 <Grid>
@@ -92,35 +98,36 @@ class Likes extends Component {
                         <Text>Total shared: {item.shareParticipants.items && item.shareParticipants.items.length}</Text>
                     </Row>
                     <Row size={40} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <PieChart
-                            data={data}
-                            width={screenWidth - 50}
-                            height={200}
-                            chartConfig={{
-                                backgroundColor: '#FFF',
-                                backgroundGradientFrom: '#FFF',
-                                backgroundGradientTo: '#FFF',
-                                decimalPlaces: 2, // optional, defaults to 2dp
-                                color: () => "#D82B60",
-                            }}
-                            accessor="population"
-                            backgroundColor="transparent"
-                            paddingLeft="10"
-                            absolute />
+                        <View style={{ height: "100%" }}>
+                            <View style={{ flex: 0.7, justifyContent: 'center', alignItems: 'center' }}>
+                                <PureChart data={dataGraph} type='pie' />
+                                <Button transparent style={{ width: "100%", height: "120%", position: 'absolute', alignSelf: 'center' }} />
+                            </View>
+                            <View style={{ flex: 0.3, justifyContent: 'center', alignItems: 'flex-end', flexDirection: 'row', width: "100%" }}>
+                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', width: "100%" }}>
+                                    {dataGraph
+                                        .sort((a, b) => { return b.value - a.value })
+                                        .map((item, key) =>
+                                            <Button iconLeft small transparent key={key} disabled>
+                                                <Icon name={item.icon.name} type={item.icon.type} style={{ color: item.color }} />
+                                                <Text allowFontScaling={false} style={{ left: -10, color: item.color }}>{item.value}</Text>
+                                            </Button>)}
+                                </ScrollView>
+                            </View>
+                        </View>
                     </Row>
                     <Row size={50} style={{ flexDirection: 'column' }}>
                         <FlatList
-                            data={dataUser}
+                            data={dataUsers}
                             renderItem={({ item }) => (
                                 <ListItem avatar underlayColor={colorsPalette.secondaryColor}>
-                                    <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { _modalAction(false); this.props.navigation.navigate('UserProfile', { userId: item.idUserSharing }) }} />
                                     <Left>
                                         {item.avatar !== null
                                             ? <Thumbnail small source={{ uri: item.avatar }} />
                                             : <UserAvatar size="35" name={item.name} />}
                                     </Left>
                                     <Body>
-                                        <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name}. <Text style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>Last was {lowerCase(moment(item.whereItHasBeenShared.slice(-1)[0].createdAt).calendar())}</Text></Text>
+                                        <Text allowFontScaling={false}>{userData.id === item.idUserSharing ? "You" : item.name} <Text style={{ fontSize: wp(3), color: colorsPalette.gradientGray }}>Last was {lowerCase(moment(item.whereItHasBeenShared.slice(-1)[0].createdAt).calendar())}</Text></Text>
                                         <ReadMore numberOfLines={3}>
                                             <Text note allowFontScaling={false} style={{ fontWeight: 'normal' }}>
                                                 Shared in {[...new Set((item.whereItHasBeenShared).map(item => item.whereItHasBeenShared[0].appName))].join(', ')}.

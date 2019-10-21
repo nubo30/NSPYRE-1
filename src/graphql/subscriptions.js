@@ -166,6 +166,7 @@ export const onCreateUser = `subscription OnCreateUser {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -468,6 +469,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -770,6 +772,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -1526,6 +1529,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -2151,6 +2155,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -2776,6 +2781,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -3007,6 +3013,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3021,6 +3028,7 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3249,6 +3257,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3263,6 +3272,7 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3491,6 +3501,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3505,6 +3516,7 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3733,6 +3745,7 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3971,6 +3984,7 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4209,6 +4223,7 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4447,6 +4462,7 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4684,6 +4700,7 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4921,6 +4938,7 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5159,6 +5177,7 @@ export const onCreateAudience = `subscription OnCreateAudience {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5417,6 +5436,7 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5675,6 +5695,7 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5952,6 +5973,7 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -6427,6 +6449,7 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -6902,6 +6925,7 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -7306,6 +7330,7 @@ export const onCreateViewsParticipants = `subscription OnCreateViewsParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -7595,6 +7620,7 @@ export const onUpdateViewsParticipants = `subscription OnUpdateViewsParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -7884,6 +7910,7 @@ export const onDeleteViewsParticipants = `subscription OnDeleteViewsParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8173,6 +8200,7 @@ export const onCreateShareParticipants = `subscription OnCreateShareParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8457,6 +8485,7 @@ export const onUpdateShareParticipants = `subscription OnUpdateShareParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8741,6 +8770,7 @@ export const onDeleteShareParticipants = `subscription OnDeleteShareParticipants
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9025,6 +9055,7 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9308,6 +9339,7 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9591,6 +9623,7 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9874,6 +9907,7 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -10159,6 +10193,7 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -10444,6 +10479,7 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }

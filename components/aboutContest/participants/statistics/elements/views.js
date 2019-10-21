@@ -1,116 +1,75 @@
 import React, { Component } from 'react';
-import { Dimensions, ScrollView, FlatList } from 'react-native'
+import { Dimensions, FlatList } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Video } from 'expo-av';
 import { Container, Header, Title, Button, Left, Right, Body, Text, View, List, ListItem, Thumbnail, Root } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { BarChart, LineChart } from 'react-native-chart-kit'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 import moment from 'moment';
 import ModalAnimated from 'react-native-modal'
 import UserAvatar from "react-native-user-avatar"
+import PureChart from 'react-native-pure-chart';
 
 const screenWidth = Dimensions.get('screen').width
 
 // Colors
 import { colorsPalette } from '../../../../global/static/colors'
 
-let less20 = 0
-let between20_40 = 0
-let between40_80 = 0
-let between80_100 = 0
-
-let less20User = 0
-let between20_40User = 0
-let between40_80User = 0
-let between80_100User = 0
-
 class ViewsVideos extends Component {
     state = {
         modalUsers: false,
-        heightView: false,
-        dataListByDay: [],
-        clearDaysCount: [],
-        usersViews: [],
-        dataPerUSers: {},
         dataUserShow: {},
-        durationInVideoData: {
-            labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
-            datasets: [{
-                data: [0, 0, 0, 0],
-                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                strokeWidth: 2 // optional
-            }]
-        },
-        durationInVideoDataUser: {
-            labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
-            datasets: [{
-                data: [0, 0, 0, 0],
-                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                strokeWidth: 2 // optional
-            }]
-        }
-
+        dataGraphAllViews: [{ x: '0', y: 0 }],
+        durationInVideoData: [{
+            seriesName: 'ageRange',
+            color: "#9E9E9E",
+            data: [
+                { x: "13-17", y: 19 },
+                { x: "18-24", y: 87 },
+                { x: "25-34", y: 32 },
+                { x: "35-44", y: 55 },
+                { x: "45-54", y: 8 },
+                { x: "55-64", y: 12 },
+                { x: "65+", y: 6 },
+            ]
+        }],
+        dataGraphAllViewsUsers: [{ x: '0', y: 0 }],
+        durationInVideoDataUsers: [{
+            seriesName: 'ageRange',
+            color: "#9E9E9E",
+            data: [
+                { x: "13-17", y: 19 },
+                { x: "18-24", y: 87 },
+                { x: "25-34", y: 32 },
+                { x: "35-44", y: 55 },
+                { x: "45-54", y: 8 },
+                { x: "55-64", y: 12 },
+                { x: "65+", y: 6 },
+            ]
+        }],
     }
 
     componentDidMount() {
-        const { item, contest } = this.props
-        const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
-        let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
-        let weekdays = [] // Días de la semana
-        let arrayNumberdays = []
-        while (startDay <= endDay) {
-            weekdays.push(DAYS[startDay.getDay()])
-            startDay = new Date(startDay.getTime() + (24 * 60 * 60 * 1000)); // Días en formato date
-            arrayNumberdays.push(startDay.getDate()); // Días en formato date        
-        }
-        const map = item.viewsParticipants.items && item.viewsParticipants.items
-            .map(item => new Date(item.createdAt).getDate())
-            .map(item => item)
-            .reduce((prev, cur) => { prev[cur] = (prev[cur] || 0) + 1; return prev; }, {});
-        const check = Object.entries(map).map((e) => ({ [e[0]]: e[1] }));
-        const list = arrayNumberdays.map((item) => ({ [item]: 0 }))
-        const updateList = check.reduce((acc, val) => {
-            const key = Object.keys(val)[0];
-            if (!acc[key]) acc[key] = 0
-            acc[key] = acc[key] + val[key]
-            return acc
-        }, {})
-        const dataToConvertToArrayOfString = list.map((val) => {
-            var key = Object.keys(val)[0];
-            return { [key]: val[key] + (updateList[key] || 0) }
-        })
-        const dataShowInTheGraph = dataToConvertToArrayOfString.map(item => (Object.values(item)[0]))
+        const { item } = this.props
 
-        const dataListByDay = {
-            labels: weekdays,
-            datasets: [
-                {
-                    data: dataShowInTheGraph
-                }
-            ]
-        };
+        // --------------------------------------------- ALL VIEWS --------------------------------------------------
+        const dateAllViews = item.viewsParticipants.items && item.viewsParticipants.items.map(items => ({ date: moment(items.createdAt).format('l') }))
+        const dataAllViews = _(dateAllViews).map(item => ({ x: item.date })).groupBy('x').values().map((group) => ({ ...group[0], y: group.length }));
+        let dataGraphAllViews = [{ color: colorsPalette.primaryColor, data: JSON.parse(JSON.stringify(dataAllViews)) }]
 
-
-        const DAYSVIEWS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const daysCount = _(item.viewsParticipants.items && item.viewsParticipants.items.map(item => ({ day: `${DAYSVIEWS[new Date(item.createdAt).getDay()]}`, formatDate: moment(item.createdAt).format('L') })))
-            .groupBy('day').values().map((group) => ({ ...group[0], count: group.length }));
-        const clearDaysCount = JSON.parse(JSON.stringify(daysCount)).map(item => ({ day: item.day, count: item.count, formatDate: item.formatDate }))
-
-        item.viewsParticipants.items && item.viewsParticipants.items.map(item => {
-            if (item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 20)) {
-                less20++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 20) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 40)) {
-                between20_40++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 40) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 80)) {
-                between40_80++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 80) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 100)) {
-                between80_100++ + 1
-            }
-        })
+        // --------------------------------------------- DURATION IN MILILS --------------------------------------------------
+        const stoppedMillis = item.viewsParticipants.items && item.viewsParticipants.items.map(items =>
+            items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 20)
+                ? "0%-20%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 20) && items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 40)
+                    ? "20%-40%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 40) && items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 80)
+                        ? "40%-80%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 80) && "80%-100%")
+        const dataGraphDurationMillis = _(stoppedMillis)
+            .map(item => ({ x: item }))
+            .groupBy('x')
+            .values()
+            .map((group) => ({ ...group[0], y: group.length }));
 
         // ------------------------------------------------------------ USER VIEWS ---------------------------------------------------------------------------------------
         const usersViews = _(item.viewsParticipants.items && item.viewsParticipants.items.map(item => ({
@@ -127,17 +86,13 @@ class ViewsVideos extends Component {
             .groupBy('id').values().map((group) => ({ ...group[0], count: group.length, group }));
 
         this.setState({
-            usersViews,
-            dataListByDay,
-            clearDaysCount,
-            durationInVideoData: {
-                labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
-                datasets: [{
-                    data: [less20, between20_40, between40_80, between80_100],
-                    color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                    strokeWidth: 2 // optional
-                }]
-            }
+            usersViews: JSON.parse(JSON.stringify(usersViews)),
+            dataGraphAllViews,
+            durationInVideoData: [{
+                seriesName: 'ageRange',
+                color: colorsPalette.primaryColor,
+                data: JSON.parse(JSON.stringify(dataGraphDurationMillis))
+            }],
         })
     }
 
@@ -146,78 +101,38 @@ class ViewsVideos extends Component {
     }
 
     _showDataPerUser = (item) => {
-        const { contest } = this.props
-        const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        let startDay = new Date(new Date(contest.timer.start).getFullYear(), new Date(contest.timer.start).getMonth(), new Date(contest.timer.start).getDate());
-        let endDay = new Date(new Date(contest.timer.end).getFullYear(), new Date(contest.timer.end).getMonth(), new Date(contest.timer.end).getDate());
-        let weekdays = [] // Días de la semana
-        let arrayNumberdays = []
-        while (startDay <= endDay) {
-            weekdays.push(DAYS[startDay.getDay()])
-            startDay = new Date(startDay.getTime() + (24 * 60 * 60 * 1000)); // Días en formato date
-            arrayNumberdays.push(startDay.getDate()); // Días en formato date        
-        }
-        const map = JSON.parse(JSON.stringify(item.group))
-            .map(item => new Date(item.users.createdAt).getDate())
-            .map(item => item)
-            .reduce((prev, cur) => { prev[cur] = (prev[cur] || 0) + 1; return prev; }, {});
-        const check = Object.entries(map).map((e) => ({ [e[0]]: e[1] }));
-        const list = arrayNumberdays.map((item) => ({ [item]: 0 }))
-        const updateList = check.reduce((acc, val) => {
-            const key = Object.keys(val)[0];
-            if (!acc[key]) acc[key] = 0
-            acc[key] = acc[key] + val[key]
-            return acc
-        }, {})
-        const dataToConvertToArrayOfString = list.map((val) => {
-            var key = Object.keys(val)[0];
-            return { [key]: val[key] + (updateList[key] || 0) }
-        })
-        const dataShowInTheGraph = dataToConvertToArrayOfString.map(item => (Object.values(item)[0]))
+        // --------------------------------------------- ALL VIEWS USERS --------------------------------------------------
+        const dateAllViews = item.group.map(items => ({ date: moment(items.users.createdAt).format('l') }))
+        const dataAllViews = _(dateAllViews).map(item => ({ x: item.date })).groupBy('x').values().map((group) => ({ ...group[0], y: group.length }));
+        let dataGraphAllViewsUsers = [{ color: colorsPalette.primaryColor, data: JSON.parse(JSON.stringify(dataAllViews)) }]
 
-        const dataPerUSers = {
-            labels: weekdays,
-            datasets: [
-                {
-                    data: dataShowInTheGraph
-                }
-            ]
-        };
+        // --------------------------------------------- DURATION IN MILILS USERS --------------------------------------------------
+        const stoppedMillis = item.group.map(items =>
+            items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 20)
+                ? "0%-20%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 20) && items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 40)
+                    ? "20%-40%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 40) && items.positionMillis <= this._getPorcentageOfNum(items.durationMillis, 80)
+                        ? "40%-80%" : items.positionMillis >= this._getPorcentageOfNum(items.durationMillis, 80) && "80%-100%")
+        const dataGraphDurationMillis = _(stoppedMillis)
+            .map(items => ({ x: items }))
+            .groupBy('x')
+            .values()
+            .map((group) => ({ ...group[0], y: group.length }));
 
-        item.group.map(item => {
-            if (item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 20)) {
-                less20User++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 20) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 40)) {
-                between20_40User++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 40) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 80)) {
-                between40_80User++ + 1
-            } else if (item.positionMillis >= this._getPorcentageOfNum(item.durationMillis, 80) && item.positionMillis <= this._getPorcentageOfNum(item.durationMillis, 100)) {
-                between80_100User++ + 1
-            }
-        })
         this.setState({
             dataUserShow: item,
-            dataPerUSers, durationInVideoDataUser: {
-                labels: ['0% - 20%', '20% - 40%', '40% - 80%', '80% - 100%'],
-                datasets: [{
-                    data: [less20User, between20_40User, between40_80User, between80_100User],
-                    color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                    strokeWidth: 2 // optional
-                }]
-            }
+            dataGraphAllViewsUsers,
+            durationInVideoDataUsers: [{
+                seriesName: 'ageRange',
+                color: colorsPalette.primaryColor,
+                data: JSON.parse(JSON.stringify(dataGraphDurationMillis))
+            }],
         })
     }
 
-    _graphToClear = () => {
-        less20User = 0
-        between20_40User = 0
-        between40_80User = 0
-        between80_100User = 0
-    }
 
     render() {
         const userData = this.props.navigation.getParam('userData')
-        const { heightView, clearDaysCount, durationInVideoData, usersViews, modalUsers, dataListByDay, dataPerUSers, durationInVideoDataUser, dataUserShow } = this.state
+        const { durationInVideoData, durationInVideoDataUsers, dataGraphAllViews, dataGraphAllViewsUsers, usersViews, modalUsers, dataUserShow } = this.state
         const { item } = this.props
         return (
             <Swiper
@@ -241,37 +156,11 @@ class ViewsVideos extends Component {
                                 style={{ width: "100%", height: "100%", alignSelf: 'center' }} />
                         </Row>
                         <Row size={5} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont }}>
-                                <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, fontWeight: 'bold' }}>Views are listed by days</Text> (Finished the video).
-                            </Text>
+                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.darkFont, fontWeight: 'bold' }}>Views are listed by days</Text>
                         </Row>
                         <Row size={35}>
-                            <View
-                                style={{ alignItems: 'center', justifyContent: 'center', right: 10 }}
-                                onLayout={(event) => { this.setState({ heightView: { height } = event.nativeEvent.layout }) }}>
-                                <View style={{ backgroundColor: '#FFF', height: '100%', width: 35, position: 'absolute', zIndex: 1000, left: 0, top: 25 }} />
-                                <ScrollView horizontal style={{ left: 10 }}>
-                                    {clearDaysCount.map((item, key) => <View key={key}><Text allowFontScaling={false} style={{ fontSize: wp(3) }}><Text allowFontScaling={false} style={{ fontSize: wp(3), fontWeight: 'bold' }}>{item.day}({item.formatDate})</Text>: {item.count}.</Text></View>)}
-                                </ScrollView>
-                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                    {heightView.height ?
-                                        <BarChart
-                                            withVerticalLabels={true}
-                                            withHorizontalLabels={false}
-                                            data={dataListByDay}
-                                            width={screenWidth + (dataListByDay.datasets[0].data.length > 6 ? (dataListByDay.datasets[0].data.length * 25) : 0)}
-                                            height={heightView.height - 30}
-                                            style={{ left: -35 }}
-                                            chartConfig={{
-                                                decimalPlaces: 0, // optional, defaults to 2dp
-                                                backgroundGradientFrom: '#FFF',
-                                                backgroundGradientTo: '#FFF',
-                                                backgroundGradientFromOpacity: 0,
-                                                backgroundGradientToOpacity: 0,
-                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                                strokeWidth: 0 // optional, default 3
-                                            }} /> : null}
-                                </ScrollView>
+                            <View style={{ width: screenWidth }}>
+                                <PureChart data={dataGraphAllViews} type="line" height={180} />
                             </View>
                         </Row>
                         <Row size={10} style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -279,6 +168,7 @@ class ViewsVideos extends Component {
                         </Row>
                     </Grid>
                 </Container>
+
                 <Container>
                     <Grid>
                         <Row size={10} style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -286,31 +176,15 @@ class ViewsVideos extends Component {
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>Sampling of the estimated time in the video (0% - 100% Video length)</Text>
                         </Row>
                         <Row size={40}>
-                            <View style={{ backgroundColor: '#FFF', height: 185, width: 46, position: 'absolute', zIndex: 1000, right: 0, top: 0 }} />
-                            <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                <LineChart
-                                    withVerticalLabels={true}
-                                    withHorizontalLabels={false}
-                                    data={durationInVideoData}
-                                    width={screenWidth + 50}
-                                    height={220}
-                                    style={{ left: -10 }}
-                                    chartConfig={{
-                                        decimalPlaces: 0, // optional, defaults to 2dp
-                                        backgroundGradientFrom: '#FFF',
-                                        backgroundGradientTo: '#FFF',
-                                        backgroundGradientFromOpacity: 0,
-                                        backgroundGradientToOpacity: 0,
-                                        color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                        strokeWidth: 0 // optional, default 3
-                                    }} />
-                            </ScrollView>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', height: "100%", left: 15 }}>
+                                <PureChart data={durationInVideoData} type="bar" height={150} />
+                            </View>
                         </Row>
                         <Row size={50} style={{ flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ fontSize: wp(4), alignSelf: 'center', textAlign: 'center' }}>Users are listed by the number of views they have made</Text>
                             <Text allowFontScaling={false} style={{ fontSize: wp(2.5), alignSelf: 'center' }}>Press and hold for more information</Text>
                             <FlatList
-                                data={JSON.parse(JSON.stringify(usersViews)).sort((a, b) => (a.count < b.count) ? 1 : -1)}
+                                data={usersViews && usersViews.sort((a, b) => (a.count < b.count) ? 1 : -1)}
                                 renderItem={({ item }) => (
                                     <View>
                                         <List>
@@ -331,8 +205,8 @@ class ViewsVideos extends Component {
                                 keyExtractor={item => JSON.stringify(item)} />
                         </Row>
                         <ModalAnimated
-                            onSwipeComplete={() => { this._graphToClear(); this.setState({ modalUsers: false }) }}
-                            swipeDirection={['left', 'right', 'down']}
+                            onSwipeComplete={() => this.setState({ modalUsers: false })}
+                            swipeDirection={['down']}
                             isVisible={modalUsers}
                             style={{ justifyContent: 'flex-end', margin: 0 }}>
                             <Root>
@@ -353,7 +227,7 @@ class ViewsVideos extends Component {
                                         <Header style={{ backgroundColor: colorsPalette.secondaryColor, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
                                             <Left>
                                                 <Button transparent
-                                                    onPress={() => { this.setState({ modalUsers: false }); this._graphToClear() }}>
+                                                    onPress={() => { this.setState({ modalUsers: false }) }}>
                                                     <Text
                                                         allowFontScaling={false}
                                                         minimumFontScale={wp(4)}
@@ -385,50 +259,15 @@ class ViewsVideos extends Component {
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center' }}>Views are listed by days</Text>
                                             </Row>
                                             <Row size={42.5}>
-                                                <View style={{ backgroundColor: '#FFF', height: 185, width: 46, position: 'absolute', zIndex: 1000, left: 0, top: 0 }} />
-                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                                    {Object.keys(dataPerUSers).length !== 0
-                                                        ? <BarChart
-                                                            withVerticalLabels={true}
-                                                            withHorizontalLabels={false}
-                                                            data={dataPerUSers}
-                                                            width={screenWidth + (dataPerUSers.datasets[0].data.length > 6 ? (dataPerUSers.datasets[0].data.length * 25) : 0)}
-                                                            height={220}
-                                                            style={{ left: -35 }}
-                                                            chartConfig={{
-                                                                decimalPlaces: 0, // optional, defaults to 2dp
-                                                                backgroundGradientFrom: '#FFF',
-                                                                backgroundGradientTo: '#FFF',
-                                                                backgroundGradientFromOpacity: 0,
-                                                                backgroundGradientToOpacity: 0,
-                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                                                strokeWidth: 0 // optional, default 3
-                                                            }} /> : null}
-                                                </ScrollView>
+                                                <View style={{ width: screenWidth }}>
+                                                    <PureChart data={dataGraphAllViewsUsers} type="line" height={180} />
+                                                </View>
                                             </Row>
                                             <Row size={42.5} style={{ flexDirection: 'column' }}>
                                                 <Text allowFontScaling={false} style={{ fontSize: wp(3.5), alignSelf: 'center', textAlign: 'center', top: -10 }}>Stopped video</Text>
-                                                <View style={{ backgroundColor: '#FFF', height: 200, width: 46, position: 'absolute', zIndex: 1000, right: 0, top: 0 }} />
-                                                <ScrollView horizontal contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-                                                    {Object.keys(dataPerUSers).length !== 0
-                                                        ? <LineChart
-                                                            withVerticalLabels={true}
-                                                            withHorizontalLabels={false}
-                                                            data={durationInVideoDataUser}
-                                                            width={screenWidth + 50}
-                                                            height={220}
-                                                            style={{ left: -10 }}
-                                                            chartConfig={{
-                                                                decimalPlaces: 0, // optional, defaults to 2dp
-                                                                backgroundGradientFrom: '#FFF',
-                                                                backgroundGradientTo: '#FFF',
-                                                                backgroundGradientFromOpacity: 0,
-                                                                backgroundGradientToOpacity: 0,
-                                                                color: (opacity = 1) => `rgba(216, 43, 96, ${opacity})`,// rgb(216,43,96)
-                                                                strokeWidth: 0 // optional, default 3
-                                                            }} />
-                                                        : null}
-                                                </ScrollView>
+                                                <View style={{ justifyContent: 'center', alignItems: 'center', height: "100%", left: 15 }}>
+                                                    <PureChart data={durationInVideoDataUsers} type="bar" height={150} />
+                                                </View>
                                             </Row>
                                         </Grid>
                                     </Container>

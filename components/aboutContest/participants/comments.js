@@ -198,7 +198,6 @@ class Comments extends Component {
                                                     <ListItem
                                                         avatar
                                                         underlayColor={colorsPalette.secondaryColor}>
-                                                        <Button transparent style={{ position: 'absolute', zIndex: 1000, width: "100%" }} onPress={() => { this.setState({ modalAnimated: false }); this.props.navigation.navigate('UserProfile', { userId: item.idUserComments }) }} />
                                                         <Left>
                                                             {item.avatar !== null
                                                                 ? <Thumbnail small source={{ uri: item.avatar }} />

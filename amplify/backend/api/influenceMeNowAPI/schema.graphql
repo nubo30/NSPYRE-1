@@ -57,6 +57,7 @@ type ViewsVideo @model {
   durationMillis: Int
   positionMillis: Int
   isPaused: Boolean
+  engageData: String
 }
 
 type UsersSharing @model {

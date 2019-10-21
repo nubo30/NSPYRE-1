@@ -190,6 +190,7 @@ export const getUser = `query GetUser($id: ID!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -1110,6 +1111,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -1345,6 +1347,7 @@ export const listCreateContests = `query ListCreateContests(
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -1578,6 +1581,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -1592,6 +1596,7 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -1753,6 +1758,7 @@ export const listViewsVideos = `query ListViewsVideos(
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -1767,6 +1773,7 @@ export const listViewsVideos = `query ListViewsVideos(
       durationMillis
       positionMillis
       isPaused
+      engageData
     }
     nextToken
   }
@@ -1997,6 +2004,7 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -2168,6 +2176,7 @@ export const listUsersSharings = `query ListUsersSharings(
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -2408,6 +2417,7 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -2578,6 +2588,7 @@ export const listUsersLikess = `query ListUsersLikess(
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -2818,6 +2829,7 @@ export const getAudience = `query GetAudience($id: ID!) {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3009,6 +3021,7 @@ export const listAudiences = `query ListAudiences(
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -3288,6 +3301,7 @@ export const getParticipants = `query GetParticipants($id: ID!) {
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3696,6 +3710,7 @@ export const listParticipantss = `query ListParticipantss(
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -3974,6 +3989,7 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -4422,6 +4438,7 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -4860,6 +4877,7 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -5296,6 +5314,7 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }

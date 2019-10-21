@@ -166,6 +166,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -468,6 +469,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -770,6 +772,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -1526,6 +1529,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -2151,6 +2155,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -2776,6 +2781,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
         durationMillis
         positionMillis
         isPaused
+        engageData
       }
       nextToken
     }
@@ -3007,6 +3013,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3021,6 +3028,7 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3249,6 +3257,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3263,6 +3272,7 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3491,6 +3501,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3505,6 +3516,7 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
     durationMillis
     positionMillis
     isPaused
+    engageData
   }
 }
 `;
@@ -3733,6 +3745,7 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -3971,6 +3984,7 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4209,6 +4223,7 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4447,6 +4462,7 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4684,6 +4700,7 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -4921,6 +4938,7 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5159,6 +5177,7 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5417,6 +5436,7 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5675,6 +5695,7 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -5952,6 +5973,7 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -6427,6 +6449,7 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -6902,6 +6925,7 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
           durationMillis
           positionMillis
           isPaused
+          engageData
         }
         nextToken
       }
@@ -7306,6 +7330,7 @@ export const createViewsParticipants = `mutation CreateViewsParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -7595,6 +7620,7 @@ export const updateViewsParticipants = `mutation UpdateViewsParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -7884,6 +7910,7 @@ export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8173,6 +8200,7 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8457,6 +8485,7 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -8741,6 +8770,7 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9025,6 +9055,7 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9308,6 +9339,7 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9591,6 +9623,7 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -9876,6 +9909,7 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -10163,6 +10197,7 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
@@ -10450,6 +10485,7 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
             durationMillis
             positionMillis
             isPaused
+            engageData
           }
           nextToken
         }
