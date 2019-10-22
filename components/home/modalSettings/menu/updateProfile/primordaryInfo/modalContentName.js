@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 const maxLength = 20
 
 // GraphQL
-import * as mutations from '../../../../../src/graphql/mutations'
+import * as mutations from '../../../../../../src/graphql/mutations'
 
 // this function show the content of modals
 export default class UpdateName extends Component {

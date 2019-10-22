@@ -11,8 +11,8 @@ import AWS from 'aws-sdk'
 import bytes from 'bytes'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-import * as mutations from '../../../../../src/graphql/mutations'
-import { securityCredentials } from '../../../../global/aws/credentials'
+import * as mutations from '../../../../../../src/graphql/mutations'
+import { securityCredentials } from '../../../../../global/aws/credentials'
 
 // This function change the avatar user
 class Avatar extends Component {

@@ -242,7 +242,7 @@ export default class Audience extends Component {
                                                         </Button>
                                                         <Title allowFontScaling={false} style={{ alignSelf: "center", left: 15, color: "#D81B60", fontSize: wp(6) }}>
                                                             Our Audience
-                                                </Title>
+                                                         </Title>
                                                     </Left>
                                                     <Right />
                                                 </Header>
@@ -252,7 +252,7 @@ export default class Audience extends Component {
                                                             <Text allowFontScaling={false} style={{ color: "#333", fontWeight: "bold", fontSize: wp(20), textAlign: 'center' }}>{noThanksAudienceUser ? "🙌" : "🎊"}</Text>
                                                             <Text allowFontScaling={false} style={{ color: "#333", fontWeight: "bold", fontSize: wp(7), textAlign: 'center', top: 15 }}>{noThanksAudienceUser ? "OK Let's Get Started!" : "Congratulations!"}</Text>
                                                             <Text allowFontScaling={false} style={{ color: "#333", fontWeight: '400', fontSize: wp(5.5), textAlign: 'center', top: 30 }}>{contest.user.name}</Text>
-                                                            <Text allowFontScaling={false} style={{ color: "#333", fontWeight: '100', fontSize: wp(5), textAlign: 'center', top: 43 }}>
+                                                            <Text allowFontScaling={false} style={{ color: "#333", fontSize: wp(5), textAlign: 'center', top: 43 }}>
                                                                 Create a campain with our community for your contest!
                                                     </Text>
                                                         </Row>

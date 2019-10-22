@@ -9,7 +9,7 @@ import ModalContentName from './modalContentName'
 import ModalContentLastName from './modalContentLastName'
 
 // Colors
-import { colorsPalette } from '../../../../global/static/colors'
+import { colorsPalette } from '../../../../../global/static/colors'
 
 // This function show the name, lastname and avatar of user
 export default class PrimordaryInfo extends Component {

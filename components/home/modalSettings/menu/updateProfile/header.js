@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import PrimordaryInfo from './primordaryInfo/index'
 
 // Colors
-import { colorsPalette } from "../../../global/static/colors"
+import { colorsPalette } from "../../../../global/static/colors"
 
 // This function is the header of slide modify the profile user
 export default function HeaderModifyProfile(props) {

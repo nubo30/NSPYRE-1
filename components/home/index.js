@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { Platform } from "react-native"
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Text, Drawer, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge } from 'native-base';
+import { Text, Header, Title, Left, Button, Icon, Container, ActionSheet, Content, View, Right, Badge } from 'native-base';
 import Swiper from 'react-native-swiper'
 
 // Child Components
 import UserInfo from "./photoAndButtom"
-import DrawerRight from "./drawer"
 import ListContest from "./listContest"
+import Menu from './modalSettings'
 
 // gadrient
 import { MyStatusBar } from '../global/statusBar'
@@ -37,9 +36,8 @@ class Home extends Component {
             userData: {},
             isReady: false,
             animation: null,
-            openDrower: false,
+            menu: false,
             actionSheetButtonIndex: "Create a contest",
-            heightHeader: 0,
             prizeCategory: [],
             notifications: [],
             isLoading: false,
@@ -109,12 +107,6 @@ class Home extends Component {
         this.getDataFromAWS()
     }
 
-    measureView(event) {
-        this.setState({
-            heightHeader: event.nativeEvent.layout.height // height of the principal height
-        })
-    }
-
     showActionSheet() {
         const { navigation } = this.props
         if (this.actionSheet !== null) {
@@ -135,26 +127,28 @@ class Home extends Component {
         this.swiper.scrollBy(i)
     }
 
+    _menu = (value) => {
+        this.setState({ menu: value })
+    }
+
     render() {
-        const { userData, openDrower, isReady, prizeCategory, notifications, isLoading, refreshing } = this.state
+        const { userData, menu, isReady, prizeCategory, notifications, isLoading, refreshing } = this.state
         const { online } = this.props.networkStatus
         return (
             <Swiper
                 ref={(swiper) => this.swiper = swiper}
-                scrollEnabled={!openDrower}
+                scrollEnabled={!menu}
                 showsPagination={false}
                 showsButtons={false}
                 index={0}
                 loop={false}>
                 <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                     {/* Header */}
-                    <Header style={{ backgroundColor: colorsPalette.primaryColor }} onLayout={(event) => this.measureView(event)}>
+                    <Header style={{ backgroundColor: colorsPalette.primaryColor }}>
                         <Left style={{ flexDirection: "row", alignItems: "center" }}>
                             <Button style={{ minWidth: wp(11) }} transparent
-                                onPress={() => { this.setState({ openDrower: !openDrower }); }}>
-                                {!openDrower
-                                    ? <Icon name='menu' style={{ color: colorsPalette.secondaryColor, fontSize: wp(9.5), top: -2 }} />
-                                    : <Icon name='close' style={{ color: colorsPalette.secondaryColor, fontSize: wp(11), top: -5, left: 5 }} />}
+                                onPress={() => { this._menu(true) }}>
+                                <Icon name='menu' style={{ color: colorsPalette.secondaryColor, fontSize: wp(9.5), top: -2 }} />
                             </Button>
                             <Title
                                 allowFontScaling={false}
@@ -163,10 +157,7 @@ class Home extends Component {
                         <Right style={{ position: 'absolute', right: 0, top: 23, right: 5 }}>
                             <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex: 1, height: '100%' }}>
                                 <Button
-                                    onPress={() => {
-                                        this._changeSwiper(1)
-                                        this.setState({ openDrower: false });
-                                    }}
+                                    onPress={() => { this._changeSwiper(1) }}
                                     transparent small style={{ height: '100%', alignSelf: 'flex-end', paddingLeft: 20, zIndex: 1000, left: 10 }}>
                                     <Icon type="Feather" name='bell' style={{ color: colorsPalette.secondaryColor, fontSize: wp(6.5), top: 2 }} />
                                 </Button>
@@ -180,65 +171,47 @@ class Home extends Component {
                         </Right>
                     </Header>
                     <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
-
-                    {/* Drower left */}
-                    <Drawer
-                        openDrawerOffset={50}
-                        type={Platform.OS === 'ios' ? "displace" : "static"}
-                        panCloseMask={1}
-                        closedDrawerOffset={Platform.OS === 'ios' ? -3 : 0}
-                        styles={{
-                            main: {
-                                shadowColor: 'rgba(0,0,0,0.1)',
+                    <Container
+                        allowFontScaling={false}
+                        style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                        <Header
+                            span style={{
+                                backgroundColor: colorsPalette.secondaryColor,
+                                height: hp(35),
+                                flexDirection: "column",
+                                shadowColor: colorsPalette.primaryShadowColor,
                                 shadowOpacity: 1,
-                                shadowOffset: { width: -5, height: 1 },
-                                zIndex: 1000
-                            }
-                        }}
-                        content={<DrawerRight userData={userData} />}
-                        open={openDrower}>
-                        {/* Home Content */}
-                        <Container
-                            allowFontScaling={false}
-                            style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                            <Header
-                                span style={{
-                                    backgroundColor: colorsPalette.secondaryColor,
-                                    height: hp(35),
-                                    flexDirection: "column",
-                                    shadowColor: colorsPalette.primaryShadowColor,
-                                    shadowOpacity: 1,
-                                    shadowOffset: { width: 0, height: 1.5 },
-                                    borderBottomColor: colorsPalette.transparent
-                                }}>
-                                {/* Componentes como el avatar, your contest y redeem points */}
-                                <UserInfo
-                                    prizeCategory={prizeCategory}
-                                    userData={userData}
-                                    isReady={isReady}
-                                    offLine={!online} />
-                                <Button
-                                    disabled={!online}
-                                    bordered
-                                    small
-                                    transparent style={{ alignSelf: "center", top: -10, borderColor: colorsPalette.transparent }}
-                                    onPress={() => this.showActionSheet()}>
-                                    <Text
-                                        allowFontScaling={false}
-                                        style={{ color: !online ? colorsPalette.thirdColor : colorsPalette.primaryColor, textAlign: "center", fontSize: wp(4) }}>CREATE A CONTEST <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.primaryColor }}>OR</Text> SUBMIT A PRIZE</Text>
-                                </Button>
-                                <ActionSheet ref={(c) => { this.actionSheet = c; }} />
+                                shadowOffset: { width: 0, height: 1.5 },
+                                borderBottomColor: colorsPalette.transparent
+                            }}>
+                            {/* Componentes como el avatar, your contest y redeem points */}
+                            <UserInfo
+                                prizeCategory={prizeCategory}
+                                userData={userData}
+                                isReady={isReady}
+                                offLine={!online} />
+                            <Button
+                                disabled={!online}
+                                bordered
+                                small
+                                transparent style={{ alignSelf: "center", top: -10, borderColor: colorsPalette.transparent }}
+                                onPress={() => this.showActionSheet()}>
                                 <Text
                                     allowFontScaling={false}
-                                    style={{ fontSize: wp(6.5), fontWeight: "200", color: colorsPalette.darkFont, textAlign: "center", top: -5 }}>
-                                    LIST OF CONTESTS
+                                    style={{ color: !online ? colorsPalette.thirdColor : colorsPalette.primaryColor, textAlign: "center", fontSize: wp(4) }}>CREATE A CONTEST <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.primaryColor }}>OR</Text> SUBMIT A PRIZE</Text>
+                            </Button>
+                            <ActionSheet ref={(c) => { this.actionSheet = c; }} />
+                            <Text
+                                allowFontScaling={false}
+                                style={{ fontSize: wp(6.5), fontWeight: "200", color: colorsPalette.darkFont, textAlign: "center", top: -5 }}>
+                                LIST OF CONTESTS
                                 </Text>
-                            </Header>
-                            <Content padder showsVerticalScrollIndicator={false}>
-                                <ListContest offLine={!online} userData={userData} />
-                            </Content>
-                        </Container>
-                    </Drawer>
+                        </Header>
+                        <Content padder showsVerticalScrollIndicator={false}>
+                            <ListContest offLine={!online} userData={userData} />
+                        </Content>
+                        <Menu menu={menu} userData={userData} _menu={this._menu} />
+                    </Container>
                 </Container>
                 <NotificationCenter _refreshing={this._refreshing} refreshing={refreshing} _refreshData={this._refreshData} _deleteNotificationLoading={this._deleteNotificationLoading} isLoading={isLoading} notifications={notifications} _changeSwiper={this._changeSwiper} />
             </Swiper>

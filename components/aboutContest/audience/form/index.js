@@ -72,7 +72,7 @@ export default class Audience extends Component {
         } = this.props
         return (
             <Container>
-                <Header style={{ width: "100%", height: 70, backgroundColor: '#FAFAFA', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
+                <Header style={{ width: "100%", height: 70, backgroundColor: '#FFF', borderBottomColor: 'rgba(0,0,0,0.0)' }}>
                     <Left style={{ flexDirection: 'row' }}>
                         <Button
                             disabled={isLoading}
@@ -98,11 +98,11 @@ export default class Audience extends Component {
                         </Button>
                     </Right>
                 </Header>
-                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FAFAFA' }}>
+                <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FFF' }}>
                     {/* FORMULARIO AUDIENCE*/}
                     <FormAudience _matchProfiles={this._matchProfiles} searchMatches={searchMatches} audience={audience} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _isValidDataForAWS={this._isValidDataForAWS} />
                 </Content>
-                <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FAFAFA', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column', minHeight: 100, padding: 10 }}>
+                <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FFF', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column', minHeight: 100, padding: 10 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%" }}>
                         <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#333", fontSize: wp(3.5), fontWeight: 'bold' }}>5,000mil</Text>
                         <Button small transparent style={{ top: -5 }} onPress={() => Alert.alert(

@@ -8,10 +8,10 @@ import PhoneInput from 'react-native-phone-input'
 import _ from 'lodash'
 
 // GraphQL
-import * as mutations from '../../../../../src/graphql/mutations'
-import * as queries from '../../../../../src/graphql/queries'
+import * as mutations from '../../../../../../src/graphql/mutations'
+import * as queries from '../../../../../../src/graphql/queries'
 
-import { colorsPalette } from '../../../../global/static/colors'
+import { colorsPalette } from '../../../../../global/static/colors'
 
 export default class BasicInfo extends Component {
 

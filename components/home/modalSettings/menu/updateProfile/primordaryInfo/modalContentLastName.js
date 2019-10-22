@@ -8,7 +8,7 @@ import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Toast, C
 const maxLength = 20
 
 // GraphQL
-import * as mutations from '../../../../../src/graphql/mutations'
+import * as mutations from '../../../../../../src/graphql/mutations'
 
 // this function show the content of modals
 export default class UpdateLastName extends Component {

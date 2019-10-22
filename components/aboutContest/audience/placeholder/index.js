@@ -11,7 +11,7 @@ export default class AudiencePlaceholder extends Component {
     render() {
         return (
             <Container>
-                <Header style={{ width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: Platform.OS === 'ios' ? 70 : 50 }}>
+                <Header style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, width: "100%", borderBottomColor: "rgba(0,0,0,0.0)", backgroundColor: 'transparent', height: Platform.OS === 'ios' ? 70 : 50 }}>
                     <Left style={{ flexDirection: 'row' }}>
                         <Button transparent onPress={() => { this._modalVisibleAudienceSelect(false); }}>
                             <Icon name='arrow-back' style={{ color: "#D81B60" }} />
