@@ -269,6 +269,7 @@ export const onCreateUser = `subscription OnCreateUser {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -293,7 +294,7 @@ export const onCreateUser = `subscription OnCreateUser {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -572,6 +573,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -596,7 +598,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -875,6 +877,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -899,7 +902,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -1040,6 +1043,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -1058,7 +1062,7 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -1666,6 +1670,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -1684,7 +1689,7 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -2292,6 +2297,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -2310,7 +2316,7 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -10775,6 +10781,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -10793,7 +10800,7 @@ export const onCreateSubmitPrize = `subscription OnCreateSubmitPrize {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -10972,6 +10979,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -10990,7 +10998,7 @@ export const onUpdateSubmitPrize = `subscription OnUpdateSubmitPrize {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11169,6 +11177,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11187,7 +11196,7 @@ export const onDeleteSubmitPrize = `subscription OnDeleteSubmitPrize {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11367,6 +11376,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11385,7 +11395,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11395,6 +11405,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11419,7 +11430,7 @@ export const onCreateEngage = `subscription OnCreateEngage {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }
@@ -11556,6 +11567,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11574,7 +11586,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11584,6 +11596,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11608,7 +11621,7 @@ export const onUpdateEngage = `subscription OnUpdateEngage {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }
@@ -11745,6 +11758,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11763,7 +11777,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11773,6 +11787,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11797,7 +11812,7 @@ export const onDeleteEngage = `subscription OnDeleteEngage {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }

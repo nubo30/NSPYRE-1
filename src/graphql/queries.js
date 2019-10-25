@@ -293,6 +293,7 @@ export const getUser = `query GetUser($id: ID!) {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -317,7 +318,7 @@ export const getUser = `query GetUser($id: ID!) {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -461,6 +462,7 @@ export const listUsers = `query ListUsers(
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -479,7 +481,7 @@ export const listUsers = `query ListUsers(
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -622,6 +624,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -640,7 +643,7 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -5761,6 +5764,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -5779,7 +5783,7 @@ export const getSubmitPrize = `query GetSubmitPrize($id: ID!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -6049,6 +6053,7 @@ export const getEngage = `query GetEngage($id: ID!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -6067,7 +6072,7 @@ export const getEngage = `query GetEngage($id: ID!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -6077,6 +6082,7 @@ export const getEngage = `query GetEngage($id: ID!) {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -6101,7 +6107,7 @@ export const getEngage = `query GetEngage($id: ID!) {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }
@@ -6157,6 +6163,7 @@ export const listEngages = `query ListEngages(
         notificationToken
       }
       aboutThePersonality {
+        age
         amountOfChildren
         amountOfSimblings
         birthDate
@@ -6181,7 +6188,7 @@ export const listEngages = `query ListEngages(
         schools
         university
         socioeconomicLevel
-        vote
+        political
       }
       createdAt
     }

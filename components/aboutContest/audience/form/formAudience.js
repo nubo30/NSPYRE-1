@@ -8,9 +8,11 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import moment from 'moment'
 import Swiper from 'react-native-swiper'
 import truncate from 'lodash/truncate'
+import Axios from 'axios'
 
 // Icons
 import { Entypo, MaterialCommunityIcons, AntDesign, FontAwesome, Feather } from '@expo/vector-icons'
+import { colorsPalette } from '../../../global/static/colors'
 
 // Static Data
 import {
@@ -23,9 +25,6 @@ import * as queries from '../../../../src/graphql/queries'
 
 export default class FormAudience extends Component {
     state = {
-
-        matchProfiles: { count: 0 },
-
         // Data
         age: {
             yearOne: 0,
@@ -96,6 +95,7 @@ export default class FormAudience extends Component {
             this._getRentOrOwnHouse()
             this._getRentOrOwnCar()
             this._getSocioeconomicLevel()
+            this._filterAudience()
         }
     }
 
@@ -149,8 +149,6 @@ export default class FormAudience extends Component {
     }
 
     _getNameCountry = (countries) => {
-        const { contest } = this.props
-        _.remove(countries, { name: contest.aboutTheUser.location.country })
         this.setState({ countryList: [{ name: 'List of countries', id: 10 * 100, children: countries.map((item, key) => { return { name: item.name, id: key } }) }] })
     }
 
@@ -225,8 +223,7 @@ export default class FormAudience extends Component {
     onSelectedItemsChangeRentOrOwnCar = (value) => { this.setState({ rentOrOwnCar: value }) }
 
     _updateCountryItems = (value) => {
-        const { contest } = this.props
-        this.setState({ countryItems: value, countriesChoose: [...value, { id: 0, name: _.startCase(contest.aboutTheUser.location.country) }] })
+        this.setState({ countryItems: value, countriesChoose: value })
     }
 
     _updateSexualityItems = (value) => {
@@ -274,101 +271,97 @@ export default class FormAudience extends Component {
         if (nextProps.searchMatches !== this.props.searchMatches) { this._filterAudience() }
     }
 
-    _validateDataForAWS = async () => {
-        const { contest, _isLoading, _modalVisibleAudienceSelect } = this.props
-        const audienceList = {
-            // JSONdata: JSON.stringify({
-            //     "contest": {
-            //         "id": contest.id,
-            //         "user": contest.user,
-            //         "prizes": [],
-            //         "participants": { items: [] },
-            //         "general": {
-            //             "nameOfContest": contest.general.nameOfContest,
-            //             "picture": { url: contest.general.picture.url },
-            //             "video": { url: contest.general.video.url }
-            //         }
-            //     }
-            // }),
-            audienceCreateContestId: contest.id,
-            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
-            ages: this.state.age.years ? [this.state.age.yearOne, this.state.age.yearTwo] : ['none'],
-            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
-            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
-            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
-            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
-            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
-            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
-            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
-            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
-            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
-            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
-            occupation: this.state.occupationChoose.length ? this.state.occupationChoose.map(item => item.name) : ['none'],
-            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
-            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
-            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
-            createdAt: moment().toISOString()
-        }
-        console.log(audienceList, "<-------------|||||||||")
-        _isLoading(false)
-        try {
-            // await API.graphql(graphqlOperation(mutations.createAudience, { input: audienceList }))
-            // await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
-            // await Toast.show({ text: "Audience created!", buttonText: "Okay", position: "top", type: "success", duration: 2000 })
-            // setTimeout(() => {
-            // _modalVisibleAudienceSelect(false)
-            // this.props._setModalVisibleAudience(false)
-            // }, 2000);
-        } catch (error) {
-            console.log(error)
-            Toast.show({ text: "Oops! An error has occurred, please try again", buttonText: "Okay", position: "top", type: "danger", duration: 3000 })
-            _isLoading(false)
-        }
-    }
 
-    _filterAudience = async () => {
-        const { contest, _matchProfiles } = this.props
-        const preferences = {
-            JSONdata: {
-                "contest": {
-                    "id": contest.id,
-                    "user": contest.user,
-                    "prizes": [],
-                    "participants": { items: [] },
-                    "general": {
-                        "nameOfContest": contest.general.nameOfContest,
-                        "picture": { url: contest.general.picture.url },
-                        "video": { url: contest.general.video.url }
+    _filterAudience = () => {
+        const { _matchProfiles } = this.props
+        const aboutThePersonality = {
+            "nested": {
+                "path": "engages.aboutThePersonality",
+                "query": {
+                    "bool": {
+                        "must": [
+                            this.state.gender !== 'NO_SELECT' ? { "match": { "engages.aboutThePersonality.gender": this.state.gender } } : null,
+                            this.state.sexualityChoose.length !== 0 ? { "bool": { "should": [this.state.sexualityChoose.map(item => ({ "match": { "engages.aboutThePersonality.sexuality": item.name } }))] } } : null,
+                            this.state.maritalStatusChoose.length !== 0 ? { "bool": { "should": [this.state.maritalStatusChoose.map(item => ({ "match_phrase": { "engages.aboutThePersonality.maritalStatus": item.name } }))] } } : null,
+                            this.state.parentalConditionChoose.length !== 0 ? { "bool": { "should": this.state.parentalConditionChoose.map(items => ({ "match": { "engages.aboutThePersonality.parentalCondition": items.name } })) } } : null,
+                            this.state.amountOfChildren !== 'NO_SELECT' ? { "match": { "engages.aboutThePersonality.amountOfChildren": this.state.amountOfChildren } } : null,
+                            this.state.amountOfSimblings !== 'NO_SELECT' ? { "match": { "engages.aboutThePersonality.amountOfSimblings": this.state.amountOfSimblings } } : null,
+                            this.state.age.yearOne && this.state.age.yearTwo ? { "range": { "engages.aboutThePersonality.age": { "gte": this.state.age.yearOne, "lte": this.state.age.yearTwo, "boost": 2.0 } } } : null,
+                            this.state.countriesChoose.length ? {
+                                "nested": {
+                                    "path": "engages.aboutThePersonality.location",
+                                    "query": {
+                                        "bool": {
+                                            "should": [
+                                                this.state.countriesChoose.length === 0 ? '' : this.state.countriesChoose.map(item => ({ "match_phrase": { "engages.aboutThePersonality.location.country": item.name } }))
+                                            ]
+                                        }
+                                    }
+                                }
+                            } : null
+                        ].filter(item => item !== null)
                     }
                 }
-            },
-            audienceCreateContestId: contest.id,
-            genders: this.state.gender !== 'NO_SELECT' ? [this.state.gender] : ['none'],
-            ages: this.state.age.years ? [this.state.age.yearOne, this.state.age.yearTwo] : ['none'],
-            countries: this.state.countriesChoose.length ? this.state.countriesChoose.map(item => item.name) : ['none'],
-            sexualities: this.state.sexualityChoose.length ? this.state.sexualityChoose.map(item => item.name) : ['none'],
-            maritalStatus: this.state.maritalStatusChoose.length ? this.state.maritalStatusChoose.map(item => item ? item.name : 'none') : ['none'],
-            academicLevelAchieved: this.state.academicLevelAchievedChoose.length ? this.state.academicLevelAchievedChoose.map(item => item.name) : ['none'],
-            schools: this.state.schoolsChoose.length ? this.state.schoolsChoose.map(item => item.name) : ['none'],
-            universities: this.state.universityChoose.length ? this.state.universityChoose.map(item => item.name) : ['none'],
-            parentalCondition: this.state.parentalConditionChoose.length ? this.state.parentalConditionChoose.map(item => item.name) : ['none'],
-            amountOfChildren: this.state.amountOfChildren !== 'NO_SELECT' ? [this.state.amountOfChildren] : ['none'],
-            amountOfSimblings: this.state.amountOfSimblings !== 'NO_SELECT' ? [this.state.amountOfSimblings] : ['none'],
-            politicalPeople: this.state.politicalPeople !== 'NO_SELECT' ? [this.state.politicalPeople] : ['none'],
-            occupation: this.state.occupationChoose.length ? this.state.occupationChoose.map(item => item.name) : ['none'],
-            socioeconomicLevel: this.state.socioeconomicLevelItems.length ? this.state.socioeconomicLevelItems.map(item => item.name) : ['none'],
-            rentOrOwnHouse: this.state.rentOrOwnHouseChoose.length ? this.state.rentOrOwnHouseChoose.map(item => item.name) : ['none'],
-            rentOrOwnCar: this.state.rentOrOwnCarChoose.length ? this.state.rentOrOwnCarChoose.map(item => item.name) : ['none'],
-            createdAt: moment().toISOString()
+            }
         }
-        try {
-            const { data } = await API.graphql(graphqlOperation(queries.filterAudienceForContest, { preferences: JSON.stringify(preferences) }))
-            _matchProfiles(JSON.parse(data.filterAudienceForContest))
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
+        const aboutTheOccupations = {
+            "nested": {
+                "path": "engages.aboutTheOccupations",
+                "query": {
+                    "bool": {
+                        "must": [
+                            this.state.academicLevelAchievedChoose.length !== 0 ? { "bool": { "should": this.state.academicLevelAchievedChoose.map(item => ({ "match_phrase": { "engages.aboutTheOccupations.levelAchivied": item.name } })) } } : null,
+                            this.state.occupationChoose.length !== 0 ? { "bool": { "should": this.state.occupationChoose.map(item => ({ "match_phrase": { "engages.aboutTheOccupations.occupation": item.name } })) } } : null,
+                            this.state.rentOrOwnCarChoose.length !== 0 ? { "bool": { "should": this.state.rentOrOwnCarChoose.map(item => ({ "match": { "engages.aboutTheOccupations.rentOrOwnCar": item.name } })) } } : null,
+                            this.state.rentOrOwnHouseItems.length !== 0 ? { "bool": { "should": this.state.rentOrOwnHouseItems.map(item => ({ "match": { "engages.aboutTheOccupations.rentOrOwnHouse": item.name } })) } } : null,
+                            this.state.schoolsChoose.length !== 0 ? { "bool": { "should": this.state.schoolsChoose.map(item => ({ "match_phrase": { "engages.aboutTheOccupations.schools": item.name } })) } } : null,
+                            this.state.universityChoose.length !== 0 ? { "bool": { "should": this.state.universityChoose.map(item => ({ "match_phrase": { "engages.aboutTheOccupations.university": item.name } })) } } : null,
+                            this.state.socioeconomicLevelItems.length !== 0 ? { "bool": { "should": this.state.socioeconomicLevelItems.map(item => ({ "match": { "engages.aboutTheOccupations.socioeconomicLevel": item.name } })) } } : null,
+                            this.state.politicalPeople !== 'NO_SELECT' ? { "match": { "engages.aboutTheOccupations.political": this.state.politicalPeople } } : null,
+
+                        ].filter(item => item !== null)
+                    }
+                }
+            }
+        }
+
+        const verifyRootElements = [
+            this.state.age.yearOne && this.state.age.yearTwo ||
+                this.state.sexualityChoose.length !== 0 ||
+                this.state.maritalStatusChoose.length !== 0 ||
+                this.state.parentalConditionChoose.length !== 0 ||
+                this.state.amountOfChildren !== 'NO_SELECT' ||
+                this.state.amountOfSimblings !== 'NO_SELECT' ||
+                this.state.gender !== 'NO_SELECT' ||
+                this.state.countriesChoose.length !== 0 ? aboutThePersonality : null,
+            this.state.academicLevelAchievedChoose.length !== 0 ||
+                this.state.occupationChoose.length !== 0 ||
+                this.state.rentOrOwnCarChoose.length !== 0 ||
+                this.state.rentOrOwnHouseItems.length !== 0 ||
+                this.state.schoolsChoose.length !== 0 ||
+                this.state.universityChoose.length !== 0 ||
+                this.state.socioeconomicLevelItems.length !== 0 ||
+                this.state.politicalPeople !== 'NO_SELECT' ? aboutTheOccupations : null
+        ]
+
+        const searchAudiencie = {
+            "query": {
+                "nested": {
+                    "path": "engages",
+                    "query": {
+                        "bool": { "must": verifyRootElements.filter(item => item !== null) }
+                    }
+                }
+            }
+        }
+        Axios.get("https://search-influencemenowtest-pirbhpqtqvcumgt6ze4spjupba.us-east-1.es.amazonaws.com/engages/_search", {
+            params: {
+                source: JSON.stringify(searchAudiencie),
+                source_content_type: 'application/json'
+            }
+        }).then(res => _matchProfiles(res.data.hits.total.value)).catch(err => console.log("Error", err))
+    }
 
     render() {
         const {
@@ -420,7 +413,6 @@ export default class FormAudience extends Component {
             // Actions
             isLoading
         } = this.props;
-
         return (
             <Container contentContainerStyle={{ flex: 1 }} >
                 <Grid>
@@ -464,6 +456,7 @@ export default class FormAudience extends Component {
                                                         <Picker.Item label="Male" value="Male" />
                                                         <Picker.Item label="Female" value="Female" />
                                                         <Picker.Item label="Both" value="Both" />
+                                                        <Picker.Item label="Other" value="Other" />
                                                         <Picker.Item label="Do not specify" value="NO_SELECT" />
                                                     </Picker>
                                                 </View>
@@ -519,6 +512,78 @@ export default class FormAudience extends Component {
                                                 </Picker>}
                                         </ListItem>
 
+                                        {/* COUNTRY */}
+                                        <ListItem
+                                            disabled={isLoading}
+                                            itemHeader
+                                            onPress={() => this.SectionedMultiSelectCountry._toggleSelector()}
+                                            icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
+                                            <Left style={{ right: 15 }}>
+                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#0091EA" }}>
+                                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
+                                                </Button>
+                                            </Left>
+                                            <Body style={{ right: 15 }}>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Location</Text>
+                                            </Body>
+                                            <Right>
+                                                <Text allowFontScaling={false}>
+                                                    {truncate((countryItems.length ? countryItems.map(item => `${item.name}`).join(', ') : "Add more"), { length: 15, separator: "..." })}
+                                                </Text>
+                                                <Icon active name="arrow-forward" />
+                                            </Right>
+                                            <View style={{ backgroundColor: 'red', position: 'absolute', right: '-5000%' }}>
+                                                <SectionedMultiSelect
+                                                    parentChipsRemoveChildren={true}
+                                                    ref={SectionedMultiSelectCountry => this.SectionedMultiSelectCountry = SectionedMultiSelectCountry}
+                                                    items={countryList}
+                                                    uniqueKey="id"
+                                                    subKey="children"
+                                                    selectText="Choose some things..."
+                                                    showDropDowns={true}
+                                                    readOnlyHeadings={true}
+                                                    onSelectedItemsChange={this.onSelectedItemsChangeCountry}
+                                                    onSelectedItemObjectsChange={(items) => this._updateCountryItems(items)}
+                                                    primary="#D81B60"
+                                                    selectedItems={country}
+                                                    showDropDowns={false}
+                                                    dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                                    dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
+                                                    styles={{
+                                                        item: {
+                                                            paddingHorizontal: 10,
+                                                        },
+                                                        itemText: {
+                                                            fontSize: wp(10)
+                                                        },
+                                                        subItem: {
+                                                            paddingHorizontal: 10,
+                                                            height: 45,
+                                                        },
+                                                        subItemText: {
+                                                            fontSize: wp(5)
+                                                        },
+                                                        button: {
+                                                            backgroundColor: '#D81B60',
+                                                        },
+                                                        confirmText: {
+                                                            letterSpacing: 2
+                                                        },
+                                                        subSeparator: {
+                                                            backgroundColor: 'rgba(0,0,0,0.2)',
+                                                        }
+                                                    }}
+                                                />
+                                            </View>
+                                        </ListItem>
+                                        <Text allowFontScaling={false} style={{ alignSelf: 'center', width: "90%", textAlign: 'center', color: colorsPalette.darkFont, fontSize: wp(2.5), top: 20 }}>
+                                            Customize your audience through these three simple questions, so you would be reducing the audience to which your contest will fit.
+                                        <Text allowFontScaling={false} style={{ alignSelf: 'center', width: "90%", textAlign: 'center', color: colorsPalette.darkFont, fontSize: wp(2.5), top: 20, fontWeight: 'bold' }}> (Swipe left for more options)</Text>
+                                        </Text>
+                                    </View>
+
+                                    <View style={{ flex: 1 }}>
+
                                         {/* SEXUAL ORIENTATION */}
                                         <ListItem
                                             disabled={isLoading}
@@ -531,7 +596,7 @@ export default class FormAudience extends Component {
                                                 </Button>
                                             </Left>
                                             <Body style={{ right: 15 }}>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Secual identity</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Sexual identity</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false}>
@@ -584,73 +649,7 @@ export default class FormAudience extends Component {
                                             </View>
                                         </ListItem>
 
-                                        {/* COUNTRY */}
-                                        <ListItem
-                                            disabled={isLoading}
-                                            itemHeader
-                                            onPress={() => this.SectionedMultiSelectCountry._toggleSelector()}
-                                            icon last style={{ maxHeight: 45, backgroundColor: '#fff', width: '99.9%', left: 15 }}>
-                                            <Left style={{ right: 15 }}>
-                                                <Button style={{ backgroundColor: isLoading ? "#BDBDBD" : "#0091EA" }}>
-                                                    <MaterialCommunityIcons active name="earth" style={{ fontSize: wp(6), color: "#FFF", left: 1, top: 1 }} />
-                                                </Button>
-                                            </Left>
-                                            <Body style={{ right: 15 }}>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Country</Text>
-                                            </Body>
-                                            <Right>
-                                                <Text allowFontScaling={false}>
-                                                    {truncate((countryItems.length ? countryItems.map(item => `${item.name}`).join(', ') : "Add more"), { length: 15, separator: "..." })}
-                                                </Text>
-                                                <Icon active name="arrow-forward" />
-                                            </Right>
-                                            <View style={{ backgroundColor: 'red', position: 'absolute', right: '-5000%' }}>
-                                                <SectionedMultiSelect
-                                                    parentChipsRemoveChildren={true}
-                                                    ref={SectionedMultiSelectCountry => this.SectionedMultiSelectCountry = SectionedMultiSelectCountry}
-                                                    items={countryList}
-                                                    uniqueKey="id"
-                                                    subKey="children"
-                                                    selectText="Choose some things..."
-                                                    showDropDowns={true}
-                                                    readOnlyHeadings={true}
-                                                    onSelectedItemsChange={this.onSelectedItemsChangeCountry}
-                                                    onSelectedItemObjectsChange={(items) => this._updateCountryItems(items)}
-                                                    primary="#D81B60"
-                                                    selectedItems={country}
-                                                    showDropDowns={false}
-                                                    dropDownToggleIconUpComponent={<Icon name="close" style={{ color: '#FFF' }} />}
-                                                    dropDownToggleIconDownComponent={<Icon name="close" style={{ color: '#FFF' }} />}
-                                                    styles={{
-                                                        item: {
-                                                            paddingHorizontal: 10,
-                                                        },
-                                                        itemText: {
-                                                            fontSize: wp(10)
-                                                        },
-                                                        subItem: {
-                                                            paddingHorizontal: 10,
-                                                            height: 45,
-                                                        },
-                                                        subItemText: {
-                                                            fontSize: wp(5)
-                                                        },
-                                                        button: {
-                                                            backgroundColor: '#D81B60',
-                                                        },
-                                                        confirmText: {
-                                                            letterSpacing: 2
-                                                        },
-                                                        subSeparator: {
-                                                            backgroundColor: 'rgba(0,0,0,0.2)',
-                                                        }
-                                                    }}
-                                                />
-                                            </View>
-                                        </ListItem>
-                                    </View>
 
-                                    <View style={{ flex: 1 }}>
                                         {/* PARENT'S CONDITION */}
                                         <ListItem
                                             disabled={isLoading}
@@ -1142,16 +1141,15 @@ export default class FormAudience extends Component {
                                                     <Picker
                                                         mode="dropdown"
                                                         iosHeader="SELECT ONE"
-                                                        style={{ backgroundColor: 'rgba(0,0,0,0.0)', position: 'absolute', right: 0, top: -25 }}
                                                         headerBackButtonTextStyle={{ color: '#D81B60', fontSize: wp(5) }}
                                                         headerTitleStyle={{ color: "#D81B60" }}
                                                         headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                         textStyle={{ color: 'rgba(0,0,0,0.0)' }}
                                                         selectedValue={politicalPeople}
                                                         onValueChange={this.onValueChangePoliticalPeople}>
-                                                        <Picker.Item label="Yes" value="YES" />
-                                                        <Picker.Item label="No" value="NO" />
-                                                        <Picker.Item label="Both" value="BOTH" />
+                                                        <Picker.Item label="Yes" value="Yes" />
+                                                        <Picker.Item label="No" value="No" />
+                                                        <Picker.Item label="Both" value="Both" />
                                                         <Picker.Item label="Do not specify" value="NO_SELECT" />
                                                     </Picker>
                                                 </View>

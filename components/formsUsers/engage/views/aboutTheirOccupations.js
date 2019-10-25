@@ -28,10 +28,10 @@ class AbouttheirOccupations extends PureComponent {
         socioeconomicLevel: 'Not specified',
         rentOrOwnCar: 'Not specified',
         rentOrOwnHouse: 'Not specified',
-        vote: 'Not specified',
+        political: 'Not specified',
 
         // Coins
-        coinVote: 0,
+        coinPolitical: 0,
         coinSchools: 0,
         coinUniversity: 0,
         coinLevelAchivied: 0,
@@ -97,9 +97,9 @@ class AbouttheirOccupations extends PureComponent {
             coinSocioeconomicLevel,
             coinRentOrOwnCar,
             coinRentOrOwnHouse,
-            coinVote,
+            coinPolitical,
 
-            schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } = this.state
+            schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, political } = this.state
         const dataCoins = {
             coinsOccupations: _.sum([
                 coinSchools,
@@ -109,9 +109,9 @@ class AbouttheirOccupations extends PureComponent {
                 coinSocioeconomicLevel,
                 coinRentOrOwnCar,
                 coinRentOrOwnHouse,
-                coinVote])
+                coinPolitical])
         }
-        const data = { aboutTheOccupations: { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } }
+        const data = { aboutTheOccupations: { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, political } }
         try {
             await _dataFromForms(data, dataCoins)
             this.setState({ isLoading: false, messageFlash: { cognito: { message: "" } } })
@@ -123,7 +123,7 @@ class AbouttheirOccupations extends PureComponent {
     }
 
     _validateForm = () => {
-        const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, vote } = this.state
+        const { schools, university, levelAchivied, occupation, socioeconomicLevel, rentOrOwnCar, rentOrOwnHouse, political } = this.state
         this.setState({ isLoading: true })
         setTimeout(() => {
             schools !== 'Not specified'
@@ -133,9 +133,9 @@ class AbouttheirOccupations extends PureComponent {
                             ? socioeconomicLevel !== 'Not specified'
                                 ? rentOrOwnCar !== 'Not specified'
                                     ? rentOrOwnHouse !== 'Not specified'
-                                        ? vote !== 'Not specified'
+                                        ? political !== 'Not specified'
                                             ? this._submit()
-                                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid vote" } } })
+                                            : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid political" } } })
                                         : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid data of house" } } })
                                     : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid data of car" } } })
                                 : this.setState({ isvalidFormAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Invalid socioeconomic level" } } })
@@ -156,7 +156,7 @@ class AbouttheirOccupations extends PureComponent {
             socioeconomicLevel,
             rentOrOwnCar,
             rentOrOwnHouse,
-            vote,
+            political,
 
             // Coins
             coinSchools,
@@ -166,7 +166,7 @@ class AbouttheirOccupations extends PureComponent {
             coinSocioeconomicLevel,
             coinRentOrOwnCar,
             coinRentOrOwnHouse,
-            coinVote,
+            coinPolitical,
 
             // Input
             inputTextUniversity,
@@ -216,7 +216,7 @@ class AbouttheirOccupations extends PureComponent {
                                 coinSocioeconomicLevel,
                                 coinRentOrOwnCar,
                                 coinRentOrOwnHouse,
-                                coinVote])}
+                                coinPolitical])}
                             interval={10}
                             countBy={5}
                             formatter={(val) => {
@@ -502,10 +502,10 @@ class AbouttheirOccupations extends PureComponent {
                                             </Button>
                                         </Left>
                                         <Body>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : null, fontWeight: "bold" }}>Are you vote?</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: isLoading ? "#BDBDBD" : null, fontWeight: "bold" }}>Are you political?</Text>
                                         </Body>
                                         <Right>
-                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: vote === "Not specified" ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{vote === 'Not specified' ? 'Not completed' : _.startCase(_.lowerCase(vote))}</Text>
+                                            <Text allowFontScaling={false} style={{ fontSize: wp(4), color: political === "Not specified" ? colorsPalette.gradientGray : colorsPalette.darkFont }}>{political === 'Not specified' ? 'Not completed' : _.startCase(_.lowerCase(political))}</Text>
                                             <Icon active name="arrow-forward" />
                                         </Right>
                                         {isLoading ? null :
@@ -517,10 +517,10 @@ class AbouttheirOccupations extends PureComponent {
                                                     headerTitleStyle={{ color: "#D81B60" }}
                                                     headerStyle={{ backgroundColor: '#fff', borderBottomColor: "#fff" }}
                                                     textStyle={{ color: 'rgba(0,0,0,0.0)' }}
-                                                    selectedValue={vote}
-                                                    onValueChange={(value) => this.setState({ vote: value, coinVote: 25 })}>
-                                                    <Picker.Item label="Yes" value="YES" />
-                                                    <Picker.Item label="No" value="NO" />
+                                                    selectedValue={political}
+                                                    onValueChange={(value) => this.setState({ political: value, coinPolitical: 25 })}>
+                                                    <Picker.Item label="Yes" value="Yes" />
+                                                    <Picker.Item label="No" value="No" />
                                                 </Picker>
                                             </View>
                                         }

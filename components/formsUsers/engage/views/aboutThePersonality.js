@@ -152,7 +152,7 @@ class AboutThePersonality extends Component {
         }
         const data = {
             expoPushToken: userData.notificationToken === undefined || userData.notificationToken === null ? null : userData.notificationToken,
-            aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren },
+            aboutThePersonality: { location, gender, birthDate, sexuality, maritalStatus, regionalIdentity, nacionality, parentalCondition, amountOfSimblings, amountOfChildren, age: new Date().getFullYear() - new Date(birthDate).getFullYear() },
             engageUserId: userData.id, createdAt: moment().toISOString()
         }
         try {
@@ -241,7 +241,6 @@ class AboutThePersonality extends Component {
         let filterRegionList = listRegions && listRegions.filter((item) => { return item.region.toLowerCase().indexOf(lowerCase(inputTextRegions)) !== -1 })
         let filterCounttriesList = listCountries && listCountries.filter((item) => { return item.toLowerCase().indexOf(lowerCase(inputTextCountry)) !== -1 })
         let filterCitiesList = listCities && listCities.filter((item) => { return item.city.toLowerCase().indexOf(lowerCase(inputTextCities)) !== -1 })
-
         return (
             <Container>
                 <GadrientsAuth />

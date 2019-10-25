@@ -10,7 +10,8 @@ import _ from 'lodash'
 import truncate from 'lodash/truncate'
 import { normalizeEmail } from 'validator'
 import moment from 'moment'
-
+import Axios from 'axios'
+import OmitDeep from 'omit-deep'
 
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
@@ -36,13 +37,18 @@ class Summary extends Component {
         const { navigation, userData, engage, coins } = this.props
         try {
             await API.graphql(graphqlOperation(mutations.createEngage, { input: engage }))
-            await API.graphql(graphqlOperation(mutations.updateUser, {
-                input:
-                {
-                    id: userData.id,
-                    coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, userData.coins])
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, userData.coins]) } }))
+
+            OmitDeep(userData, ['submitPrize', 'createContest', 'engage', 'coins'])
+            await Axios.put(`https://search-influencemenowtest-pirbhpqtqvcumgt6ze4spjupba.us-east-1.es.amazonaws.com/engages/_doc/${userData.id}`, {
+                'engages': {
+                    "expoPushToken": engage.expoPushToken,
+                    "createdAt": engage.createdAt,
+                    'user': userData,
+                    'aboutThePersonality': engage.aboutThePersonality,
+                    'aboutTheOccupations': engage.aboutTheOccupations
                 }
-            }))
+            })
             this.setState({ isLoading: false })
             navigation.navigate("Home")
         } catch (error) {
@@ -436,7 +442,7 @@ class Summary extends Component {
                                                 <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4), fontWeight: 'bold' }}>Vote</Text>
                                             </Body>
                                             <Right>
-                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && _.startCase(_.lowerCase(engage.aboutTheOccupations.vote)), { length: 15, separate: '...' })}</Text>
+                                                <Text allowFontScaling={false} style={{ fontSize: wp(4), color: colorsPalette.darkFont }}>{_.truncate(engage.aboutTheOccupations && _.startCase(_.lowerCase(engage.aboutTheOccupations.political)), { length: 15, separate: '...' })}</Text>
                                             </Right>
                                         </ListItem>
 

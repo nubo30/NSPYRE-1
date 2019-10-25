@@ -269,6 +269,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -293,7 +294,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -572,6 +573,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -596,7 +598,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -875,6 +877,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           notificationToken
         }
         aboutThePersonality {
+          age
           amountOfChildren
           amountOfSimblings
           birthDate
@@ -899,7 +902,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
           schools
           university
           socioeconomicLevel
-          vote
+          political
         }
         createdAt
       }
@@ -1040,6 +1043,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -1058,7 +1062,7 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -1666,6 +1670,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -1684,7 +1689,7 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -2292,6 +2297,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -2310,7 +2316,7 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -10781,6 +10787,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -10799,7 +10806,7 @@ export const createSubmitPrize = `mutation CreateSubmitPrize($input: CreateSubmi
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -10978,6 +10985,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -10996,7 +11004,7 @@ export const updateSubmitPrize = `mutation UpdateSubmitPrize($input: UpdateSubmi
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11175,6 +11183,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11193,7 +11202,7 @@ export const deleteSubmitPrize = `mutation DeleteSubmitPrize($input: DeleteSubmi
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11373,6 +11382,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11391,7 +11401,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11401,6 +11411,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11425,7 +11436,7 @@ export const createEngage = `mutation CreateEngage($input: CreateEngageInput!) {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }
@@ -11562,6 +11573,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11580,7 +11592,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11590,6 +11602,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11614,7 +11627,7 @@ export const updateEngage = `mutation UpdateEngage($input: UpdateEngageInput!) {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }
@@ -11751,6 +11764,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             notificationToken
           }
           aboutThePersonality {
+            age
             amountOfChildren
             amountOfSimblings
             birthDate
@@ -11769,7 +11783,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
             schools
             university
             socioeconomicLevel
-            vote
+            political
           }
           createdAt
         }
@@ -11779,6 +11793,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
       notificationToken
     }
     aboutThePersonality {
+      age
       amountOfChildren
       amountOfSimblings
       birthDate
@@ -11803,7 +11818,7 @@ export const deleteEngage = `mutation DeleteEngage($input: DeleteEngageInput!) {
       schools
       university
       socioeconomicLevel
-      vote
+      political
     }
     createdAt
   }

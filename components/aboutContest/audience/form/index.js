@@ -16,7 +16,7 @@ export default class Audience extends Component {
         sendDataToAWSAction: false,
         isValidDataForAWS: false,
         isLoading: false,
-        matchProfiles: { count: 0 },
+        matchProfiles: 0,
 
         // Funcs
         searchMatches: false
@@ -111,7 +111,7 @@ export default class Audience extends Component {
                             [{ text: 'Ok', onPress: () => { } }],
                             { cancelable: false },
                         )}>
-                            <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5), left: 10 }}>Matches found, {matchProfiles.count}</Text>
+                            <Text allowFontScaling={false} style={{ textAlign: 'center', color: "#BDBDBD", fontSize: wp(3.5), left: 10 }}>Matches found, {matchProfiles}</Text>
                         </Button>
                     </View>
                     <View style={{ top: -10 }}>

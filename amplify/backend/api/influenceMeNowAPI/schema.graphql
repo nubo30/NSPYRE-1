@@ -321,12 +321,13 @@ type AboutTheOccupations {
   schools: String
   university: String
   socioeconomicLevel: String
-  vote: String
+  political: String
 }
 
 type AboutThePersonality {
-  amountOfChildren: String
-  amountOfSimblings: String
+  age: Int
+  amountOfChildren: Int
+  amountOfSimblings: Int
   birthDate: AWSDateTime
   gender: String
   location: Location

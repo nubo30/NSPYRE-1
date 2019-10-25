@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { AppState } from 'react-native'
 import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
 import { withNavigation } from "react-navigation"
 import { Auth, API, graphqlOperation } from 'aws-amplify';
-import { Text, List, ListItem, Left, Body, Right, View, Thumbnail, Content, Button, Icon, Switch } from 'native-base';
+import { Text, List, ListItem, Left, Body, Right, View, Thumbnail, Content, Button, Icon } from 'native-base';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import { PlaceholderMedia } from "rn-placeholder"
@@ -28,7 +27,6 @@ import { colorsPalette } from '../../../global/static/colors'
 class Menu extends Component {
     state = {
         // Actions
-        notificationsActions: false,
         appState: AppState.currentState,
         modalVisibleModidfyProfile: false,
     }
@@ -86,36 +84,18 @@ class Menu extends Component {
     // Notifications
     _getTokenNotification = async () => {
         const { userData } = this.props
-        this.setState({ notificationsActions: true })
         if (!Constants.isDevice) { return }
-        let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        if (status !== 'granted') {
-            try {
-                this.setState({ notificationsActions: false })
-                await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: null } }))
-            } catch (error) { this.setState({ notificationsActions: false }) }
-        } else if (status === 'granted') {
-            if (userData.notificationToken === null) {
-                let token = await Notifications.getExpoPushTokenAsync();
-                try {
-                    await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: token } }))
-                } catch (error) { this.setState({ notificationsActions: false }) }
-            } else {
-                try {
-                    this.setState({ notificationsActions: false })
-                    await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: null } }))
-                } catch (error) { this.setState({ notificationsActions: true }) }
-            }
+        let token = await Notifications.getExpoPushTokenAsync();
+        try {
+            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, notificationToken: token } }))
+        } catch (error) {
+            console.log(error)
         }
     }
 
-    componentWillReceiveProps(nextProps) { this.setState({ notificationsActions: nextProps.userData.notificationToken === null ? false : true }) }
 
     render() {
         const {
-            // Actions
-            notificationsActions,
-
             // Modals
             modalVisibleModidfyProfile
         } = this.state
@@ -160,25 +140,6 @@ class Menu extends Component {
                                 style={{ fontSize: wp(3), fontWeight: '500' }}
                                 note numberOfLines={1}>{userData.coins} Points</Text>
                         </Body>
-                    </ListItem>
-
-                    {/* NOTIFICATIONS */}
-                    <ListItem icon style={{ backgroundColor: colorsPalette.secondaryColor }}>
-                        <Left>
-                            <Button style={{ backgroundColor: "#F44336" }}>
-                                <Icon type="MaterialIcons" active name="photo-filter" />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Text
-                                allowFontScaling={false}
-                                minimumFontScale={wp(4)}
-                                style={{ fontSize: wp(4) }}
-                            >Notifications</Text>
-                        </Body>
-                        <Right>
-                            <Switch value={notificationsActions} onValueChange={() => this._getTokenNotification()} />
-                        </Right>
                     </ListItem>
 
                     {/* Modify Profile */}
