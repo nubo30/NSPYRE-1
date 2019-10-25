@@ -91,31 +91,11 @@ export const onCreateUser = `subscription OnCreateUser {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -395,31 +375,11 @@ export const onUpdateUser = `subscription OnUpdateUser {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -699,31 +659,11 @@ export const onDeleteUser = `subscription OnDeleteUser {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -1121,7 +1061,6 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -1177,29 +1116,10 @@ export const onCreateCreateContest = `subscription OnCreateCreateContest {
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -1748,7 +1668,6 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -1804,29 +1723,10 @@ export const onUpdateCreateContest = `subscription OnUpdateCreateContest {
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -2375,7 +2275,6 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -2431,29 +2330,10 @@ export const onDeleteCreateContest = `subscription OnDeleteCreateContest {
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -2888,7 +2768,6 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -2896,29 +2775,10 @@ export const onCreateViewsVideo = `subscription OnCreateViewsVideo {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3132,7 +2992,6 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3140,29 +2999,10 @@ export const onUpdateViewsVideo = `subscription OnUpdateViewsVideo {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3376,7 +3216,6 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3384,29 +3223,10 @@ export const onDeleteViewsVideo = `subscription OnDeleteViewsVideo {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3620,7 +3440,6 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3628,29 +3447,10 @@ export const onCreateUsersSharing = `subscription OnCreateUsersSharing {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3859,7 +3659,6 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3867,29 +3666,10 @@ export const onUpdateUsersSharing = `subscription OnUpdateUsersSharing {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4098,7 +3878,6 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4106,29 +3885,10 @@ export const onDeleteUsersSharing = `subscription OnDeleteUsersSharing {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4337,7 +4097,6 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4345,29 +4104,10 @@ export const onCreateUsersLikes = `subscription OnCreateUsersLikes {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4575,7 +4315,6 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4583,29 +4322,10 @@ export const onUpdateUsersLikes = `subscription OnUpdateUsersLikes {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4813,7 +4533,6 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4821,29 +4540,10 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4959,7 +4659,6 @@ export const onDeleteUsersLikes = `subscription OnDeleteUsersLikes {
 `;
 export const onCreateAudience = `subscription OnCreateAudience {
   onCreateAudience {
-    JSONdata
     createContest {
       id
       user {
@@ -5052,7 +4751,6 @@ export const onCreateAudience = `subscription OnCreateAudience {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5060,29 +4758,10 @@ export const onCreateAudience = `subscription OnCreateAudience {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5189,36 +4868,16 @@ export const onCreateAudience = `subscription OnCreateAudience {
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
 `;
 export const onUpdateAudience = `subscription OnUpdateAudience {
   onUpdateAudience {
-    JSONdata
     createContest {
       id
       user {
@@ -5311,7 +4970,6 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5319,29 +4977,10 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5448,36 +5087,16 @@ export const onUpdateAudience = `subscription OnUpdateAudience {
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
 `;
 export const onDeleteAudience = `subscription OnDeleteAudience {
   onDeleteAudience {
-    JSONdata
     createContest {
       id
       user {
@@ -5570,7 +5189,6 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5578,29 +5196,10 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5707,29 +5306,10 @@ export const onDeleteAudience = `subscription OnDeleteAudience {
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
@@ -5848,7 +5428,6 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5856,29 +5435,10 @@ export const onCreateParticipants = `subscription OnCreateParticipants {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -6324,7 +5884,6 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -6332,29 +5891,10 @@ export const onUpdateParticipants = `subscription OnUpdateParticipants {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -6800,7 +6340,6 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -6808,29 +6347,10 @@ export const onDeleteParticipants = `subscription OnDeleteParticipants {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -7261,31 +6781,11 @@ export const onCreateViewsParticipants = `subscription OnCreateViewsParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -7551,31 +7051,11 @@ export const onUpdateViewsParticipants = `subscription OnUpdateViewsParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -7841,31 +7321,11 @@ export const onDeleteViewsParticipants = `subscription OnDeleteViewsParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8131,31 +7591,11 @@ export const onCreateShareParticipants = `subscription OnCreateShareParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8416,31 +7856,11 @@ export const onUpdateShareParticipants = `subscription OnUpdateShareParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8701,31 +8121,11 @@ export const onDeleteShareParticipants = `subscription OnDeleteShareParticipants
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8986,31 +8386,11 @@ export const onCreateLikesToParticipants = `subscription OnCreateLikesToParticip
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9270,31 +8650,11 @@ export const onUpdateLikesToParticipants = `subscription OnUpdateLikesToParticip
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9554,31 +8914,11 @@ export const onDeleteLikesToParticipants = `subscription OnDeleteLikesToParticip
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9838,31 +9178,11 @@ export const onCreateCommentsToParticipants = `subscription OnCreateCommentsToPa
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -10124,31 +9444,11 @@ export const onUpdateCommentsToParticipants = `subscription OnUpdateCommentsToPa
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -10410,31 +9710,11 @@ export const onDeleteCommentsToParticipants = `subscription OnDeleteCommentsToPa
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken

@@ -91,31 +91,11 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -395,31 +375,11 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -699,31 +659,11 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -1121,7 +1061,6 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -1177,29 +1116,10 @@ export const createCreateContest = `mutation CreateCreateContest($input: CreateC
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -1748,7 +1668,6 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -1804,29 +1723,10 @@ export const updateCreateContest = `mutation UpdateCreateContest($input: UpdateC
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -2375,7 +2275,6 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -2431,29 +2330,10 @@ export const deleteCreateContest = `mutation DeleteCreateContest($input: DeleteC
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -2888,7 +2768,6 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -2896,29 +2775,10 @@ export const createViewsVideo = `mutation CreateViewsVideo($input: CreateViewsVi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3132,7 +2992,6 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3140,29 +2999,10 @@ export const updateViewsVideo = `mutation UpdateViewsVideo($input: UpdateViewsVi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3376,7 +3216,6 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3384,29 +3223,10 @@ export const deleteViewsVideo = `mutation DeleteViewsVideo($input: DeleteViewsVi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3620,7 +3440,6 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3628,29 +3447,10 @@ export const createUsersSharing = `mutation CreateUsersSharing($input: CreateUse
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3859,7 +3659,6 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3867,29 +3666,10 @@ export const updateUsersSharing = `mutation UpdateUsersSharing($input: UpdateUse
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4098,7 +3878,6 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4106,29 +3885,10 @@ export const deleteUsersSharing = `mutation DeleteUsersSharing($input: DeleteUse
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4337,7 +4097,6 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4345,29 +4104,10 @@ export const createUsersLikes = `mutation CreateUsersLikes($input: CreateUsersLi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4575,7 +4315,6 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4583,29 +4322,10 @@ export const updateUsersLikes = `mutation UpdateUsersLikes($input: UpdateUsersLi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4813,7 +4533,6 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -4821,29 +4540,10 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -4959,7 +4659,6 @@ export const deleteUsersLikes = `mutation DeleteUsersLikes($input: DeleteUsersLi
 `;
 export const createAudience = `mutation CreateAudience($input: CreateAudienceInput!) {
   createAudience(input: $input) {
-    JSONdata
     createContest {
       id
       user {
@@ -5052,7 +4751,6 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5060,29 +4758,10 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5189,36 +4868,16 @@ export const createAudience = `mutation CreateAudience($input: CreateAudienceInp
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
 `;
 export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInput!) {
   updateAudience(input: $input) {
-    JSONdata
     createContest {
       id
       user {
@@ -5311,7 +4970,6 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5319,29 +4977,10 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5448,36 +5087,16 @@ export const updateAudience = `mutation UpdateAudience($input: UpdateAudienceInp
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
 `;
 export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInput!) {
   deleteAudience(input: $input) {
-    JSONdata
     createContest {
       id
       user {
@@ -5570,7 +5189,6 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5578,29 +5196,10 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -5707,29 +5306,10 @@ export const deleteAudience = `mutation DeleteAudience($input: DeleteAudienceInp
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
@@ -5848,7 +5428,6 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -5856,29 +5435,10 @@ export const createParticipants = `mutation CreateParticipants($input: CreatePar
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -6324,7 +5884,6 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -6332,29 +5891,10 @@ export const updateParticipants = `mutation UpdateParticipants($input: UpdatePar
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -6800,7 +6340,6 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -6808,29 +6347,10 @@ export const deleteParticipants = `mutation DeleteParticipants($input: DeletePar
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -7261,31 +6781,11 @@ export const createViewsParticipants = `mutation CreateViewsParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -7551,31 +7051,11 @@ export const updateViewsParticipants = `mutation UpdateViewsParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -7841,31 +7321,11 @@ export const deleteViewsParticipants = `mutation DeleteViewsParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8131,31 +7591,11 @@ export const createShareParticipants = `mutation CreateShareParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8416,31 +7856,11 @@ export const updateShareParticipants = `mutation UpdateShareParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8701,31 +8121,11 @@ export const deleteShareParticipants = `mutation DeleteShareParticipants($input:
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -8986,31 +8386,11 @@ export const createLikesToParticipants = `mutation CreateLikesToParticipants($in
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9270,31 +8650,11 @@ export const updateLikesToParticipants = `mutation UpdateLikesToParticipants($in
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9554,31 +8914,11 @@ export const deleteLikesToParticipants = `mutation DeleteLikesToParticipants($in
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -9840,31 +9180,11 @@ export const createCommentsToParticipants = `mutation CreateCommentsToParticipan
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -10128,31 +9448,11 @@ export const updateCommentsToParticipants = `mutation UpdateCommentsToParticipan
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -10416,31 +9716,11 @@ export const deleteCommentsToParticipants = `mutation DeleteCommentsToParticipan
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken

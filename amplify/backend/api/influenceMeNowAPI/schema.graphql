@@ -85,32 +85,12 @@ type Timer {
 }
 
 type Audience @model {
-  JSONdata: String
   createContest: CreateContest @connection(name: "CreateContestAudience") 
-  id: ID!
-  genders: [String]
-  ages: [String]
-  categoryContest: [String]
-  countries: [String]
-  nacionalities: [String]
-  regionalIdentity: [String]
-  sexualities: [String]
-  maritalStatus: [String]
-  academicLevelAchieved: [String]
-  schools: [String]
-  universities: [String]
-  musicalGenre: [String]
-  sports: [String]
-  parentalCondition: [String]
-  amountOfChildren: [String]
-  amountOfSimblings: [String]
-  politicalPeople: [String]
-  peopleWhoVote: [String]
-  occupation: [String]
-  socioeconomicLevel: [String]
-  rentOrOwnHouse: [String]
-  rentOrOwnCar: [String]
-  categoryPrizes: [String]
+  id: ID! 
+  contest: String
+  usersFound: String
+  aboutThePersonality: String
+  aboutTheOccupations: String
   createdAt: AWSDateTime!
 }
 

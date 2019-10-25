@@ -21,7 +21,6 @@ import {
 
 // Graphql
 import * as mutations from '../../../../src/graphql/mutations'
-import * as queries from '../../../../src/graphql/queries'
 
 export default class FormAudience extends Component {
     state = {
@@ -80,7 +79,10 @@ export default class FormAudience extends Component {
         occupationList: [{ name: 'List of occupation', id: 10 * 100, children: [] }],
         rentOrOwnHouseList: [{ name: 'Current state to select (House)', id: 10 * 100, children: [] }],
         rentOrOwnCarList: [{ name: 'Current state to select (Car)', id: 10 * 100, children: [] }],
-        socioeconomicLevelList: [{ name: 'List socioeconomic level', id: 10 * 100, children: [] }]
+        socioeconomicLevelList: [{ name: 'List socioeconomic level', id: 10 * 100, children: [] }],
+
+        // ADUIENCE
+        usersFound: []
     }
 
     componentDidMount() {
@@ -118,9 +120,10 @@ export default class FormAudience extends Component {
             || prevState.rentOrOwnHouseChoose !== this.state.rentOrOwnHouseChoose
             || prevState.rentOrOwnCarChoose !== this.state.rentOrOwnCarChoose
         ) {
+            this._filterAudience()
             this.state.age.years
                 || this.state.gender !== 'NO_SELECT'
-                || this.state.countriesChoose.length >= 2
+                || this.state.countriesChoose.length
                 || this.state.sexualityChoose.length
                 || this.state.academicLevelAchievedChoose.length
                 || this.state.schoolsChoose.length
@@ -134,8 +137,8 @@ export default class FormAudience extends Component {
                 || this.state.socioeconomicLevel.length
                 || this.state.rentOrOwnHouseChoose.length
                 || this.state.rentOrOwnCarChoose.length
-                ? prevProps._isValidDataForAWS(true)
-                : prevProps._isValidDataForAWS(false)
+                ? prevProps._createAction(true)
+                : prevProps._createAction(false)
         }
     }
 
@@ -267,8 +270,160 @@ export default class FormAudience extends Component {
 
     // Send Data to AWS
     componentWillReceiveProps(nextProps) {
-        if (nextProps.sendDataToAWSAction !== this.props.sendDataToAWSAction) { this._validateDataForAWS() }
         if (nextProps.searchMatches !== this.props.searchMatches) { this._filterAudience() }
+        if (nextProps.sendDataToAWSAction !== this.props.sendDataToAWSAction) { this._sendDataToAWSAction() }
+    }
+
+    _sendDataToAWSAction = async () => {
+        const { usersFound } = this.state
+        const { _isLoading, contest, _createAntoher } = this.props
+        _isLoading(true)
+        const audience = {
+            createdAt: moment().toISOString(),
+            audienceCreateContestId: contest.id,
+            contest: JSON.stringify({
+                "category": contest.category,
+                "createdAt": contest.createdAt,
+                "general": {
+                    "description": contest.general.description,
+                    "instructions": contest.general.instructions,
+                    "nameOfContest": contest.general.nameOfContest,
+                    "picture": {
+                        "blob": contest.general.picture.blob,
+                        "localUrl": contest.general.picture.localUrl,
+                        "name": contest.general.picture.name,
+                        "type": contest.general.picture.type,
+                        "url": contest.general.picture.url
+                    },
+                    "video": {
+                        "blob": contest.general.video.blob,
+                        "localUrl": contest.general.video.localUrl,
+                        "name": contest.general.video.name,
+                        "type": contest.general.video.type,
+                        "url": contest.general.video.url
+                    }
+                },
+                "id": contest.id,
+                "participants": contest.participants.items.length,
+                "prizes": contest.prizes.length,
+                "timer": {
+                    "end": contest.timer.end,
+                    "start": contest.timer.start
+                },
+                "user": {
+                    "avatar": contest.user.avatar,
+                    "datetime": contest.user.datetime,
+                    "email": contest.user.email,
+                    "id": contest.user.id,
+                    "lastname": contest.user.lastname,
+                    "name": contest.user.name,
+                    "notificationToken": contest.user.notificationToken,
+                    "userId": contest.user.userId,
+                    "username": contest.user.username
+                }
+            }), // Se encuenta la información del creador del concurso
+            usersFound: JSON.stringify(usersFound.hits.map(items => items._source.engages.user)),
+            aboutThePersonality: JSON.stringify([
+                this.state.gender !== 'NO_SELECT' ? { "Gender": this.state.gender } : null,
+                this.state.sexualityChoose.length !== 0 ? { "Sexual preference": [this.state.sexualityChoose.map(item => item.name)] } : null,
+                this.state.maritalStatusChoose.length !== 0 ? { "Marital status": [this.state.maritalStatusChoose.map(item => item.name)] } : null,
+                this.state.parentalConditionChoose.length !== 0 ? { "Parental status": this.state.parentalConditionChoose.map(items => items.name) } : null,
+                this.state.amountOfChildren !== 'NO_SELECT' ? { "Amount of children": this.state.amountOfChildren } : null,
+                this.state.amountOfSimblings !== 'NO_SELECT' ? { "Amount of simblings": this.state.amountOfSimblings } : null,
+                this.state.age.yearOne && this.state.age.yearTwo ? { "Ages": { "gte": this.state.age.yearOne, "lte": this.state.age.yearTwo } } : null,
+                this.state.countriesChoose.length === 0 ? '' : { "Location": this.state.countriesChoose.map(item => item.name) }
+            ].filter(item => item !== null)),
+            aboutTheOccupations: JSON.stringify([
+                this.state.academicLevelAchievedChoose.length !== 0 ? { "Academic level": this.state.academicLevelAchievedChoose.map(item => item.name) } : null,
+                this.state.occupationChoose.length !== 0 ? { "Occupation": this.state.occupationChoose.map(item => item.name) } : null,
+                this.state.rentOrOwnCarChoose.length !== 0 ? { "Method of transportation": this.state.rentOrOwnCarChoose.map(item => item.name) } : null,
+                this.state.rentOrOwnHouseItems.length !== 0 ? { "Living arrangements": this.state.rentOrOwnHouseItems.map(item => item.name) } : null,
+                this.state.schoolsChoose.length !== 0 ? { "Hight school": this.state.schoolsChoose.map(item => item.name) } : null,
+                this.state.universityChoose.length !== 0 ? { "University": this.state.universityChoose.map(item => item.name) } : null,
+                this.state.socioeconomicLevelItems.length !== 0 ? { "Socialeconomic": this.state.socioeconomicLevelItems.map(item => item.name) } : null,
+                this.state.politicalPeople !== 'NO_SELECT' ? { "Political": this.state.politicalPeople } : null
+            ].filter(item => item !== null))
+        }
+
+        try {
+            await API.graphql(graphqlOperation(mutations.createAudience, { input: audience }))
+            await API.graphql(graphqlOperation(mutations.updateCreateContest, { input: { id: contest.id } }))
+            setTimeout(() => {
+                _isLoading(false)
+            }, 500);
+            setTimeout(() => {
+                Toast.show({
+                    text: "Audience created successfully!",
+                    type: "success",
+                    position: "top",
+                    duration: 2500
+                })
+                _createAntoher(true)
+            }, 1000);
+            setTimeout(() => {
+                this.setState({
+                    // Data
+                    age: {
+                        yearOne: 0,
+                        yearTwo: 0,
+                        years: ''
+                    },
+                    gender: 'NO_SELECT',
+                    countriesChoose: [],
+                    sexualityChoose: [],
+                    academicLevelAchievedChoose: [],
+                    schoolsChoose: [],
+                    universityChoose: [],
+                    maritalStatusChoose: [],
+                    parentalConditionChoose: [],
+                    amountOfChildren: 'NO_SELECT',
+                    amountOfSimblings: 'NO_SELECT',
+                    politicalPeople: 'NO_SELECT',
+                    occupationChoose: [],
+                    socioeconomicLevel: [],
+                    rentOrOwnHouseChoose: [],
+                    rentOrOwnCarChoose: [],
+
+                    // Pickers
+                    country: [],
+                    countryItems: [],
+                    sexuality: [],
+                    sexualityItems: [],
+                    academicLevelAchieved: [],
+                    academicLevelAchievedItems: [],
+                    levelachieved: [],
+                    levelachievedItems: [],
+                    schools: [],
+                    schoolsItems: [],
+                    university: [],
+                    universityItems: [],
+                    maritalStatus: [],
+                    maritalStatusItems: [],
+                    parentalCondition: [],
+                    parentalConditionItems: [],
+                    occupation: [],
+                    occupationItems: [],
+                    rentOrOwnHouse: [],
+                    rentOrOwnHouseItems: [],
+                    rentOrOwnCar: [],
+                    rentOrOwnCarItems: [],
+                    socioeconomicLevelItems: [],
+
+                    // ADUIENCE
+                    usersFound: []
+                })
+                this._filterAudience()
+            }, 2000);
+        } catch (error) {
+            _isLoading(false)
+            Toast.show({
+                text: "Error creating audience, please try again.",
+                type: "danger",
+                position: "top"
+
+            })
+            console.log(error)
+        }
     }
 
 
@@ -360,7 +515,7 @@ export default class FormAudience extends Component {
                 source: JSON.stringify(searchAudiencie),
                 source_content_type: 'application/json'
             }
-        }).then(res => _matchProfiles(res.data.hits.total.value)).catch(err => console.log("Error", err))
+        }).then(res => { _matchProfiles(res.data.hits.total.value), this.setState({ usersFound: res.data.hits }) }).catch(err => console.log("Error", err))
     }
 
     render() {
@@ -425,6 +580,7 @@ export default class FormAudience extends Component {
                         <Content scrollEnabled={false}>
                             <List style={{ width: "100%" }}>
                                 <Swiper
+                                    scrollEnabled={!isLoading}
                                     activeDotColor="#E91E63"
                                     style={{ height: 420 }} loop={false}>
                                     <View style={{ flex: 1 }}>

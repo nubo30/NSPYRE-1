@@ -115,31 +115,11 @@ export const getUser = `query GetUser($id: ID!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -702,7 +682,6 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
     showInCaseOfSuccess
     audience {
       items {
-        JSONdata
         createContest {
           id
           user {
@@ -758,29 +737,10 @@ export const getCreateContest = `query GetCreateContest($id: ID!) {
           }
         }
         id
-        genders
-        ages
-        categoryContest
-        countries
-        nacionalities
-        regionalIdentity
-        sexualities
-        maritalStatus
-        academicLevelAchieved
-        schools
-        universities
-        musicalGenre
-        sports
-        parentalCondition
-        amountOfChildren
-        amountOfSimblings
-        politicalPeople
-        peopleWhoVote
-        occupation
-        socioeconomicLevel
-        rentOrOwnHouse
-        rentOrOwnCar
-        categoryPrizes
+        contest
+        usersFound
+        aboutThePersonality
+        aboutTheOccupations
         createdAt
       }
       nextToken
@@ -1219,7 +1179,6 @@ export const listCreateContests = `query ListCreateContests(
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -1227,29 +1186,10 @@ export const listCreateContests = `query ListCreateContests(
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -1453,7 +1393,6 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -1461,29 +1400,10 @@ export const getViewsVideo = `query GetViewsVideo($id: ID!) {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -1686,31 +1606,11 @@ export const listViewsVideos = `query ListViewsVideos(
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -1876,7 +1776,6 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -1884,29 +1783,10 @@ export const getUsersSharing = `query GetUsersSharing($id: ID!) {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -2104,31 +1984,11 @@ export const listUsersSharings = `query ListUsersSharings(
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -2289,7 +2149,6 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -2297,29 +2156,10 @@ export const getUsersLikes = `query GetUsersLikes($id: ID!) {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -2516,31 +2356,11 @@ export const listUsersLikess = `query ListUsersLikess(
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -2608,7 +2428,6 @@ export const listUsersLikess = `query ListUsersLikess(
 `;
 export const getAudience = `query GetAudience($id: ID!) {
   getAudience(id: $id) {
-    JSONdata
     createContest {
       id
       user {
@@ -2701,7 +2520,6 @@ export const getAudience = `query GetAudience($id: ID!) {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -2709,29 +2527,10 @@ export const getAudience = `query GetAudience($id: ID!) {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -2838,29 +2637,10 @@ export const getAudience = `query GetAudience($id: ID!) {
       }
     }
     id
-    genders
-    ages
-    categoryContest
-    countries
-    nacionalities
-    regionalIdentity
-    sexualities
-    maritalStatus
-    academicLevelAchieved
-    schools
-    universities
-    musicalGenre
-    sports
-    parentalCondition
-    amountOfChildren
-    amountOfSimblings
-    politicalPeople
-    peopleWhoVote
-    occupation
-    socioeconomicLevel
-    rentOrOwnHouse
-    rentOrOwnCar
-    categoryPrizes
+    contest
+    usersFound
+    aboutThePersonality
+    aboutTheOccupations
     createdAt
   }
 }
@@ -2872,7 +2652,6 @@ export const listAudiences = `query ListAudiences(
 ) {
   listAudiences(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      JSONdata
       createContest {
         id
         user {
@@ -2949,31 +2728,11 @@ export const listAudiences = `query ListAudiences(
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -3030,29 +2789,10 @@ export const listAudiences = `query ListAudiences(
         }
       }
       id
-      genders
-      ages
-      categoryContest
-      countries
-      nacionalities
-      regionalIdentity
-      sexualities
-      maritalStatus
-      academicLevelAchieved
-      schools
-      universities
-      musicalGenre
-      sports
-      parentalCondition
-      amountOfChildren
-      amountOfSimblings
-      politicalPeople
-      peopleWhoVote
-      occupation
-      socioeconomicLevel
-      rentOrOwnHouse
-      rentOrOwnCar
-      categoryPrizes
+      contest
+      usersFound
+      aboutThePersonality
+      aboutTheOccupations
       createdAt
     }
     nextToken
@@ -3173,7 +2913,6 @@ export const getParticipants = `query GetParticipants($id: ID!) {
       showInCaseOfSuccess
       audience {
         items {
-          JSONdata
           createContest {
             id
             category
@@ -3181,29 +2920,10 @@ export const getParticipants = `query GetParticipants($id: ID!) {
             showInCaseOfSuccess
           }
           id
-          genders
-          ages
-          categoryContest
-          countries
-          nacionalities
-          regionalIdentity
-          sexualities
-          maritalStatus
-          academicLevelAchieved
-          schools
-          universities
-          musicalGenre
-          sports
-          parentalCondition
-          amountOfChildren
-          amountOfSimblings
-          politicalPeople
-          peopleWhoVote
-          occupation
-          socioeconomicLevel
-          rentOrOwnHouse
-          rentOrOwnCar
-          categoryPrizes
+          contest
+          usersFound
+          aboutThePersonality
+          aboutTheOccupations
           createdAt
         }
         nextToken
@@ -3638,31 +3358,11 @@ export const listParticipantss = `query ListParticipantss(
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -3917,31 +3617,11 @@ export const getViewsParticipants = `query GetViewsParticipants($id: ID!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -4366,31 +4046,11 @@ export const getShareParticipants = `query GetShareParticipants($id: ID!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -4805,31 +4465,11 @@ export const getLikesToParticipants = `query GetLikesToParticipants($id: ID!) {
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
@@ -5242,31 +4882,11 @@ export const getCommentsToParticipants = `query GetCommentsToParticipants($id: I
         showInCaseOfSuccess
         audience {
           items {
-            JSONdata
             id
-            genders
-            ages
-            categoryContest
-            countries
-            nacionalities
-            regionalIdentity
-            sexualities
-            maritalStatus
-            academicLevelAchieved
-            schools
-            universities
-            musicalGenre
-            sports
-            parentalCondition
-            amountOfChildren
-            amountOfSimblings
-            politicalPeople
-            peopleWhoVote
-            occupation
-            socioeconomicLevel
-            rentOrOwnHouse
-            rentOrOwnCar
-            categoryPrizes
+            contest
+            usersFound
+            aboutThePersonality
+            aboutTheOccupations
             createdAt
           }
           nextToken
