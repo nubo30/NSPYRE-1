@@ -59,6 +59,12 @@ class NotificationCenter extends Component {
         return (
             <Container style={{ backgroundColor: colorsPalette.secondaryColor }}>
                 <Header noLeft style={{ backgroundColor: colorsPalette.primaryColor, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ height: "100%", width: "100%", position: "absolute", justifyContent: 'center', alignItems: 'center', bottom: 0 }}>
+                        <Title
+                            allowFontScaling={false}
+                            minimumFontScale={wp(6)}
+                            style={{ fontSize: wp(6), color: colorsPalette.secondaryColor }}>Notification Center</Title>
+                    </View>
                     <Left style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Button transparent onPress={() => _changeSwiper(-1)}>
                             <Icon name='arrow-back' style={{ color: colorsPalette.secondaryColor }} />
@@ -67,10 +73,6 @@ class NotificationCenter extends Component {
                                 minimumFontScale={wp(4)}
                                 style={{ left: 5, color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Back</Text>
                         </Button>
-                        <Title
-                            allowFontScaling={false}
-                            minimumFontScale={wp(6)}
-                            style={{ fontSize: wp(6), color: colorsPalette.secondaryColor, left: 15 }}>Notification Center</Title>
                     </Left>
                 </Header>
                 <MyStatusBar backgroundColor={colorsPalette.secondaryColor} barStyle="light-content" />

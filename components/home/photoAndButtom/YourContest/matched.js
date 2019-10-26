@@ -9,6 +9,7 @@ import lowerCase from 'lodash/lowerCase'
 import { withNavigation } from "react-navigation"
 import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
+import remove from 'lodash/remove'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
@@ -20,12 +21,23 @@ class Matched extends Component {
     state = { animation: false, deleteContest: false, loadingDel: false, isFinishedContest: false }
 
     // Esta funcion elimina el concurso seleccionado
-    _deleteContest = async (item) => {
-        const { userData } = this.props
+    _updateContestMatched = async (item) => {
+        this.setState({ loadingDel: true });
+        const { userData, _getContestMatched } = this.props
+        const users = { usersFound: JSON.parse(item.usersFound) }
+        remove(users.usersFound, { "id": userData.id });
+        const input = {
+            usersFound: JSON.stringify(users.usersFound),
+            aboutTheOccupations: item.aboutTheOccupations,
+            aboutThePersonality: item.aboutThePersonality,
+            createdAt: item.createdAt,
+            id: item.id,
+            contest: item.contest
+        }
         try {
-            // await API.graphql(graphqlOperation(mutations.deleteCreateContest, { input: { id: item.id } }))
-            await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
+            await API.graphql(graphqlOperation(mutations.updateAudience, { input }))
             this.setState({ loadingDel: false })
+            _getContestMatched()
         } catch (error) {
             console.log(error)
             this.setState({ loadingDel: false })
@@ -38,7 +50,7 @@ class Matched extends Component {
 
     render() {
         const { animation, loadingDel, isFinishedContest } = this.state
-        const { item, _setModalVisibleYourContest, userData } = this.props
+        const { item, _setModalVisibleYourContest, userData, allCompleteData } = this.props
         return (
             <View>
                 <TouchableHighlight
@@ -175,7 +187,7 @@ class Matched extends Component {
                                     text: 'No',
                                     style: 'cancel',
                                 },
-                                { text: 'Yes', onPress: () => { this.setState({ loadingDel: true }); this._deleteContest(item) } },
+                                { text: 'Yes', onPress: () => this._updateContestMatched(allCompleteData) },
                             ],
                             { cancelable: false },
                         )}>{!loadingDel

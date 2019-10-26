@@ -4,6 +4,9 @@ import { withNavigation } from 'react-navigation'
 import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input, Button } from "native-base"
 import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { PlaceholderMedia } from 'rn-placeholder'
+import times from 'lodash/times'
+
 // childComponents
 import HeaderContest from "./header"
 import CardContent from "./cardContent"
@@ -42,7 +45,7 @@ class UserContest extends Component {
         if (this._isMounted) {
             const { userData } = this.props
             const { data } = await API.graphql(graphqlOperation(queries.listAudiences));
-            const parseData = data.listAudiences.items.map(item => ({ usersFound: JSON.parse(item.usersFound).map(item => item.id), contest: JSON.parse(item.contest) }))
+            const parseData = data.listAudiences.items.map(item => ({ usersFound: JSON.parse(item.usersFound).map(item => item.id), contest: JSON.parse(item.contest), allCompleteData: item }))
             Array.prototype.contains = function (element) { return this.indexOf(element) > -1 };
             const matched = parseData.map(item => item.usersFound.contains(userData.id) ? item : null)
             this.setState({ matched })
@@ -58,11 +61,20 @@ class UserContest extends Component {
         }
     }
 
-    _onRefresh = () => {
+    _onRefreshParticipated = () => {
         this.setState({ refreshing: true });
-        this.getContestParticipated().then(() => {
-            this.setState({ refreshing: false });
-        });
+        this.getContestParticipated().then(() => { this.setState({ refreshing: false }) });
+    }
+
+    _onRefreshMatched = () => {
+        this.setState({ refreshing: true });
+        this._getContestMatched().then(() => { this.setState({ refreshing: false }) });
+    }
+
+    _onRefresCreated = () => {
+        const { _getDataFromAWS } = this.props
+        this.setState({ refreshing: true });
+        _getDataFromAWS().then(() => { this.setState({ refreshing: false }) });
     }
 
     componentWillUnmount() { this._isMounted = false }
@@ -120,18 +132,27 @@ class UserContest extends Component {
                             matched !== null ?
                                 filterContestMatched && filterContestMatched.length
                                     ? <FlatList
+                                        refreshControl={<RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefreshMatched} />}
                                         data={filterContestMatched}
                                         renderItem={({ item, index }) =>
                                             <View key={index}>
-                                                <CardMatched userData={userData} item={item.contest} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                                                <CardMatched _getContestMatched={this._getContestMatched} userData={userData} allCompleteData={item.allCompleteData} item={item.contest} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
                                                 <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
                                             </View>
                                         }
                                         keyExtractor={(item, index) => index.toString()} />
                                     : <DataNotFound inputText={input} />
-                                : <View style={{ flex: 1, alignItems: 'center', top: 50 }}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray }}>Loading</Text>
-                                </View>
+                                : <FlatList
+                                    showsVerticalScrollIndicator={false}
+                                    data={times(5, () => [{ id: 1 }])}
+                                    renderItem={() =>
+                                        <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'rgba(0,0,0,0.0)' }}>
+                                            <PlaceholderMedia
+                                                style={{ width: "90%", alignSelf: "center", height: 100, borderRadius: 5, padding: 20, marginTop: 20 }}
+                                                hasRadius={false} animate="fade" />
+                                        </View>
+                                    }
+                                    keyExtractor={(item, index) => index.toString()} />
                         }
                     </Tab>
 
@@ -152,6 +173,9 @@ class UserContest extends Component {
                             userData && userData.createContest.items.length ?
                                 filterContestCreated && filterContestCreated.length
                                     ? <FlatList
+                                        refreshControl={
+                                            <RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefresCreated} />
+                                        }
                                         data={filterContestCreated}
                                         renderItem={({ item, index }) =>
                                             <View key={index}>
@@ -188,7 +212,7 @@ class UserContest extends Component {
                                 ? <FlatList
                                     data={filterContestParticipated}
                                     refreshControl={
-                                        <RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefresh} />
+                                        <RefreshControl tintColor={colorsPalette.primaryColor} refreshing={refreshing} onRefresh={this._onRefreshParticipated} />
                                     }
                                     renderItem={({ item, index }) =>
                                         <View key={index}>

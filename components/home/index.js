@@ -186,6 +186,7 @@ class Home extends Component {
                             }}>
                             {/* Componentes como el avatar, your contest y redeem points */}
                             <UserInfo
+                                _getDataFromAWS={this.getDataFromAWS}
                                 prizeCategory={prizeCategory}
                                 userData={userData}
                                 isReady={isReady}

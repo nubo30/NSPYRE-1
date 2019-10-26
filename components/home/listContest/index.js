@@ -86,7 +86,7 @@ class ListContest extends Component {
           </View>
         </Header>
         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-        <Button transparent style={{ position: 'absolute', top: 0, width: "60%" }} onPress={() => this.setState({ modalAction: true })} />
+        <Button transparent  style={{ position: 'absolute', top: 0, width: "75%" }} onPress={() => this.setState({ modalAction: true })} />
         <FlatList
           style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4, top: -20 }}
           showsVerticalScrollIndicator={false}

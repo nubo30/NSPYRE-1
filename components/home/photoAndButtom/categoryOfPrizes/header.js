@@ -6,7 +6,8 @@ import {
     Header,
     Title,
     Text,
-    Icon
+    Icon,
+    View
 } from "native-base"
 
 // Colors
@@ -19,7 +20,13 @@ function HeaderCategoryOfPrizes(props) {
     const { _setModalVisibleRedeemPoints } = props
     return (
         <Header hasTabs transparent>
-        <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+            <MyStatusBar backgroundColor={colorsPalette.lightSB} barStyle="light-content" />
+            <View style={{ height: "100%", width: "100%", position: "absolute", justifyContent: 'center', alignItems: 'center', bottom: 0 }}>
+                <Title
+                    minimumFontScale={wp(6)}
+                    allowFontScaling={false}
+                    style={{ alignSelf: "center", color: colorsPalette.secondaryColor, fontSize: wp(6) }}>Prizes</Title>
+            </View>
             <Left style={{ flexDirection: 'row' }}>
                 <Button transparent onPress={() => { _setModalVisibleRedeemPoints(false, false) }}>
                     <Icon name='arrow-back' style={{ color: colorsPalette.secondaryColor }} />
@@ -28,10 +35,6 @@ function HeaderCategoryOfPrizes(props) {
                         allowFontScaling={false}
                         style={{ left: 5, color: colorsPalette.secondaryColor, fontSize: wp(4) }}>Back</Text>
                 </Button>
-                <Title
-                    minimumFontScale={wp(6)}
-                    allowFontScaling={false}
-                    style={{ alignSelf: "center", left: 15, color: colorsPalette.secondaryColor, fontSize: wp(6) }}>Prizes</Title>
             </Left>
         </Header>
     )

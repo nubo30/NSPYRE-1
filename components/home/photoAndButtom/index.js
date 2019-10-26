@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Dimensions } from 'react-native'
+import { Modal } from 'react-native'
 import { withNavigation } from "react-navigation"
 import { Button, Text, Thumbnail, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -37,7 +37,7 @@ class UserInfo extends Component {
             modalVisibleYourContests,
             modalVisibleRedeemPoints,
         } = this.state
-        const { userData, isReady, prizeCategory, offLine, contestList } = this.props
+        const { userData, isReady, prizeCategory, offLine, contestList, _getDataFromAWS } = this.props
 
         return (
             <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent: 'space-around', left: '1.5%' }}>
@@ -85,7 +85,7 @@ class UserInfo extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={modalVisibleYourContests}>
-                    <YourContest contestList={contestList} userData={userData} _setModalVisibleYourContest={this._setModalVisibleYourContest} />
+                    <YourContest _getDataFromAWS={_getDataFromAWS} contestList={contestList} userData={userData} _setModalVisibleYourContest={this._setModalVisibleYourContest} />
                 </Modal>
 
                 <ModalAnimation
