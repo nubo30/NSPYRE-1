@@ -4,16 +4,17 @@ import { withNavigation } from 'react-navigation'
 import { Container, View, Tab, Tabs, Text, TabHeading, Icon, Header, Item, Input, Button } from "native-base"
 import lowerCase from 'lodash/lowerCase'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
 // childComponents
 import HeaderContest from "./header"
 import CardContent from "./cardContent"
+import CardMatched from './matched'
 import AssociatedContest from './associatedContest'
 import { DataNotFound } from "../../../global/emojis/index"
 
 // Graphql
 import { API, graphqlOperation } from 'aws-amplify'
 import { showParticipationByUser } from '../../../../src/graphql/queries'
+import * as queries from '../../../../src/graphql/queries'
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
@@ -22,12 +23,30 @@ import { MyStatusBar } from '../../../global/statusBar'
 class UserContest extends Component {
     constructor() {
         super()
-        this.state = { input: "", contestParticipated: [], contestList: [], refreshing: false }
+        this.state = {
+            input: "",
+            contestParticipated: [],
+            contestList: [],
+            refreshing: false,
+            matched: null
+        }
         this._isMounted = true
     }
 
     componentDidMount() {
         this.getContestParticipated()
+        this._getContestMatched()
+    }
+
+    _getContestMatched = async () => {
+        if (this._isMounted) {
+            const { userData } = this.props
+            const { data } = await API.graphql(graphqlOperation(queries.listAudiences));
+            const parseData = data.listAudiences.items.map(item => ({ usersFound: JSON.parse(item.usersFound).map(item => item.id), contest: JSON.parse(item.contest) }))
+            Array.prototype.contains = function (element) { return this.indexOf(element) > -1 };
+            const matched = parseData.map(item => item.usersFound.contains(userData.id) ? item : null)
+            this.setState({ matched })
+        }
     }
 
     getContestParticipated = async () => {
@@ -56,11 +75,12 @@ class UserContest extends Component {
 
     render() {
         const { userData, _setModalVisibleYourContest } = this.props
-        const { input, contestParticipated, refreshing } = this.state
+        const { input, contestParticipated, refreshing, matched } = this.state
 
         // Filtra por el nombre del concurso
         let filterContestCreated = []; filterContestCreated = userData.createContest.items.filter((item) => { return item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         let filterContestParticipated = []; filterContestParticipated = contestParticipated.filter((item) => { return item.contestData.Item && item.contestData.Item.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
+        let filterContestMatched = []; filterContestMatched = matched && matched.filter((item) => { return item !== null && item.contest.general.nameOfContest.toLowerCase().indexOf(lowerCase(input)) !== -1 })
         return (
             <Container style={{ backgroundColor: colorsPalette.primaryColor }}>
                 {/* Header */}
@@ -96,10 +116,23 @@ class UserContest extends Component {
                         activeTextStyle={{ color: colorsPalette.secondaryColor, fontSize: wp(4) }}
                         textStyle={{ color: colorsPalette.secondaryColor }}
                         activeTabStyle={{ backgroundColor: colorsPalette.primaryColor }}>
-                        <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1, top: -40 }}>
-                            <Icon type="Ionicons" name="ios-construct" style={{ fontSize: wp(20), color: colorsPalette.thirdColor, alignSelf: 'center' }} />
-                            <Text style={{ alignSelf: 'center', color: "#3333" }}>In construction</Text>
-                        </View>
+                        {
+                            matched !== null ?
+                                filterContestMatched && filterContestMatched.length
+                                    ? <FlatList
+                                        data={filterContestMatched}
+                                        renderItem={({ item, index }) =>
+                                            <View key={index}>
+                                                <CardMatched userData={userData} item={item.contest} inputText={input} _setModalVisibleYourContest={_setModalVisibleYourContest} />
+                                                <View style={{ borderBottomColor: colorsPalette.underlinesColor, borderBottomWidth: 0.5, width: "90%", alignSelf: 'center', top: 5 }} />
+                                            </View>
+                                        }
+                                        keyExtractor={(item, index) => index.toString()} />
+                                    : <DataNotFound inputText={input} />
+                                : <View style={{ flex: 1, alignItems: 'center', top: 50 }}>
+                                    <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray }}>Loading</Text>
+                                </View>
+                        }
                     </Tab>
 
                     <Tab

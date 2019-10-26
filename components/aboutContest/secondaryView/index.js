@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, FlatList, Modal } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Header, Title, Content, Button, Left, Icon, Text, View, ListItem, Separator, Right, Toast, Spinner, List, Body } from 'native-base';
+import { Container, Header, Title, Content, Button, Left, Icon, Text, View, ListItem, Separator, Right, Toast, List, Body } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import moment from 'moment'
@@ -16,11 +16,6 @@ import { colorsPalette } from '../../global/static//colors'
 import Statistics from "./statistics/index"
 
 import { MyStatusBar } from '../../global/statusBar/index'
-import { randomColors } from '../../global/static/colors'
-
-// Icons
-import { Ionicons } from '@expo/vector-icons'
-
 // Graphql
 import * as mutations from '../../../src/graphql/mutations'
 
@@ -176,7 +171,7 @@ export default class ContestDataStatistics extends Component {
                                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                                                     <View style={{ flex: 0.5, flexDirection: 'row' }}>
                                                         <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3) }}>AUDIENCE TAG #{index + 1}</Text>
-                                                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3), left:10 }}>USERS: {item.users}</Text>
+                                                        <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, fontSize: wp(3), left: 10 }}>USERS: {item.users}</Text>
                                                     </View>
                                                     <View style={{ flex: 0.5, alignItems: 'flex-end' }}>
                                                         <Text allowFontScaling={false} style={{ color: colorsPalette.secondaryColor, right: 10, fontSize: wp(3) }}>{`${moment(item.createdAt).format('L')}`}</Text>
@@ -188,7 +183,7 @@ export default class ContestDataStatistics extends Component {
                                         <CollapseBody last>
                                             <List>
                                                 {item.aboutTheOccupations.length && item.aboutTheOccupations.map((item, key) =>
-                                                    <ListItem key={key} onPress={() => Alert.alert(
+                                                    Object.keys(item).length !== 0 && <ListItem key={key} onPress={() => Alert.alert(
                                                         `${Object.keys(item)}`,
                                                         `${replace(Object.values(item), new RegExp(",", "g"), ", ")}`,
                                                         [{ text: 'Ok', onPress: () => { }, style: 'cancel' }],
@@ -202,7 +197,7 @@ export default class ContestDataStatistics extends Component {
                                                         </Right>
                                                     </ListItem>)}
                                                 {item.aboutThePersonality.length && item.aboutThePersonality.map((item, key) =>
-                                                    <ListItem key={key} onPress={() => Alert.alert(
+                                                    Object.keys(item).length !== 0 && <ListItem key={key} onPress={() => Alert.alert(
                                                         `${Object.keys(item)}`,
                                                         `${replace((Object.values(item).map(item => (JSON.stringify(Object.keys(item)) === JSON.stringify(["gte", "lte"])) ? `${item.gte} - ${item.lte}` : item)), new RegExp(",", "g"), ", ")}`,
                                                         [{ text: 'Ok', onPress: () => { }, style: 'cancel' }],
@@ -248,7 +243,7 @@ export default class ContestDataStatistics extends Component {
                         _modalVisibleShowStatistics={this._modalVisibleShowStatistics}
                     />
                 </Modal>
-            </Container >
+            </Container>
         );
     }
 }
