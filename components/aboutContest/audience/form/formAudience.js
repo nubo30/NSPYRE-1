@@ -322,7 +322,7 @@ export default class FormAudience extends Component {
                     "username": contest.user.username
                 }
             }), // Se encuenta la información del creador del concurso
-            usersFound: JSON.stringify(usersFound.hits.map(items => items._source.engages.user)),
+            usersFound: JSON.stringify(usersFound.map(items => items._source.engages.user)),
             aboutThePersonality: JSON.stringify([
                 this.state.gender !== 'NO_SELECT' ? { "Gender": this.state.gender } : null,
                 this.state.sexualityChoose.length !== 0 ? { "Sexual preference": [this.state.sexualityChoose.map(item => item.name)] } : null,
@@ -515,7 +515,7 @@ export default class FormAudience extends Component {
                 source: JSON.stringify(searchAudiencie),
                 source_content_type: 'application/json'
             }
-        }).then(res => { _matchProfiles(res.data.hits.total.value), this.setState({ usersFound: res.data.hits }) }).catch(err => console.log("Error", err))
+        }).then(res => { _matchProfiles(res.data.hits.total.value), this.setState({ usersFound: res.data.hits.hits.filter(item => item._source.engages.user.id !== this.props.contest.user.id && item) }) }).catch(err => console.log("Error", err))
     }
 
     render() {
@@ -1080,7 +1080,7 @@ export default class FormAudience extends Component {
                                                 </Button>
                                             </Left>
                                             <Body style={{ right: 15 }}>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Schools</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>School name(s)</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false}>
@@ -1153,7 +1153,7 @@ export default class FormAudience extends Component {
                                                 </Button>
                                             </Left>
                                             <Body style={{ right: 15 }}>
-                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>Universities</Text>
+                                                <Text allowFontScaling={false} style={{ color: isLoading ? "#BDBDBD" : null, fontSize: wp(4) }}>University name(s)</Text>
                                             </Body>
                                             <Right>
                                                 <Text allowFontScaling={false}>

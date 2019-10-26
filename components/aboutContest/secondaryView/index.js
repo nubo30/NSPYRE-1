@@ -182,34 +182,34 @@ export default class ContestDataStatistics extends Component {
 
                                         <CollapseBody last>
                                             <List>
-                                                {item.aboutTheOccupations.length && item.aboutTheOccupations.map((item, key) =>
-                                                    Object.keys(item).length !== 0 && <ListItem key={key} onPress={() => Alert.alert(
+                                                {item.aboutTheOccupations.length ? item.aboutTheOccupations.map((item, key) =>
+                                                    Object.keys(item).length !== 0 &&
+                                                    <ListItem key={key} onPress={() => Alert.alert(
                                                         `${Object.keys(item)}`,
                                                         `${replace(Object.values(item), new RegExp(",", "g"), ", ")}`,
                                                         [{ text: 'Ok', onPress: () => { }, style: 'cancel' }],
-                                                        { cancelable: false }
-                                                    )}>
+                                                        { cancelable: false })}>
                                                         <Left>
                                                             <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontWeight: 'bold' }}>{Object.keys(item)}</Text>
                                                         </Left>
                                                         <Right>
                                                             <Text allowFontScaling={false}>{replace(truncate(Object.values(item), { length: 10, separator: '...' }), new RegExp(",", "g"), ", ")}</Text>
                                                         </Right>
-                                                    </ListItem>)}
-                                                {item.aboutThePersonality.length && item.aboutThePersonality.map((item, key) =>
-                                                    Object.keys(item).length !== 0 && <ListItem key={key} onPress={() => Alert.alert(
+                                                    </ListItem>) : null}
+                                                {item.aboutThePersonality.length ? item.aboutThePersonality.map((item, key) =>
+                                                    Object.keys(item).length !== 0 &&
+                                                    <ListItem key={key} onPress={() => Alert.alert(
                                                         `${Object.keys(item)}`,
                                                         `${replace((Object.values(item).map(item => (JSON.stringify(Object.keys(item)) === JSON.stringify(["gte", "lte"])) ? `${item.gte} - ${item.lte}` : item)), new RegExp(",", "g"), ", ")}`,
                                                         [{ text: 'Ok', onPress: () => { }, style: 'cancel' }],
-                                                        { cancelable: false }
-                                                    )}>
+                                                        { cancelable: false })}>
                                                         <Left>
                                                             <Text allowFontScaling={false} style={{ fontWeight: 'bold', color: colorsPalette.darkFont }}>{Object.keys(item)}</Text>
                                                         </Left>
                                                         <Right>
                                                             <Text allowFontScaling={false}>{replace(truncate((Object.values(item).map(item => (JSON.stringify(Object.keys(item)) === JSON.stringify(["gte", "lte"])) ? `${item.gte} - ${item.lte}` : item)), { length: 10, separator: '...' }), new RegExp(",", "g"), ", ")}</Text>
                                                         </Right>
-                                                    </ListItem>)}
+                                                    </ListItem>) : null}
                                             </List>
                                         </CollapseBody>
 
