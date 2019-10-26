@@ -71,17 +71,19 @@ class Trending extends Component {
                     <Grid>
                         <Row size={50}>
                             <Left style={{ flexDirection: 'row' }}>
+                                <View style={{ justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 0, width: '100%', height: '100%' }}>
+                                    <Title
+                                        minimumFontScale={wp(9)}
+                                        allowFontScaling={false}
+                                        style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>Trending 🔥</Title>
+                                </View>
                                 <Button transparent onPress={() => { this.props.navigation.goBack(); }}>
                                     <Icon name='arrow-back' style={{ color: "#FFF" }} />
                                     <Text
                                         minimumFontScale={wp(4)}
                                         allowFontScaling={false}
-                                        style={{ left: 5, color: "#FFF", fontSize: wp(4) }}>Back</Text>
+                                        style={{ color: "#FFF", fontSize: wp(4) }}>Back</Text>
                                 </Button>
-                                <Title
-                                    minimumFontScale={wp(9)}
-                                    allowFontScaling={false}
-                                    style={{ alignSelf: "center", left: 15, color: "#FFF", fontSize: wp(9) }}>Trending 🔥</Title>
                             </Left>
                         </Row>
                         <Row size={50} style={{ paddingLeft: 15 }}>

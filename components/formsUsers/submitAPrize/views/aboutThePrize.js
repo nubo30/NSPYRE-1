@@ -646,7 +646,9 @@ export default class AboutTheContest extends Component {
                                 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: colorsPalette.secondaryColor, letterSpacing: 3 }}>{video.name ? `CHANGE VIDEO` : `SELECT VIDEO`}</Text>
                             </Button>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(4), textAlign: 'center', width: '85%' }}>The videos have a limit of 1 min, impress everyone with what you can achieve in that minute!</Text>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(4), textAlign: 'center', width: '85%' }}>
+                                Make a video telling people about your prize and what you want the recipient to post in exchange for your gift!
+                            </Text>
                         </Row>
                     </Grid>
                 </Modal>

@@ -126,9 +126,7 @@ class Share extends Component {
 
                 <Grid style={{ top: -10 }}>
                     <Row size={20} style={{ padding: 20 }}>
-                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(4.5), color: isLoading ? '#EEEEEE' : '#FFF', fontWeight: '100' }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(11), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Tell us something else</Text> {'\n'}This could create mention of your brand.
-                        </Text>
+                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontSize: wp(10), fontWeight: 'bold', color: isLoading ? "#EEEEEE" : "#FFF" }}>Tell us how to market your prize!</Text>
                     </Row>
                     <Row size={80} style={{ justifyContent: 'center', flexDirection: 'column', alignItems: 'center', top: -10 }}>
                         <View style={{ backgroundColor: '#FFF', width: screenWidth - 30, height: screenHeight / 2 + 40, borderRadius: 5, shadowColor: 'rgba(0,0,0,0.3)', shadowOffset: { width: 0 }, shadowOpacity: 1 }}>
@@ -143,7 +141,7 @@ class Share extends Component {
                                         </Button>
                                     </Left>
                                     <Body style={{ minHeight: 60 }}>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold' }}>Do you want the recipient to make a mention of you and your gift on social media?</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), fontWeight: 'bold' }}>Do you require a tag on social media?</Text>
                                     </Body>
                                     <Right style={{ minHeight: 60 }}>
                                         <Switch
@@ -184,7 +182,7 @@ class Share extends Component {
                                         </Button>
                                     </Left>
                                     <Body>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Type content</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(4), color: !mentionInTheSocialMedias ? "#E0E0E0" : null }}>Content Type</Text>
                                     </Body>
                                     <Right>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(4) }}> {mentionInTheSocialMedias ? footerContent && whatUserDo && checkBoxImagen || checkBoxVideos ? 'Specified' : null : null}</Text>
@@ -237,7 +235,7 @@ class Share extends Component {
                     <Container>
                         <Header transparent>
                             <Left>
-                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Write in one social...</Title>
+                                <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Select at least one...</Title>
                             </Left>
                             <Right style={{ position: 'absolute', right: 0, width: '100%', height: '100%' }}>
                                 <Button small transparent style={{ alignSelf: 'flex-end' }} onPress={() => { this._visibleModalSocialMediaHandleChoose(false); socialMediaHandle.facebook || socialMediaHandle.twitter || socialMediaHandle.instagram ? null : this.setState({ socialMediaHandle: { facebook: "", twitter: "", instagram: "" } }) }}>
@@ -365,8 +363,7 @@ class Share extends Component {
                                         onChangeText={(value) => this.setState({ footerContent: value })} />
                                 </Item>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, textAlign: 'center', alignSelf: 'center', top: 20 }}>
-                                    Before continuing, you should indicate the content that would appear in the footer at the time the users share what you want.
-                                    For example: "Visit our website, we have more of this!"
+                                    Tell your prize recipient what to post!
                             </Text>
                             </Content>
                         </Container>
@@ -380,7 +377,7 @@ class Share extends Component {
                                             minimumFontScale={wp(4)}
                                             style={{ color: colorsPalette.primaryColor, fontSize: wp(4) }}>Back</Text>
                                     </Button>
-                                    <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Type content</Title>
+                                    <Title allowFontScaling={false} style={{ color: "#E91E63", fontSize: wp(7) }}>Content Type</Title>
                                 </Left>
                                 <Right>
                                     <Button
@@ -393,7 +390,7 @@ class Share extends Component {
                             <Grid>
                                 <Row size={20} style={{ justifyContent: 'center' }}>
                                     <Text allowFontScaling={false} style={{ fontSize: wp(5), color: colorsPalette.darkFont, textAlign: 'center', alignSelf: 'center', width: "80%" }}>
-                                        What kind of content do you want users to share?
+                                        Click on the desired icon below
                                     </Text>
                                 </Row>
                                 <Row size={35} style={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
@@ -439,7 +436,7 @@ class Share extends Component {
                             </Header>
                             <Grid style={{ padding: 10 }}>
                                 <Row size={10}>
-                                    <Text allowFontScaling={false} style={{ width: "90%", fontSize: wp(4) }}>As a last step, please describe or if possible give examples of what you want users to share on their social networks</Text>
+                                    <Text allowFontScaling={false} style={{ width: "90%", fontSize: wp(4) }}>Tell the user what you’d like then to talk about or share in the video or image - be as descriptive as you like!</Text>
                                 </Row>
                                 <Row size={90} style={{ alignItems: 'flex-start' }}>
                                     <Item style={{ width: "100%", borderBottomColor: colorsPalette.transparent }}>
