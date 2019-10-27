@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, TouchableHighlight, ImageBackground } from 'react-native';
+import { FlatList, RefreshControl, TouchableHighlight, ImageBackground, AsyncStorage } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import {
@@ -48,14 +48,15 @@ class ShowPrizes extends Component {
     }
 
     componentDidMount() {
-        this.getContest()
+        this._retrieveData()
     }
 
-    getContest = async () => {
+    _getPrizes = async () => {
         const categoryPrizes = this.props.navigation.getParam('categoryPrizes');
         try {
             const contests = await API.graphql(graphqlOperation(queries.listSubmitPrizes, { filter: { category: { eq: categoryPrizes.category } } }))
             this.setState({ prizes: contests.data.listSubmitPrizes.items })
+            this._storeData(contests.data.listSubmitPrizes.items)
         } catch (error) {
             console.log(error);
         }
@@ -63,7 +64,7 @@ class ShowPrizes extends Component {
 
     _onRefresh = () => {
         this.setState({ refreshing: true });
-        this.getContest().then(() => {
+        this._getPrizes().then(() => {
             this.setState({ refreshing: false });
         });
     }
@@ -72,6 +73,27 @@ class ShowPrizes extends Component {
     _animationPulse = (item) => {
         this.setState({ animationPulseId: item.id })
     }
+
+    _storeData = async (data) => {
+        try {
+            await AsyncStorage.setItem('@LISTPRIZES', JSON.stringify(data));
+        } catch (error) {
+            console.log(eror)
+        }
+    };
+
+    _retrieveData = async () => {
+        const categoryPrizes = this.props.navigation.getParam('categoryPrizes');
+        try {
+            const value = await AsyncStorage.getItem('@LISTPRIZES');
+            if (value !== null) {
+                this.setState({ prizes: JSON.parse(value).filter(items => items.category === categoryPrizes.category && items) })
+            } if (value === null) { this._getPrizes() }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
 
     render() {
         const { input, prizes, loadingImg, animationPulseId } = this.state

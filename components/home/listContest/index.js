@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify'
-import { View, FlatList, TouchableHighlight, ImageBackground, Text, Alert } from 'react-native';
+import { View, FlatList, TouchableHighlight, ImageBackground, Text, Alert, AsyncStorage, RefreshControl } from 'react-native';
 import { withNavigation, withNavigationFocus } from "react-navigation"
 import * as Animatable from 'react-native-animatable';
 import { PlaceholderMedia } from 'rn-placeholder'
@@ -17,25 +17,24 @@ import { DataNotFound } from "../../global/emojis/index"
 import { MyStatusBar } from '../../global/statusBar/index'
 
 class ListContest extends Component {
-  state = {
-    dataSource: {},
-    animationPulse: false,
-    isReady: false,
-    loadingImg: false,
-    indexItem: null,
-    categories: null,
-    isScreenChange: false,
-    modalAction: false,
-    categoryName: "Music"
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: {},
+      animationPulse: false,
+      isReady: false,
+      loadingImg: false,
+      indexItem: null,
+      categories: null,
+      isScreenChange: false,
+      modalAction: false,
+      categoryName: "Music",
+      refreshing: false
+    }
   }
 
-  async componentDidMount() {
-    try {
-      const categories = await API.graphql(graphqlOperation(queries.listContestCategorys))
-      this.setState({ categories: categories.data.listContestCategorys.items, isReady: true })
-    } catch (error) {
-      console.log(error)
-    }
+  componentDidMount() {
+    this._retrieveData()
   }
 
   componentDidUpdate(prevProps) {
@@ -65,6 +64,42 @@ class ListContest extends Component {
       )
   }
 
+  _storeData = async (contest) => {
+    try {
+      await AsyncStorage.setItem('@LISTCONTEST', JSON.stringify(contest));
+    } catch (error) {
+      console.log(eror)
+    }
+  };
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@LISTCONTEST');
+      if (value !== null) {
+        this.setState({ categories: JSON.parse(value), isReady: true })
+      } if (value === null) {
+        this._getListContest()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  _getListContest = async () => {
+    try {
+      const categories = await API.graphql(graphqlOperation(queries.listContestCategorys))
+      this.setState({ categories: categories.data.listContestCategorys.items, isReady: true })
+      this._storeData(categories.data.listContestCategorys.items)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  _refreshData = () => {
+    this.setState({ refreshing: true });
+    this._getListContest().then(() => { this.setState({ refreshing: false }) });
+  }
+
   render() {
     const { categories, isReady, isScreenChange, modalAction, categoryName } = this.state
     const { offLine, userData, navigation } = this.props
@@ -86,8 +121,9 @@ class ListContest extends Component {
           </View>
         </Header>
         <MyStatusBar backgroundColor="#FFF" barStyle="light-content" />
-        <Button transparent  style={{ position: 'absolute', top: 0, width: "75%" }} onPress={() => this.setState({ modalAction: true })} />
+        <Button transparent style={{ position: 'absolute', top: 0, width: "75%" }} onPress={() => this.setState({ modalAction: true })} />
         <FlatList
+          refreshControl={<RefreshControl tintColor={colorsPalette.primaryColor} refreshing={this.state.refreshing} onRefresh={this._refreshData} />}
           style={{ backgroundColor: 'rgba(0,0,0,0.0)', padding: 4, top: -20 }}
           showsVerticalScrollIndicator={false}
           data={categories}

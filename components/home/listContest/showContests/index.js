@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl, AsyncStorage } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from 'react-navigation'
 import {
@@ -39,7 +39,7 @@ class ShowContest extends Component {
     }
 
     componentDidMount() {
-        this.getContest()
+        this._retrieveData()
     }
 
 
@@ -48,6 +48,7 @@ class ShowContest extends Component {
         try {
             const listContest = await API.graphql(graphqlOperation(queries.listContest, { category: categoryContest.category }))
             this.setState({ contests: JSON.parse(listContest.data.listContest) })
+            this._storeData(JSON.parse(listContest.data.listContest))
         } catch (error) {
             console.log(error);
         }
@@ -59,6 +60,27 @@ class ShowContest extends Component {
             this.setState({ refreshing: false });
         });
     }
+
+    _storeData = async (data) => {
+        try {
+            await AsyncStorage.setItem('@LISTCONTESTTYPES', JSON.stringify(data));
+        } catch (error) {
+            console.log(eror)
+        }
+    };
+
+    _retrieveData = async () => {
+        const categoryContest = this.props.navigation.getParam('categoryContest');
+        try {
+            const value = await AsyncStorage.getItem('@LISTCONTESTTYPES');
+            if (value !== null) {
+                this.setState({ contests: JSON.parse(value).filter(items => items.category === categoryContest.category && items) })
+            } if (value === null) { this.getContest() }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
 
     render() {
         const { input, contests } = this.state

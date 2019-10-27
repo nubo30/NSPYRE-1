@@ -94,8 +94,8 @@ class ListGeneralPrizes extends Component {
                                             duration={200}
                                             animation={valueKey === key ? "pulse" : undefined}>
                                             <ImageBackground
-                                                onLoadStart={() => this.setState({ loadingImgCategory: true })}
-                                                onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
+                                                //onLoadStart={() => this.setState({ loadingImgCategory: true })}
+                                                //onLoadEnd={() => { this.setState({ loadingImgCategory: false }) }}
                                                 borderRadius={5}
                                                 source={{ uri: item.picture }}
                                                 style={{ height: 125, width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
@@ -160,12 +160,12 @@ class ListGeneralPrizes extends Component {
                                                     borderRadius: 15,
                                                 }}>
                                                 <ImageBackground
-                                                    onLoadStart={() => this.setState({ loadingImgYours: true })}
-                                                    onLoadEnd={() => { this.setState({ loadingImgYours: false }) }}
+                                                    //onLoadStart={() => this.setState({ loadingImgYours: true })}
+                                                    //onLoadEnd={() => { this.setState({ loadingImgYours: false }) }}
                                                     source={{ uri: item.general.picture.url }}
                                                     borderRadius={5}
                                                     style={{ height: "100%", width: "100%", flex: 1, justifyContent: 'center', alingItems: 'center' }}>
-                                                    <Spinner color="#FFF" animating={loadingImgYours} style={{ position: 'absolute', alignSelf: 'center' }} />
+                                                    {/* <Spinner color="#FFF" animating={loadingImgYours} style={{ position: 'absolute', alignSelf: 'center' }} /> */}
                                                     <View style={{
                                                         backgroundColor: 'rgba(0,0,0,0.2)',
                                                         width: "100%", height: "100%",

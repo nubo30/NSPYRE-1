@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { AsyncStorage } from 'react-native'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { withNavigation } from "react-navigation"
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -53,7 +54,8 @@ class Home extends Component {
     componentDidMount() {
         const { online } = this.props.networkStatus
         if (online) {
-            this.getDataFromAWS()
+            // this.getDataFromAWS()
+            this._retrieveData()
             API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
                 error: ({ errors }) => { console.log(errors) },
                 next: (getData) => {
@@ -85,6 +87,25 @@ class Home extends Component {
         }
     }
 
+    _storeData = async (data) => {
+        try {
+            await AsyncStorage.setItem('@USERDATA', JSON.stringify(data));
+        } catch (error) {
+            console.log(eror)
+        }
+    };
+
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@USERDATA');
+            if (value !== null) {
+                this.setState({ userData: JSON.parse(value).userData, prizeCategory: JSON.parse(value).prizeCategory, notifications: JSON.parse(value).notifications, isReady: true })
+            } if (value === null) { this.getDataFromAWS() }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     getDataFromAWS = async () => {
         try {
             const data = await Auth.currentAuthenticatedUser()
@@ -94,6 +115,7 @@ class Home extends Component {
             this._deleteNotificationLoading(false)
             this._refreshing(false)
             this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
+            this._storeData({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
         } catch (error) {
             console.log(error)
         }
