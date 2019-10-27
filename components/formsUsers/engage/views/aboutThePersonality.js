@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, Keyboard, Alert } from 'react-native'
+import { Dimensions, Modal, Keyboard, Alert, AsyncStorage } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Input, Header, Item, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
@@ -77,13 +77,26 @@ class AboutThePersonality extends Component {
     }
 
     componentDidMount() {
-        this._getCountry()
+        this._retrieveData()
     }
+
+    _retrieveData = async () => {
+        try {
+            const countries = await AsyncStorage.getItem('@COUNTRIESCAC');
+            if (countries !== null) {
+                this.setState({ listCountries: JSON.parse(countries).map(item => item.name), dataCountries: JSON.parse(countries) })
+            } else {
+                this._getCountry()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     _getCountry = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
-            response.json().then(json => this.setState({ listCountries: json.map(item => item.name), dataCountries: json }))
+            response.json().then(json => { this.setState({ listCountries: json.map(item => item.name), dataCountries: json }); AsyncStorage.setItem('@COUNTRIESCAC', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }

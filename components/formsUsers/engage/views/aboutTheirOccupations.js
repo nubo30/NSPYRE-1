@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Dimensions, Alert } from 'react-native'
-import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Item, Input, Separator } from 'native-base';
+import { Dimensions, AsyncStorage } from 'react-native'
+import { Container, Header, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Spinner, Picker, Item, Input, Separator } from 'native-base';
 import * as Animatable from 'react-native-animatable'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row } from 'react-native-easy-grid'
@@ -59,14 +59,28 @@ class AbouttheirOccupations extends PureComponent {
     }
 
     componentDidMount() {
-        this._getSchools()
-        this._getUniversity()
+        this._retrieveData()
     }
+    _retrieveData = async () => {
+        try {
+            const schools = await AsyncStorage.getItem('@SCHOOLS');
+            const universities = await AsyncStorage.getItem('@UNIVERSITIES');
+            if (schools !== null && universities !== null) {
+                this.setState({ schoolsList: JSON.parse(schools).schools.map(item => item.name).sort() })
+                this.setState({ universityList: JSON.parse(universities).map(item => item.name).sort() })
+            } else {
+                this._getSchools()
+                this._getUniversity()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     _getSchools = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/schools.json')
-            response.json().then(json => this.setState({ schoolsList: json.schools.map(item => item.name).sort() }))
+            response.json().then(json => { this.setState({ schoolsList: json.schools.map(item => item.name).sort() }); AsyncStorage.setItem('@SCHOOLS', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }
@@ -75,7 +89,7 @@ class AbouttheirOccupations extends PureComponent {
     _getUniversity = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/universities.json')
-            response.json().then(json => this.setState({ universityList: json.map(item => item.name).sort() }))
+            response.json().then(json => { this.setState({ universityList: json.map(item => item.name).sort() }); AsyncStorage.setItem('@UNIVERSITIES', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }

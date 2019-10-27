@@ -10,6 +10,7 @@ import Swiper from 'react-native-swiper'
 import UserInfo from "./photoAndButtom"
 import ListContest from "./listContest"
 import Menu from './modalSettings'
+import WelcomeModal from './welcomeModal'
 
 // gadrient
 import { MyStatusBar } from '../global/statusBar'
@@ -165,6 +166,7 @@ class Home extends Component {
                 index={0}
                 loop={false}>
                 <Container style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                    <WelcomeModal />
                     {/* Header */}
                     <Header style={{ backgroundColor: colorsPalette.primaryColor }}>
                         <Left style={{ flexDirection: "row", alignItems: "center" }}>

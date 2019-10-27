@@ -89,7 +89,7 @@ export default class Audience extends Component {
         const {
             // Data
             contest,
-            audience,
+            swiperIndexOurAudience,
             // Functions
             _changeSwiperChild,
             _setModalVisibleAudience,
@@ -107,9 +107,9 @@ export default class Audience extends Component {
                         <Button
                             disabled={isLoading}
                             transparent
-                            onPress={() => _changeSwiperChild(-1)}>
+                            onPress={() => swiperIndexOurAudience === 2 ? _modalVisibleAudienceSelect(false) : _changeSwiperChild(-1)}>
                             <Icon name='arrow-back' style={{ color: isLoading ? colorsPalette.gradientGray : colorsPalette.primaryColor }} />
-                            <Text allowFontScaling={false} style={{ left: 5, color: isLoading ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>{Object.keys(audience).length !== 0 ? 'Close' : 'Start'}</Text>
+                            <Text allowFontScaling={false} style={{ left: 5, color: isLoading ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>{swiperIndexOurAudience === 2 ? 'Close' : 'Start'}</Text>
                         </Button>
                     </Left>
                     <Right>
@@ -126,7 +126,7 @@ export default class Audience extends Component {
                 </Header>
                 <Content scrollEnabled={false} contentContainerStyle={{ flex: 1, backgroundColor: '#FFF' }}>
                     {/* FORMULARIO AUDIENCE*/}
-                    <FormAudience _createAntoher={this._createAntoher} _matchProfiles={this._matchProfiles} searchMatches={searchMatches} audience={audience} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _createAction={this._createAction} />
+                    <FormAudience _createAntoher={this._createAntoher} _matchProfiles={this._matchProfiles} searchMatches={searchMatches} contest={contest} sendDataToAWSAction={sendDataToAWSAction} isLoading={isLoading} _setModalVisibleAudience={_setModalVisibleAudience} _modalVisibleAudienceSelect={_modalVisibleAudienceSelect} _isLoading={this._isLoading} _createAction={this._createAction} />
                 </Content>
                 <Footer style={{ borderTopColor: 'rgba(0,0,0,0.0)', backgroundColor: '#FFF', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column', minHeight: 100, padding: 10 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: "92%" }}>

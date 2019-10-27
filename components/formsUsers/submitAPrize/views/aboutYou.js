@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, Keyboard } from 'react-native'
+import { Dimensions, Modal, Keyboard, AsyncStorage } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Container, Header, Title, Content, Footer, Button, Left, Right, Body, Icon, Text, View, List, ListItem, Input, Item, Spinner, Separator, Picker } from 'native-base';
 import * as Animatable from 'react-native-animatable'
@@ -57,7 +57,7 @@ class AboutYou extends Component {
 
 
     componentDidMount() {
-        this._getCountry()
+        this._retrieveData()
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -65,10 +65,23 @@ class AboutYou extends Component {
         if (nextState.businessLocation.state !== this.state.businessLocation.state) { this._getCities(nextState.businessLocation.state) }
     }
 
+    _retrieveData = async () => {
+        try {
+            const countries = await AsyncStorage.getItem('@COUNTRIESCAC');
+            if (countries !== null) {
+                this.setState({ listCountries: JSON.parse(countries).map(item => item.name), dataCountries: JSON.parse(countries) })
+            } else {
+                this._getCountry()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     _getCountry = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
-            response.json().then(json => this.setState({ listCountries: json.map(item => item.name), dataCountries: json }))
+            response.json().then(json => { this.setState({ listCountries: json.map(item => item.name), dataCountries: json }); AsyncStorage.setItem('@COUNTRIESCAC', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }

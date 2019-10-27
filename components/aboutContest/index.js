@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, AsyncStorage } from 'react-native'
 import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { Button, Icon, Text, View } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scrollview';
@@ -54,20 +54,13 @@ export default class AboutContest extends Component {
             userLogin: false,
             isReady: null
         };
+        this._bootstrapAsyncAboutContest()
     }
     componentDidMount() {
         const userData = this.props.navigation.getParam('userData');
         const fromWhere = this.props.navigation.getParam('fromWhere');
         this.setState({ userData, fromWhere })
         this.getContestFromAWS()
-        switch (fromWhere) {
-            case 'createContest':
-                setTimeout(() => { this._setModalVisibleAudience(true, true) }, 1500);
-                break;
-            default:
-                null
-        }
-
         subscription = API.graphql(graphqlOperation(subscriptions.onUpdateCreateContest)).subscribe({
             next: (getData) => {
                 const contest = getData.value.data.onUpdateCreateContest
@@ -78,6 +71,17 @@ export default class AboutContest extends Component {
 
     componentWillUnmount() {
         subscription && subscription.unsubscribe();
+    }
+
+    _bootstrapAsyncAboutContest = async () => {
+        const userData = this.props.navigation.getParam('userData');
+        const contest = this.props.navigation.getParam('contest');
+        AsyncStorage.getItem('@ISFIRSTTIMEABOUTCONTESTOPEN', async (err, result) => {
+            if (result === null && userData.id === contest.user.id) {
+                setTimeout(() => { this._setModalVisibleAudience(true, true) }, 1500)
+            }
+        });
+        AsyncStorage.setItem('@ISFIRSTTIMEABOUTCONTESTOPEN', JSON.stringify({ "value": "true" }));
     }
 
     getContestFromAWS = async () => {

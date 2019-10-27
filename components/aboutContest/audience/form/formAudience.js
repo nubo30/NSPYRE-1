@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify'
 import { Container, Content, Button, Text, Left, Icon, Right, View, Picker, Body, ListItem, List, Toast } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -88,10 +89,8 @@ export default class FormAudience extends Component {
     componentDidMount() {
         this._isMounted = true;
         if (this._isMounted) {
-            this._getCountry()
+            this._retrieveData()
             this._getAcademicLevelAchieved()
-            this._getUniversityFromAPI()
-            this._getSchoolsFromAPI()
             this._getParentalCondition()
             this._getOcuppation()
             this._getRentOrOwnHouse()
@@ -142,10 +141,31 @@ export default class FormAudience extends Component {
         }
     }
 
+    _retrieveData = async () => {
+        try {
+            const countries = await AsyncStorage.getItem('@COUNTRIES');
+            const universities = await AsyncStorage.getItem('@UNIVERSITIES');
+            const schools = await AsyncStorage.getItem('@SCHOOLS');
+            if (countries !== null && universities !== null && schools !== null) {
+                this.setState({
+                    countryList: [{ name: 'List of countries', id: 10 * 100, children: JSON.parse(countries).map((item, key) => { return { name: item.name, id: key } }) }],
+                    universityList: [{ name: 'List of universities', id: 10 * 100, children: JSON.parse(universities).map((item, key) => { return { name: item.name, id: key } }) }],
+                    schoolsList: [{ name: 'List of schools', id: 10 * 100, children: JSON.parse(schools).schools.map((item, key) => { return { name: item.name, id: key } }) }]
+                })
+            } else {
+                this._getCountry()
+                this._getUniversityFromAPI()
+                this._getSchoolsFromAPI()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     _getCountry = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/countries.json')
-            response.json().then(json => this._getNameCountry(json))
+            response.json().then(json => { this._getNameCountry(json); AsyncStorage.setItem('@COUNTRIES', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }
@@ -158,7 +178,7 @@ export default class FormAudience extends Component {
     _getUniversityFromAPI = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/universities.json')
-            response.json().then(json => this._getUniversity(json))
+            response.json().then(json => { this._getUniversity(json); AsyncStorage.setItem('@UNIVERSITIES', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }
@@ -167,7 +187,7 @@ export default class FormAudience extends Component {
     _getSchoolsFromAPI = async () => {
         try {
             const response = await fetch('https://influencemenow-statics-files-env.s3.amazonaws.com/public/data/schools.json')
-            response.json().then(json => this._getSchools(json))
+            response.json().then(json => { this._getSchools(json); AsyncStorage.setItem('@SCHOOLS', JSON.stringify(json)) })
         } catch (error) {
             console.log(error)
         }
@@ -516,6 +536,7 @@ export default class FormAudience extends Component {
                 source_content_type: 'application/json'
             }
         }).then(res => { _matchProfiles(res.data.hits.total.value), this.setState({ usersFound: res.data.hits.hits.filter(item => item._source.engages.user.id !== this.props.contest.user.id && item) }) }).catch(err => console.log("Error", err))
+    
     }
 
     render() {
