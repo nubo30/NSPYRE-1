@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Video } from 'expo-av';
-import { Header, Text, View, Body, Title, Container } from 'native-base'
+import { Alert } from 'react-native'
+import { Header, Text, View, Body, Title, Container, Button } from 'native-base'
 import { Grid, Col, Row } from "react-native-easy-grid"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
 import Modal from "react-native-modal";
-
+import truncate from 'lodash/truncate'
 
 import { colorsPalette } from '../../global/static/colors'
 
@@ -67,11 +68,31 @@ export default class About extends Component {
                                 <Grid>
                                     <Col size={50} style={{ alignItems: 'center', padding: 5 }}>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont }}>Description</Text>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{contest.general.description}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{truncate(contest.general.description, { length: 320, separator: '..' })}</Text>
+                                        {contest.general.description.length > 320 && <Button small transparent style={{ top: 5 }} onPress={() => Alert.alert(
+                                            'Description',
+                                            `${contest.general.description}`,
+                                            [
+                                                { text: 'Ok', onPress: () => { } },
+                                            ],
+                                            { cancelable: false },
+                                        )}>
+                                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(3), fontWeight: 'bold' }}>See more</Text>
+                                        </Button>}
                                     </Col>
                                     <Col size={50} style={{ alignItems: 'center', padding: 5 }}>
                                         <Text allowFontScaling={false} style={{ fontSize: wp(6), color: colorsPalette.darkFont }}>Instructions</Text>
-                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{contest.general.instructions}</Text>
+                                        <Text allowFontScaling={false} style={{ fontSize: wp(3), textAlign: 'center', color: colorsPalette.darkFont, top: 10 }}>{truncate(contest.general.instructions, { length: 320, separator: "..." })}</Text>
+                                        {contest.general.instructions.length > 320 && <Button small transparent style={{ top: 5 }} onPress={() => Alert.alert(
+                                            'Instructions',
+                                            `${contest.general.instructions}`,
+                                            [
+                                                { text: 'Ok', onPress: () => { } },
+                                            ],
+                                            { cancelable: false },
+                                        )}>
+                                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(3), fontWeight: 'bold' }}>See more</Text>
+                                        </Button>}
                                     </Col>
                                 </Grid>
                             </Row>

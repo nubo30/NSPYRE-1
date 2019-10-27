@@ -125,6 +125,8 @@ export default class AboutContest extends Component {
         this.swiperRoot.scrollBy(i)
     }
 
+
+
     render() {
         const {
             contest,

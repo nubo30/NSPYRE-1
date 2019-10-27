@@ -119,6 +119,7 @@ class ListContest extends Component {
                 }}
                 animation={this.state.animationPulse ? (item.id === this.state.indexItem ? 'pulse' : undefined) : undefined}>
                 <ImageBackground
+                  resizeMode="cover"
                   borderRadius={5}
                   onLoadStart={() => this.setState({ loadingImg: true })}
                   onLoadEnd={() => { this.setState({ loadingImg: false }) }}

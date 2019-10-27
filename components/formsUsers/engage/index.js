@@ -47,7 +47,7 @@ export default class SubmitPrize extends Component {
         return (
             <AfterInteractions placeholder={<View style={{ flex: 1 }}><AboutThePersonalityPlaceholder /></View>}>
                 <Swiper
-                    scrollEnabled={false}
+                    scrollEnabled={true}
                     ref={(swiper) => this.swiper = swiper}
                     loop={false}
                     showsButtons={false}

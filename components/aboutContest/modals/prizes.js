@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ImageBackground, ScrollView, Alert } from 'react-native'
+import { Image, ScrollView, Alert } from 'react-native'
 import { Button, Header, Left, Text, View, Body, Title, Container, Right } from 'native-base'
 import Swiper from 'react-native-swiper';
 import { Grid, Row } from "react-native-easy-grid"
@@ -117,12 +117,13 @@ export default class Prizes extends Component {
                                 {contest.prizes.map((item, key) =>
                                     <Grid key={key}>
                                         <Row size={40}>
-                                            <ImageBackground
+                                            <Image
+                                                resizeMode="contain"
                                                 onLoadStart={() => this.setState({ thumbnailLoading: true })}
                                                 onLoadEnd={() => this.setState({ thumbnailLoading: false })}
                                                 source={{ uri: item.picture.url }}
                                                 style={{ width: "100%", flex: 1 }}>
-                                            </ImageBackground>
+                                            </Image>
                                         </Row>
                                         <Row size={60} style={{ flexDirection: 'column', top: 10 }}>
                                             <Text allowFontScaling={false} style={{ fontSize: wp(7), left: 15 }}>Description <Text allowFontScaling={false} style={{ fontSize: wp(2.5) }}>(Use two fingers to slide down/left/right)</Text> </Text>

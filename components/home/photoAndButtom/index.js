@@ -57,7 +57,7 @@ class UserInfo extends Component {
                     {
                         Object.keys(userData).length !== 0
                             ? userData.avatar !== null
-                                ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 52.5 }} source={{ uri: userData.avatar }} />
+                                ? <Thumbnail resizeMode="contain" style={{ width: 105, height: 105, borderRadius: 52.5 }} source={{ uri: userData.avatar }} />
                                 : <UserAvatar size="105" name={userData.name} />
                             : <PlaceholderMedia animate="fade" style={{ width: 105, height: 105, borderRadius: 52.5 }} />
                     }

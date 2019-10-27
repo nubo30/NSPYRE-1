@@ -67,6 +67,7 @@ class CardContent extends Component {
                             shadowOffset: { width: 0 }, shadowOpacity: 1
                         }}>
                             <ImageBackground
+                                resizeMode="cover"
                                 borderRadius={5}
                                 source={{ uri: item.general.picture.url }}
                                 style={{ height: 100, width: "100%" }}>
