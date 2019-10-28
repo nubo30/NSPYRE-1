@@ -142,6 +142,7 @@ class Matched extends Component {
                                                     onPress={() => { }}
                                                     size={20}
                                                 />}
+                                    <View style={{ width: '100%', height: '100%', position: 'absolute', backgroundColor: 'transparent' }} />
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
                                         <Text
                                             minimumFontScale={wp(4)}

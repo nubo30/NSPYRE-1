@@ -62,7 +62,7 @@ class HeaderContest extends Component {
                                     </View>
                                 </View> : <CountDown
                                     running={isCounterPause}
-                                
+
                                     digitStyle={{ backgroundColor: 'rgba(0,0,0,0.0)' }}
                                     digitTxtStyle={{ color: '#FFF' }}
                                     timeLabelStyle={{ color: '#FFF' }}
@@ -71,6 +71,7 @@ class HeaderContest extends Component {
                                     onPress={() => { }}
                                     size={15}
                                 />}
+                    <View style={{ width: '100%', height: '100%', position: 'absolute', backgroundColor: 'transparent' }} />
                 </Right>
             </Header>
         )

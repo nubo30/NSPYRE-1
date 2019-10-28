@@ -75,7 +75,9 @@ class ShowContest extends Component {
             const value = await AsyncStorage.getItem('@LISTCONTESTTYPES');
             if (value !== null) {
                 this.setState({ contests: JSON.parse(value).filter(items => items.category === categoryContest.category && items) })
-            } if (value === null) { this.getContest() }
+            } if (value === null || value.length === 0) {
+                this.getContest()
+            }
         } catch (error) {
             console.log(error)
         }

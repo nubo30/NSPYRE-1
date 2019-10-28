@@ -183,13 +183,13 @@ class Login extends Component {
                                         onPress={() => this.setState({ eyeAction: !eyeAction })}
                                         active name={eyeAction ? "eye" : "eye-off"} style={{ color: colorsPalette.gradientGray }} />
                                 </ListItem>
-                                <View style={{ alignSelf: 'flex-end' }}>
+                                <View style={{ alignSelf: 'flex-end', backgroundColor: 'pink', width: "100%" }}>
                                     <ForgottenPassword />
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', width: "100%", position: 'absolute', top: 40 }}>
+                                        <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
+                                    </View>
                                 </View>
                             </List>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                            </View>
                         </Row>
                         <Row size={35} style={{ justifyContent: 'center', alignItems: 'center', padding: 15, flexDirection: 'column' }}>
                             <Animatable.View
@@ -259,7 +259,6 @@ class Login extends Component {
                         </Row>
                     </Grid>
                 </Swiper>
-                {/* <ForgottenPassword forgetPasswordModal={this.state.forgetPasswordModal} _forgetPasswordModal={this._forgetPasswordModal} /> */}
             </View>
         );
     }
