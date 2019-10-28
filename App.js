@@ -79,6 +79,9 @@ class InfluencemeNow extends Component {
         await Expo.Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+            'Dosis_Bold': require('./assets/fonts/Dosis-Bold.ttf'),
+            'Dosis_Regular': require('./assets/fonts/Dosis-Regular.ttf'),
+            'Montserrat_Subrayada': require('./assets/fonts/MontserratSubrayada-Bold.ttf')
         });
         this.setState({ isReady: true })
     }
@@ -127,7 +130,7 @@ const AppContainer = createAppContainer(createAnimatedSwitchNavigator({
     // transitionConfig: (nav) => handleCustomTransition(nav)
     transition: (
         <Transition.Together>
-            <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeIn" />
+            <Transition.Out type="fade" durationMs={300} interpolation="easeIn" />
             <Transition.In type="fade" durationMs={100} />
         </Transition.Together>
     ),

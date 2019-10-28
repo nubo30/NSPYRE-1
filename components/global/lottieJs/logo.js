@@ -16,7 +16,7 @@ export default class Logo extends Component {
                     ref={animation => this.animation = animation}
                     style={{ width: "100%", alignSelf: 'center', position: 'absolute', height: 200, top: 10 }}
                     source={require('./animations/dev.json')} /> */}
-                <Text allowFontScaling={false} style={{ fontSize: wp(13), fontWeight: 'bold', color: "#FFF" }}>Nspyre</Text>
+                <Text allowFontScaling={false} style={{ fontSize: wp(13), fontWeight: 'bold', color: "#FFF", fontFamily: 'Montserrat_Subrayada' }}>Nspyre</Text>
             </View>
         )
     }

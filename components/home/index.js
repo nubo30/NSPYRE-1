@@ -58,7 +58,11 @@ class Home extends Component {
             // this.getDataFromAWS()
             this._retrieveData()
             API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
-                error: ({ errors }) => { console.log(errors) },
+                error: ({ errors }) => {
+                    if (__DEV__) {
+                        console.log(errors)
+                    }
+                },
                 next: (getData) => {
                     if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
                 }
@@ -66,7 +70,11 @@ class Home extends Component {
 
             // Agregar notifications
             API.graphql(graphqlOperation(subscriptions.onCreateNotifications)).subscribe({
-                error: ({ errors }) => { console.log(errors) },
+                error: ({ errors }) => {
+                    if (__DEV__) {
+                        console.log(errors)
+                    }
+                },
                 next: (getData) => {
                     if (getData.value.data.onCreateNotifications.idUserTo === this.state.userData.id) {
                         this.setState({ notifications: [...this.state.notifications, getData.value.data.onCreateNotifications] })
@@ -76,13 +84,21 @@ class Home extends Component {
 
             // Delete notifications
             API.graphql(graphqlOperation(subscriptions.onDeleteNotifications)).subscribe({
-                error: ({ errors }) => { console.log(errors) },
+                error: ({ errors }) => {
+                    if (__DEV__) {
+                        console.log(errors)
+                    }
+                },
                 next: () => { this.getDataFromAWS() }
             })
 
             // Create Engage
             API.graphql(graphqlOperation(subscriptions.onCreateEngage)).subscribe({
-                error: ({ errors }) => { console.log(errors) },
+                error: ({ errors }) => {
+                    if (__DEV__) {
+                        console.log(errors)
+                    }
+                },
                 next: () => { this.getDataFromAWS() }
             })
         }
@@ -103,7 +119,9 @@ class Home extends Component {
                 this.setState({ userData: JSON.parse(value).userData, prizeCategory: JSON.parse(value).prizeCategory, notifications: JSON.parse(value).notifications, isReady: true })
             } if (value === null) { this.getDataFromAWS() }
         } catch (error) {
-            console.log(error)
+            if (__DEV__) {
+                console.log(error)
+            }
         }
     };
 
@@ -118,7 +136,9 @@ class Home extends Component {
             this.setState({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
             this._storeData({ userData: userData.data.getUser, isReady: true, prizeCategory: prizeCategory.data.listPrizesCategorys.items, notifications: notifications.data.listNotificationss.items })
         } catch (error) {
-            console.log(error)
+            if (__DEV__) {
+                console.log(error)
+            }
         }
     }
 
@@ -176,7 +196,7 @@ class Home extends Component {
                             </Button>
                             <Title
                                 allowFontScaling={false}
-                                style={{ color: colorsPalette.secondaryColor, fontSize: wp(6) }}>INFLUENCE ME NOW</Title>
+                                style={{ color: colorsPalette.secondaryColor, fontSize: wp(6) }}>NSPYRE</Title>
                         </Left>
                         <Right style={{ position: 'absolute', right: 0, top: 23, right: 5 }}>
                             <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex: 1, height: '100%' }}>

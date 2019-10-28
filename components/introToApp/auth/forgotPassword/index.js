@@ -49,7 +49,6 @@ export default class ForgotPassword extends Component {
             this.setState({ isValidNumber: false })
             this.phone.isValidNumber() && this.swiper.scrollBy(1)
         } catch (error) {
-            console.log(error)
             let err = null
             switch (error.message) {
                 case "Username/client id combination not found.":
@@ -107,8 +106,8 @@ export default class ForgotPassword extends Component {
                     style={{ justifyContent: 'flex-end', margin: 0 }}>
                     <View
                         style={{
-                            borderTopStartRadius: 30,
-                            borderTopEndRadius: 30,
+                            borderTopStartRadius: 10,
+                            borderTopEndRadius: 10,
                             shadowOpacity: 1,
                             shadowOffset: { width: 0, height: -10 },
                             shadowColor: "rgba(0,0,0,0.2)",

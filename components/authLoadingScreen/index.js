@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
-import { Text, View, Spinner } from 'native-base'
+import { AsyncStorage, Image } from 'react-native'
+import { View } from 'native-base'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { connect } from 'react-redux'
 
@@ -10,6 +10,8 @@ import * as queries from "../../src/graphql/queries"
 
 // Redux
 import { isNotExistUserInTheAPI } from "../../store/actions/authActions"
+
+import { colorsPalette } from '../global/static/colors'
 
 class AuthLoadingScreen extends Component {
     constructor(props) {
@@ -44,9 +46,8 @@ class AuthLoadingScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Spinner color="#333" size="large" />
-                <Text allowFontScaling={false}>Loading...</Text>
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: colorsPalette.secondaryColor }}>
+                <Image source={require('../../assets/splash.png')} style={{ height: 355, width: 355 }} />
             </View>
         )
     }

@@ -20,6 +20,7 @@ import { fBCredentials } from "../../global/socialNetWorksCredentials"
 
 // colors
 import { colorsPalette } from '../../global/static/colors'
+import { fonts } from '../../global/static/font'
 
 // ChildComponent
 import ForgottenPassword from '../../introToApp/auth/forgotPassword'
