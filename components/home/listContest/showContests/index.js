@@ -42,13 +42,28 @@ class ShowContest extends Component {
         this._retrieveData()
     }
 
+    _retrieveData = async () => {
+        const categoryContest = this.props.navigation.getParam('categoryContest');
+        try {
+            const value = await AsyncStorage.getItem(`@LISTCONTESTTYPES${categoryContest.category}`);
+            if (value !== null) {
+                this.setState({ contests: JSON.parse(value) })
+                this._verifyIfThereIsAnotherContest(JSON.parse(value).length)
+            } if (value === null) {
+                this._getContest()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
-    getContest = async () => {
+
+    _getContest = async () => {
         const categoryContest = this.props.navigation.getParam('categoryContest');
         try {
             const listContest = await API.graphql(graphqlOperation(queries.listContest, { category: categoryContest.category }))
+            await AsyncStorage.setItem(`@LISTCONTESTTYPES${categoryContest.category}`, JSON.stringify(JSON.parse(listContest.data.listContest)));
             this.setState({ contests: JSON.parse(listContest.data.listContest) })
-            this._storeData(JSON.parse(listContest.data.listContest))
         } catch (error) {
             console.log(error);
         }
@@ -56,33 +71,24 @@ class ShowContest extends Component {
 
     _onRefresh = () => {
         this.setState({ refreshing: true });
-        this.getContest().then(() => {
+        this._getContest().then(() => {
             this.setState({ refreshing: false });
         });
     }
 
-    _storeData = async (data) => {
-        try {
-            await AsyncStorage.setItem('@LISTCONTESTTYPES', JSON.stringify(data));
-        } catch (error) {
-            console.log(eror)
-        }
-    };
-
-    _retrieveData = async () => {
+    _verifyIfThereIsAnotherContest = async (amountOfContestInChache) => {
         const categoryContest = this.props.navigation.getParam('categoryContest');
         try {
-            const value = await AsyncStorage.getItem('@LISTCONTESTTYPES');
-            if (value !== null) {
-                this.setState({ contests: JSON.parse(value).filter(items => items.category === categoryContest.category && items) })
-            } if (value === null || value.length === 0) {
-                this.getContest()
+            const listContest = await API.graphql(graphqlOperation(queries.listContest, { category: categoryContest.category }))
+            if (JSON.parse(listContest.data.listContest).length !== amountOfContestInChache) {
+                await AsyncStorage.setItem(`@LISTCONTESTTYPES${categoryContest.category}`, JSON.stringify(JSON.parse(listContest.data.listContest)));
+                this.setState({ contests: JSON.parse(listContest.data.listContest) })
             }
         } catch (error) {
-            console.log(error)
+            if (__DEV__) { console.log(error) }
         }
-    };
 
+    }
 
     render() {
         const { input, contests } = this.state
@@ -131,8 +137,16 @@ class ShowContest extends Component {
                             refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
-                            renderItem={({ item, index }) => <CardContestAll userData={userData} index={index} item={item} />} />
-                        : <DataNotFound inputText={input} />
+                            renderItem={({ item, index }) => {
+                                setTimeout(() =>
+                                    <CardContestAll userData={userData} index={index} item={item} />, 500)
+                            }} />
+                        : <FlatList
+                            data={['1']}
+                            refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
+                            keyExtractor={item => item}
+                            initialNumToRender={2}
+                            renderItem={({ item, index }) => <DataNotFound inputText={input} />} />
                     : <PlaceholderAll />}
             </Container>
         )

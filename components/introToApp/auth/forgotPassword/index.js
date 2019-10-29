@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Dimensions, Keyboard } from 'react-native'
+import { Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
 import { Header, Title, Content, Footer, Button, Body, Icon, Text, View, Item, Input, Spinner, Toast } from 'native-base';
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { isEmail } from 'validator'
 import PhoneInput from 'react-native-phone-input'
 import Swiper from 'react-native-swiper'
 import replace from 'lodash/replace'

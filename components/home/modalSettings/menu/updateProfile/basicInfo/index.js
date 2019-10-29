@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-native'
-import { API, graphqlOperation } from 'aws-amplify'
-import { Container, Content, Button, ListItem, Text, Icon, Left, Body, Right, List, Header, Title, Toast, Root, Spinner } from 'native-base';
+import { API, graphqlOperation, Auth } from 'aws-amplify'
+import { Container, Content, Button, ListItem, Text, Icon, Left, Body, Right, List, Header, Title, Toast, Root, Spinner, View } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import PhoneInput from 'react-native-phone-input'
 import _ from 'lodash'
+import CodeInput from 'react-native-confirmation-code-input';
 
 // GraphQL
 import * as mutations from '../../../../../../src/graphql/mutations'
@@ -20,7 +21,8 @@ export default class BasicInfo extends Component {
         numberPhone: "",
         isValidNumherPhone: false,
         isLoading: false,
-        messageFlash: { cognito: null }
+        messageFlash: { cognito: null },
+        isPINsend: false
     }
 
     _getNumberPhone = () => {
@@ -60,10 +62,21 @@ export default class BasicInfo extends Component {
         }
     }
 
-
+    _sendPin = async () => {
+        try {
+            
+            const res = await Auth.verifyCurrentUserAttribute(this.phone.getValue())
+            console.log(res, "<-----")
+        } catch (error) {
+            if (__DEV__) {
+                console.log(error)
+            }
+        }
+        this.setState({ isPINsend: true })
+    }
 
     render() {
-        const { numberPhone, modalVisiblePhone, isValidNumherPhone, messageFlash } = this.state
+        const { numberPhone, modalVisiblePhone, isValidNumherPhone, messageFlash, isPINsend } = this.state
         const { userData, isLoading } = this.props
         return (
             <Container>
@@ -134,6 +147,9 @@ export default class BasicInfo extends Component {
                     <Root>
                         <Container>
                             <Header transparent>
+                                <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', bottom: 0 }}>
+                                    <Title style={{ color: isLoading ? colorsPalette.opaqueWhite : '#333', fontSize: wp(7) }}>Number phone</Title>
+                                </View>
                                 <Left>
                                     <Button
                                         disabled={isLoading}
@@ -142,14 +158,12 @@ export default class BasicInfo extends Component {
                                         <Text style={{ color: isLoading ? colorsPalette.opaqueWhite : colorsPalette.primaryColor }}>Back</Text>
                                     </Button>
                                 </Left>
-                                <Body>
-                                    <Title style={{ color: isLoading ? colorsPalette.opaqueWhite : '#333', fontSize: wp(7) }}>Number phone</Title>
-                                </Body>
+                                <Body />
                                 <Right>
                                     <Button
                                         disabled={!isValidNumherPhone ? true : false}
                                         transparent
-                                        onPress={() => this._verifyNumberPhone()}>
+                                        onPress={() => this._sendPin()}>
                                         {isLoading ? <Spinner size="small" color={colorsPalette.opaqueWhite} /> : <Text style={{ color: !isValidNumherPhone ? colorsPalette.gradientGray : colorsPalette.primaryColor }}>OK</Text>}
                                     </Button>
                                 </Right>
@@ -170,9 +184,25 @@ export default class BasicInfo extends Component {
                                         style={{ height: "100%", width: "100%" }}
                                         flagStyle={{ height: 30, width: 40 }}
                                         textStyle={{ fontSize: wp(6), color: '#000' }}
-                                        textProps={{ placeholder: "Your Phone Number" }}
                                         initialCountry="us" />
                                 </ListItem>
+                                <Text allowFontScaling={false} style={{ alignSelf: 'center', color: colorsPalette.darkFont, fontSize: wp(2.5), top: 10 }}>Touch to write</Text>
+                                <ListItem style={{ borderBottomColor: colorsPalette.transparent }}>
+                                    <CodeInput
+                                        ref="codeInputRef"
+                                        keyboardType="numeric"
+                                        codeLength={6}
+                                        activeColor={isPINsend ? colorsPalette.primaryColor : colorsPalette.gradientGray}
+                                        inactiveColor={colorsPalette.gradientGray}
+                                        className='border-circle'
+                                        autoFocus={false}
+                                        ignoreCase={true}
+                                        inputPosition='center'
+                                        size={25}
+                                        onFulfill={(code) => { }} />
+                                    {!isPINsend && <View style={{ width: '100%', height: '100%', position: 'absolute', backgroundColor: colorsPalette.transparent, bottom: 0 }} />}
+                                </ListItem>
+                                <Text allowFontScaling={false} style={{ alignSelf: 'center', color: colorsPalette.darkFont, fontSize: wp(2.5), top: 10, width: "80%", textAlign: 'center' }}>Enter here the PIN that will be sent to confirm your telephone number (Enter first the telephone number to activate the field)</Text>
                             </List>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3.5), width: "80%", alignSelf: 'center', textAlign: 'center', top: 20 }}>
                                 {messageFlash.cognito && messageFlash.cognito.message}

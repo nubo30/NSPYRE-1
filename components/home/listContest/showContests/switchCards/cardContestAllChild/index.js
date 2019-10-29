@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withNavigation } from "react-navigation"
 import { ImageBackground, View } from 'react-native';
+import { Video } from 'expo-av';
 import UserAvatar from "react-native-user-avatar"
 import * as Animatable from 'react-native-animatable';
 import { Text, Left, Body, Card, CardItem, Thumbnail, Right } from "native-base"
