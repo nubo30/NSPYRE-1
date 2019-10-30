@@ -184,7 +184,7 @@ class Menu extends Component {
                         minimumFontScale={wp(2)}
                         style={{ color: colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Terms & Conditions</Text>
                 </Button>
-                <Text allowFontScaling={false} style={{ fontSize: wp(2), alignSelf: 'center', position: 'absolute', bottom: 0 }}>Version 1.0.1</Text>
+                <Text allowFontScaling={false} style={{ fontSize: wp(2), alignSelf: 'center', position: 'absolute', bottom: 0 }}>Version 1.1.2</Text>
                 {/* Modify Profile User */}
                 <ModifyProfile
                     // Data
