@@ -137,10 +137,7 @@ class ShowContest extends Component {
                             refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
                             keyExtractor={item => item.id}
                             initialNumToRender={2}
-                            renderItem={({ item, index }) => {
-                                setTimeout(() =>
-                                    <CardContestAll userData={userData} index={index} item={item} />, 500)
-                            }} />
+                            renderItem={({ item, index }) => <CardContestAll userData={userData} index={index} item={item} />} />
                         : <FlatList
                             data={['1']}
                             refreshControl={<RefreshControl tintColor="#D82B60" refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}
