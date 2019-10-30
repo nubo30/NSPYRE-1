@@ -24,7 +24,7 @@
 
 **Installation:**
 
-1. `git clone https://github.com/nubo30/influenceMeNow.git
-cd influenceMeNow/`
-2. `yarn` (Or use any other package manager like ‘npm’ to install the dependencies)
-3. `yarn add expo-cli && expo start`
+1. `git clone https://github.com/nubo30/influenceMeNow.git`
+2. `cd influenceMeNow/`
+3. `yarn` (Or use any other package manager like ‘npm’ to install the dependencies)
+4. `yarn add expo-cli && expo start`
