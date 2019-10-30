@@ -177,7 +177,7 @@ export default class Auth extends Component {
                                 </View>}
                         </Row>
                     </Grid>
-                    <Text allowFontScaling={false} style={{ alignSelf: 'center', fontSize: wp(3) }}>Version 1.0.2</Text>
+                    <Text allowFontScaling={false} style={{ alignSelf: 'center', fontSize: wp(3) }}>Version 1.1.2</Text>
                 </Container>
                 <MoreAboutTheUser _changeSwiper={this._changeSwiper} _changeSwiper={this._changeSwiper} userData={userData} />
                 <Scope userData={userData} />

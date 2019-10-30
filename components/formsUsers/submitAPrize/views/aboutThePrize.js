@@ -584,7 +584,7 @@ export default class AboutTheContest extends Component {
                                 ? <Image style={{ height: "100%", width: "100%" }} source={{ uri: picture.localUrl }} />
                                 : <Ionicons name="ios-images" style={{ fontSize: wp(50), color: "#EEEEEE" }} />}
                         </Row>
-                        <Row size={30} style={{ flexDirection: 'column' }}>
+                        <Row size={30} style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
                             <Button
                                 onPress={() => this._useLibraryHandler('Images')}
                                 transparent
@@ -595,6 +595,7 @@ export default class AboutTheContest extends Component {
                                 }}>
                                 <Text allowFontScaling={false} style={{ fontSize: wp(4.5), color: "#fff", letterSpacing: 3 }}>{picture.name ? `CHANGE IMAGEN` : `SELECT IMAGEN`}</Text>
                             </Button>
+                            <Text allowFontScaling={false} style={{ color: colorsPalette.darkFont, fontSize: wp(3), textAlign: 'center', width: '85%' }}>Support Gif</Text>
                         </Row>
                     </Grid>
                 </Modal>

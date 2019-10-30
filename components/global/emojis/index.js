@@ -21,7 +21,6 @@ export const DataNotFound = (props) => {
                 allowFontScaling={false}
                 minimumFontScale={14}
                 style={{ color: "#9E9E9E", fontSize: 14 }}>We could not find <Text style={{ fontWeight: 'bold', color: "#9E9E9E" }}>{inputText}</Text></Text>
-            <Text allowFontScaling={false} style={{ fontSize: wp(2.5), color: colorsPalette.darkFont, alignSelf: 'center', top: 10 }}>Slide down to refresh</Text>
         </View>
     )
 }
