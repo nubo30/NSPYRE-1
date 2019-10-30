@@ -10,7 +10,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
 import * as Sentry from 'sentry-expo';
-// import awsconfig from './aws-exports'
+
 // Sentry config
 Sentry.init({
     dsn: 'https://850709ab67944debb49e9305541df7dc@sentry.io/1458405',
@@ -56,12 +56,10 @@ import AuthLoadingScreen from "./components/authLoadingScreen"
 import FirstAuth from "./components/introToApp/auth"
 import IntroToApp from "./components/introToApp"
 import SignInOrSingUp from "./components/auth"
-import Welcome from "./components/welcome"
 import Engage from "./components/formsUsers/engage"
 import CreateContest from "./components/formsUsers/createAContest"
 import SubmitPrize from "./components/formsUsers/submitAPrize"
 import Congratulation from "./components/congratulations"
-import PromoteMyContest from "./components/promoteMyContest"
 import Home from "./components/home"
 import Contests from "./components/home/listContest/showContests"
 import AboutContest from "./components/aboutContest"
@@ -98,12 +96,10 @@ const RootStack = createStackNavigator(
     {
         'Home': { screen: Home, navigationOptions },
         'Sliders': { screen: IntroToApp, navigationOptions },
-        'Welcome': { screen: Welcome, navigationOptions },
         'Engage': { screen: Engage, navigationOptions },
         'CreateContest': { screen: CreateContest, navigationOptions },
         'SubmitPrize': { screen: SubmitPrize, navigationOptions },
         'Congratulation': { screen: Congratulation, navigationOptions },
-        'PromoteMyContest': { screen: PromoteMyContest, navigationOptions },
         'Contests': { screen: Contests, navigationOptions },
         'AboutContest': { screen: AboutContest, navigationOptions },
         'Prizes': { screen: Prizes, navigationOptions },
