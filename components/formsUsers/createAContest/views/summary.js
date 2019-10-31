@@ -13,6 +13,8 @@ import { normalizeEmail } from 'validator'
 import Swiper from 'react-native-swiper'
 import AWS from 'aws-sdk'
 import moment from 'moment'
+import bytes from 'bytes'
+import { showMessage } from "react-native-flash-message";
 
 import { securityCredentials } from '../../../global/aws/credentials'
 
@@ -65,8 +67,32 @@ class Summary extends Component {
         });
 
         try {
-            await Storage.put(`users/${userData.email}/contest/pictures/owner/${contest.general.picture.name}`, blobPicture, { contentType: contest.general.picture.type })
-            await Storage.put(`users/${userData.email}/contest/videos/owner/${contest.general.video.name}`, blobVideo, { contentType: contest.general.video.type })
+            await Storage.put(`users/${userData.email}/contest/pictures/owner/${contest.general.picture.name}`, blobPicture, {
+                progressCallback(progress) {
+                    showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading contest picture...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: contest.general.picture.type })
+            await Storage.put(`users/${userData.email}/contest/videos/owner/${contest.general.video.name}`, blobVideo, {
+                progressCallback(progress) {
+                    showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading promotional video...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: contest.general.video.type })
 
             contest.prizes.map(async (item) => {
                 // PICTURE OF THE PRIZE
@@ -79,24 +105,63 @@ class Summary extends Component {
                     xhr.send(null);
                 });
                 try {
-                    await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${item.picture.name}`, blobPicture_, { contentType: item.picture.type })
+                    await Storage.put(`users/${userData.email}/contest/prizes/pictures/owner/${item.picture.name}`, blobPicture_, {
+                        progressCallback(progress) {
+                            showMessage({
+                                animated: false,
+                                autoHide: progress.loaded === progress.total ? true : false,
+                                message: "Uploading prize picture...",
+                                description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                                type: "default",
+                                backgroundColor: colorsPalette.uploadingData,
+                                color: colorsPalette.secondaryColor, // text color
+                            });
+                        },
+                    }, { contentType: item.picture.type })
                 } catch (error) {
-                    console.log('Error al crear los premios');
+                    showMessage({
+                        message: "Connection failed",
+                        description: "The connection has been lost and we could not finish creating your contest, please try again.",
+                        type: "default",
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
                 }
             })
-
+            showMessage({
+                message: "Structuring",
+                description: "We are almost done!!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             const newContest = await API.graphql(graphqlOperation(mutations.createCreateContest, { input: contest }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
-            navigation.navigate("AboutContest", {
-                contest: newContest.data.createCreateContest,
-                fromWhere: 'createContest',
-                userData,
-                disableParticipants: true
-            })
+            showMessage({
+                message: "Created!",
+                description: "Your contest has been created successfully!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
+            setTimeout(() => {
+                navigation.navigate("AboutContest", {
+                    contest: newContest.data.createCreateContest,
+                    fromWhere: 'createContest',
+                    userData,
+                    disableParticipants: true
+                })
+            }, 800);
             this.setState({ isLoading: false })
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
-            console.log(error)
+            showMessage({
+                message: "Something has happened",
+                description: "We could not create the contest, please try again.",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 

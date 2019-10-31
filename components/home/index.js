@@ -55,7 +55,6 @@ class Home extends Component {
     componentDidMount() {
         const { online } = this.props.networkStatus
         if (online) {
-            // this.getDataFromAWS()
             this._retrieveData()
             API.graphql(graphqlOperation(subscriptions.onUpdateUser)).subscribe({
                 error: ({ errors }) => {
@@ -64,7 +63,10 @@ class Home extends Component {
                     }
                 },
                 next: (getData) => {
-                    if (getData.value.data.onUpdateUser.id === this.state.userData.id) { this.setState({ userData: getData.value.data.onUpdateUser }) }
+                    if (getData.value.data.onUpdateUser.id === this.state.userData.id) {
+                        this.setState({ userData: getData.value.data.onUpdateUser })
+                        this.getDataFromAWS()
+                    }
                 }
             })
 

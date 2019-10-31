@@ -4,7 +4,7 @@ import { API, graphqlOperation, Storage } from 'aws-amplify'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Video } from 'expo-av';
-import { Button, Text, Icon, Form, Textarea, Spinner, Toast, Root } from 'native-base'
+import { Button, Text, Icon, Form, Textarea, Spinner, Root } from 'native-base'
 import Modal from "react-native-modal";
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -13,6 +13,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import AWS from 'aws-sdk'
 import bytes from 'bytes'
+import { showMessage } from "react-native-flash-message";
 
 import { securityCredentials } from "../../../global/aws/credentials"
 
@@ -21,7 +22,6 @@ import AnimationManWihtHearts from '../../../global/lottieJs/manWithHearts'
 import InstructionsGirlWithPhone from '../../../global/lottieJs/instructionsGirlWithPhone'
 import CongratsParticipate from '../../../global/lottieJs/congratsParticipate'
 
-const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
 import { colorsPalette } from '../../../global/static/colors'
 
@@ -164,36 +164,53 @@ export default class JoinToTheContest extends Component {
             if (picture.localUrl !== null) {
                 await Storage.put(`users/${userData.email}/contest/participants/pictures/${picture.name}`, blobPicture, {
                     progressCallback(progress) {
-                        Toast.show({
-                            text: `${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
-                            buttonText: 'Okay',
-                            duration: progress.loaded === progress.total ? 3000 : 10000,
-                            type: progress.loaded === progress.total ? "success" : null,
-                            position: 'top'
-                        })
+                        showMessage({
+                            animated: false,
+                            autoHide: progress.loaded === progress.total ? true : false,
+                            message: "Uploading picture...",
+                            description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                            type: "default",
+                            backgroundColor: colorsPalette.uploadingData,
+                            color: colorsPalette.secondaryColor, // text color
+                        });
                     },
                 }, { contentType: picture.type })
             }
             if (video.localUrl !== null) {
                 await Storage.put(`users/${userData.email}/contest/participants/videos/${video.name}`, blobVideo, {
                     progressCallback(progress) {
-                        Toast.show({
-                            text: `${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
-                            buttonText: 'Okay',
-                            duration: progress.loaded === progress.total ? 3000 : 10000,
-                            type: progress.loaded === progress.total ? "success" : null,
-                            position: 'top'
-                        })
+                        showMessage({
+                            animated: false,
+                            autoHide: progress.loaded === progress.total ? true : false,
+                            message: "Uploading video...",
+                            description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                            type: "default",
+                            backgroundColor: colorsPalette.uploadingData,
+                            color: colorsPalette.secondaryColor, // text color
+                        });
                     },
                 }, { contentType: video.type })
             }
             await API.graphql(graphqlOperation(mutations.createParticipants, { input: participants }))
+            showMessage({
+                message: "Done!",
+                description: "Everything went well!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ isLoading: false })
             this._changeSwiper(1)
             this._createNotification()
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
-            console.log(error)
+            showMessage({
+                message: "Something has happened",
+                description: "We could not finish, please try again.",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 

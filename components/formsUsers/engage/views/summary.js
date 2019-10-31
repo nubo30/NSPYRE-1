@@ -12,6 +12,7 @@ import { normalizeEmail } from 'validator'
 import moment from 'moment'
 import Axios from 'axios'
 import OmitDeep from 'omit-deep'
+import { showMessage } from "react-native-flash-message";
 
 // Gradients
 import { GadrientsAuth } from '../../../global/gradients/index'
@@ -36,9 +37,24 @@ class Summary extends Component {
         this.setState({ isLoading: true })
         const { navigation, userData, engage, coins } = this.props
         try {
+            showMessage({
+                animated: false,
+                message: "Preparing....",
+                description: "I am preparing your valuable data, give me a moment!",
+                type: "default",
+                backgroundColor: colorsPalette.uploadingData,
+                color: colorsPalette.secondaryColor, // text color
+            });
             await API.graphql(graphqlOperation(mutations.createEngage, { input: engage }))
+            showMessage({
+                animated: false,
+                message: "Almost....",
+                description: "Don't despair, I'm almost done!",
+                type: "default",
+                backgroundColor: colorsPalette.uploadingData,
+                color: colorsPalette.secondaryColor, // text color
+            });
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id, coins: _.sum([coins.coinsOccupations, coins.coinsPersonality, coins.interestsCoins, userData.coins]) } }))
-
             OmitDeep(userData, ['submitPrize', 'createContest', 'engage', 'coins'])
             await Axios.put(`https://search-influencemenowtest-pirbhpqtqvcumgt6ze4spjupba.us-east-1.es.amazonaws.com/engages/_doc/${userData.id}`, {
                 'engages': {
@@ -49,10 +65,24 @@ class Summary extends Component {
                     'aboutTheOccupations': engage.aboutTheOccupations
                 }
             })
+            showMessage({
+                message: "Profile Created...",
+                description: "Your profile has been created successfully!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ isLoading: false })
             navigation.navigate("Home")
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
+            showMessage({
+                message: "Oops! Something has happened.",
+                description: "Apparently I lost connection to your network, please try again.",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 

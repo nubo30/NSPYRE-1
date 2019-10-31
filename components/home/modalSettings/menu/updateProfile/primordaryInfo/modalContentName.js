@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Keyboard } from 'react-native'
 import { API, graphqlOperation } from "aws-amplify"
-import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Toast, Container, Right, Content } from 'native-base'
+import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Container, Right, Content } from 'native-base'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { showMessage } from "react-native-flash-message";
 
 // Max lenght of the form
 const maxLength = 20
@@ -10,27 +11,46 @@ const maxLength = 20
 // GraphQL
 import * as mutations from '../../../../../../src/graphql/mutations'
 
+import { colorsPalette } from '../../../../../global/static/colors'
+
 // this function show the content of modals
 export default class UpdateName extends Component {
     state = { name: "" }
 
     _updateNameAWS = async () => {
-        const { userData, _isLoading, setModalVisibleName } = this.props
+        const { userData, _isLoading, setModalVisibleName, _updateName } = this.props
         const input = { name: this.state.name, id: userData.id }
         _isLoading(true)
         try {
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
+            _updateName(this.state.name)
             _isLoading(false)
             setModalVisibleName(false)
+            showMessage({
+                message: "Success",
+                description: "Name updated successfully",
+                type: "default",
+                duration: 2000,
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         } catch (error) {
             _isLoading(false)
-            Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
+            setModalVisibleLastName(false)
+            showMessage({
+                message: "Oops! Something went wrong.",
+                description: "Impossible to update name, please try again!",
+                type: "default",
+                duration: 2000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
     render() {
         const { name } = this.state
-        const { userData, isLoading, setModalVisibleName } = this.props
+        const { isLoading, setModalVisibleName } = this.props
         return (
             <Container>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
@@ -62,7 +82,7 @@ export default class UpdateName extends Component {
                             autoFocus={true}
                             allowFontScaling={false}
                             minimumFontScale={wp(4)}
-                            placeholder={userData && userData.name}
+                            placeholder="Write new name"
                             maxLength={20}
                             value={name}
                             keyboardType="ascii-capable"

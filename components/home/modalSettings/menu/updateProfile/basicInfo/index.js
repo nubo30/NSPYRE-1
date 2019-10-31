@@ -64,9 +64,8 @@ export default class BasicInfo extends Component {
 
     _sendPin = async () => {
         try {
-            
-            const res = await Auth.verifyCurrentUserAttribute(this.phone.getValue())
-            console.log(res, "<-----")
+
+            await Auth.verifyCurrentUserAttribute(this.phone.getValue())
         } catch (error) {
             if (__DEV__) {
                 console.log(error)

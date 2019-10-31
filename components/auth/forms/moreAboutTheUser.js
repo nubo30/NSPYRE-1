@@ -9,6 +9,7 @@ import { isEmail, isAlphanumeric } from 'validator'
 import * as Animatable from 'react-native-animatable';
 import moment from 'moment'
 import AnimateNumber from 'react-native-animate-number'
+import { showMessage } from "react-native-flash-message";
 
 
 const screenWidth = Dimensions.get('screen').width
@@ -27,7 +28,6 @@ export default class MoreAboutTheUser extends Component {
         username: "",
         email: "",
         avatar: null,
-        messageFlash: { cognito: null },
         isLoading: false,
         invalidFormAnimation: false,
 
@@ -41,6 +41,7 @@ export default class MoreAboutTheUser extends Component {
 
 
     _submitInformationAboutTheUser = async () => {
+        this.setState({ isLoading: true })
         const { avatar, name, lastname, username, email, pointsForTheName, pointsForTheLastName, pointsForTheUsername, pointsForTheEmail } = this.state
         const { _changeSwiperRoot, _moreUserData, moreUserData } = this.props
         const input = { name, lastname, email, username: username, datetime: moment().toISOString(), avatar: avatar ? avatar : null }
@@ -71,7 +72,14 @@ export default class MoreAboutTheUser extends Component {
                 _changeSwiperRoot(1)
             }
         } catch (e) {
-            console.log(e)
+            showMessage({
+                message: "Something Has Happened",
+                description: "The profile could not be created, please verify your network connectivity and try again.",
+                type: "default",
+                duration: 4000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor
+            })
             this.setState({ isLoading: false })
         }
     }
@@ -86,26 +94,39 @@ export default class MoreAboutTheUser extends Component {
                 ? isAlphanumeric(username)
                     ? isEmail(email)
                         ? this._submitInformationAboutTheUser()
-                        : this.setState({
-                            invalidFormAnimation: true,
-                            isLoading: false,
-                            messageFlash: { cognito: { message: "Invalid email" } }
+                        : showMessage({
+                            message: "Invalid Email",
+                            description: "Please provide an email.",
+                            type: "default",
+                            duration: 30000,
+                            backgroundColor: colorsPalette.dangerColor,
+                            color: colorsPalette.secondaryColor
                         })
-                    : this.setState({
-                        invalidFormAnimation: true,
-                        isLoading: false,
-                        messageFlash: { cognito: { message: "Invalid username" } }
+                    : showMessage({
+                        message: "Invalid username",
+                        description: "Please provide an username.",
+                        type: "default",
+                        duration: 30000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor
                     })
-                : this.setState({
-                    invalidFormAnimation: true,
-                    isLoading: false,
-                    messageFlash: { cognito: { message: "Invalid lastname" } }
+                : showMessage({
+                    message: "Invalid Last Name",
+                    description: "Please provide a last name.",
+                    type: "default",
+                    duration: 30000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor
                 })
-            : this.setState({
-                invalidFormAnimation: true,
-                isLoading: false,
-                messageFlash: { cognito: { message: "Invalid name" } }
+            : showMessage({
+                message: "Invalid name",
+                description: "Please provide a name.",
+                type: "default",
+                duration: 30000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor
             })
+        this.setState({ isLoading: false })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -122,7 +143,7 @@ export default class MoreAboutTheUser extends Component {
     }
 
     render() {
-        const { name, lastname, username, email, messageFlash, isLoading, invalidFormAnimation,
+        const { name, lastname, username, email, isLoading, invalidFormAnimation,
             //Poinst
             pointsForTheName,
             pointsForTheLastName,
@@ -260,9 +281,7 @@ export default class MoreAboutTheUser extends Component {
                                             placeholder="Email" />
                                     </ListItem>
                                 </List>
-                                <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center', top: 10 }}>
-                                    <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(4) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                                </View>
+                                <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center', top: 10 }} />
                             </Content>
                         </Row>
                         <Row size={20} style={{ backgroundColor: colorsPalette.secondaryColor, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
@@ -288,7 +307,7 @@ export default class MoreAboutTheUser extends Component {
                     </Grid>
                 </Row>
             </Grid>
-     
-     );
+
+        );
     }
 }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
-import { Button, Text, View, Toast } from 'native-base';
+import { Button, Text, View } from 'native-base';
 import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import CodeInput from 'react-native-confirmation-code-input';
 import _ from 'lodash'
+import { showMessage } from "react-native-flash-message";
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
@@ -17,10 +18,7 @@ import { colorsPalette } from '../../global/static/colors'
 
 export default class ActivateNumberPhone extends Component {
 
-    state = {
-        numberPhone: "",
-        messageFlash: { cognito: null },
-    }
+    state = { numberPhone: "" }
 
     _confirmCode = async (code) => {
         const { numberPhone, _changeSwiperRoot, _changeSwiper, _hasTheRegistrationBeenSuccessful } = this.props
@@ -37,33 +35,51 @@ export default class ActivateNumberPhone extends Component {
     _resendCode = async (username) => {
         try {
             await Auth.resendSignUp(username)
-            Toast.show({
-                text: "The verification code has been sent again",
-                buttonText: "Okay",
+            showMessage({
+                message: "Code Send.",
+                description: "The verification code has been sent again.",
+                type: "default",
                 duration: 3000,
-                type: "success"
-            })
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         } catch (error) {
-            this._messageFlashErr(error)
-            console.log(error)
+            showMessage({
+                message: "Code not sent.",
+                description: "Ooops! The code could not be sent, please try again.",
+                type: "default",
+                duration: 3000,
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
     _messageFlashErr = (error) => {
-        let err = null;
         switch (error.message) {
             case errListAws.AttemptLimitExceeded:
-                !error.message ? err = { "message": "Attempt limit exceeded, please try after some time" } : err = { message: "Attempt limit exceeded, please try after some time" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Limit Exceeded.",
+                    description: "Attempt limit exceeded, please try after some time.",
+                    type: "default",
+                    duration: 3000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             default:
-                !error.message ? err = { "message": error } : err = error
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Invalid Code.",
+                    description: "Please verify that the code is correct and that it is also valid.",
+                    type: "default",
+                    duration: 3000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
         }
     }
 
     render() {
-        const { messageFlash } = this.state
         const { indexSwiperRoot, numberPhone, _changeSwiperRoot } = this.props
         return (
             <Grid>
@@ -110,9 +126,7 @@ export default class ActivateNumberPhone extends Component {
                                     onFulfill={(code) => { this._confirmCode(code) }}
                                 />}
                         </Row>
-                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', padding: 20 }}>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                        </Row>
+                        <Row size={80} style={{ backgroundColor: colorsPalette.secondaryColor, justifyContent: 'center', padding: 20 }} />
                     </Grid>
                 </Row>
             </Grid>

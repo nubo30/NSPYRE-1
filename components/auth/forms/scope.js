@@ -7,6 +7,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import * as Animatable from 'react-native-animatable';
 import _ from 'lodash'
+import { showMessage } from "react-native-flash-message";
 
 
 const screenWidth = Dimensions.get('screen').width
@@ -21,7 +22,6 @@ import { colorsPalette } from '../../global/static/colors'
 class Scope extends Component {
     state = {
         scope: "",
-        messageFlash: { cognito: null },
         isLoading: false,
         scopeAnimation: false,
     }
@@ -29,19 +29,27 @@ class Scope extends Component {
     _scopeSelect = async (value) => {
         switch (value) {
             case "engage":
-                this.setState({ scope: value, messageFlash: { cognito: { message: "" } } })
+                this.setState({ scope: value })
                 break;
             case "createContest":
-                this.setState({ scope: value, messageFlash: { cognito: { message: "" } } })
+                this.setState({ scope: value })
                 break
             case "submitPrize":
-                this.setState({ scope: value, messageFlash: { cognito: { message: "" } } })
+                this.setState({ scope: value })
                 break
             case "":
-                this.setState({ scope: value, messageFlash: { cognito: { message: "" } } })
+                this.setState({ scope: value })
                 break
             default:
                 this.setState({ scopeAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Select a option" } } })
+                showMessage({
+                    message: "Not selected",
+                    description: "EY! I think you forget to select some type of profile from the ones below!",
+                    type: "default",
+                    duration: 4000,
+                    backgroundColor: colorsPalette.warningColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
         }
     }
 
@@ -64,8 +72,7 @@ class Scope extends Component {
     }
 
     render() {
-        const { scope, scopeAnimation, isLoading, messageFlash } = this.state
-        const { moreUserData } = this.props
+        const { scope, scopeAnimation, isLoading } = this.state
         return (
             <Grid>
                 <Row size={20} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
@@ -108,7 +115,6 @@ class Scope extends Component {
                             </List>
                         </Row>
                         <Row size={20} style={{ backgroundColor: colorsPalette.secondaryColor, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, flexDirection: "column" }}>
-                            <Text allowFontScaling={false} style={{ top: -20, alignSelf: 'center', fontSize: wp(4), color: colorsPalette.errColor }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
                             <Animatable.View
                                 animation={scopeAnimation ? "shake" : undefined}
                                 onAnimationEnd={() => this.setState({ scopeAnimation: false })}

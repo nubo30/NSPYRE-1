@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Keyboard } from 'react-native'
 import { API, graphqlOperation } from "aws-amplify"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Toast, Container, Right, Content } from 'native-base'
+import { Icon, Item, Input, Text, Button, Left, Header, Title, Spinner, Container, Right, Content } from 'native-base'
+import { showMessage } from "react-native-flash-message";
+
+import { colorsPalette } from '../../../../../global/static/colors'
 
 // Max lenght of the form
 const maxLength = 20
@@ -15,22 +18,39 @@ export default class UpdateLastName extends Component {
     state = { lastName: "" }
 
     _updateLastNameAWS = async () => {
-        const { userData, _isLoading, setModalVisibleLastName } = this.props
+        const { userData, _isLoading, setModalVisibleLastName, _updateLastName } = this.props
         const input = { lastname: this.state.lastName, id: userData.id }
         _isLoading(true)
         try {
             await API.graphql(graphqlOperation(mutations.updateUser, { input }))
             _isLoading(false)
+            _updateLastName(this.state.lastName)
             setModalVisibleLastName(false)
+            showMessage({
+                message: "Success",
+                description: "Last name updated successfully",
+                type: "default",
+                duration: 3000,
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         } catch (error) {
             _isLoading(false)
-            Toast.show({ text: "Oops! Something went wrong, please try again.", buttonText: "Okay", type: "danger", duration: 3000, position: 'top' })
+            setModalVisibleLastName(false)
+            showMessage({
+                message: "Oops! Something went wrong.",
+                description: "Impossible to update last name, please try again!",
+                type: "default",
+                duration: 3000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
     render() {
         const { lastName } = this.state
-        const { userData, isLoading, setModalVisibleLastName } = this.props
+        const { isLoading, setModalVisibleLastName } = this.props
         return (
             <Container>
                 <Header style={{ backgroundColor: "rgba(0,0,0,0.0)", borderBottomColor: "rgba(0,0,0,0.0)", elevation: 0 }}>
@@ -62,7 +82,7 @@ export default class UpdateLastName extends Component {
                             autoFocus={true}
                             allowFontScaling={false}
                             minimumFontScale={wp(4)}
-                            placeholder={userData && userData.lastname}
+                            placeholder={"Write the new last name"}
                             maxLength={20}
                             value={lastName}
                             keyboardType="ascii-capable"
