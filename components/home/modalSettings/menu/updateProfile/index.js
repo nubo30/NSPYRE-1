@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-native'
-import { Container, Root } from 'native-base'
+import { withNavigation } from 'react-navigation'
+import { Container } from 'native-base'
 import _ from 'lodash'
 
 // Child Component
@@ -8,7 +8,7 @@ import HeaderModifyProfile from './header'
 import BasicInfo from './basicInfo/index'
 
 // This component show the information user login
-export default class ModifyProfile extends Component {
+class ModifyProfile extends Component {
     state = { isLoading: false }
 
     _isLoading = (value) => {
@@ -17,25 +17,16 @@ export default class ModifyProfile extends Component {
 
     render() {
         const { isLoading } = this.state
-        const { userData, modalVisibleModidfyProfile, _setModalVisibleModidfyProfile } = this.props
+        const userData = this.props.navigation.getParam('userData');
         return (
-            <Modal
-                transparent={false}
-                hardwareAccelerated={true}
-                transparent={false}
-                visible={modalVisibleModidfyProfile}
-                animationType="slide"
-                presentationStyle="fullScreen"
-                onRequestClose={() => null}>
-                <Root>
-                    <Container>
-                        <HeaderModifyProfile isLoading={isLoading} userData={userData} _isLoading={this._isLoading} _setModalVisibleModidfyProfile={_setModalVisibleModidfyProfile} />
+            <Container>
+                <HeaderModifyProfile isLoading={isLoading} userData={userData} _isLoading={this._isLoading} />
 
-                        {/* Basic Info of User */}
-                        <BasicInfo isLoading={isLoading} userData={userData} _isLoading={this._isLoading}/>
-                    </Container>
-                </Root>
-            </Modal>
+                {/* Basic Info of User */}
+                <BasicInfo isLoading={isLoading} userData={userData} _isLoading={this._isLoading} />
+            </Container>
         )
     }
 }
+
+export default withNavigation(ModifyProfile)

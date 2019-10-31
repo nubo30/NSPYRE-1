@@ -7,6 +7,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
 import moment from 'moment'
+import { showMessage } from "react-native-flash-message";
 
 
 import { MyStatusBar } from '../../global/statusBar/index'
@@ -27,8 +28,21 @@ class NotificationCenter extends Component {
         _deleteNotificationLoading(true)
         try {
             API.graphql(graphqlOperation(mutations.deleteNotifications, { input: { id: item.id } }))
+            showMessage({
+                message: "Removed",
+                description: "The item has been successfully deleted!",
+                type: "default",
+                backgroundColor: colorsPalette.normalColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         } catch (error) {
-            console.log(error)
+            showMessage({
+                message: "An error has occurred.",
+                description: "Please verify your network connection, then try again!",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 

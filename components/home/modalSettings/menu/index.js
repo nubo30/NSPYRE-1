@@ -15,9 +15,6 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 // Redux
 import { isNotExistUserInTheAPI } from "../../../../store/actions/authActions"
 
-// child component
-import ModifyProfile from './updateProfile/index';
-
 // GRAPHQL
 import * as mutations from '../../../../src/graphql/mutations'
 
@@ -27,12 +24,8 @@ import { colorsPalette } from '../../../global/static/colors'
 class Menu extends Component {
     state = {
         // Actions
-        appState: AppState.currentState,
-        modalVisibleModidfyProfile: false,
+        appState: AppState.currentState
     }
-
-    // Open modals
-    _setModalVisibleModidfyProfile = (visible) => this.setState({ modalVisibleModidfyProfile: visible })
 
     // Sign Out
     handleSignOut = async () => {
@@ -95,10 +88,6 @@ class Menu extends Component {
 
 
     render() {
-        const {
-            // Modals
-            modalVisibleModidfyProfile
-        } = this.state
         const { userData } = this.props
         return (
             <Content scrollEnabled={false} contentContainerStyle={{
@@ -143,7 +132,13 @@ class Menu extends Component {
                     </ListItem>
 
                     {/* Modify Profile */}
-                    <ListItem icon last onPress={() => this._setModalVisibleModidfyProfile(true)} style={{ backgroundColor: colorsPalette.secondaryColor }}>
+                    <ListItem icon last
+                        onPress={() => {
+                            this.props._menu(false);
+                            setTimeout(() => { this.props.navigation.navigate('UpdateProfile', { userData }) }, 500);
+
+                        }}
+                        style={{ backgroundColor: colorsPalette.secondaryColor }}>
                         <Left>
                             <Button style={{ backgroundColor: "#2979FF" }}>
                                 <Icon type="MaterialCommunityIcons" name="account-edit" />
@@ -185,16 +180,6 @@ class Menu extends Component {
                         style={{ color: colorsPalette.darkFont, fontWeight: 'bold', fontSize: wp(2), textDecorationLine: 'underline' }}>Terms & Conditions</Text>
                 </Button>
                 <Text allowFontScaling={false} style={{ fontSize: wp(2), alignSelf: 'center', position: 'absolute', bottom: 0 }}>Version 1.0.1</Text>
-                {/* Modify Profile User */}
-                <ModifyProfile
-                    // Data
-                    userData={userData}
-
-                    // Actions
-                    modalVisibleModidfyProfile={modalVisibleModidfyProfile}
-
-                    // Function
-                    _setModalVisibleModidfyProfile={this._setModalVisibleModidfyProfile} />
             </Content>
         );
     }

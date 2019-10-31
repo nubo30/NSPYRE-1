@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
-import { Text, Button, Thumbnail, View, Spinner, Toast, ActionSheet } from 'native-base'
+import { Text, Button, Thumbnail, View, Spinner, ActionSheet } from 'native-base'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import _ from 'lodash'
 import UserAvatar from "react-native-user-avatar"
-import Placeholder from 'rn-placeholder'
 import AWS from 'aws-sdk'
 import bytes from 'bytes'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { showMessage } from "react-native-flash-message";
 
 import * as mutations from '../../../../../../src/graphql/mutations'
 import { securityCredentials } from '../../../../../global/aws/credentials'
+
+import { colorsPalette } from '../../../../../global/static/colors'
 
 // This function change the avatar user
 class Avatar extends Component {
@@ -64,11 +66,14 @@ class Avatar extends Component {
             _isLoading(true)
             await Storage.put(`users/${userData.email}/avatar/${avatar.name}`, avatar.blob, {
                 progressCallback(progress) {
-                    Toast.show({
-                        text: `${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
-                        buttonText: 'Okay',
-                        duration: 100000,
-                    })
+                    showMessage({
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
                 },
             }, { contentType: avatar.type })
             await API.graphql(graphqlOperation(mutations.updateUser, {
@@ -77,34 +82,42 @@ class Avatar extends Component {
                     avatar: `https://influencemenow-statics-files-env.s3.amazonaws.com/public/users/${userData.email}/avatar/${avatar.name}`,
                 }
             }))
-            await Toast.show({ text: 'Loaded successfully!', buttonText: 'Okay', type: 'success' })
+            showMessage({
+                message: "Successfully",
+                description: "The pinture has been loaded successfully!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             _isLoading(false)
         } catch (error) {
-            this.setState({ avatar: { name: "", type: "", localUrl: "", blob: {} } })
-            Toast.show({ text: 'An error has occurred, try again.', buttonText: 'Okay', type: 'danger' })
+            this.setState({ avatar: { name: "", type: "", localUrl: userData.avatar, blob: {} } })
+            showMessage({
+                message: "An error has occurred.",
+                description: "Please verify your network connection, then try again!",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             _isLoading(false)
         }
     }
 
     componentWillUnmount() {
-        Toast.toastInstance = null;
         ActionSheet.actionsheetInstance = null;
     }
 
     render() {
         const { avatar } = this.state
-        const { userData, isLoading } = this.props
+        const { userData, isLoading, newName } = this.props
         return (
             <View style={{ flex: 1, minHeight: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 <View>
                     {
-                        Object.keys(userData).length !== 0
-                            ? userData.avatar
-                                ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 50.5 }} source={{ uri: userData.avatar }} />
-                                : avatar.localUrl
-                                    ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 50.5 }} source={{ uri: avatar.localUrl }} />
-                                    : <UserAvatar size="105" name={userData.name} />
-                            : <Placeholder.Media animate="fade" style={{ width: 105, height: 105, borderRadius: 50.5 }} />
+                        avatar.localUrl
+                            ? <Thumbnail style={{ width: 105, height: 105, borderRadius: 50.5 }} source={{ uri: avatar.localUrl }} />
+                            : userData.avatar === null ? <UserAvatar size="105" name={newName === null ? userData.name : newName} />
+                                : <Thumbnail style={{ width: 105, height: 105, borderRadius: 50.5 }} source={{ uri: userData.avatar }} />
                     }
 
                 </View>

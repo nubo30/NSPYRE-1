@@ -12,6 +12,7 @@ import replace from 'lodash/replace'
 import * as Animatable from 'react-native-animatable';
 import Swiper from 'react-native-swiper'
 import CodeInput from 'react-native-confirmation-code-input';
+import { showMessage } from "react-native-flash-message";
 
 const screenWidth = Dimensions.get('screen').width
 const screenHeight = Dimensions.get('screen').height
@@ -20,7 +21,6 @@ import { fBCredentials } from "../../global/socialNetWorksCredentials"
 
 // colors
 import { colorsPalette } from '../../global/static/colors'
-import { fonts } from '../../global/static/font'
 
 // ChildComponent
 import ForgottenPassword from '../../introToApp/auth/forgotPassword'
@@ -33,7 +33,6 @@ class Login extends Component {
         numberPhoneState: "",
         password: "",
         eyeAction: false,
-        messageFlash: { cognito: null },
         isLoading: false,
         isLoadingFb: false,
         wrongLoginAnimation: false,
@@ -53,12 +52,30 @@ class Login extends Component {
         const { numberPhoneState, password } = this.state
         const { numberPhone } = this.props
         try {
-            const user = await Auth.signIn({ username: numberPhoneState ? numberPhoneState : numberPhone, password })
-            if (user.challengeName === 'SMS_MFA') { this.setState({ user }) }
-            this._changeSwiper(1)
-            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: "" }, isLoading: false })
+            if (numberPhoneState !== "" && password !== "") {
+                const user = await Auth.signIn({ username: numberPhoneState ? numberPhoneState : numberPhone, password })
+                if (user.challengeName === 'SMS_MFA') { this.setState({ user }) }
+                this._changeSwiper(1)
+                this.setState({ wrongLoginAnimation: true, isLoading: false })
+            } else {
+                this.setState({ isLoading: false })
+                showMessage({
+                    message: "Field Empty.",
+                    description: "Please, provide number phone and password to login.",
+                    type: "default",
+                    backgroundColor: colorsPalette.warningColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
+            }
         } catch (error) {
-            this.setState({ wrongLoginAnimation: true, messageFlash: { cognito: error }, isLoading: false })
+            this.setState({ wrongLoginAnimation: true, isLoading: false })
+            showMessage({
+                message: "Login Failed.",
+                description: error.message,
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
@@ -82,7 +99,13 @@ class Login extends Component {
             if (hasTheRegistrationBeenSuccessful.firstTime === 'YES') { _activateNumberPhone(true); _changeSwiperRoot(1) }
             if (hasTheRegistrationBeenSuccessful.firstTime !== 'YES') { navigation.navigate('Home') }
         } catch (error) {
-            this.setState({ messageFlash: { cognito: error }, })
+            showMessage({
+                message: "Invalid Code.",
+                description: "Please check if your code is correct, or otherwise resend a new code.",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
@@ -121,7 +144,7 @@ class Login extends Component {
     }
 
     render() {
-        const { numberPhoneState, password, eyeAction, messageFlash, isLoading, isLoadingFb, wrongLoginAnimation } = this.state
+        const { numberPhoneState, password, eyeAction, isLoading, isLoadingFb, wrongLoginAnimation } = this.state
         const { numberPhone } = this.props
         return (
             <View style={{
@@ -136,7 +159,7 @@ class Login extends Component {
             }}>
                 <Swiper
                     ref={(swiper) => this.swiper = swiper}
-                    onIndexChanged={() => { this.setState({ messageFlash: { cognito: null } }); Keyboard.dismiss() }}
+                    onIndexChanged={() => { Keyboard.dismiss() }}
                     showsPagination={false}
                     loop={false}
                     scrollEnabled={false}>
@@ -169,7 +192,13 @@ class Login extends Component {
                                 <ListItem style={{ height: 50, alignItems: 'center', width: "90%" }}>
                                     <Input
                                         returnKeyType='send'
-                                        onSubmitEditing={() => this.phone.isValidNumber() ? this._submit() : Keyboard.dismiss()}
+                                        onSubmitEditing={() => this.phone.isValidNumber() ? this._submit() : showMessage({
+                                            message: "Invalid Number Phone.",
+                                            description: "Please, provide a valid number phone.",
+                                            type: "default",
+                                            backgroundColor: colorsPalette.warningColor,
+                                            color: colorsPalette.secondaryColor, // text color
+                                        })}
                                         allowFontScaling={false}
                                         autoCorrect={false}
                                         textContentType="password"
@@ -186,9 +215,6 @@ class Login extends Component {
                                 </ListItem>
                                 <View style={{ alignSelf: 'flex-end', backgroundColor: 'pink', width: "100%" }}>
                                     <ForgottenPassword />
-                                    <View style={{ alignItems: 'center', justifyContent: 'center', width: "100%", position: 'absolute', top: 40 }}>
-                                        <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                                    </View>
                                 </View>
                             </List>
                         </Row>
@@ -203,8 +229,8 @@ class Login extends Component {
                                     shadowColor: colorsPalette.primaryShadowColor, shadowOffset: { width: 1 }, shadowOpacity: 1,
                                 }}>
                                 <Button
-                                    disabled={isLoading || numberPhoneState && password ? false : true}
-                                    onPress={() => isLoadingFb ? {} : this._submit()}
+                                    disabled={isLoadingFb || isLoading}
+                                    onPress={() => this._submit()}
                                     iconRight
                                     style={{ width: "100%", alignSelf: 'flex-end', backgroundColor: colorsPalette.primaryColor }}>
                                     <Text allowFontScaling={false} style={{ fontWeight: 'bold' }}>Log In</Text>
@@ -213,7 +239,7 @@ class Login extends Component {
                             </Animatable.View>
                             <Text allowFontScaling={false} style={{ fontWeight: 'bold', top: -4 }}>OR</Text>
                             <Button
-                                disabled={isLoadingFb}
+                                disabled={isLoadingFb || isLoading}
                                 onPress={() => this._openBroweserForLoginWithFacebook()}
                                 iconRight style={{
                                     width: "100%",
@@ -234,9 +260,8 @@ class Login extends Component {
                         <Row size={30} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'column' }}>
                             <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(6.5), textAlign: 'center' }}>Enter the code we send to <Text style={{ color: colorsPalette.darkFont, fontSize: wp(6.5), textAlign: 'center', fontWeight: 'bold' }}>{numberPhone ? numberPhone : numberPhoneState}</Text></Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text allowFontScaling={false} style={{ color: colorsPalette.gradientGray, fontSize: wp(3), textAlign: 'center', left: 12 }}>Change</Text>
                                 <Button small transparent onPressIn={() => this._changeSwiper(-1)}>
-                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: colorsPalette.darkFont }}>phone number</Text>
+                                    <Text allowFontScaling={false} style={{ fontWeight: 'bold', fontSize: wp(3), color: colorsPalette.darkFont }}>Come Back</Text>
                                 </Button>
                             </View>
                         </Row>
@@ -255,9 +280,7 @@ class Login extends Component {
                                 onFulfill={(code) => { this._confirmCode(code) }}
                             />
                         </Row>
-                        <Row size={50} style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text allowFontScaling={false} style={{ color: colorsPalette.errColor, fontSize: wp(3) }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                        </Row>
+                        <Row size={50} style={{ justifyContent: 'center', alignItems: 'flex-start' }} />
                     </Grid>
                 </Swiper>
             </View>

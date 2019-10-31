@@ -11,6 +11,8 @@ import * as Animatable from 'react-native-animatable'
 import _ from 'lodash'
 import truncate from 'lodash/truncate'
 import { normalizeEmail } from 'validator'
+import { showMessage } from "react-native-flash-message";
+import bytes from 'bytes'
 
 import { securityCredentials } from '../../../global/aws/credentials'
 
@@ -60,27 +62,69 @@ class Summary extends Component {
             xhr.send(null);
         });
         try {
-            await Storage.put(`users/${userData.email}/prize/pictures/owner/${prize.general.picture.name}`, blobPicture, { contentType: prize.general.picture.type })
-            await Storage.put(`users/${userData.email}/prize/videos/owner/${prize.general.video.name}`, blobVideo, { contentType: prize.general.video.type })
+            await Storage.put(`users/${userData.email}/prize/pictures/owner/${prize.general.picture.name}`, blobPicture, {
+                progressCallback(progress) {
+                    showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading prize picture...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: prize.general.picture.type })
+            await Storage.put(`users/${userData.email}/prize/videos/owner/${prize.general.video.name}`, blobVideo, {
+                progressCallback(progress) {
+                    showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading contest picture...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: prize.general.video.type })
             await API.graphql(graphqlOperation(mutations.createSubmitPrize, { input: prize }))
+            showMessage({
+                message: "Almost!",
+                description: "I'm almost done, give me just a few seconds!",
+                type: "default",
+                backgroundColor: colorsPalette.normalColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
             navigation.navigate("AboutThePrize", {
                 prize: Object.assign(prize, { user: { name: userData.name, avatar: userData.avatar } }),
                 fromWhere: 'fromSubmitPrize',
                 userData
             })
-
+            showMessage({
+                message: "Done!",
+                description: "The prize was created successfully!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ isLoading: false })
         } catch (error) {
             this.setState({ isLoading: false, errSubmitdata: true })
-            console.log(error)
+            showMessage({
+                message: "Something has happened",
+                description: "We could not create the contest, please try again.",
+                type: "default",
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 
     render() {
         const { isLoading, errSubmitdata } = this.state
         const { _indexChangeSwiper, userData, prize } = this.props
-        console.log(prize)
         return (
             <Container>
                 <GadrientsAuth />

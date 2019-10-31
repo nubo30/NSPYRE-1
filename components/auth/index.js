@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Keyboard } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Container, View, Text, Button, Icon, Toast } from 'native-base';
+import { Container, View, Text, Button, Icon} from 'native-base';
 import Swiper from 'react-native-swiper'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { connect } from 'react-redux'
 import { AfterInteractions } from 'react-native-interactions';
 import * as WebBrowser from 'expo-web-browser';
+import { showMessage } from "react-native-flash-message";
 
 // Child Components
 import PhoneRegister from './forms/phoneRegister'
@@ -51,13 +52,14 @@ class Auth extends Component {
 
     _hasTheRegistrationBeenSuccessful = (value) => {
         this.setState({ hasTheRegistrationBeenSuccessful: value })
-        Toast.show({
-            text: "Now you're registered! Login to start!",
-            buttonText: "Okay",
-            position: "top",
-            duration: 10000,
-            type: "success"
-        })
+        showMessage({
+            message: "Now you're registered!",
+            description: "Please, Confirm the account to continue!",
+            type: "default",
+            duration: 50000,
+            backgroundColor: colorsPalette.validColor,
+            color: colorsPalette.secondaryColor, // text color
+        });
     }
 
     // Datos como el nombre, apellido, usuario y email

@@ -10,13 +10,14 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
 import * as Sentry from 'sentry-expo';
+import FlashMessage from "react-native-flash-message";
 
 // Sentry config
 Sentry.init({
     dsn: 'https://850709ab67944debb49e9305541df7dc@sentry.io/1458405',
     enableInExpoDevelopment: true,
     debug: true
-  });
+});
 
 // Amplify config
 Amplify.configure({
@@ -61,6 +62,7 @@ import CreateContest from "./components/formsUsers/createAContest"
 import SubmitPrize from "./components/formsUsers/submitAPrize"
 import Congratulation from "./components/congratulations"
 import Home from "./components/home"
+import UpdateProfile from './components/home/modalSettings/menu/updateProfile'
 import Contests from "./components/home/listContest/showContests"
 import AboutContest from "./components/aboutContest"
 import Prizes from "./components/home/photoAndButtom/categoryOfPrizes/listPrizes"
@@ -95,6 +97,7 @@ const navigationOptions = { header: null, gesturesEnabled: false }
 const RootStack = createStackNavigator(
     {
         'Home': { screen: Home, navigationOptions },
+        'UpdateProfile': { screen: UpdateProfile, navigationOptions: { header: null } },
         'Sliders': { screen: IntroToApp, navigationOptions },
         'Engage': { screen: Engage, navigationOptions },
         'CreateContest': { screen: CreateContest, navigationOptions },
@@ -114,7 +117,7 @@ const RootStack = createStackNavigator(
 const AuthStack = createStackNavigator({
     Auth: { screen: InfluencemeNow, navigationOptions },
     IntroToApp: { screen: IntroToApp, navigationOptions },
-    FirstAuth: { screen: FirstAuth,  navigationOptions }
+    FirstAuth: { screen: FirstAuth, navigationOptions }
 })
 
 const AppContainer = createAppContainer(createAnimatedSwitchNavigator({
@@ -157,6 +160,7 @@ class App extends Component {
             <Provider store={store}>
                 <Root>
                     <AppContainer />
+                    <FlashMessage position="top" />
                 </Root>
             </Provider>
         )
