@@ -7,6 +7,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import * as Animatable from 'react-native-animatable';
 import _ from 'lodash'
+import { showMessage } from "react-native-flash-message";
 
 
 const screenWidth = Dimensions.get('screen').width
@@ -41,7 +42,15 @@ class Scope extends Component {
                 this.setState({ scope: value, messageFlash: { cognito: { message: "" } } })
                 break
             default:
-                this.setState({ scopeAnimation: true, isLoading: false, messageFlash: { cognito: { message: "Select a option" } } })
+                this.setState({ scopeAnimation: true, isLoading: false })
+                showMessage({
+                    message: "Not selected",
+                    description: "EY! I think you forget to select some type of profile from the ones below!",
+                    type: "default",
+                    duration: 4000,
+                    backgroundColor: colorsPalette.warningColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
         }
     }
 
@@ -59,7 +68,14 @@ class Scope extends Component {
             }))
             navigation.navigate(_.replace(_.startCase(scope), " ", ""))
         } catch (error) {
-            console.log(error)
+            showMessage({
+                message: "Failed",
+                description: "Apparently an error has occurred, you could check your connection and try again, please!",
+                type: "default",
+                duration: 4000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ scopeAnimation: true, isLoading: false })
         }
     }

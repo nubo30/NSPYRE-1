@@ -7,6 +7,7 @@ import { Grid, Row } from 'react-native-easy-grid'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Video } from 'expo-av';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import { showMessage } from "react-native-flash-message";
 
 // Animaciones
 import IntroToApp1 from '../global/lottieJs/introApp1'
@@ -16,6 +17,8 @@ import * as queries from '../../src/graphql/queries'
 
 // Child Component
 import IntroToAppPlaceholder from './introToAppPlaceholder'
+
+import { colorsPalette } from '../global/static/colors'
 
 
 class IntroToApp extends Component {
@@ -66,7 +69,14 @@ class IntroToApp extends Component {
                 isReady: true
             })
         } catch (error) {
-            console.log(error)
+            showMessage({
+                message: "Failed.",
+                description: "Mmmm, something has happened, we were unable to complete the operation, please overflow your internet connection and try again!",
+                type: "default",
+                duration: 3000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
         }
     }
 

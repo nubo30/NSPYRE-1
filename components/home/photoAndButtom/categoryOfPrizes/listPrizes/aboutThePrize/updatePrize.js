@@ -7,8 +7,6 @@ import { Video } from 'expo-av';
 import { Container, Header, Title, Content, Spinner, Button, Left, Right, Body, Icon, Text, View, Item, Input, ListItem, Form, Textarea } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Grid, Row, Col } from 'react-native-easy-grid'
-import upperFirst from 'lodash/upperFirst'
-import lowerCase from 'lodash/lowerCase'
 import startCase from 'lodash/startCase'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
@@ -16,6 +14,8 @@ import truncate from "lodash/truncate";
 import ModalAnimated from 'react-native-modal'
 import omitDeep from 'omit-deep'
 import AWS from 'aws-sdk'
+import bytes from 'bytes'
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 // colors
 import { colorsPalette } from '../../../../../global/static/colors'
@@ -81,14 +81,52 @@ export default class updatePrize extends Component {
         })
         omitDeep(prize, ['user'])
         try {
-            picture.name && await Storage.put(`users/${userData.email}/prize/pictures/owner/${picture.name}`, blobPicture, { contentType: picture.type })
-            video.name && await Storage.put(`users/${userData.email}/prize/videos/owner/${video.name}`, blobVideo, { contentType: video.type })
+            picture.name && await Storage.put(`users/${userData.email}/prize/pictures/owner/${picture.name}`, blobPicture, {
+                progressCallback(progress) {
+                    this.refs.modalFlash.showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading picture...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: picture.type })
+            video.name && await Storage.put(`users/${userData.email}/prize/videos/owner/${video.name}`, blobVideo, {
+                progressCallback(progress) {
+                    this.refs.modalFlash.showMessage({
+                        animated: false,
+                        autoHide: progress.loaded === progress.total ? true : false,
+                        message: "Uploading contest video...",
+                        description: `Please wait until the following load is finished: ${bytes(progress.loaded * 1.7, { decimalPlaces: 0 })}/${bytes(progress.total * 1.7, { decimalPlaces: 0 })}`,
+                        type: "default",
+                        backgroundColor: colorsPalette.uploadingData,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
+                },
+            }, { contentType: video.type })
             await API.graphql(graphqlOperation(mutations.updateSubmitPrize, { input: prize }))
             await API.graphql(graphqlOperation(mutations.updateUser, { input: { id: userData.id } }))
+            this.refs.modalFlash.showMessage({
+                message: "Done!",
+                description: "All updated correctly!",
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             _getPrize()
             this.setState({ isLoading: false, modalGeneralInformation: false, modalDescription: false, video: { name: "", type: "", localUrl: video.localUrl, url: "" }, picture: { name: "", type: "", localUrl: picture.localUrl, url: "", blob: {} } })
         } catch (error) {
-            console.log(error)
+            this.refs.modalFlash.showMessage({
+                message: "Failed",
+                description: "Mmmm, something has happened, we were unable to complete the operation, please overflow your internet connection and try again!",
+                duration: 3000,
+                type: "default",
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ isLoading: false })
         }
     }
@@ -469,6 +507,7 @@ export default class updatePrize extends Component {
                             </Grid>
                         </Swiper>
                     </Container>
+                    <FlashMessage ref="modalFlash" position="top" />
                 </Modal>
             </View>
         );
