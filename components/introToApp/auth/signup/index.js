@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { Dimensions, Keyboard } from 'react-native'
-import { Form, Item, Input, Icon, Button, Text, View, Header, Body, Title, Toast } from 'native-base';
+import { Form, Item, Input, Icon, Button, Text, View, Header, Body, Title } from 'native-base';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import PhoneInput from 'react-native-phone-input'
 import replace from 'lodash/replace'
@@ -10,6 +10,7 @@ import _ from 'lodash'
 import CodeInput from 'react-native-confirmation-code-input';
 import { Grid, Row } from 'react-native-easy-grid'
 import moment from 'moment'
+import { showMessage } from "react-native-flash-message";
 
 const screenHeight = Dimensions.get('screen').height
 
@@ -41,9 +42,30 @@ export default class SignUp extends Component {
             ? passowrd
                 ? passowrd === repeatPassword
                     ? this._submit()
-                    : this.setState({ messageFlash: { cognito: { message: "Password does not match" } } })
-                : this.setState({ messageFlash: { cognito: { message: "Please introduce a valid password" } } })
-            : this.setState({ messageFlash: { cognito: { message: "Invalid number phone" } } });
+                    : showMessage({
+                        message: "Password.",
+                        description: "Ooops, Those passwords do not match!",
+                        type: "default",
+                        duration: 3000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    })
+                : showMessage({
+                    message: "Invalid password.",
+                    description: "Please introduce a valid password.",
+                    type: "default",
+                    duration: 3000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                })
+            : showMessage({
+                message: "Invalid Number Phone.",
+                description: "Mmmm, I think the phone number is not correct, could you check it please.",
+                type: "default",
+                duration: 3000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
+            })
     }
 
     _submit = async () => {
@@ -86,11 +108,13 @@ export default class SignUp extends Component {
         try {
             await Auth.resendSignUp(this.phone.getValue())
             Keyboard.dismiss()
-            Toast.show({
-                text: "The verification code has been sent again",
-                buttonText: "Okay",
+            showMessage({
+                message: "Code.",
+                description: "We have sent the code again!",
+                type: "default",
                 duration: 3000,
-                type: "success"
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor, // text color
             })
         } catch (error) {
             this._messageFlashErr(error)
@@ -104,44 +128,76 @@ export default class SignUp extends Component {
     }
 
     _messageFlashErr = (error) => {
-        let err = null;
         this.setState({ passwordsDoNotMatchAnimation: true })
         switch (error.message) {
             case errListAws.passwordGreaterThanOrEqualTo6_0:
-                !error.message ? err = { "message": "Password greater than or equal to 6" } : err = { message: "Password greater than or equal to 6" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Short password",
+                    description: "Please make sure the password is greater than 6 characters.",
+                    duration: 3000,
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             case errListAws.passwordMustHaveNumericCharacters:
-                !error.message ? err = { "message": "Password must have numeric characters" } : err = { message: "Password must have numeric characters" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Left Number",
+                    description: "It takes numbers to have a more secure password!",
+                    type: "default",
+                    duration: 3000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             case errListAws.passwordGreaterThanOrEqualTo6_1:
-                !error.message ? err = { "message": "Password greater than or equal to 6" } : err = { message: "Password greater than or equal to 6" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
-                break;
-            case errListAws.usernameShouldBeAnEmail:
-                !error.message ? err = { "message": "Username should be an email" } : err = { message: "Username should be an email" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Short password",
+                    description: "Please make sure the password is greater than 6 characters.",
+                    duration: 3000,
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             case errListAws.accountExits:
-                !error.message ? err = { "message": "An account with the given email already exists" } : err = { message: "An account with the given email already exists" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Account used",
+                    description: "Oooh, apparently this phone number has already been used, please try another one..",
+                    duration: 4000,
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             case errListAws.invalidCode:
-                !error.message ? err = { "message": "Invalid verification code provided, please try again" } : err = { message: "Invalid verification code provided, please try again" }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Invalid Code.",
+                    description: "Please check if your code is correct, or otherwise resend a new code.",
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             case errListAws.numberPhoneExists:
-                !error.message ? err = { "message": "An account with the given phone number already exist" } : err = { message: "An account with the given phone number already exist." }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err }, activateOptionsConfirn: true })
-                break;
-            case errListAws.combinationNotFound:
-                !error.message ? err = { "message": "Something wrong has happened, close this window and try again" } : err = { message: "Something wrong has happened, close this window and try again." }
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Account used",
+                    description: "Oooh, apparently this phone number has already been used, please try another one..",
+                    duration: 4000,
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
                 break;
             default:
-                !error.message ? err = { "message": error } : err = error
-                this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                showMessage({
+                    message: "Something has happened",
+                    description: "Please try again!",
+                    duration: 4000,
+                    type: "default",
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor, // text color
+                });
         }
     }
 

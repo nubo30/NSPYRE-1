@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
-import { Header, Title, Content, Footer, Button, Body, Icon, Text, View, Item, Input, Spinner, Toast } from 'native-base';
+import { Header, Title, Content, Footer, Button, Body, Icon, Text, View, Item, Input, Spinner } from 'native-base';
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import PhoneInput from 'react-native-phone-input'
 import Swiper from 'react-native-swiper'
 import replace from 'lodash/replace'
 import CodeInput from 'react-native-confirmation-code-input';
+import { showMessage } from "react-native-flash-message";
 
 // Colors
 import { colorsPalette } from '../../../global/static/colors'
@@ -48,15 +49,26 @@ export default class ForgotPassword extends Component {
             this.setState({ isValidNumber: false })
             this.phone.isValidNumber() && this.swiper.scrollBy(1)
         } catch (error) {
-            let err = null
             switch (error.message) {
                 case "Username/client id combination not found.":
-                    !error.message ? err = { "message": "Phone number not found" } : err = { message: "Phone number not found" }
-                    this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                    showMessage({
+                        message: "Number Phone",
+                        description: "Phone number not found.",
+                        type: "default",
+                        duration: 4000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
                     break;
                 default:
-                    !error.message ? err = { "message": error } : err = error
-                    this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                    showMessage({
+                        message: "Failed",
+                        description: "Al has happened, we could not finish the process, could you try again, please!",
+                        type: "default",
+                        duration: 4000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
             }
         }
     }
@@ -65,26 +77,37 @@ export default class ForgotPassword extends Component {
     _recoveryPasswordAfterGetPinOfNumberPhone = async (code) => {
         try {
             await Auth.forgotPasswordSubmit(this.phone.getValue(), code, this.state.newPassword)
-            Toast.show({
-                duration: 3000,
-                position: "top",
-                type: "success",
-                text: "Password reset successfully!"
-
-            })
+            showMessage({
+                message: "Done!",
+                description: "The password has been updated correctly!",
+                type: "default",
+                duration: 4000,
+                backgroundColor: colorsPalette.validColor,
+                color: colorsPalette.secondaryColor, // text color
+            });
             this.setState({ modalAnimated: false })
         } catch (error) {
-            let err = null
             switch (error.message) {
                 case "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6":
-                    !error.message ? err = { "message": "Password must have length greater than or equal to 6" } : err = { message: "Password must have length greater than or equal to 6" }
-                    this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                    showMessage({
+                        message: "Invalid Password.",
+                        description: "Password must have length greater than or equal to 6!",
+                        type: "default",
+                        duration: 4000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
                     break;
                 default:
-                    !error.message ? err = { "message": error } : err = error
-                    this.setState({ messageFlash: { ...this.state.messageFlash, cognito: err } })
+                    showMessage({
+                        message: "Failed",
+                        description: "Al has happened, we could not finish the process, could you try again, please!",
+                        type: "default",
+                        duration: 4000,
+                        backgroundColor: colorsPalette.dangerColor,
+                        color: colorsPalette.secondaryColor, // text color
+                    });
             }
-        } finally {
             this.setState({ loading: false })
         }
     }
@@ -192,9 +215,7 @@ export default class ForgotPassword extends Component {
                             </Text>
                             </Content>
                         </Swiper>
-                        <View style={{ alignItems: 'center', justifyContent: 'flex-end', flex: 0.1, top: -20 }}>
-                            <Text allowFontScaling={false} style={{ fontSize: wp(3.5), color: colorsPalette.errColor }}>{messageFlash.cognito && messageFlash.cognito.message}</Text>
-                        </View>
+                        <View style={{ alignItems: 'center', justifyContent: 'flex-end', flex: 0.1, top: -20 }} />
                         <Footer style={{ backgroundColor: 'rgba(0,0,0,0.0)', borderTopColor: 'rgba(0,0,0,0.0)' }}>
                             <Button
                                 disabled={!this.state.isValidNumber}

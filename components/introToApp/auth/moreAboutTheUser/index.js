@@ -68,7 +68,14 @@ export default class MoreAboutTheUser extends Component {
                 _changeSwiper(1)
             }
         } catch (e) {
-            console.log(e)
+            showMessage({
+                message: "Something Has Happened",
+                description: "The profile could not be created, please verify your network connectivity and try again.",
+                type: "default",
+                duration: 4000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor
+            })
             this.setState({ isLoading: false })
         }
     }
@@ -83,25 +90,34 @@ export default class MoreAboutTheUser extends Component {
                 ? isAlphanumeric(username)
                     ? isEmail(email)
                         ? this._submitInformationAboutTheUser()
-                        : this.setState({
-                            invalidFormAnimation: true,
-                            isLoading: false,
-                            messageFlash: { cognito: { message: "Invalid email" } }
+                        : showMessage({
+                            message: "Invalid Email",
+                            description: "Please provide an email.",
+                            type: "default",
+                            duration: 30000,
+                            backgroundColor: colorsPalette.dangerColor,
+                            color: colorsPalette.secondaryColor
                         })
                     : this.setState({
                         invalidFormAnimation: true,
                         isLoading: false,
                         messageFlash: { cognito: { message: "Invalid username" } }
                     })
-                : this.setState({
-                    invalidFormAnimation: true,
-                    isLoading: false,
-                    messageFlash: { cognito: { message: "Invalid lastname" } }
+                : showMessage({
+                    message: "Invalid Last Name",
+                    description: "Please provide a last name.",
+                    type: "default",
+                    duration: 30000,
+                    backgroundColor: colorsPalette.dangerColor,
+                    color: colorsPalette.secondaryColor
                 })
-            : this.setState({
-                invalidFormAnimation: true,
-                isLoading: false,
-                messageFlash: { cognito: { message: "Invalid name" } }
+            : showMessage({
+                message: "Invalid name",
+                description: "Please provide a name.",
+                type: "default",
+                duration: 30000,
+                backgroundColor: colorsPalette.dangerColor,
+                color: colorsPalette.secondaryColor
             })
     }
 
